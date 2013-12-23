@@ -76,7 +76,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 
 @implementation Backendless
 @synthesize hostURL = _hostURL, versionNum = _versionNum, reachabilityDelegate = _reachabilityDelegate;
-
+@synthesize mediaService = _mediaService, persistenceService = _persistenceService, messagingService = _messagingService, userService = _userService, fileService = _fileService, geoService = _geoService;
 // Singleton accessor:  this is how you should ALWAYS get a reference to the class instance.  Never init your own.
 +(Backendless *)sharedInstance {
 	static Backendless *sharedBackendless;
@@ -110,15 +110,15 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
         [_headers setValue:APP_TYPE forKey:APP_TYPE_HEADER_KEY];
         [_headers setValue:API_VERSION forKey:API_VERSION_HEADER_KEY];
         
-        _userService = [UserService new];
-        _persistenceService = [PersistenceService new];
-        _geoService = [GeoService new];
-        _messagingService = [MessagingService new];
-        _fileService = [FileService new];
+//        _userService = [UserService new];
+//        _persistenceService = [PersistenceService new];
+//        _geoService = [GeoService new];
+//        _messagingService = [MessagingService new];
+//        _fileService = [FileService new];
 #ifdef __arm64__
         NSLog(@"Media Service are not available for arm64");
 #else
-        _mediaService = [MediaService new];
+//        _mediaService = [MediaService new];
 #endif
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
@@ -155,6 +155,60 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     [_mediaService release];
 	
 	[super dealloc];
+}
+
+#pragma mark - getters 
+
+-(MediaService *)mediaService
+{
+#ifdef __arm64__
+    NSLog(@"Media Service are not available for arm64");
+    return nil;
+#else
+    if (!_mediaService) {
+        _mediaService = [MediaService new];
+    }
+    return _mediaService;
+#endif
+    
+}
+
+-(PersistenceService *)persistenceService
+{
+    if (!_persistenceService) {
+        _persistenceService = [PersistenceService new];
+    }
+    return _persistenceService;
+}
+
+-(MessagingService *)messagingService
+{
+    if (!_messagingService) {
+        _messagingService = [MessagingService new];
+    }
+    return _messagingService;
+}
+-(UserService *)userService
+{
+    if (!_userService) {
+        _userService = [UserService new];
+    }
+    return _userService;
+}
+-(FileService *)fileService
+{
+    if (!_fileService) {
+        _fileService = [FileService new];
+    }
+    return _fileService;
+}
+
+-(GeoService *)geoService
+{
+    if (!_geoService) {
+        _geoService = [GeoService new];
+    }
+    return _geoService;
 }
 #pragma mark - reachability
 

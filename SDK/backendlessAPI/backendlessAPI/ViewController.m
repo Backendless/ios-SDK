@@ -29,8 +29,8 @@
 
 static NSString *VERSION_NUM = @"v1";
 
-static NSString *APP_ID = @"";
-static NSString *SECRET_KEY = @"";
+static NSString *APP_ID = @"9896DB5D-3B2A-F7EB-FF4F-89F557B6B900";
+static NSString *SECRET_KEY = @"51AE9DFF-B1A2-5F92-FFC4-FC1AB48AD300";
 
 
 @interface Weather : NSObject {

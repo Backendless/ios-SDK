@@ -124,6 +124,9 @@ static NSString *DEFAULT_DATABASE_NAME = @"OfflineModeDatabase";
 }
 -(void)uploadObject
 {
+    if (objectsId.count == 0) {
+        return;
+    }
     BackendlessEntity *object = [self getObjectForId:[objectsId lastObject][@"object_id"]];
     if ([[[object valueForKey:@"objectId"] substringToIndex:2] isEqualToString:@"OM"]) {
         [object setValue:nil forKey:@"objectId"];
