@@ -22,7 +22,6 @@
 
 /* Begin PBXBuildFile section */
 		618596331859CA5900529492 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 618596321859CA5900529492 /* libsqlite3.0.dylib */; };
-		618596341859E83B00529492 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 618596321859CA5900529492 /* libsqlite3.0.dylib */; };
 		910117D4180C0CCF008102A7 /* BodyParts.h in Headers */ = {isa = PBXBuildFile; fileRef = 910117D2180C0CCF008102A7 /* BodyParts.h */; };
 		910117D5180C0CCF008102A7 /* BodyParts.h in Headers */ = {isa = PBXBuildFile; fileRef = 910117D2180C0CCF008102A7 /* BodyParts.h */; };
 		910117D6180C0CCF008102A7 /* BodyParts.h in Headers */ = {isa = PBXBuildFile; fileRef = 910117D2180C0CCF008102A7 /* BodyParts.h */; };
@@ -35,54 +34,6 @@
 		912D504F182102F0006A090A /* BETableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 912D504B182102F0006A090A /* BETableView.m */; };
 		912D5050182102F0006A090A /* BETableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 912D504B182102F0006A090A /* BETableView.m */; };
 		912D5051182102F0006A090A /* BETableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 912D504B182102F0006A090A /* BETableView.m */; };
-		9160A9E71821165F0083A89C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9042B0915FDD8D300C9381A /* Foundation.framework */; };
-		9160A9E81821165F0083A89C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9042B0B15FDD8D300C9381A /* CoreGraphics.framework */; };
-		9160A9E91821165F0083A89C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9042B0715FDD8D300C9381A /* UIKit.framework */; };
-		9160AA16182116A20083A89C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CBE3F417143EE00004FE0A /* CoreData.framework */; };
-		9160AA17182116A50083A89C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F9512987168E080B0041460C /* libz.dylib */; };
-		9160AA18182116B00083A89C /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F91B47F815FF499E00012DFC /* CFNetwork.framework */; };
-		9160AA19182116B80083A89C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F91B47F915FF499F00012DFC /* Security.framework */; };
-		9160AA2418211A8B0083A89C /* BETableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 912D504B182102F0006A090A /* BETableView.m */; };
-		9160AA25182133670083A89C /* Backendless.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B47FF15FF569400012DFC /* Backendless.m */; };
-		9160AA26182133670083A89C /* AbstractQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1398B17D7240A00D1AC4C /* AbstractQuery.m */; };
-		9160AA27182133670083A89C /* BackendlessCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1398D17D7240A00D1AC4C /* BackendlessCache.m */; };
-		9160AA28182133670083A89C /* BackendlessCacheData.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1398F17D7240A00D1AC4C /* BackendlessCacheData.m */; };
-		9160AA29182133670083A89C /* BackendlessCacheKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1399117D7240A00D1AC4C /* BackendlessCacheKey.m */; };
-		9160AA2A182133670083A89C /* BackendlessCachePolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1399317D7240A00D1AC4C /* BackendlessCachePolicy.m */; };
-		9160AA2B182133670083A89C /* Invoker.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480215FF5AA900012DFC /* Invoker.m */; };
-		9160AA2C182133670083A89C /* AbstractProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D9234160B61AF00AFF3F6 /* AbstractProperty.m */; };
-		9160AA2D182133670083A89C /* UserService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480515FF5AC500012DFC /* UserService.m */; };
-		9160AA2E182133670083A89C /* BackendlessUser.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480915FF724000012DFC /* BackendlessUser.m */; };
-		9160AA2F182133670083A89C /* UserProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480C15FF7DEA00012DFC /* UserProperty.m */; };
-		9160AA30182133670083A89C /* PersistenceService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B48141602254900012DFC /* PersistenceService.m */; };
-		9160AA31182133670083A89C /* ObjectProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B481716032EA900012DFC /* ObjectProperty.m */; };
-		9160AA32182133670083A89C /* BackendlessEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B481A1603340A00012DFC /* BackendlessEntity.m */; };
-		9160AA33182133670083A89C /* BackendlessCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B481D1603378200012DFC /* BackendlessCollection.m */; };
-		9160AA34182133670083A89C /* BackendlessDataQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3BF721613175600409FF2 /* BackendlessDataQuery.m */; };
-		9160AA35182133670083A89C /* QueryOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F139B117D724C600D1AC4C /* QueryOptions.m */; };
-		9160AA36182133670083A89C /* DataStoreFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D92241607240C00AFF3F6 /* DataStoreFactory.m */; };
-		9160AA37182133670083A89C /* GeoService.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D923D160B6A7F00AFF3F6 /* GeoService.m */; };
-		9160AA38182133670083A89C /* GeoCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D9237160B6A5500AFF3F6 /* GeoCategory.m */; };
-		9160AA39182133670083A89C /* GeoPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D923A160B6A6800AFF3F6 /* GeoPoint.m */; };
-		9160AA3A182133670083A89C /* BackendlessGeoQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3BF76161486B500409FF2 /* BackendlessGeoQuery.m */; };
-		9160AA3B182133670083A89C /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C058161AB6A500409FF2 /* MessagingService.m */; };
-		9160AA3C182133670083A89C /* DeviceRegistration.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C068161AB80C00409FF2 /* DeviceRegistration.m */; };
-		9160AA3D182133670083A89C /* DeliveryOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C05C161AB72100409FF2 /* DeliveryOptions.m */; };
-		9160AA3E182133670083A89C /* PublishOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C060161AB7AC00409FF2 /* PublishOptions.m */; };
-		9160AA3F182133670083A89C /* SubscriptionOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C064161AB7D600409FF2 /* SubscriptionOptions.m */; };
-		9160AA40182133670083A89C /* BESubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C082161C595D00409FF2 /* BESubscription.m */; };
-		9160AA41182133670083A89C /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C06C161AB82F00409FF2 /* Message.m */; };
-		9160AA42182133670083A89C /* MessageStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C070161AB84100409FF2 /* MessageStatus.m */; };
-		9160AA43182133670083A89C /* BodyParts.m in Sources */ = {isa = PBXBuildFile; fileRef = 910117D3180C0CCF008102A7 /* BodyParts.m */; };
-		9160AA44182133670083A89C /* FileService.m in Sources */ = {isa = PBXBuildFile; fileRef = F918412D1638281600D36A61 /* FileService.m */; };
-		9160AA45182133670083A89C /* BackendlessFile.m in Sources */ = {isa = PBXBuildFile; fileRef = F9184133163AB29600D36A61 /* BackendlessFile.m */; };
-		9160AA46182133670083A89C /* MediaService.m in Sources */ = {isa = PBXBuildFile; fileRef = F994A406168DC3BA00C1A498 /* MediaService.m */; };
-		9160AA47182133670083A89C /* MediaPublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = F9512966168DCFE90041460C /* MediaPublisher.m */; };
-		9160AA48182133670083A89C /* MediaPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F9512970168DCFFF0041460C /* MediaPlayer.m */; };
-		9160AA49182133670083A89C /* MediaPublishOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F994A3F3168DC36B00C1A498 /* MediaPublishOptions.m */; };
-		9160AA4A182133670083A89C /* MediaPlaybackOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F994A3FD168DC39400C1A498 /* MediaPlaybackOptions.m */; };
-		9160AA4B182133670083A89C /* HashMap.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B47EA15FF448F00012DFC /* HashMap.m */; };
-		9160AA4F18213DAA0083A89C /* CommLibiOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F91B47C615FE380C00012DFC /* CommLibiOS.a */; };
 		91628DF917FAC79F00ACC36F /* Backendless.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B47FF15FF569400012DFC /* Backendless.m */; };
 		91628DFA17FAC79F00ACC36F /* Invoker.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480215FF5AA900012DFC /* Invoker.m */; };
 		91628DFB17FAC79F00ACC36F /* AbstractProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D9234160B61AF00AFF3F6 /* AbstractProperty.m */; };
@@ -175,7 +126,6 @@
 		91764F9E1823E43400745497 /* BECollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91764F9A1823E43400745497 /* BECollectionView.m */; };
 		91764F9F1823E43400745497 /* BECollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91764F9A1823E43400745497 /* BECollectionView.m */; };
 		91764FA01823E43400745497 /* BECollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91764F9A1823E43400745497 /* BECollectionView.m */; };
-		91764FA21823E43400745497 /* BECollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91764F9A1823E43400745497 /* BECollectionView.m */; };
 		91933F9C1828F1BB005F3F8A /* MPMediaData.h in Headers */ = {isa = PBXBuildFile; fileRef = 91933F991828F1BB005F3F8A /* MPMediaData.h */; };
 		91933F9D1828F1BB005F3F8A /* MPMediaData.h in Headers */ = {isa = PBXBuildFile; fileRef = 91933F991828F1BB005F3F8A /* MPMediaData.h */; };
 		91933F9F1828F1BB005F3F8A /* MPMediaDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 91933F9A1828F1BB005F3F8A /* MPMediaDecoder.h */; };
@@ -189,7 +139,6 @@
 		91A427FF184E23D5005F91DE /* ISDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A427FA184E23D5005F91DE /* ISDatabase.m */; };
 		91A42800184E23D5005F91DE /* ISDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A427FA184E23D5005F91DE /* ISDatabase.m */; };
 		91A42802184E23D5005F91DE /* ISDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A427FA184E23D5005F91DE /* ISDatabase.m */; };
-		91A42803184E23D5005F91DE /* ISDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A427FA184E23D5005F91DE /* ISDatabase.m */; };
 		91A42807184E2447005F91DE /* OfflineModeManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 91A42805184E2447005F91DE /* OfflineModeManager.h */; };
 		91A42808184E2447005F91DE /* OfflineModeManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 91A42805184E2447005F91DE /* OfflineModeManager.h */; };
 		91A42809184E2447005F91DE /* OfflineModeManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 91A42805184E2447005F91DE /* OfflineModeManager.h */; };
@@ -197,7 +146,6 @@
 		91A4280B184E2447005F91DE /* OfflineModeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A42806184E2447005F91DE /* OfflineModeManager.m */; };
 		91A4280C184E2447005F91DE /* OfflineModeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A42806184E2447005F91DE /* OfflineModeManager.m */; };
 		91A4280E184E2447005F91DE /* OfflineModeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A42806184E2447005F91DE /* OfflineModeManager.m */; };
-		91A4280F184E2447005F91DE /* OfflineModeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A42806184E2447005F91DE /* OfflineModeManager.m */; };
 		91A4285B18508269005F91DE /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 91A4285918508269005F91DE /* Reachability.h */; };
 		91A4285C18508269005F91DE /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 91A4285918508269005F91DE /* Reachability.h */; };
 		91A4285D18508269005F91DE /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 91A4285918508269005F91DE /* Reachability.h */; };
@@ -205,7 +153,6 @@
 		91A4285F18508269005F91DE /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A4285A18508269005F91DE /* Reachability.m */; };
 		91A4286018508269005F91DE /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A4285A18508269005F91DE /* Reachability.m */; };
 		91A4286318508269005F91DE /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A4285A18508269005F91DE /* Reachability.m */; };
-		91A4286418508269005F91DE /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A4285A18508269005F91DE /* Reachability.m */; };
 		91B0B26C186459EB000E6366 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91FA67A6184CAB6900D69C12 /* CoreLocation.framework */; };
 		91B0B26D186459F2000E6366 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91DF02501821756D009DAE40 /* MapKit.framework */; };
 		91B0B26F18645A0D000E6366 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91B0B26E18645A0D000E6366 /* SystemConfiguration.framework */; };
@@ -214,22 +161,11 @@
 		91DF023D1821625B009DAE40 /* BEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DF02391821625B009DAE40 /* BEMapView.m */; };
 		91DF023E1821625B009DAE40 /* BEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DF02391821625B009DAE40 /* BEMapView.m */; };
 		91DF023F1821625B009DAE40 /* BEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DF02391821625B009DAE40 /* BEMapView.m */; };
-		91DF02431821625B009DAE40 /* BEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DF02391821625B009DAE40 /* BEMapView.m */; };
 		91DF02461821718C009DAE40 /* BEAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 91DF02441821718C009DAE40 /* BEAnnotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91DF02471821718C009DAE40 /* BEAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 91DF02441821718C009DAE40 /* BEAnnotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91DF02491821718C009DAE40 /* BEAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DF02451821718C009DAE40 /* BEAnnotation.m */; };
 		91DF024A1821718C009DAE40 /* BEAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DF02451821718C009DAE40 /* BEAnnotation.m */; };
 		91DF024B1821718C009DAE40 /* BEAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DF02451821718C009DAE40 /* BEAnnotation.m */; };
-		91DF024F1821718C009DAE40 /* BEAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DF02451821718C009DAE40 /* BEAnnotation.m */; };
-		91DF02511821756D009DAE40 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91DF02501821756D009DAE40 /* MapKit.framework */; };
-		91DF0252182257F3009DAE40 /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F994A417168DC50400C1A498 /* libavcodec.a */; };
-		91DF0253182257F3009DAE40 /* libavdevice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F994A418168DC50400C1A498 /* libavdevice.a */; };
-		91DF0254182257F3009DAE40 /* libavfilter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F994A419168DC50400C1A498 /* libavfilter.a */; };
-		91DF0255182257F3009DAE40 /* libavformat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F994A41A168DC50400C1A498 /* libavformat.a */; };
-		91DF0256182257F3009DAE40 /* libavutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F994A41B168DC50400C1A498 /* libavutil.a */; };
-		91DF0257182257F3009DAE40 /* libswresample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F994A41C168DC50400C1A498 /* libswresample.a */; };
-		91DF0258182257F3009DAE40 /* libswscale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F994A41D168DC50400C1A498 /* libswscale.a */; };
-		91DF0259182257F3009DAE40 /* MediaLibiOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F994A41E168DC50400C1A498 /* MediaLibiOS.a */; };
 		91F1399517D7240A00D1AC4C /* AbstractQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1398A17D7240A00D1AC4C /* AbstractQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91F1399617D7240A00D1AC4C /* AbstractQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1398A17D7240A00D1AC4C /* AbstractQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91F1399717D7240A00D1AC4C /* AbstractQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1398B17D7240A00D1AC4C /* AbstractQuery.m */; };
@@ -477,7 +413,6 @@
 		9113C5D9180FDA3A0052DFA3 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		912D504A182102F0006A090A /* BETableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BETableView.h; sourceTree = "<group>"; };
 		912D504B182102F0006A090A /* BETableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BETableView.m; sourceTree = "<group>"; };
-		9160A9E61821165F0083A89C /* UIElementsTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UIElementsTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91628E5417FAC79F00ACC36F /* libbackendless-mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libbackendless-mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		91628E5517FACDE200ACC36F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/AppKit.framework; sourceTree = DEVELOPER_DIR; };
 		91628E5717FAD55A00ACC36F /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -651,31 +586,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		9160A9E31821165F0083A89C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				618596341859E83B00529492 /* libsqlite3.0.dylib in Frameworks */,
-				91DF02511821756D009DAE40 /* MapKit.framework in Frameworks */,
-				9160A9E91821165F0083A89C /* UIKit.framework in Frameworks */,
-				9160AA16182116A20083A89C /* CoreData.framework in Frameworks */,
-				9160AA17182116A50083A89C /* libz.dylib in Frameworks */,
-				9160A9E71821165F0083A89C /* Foundation.framework in Frameworks */,
-				9160AA18182116B00083A89C /* CFNetwork.framework in Frameworks */,
-				9160A9E81821165F0083A89C /* CoreGraphics.framework in Frameworks */,
-				9160AA19182116B80083A89C /* Security.framework in Frameworks */,
-				91DF0252182257F3009DAE40 /* libavcodec.a in Frameworks */,
-				91DF0253182257F3009DAE40 /* libavdevice.a in Frameworks */,
-				91DF0254182257F3009DAE40 /* libavfilter.a in Frameworks */,
-				91DF0255182257F3009DAE40 /* libavformat.a in Frameworks */,
-				91DF0256182257F3009DAE40 /* libavutil.a in Frameworks */,
-				91DF0257182257F3009DAE40 /* libswresample.a in Frameworks */,
-				91DF0258182257F3009DAE40 /* libswscale.a in Frameworks */,
-				91DF0259182257F3009DAE40 /* MediaLibiOS.a in Frameworks */,
-				9160AA4F18213DAA0083A89C /* CommLibiOS.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		91628E2017FAC79F00ACC36F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -836,7 +746,6 @@
 				F97969DC166CC8C300595F5E /* libbackendless-simulator.a */,
 				F9796A28166CD3A400595F5E /* libbackendless-device.a */,
 				91628E5417FAC79F00ACC36F /* libbackendless-mac.a */,
-				9160A9E61821165F0083A89C /* UIElementsTest.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1380,23 +1289,6 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		9160A9E51821165F0083A89C /* UIElementsTest */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9160AA10182116600083A89C /* Build configuration list for PBXNativeTarget "UIElementsTest" */;
-			buildPhases = (
-				9160A9E21821165F0083A89C /* Sources */,
-				9160A9E31821165F0083A89C /* Frameworks */,
-				9160A9E41821165F0083A89C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = UIElementsTest;
-			productName = UIElementsTest;
-			productReference = 9160A9E61821165F0083A89C /* UIElementsTest.app */;
-			productType = "com.apple.product-type.application";
-		};
 		91628DF717FAC79F00ACC36F /* backendless-mac */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 91628E5117FAC79F00ACC36F /* Build configuration list for PBXNativeTarget "backendless-mac" */;
@@ -1492,19 +1384,11 @@
 				F9796A6F166CD49A00595F5E /* backendless-fat */,
 				F9042B0215FDD8D300C9381A /* backendlessAPI */,
 				91628DF717FAC79F00ACC36F /* backendless-mac */,
-				9160A9E51821165F0083A89C /* UIElementsTest */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		9160A9E41821165F0083A89C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		F9042B0115FDD8D300C9381A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1538,59 +1422,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		9160A9E21821165F0083A89C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				91A42803184E23D5005F91DE /* ISDatabase.m in Sources */,
-				9160AA25182133670083A89C /* Backendless.m in Sources */,
-				9160AA26182133670083A89C /* AbstractQuery.m in Sources */,
-				91DF02431821625B009DAE40 /* BEMapView.m in Sources */,
-				9160AA27182133670083A89C /* BackendlessCache.m in Sources */,
-				9160AA28182133670083A89C /* BackendlessCacheData.m in Sources */,
-				9160AA29182133670083A89C /* BackendlessCacheKey.m in Sources */,
-				9160AA2A182133670083A89C /* BackendlessCachePolicy.m in Sources */,
-				91764FA21823E43400745497 /* BECollectionView.m in Sources */,
-				9160AA2B182133670083A89C /* Invoker.m in Sources */,
-				9160AA2C182133670083A89C /* AbstractProperty.m in Sources */,
-				9160AA2D182133670083A89C /* UserService.m in Sources */,
-				9160AA2E182133670083A89C /* BackendlessUser.m in Sources */,
-				9160AA2F182133670083A89C /* UserProperty.m in Sources */,
-				9160AA30182133670083A89C /* PersistenceService.m in Sources */,
-				9160AA31182133670083A89C /* ObjectProperty.m in Sources */,
-				9160AA32182133670083A89C /* BackendlessEntity.m in Sources */,
-				9160AA33182133670083A89C /* BackendlessCollection.m in Sources */,
-				91A4280F184E2447005F91DE /* OfflineModeManager.m in Sources */,
-				9160AA34182133670083A89C /* BackendlessDataQuery.m in Sources */,
-				9160AA35182133670083A89C /* QueryOptions.m in Sources */,
-				9160AA36182133670083A89C /* DataStoreFactory.m in Sources */,
-				9160AA37182133670083A89C /* GeoService.m in Sources */,
-				9160AA38182133670083A89C /* GeoCategory.m in Sources */,
-				9160AA39182133670083A89C /* GeoPoint.m in Sources */,
-				9160AA3A182133670083A89C /* BackendlessGeoQuery.m in Sources */,
-				9160AA3B182133670083A89C /* MessagingService.m in Sources */,
-				9160AA3C182133670083A89C /* DeviceRegistration.m in Sources */,
-				9160AA3D182133670083A89C /* DeliveryOptions.m in Sources */,
-				9160AA3E182133670083A89C /* PublishOptions.m in Sources */,
-				91DF024F1821718C009DAE40 /* BEAnnotation.m in Sources */,
-				9160AA3F182133670083A89C /* SubscriptionOptions.m in Sources */,
-				9160AA40182133670083A89C /* BESubscription.m in Sources */,
-				9160AA41182133670083A89C /* Message.m in Sources */,
-				9160AA42182133670083A89C /* MessageStatus.m in Sources */,
-				9160AA43182133670083A89C /* BodyParts.m in Sources */,
-				9160AA44182133670083A89C /* FileService.m in Sources */,
-				9160AA45182133670083A89C /* BackendlessFile.m in Sources */,
-				9160AA46182133670083A89C /* MediaService.m in Sources */,
-				9160AA47182133670083A89C /* MediaPublisher.m in Sources */,
-				9160AA48182133670083A89C /* MediaPlayer.m in Sources */,
-				9160AA49182133670083A89C /* MediaPublishOptions.m in Sources */,
-				9160AA4A182133670083A89C /* MediaPlaybackOptions.m in Sources */,
-				9160AA4B182133670083A89C /* HashMap.m in Sources */,
-				9160AA2418211A8B0083A89C /* BETableView.m in Sources */,
-				91A4286418508269005F91DE /* Reachability.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		91628DF817FAC79F00ACC36F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1836,84 +1667,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		9160AA11182116600083A89C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = NO;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "UIElementsTest/UIElementsTest-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "UIElementsTest/UIElementsTest-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					/Users/yuryyaschenko/Desktop/newProjects/backendless.git/src/client/sdk/ios/lib/CommLibiOS,
-					/Users/yuryyaschenko/Desktop/newProjects/backendless.git/src/client/sdk/ios/lib/MediaLibiOS,
-				);
-				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				VALID_ARCHS = "armv7 armv7s arm64 i386";
-				WRAPPER_EXTENSION = app;
-			};
-			name = Debug;
-		};
-		9160AA12182116600083A89C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = NO;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "UIElementsTest/UIElementsTest-Prefix.pch";
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "UIElementsTest/UIElementsTest-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					/Users/yuryyaschenko/Desktop/newProjects/backendless.git/src/client/sdk/ios/lib/CommLibiOS,
-					/Users/yuryyaschenko/Desktop/newProjects/backendless.git/src/client/sdk/ios/lib/MediaLibiOS,
-				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				VALID_ARCHS = "armv7 armv7s arm64 i386";
-				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
 		91628E5217FAC79F00ACC36F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2218,15 +1971,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9160AA10182116600083A89C /* Build configuration list for PBXNativeTarget "UIElementsTest" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9160AA11182116600083A89C /* Debug */,
-				9160AA12182116600083A89C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		91628E5117FAC79F00ACC36F /* Build configuration list for PBXNativeTarget "backendless-mac" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
