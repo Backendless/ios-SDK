@@ -20,11 +20,56 @@
 @end
 
 
-@class Packet, MetaData;
+@class CrowdNode, RTMProtocol, Packet, MetaData;
 @protocol IStreamDispatcher, IPendingServiceCall;
 
 @interface RTMPClient : NSObject <NSStreamDelegate>
-
+//
+{
+	// delegates
+    NSMutableArray  *owners;
+    
+    // thread
+    NSThread        *socketThread;
+		
+	// socket
+	NSString		*_host;
+	int				_port;
+    BOOL            useSSL;
+	NSOutputStream	*outputStream;
+	uint8_t			*outputBuffer;
+    int             outputSize;
+    int             bufferSize;
+	NSInputStream	*inputStream;
+	uint8_t			*inputBuffer;
+	
+	// context
+    NSString        *_app;
+	NSArray			*parameters;
+	CrowdNode		*connectionParams;
+	
+	// protocol
+	RTMProtocol		*rtmp;	
+    uint            state;
+	BOOL			firstHandshake;
+	uint			lengthHandshake;
+	float			timeoutHandshake; // = 3.0 sec by default
+	
+	// invoke/notify
+	int				invokeId;
+	NSMutableArray	*pendingMessages;
+	CrowdNode		*pendingCalls;
+	
+	// shared objects
+	CrowdNode		*sharedObjects;
+	
+    // media stream players
+	CrowdNode		*streamPlayers;
+	
+	// test
+    int _testCount;
+}
+//
 @property (nonatomic, assign, getter = getDelegates, setter = addDelegate:) id <IRTMPClientDelegate> delegate;
 @property float	timeoutHandshake;
 
@@ -67,7 +112,6 @@
 // stream
 -(BOOL)addStreamPlayer:(id <IStreamDispatcher>)player streamId:(int)streamId;
 -(BOOL)removeStreamPlayer:(id <IStreamDispatcher>)player streamId:(int)streamId;
--(int)writeStream:(uint)streamId data:(uint8_t *)data  lenght:(uint)lenght;
 
 @end
 

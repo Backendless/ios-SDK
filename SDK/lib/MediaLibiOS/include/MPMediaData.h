@@ -19,9 +19,9 @@ typedef enum mp_media_channel_id MPMediaChannelID;
 enum mp_media_channel_id
 {
     SYSTEM_CHANNEL_ID = 3,
-    COMMAND_CHANNEL_ID = 4,
-    VIDEO_CHANNEL_ID = 8,
-    AUDIO_CHANNEL_ID = 9,
+    AUDIO_CHANNEL_ID = 4,
+    VIDEO_CHANNEL_ID = 6,
+    COMMAND_CHANNEL_ID = 8,
 };
 
 
@@ -53,6 +53,13 @@ enum mp_publish_type
 	PUBLISH_LIVE,
 };
 
+typedef enum mp_audio_pcm_type MPAudioPCMType;
+enum mp_audio_pcm_type
+{
+	MP_AUDIO_PCM_S16,
+	MP_AUDIO_PCM_FLT,
+};
+
 @interface MPMediaData : NSObject
 @property uint8_t *data;
 @property size_t size;
@@ -66,12 +73,12 @@ enum mp_publish_type
 @property (retain) id content;
 
 -(id)initWithData:(uint8_t *)data size:(size_t)size timestamp:(uint)timestamp;
++(BOOL)setAudioStreamBasicDescription:(AudioStreamBasicDescription *)streamDescription pcmType:(MPAudioPCMType)pcmType;
 @end
 
 @protocol MPIMediaStream <NSObject>
 -(NSString *)getMediaStreamUrl;
 -(void)sendMediaFrame:(MPMediaData *)data;
--(int)writeStream:(uint8_t *)data  lenght:(uint)lenght;
 @end
 
 @protocol MPIMediaStreamEvent <NSObject>
@@ -85,7 +92,7 @@ enum mp_publish_type
 @protocol MPIMediaEncoder <NSObject>
 -(int)setupStream:(id)stream;
 -(void)cleanupStream;
--(int)addVideoFrame:(uint8_t *)data dataSize:(size_t)size pts:(CMTime)pts duration:(CMTime)duration;
--(int)addAudioSamples:(uint8_t *)data dataSize:(size_t)size pts:(CMTime)pts;
+-(BOOL)addVideoFrame:(uint8_t *)data dataSize:(size_t)size pts:(CMTime)pts duration:(CMTime)duration;
+-(BOOL)addAudioSamples:(uint8_t *)data dataSize:(size_t)size pts:(CMTime)pts;
 @end
 
