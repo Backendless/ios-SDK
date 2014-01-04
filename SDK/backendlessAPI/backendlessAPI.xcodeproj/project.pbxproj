@@ -21,19 +21,16 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		618596331859CA5900529492 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 618596321859CA5900529492 /* libsqlite3.0.dylib */; };
 		910117D4180C0CCF008102A7 /* BodyParts.h in Headers */ = {isa = PBXBuildFile; fileRef = 910117D2180C0CCF008102A7 /* BodyParts.h */; };
 		910117D5180C0CCF008102A7 /* BodyParts.h in Headers */ = {isa = PBXBuildFile; fileRef = 910117D2180C0CCF008102A7 /* BodyParts.h */; };
 		910117D6180C0CCF008102A7 /* BodyParts.h in Headers */ = {isa = PBXBuildFile; fileRef = 910117D2180C0CCF008102A7 /* BodyParts.h */; };
 		910117D7180C0CCF008102A7 /* BodyParts.m in Sources */ = {isa = PBXBuildFile; fileRef = 910117D3180C0CCF008102A7 /* BodyParts.m */; };
 		910117D8180C0CCF008102A7 /* BodyParts.m in Sources */ = {isa = PBXBuildFile; fileRef = 910117D3180C0CCF008102A7 /* BodyParts.m */; };
-		910117D9180C0CCF008102A7 /* BodyParts.m in Sources */ = {isa = PBXBuildFile; fileRef = 910117D3180C0CCF008102A7 /* BodyParts.m */; };
 		910117DC180C0CCF008102A7 /* BodyParts.m in Sources */ = {isa = PBXBuildFile; fileRef = 910117D3180C0CCF008102A7 /* BodyParts.m */; };
 		912D504C182102F0006A090A /* BETableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 912D504A182102F0006A090A /* BETableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		912D504D182102F0006A090A /* BETableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 912D504A182102F0006A090A /* BETableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		912D504F182102F0006A090A /* BETableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 912D504B182102F0006A090A /* BETableView.m */; };
 		912D5050182102F0006A090A /* BETableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 912D504B182102F0006A090A /* BETableView.m */; };
-		912D5051182102F0006A090A /* BETableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 912D504B182102F0006A090A /* BETableView.m */; };
 		91628DF917FAC79F00ACC36F /* Backendless.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B47FF15FF569400012DFC /* Backendless.m */; };
 		91628DFA17FAC79F00ACC36F /* Invoker.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480215FF5AA900012DFC /* Invoker.m */; };
 		91628DFB17FAC79F00ACC36F /* AbstractProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D9234160B61AF00AFF3F6 /* AbstractProperty.m */; };
@@ -120,12 +117,10 @@
 		91628E5017FAC79F00ACC36F /* BackendlessCacheKey.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1399017D7240A00D1AC4C /* BackendlessCacheKey.h */; };
 		91628E5617FACDE200ACC36F /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91628E5517FACDE200ACC36F /* AppKit.framework */; };
 		91628E5817FAD55A00ACC36F /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91628E5717FAD55A00ACC36F /* IOKit.framework */; };
-		916BE1CC174228EF0020C2CB /* PersistenceServiceUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 916BE1CB174228EF0020C2CB /* PersistenceServiceUser.m */; };
 		91764F9B1823E43400745497 /* BECollectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 91764F991823E43400745497 /* BECollectionView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91764F9C1823E43400745497 /* BECollectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 91764F991823E43400745497 /* BECollectionView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91764F9E1823E43400745497 /* BECollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91764F9A1823E43400745497 /* BECollectionView.m */; };
 		91764F9F1823E43400745497 /* BECollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91764F9A1823E43400745497 /* BECollectionView.m */; };
-		91764FA01823E43400745497 /* BECollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91764F9A1823E43400745497 /* BECollectionView.m */; };
 		91933F9C1828F1BB005F3F8A /* MPMediaData.h in Headers */ = {isa = PBXBuildFile; fileRef = 91933F991828F1BB005F3F8A /* MPMediaData.h */; };
 		91933F9D1828F1BB005F3F8A /* MPMediaData.h in Headers */ = {isa = PBXBuildFile; fileRef = 91933F991828F1BB005F3F8A /* MPMediaData.h */; };
 		91933F9F1828F1BB005F3F8A /* MPMediaDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 91933F9A1828F1BB005F3F8A /* MPMediaDecoder.h */; };
@@ -137,115 +132,69 @@
 		91A427FD184E23D5005F91DE /* ISDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = 91A427F9184E23D5005F91DE /* ISDatabase.h */; };
 		91A427FE184E23D5005F91DE /* ISDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A427FA184E23D5005F91DE /* ISDatabase.m */; };
 		91A427FF184E23D5005F91DE /* ISDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A427FA184E23D5005F91DE /* ISDatabase.m */; };
-		91A42800184E23D5005F91DE /* ISDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A427FA184E23D5005F91DE /* ISDatabase.m */; };
 		91A42802184E23D5005F91DE /* ISDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A427FA184E23D5005F91DE /* ISDatabase.m */; };
 		91A42807184E2447005F91DE /* OfflineModeManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 91A42805184E2447005F91DE /* OfflineModeManager.h */; };
 		91A42808184E2447005F91DE /* OfflineModeManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 91A42805184E2447005F91DE /* OfflineModeManager.h */; };
 		91A42809184E2447005F91DE /* OfflineModeManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 91A42805184E2447005F91DE /* OfflineModeManager.h */; };
 		91A4280A184E2447005F91DE /* OfflineModeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A42806184E2447005F91DE /* OfflineModeManager.m */; };
 		91A4280B184E2447005F91DE /* OfflineModeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A42806184E2447005F91DE /* OfflineModeManager.m */; };
-		91A4280C184E2447005F91DE /* OfflineModeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A42806184E2447005F91DE /* OfflineModeManager.m */; };
 		91A4280E184E2447005F91DE /* OfflineModeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A42806184E2447005F91DE /* OfflineModeManager.m */; };
 		91A4285B18508269005F91DE /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 91A4285918508269005F91DE /* Reachability.h */; };
 		91A4285C18508269005F91DE /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 91A4285918508269005F91DE /* Reachability.h */; };
 		91A4285D18508269005F91DE /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 91A4285918508269005F91DE /* Reachability.h */; };
 		91A4285E18508269005F91DE /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A4285A18508269005F91DE /* Reachability.m */; };
 		91A4285F18508269005F91DE /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A4285A18508269005F91DE /* Reachability.m */; };
-		91A4286018508269005F91DE /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A4285A18508269005F91DE /* Reachability.m */; };
 		91A4286318508269005F91DE /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A4285A18508269005F91DE /* Reachability.m */; };
-		91B0B26C186459EB000E6366 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91FA67A6184CAB6900D69C12 /* CoreLocation.framework */; };
-		91B0B26D186459F2000E6366 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91DF02501821756D009DAE40 /* MapKit.framework */; };
-		91B0B26F18645A0D000E6366 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91B0B26E18645A0D000E6366 /* SystemConfiguration.framework */; };
 		91DF023A1821625B009DAE40 /* BEMapView.h in Headers */ = {isa = PBXBuildFile; fileRef = 91DF02381821625B009DAE40 /* BEMapView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91DF023B1821625B009DAE40 /* BEMapView.h in Headers */ = {isa = PBXBuildFile; fileRef = 91DF02381821625B009DAE40 /* BEMapView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91DF023D1821625B009DAE40 /* BEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DF02391821625B009DAE40 /* BEMapView.m */; };
 		91DF023E1821625B009DAE40 /* BEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DF02391821625B009DAE40 /* BEMapView.m */; };
-		91DF023F1821625B009DAE40 /* BEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DF02391821625B009DAE40 /* BEMapView.m */; };
 		91DF02461821718C009DAE40 /* BEAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 91DF02441821718C009DAE40 /* BEAnnotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91DF02471821718C009DAE40 /* BEAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 91DF02441821718C009DAE40 /* BEAnnotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91DF02491821718C009DAE40 /* BEAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DF02451821718C009DAE40 /* BEAnnotation.m */; };
 		91DF024A1821718C009DAE40 /* BEAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DF02451821718C009DAE40 /* BEAnnotation.m */; };
-		91DF024B1821718C009DAE40 /* BEAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DF02451821718C009DAE40 /* BEAnnotation.m */; };
 		91F1399517D7240A00D1AC4C /* AbstractQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1398A17D7240A00D1AC4C /* AbstractQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91F1399617D7240A00D1AC4C /* AbstractQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1398A17D7240A00D1AC4C /* AbstractQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91F1399717D7240A00D1AC4C /* AbstractQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1398B17D7240A00D1AC4C /* AbstractQuery.m */; };
 		91F1399817D7240A00D1AC4C /* AbstractQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1398B17D7240A00D1AC4C /* AbstractQuery.m */; };
-		91F1399917D7240A00D1AC4C /* AbstractQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1398B17D7240A00D1AC4C /* AbstractQuery.m */; };
 		91F1399A17D7240A00D1AC4C /* BackendlessCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1398C17D7240A00D1AC4C /* BackendlessCache.h */; };
 		91F1399B17D7240A00D1AC4C /* BackendlessCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1398C17D7240A00D1AC4C /* BackendlessCache.h */; };
 		91F1399C17D7240A00D1AC4C /* BackendlessCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1398D17D7240A00D1AC4C /* BackendlessCache.m */; };
 		91F1399D17D7240A00D1AC4C /* BackendlessCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1398D17D7240A00D1AC4C /* BackendlessCache.m */; };
-		91F1399E17D7240A00D1AC4C /* BackendlessCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1398D17D7240A00D1AC4C /* BackendlessCache.m */; };
 		91F1399F17D7240A00D1AC4C /* BackendlessCacheData.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1398E17D7240A00D1AC4C /* BackendlessCacheData.h */; };
 		91F139A017D7240A00D1AC4C /* BackendlessCacheData.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1398E17D7240A00D1AC4C /* BackendlessCacheData.h */; };
 		91F139A117D7240A00D1AC4C /* BackendlessCacheData.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1398F17D7240A00D1AC4C /* BackendlessCacheData.m */; };
 		91F139A217D7240A00D1AC4C /* BackendlessCacheData.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1398F17D7240A00D1AC4C /* BackendlessCacheData.m */; };
-		91F139A317D7240A00D1AC4C /* BackendlessCacheData.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1398F17D7240A00D1AC4C /* BackendlessCacheData.m */; };
 		91F139A417D7240A00D1AC4C /* BackendlessCacheKey.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1399017D7240A00D1AC4C /* BackendlessCacheKey.h */; };
 		91F139A517D7240A00D1AC4C /* BackendlessCacheKey.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1399017D7240A00D1AC4C /* BackendlessCacheKey.h */; };
 		91F139A617D7240A00D1AC4C /* BackendlessCacheKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1399117D7240A00D1AC4C /* BackendlessCacheKey.m */; };
 		91F139A717D7240A00D1AC4C /* BackendlessCacheKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1399117D7240A00D1AC4C /* BackendlessCacheKey.m */; };
-		91F139A817D7240A00D1AC4C /* BackendlessCacheKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1399117D7240A00D1AC4C /* BackendlessCacheKey.m */; };
 		91F139A917D7240A00D1AC4C /* BackendlessCachePolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1399217D7240A00D1AC4C /* BackendlessCachePolicy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91F139AA17D7240A00D1AC4C /* BackendlessCachePolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1399217D7240A00D1AC4C /* BackendlessCachePolicy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91F139AB17D7240A00D1AC4C /* BackendlessCachePolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1399317D7240A00D1AC4C /* BackendlessCachePolicy.m */; };
 		91F139AC17D7240A00D1AC4C /* BackendlessCachePolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1399317D7240A00D1AC4C /* BackendlessCachePolicy.m */; };
-		91F139AD17D7240A00D1AC4C /* BackendlessCachePolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1399317D7240A00D1AC4C /* BackendlessCachePolicy.m */; };
 		91F139AE17D7240A00D1AC4C /* BackendlessCacheProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1399417D7240A00D1AC4C /* BackendlessCacheProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91F139AF17D7240A00D1AC4C /* BackendlessCacheProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1399417D7240A00D1AC4C /* BackendlessCacheProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91F139B217D724C700D1AC4C /* QueryOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F139B017D724C600D1AC4C /* QueryOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91F139B317D724C700D1AC4C /* QueryOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F139B017D724C600D1AC4C /* QueryOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91F139B417D724C700D1AC4C /* QueryOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F139B117D724C600D1AC4C /* QueryOptions.m */; };
 		91F139B517D724C700D1AC4C /* QueryOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F139B117D724C600D1AC4C /* QueryOptions.m */; };
-		91F139B617D724C700D1AC4C /* QueryOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F139B117D724C600D1AC4C /* QueryOptions.m */; };
 		91F139BE17D7297600D1AC4C /* AMFSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F139BD17D7297600D1AC4C /* AMFSerializer.h */; settings = {ATTRIBUTES = (); }; };
 		91F139BF17D7297600D1AC4C /* AMFSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F139BD17D7297600D1AC4C /* AMFSerializer.h */; settings = {ATTRIBUTES = (); }; };
 		91F139C217D7298000D1AC4C /* BinaryCodec.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F139C017D7298000D1AC4C /* BinaryCodec.h */; settings = {ATTRIBUTES = (); }; };
 		91F139C317D7298000D1AC4C /* BinaryCodec.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F139C017D7298000D1AC4C /* BinaryCodec.h */; settings = {ATTRIBUTES = (); }; };
 		91F139C417D7298000D1AC4C /* BinaryStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F139C117D7298000D1AC4C /* BinaryStream.h */; settings = {ATTRIBUTES = (); }; };
 		91F139C517D7298000D1AC4C /* BinaryStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F139C117D7298000D1AC4C /* BinaryStream.h */; settings = {ATTRIBUTES = (); }; };
-		F9042B0815FDD8D300C9381A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9042B0715FDD8D300C9381A /* UIKit.framework */; };
-		F9042B0A15FDD8D300C9381A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9042B0915FDD8D300C9381A /* Foundation.framework */; };
-		F9042B0C15FDD8D300C9381A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9042B0B15FDD8D300C9381A /* CoreGraphics.framework */; };
-		F9042B1215FDD8D300C9381A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F9042B1015FDD8D300C9381A /* InfoPlist.strings */; };
-		F9042B1415FDD8D300C9381A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F9042B1315FDD8D300C9381A /* main.m */; };
-		F9042B1815FDD8D300C9381A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F9042B1715FDD8D300C9381A /* AppDelegate.m */; };
-		F9042B1B15FDD8D300C9381A /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9042B1915FDD8D300C9381A /* MainStoryboard_iPhone.storyboard */; };
-		F9042B1E15FDD8D300C9381A /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9042B1C15FDD8D300C9381A /* MainStoryboard_iPad.storyboard */; };
-		F9042B2115FDD8D300C9381A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9042B2015FDD8D300C9381A /* ViewController.m */; };
-		F918412E1638281600D36A61 /* FileService.m in Sources */ = {isa = PBXBuildFile; fileRef = F918412D1638281600D36A61 /* FileService.m */; };
-		F9184134163AB29600D36A61 /* BackendlessFile.m in Sources */ = {isa = PBXBuildFile; fileRef = F9184133163AB29600D36A61 /* BackendlessFile.m */; };
-		F91B47DA15FE380C00012DFC /* CommLibiOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F91B47C615FE380C00012DFC /* CommLibiOS.a */; };
-		F91B47EB15FF448F00012DFC /* HashMap.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B47EA15FF448F00012DFC /* HashMap.m */; };
-		F91B47FC15FF49B100012DFC /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F91B47F815FF499E00012DFC /* CFNetwork.framework */; };
-		F91B47FD15FF49B400012DFC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F91B47F915FF499F00012DFC /* Security.framework */; };
-		F91B480015FF569400012DFC /* Backendless.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B47FF15FF569400012DFC /* Backendless.m */; };
-		F91B480315FF5AA900012DFC /* Invoker.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480215FF5AA900012DFC /* Invoker.m */; };
-		F91B480615FF5AC500012DFC /* UserService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480515FF5AC500012DFC /* UserService.m */; };
-		F91B480A15FF724000012DFC /* BackendlessUser.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480915FF724000012DFC /* BackendlessUser.m */; };
-		F91B480D15FF7DEA00012DFC /* UserProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480C15FF7DEA00012DFC /* UserProperty.m */; };
-		F91B48151602254900012DFC /* PersistenceService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B48141602254900012DFC /* PersistenceService.m */; };
-		F91B481816032EA900012DFC /* ObjectProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B481716032EA900012DFC /* ObjectProperty.m */; };
-		F91B481B1603340A00012DFC /* BackendlessEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B481A1603340A00012DFC /* BackendlessEntity.m */; };
-		F91B481E1603378300012DFC /* BackendlessCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B481D1603378200012DFC /* BackendlessCollection.m */; };
-		F925036F16D599B000ECC48B /* license.bin in Resources */ = {isa = PBXBuildFile; fileRef = F925036E16D599B000ECC48B /* license.bin */; };
 		F9512967168DCFE90041460C /* MediaPublisher.h in Headers */ = {isa = PBXBuildFile; fileRef = F9512965168DCFE90041460C /* MediaPublisher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9512968168DCFE90041460C /* MediaPublisher.h in Headers */ = {isa = PBXBuildFile; fileRef = F9512965168DCFE90041460C /* MediaPublisher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9512969168DCFE90041460C /* MediaPublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = F9512966168DCFE90041460C /* MediaPublisher.m */; };
 		F951296A168DCFE90041460C /* MediaPublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = F9512966168DCFE90041460C /* MediaPublisher.m */; };
-		F951296B168DCFE90041460C /* MediaPublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = F9512966168DCFE90041460C /* MediaPublisher.m */; };
 		F9512971168DCFFF0041460C /* MediaPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = F951296F168DCFFF0041460C /* MediaPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9512972168DCFFF0041460C /* MediaPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = F951296F168DCFFF0041460C /* MediaPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9512973168DCFFF0041460C /* MediaPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F9512970168DCFFF0041460C /* MediaPlayer.m */; };
 		F9512974168DCFFF0041460C /* MediaPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F9512970168DCFFF0041460C /* MediaPlayer.m */; };
-		F9512975168DCFFF0041460C /* MediaPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F9512970168DCFFF0041460C /* MediaPlayer.m */; };
 		F9512979168DEA210041460C /* IMediaStreamer.h in Headers */ = {isa = PBXBuildFile; fileRef = F9512978168DEA210041460C /* IMediaStreamer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F951297A168DEA210041460C /* IMediaStreamer.h in Headers */ = {isa = PBXBuildFile; fileRef = F9512978168DEA210041460C /* IMediaStreamer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F9512983168E04C40041460C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F951297B168E045A0041460C /* AudioToolbox.framework */; };
-		F9512984168E04C40041460C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F951297C168E045A0041460C /* AVFoundation.framework */; };
-		F9512985168E04C40041460C /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F951297D168E045B0041460C /* CoreMedia.framework */; };
-		F9512986168E04C40041460C /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F951297E168E045B0041460C /* CoreVideo.framework */; };
-		F9512988168E080B0041460C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F9512987168E080B0041460C /* libz.dylib */; };
 		F97969DD166CC8C300595F5E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9042B0915FDD8D300C9381A /* Foundation.framework */; };
 		F97969E4166CC8C300595F5E /* backendless_simulator.m in Sources */ = {isa = PBXBuildFile; fileRef = F97969E3166CC8C300595F5E /* backendless_simulator.m */; };
 		F97969EA166CCB8200595F5E /* Backendless.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B47FF15FF569400012DFC /* Backendless.m */; };
@@ -366,44 +315,14 @@
 		F994A3F5168DC36B00C1A498 /* MediaPublishOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = F994A3F2168DC36B00C1A498 /* MediaPublishOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F994A3F6168DC36B00C1A498 /* MediaPublishOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F994A3F3168DC36B00C1A498 /* MediaPublishOptions.m */; };
 		F994A3F7168DC36B00C1A498 /* MediaPublishOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F994A3F3168DC36B00C1A498 /* MediaPublishOptions.m */; };
-		F994A3F8168DC36B00C1A498 /* MediaPublishOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F994A3F3168DC36B00C1A498 /* MediaPublishOptions.m */; };
 		F994A3FE168DC39400C1A498 /* MediaPlaybackOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = F994A3FC168DC39400C1A498 /* MediaPlaybackOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F994A3FF168DC39400C1A498 /* MediaPlaybackOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = F994A3FC168DC39400C1A498 /* MediaPlaybackOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F994A400168DC39400C1A498 /* MediaPlaybackOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F994A3FD168DC39400C1A498 /* MediaPlaybackOptions.m */; };
 		F994A401168DC39400C1A498 /* MediaPlaybackOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F994A3FD168DC39400C1A498 /* MediaPlaybackOptions.m */; };
-		F994A402168DC39500C1A498 /* MediaPlaybackOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F994A3FD168DC39400C1A498 /* MediaPlaybackOptions.m */; };
 		F994A407168DC3BA00C1A498 /* MediaService.h in Headers */ = {isa = PBXBuildFile; fileRef = F994A405168DC3BA00C1A498 /* MediaService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F994A408168DC3BA00C1A498 /* MediaService.h in Headers */ = {isa = PBXBuildFile; fileRef = F994A405168DC3BA00C1A498 /* MediaService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F994A409168DC3BA00C1A498 /* MediaService.m in Sources */ = {isa = PBXBuildFile; fileRef = F994A406168DC3BA00C1A498 /* MediaService.m */; };
 		F994A40A168DC3BA00C1A498 /* MediaService.m in Sources */ = {isa = PBXBuildFile; fileRef = F994A406168DC3BA00C1A498 /* MediaService.m */; };
-		F994A40B168DC3BA00C1A498 /* MediaService.m in Sources */ = {isa = PBXBuildFile; fileRef = F994A406168DC3BA00C1A498 /* MediaService.m */; };
-		F994A41F168DC50400C1A498 /* Building Media Stream Apps.docx in Resources */ = {isa = PBXBuildFile; fileRef = F994A410168DC50400C1A498 /* Building Media Stream Apps.docx */; };
-		F994A422168DC50400C1A498 /* Media Library for iOS User Guide.docx in Resources */ = {isa = PBXBuildFile; fileRef = F994A411168DC50400C1A498 /* Media Library for iOS User Guide.docx */; };
-		F994A42F168DC50400C1A498 /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F994A417168DC50400C1A498 /* libavcodec.a */; };
-		F994A434168DC50500C1A498 /* libavdevice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F994A418168DC50400C1A498 /* libavdevice.a */; };
-		F994A439168DC50500C1A498 /* libavfilter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F994A419168DC50400C1A498 /* libavfilter.a */; };
-		F994A43E168DC50500C1A498 /* libavformat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F994A41A168DC50400C1A498 /* libavformat.a */; };
-		F994A443168DC50500C1A498 /* libavutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F994A41B168DC50400C1A498 /* libavutil.a */; };
-		F994A448168DC50500C1A498 /* libswresample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F994A41C168DC50400C1A498 /* libswresample.a */; };
-		F994A44D168DC50500C1A498 /* libswscale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F994A41D168DC50400C1A498 /* libswscale.a */; };
-		F994A452168DC50500C1A498 /* MediaLibiOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F994A41E168DC50400C1A498 /* MediaLibiOS.a */; };
-		F99D92251607240C00AFF3F6 /* DataStoreFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D92241607240C00AFF3F6 /* DataStoreFactory.m */; };
-		F99D9235160B61AF00AFF3F6 /* AbstractProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D9234160B61AF00AFF3F6 /* AbstractProperty.m */; };
-		F99D9238160B6A5500AFF3F6 /* GeoCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D9237160B6A5500AFF3F6 /* GeoCategory.m */; };
-		F99D923B160B6A6800AFF3F6 /* GeoPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D923A160B6A6800AFF3F6 /* GeoPoint.m */; };
-		F99D923E160B6A7F00AFF3F6 /* GeoService.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D923D160B6A7F00AFF3F6 /* GeoService.m */; };
-		F9C3BF731613175600409FF2 /* BackendlessDataQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3BF721613175600409FF2 /* BackendlessDataQuery.m */; };
-		F9C3BF77161486B500409FF2 /* BackendlessGeoQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3BF76161486B500409FF2 /* BackendlessGeoQuery.m */; };
-		F9C3C059161AB6A500409FF2 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C058161AB6A500409FF2 /* MessagingService.m */; };
-		F9C3C05D161AB72100409FF2 /* DeliveryOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C05C161AB72100409FF2 /* DeliveryOptions.m */; };
-		F9C3C061161AB7AC00409FF2 /* PublishOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C060161AB7AC00409FF2 /* PublishOptions.m */; };
-		F9C3C065161AB7D600409FF2 /* SubscriptionOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C064161AB7D600409FF2 /* SubscriptionOptions.m */; };
-		F9C3C069161AB80D00409FF2 /* DeviceRegistration.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C068161AB80C00409FF2 /* DeviceRegistration.m */; };
-		F9C3C06D161AB82F00409FF2 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C06C161AB82F00409FF2 /* Message.m */; };
-		F9C3C071161AB84200409FF2 /* MessageStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C070161AB84100409FF2 /* MessageStatus.m */; };
-		F9C3C083161C596000409FF2 /* BESubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C082161C595D00409FF2 /* BESubscription.m */; };
-		F9CBE3F81715C1EE0004FE0A /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CBE3F417143EE00004FE0A /* CoreData.framework */; };
-		F9FF0E8C160DA8F400AEB3B7 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F9FF0E8B160DA8F400AEB3B7 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -452,7 +371,6 @@
 		91F139C017D7298000D1AC4C /* BinaryCodec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BinaryCodec.h; sourceTree = "<group>"; };
 		91F139C117D7298000D1AC4C /* BinaryStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BinaryStream.h; sourceTree = "<group>"; };
 		91FA67A6184CAB6900D69C12 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		F9042B0315FDD8D300C9381A /* backendlessAPI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = backendlessAPI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9042B0715FDD8D300C9381A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F9042B0915FDD8D300C9381A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F9042B0B15FDD8D300C9381A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -511,7 +429,6 @@
 		F91B481C1603378200012DFC /* BackendlessCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackendlessCollection.h; sourceTree = "<group>"; };
 		F91B481D1603378200012DFC /* BackendlessCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackendlessCollection.m; sourceTree = "<group>"; };
 		F91B48291603649C00012DFC /* IDataStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDataStore.h; sourceTree = "<group>"; };
-		F925036E16D599B000ECC48B /* license.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = license.bin; sourceTree = "<group>"; };
 		F9512965168DCFE90041460C /* MediaPublisher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaPublisher.h; sourceTree = "<group>"; };
 		F9512966168DCFE90041460C /* MediaPublisher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaPublisher.m; sourceTree = "<group>"; };
 		F951296F168DCFFF0041460C /* MediaPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaPlayer.h; sourceTree = "<group>"; };
@@ -593,37 +510,6 @@
 				91628E5817FAD55A00ACC36F /* IOKit.framework in Frameworks */,
 				91628E5617FACDE200ACC36F /* AppKit.framework in Frameworks */,
 				91628E2217FAC79F00ACC36F /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F9042B0015FDD8D300C9381A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				91B0B26C186459EB000E6366 /* CoreLocation.framework in Frameworks */,
-				91B0B26F18645A0D000E6366 /* SystemConfiguration.framework in Frameworks */,
-				91B0B26D186459F2000E6366 /* MapKit.framework in Frameworks */,
-				618596331859CA5900529492 /* libsqlite3.0.dylib in Frameworks */,
-				F9042B0C15FDD8D300C9381A /* CoreGraphics.framework in Frameworks */,
-				F91B47FD15FF49B400012DFC /* Security.framework in Frameworks */,
-				F9512988168E080B0041460C /* libz.dylib in Frameworks */,
-				F9042B0815FDD8D300C9381A /* UIKit.framework in Frameworks */,
-				F9042B0A15FDD8D300C9381A /* Foundation.framework in Frameworks */,
-				F91B47FC15FF49B100012DFC /* CFNetwork.framework in Frameworks */,
-				F9512983168E04C40041460C /* AudioToolbox.framework in Frameworks */,
-				F9512984168E04C40041460C /* AVFoundation.framework in Frameworks */,
-				F9512985168E04C40041460C /* CoreMedia.framework in Frameworks */,
-				F9512986168E04C40041460C /* CoreVideo.framework in Frameworks */,
-				F9CBE3F81715C1EE0004FE0A /* CoreData.framework in Frameworks */,
-				F91B47DA15FE380C00012DFC /* CommLibiOS.a in Frameworks */,
-				F994A42F168DC50400C1A498 /* libavcodec.a in Frameworks */,
-				F994A434168DC50500C1A498 /* libavdevice.a in Frameworks */,
-				F994A439168DC50500C1A498 /* libavfilter.a in Frameworks */,
-				F994A43E168DC50500C1A498 /* libavformat.a in Frameworks */,
-				F994A443168DC50500C1A498 /* libavutil.a in Frameworks */,
-				F994A448168DC50500C1A498 /* libswresample.a in Frameworks */,
-				F994A44D168DC50500C1A498 /* libswscale.a in Frameworks */,
-				F994A452168DC50500C1A498 /* MediaLibiOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -728,7 +614,6 @@
 				91764F981823E40000745497 /* BECollectionView */,
 				91DF02371821623E009DAE40 /* BEMapView */,
 				912D5049182102C7006A090A /* BETableView */,
-				F925036D16D599B000ECC48B /* com.themidnightcoders.license */,
 				F91B47C415FE380C00012DFC /* lib */,
 				F91B47E115FF448F00012DFC /* Classes */,
 				F9042B0D15FDD8D300C9381A /* backendlessAPI */,
@@ -742,7 +627,6 @@
 		F9042B0415FDD8D300C9381A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F9042B0315FDD8D300C9381A /* backendlessAPI.app */,
 				F97969DC166CC8C300595F5E /* libbackendless-simulator.a */,
 				F9796A28166CD3A400595F5E /* libbackendless-device.a */,
 				91628E5417FAC79F00ACC36F /* libbackendless-mac.a */,
@@ -1008,15 +892,6 @@
 				910117D3180C0CCF008102A7 /* BodyParts.m */,
 			);
 			path = Messaging;
-			sourceTree = "<group>";
-		};
-		F925036D16D599B000ECC48B /* com.themidnightcoders.license */ = {
-			isa = PBXGroup;
-			children = (
-				F925036E16D599B000ECC48B /* license.bin */,
-			);
-			name = com.themidnightcoders.license;
-			path = ../com.themidnightcoders.license;
 			sourceTree = "<group>";
 		};
 		F97969DE166CC8C300595F5E /* backendless-simulator */ = {
@@ -1296,6 +1171,7 @@
 				91628DF817FAC79F00ACC36F /* Sources */,
 				91628E2017FAC79F00ACC36F /* Frameworks */,
 				91628E2417FAC79F00ACC36F /* Headers */,
+				F9BBFD27187832A60076BC6D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1305,23 +1181,6 @@
 			productName = "backendless-simulator";
 			productReference = 91628E5417FAC79F00ACC36F /* libbackendless-mac.a */;
 			productType = "com.apple.product-type.library.static";
-		};
-		F9042B0215FDD8D300C9381A /* backendlessAPI */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = F9042B2415FDD8D300C9381A /* Build configuration list for PBXNativeTarget "backendlessAPI" */;
-			buildPhases = (
-				F9042AFF15FDD8D300C9381A /* Sources */,
-				F9042B0015FDD8D300C9381A /* Frameworks */,
-				F9042B0115FDD8D300C9381A /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = backendlessAPI;
-			productName = backendlessAPI;
-			productReference = F9042B0315FDD8D300C9381A /* backendlessAPI.app */;
-			productType = "com.apple.product-type.application";
 		};
 		F97969DB166CC8C300595F5E /* backendless-simulator */ = {
 			isa = PBXNativeTarget;
@@ -1382,28 +1241,10 @@
 				F97969DB166CC8C300595F5E /* backendless-simulator */,
 				F9796A27166CD3A400595F5E /* backendless-device */,
 				F9796A6F166CD49A00595F5E /* backendless-fat */,
-				F9042B0215FDD8D300C9381A /* backendlessAPI */,
 				91628DF717FAC79F00ACC36F /* backendless-mac */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXResourcesBuildPhase section */
-		F9042B0115FDD8D300C9381A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F9042B1215FDD8D300C9381A /* InfoPlist.strings in Resources */,
-				F9042B1B15FDD8D300C9381A /* MainStoryboard_iPhone.storyboard in Resources */,
-				F9042B1E15FDD8D300C9381A /* MainStoryboard_iPad.storyboard in Resources */,
-				F9FF0E8C160DA8F400AEB3B7 /* Default-568h@2x.png in Resources */,
-				F994A41F168DC50400C1A498 /* Building Media Stream Apps.docx in Resources */,
-				F994A422168DC50400C1A498 /* Media Library for iOS User Guide.docx in Resources */,
-				F925036F16D599B000ECC48B /* license.bin in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		F9796A73166CD4F800595F5E /* ShellScript */ = {
@@ -1418,6 +1259,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "rm -rf ${BUILT_PRODUCTS_DIR}/backendless.a\n\nlipo -create \"${BUILT_PRODUCTS_DIR}/../Release-iphonesimulator/libbackendless-simulator.a\" \\\n\"${BUILT_PRODUCTS_DIR}/libbackendless-device.a\" -output \\\n\"${BUILT_PRODUCTS_DIR}/backendless.a\"\n\ncp ${BUILT_PRODUCTS_DIR}/backendless.a ${SRCROOT}/../lib/backendless\ncp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../lib/backendless/include\n                                          \nrm -rf ${BUILT_PRODUCTS_DIR}/usr/local/include/*\n";
+		};
+		F9BBFD27187832A60076BC6D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\ncp ${BUILT_PRODUCTS_DIR}/libbackendless-mac.a ${SRCROOT}/../lib/backendless\ncp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../lib/backendless/include\n                                           \nrm -rf ${BUILT_PRODUCTS_DIR}/usr/local/include/*\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1469,63 +1323,6 @@
 				91628E1D17FAC79F00ACC36F /* BackendlessCacheKey.m in Sources */,
 				91628E1E17FAC79F00ACC36F /* BackendlessCachePolicy.m in Sources */,
 				91628E1F17FAC79F00ACC36F /* QueryOptions.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F9042AFF15FDD8D300C9381A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F9042B1415FDD8D300C9381A /* main.m in Sources */,
-				F9042B1815FDD8D300C9381A /* AppDelegate.m in Sources */,
-				F9042B2115FDD8D300C9381A /* ViewController.m in Sources */,
-				F91B47EB15FF448F00012DFC /* HashMap.m in Sources */,
-				91A4286018508269005F91DE /* Reachability.m in Sources */,
-				F91B480015FF569400012DFC /* Backendless.m in Sources */,
-				F91B480315FF5AA900012DFC /* Invoker.m in Sources */,
-				F91B480615FF5AC500012DFC /* UserService.m in Sources */,
-				91DF023F1821625B009DAE40 /* BEMapView.m in Sources */,
-				F91B480A15FF724000012DFC /* BackendlessUser.m in Sources */,
-				F91B480D15FF7DEA00012DFC /* UserProperty.m in Sources */,
-				F91B48151602254900012DFC /* PersistenceService.m in Sources */,
-				F91B481816032EA900012DFC /* ObjectProperty.m in Sources */,
-				910117D9180C0CCF008102A7 /* BodyParts.m in Sources */,
-				F91B481B1603340A00012DFC /* BackendlessEntity.m in Sources */,
-				F91B481E1603378300012DFC /* BackendlessCollection.m in Sources */,
-				F99D92251607240C00AFF3F6 /* DataStoreFactory.m in Sources */,
-				F99D9235160B61AF00AFF3F6 /* AbstractProperty.m in Sources */,
-				F99D9238160B6A5500AFF3F6 /* GeoCategory.m in Sources */,
-				F99D923B160B6A6800AFF3F6 /* GeoPoint.m in Sources */,
-				F99D923E160B6A7F00AFF3F6 /* GeoService.m in Sources */,
-				F9C3BF731613175600409FF2 /* BackendlessDataQuery.m in Sources */,
-				F9C3BF77161486B500409FF2 /* BackendlessGeoQuery.m in Sources */,
-				F9C3C059161AB6A500409FF2 /* MessagingService.m in Sources */,
-				F9C3C05D161AB72100409FF2 /* DeliveryOptions.m in Sources */,
-				F9C3C061161AB7AC00409FF2 /* PublishOptions.m in Sources */,
-				F9C3C065161AB7D600409FF2 /* SubscriptionOptions.m in Sources */,
-				F9C3C069161AB80D00409FF2 /* DeviceRegistration.m in Sources */,
-				F9C3C06D161AB82F00409FF2 /* Message.m in Sources */,
-				F9C3C071161AB84200409FF2 /* MessageStatus.m in Sources */,
-				F9C3C083161C596000409FF2 /* BESubscription.m in Sources */,
-				91764FA01823E43400745497 /* BECollectionView.m in Sources */,
-				F918412E1638281600D36A61 /* FileService.m in Sources */,
-				F9184134163AB29600D36A61 /* BackendlessFile.m in Sources */,
-				F994A3F8168DC36B00C1A498 /* MediaPublishOptions.m in Sources */,
-				91A4280C184E2447005F91DE /* OfflineModeManager.m in Sources */,
-				F994A402168DC39500C1A498 /* MediaPlaybackOptions.m in Sources */,
-				F994A40B168DC3BA00C1A498 /* MediaService.m in Sources */,
-				F951296B168DCFE90041460C /* MediaPublisher.m in Sources */,
-				F9512975168DCFFF0041460C /* MediaPlayer.m in Sources */,
-				916BE1CC174228EF0020C2CB /* PersistenceServiceUser.m in Sources */,
-				91F1399917D7240A00D1AC4C /* AbstractQuery.m in Sources */,
-				91A42800184E23D5005F91DE /* ISDatabase.m in Sources */,
-				91F1399E17D7240A00D1AC4C /* BackendlessCache.m in Sources */,
-				91F139A317D7240A00D1AC4C /* BackendlessCacheData.m in Sources */,
-				91DF024B1821718C009DAE40 /* BEAnnotation.m in Sources */,
-				91F139A817D7240A00D1AC4C /* BackendlessCacheKey.m in Sources */,
-				91F139AD17D7240A00D1AC4C /* BackendlessCachePolicy.m in Sources */,
-				912D5051182102F0006A090A /* BETableView.m in Sources */,
-				91F139B617D724C700D1AC4C /* QueryOptions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1729,7 +1526,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1746,9 +1543,10 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 armv7 armv7s i386";
 			};
 			name = Debug;
 		};
@@ -1756,7 +1554,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1766,71 +1564,12 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		F9042B2515FDD8D300C9381A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = (
-					"$(ARCHS_STANDARD)",
-					i386,
-				);
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/backendlessAPI\"",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "backendlessAPI/backendlessAPI-Prefix.pch";
-				GCC_WARN_UNUSED_VARIABLE = NO;
-				INFOPLIST_FILE = "backendlessAPI/backendlessAPI-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../lib/CommLibiOS\"",
-					"\"$(SRCROOT)/../lib/MediaLibiOS\"",
-				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				TEST_AFTER_BUILD = NO;
-				VALID_ARCHS = "i386 armv7 armv7s";
-				WRAPPER_EXTENSION = app;
-			};
-			name = Debug;
-		};
-		F9042B2615FDD8D300C9381A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = (
-					"$(ARCHS_STANDARD)",
-					i386,
-				);
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/backendlessAPI\"",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "backendlessAPI/backendlessAPI-Prefix.pch";
-				GCC_WARN_UNUSED_VARIABLE = NO;
-				INFOPLIST_FILE = "backendlessAPI/backendlessAPI-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../lib/CommLibiOS\"",
-					"\"$(SRCROOT)/../lib/MediaLibiOS\"",
-				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				TEST_AFTER_BUILD = NO;
-				VALID_ARCHS = "i386 armv7 armv7s";
-				WRAPPER_EXTENSION = app;
+				VALID_ARCHS = "arm64 armv7 armv7s i386";
 			};
 			name = Release;
 		};
@@ -1848,17 +1587,21 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "backendless-simulator/backendless-simulator-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
+				"GCC_WARN_64_TO_32_BIT_CONVERSION[arch=*64]" = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = NO;
+				GCC_WARN_UNUSED_VALUE = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../lib/MediaLibiOS\"",
 				);
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
-				VALID_ARCHS = "armv7 armv7s i386 arm64";
+				VALID_ARCHS = i386;
 			};
 			name = Debug;
 		};
@@ -1876,16 +1619,21 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "backendless-simulator/backendless-simulator-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
+				"GCC_WARN_64_TO_32_BIT_CONVERSION[arch=*64]" = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = NO;
+				GCC_WARN_UNUSED_VALUE = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../lib/MediaLibiOS\"",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
-				VALID_ARCHS = "armv7 armv7s i386 arm64";
+				VALID_ARCHS = i386;
 			};
 			name = Release;
 		};
@@ -1903,12 +1651,14 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "backendless-device/backendless-device-Prefix.pch";
+				GCC_WARN_UNINITIALIZED_AUTOS = NO;
+				GCC_WARN_UNUSED_VALUE = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../lib/MediaLibiOS\"",
 				);
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1931,11 +1681,14 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "backendless-device/backendless-device-Prefix.pch";
+				GCC_WARN_UNINITIALIZED_AUTOS = NO;
+				GCC_WARN_UNUSED_VALUE = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../lib/MediaLibiOS\"",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1985,15 +1738,6 @@
 			buildConfigurations = (
 				F9042B2215FDD8D300C9381A /* Debug */,
 				F9042B2315FDD8D300C9381A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F9042B2415FDD8D300C9381A /* Build configuration list for PBXNativeTarget "backendlessAPI" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F9042B2515FDD8D300C9381A /* Debug */,
-				F9042B2615FDD8D300C9381A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

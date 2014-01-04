@@ -77,7 +77,7 @@ static NSString *DEFAULT_DATABASE_NAME = @"OfflineModeDatabase";
 -(id)saveObject:(id)object
 {
     BinaryStream *binary = [AMFSerializer serializeToBytes:object];
-    NSString *data = [Base64 encode:binary.buffer length:binary.size];
+    NSString *data = [Base64 encode:(const uint8_t *)binary.buffer length:binary.size];
     BackendlessEntity *response = [AMFSerializer deserializeFromBytes:binary];
     if (response.objectId.length == 0) {
         response.objectId = [self GUIDString];
@@ -108,7 +108,7 @@ static NSString *DEFAULT_DATABASE_NAME = @"OfflineModeDatabase";
     }
     NSString *str = objectData[0][@"data"];
     NSData *data = [Base64 decode:str];
-    BinaryStream *binary = [BinaryStream streamWithStream:data.bytes andSize:data.length];
+    BinaryStream *binary = [BinaryStream streamWithStream:(char *)data.bytes andSize:data.length];
     return [AMFSerializer deserializeFromBytes:binary];
 }
 -(void)startUploadData
