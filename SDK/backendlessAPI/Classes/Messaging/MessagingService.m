@@ -100,7 +100,7 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 	
     if ( (self=[super init]) ) {
         
-        [[Types sharedInstance] addClientClassMapping:@"com.backendless.management.DeviceRegistrationDto" mapped:[DeviceRegistration class]];
+        [[Types sharedInstance] addClientClassMapping:@"com.backendless.management.DeviceRegistration" mapped:[DeviceRegistration class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.messaging.Message" mapped:[Message class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.messaging.MessageStatus" mapped:[MessageStatus class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.messaging.PublishOptions" mapped:[PublishOptions class]];
