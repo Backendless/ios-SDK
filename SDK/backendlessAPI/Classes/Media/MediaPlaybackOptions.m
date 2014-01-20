@@ -28,7 +28,7 @@
 	if ( (self=[super init]) ) {
         _isLive = YES;
         _orientation = UIImageOrientationRight;
-        _previewView = nil;
+        _previewPanel = nil;
 	}
 	
 	return self;
@@ -44,7 +44,7 @@
 +(id)liveStream:(UIImageView *)view {
     
     MediaPlaybackOptions *instance = [MediaPlaybackOptions new];
-    instance.previewView = view;
+    instance.previewPanel = view;
     
     return [instance autorelease];
 }
@@ -52,7 +52,7 @@
 +(id)recordStream:(UIImageView *)view {
     
     MediaPlaybackOptions *instance = [MediaPlaybackOptions new];
-    instance.previewView = view;
+    instance.previewPanel = view;
     instance.isLive = NO;
     
     return [instance autorelease];
@@ -61,7 +61,7 @@
 +(id)options:(BOOL)isLive orientation:(UIImageOrientation)orientation view:(UIImageView *)view {
     
     MediaPlaybackOptions *instance = [MediaPlaybackOptions new];
-    instance.previewView = view;
+    instance.previewPanel = view;
     instance.isLive = isLive;
     instance.orientation = orientation;
     

@@ -31,7 +31,7 @@
         _orientation = AVCaptureVideoOrientationLandscapeRight;
         _content = AUDIO_AND_VIDEO;
         _resolution = LOW_RESOLUTION;
-        _previewView = nil;
+        _previewPanel = nil;
 	}
 	
 	return self;
@@ -47,7 +47,7 @@
 +(id)liveStream:(UIView *)view {
     
     MediaPublishOptions *instance = [MediaPublishOptions new];
-    instance.previewView = view;
+    instance.previewPanel = view;
     
     return [instance autorelease];
 }
@@ -55,7 +55,7 @@
 +(id)recordStream:(UIView *)view {
     
     MediaPublishOptions *instance = [MediaPublishOptions new];
-    instance.previewView = view;
+    instance.previewPanel = view;
     instance.publishType = VIDEO_RECORD;
     
     return [instance autorelease];    
@@ -64,7 +64,7 @@
 +(id)appendStream:(UIView *)view {
     
     MediaPublishOptions *instance = [MediaPublishOptions new];
-    instance.previewView = view;
+    instance.previewPanel = view;
     instance.publishType = VIDEO_APPEND;
     
     return [instance autorelease];    
@@ -73,7 +73,7 @@
 +(id)options:(MediaPublishType)type orientation:(AVCaptureVideoOrientation)orientation resolution:(VideoResolution)resolution view:(UIView *)view {
     
     MediaPublishOptions *instance = [MediaPublishOptions new];
-    instance.previewView = view;
+    instance.previewPanel = view;
     instance.publishType = type;
     instance.orientation = orientation;
     instance.resolution = resolution;

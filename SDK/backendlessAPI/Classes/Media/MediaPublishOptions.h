@@ -51,7 +51,7 @@ typedef enum {
 @property AVCaptureVideoOrientation orientation;
 @property VideoResolution resolution;
 @property MediaStreamContent content;
-@property (assign, nonatomic) UIView *previewView;
+@property (assign, nonatomic) UIView *previewPanel;
 
 +(id)liveStream:(UIView *)view;
 +(id)recordStream:(UIView *)view;

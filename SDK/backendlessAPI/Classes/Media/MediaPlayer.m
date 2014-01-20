@@ -124,7 +124,7 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
     if (_stream)
         [_stream disconnect];
     
-    FramesPlayer *_player = [[FramesPlayer alloc] initWithView:_options.previewView];
+    FramesPlayer *_player = [[FramesPlayer alloc] initWithView:_options.previewPanel];
     _player.orientation = _options.orientation;
     
     _stream = [[MediaStreamPlayer alloc] init:_streamPath];

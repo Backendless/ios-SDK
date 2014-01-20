@@ -153,7 +153,7 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
     _stream = [[BroadcastStreamClient alloc] init:_streamPath resolution:_options.resolution];
     _stream.parameters = [self parameters];
     [_stream switchCameras];
-    [_stream setPreviewLayer:_options.previewView];
+    [_stream setPreviewLayer:_options.previewPanel];
     
     /*/
     
@@ -164,14 +164,14 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
         case AUDIO_AND_VIDEO: {
             _stream = [[BroadcastStreamClient alloc] init:_streamPath resolution:_options.resolution];
             [_stream switchCameras];
-            [_stream setPreviewLayer:_options.previewView];
+            [_stream setPreviewLayer:_options.previewPanel];
             break;
         }
             
         case ONLY_VIDEO: {
             _stream = [[BroadcastStreamClient alloc] initOnlyVideo:_streamPath resolution:_options.resolution];
             [_stream switchCameras];
-            [_stream setPreviewLayer:_options.previewView];
+            [_stream setPreviewLayer:_options.previewPanel];
             break;
         }
             
