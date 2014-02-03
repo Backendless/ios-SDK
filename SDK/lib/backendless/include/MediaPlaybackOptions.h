@@ -27,7 +27,7 @@
 
 @property BOOL isLive;
 @property UIImageOrientation orientation;
-@property (assign, nonatomic) UIImageView *previewView;
+@property (assign, nonatomic) UIImageView *previewPanel;
 
 +(id)liveStream:(UIImageView *)view;
 +(id)recordStream:(UIImageView *)view;

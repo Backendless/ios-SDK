@@ -663,8 +663,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 {
     NSDictionary *properties = [Types propertyDictionary:object];
     NSMutableDictionary *result= [NSMutableDictionary dictionaryWithDictionary:properties];
-    [result removeObjectForKey:@"__meta"];
-    NSLog(@"%@", result);
+//    [result removeObjectForKey:@"__meta"];
     
     return result;
 }
