@@ -173,8 +173,9 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
     
     if (!user) 
         return [backendless throwFault:FAULT_NO_USER];
-    
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [user getProperties], nil];
+    NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
+    [props removeObjectForKey:BACKENDLESS_USER_TOKEN];
+    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, props, nil];
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_UPDATE args:args];
     NSLog(@"%@", [Types propertyDictionary:result]);
     if ([result isKindOfClass:[Fault class]]) {
@@ -190,7 +191,6 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
     
     if (!login || !password || ![login length] || ![password length])
         return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
-    
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, login, password, nil];
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_LOGIN args:args];
     if ([result isKindOfClass:[Fault class]]) {
@@ -289,8 +289,9 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
     
     if (!user) 
         return [responder errorHandler:FAULT_NO_USER];
-    
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [user getProperties], nil];
+    NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
+    [props removeObjectForKey:BACKENDLESS_USER_TOKEN];
+    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, props, nil];
     UserServiceResponder *_responder = [UserServiceResponder responder:user chained:responder];
     _responder.current = backendless.userService.currentUser;
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_UPDATE args:args responder:_responder];

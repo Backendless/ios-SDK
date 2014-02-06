@@ -96,8 +96,16 @@
 #pragma mark Public Methods
 
 -(void)setProperties:(NSDictionary *)props {
-    [properties release];
-    properties = (props) ? [[HashMap alloc] initWithNode:props] : nil;
+    if (properties) {
+        NSArray *keys = [props allKeys];
+        for (NSString *key in keys) {
+            [properties push:key withObject:props[key]];
+        }
+    }
+    else
+    {
+        properties = (props) ? [[HashMap alloc] initWithNode:props] : nil;
+    }
 }
 
 -(NSDictionary *)getProperties {
