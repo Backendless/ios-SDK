@@ -266,6 +266,9 @@ static NSString *METHOD_GET_POINTS_WITH_MATCHES = @"relativeFind";
 
 -(id)getResponse:(ResponseContext *)response
 {
+//    NSLog(@"%@", response);
+//    NSLog(@"%@", response.response);
+//    NSLog(@"%@", response.context);
     BackendlessCollection *collection = response.response;
     BackendlessGeoQuery *geoQuery = response.context;
     collection.backendlessQuery = geoQuery;

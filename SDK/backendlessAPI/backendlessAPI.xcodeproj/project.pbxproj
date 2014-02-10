@@ -2181,6 +2181,7 @@
 				ARCHS = (
 					arm64,
 					i386,
+					x86_64,
 				);
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -2212,7 +2213,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
-				VALID_ARCHS = "i386 arm64";
+				VALID_ARCHS = "i386 arm64 x86_64";
 			};
 			name = Debug;
 		};
@@ -2222,6 +2223,7 @@
 				ARCHS = (
 					arm64,
 					i386,
+					x86_64,
 				);
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -2253,7 +2255,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
-				VALID_ARCHS = "i386 arm64";
+				VALID_ARCHS = "i386 arm64 x86_64";
 			};
 			name = Release;
 		};
