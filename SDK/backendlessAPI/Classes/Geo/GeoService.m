@@ -61,6 +61,7 @@ static NSString *METHOD_GET_POINTS_WITH_MATCHES = @"relativeFind";
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.model.GeoPoint" mapped:[GeoPoint class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.BackendlesGeoQuery" mapped:[BackendlessGeoQuery class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.model.SearchMatchesResult" mapped:[SearchMatchesResult class]];
+        [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.BackendlessCollection" mapped:[BackendlessCollection class]];
 	}
 	
 	return self;
@@ -122,6 +123,15 @@ static NSString *METHOD_GET_POINTS_WITH_MATCHES = @"relativeFind";
     if ([result isKindOfClass:[Fault class]]) {
         return result;
     }
+
+#if 1
+    if (![result isKindOfClass:[BackendlessCollection class]]) {
+        
+        NSLog(@"GeoService->getPoints: (ERROR) [%@]\n%@", [result class], result);
+        return nil;
+    }
+#endif
+    
     BackendlessCollection *collection = result;
     collection.backendlessQuery = query;
     return collection;
