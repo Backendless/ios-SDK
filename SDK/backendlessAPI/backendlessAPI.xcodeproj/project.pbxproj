@@ -1860,7 +1860,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "rm -rf ${BUILT_PRODUCTS_DIR}/backendless.a\n\nlipo -create \"${BUILT_PRODUCTS_DIR}/../Release-iphonesimulator/libbackendless-simulator.a\" \\\n\"${BUILT_PRODUCTS_DIR}/libbackendless-device.a\" -output \\\n\"${BUILT_PRODUCTS_DIR}/backendless.a\"\n\ncp ${BUILT_PRODUCTS_DIR}/backendless.a ${SRCROOT}/../lib/backendless\ncp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../lib/backendless/include\n                                          \nrm -rf ${BUILT_PRODUCTS_DIR}/usr/local/include/*\n";
+			shellScript = "rm -rf ${BUILT_PRODUCTS_DIR}/backendless.a\n\nlipo -create \"${BUILT_PRODUCTS_DIR}/../Release-iphonesimulator/libbackendless-simulator.a\" \\\n\"${BUILT_PRODUCTS_DIR}/libbackendless-device.a\" -output \\\n\"${BUILT_PRODUCTS_DIR}/backendless.a\"\n\ncp ${BUILT_PRODUCTS_DIR}/backendless.a ${SRCROOT}/../lib/backendless\ncp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../lib/backendless/include\n\ncp ${BUILT_PRODUCTS_DIR}/backendless.a ${SRCROOT}/../../../iOS-Samples/lib/backendless\ncp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../../../iOS-Samples/lib/backendless/include\n\nrm -rf ${BUILT_PRODUCTS_DIR}/usr/local/include/*\n";
 		};
 		F9BBFD27187832A60076BC6D /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
