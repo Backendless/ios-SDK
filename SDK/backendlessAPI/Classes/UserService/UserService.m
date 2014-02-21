@@ -207,7 +207,7 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
     if ([result isKindOfClass:[Fault class]]) {
         Fault *f = result;
         if ([f.faultCode isEqualToString:@"3064"] || [f.faultCode isEqualToString:@"3090"] || [f.faultCode isEqualToString:@"3091"]) {
-            return [self onLogout:f]
+            return [self onLogout:f];
         }
         return result;
     }
