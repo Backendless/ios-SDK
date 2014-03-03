@@ -205,6 +205,10 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, nil];
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_LOGOUT args:args];
     if ([result isKindOfClass:[Fault class]]) {
+        Fault *f = result;
+        if ([f.faultCode isEqualToString:@"3064"] || [f.faultCode isEqualToString:@"3090"] || [f.faultCode isEqualToString:@"3091"]) {
+            return [self onLogout:f];
+        }
         return result;
     }
     
