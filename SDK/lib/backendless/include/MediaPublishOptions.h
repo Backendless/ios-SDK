@@ -42,7 +42,9 @@ typedef enum {
 typedef enum {
     AUDIO_AND_VIDEO,
     ONLY_VIDEO,
-    ONLY_AUDIO
+    ONLY_AUDIO,
+    CUSTOM_VIDEO,
+    AUDIO_AND_CUSTOM_VIDEO,
 } MediaStreamContent;
 
 @interface MediaPublishOptions : NSObject
