@@ -94,6 +94,26 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
     [_stream switchCameras];    
 }
 
+-(AVCaptureSession *)getCaptureSession {
+    return [_stream getCaptureSession];
+}
+
+-(BOOL)sendFrame:(CVPixelBufferRef)pixelBuffer timestamp:(int)timestamp {
+    return [_stream sendFrame:pixelBuffer timestamp:timestamp];
+}
+
+-(BOOL)sendSampleBuffer:(CMSampleBufferRef)sampleBuffer {
+    return [_stream sendSampleBuffer:sampleBuffer];
+}
+
+-(void)sendMetadata:(NSDictionary *)data {
+    [_stream sendMetadata:data];
+}
+
+-(void)sendMetadata:(NSDictionary *)data event:(NSString *)event {
+    [_stream sendMetadata:data event:event];
+}
+
 -(NSString *)operationType {
     
     switch (_options.publishType) {
@@ -148,28 +168,19 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
     if (_stream)
         [_stream disconnect];
     
-    /*/
-     
-    _stream = [[BroadcastStreamClient alloc] init:_streamPath resolution:_options.resolution];
-    _stream.parameters = [self parameters];
-    [_stream switchCameras];
-    [_stream setPreviewLayer:_options.previewPanel];
-    
-    /*/
-    
     [DebLog log:@"MediaPublisher -> connect: content = %d", _options.content];
     
     switch (_options.content) {
         
         case AUDIO_AND_VIDEO: {
-            _stream = [[BroadcastStreamClient alloc] init:_streamPath resolution:_options.resolution];
+            _stream = [[BroadcastStreamClient alloc] init:_streamPath resolution:(MPVideoResolution)_options.resolution];
             [_stream switchCameras];
             [_stream setPreviewLayer:_options.previewPanel];
             break;
         }
             
         case ONLY_VIDEO: {
-            _stream = [[BroadcastStreamClient alloc] initOnlyVideo:_streamPath resolution:_options.resolution];
+            _stream = [[BroadcastStreamClient alloc] initOnlyVideo:_streamPath resolution:(MPVideoResolution)_options.resolution];
             [_stream switchCameras];
             [_stream setPreviewLayer:_options.previewPanel];
             break;
@@ -180,6 +191,20 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
             break;
         }
             
+        case CUSTOM_VIDEO: {
+            _stream = [[BroadcastStreamClient alloc] init:_streamPath resolution:(MPVideoResolution)_options.resolution];
+            [_stream setVideoMode:VIDEO_CUSTOM];
+            [_stream setAudioMode:AUDIO_OFF];
+            break;
+        }
+            
+        case AUDIO_AND_CUSTOM_VIDEO: {
+            _stream = [[BroadcastStreamClient alloc] init:_streamPath resolution:(MPVideoResolution)_options.resolution];
+            [_stream setVideoMode:VIDEO_CUSTOM];
+            [_stream setAudioMode:AUDIO_ON];
+            break;
+        }
+           
         default:
             return;
     }
@@ -189,7 +214,7 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
     //
     
     _stream.delegate = self;
-    [_stream stream:_streamName publishType:_options.publishType];
+    [_stream stream:_streamName publishType:(MPMediaPublishType)_options.publishType];
 }
 
 -(void)start {
@@ -287,7 +312,7 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
             break;
     }
     
-    [self streamStateChanged:sender state:state description:description];
+    [self streamStateChanged:sender state:(StateMediaStream)state description:description];
 }
 
 -(void)connectFailed:(id)sender code:(int)code description:(NSString *)description {

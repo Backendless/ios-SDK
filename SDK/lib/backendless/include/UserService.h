@@ -51,7 +51,7 @@
 -(void)describeUserClass:(id <IResponder>)responder;
 -(void)user:(NSString *)user assignRole:(NSString *)role responder:(id <IResponder>)responder;
 -(void)user:(NSString *)user unassignRole:(NSString *)role responder:(id <IResponder>)responder;
--(void)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary *)user fieldsMapping:(NSDictionary<FBGraphUser> *)fieldsMapping responder:(id <IResponder>)responder;
+-(void)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping responder:(id <IResponder>)responder;
 -(void)getUserRoles:(id <IResponder>)responder;
 
 // async methods with block-base callbacks
@@ -63,7 +63,7 @@
 -(void)describeUserClass:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)user:(NSString *)user assignRole:(NSString *)role response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)user:(NSString *)user unassignRole:(NSString *)role response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary *)user fieldsMapping:(NSDictionary<FBGraphUser> *)fieldsMapping response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getUserRoles:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 
 // async social easy logins

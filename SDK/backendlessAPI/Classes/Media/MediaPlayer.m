@@ -237,7 +237,7 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
             break;
     }
     
-    [self streamStateChanged:sender state:state description:description];
+    [self streamStateChanged:sender state:(StateMediaStream)state description:description];
 }
 
 -(void)connectFailed:(id)sender code:(int)code description:(NSString *)description {

@@ -409,7 +409,7 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
     [self user:user unassignRole:role responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary *)user fieldsMapping:(NSDictionary<FBGraphUser> *)fieldsMapping response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary<FBGraphUser> *)fieldsMapping response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [self loginWithFacebookSDK:session user:user fieldsMapping:fieldsMapping responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 -(void)getUserRoles:(void (^)(NSArray *))responseBlock error:(void (^)(Fault *))errorBlock {
@@ -460,7 +460,7 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
     }
     
     NSString *absoluteString = [[url.absoluteString stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@://", url.scheme] withString:@""] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    id userData = [NSJSONSerialization JSONObjectWithData:[absoluteString dataUsingEncoding:NSUTF8StringEncoding] options:nil error:nil];
+    id userData = [NSJSONSerialization JSONObjectWithData:[absoluteString dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
     return [self onLogin:userData];
 }
 
