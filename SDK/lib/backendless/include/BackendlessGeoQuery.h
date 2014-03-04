@@ -35,7 +35,7 @@ typedef enum {
     NSNumber            *latitude;          // double
     NSNumber            *longitude;         // double
     NSNumber            *radius;            // double
-    NSNumber            *units;             // UNITS
+    NSString            *units;             // string
     NSMutableArray      *categories;
     NSNumber            *includeMeta;       // BOOL
     NSMutableDictionary *metadata;
@@ -47,7 +47,7 @@ typedef enum {
 @property (strong, nonatomic) NSNumber *latitude;
 @property (strong, nonatomic) NSNumber *longitude;
 @property (strong, nonatomic) NSNumber *radius;
-@property (strong, nonatomic) NSNumber *units;
+@property (strong, nonatomic) NSString *units;
 @property (strong, nonatomic) NSMutableArray *categories;
 @property (strong, nonatomic) NSNumber *includeMeta;
 @property (strong, nonatomic) NSMutableDictionary *metadata;

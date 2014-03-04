@@ -195,6 +195,7 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
             _stream = [[BroadcastStreamClient alloc] init:_streamPath resolution:(MPVideoResolution)_options.resolution];
             [_stream setVideoMode:VIDEO_CUSTOM];
             [_stream setAudioMode:AUDIO_OFF];
+            [_stream setPreviewLayer:_options.previewPanel];
             break;
         }
             
@@ -202,6 +203,7 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
             _stream = [[BroadcastStreamClient alloc] init:_streamPath resolution:(MPVideoResolution)_options.resolution];
             [_stream setVideoMode:VIDEO_CUSTOM];
             [_stream setAudioMode:AUDIO_ON];
+            [_stream setPreviewLayer:_options.previewPanel];
             break;
         }
            

@@ -25,6 +25,11 @@
 #define DEFAULT_PAGE_SIZE 20
 #define DEFAULT_OFFSET 0
 
+@interface BackendlessGeoQuery () {
+    UNITS queryUnits;
+}
+@end
+
 @implementation BackendlessGeoQuery
 @synthesize latitude, longitude, radius, units, categories, includeMeta, metadata, searchRectangle, pageSize, offset, whereClause, relativeFindMetadata, relativeFindPercentThreshold;
 
@@ -36,7 +41,7 @@
         latitude = [[NSNumber alloc] initWithDouble:0.0];
         longitude = [[NSNumber alloc] initWithDouble:0.0];
         radius = [[NSNumber alloc] initWithDouble:0.0];
-        units = [[NSNumber alloc] initWithInt:(int)METERS];
+        [self units:(int)METERS];
         categories = nil;
         includeMeta = [[NSNumber alloc] initWithBool:YES];
         metadata = nil;
@@ -58,7 +63,7 @@
         latitude = [[NSNumber alloc] initWithDouble:0.0];
         longitude = [[NSNumber alloc] initWithDouble:0.0];
         radius = [[NSNumber alloc] initWithDouble:0.0];
-        units = [[NSNumber alloc] initWithInt:(int)METERS];
+        [self units:(int)METERS];
         categories = (_categories) ? [[NSMutableArray alloc] initWithArray:_categories] : nil;
         includeMeta = [[NSNumber alloc] initWithBool:YES];
         metadata = nil;
@@ -80,7 +85,7 @@
         latitude = [[NSNumber alloc] initWithDouble:point.latitude];
         longitude = [[NSNumber alloc] initWithDouble:point.longitude];
         radius = [[NSNumber alloc] initWithDouble:0.0];
-        units = [[NSNumber alloc] initWithInt:(int)METERS];
+        [self units:(int)METERS];
         categories = nil;
         includeMeta = [[NSNumber alloc] initWithBool:YES];
         metadata = nil;
@@ -101,7 +106,7 @@
         latitude = [[NSNumber alloc] initWithDouble:point.latitude];
         longitude = [[NSNumber alloc] initWithDouble:point.longitude];
         radius = [[NSNumber alloc] initWithDouble:0.0];
-        units = [[NSNumber alloc] initWithInt:(int)METERS];
+        [self units:(int)METERS];
         categories = nil;
         includeMeta = [[NSNumber alloc] initWithBool:YES];
         metadata = nil;
@@ -122,7 +127,7 @@
         latitude = [[NSNumber alloc] initWithDouble:point.latitude];
         longitude = [[NSNumber alloc] initWithDouble:point.longitude];
         radius = [[NSNumber alloc] initWithDouble:0.0];
-        units = [[NSNumber alloc] initWithInt:(int)METERS];
+        [self units:(int)METERS];
         categories = (_categories) ? [[NSMutableArray alloc] initWithArray:_categories] : nil;
         includeMeta = [[NSNumber alloc] initWithBool:YES];
         metadata = nil;
@@ -143,7 +148,7 @@
         latitude = [[NSNumber alloc] initWithDouble:point.latitude];
         longitude = [[NSNumber alloc] initWithDouble:point.longitude];
         radius = [[NSNumber alloc] initWithDouble:_radius];
-        units = [[NSNumber alloc] initWithInt:(int)_units];
+        [self units:(int)_units];
         categories = nil;
         includeMeta = [[NSNumber alloc] initWithBool:YES];
         metadata = nil;
@@ -164,7 +169,7 @@
         latitude = [[NSNumber alloc] initWithDouble:point.latitude];
         longitude = [[NSNumber alloc] initWithDouble:point.longitude];
         radius = [[NSNumber alloc] initWithDouble:_radius];
-        units = [[NSNumber alloc] initWithInt:(int)_units];
+        [self units:(int)_units];
         categories = (_categories) ? [[NSMutableArray alloc] initWithArray:_categories] : nil;
         includeMeta = [[NSNumber alloc] initWithBool:YES];
         metadata = nil;
@@ -185,7 +190,7 @@
         latitude = [[NSNumber alloc] initWithDouble:point.latitude];
         longitude = [[NSNumber alloc] initWithDouble:point.longitude];
         radius = [[NSNumber alloc] initWithDouble:_radius];
-        units = [[NSNumber alloc] initWithInt:(int)_units];
+        [self units:(int)_units];
         categories = (_categories) ? [[NSMutableArray alloc] initWithArray:_categories] : nil;
         metadata = (_metadata) ? [[NSMutableDictionary alloc] initWithDictionary:_metadata] : nil;
         includeMeta = [[NSNumber alloc] initWithBool:YES];
@@ -206,7 +211,7 @@
         latitude = [[NSNumber alloc] initWithDouble:0.0];
         longitude = [[NSNumber alloc] initWithDouble:0.0];
         radius = [[NSNumber alloc] initWithDouble:0.0];
-        units = [[NSNumber alloc] initWithInt:(int)METERS];
+        [self units:(int)METERS];
         categories = nil;
         includeMeta = [[NSNumber alloc] initWithBool:YES];
         metadata = nil;
@@ -227,7 +232,7 @@
         latitude = [[NSNumber alloc] initWithDouble:0.0];
         longitude = [[NSNumber alloc] initWithDouble:0.0];
         radius = [[NSNumber alloc] initWithDouble:0.0];
-        units = [[NSNumber alloc] initWithInt:(int)METERS];
+        [self units:(int)METERS];
         categories = (_categories) ? [[NSMutableArray alloc] initWithArray:_categories] : nil;
         includeMeta = [[NSNumber alloc] initWithBool:YES];
         metadata = nil;
@@ -349,13 +354,17 @@
 }
 
 -(UNITS)valUnits {
-    return (UNITS)[units intValue];
+    return queryUnits;
 }
+
+static const char * const query_units[] = { "METERS", "MILES", "YARDS", "KILOMETERS", "FEET" };
 
 -(BOOL)units:(UNITS)_units {
     
+    queryUnits = _units;
+    
     [units release];
-    units = [[NSNumber alloc] initWithInt:(int)_units];
+    units = [[NSString alloc] initWithUTF8String:query_units[(int)_units]];
     return YES;
 }
 
