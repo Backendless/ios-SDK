@@ -56,6 +56,11 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
 #pragma mark -
 #pragma mark UserServiceResponder Class
 
+@interface Users : NSObject
+@end
+@implementation Users
+@end
+
 @interface UserServiceResponder : Responder {
     BackendlessUser *_user;
 }
