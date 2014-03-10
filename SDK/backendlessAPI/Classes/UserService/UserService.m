@@ -372,7 +372,7 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, userId, accessToken, expirationDate, permissions, fieldsMapping, nil];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onLogin:) selErrorHandler:nil];
     _responder.chained = responder;
-    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_LOGIN args:args responder:_responder];
+    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_FACEBOOK_SDK args:args responder:_responder];
 }
 -(void)getUserRoles:(id<IResponder>)responder
 {
