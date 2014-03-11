@@ -112,6 +112,18 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
 #pragma mark UserService Class
 
 @interface UserService ()
+
+-(BackendlessUser *)registering:(BackendlessUser *)user;
+-(BackendlessUser *)update:(BackendlessUser *)user;
+-(BackendlessUser *)login:(NSString *)login password:(NSString *)password;
+-(id)logout;
+-(id)restorePassword:(NSString *)login;
+-(NSArray *)describeUserClass;
+-(id)user:(NSString *)user assignRole:(NSString *)role;
+-(id)user:(NSString *)user unassignRole:(NSString *)role;
+-(id)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping;
+-(NSArray *)getUserRoles;
+
 // sync
 -(id)loginWithFacebookSocialUserId:(NSString *)userId accessToken:(NSString *)accessToken expirationDate:(NSDate *)expirationDate permissions:(NSArray *)permissions fieldsMapping:(NSDictionary *)fieldsMapping;
 // async
@@ -155,6 +167,98 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
 #pragma mark Public Methods
 
 // sync methods
+
+-(BackendlessUser *)registering:(BackendlessUser *)user error:(Fault **)fault
+{
+    id result = [self registering:user];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(BackendlessUser *)update:(BackendlessUser *)user error:(Fault **)fault
+{
+    id result = [self update:user];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(BackendlessUser *)login:(NSString *)login password:(NSString *)password error:(Fault **)fault
+{
+    id result = [self login:login password:password];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(BOOL)logoutError:(Fault **)fault
+{
+    id result = [self logout];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return NO;
+    }
+    return YES;
+}
+-(BOOL)restorePassword:(NSString *)login error:(Fault **)fault
+{
+    id result = [self restorePassword:login];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return NO;
+    }
+    return YES;
+}
+-(NSArray *)describeUserClassError:(Fault **)fault
+{
+    id result = [self describeUserClass];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(BOOL)user:(NSString *)user assignRole:(NSString *)role error:(Fault **)fault
+{
+    id result = [self user:user assignRole:role];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return NO;
+    }
+    return YES;
+}
+-(BOOL)user:(NSString *)user unassignRole:(NSString *)role error:(Fault **)fault
+{
+    id result = [self user:user unassignRole:role];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return NO;
+    }
+    return YES;
+}
+-(BackendlessUser *)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping error:(Fault **)fault
+{
+    id result = [self loginWithFacebookSDK:session user:user fieldsMapping:fieldsMapping];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(NSArray *)getUserRolesError:(Fault **)fault
+{
+    id result = [self getUserRoles];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+
 
 -(BackendlessUser *)registering:(BackendlessUser *)user {
     

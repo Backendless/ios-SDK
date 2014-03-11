@@ -202,6 +202,7 @@ static NSString *SECRET_KEY = @"51AE9DFF-B1A2-5F92-FFC4-FC1AB48AD300";
     [backendless initApp:APP_ID secret:SECRET_KEY version:VERSION_NUM];
     //backendless.hostURL = HOST_URL;
     [backendless setThrowException:NO];
+//    [backendless.user ];
 
 /*/
 //    [backendlessCache saveOnDisc];

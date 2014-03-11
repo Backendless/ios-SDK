@@ -31,16 +31,31 @@
 @property (strong, nonatomic, readonly) BackendlessUser *currentUser;
 
 // sync methods
--(BackendlessUser *)registering:(BackendlessUser *)user;
--(BackendlessUser *)update:(BackendlessUser *)user;
--(BackendlessUser *)login:(NSString *)login password:(NSString *)password;
--(id)logout;
--(id)restorePassword:(NSString *)login;
--(NSArray *)describeUserClass;
--(id)user:(NSString *)user assignRole:(NSString *)role;
--(id)user:(NSString *)user unassignRole:(NSString *)role;
--(id)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping;
--(NSArray *)getUserRoles;
+
+/////__deprecated
+
+-(BackendlessUser *)registering:(BackendlessUser *)user __deprecated;
+-(BackendlessUser *)update:(BackendlessUser *)user __deprecated;
+-(BackendlessUser *)login:(NSString *)login password:(NSString *)password __deprecated;
+-(id)logout __deprecated;
+-(id)restorePassword:(NSString *)login __deprecated;
+-(NSArray *)describeUserClass __deprecated;
+-(id)user:(NSString *)user assignRole:(NSString *)role __deprecated;
+-(id)user:(NSString *)user unassignRole:(NSString *)role __deprecated;
+-(id)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping __deprecated;
+-(NSArray *)getUserRoles __deprecated;
+
+-(BackendlessUser *)registering:(BackendlessUser *)user error:(Fault **)fault;
+-(BackendlessUser *)update:(BackendlessUser *)user error:(Fault **)fault;
+-(BackendlessUser *)login:(NSString *)login password:(NSString *)password error:(Fault **)fault;
+-(BOOL)logoutError:(Fault **)fault;
+-(BOOL)restorePassword:(NSString *)login error:(Fault **)fault;
+-(NSArray *)describeUserClassError:(Fault **)fault;
+-(BOOL)user:(NSString *)user assignRole:(NSString *)role error:(Fault **)fault;
+-(BOOL)user:(NSString *)user unassignRole:(NSString *)role error:(Fault **)fault;
+-(BackendlessUser *)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping error:(Fault **)fault;
+-(NSArray *)getUserRolesError:(Fault **)fault;
+
 
 // async methods with responder
 -(void)registering:(BackendlessUser *)user responder:(id <IResponder>)responder;
