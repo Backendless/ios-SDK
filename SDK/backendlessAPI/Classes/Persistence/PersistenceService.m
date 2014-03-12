@@ -90,6 +90,40 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 
 // sync methods
 
+-(NSDictionary *)save:(NSString *)entityName entity:(NSDictionary *)entity error:(Fault **)fault
+{
+    id result = [self save:entityName entity:entity];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(NSDictionary *)update:(NSString *)entityName entity:(NSDictionary *)entity sid:(NSString *)sid error:(Fault **)fault
+{
+    id result = [self update:entityName entity:entity sid:sid];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+//-(id)save:(id)entity error:(Fault **)fault;
+//-(id)create:(id)entity error:(Fault **)fault;
+//-(id)update:(id)entity error:(Fault **)fault;
+//-(BOOL)remove:(Class)entity sid:(NSString *)sid error:(Fault **)fault;
+//-(BOOL)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault;
+//-(id)findById:(NSString *)entityName sid:(NSString *)sid error:(Fault **)fault;
+//-(id)findByClassId:(Class)entity sid:(NSString *)sid error:(Fault **)fault;
+//-(BackendlessCollection *)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault;
+//-(id)first:(Class)entity error:(Fault **)fault;
+//-(id)last:(Class)entity error:(Fault **)fault;
+//-(NSArray *)describe:(NSString *)classCanonicalName error:(Fault **)fault;
+//-(id)findById:(NSString *)entityName sid:(NSString *)sid relations:(NSArray *)relations error:(Fault **)fault;
+//-(id)load:(id)object relations:(NSArray *)relations error:(Fault **)fault;
+
+
+
 -(NSDictionary *)save:(NSString *)entityName entity:(NSDictionary *)entity {
     
     if (!entity || !entityName)

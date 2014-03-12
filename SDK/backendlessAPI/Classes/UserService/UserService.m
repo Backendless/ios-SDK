@@ -113,16 +113,16 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
 
 @interface UserService ()
 
--(BackendlessUser *)registering:(BackendlessUser *)user;
--(BackendlessUser *)update:(BackendlessUser *)user;
--(BackendlessUser *)login:(NSString *)login password:(NSString *)password;
--(id)logout;
--(id)restorePassword:(NSString *)login;
--(NSArray *)describeUserClass;
--(id)user:(NSString *)user assignRole:(NSString *)role;
--(id)user:(NSString *)user unassignRole:(NSString *)role;
--(id)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping;
--(NSArray *)getUserRoles;
+//-(BackendlessUser *)registering:(BackendlessUser *)user;
+//-(BackendlessUser *)update:(BackendlessUser *)user;
+//-(BackendlessUser *)login:(NSString *)login password:(NSString *)password;
+//-(id)logout;
+//-(id)restorePassword:(NSString *)login;
+//-(NSArray *)describeUserClass;
+//-(id)user:(NSString *)user assignRole:(NSString *)role;
+//-(id)user:(NSString *)user unassignRole:(NSString *)role;
+//-(id)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping;
+//-(NSArray *)getUserRoles;
 
 // sync
 -(id)loginWithFacebookSocialUserId:(NSString *)userId accessToken:(NSString *)accessToken expirationDate:(NSDate *)expirationDate permissions:(NSArray *)permissions fieldsMapping:(NSDictionary *)fieldsMapping;

@@ -43,7 +43,7 @@
 -(id)user:(NSString *)user assignRole:(NSString *)role __deprecated;
 -(id)user:(NSString *)user unassignRole:(NSString *)role __deprecated;
 -(id)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping __deprecated;
--(NSArray *)getUserRoles __deprecated;
+-(NSArray *)getUserRoles __deprecated_msg("will be private only");
 
 -(BackendlessUser *)registering:(BackendlessUser *)user error:(Fault **)fault;
 -(BackendlessUser *)update:(BackendlessUser *)user error:(Fault **)fault;
