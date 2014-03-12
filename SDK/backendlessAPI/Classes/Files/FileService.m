@@ -119,6 +119,39 @@ static NSString *METHOD_DELETE = @"deleteFileOrDirectory";
 
 // sync methods
 
+//new
+
+-(BackendlessFile *)upload:(NSString *)path content:(NSData *)content error:(Fault **)fault
+{
+    id result = [self upload:path content:content];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(BOOL)remove:(NSString *)fileURL error:(Fault **)fault
+{
+    id result = [self remove:fileURL];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return NO;
+    }
+    return YES;
+}
+-(BOOL)removeDirectory:(NSString *)path error:(Fault **)fault
+{
+    id result = [self removeDirectory:path];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return NO;
+    }
+    return YES;
+
+}
+
+//deprecated
+
 -(BackendlessFile *)upload:(NSString *)path content:(NSData *)content {
     return [self sendUploadRequest:path content:content];
 }
