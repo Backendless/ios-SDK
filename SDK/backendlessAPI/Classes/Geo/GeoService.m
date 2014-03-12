@@ -80,6 +80,62 @@ static NSString *METHOD_GET_POINTS_WITH_MATCHES = @"relativeFind";
 
 // sync methods
 
+//new
+-(GeoCategory *)addCategory:(NSString *)categoryName error:(Fault **)fault
+{
+    id result = [self addCategory:categoryName];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(BOOL)deleteCategory:(NSString *)categoryName error:(Fault **)fault
+{
+    id result = [self deleteCategory:categoryName];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return NO;
+    }
+    return YES;
+}
+-(GeoPoint *)savePoint:(GeoPoint *)geoPoint error:(Fault **)fault
+{
+    id result = [self savePoint:geoPoint];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(NSArray *)getCategoriesError:(Fault **)fault
+{
+    id result = [self getCategories];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(BackendlessCollection *)getPoints:(BackendlessGeoQuery *)query error:(Fault **)fault
+{
+    id result = [self getPoints:query];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(BackendlessCollection *)relativeFind:(BackendlessGeoQuery *)query error:(Fault **)fault
+{
+    id result = [self relativeFind:query];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+//deprecated
 -(GeoCategory *)addCategory:(NSString *)categoryName {
     
     id fault = [self isFaultCategoryName:categoryName responder:nil];
