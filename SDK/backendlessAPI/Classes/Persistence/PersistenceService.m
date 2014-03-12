@@ -108,19 +108,123 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     }
     return result;
 }
-//-(id)save:(id)entity error:(Fault **)fault;
-//-(id)create:(id)entity error:(Fault **)fault;
-//-(id)update:(id)entity error:(Fault **)fault;
-//-(BOOL)remove:(Class)entity sid:(NSString *)sid error:(Fault **)fault;
-//-(BOOL)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault;
-//-(id)findById:(NSString *)entityName sid:(NSString *)sid error:(Fault **)fault;
-//-(id)findByClassId:(Class)entity sid:(NSString *)sid error:(Fault **)fault;
-//-(BackendlessCollection *)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault;
-//-(id)first:(Class)entity error:(Fault **)fault;
-//-(id)last:(Class)entity error:(Fault **)fault;
-//-(NSArray *)describe:(NSString *)classCanonicalName error:(Fault **)fault;
-//-(id)findById:(NSString *)entityName sid:(NSString *)sid relations:(NSArray *)relations error:(Fault **)fault;
-//-(id)load:(id)object relations:(NSArray *)relations error:(Fault **)fault;
+-(id)save:(id)entity error:(Fault **)fault
+{
+    id result = [self save:entity];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(id)create:(id)entity error:(Fault **)fault
+{
+    id result = [self create:entity];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(id)update:(id)entity error:(Fault **)fault
+{
+    id result = [self update:entity];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(BOOL)remove:(Class)entity sid:(NSString *)sid error:(Fault **)fault
+{
+    id result = [self remove:entity sid:sid];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return NO;
+    }
+    return YES;
+}
+-(BOOL)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault
+{
+    [self removeAll:entity dataQuery:dataQuery];
+//    if ([result isKindOfClass:[Fault class]]) {
+//        (*fault) = result;
+//        return nil;
+//    }
+    return YES;
+}
+-(id)findById:(NSString *)entityName sid:(NSString *)sid error:(Fault **)fault
+{
+    id result = [self findById:entityName sid:sid];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(id)findByClassId:(Class)entity sid:(NSString *)sid error:(Fault **)fault
+{
+    id result = [self findByClassId:entity sid:sid];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(BackendlessCollection *)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault
+{
+    id result = [self find:entity dataQuery:dataQuery];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(id)first:(Class)entity error:(Fault **)fault
+{
+    id result = [self first:entity];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(id)last:(Class)entity error:(Fault **)fault
+{
+    id result = [self last:entity];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(NSArray *)describe:(NSString *)classCanonicalName error:(Fault **)fault
+{
+    id result = [self describe:classCanonicalName];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(id)findById:(NSString *)entityName sid:(NSString *)sid relations:(NSArray *)relations error:(Fault **)fault
+{
+    id result = [self findById:entityName sid:sid relations:relations];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(id)load:(id)object relations:(NSArray *)relations error:(Fault **)fault
+{
+    id result = [self load:object relations:relations];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
 
 
 
