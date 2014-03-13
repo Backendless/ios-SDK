@@ -23,7 +23,7 @@
 #import "DEBUG.h"
 #import "MediaPublishOptions.h"
 #import "Backendless.h"
-#ifndef __arm64__
+//#ifndef __arm64__
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 #import "BroadcastStreamClient.h"
 static NSString *OPTIONS_IS_ABSENT = @"Options is absent. You shpuld set 'options' property";
@@ -331,4 +331,5 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
 #endif
 
 @end
-#endif
+//#endif
+

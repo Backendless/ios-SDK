@@ -33,6 +33,7 @@ extern NSString *LOAD_ALL_RELATIONS;
 @interface PersistenceService : NSObject
 
 // sync methods
+////deprecated
 -(NSDictionary *)save:(NSString *)entityName entity:(NSDictionary *)entity;
 -(NSDictionary *)update:(NSString *)entityName entity:(NSDictionary *)entity sid:(NSString *)sid;
 -(id)save:(id)entity;
@@ -48,6 +49,24 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(NSArray *)describe:(NSString *)classCanonicalName;
 -(id)findById:(NSString *)entityName sid:(NSString *)sid relations:(NSArray *)relations;
 -(id)load:(id)object relations:(NSArray *)relations;
+
+///new
+-(NSDictionary *)save:(NSString *)entityName entity:(NSDictionary *)entity error:(Fault **)fault;
+-(NSDictionary *)update:(NSString *)entityName entity:(NSDictionary *)entity sid:(NSString *)sid error:(Fault **)fault;
+-(id)save:(id)entity error:(Fault **)fault;
+-(id)create:(id)entity error:(Fault **)fault;
+-(id)update:(id)entity error:(Fault **)fault;
+-(BOOL)remove:(Class)entity sid:(NSString *)sid error:(Fault **)fault;
+-(BOOL)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault;
+-(id)findById:(NSString *)entityName sid:(NSString *)sid error:(Fault **)fault;
+-(id)findByClassId:(Class)entity sid:(NSString *)sid error:(Fault **)fault;
+-(BackendlessCollection *)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault;
+-(id)first:(Class)entity error:(Fault **)fault;
+-(id)last:(Class)entity error:(Fault **)fault;
+-(NSArray *)describe:(NSString *)classCanonicalName error:(Fault **)fault;
+-(id)findById:(NSString *)entityName sid:(NSString *)sid relations:(NSArray *)relations error:(Fault **)fault;
+-(id)load:(id)object relations:(NSArray *)relations error:(Fault **)fault;
+
 
 // async methods with responder
 -(void)save:(NSString *)entityName entity:(NSDictionary *)entity responder:(id <IResponder>)responder;

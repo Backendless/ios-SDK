@@ -20,7 +20,7 @@
  */
 
 #import "MediaPlayer.h"
-#ifndef __arm64__
+//#ifndef __arm64__
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 #import "DEBUG.h"
 #import "MediaStreamPlayer.h"
@@ -255,4 +255,5 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
 @implementation MediaPlayer
 #endif
 @end
-#endif
+//#endif
+

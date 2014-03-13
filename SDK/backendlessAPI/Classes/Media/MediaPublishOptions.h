@@ -18,7 +18,7 @@
  *
  *  ********************************************************************************************************************
  */
-#ifndef __arm64__
+//#ifndef __arm64__
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
@@ -64,4 +64,5 @@ typedef enum {
 @interface MediaPublishOptions : NSObject
 @end
 #endif
-#endif
+//#endif
+

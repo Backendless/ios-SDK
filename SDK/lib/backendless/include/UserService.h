@@ -34,16 +34,16 @@
 
 /////__deprecated
 
--(BackendlessUser *)registering:(BackendlessUser *)user __deprecated;
--(BackendlessUser *)update:(BackendlessUser *)user __deprecated;
--(BackendlessUser *)login:(NSString *)login password:(NSString *)password __deprecated;
--(id)logout __deprecated;
--(id)restorePassword:(NSString *)login __deprecated;
--(NSArray *)describeUserClass __deprecated;
--(id)user:(NSString *)user assignRole:(NSString *)role __deprecated;
--(id)user:(NSString *)user unassignRole:(NSString *)role __deprecated;
--(id)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping __deprecated;
--(NSArray *)getUserRoles __deprecated;
+-(BackendlessUser *)registering:(BackendlessUser *)user;
+-(BackendlessUser *)update:(BackendlessUser *)user;
+-(BackendlessUser *)login:(NSString *)login password:(NSString *)password;
+-(id)logout;
+-(id)restorePassword:(NSString *)login;
+-(NSArray *)describeUserClass;
+-(id)user:(NSString *)user assignRole:(NSString *)role;
+-(id)user:(NSString *)user unassignRole:(NSString *)role;
+-(id)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping;
+-(NSArray *)getUserRoles;
 
 -(BackendlessUser *)registering:(BackendlessUser *)user error:(Fault **)fault;
 -(BackendlessUser *)update:(BackendlessUser *)user error:(Fault **)fault;

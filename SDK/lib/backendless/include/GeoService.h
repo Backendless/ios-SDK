@@ -35,12 +35,21 @@ typedef struct {
 @interface GeoService : NSObject
 
 // sync methods
+//deprecated
 -(GeoCategory *)addCategory:(NSString *)categoryName;
 -(id)deleteCategory:(NSString *)categoryName;
 -(GeoPoint *)savePoint:(GeoPoint *)geoPoint;
 -(NSArray *)getCategories;
 -(BackendlessCollection *)getPoints:(BackendlessGeoQuery *)query;
 -(BackendlessCollection *)relativeFind:(BackendlessGeoQuery *)query;
+//new
+
+-(GeoCategory *)addCategory:(NSString *)categoryName error:(Fault **)fault;
+-(BOOL)deleteCategory:(NSString *)categoryName error:(Fault **)fault;
+-(GeoPoint *)savePoint:(GeoPoint *)geoPoint error:(Fault **)fault;
+-(NSArray *)getCategoriesError:(Fault **)fault;
+-(BackendlessCollection *)getPoints:(BackendlessGeoQuery *)query error:(Fault **)fault;
+-(BackendlessCollection *)relativeFind:(BackendlessGeoQuery *)query error:(Fault **)fault;
 
 // async methods with responder
 -(void)addCategory:(NSString *)categoryName responder:(id <IResponder>)responder;

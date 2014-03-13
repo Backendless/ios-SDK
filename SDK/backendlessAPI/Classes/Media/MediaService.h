@@ -25,7 +25,7 @@
 @protocol IMediaStreamerDelegate;
 
 @interface MediaService : NSObject
-#ifndef __arm64__
+//#ifndef __arm64__
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 -(MediaPublisher *)publishStream:(NSString *)name tube:(NSString *)tube
                          options:(MediaPublishOptions *)options responder:(id <IMediaStreamerDelegate>)delegate;
@@ -33,5 +33,5 @@
                        options:(MediaPlaybackOptions *)options responder:(id <IMediaStreamerDelegate>)delegate;
 #else
 #endif
-#endif
+//#endif
 @end

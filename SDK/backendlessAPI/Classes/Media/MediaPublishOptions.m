@@ -21,7 +21,7 @@
 
 #import "MediaPublishOptions.h"
 #import "DEBUG.h"
-#ifndef __arm64__
+//#ifndef __arm64__
 @implementation MediaPublishOptions
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 -(id)init {
@@ -83,4 +83,5 @@
 #else
 #endif
 @end
-#endif
+//#endif
+

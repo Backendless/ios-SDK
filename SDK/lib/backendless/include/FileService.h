@@ -27,9 +27,14 @@
 @interface FileService : NSObject
 
 // sync methods
+//deprecated
 -(BackendlessFile *)upload:(NSString *)path content:(NSData *)content;
 -(id)remove:(NSString *)fileURL;
 -(id)removeDirectory:(NSString *)path;
+//new
+-(BackendlessFile *)upload:(NSString *)path content:(NSData *)content error:(Fault **)fault;
+-(BOOL)remove:(NSString *)fileURL error:(Fault **)fault;
+-(BOOL)removeDirectory:(NSString *)path error:(Fault **)fault;
 
 // async methods with responder
 -(void)upload:(NSString *)path content:(NSData *)content responder:(id <IResponder>)responder;

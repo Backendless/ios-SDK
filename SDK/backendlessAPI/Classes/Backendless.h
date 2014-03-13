@@ -26,7 +26,7 @@
 #import "Types.h"
 #import "Responder.h"
 // MediaLibiOS
-#ifndef __arm64__
+//#ifndef __arm64__
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 
 #import "BroadcastStreamClient.h"
@@ -34,7 +34,7 @@
 #import "VideoPlayer.h"
 
 #endif
-#endif
+//#endif
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 

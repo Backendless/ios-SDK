@@ -25,7 +25,7 @@
 #import <CoreMedia/CoreMedia.h>
 #import <CoreVideo/CoreVideo.h>
 #import "IMediaStreamer.h"
-#ifndef __arm64__
+//#ifndef __arm64__
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 @class MediaPublishOptions;
 
@@ -48,4 +48,5 @@
 #endif
 
 @end
-#endif
+//#endif
+

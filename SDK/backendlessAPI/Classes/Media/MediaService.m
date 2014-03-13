@@ -23,7 +23,7 @@
 #import "Backendless.h"
 
 @implementation MediaService
-#ifndef __arm64__
+//#ifndef __arm64__
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 -(MediaPublisher *)publishStream:(NSString *)name tube:(NSString *)tube options:(MediaPublishOptions *)options responder:(id <IMediaStreamerDelegate>)delegate {
     
@@ -57,5 +57,5 @@
 }
 #else
 #endif
-#endif
+//#endif
 @end
