@@ -21,6 +21,17 @@
 
 #import <Foundation/Foundation.h>
 
+#import "MediaService.h"
+#import "IMediaStreamer.h"
+#import "MediaPublisher.h"
+#import "MediaPlayer.h"
+#import "MediaPublishOptions.h"
+#import "MediaPlaybackOptions.h"
+#import "BroadcastStreamClient.h"
+#import "MediaStreamPlayer.h"
+#import "VideoPlayer.h"
+
+
 @class MediaPublisher, MediaPlayer, MediaPublishOptions, MediaPlaybackOptions;
 @protocol IMediaStreamerDelegate;
 

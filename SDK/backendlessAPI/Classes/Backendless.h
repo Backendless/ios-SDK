@@ -29,9 +29,9 @@
 //#ifndef __arm64__
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 
-#import "BroadcastStreamClient.h"
-#import "MediaStreamPlayer.h"
-#import "VideoPlayer.h"
+//#import "BroadcastStreamClient.h"
+//#import "MediaStreamPlayer.h"
+//#import "VideoPlayer.h"
 
 #endif
 //#endif
@@ -73,12 +73,16 @@
 #import "MessagingService.h"
 #import "FileService.h"
 #import "BackendlessFile.h"
-#import "MediaService.h"
-#import "IMediaStreamer.h"
-#import "MediaPublisher.h"
-#import "MediaPlayer.h"
-#import "MediaPublishOptions.h"
-#import "MediaPlaybackOptions.h"
+
+//#import "MediaService.h"
+//#import "IMediaStreamer.h"
+//#import "MediaPublisher.h"
+//#import "MediaPlayer.h"
+//#import "MediaPublishOptions.h"
+//#import "MediaPlaybackOptions.h"
+//#import "BroadcastStreamClient.h"
+//#import "MediaStreamPlayer.h"
+//#import "VideoPlayer.h"
 
 //Cache
 #import "BackendlessCachePolicy.h"
@@ -96,6 +100,8 @@
 #define BACKENDLESS_SECRET_KEY @"SecretKey"
 #define BACKENDLESS_VERSION_NUM @"VersionNum"
 #define BACKENDLESS_DEBLOG_ON @"DebLogOn"
+
+@class MediaService;
 
 @protocol ReachabilityDelegate <NSObject>
 -(void)changeNetworkStatus:(NSInteger)status connectionRequired:(BOOL)connectionRequired;

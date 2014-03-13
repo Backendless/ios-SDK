@@ -67,6 +67,8 @@ static NSString *APP_TYPE_HEADER_KEY = @"application-type";
 static NSString *API_VERSION_HEADER_KEY = @"api-version";
 static NSString *UISTATE_HEADER_KEY = @"uiState";
 
+@class MediaService;
+
 @interface Backendless ()
 {
 }
@@ -115,11 +117,11 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 //        _geoService = [GeoService new];
 //        _messagingService = [MessagingService new];
 //        _fileService = [FileService new];
-#ifdef __arm64__
-        NSLog(@"Media Service are not available for arm64");
-#else
+//#ifdef __arm64__
+//        NSLog(@"Media Service are not available for arm64");
+//#else
 //        _mediaService = [MediaService new];
-#endif
+//#endif
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
         self.hostReachability = [Reachability reachabilityWithHostName:_hostURL];
@@ -161,15 +163,15 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 
 -(MediaService *)mediaService
 {
-#ifdef __arm64__
-    NSLog(@"Media Service are not available for arm64");
-    return nil;
-#else
+//#ifdef __arm64__
+//    NSLog(@"Media Service are not available for arm64");
+//    return nil;
+//#else
     if (!_mediaService) {
-        _mediaService = [MediaService new];
+        _mediaService = [NSClassFromString(@"MediaService") new];
     }
     return _mediaService;
-#endif
+//#endif
     
 }
 
