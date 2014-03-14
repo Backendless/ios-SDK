@@ -149,6 +149,226 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 
 // sync methods
 
+//new
+
+-(NSString *)registerDeviceWithTokenData:(NSData *)deviceToken error:(Fault **)fault
+{
+    id result = [self registerDeviceWithTokenData:deviceToken];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(NSString *)registerDeviceToken:(NSString *)deviceToken error:(Fault **)fault
+{
+    id result = [self registerDeviceToken:deviceToken];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(NSString *)registerDeviceExpiration:(NSDate *)expiration error:(Fault **)fault
+{
+    id result = [self registerDeviceExpiration:expiration];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(NSString *)registerDevice:(NSArray *)channels error:(Fault **)fault
+{
+    id result = [self registerDevice:channels];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(NSString *)registerDevice:(NSArray *)channels expiration:(NSDate *)expiration error:(Fault **)fault
+{
+    id result = [self registerDevice:channels expiration:expiration];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(NSString *)registerDevice:(NSArray *)channels expiration:(NSDate *)expiration token:(NSString *)deviceToken error:(Fault **)fault
+{
+    id result = [self registerDevice:channels expiration:expiration token:deviceToken];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(NSString *)registerDeviceError:(Fault **)fault
+{
+    id result = [self registerDevice];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(NSArray *)getRegistrationsError:(Fault **)fault
+{
+    id result = [self getRegistrations];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(NSArray *)getRegistrations:(NSString *)deviceId error:(Fault **)fault
+{
+    id result = [self getRegistrations:deviceId];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(BOOL)unregisterDeviceError:(Fault **)fault
+{
+    id result = [self unregisterDevice];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return NO;
+    }
+    return YES;
+}
+-(BOOL)unregisterDevice:(NSString *)deviceId error:(Fault **)fault
+{
+    id result = [self unregisterDevice:deviceId];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return NO;
+    }
+    return YES;
+}
+-(MessageStatus *)publish:(NSString *)channelName message:(id)message error:(Fault **)fault
+{
+    id result = [self publish:channelName message:message];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(MessageStatus *)publish:(NSString *)channelName message:(id)message publishOptions:(PublishOptions *)publishOptions error:(Fault **)fault
+{
+    id result = [self publish:channelName message:message publishOptions:publishOptions];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(MessageStatus *)publish:(NSString *)channelName message:(id)message deliveryOptions:(DeliveryOptions *)deliveryOptions error:(Fault **)fault
+{
+    id result = [self publish:channelName message:message deliveryOptions:deliveryOptions];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(MessageStatus *)publish:(NSString *)channelName message:(id)message publishOptions:(PublishOptions *)publishOptions deliveryOptions:(DeliveryOptions *)deliveryOptions error:(Fault **)fault
+{
+    id result = [self publish:channelName message:message publishOptions:publishOptions deliveryOptions:deliveryOptions];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(BOOL)cancel:(NSString *)messageId error:(Fault **)fault
+{
+    id result = [self cancel:messageId];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return NO;
+    }
+    return YES;
+}
+-(BESubscription *)subscribe:(NSString *)channelName error:(Fault **)fault
+{
+    id result = [self subscribe:channelName];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(BESubscription *)subscribe:(NSString *)channelName subscriptionResponder:(id <IResponder>)subscriptionResponder error:(Fault **)fault
+{
+    id result = [self subscribe:channelName subscriptionResponder:subscriptionResponder];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(BESubscription *)subscribe:(NSString *)channelName subscriptionResponder:(id <IResponder>)subscriptionResponder subscriptionOptions:(SubscriptionOptions *)subscriptionOptions error:(Fault **)fault
+{
+    id result = [self subscribe:channelName subscriptionResponder:subscriptionResponder subscriptionOptions:subscriptionOptions];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(BESubscription *)subscribe:(NSString *)channelName subscriptionResponse:(void(^)(NSArray *))subscriptionResponseBlock subscriptionError:(void(^)(Fault *))subscriptionErrorBlock error:(Fault **)fault
+{
+    id result = [self subscribe:channelName subscriptionResponse:subscriptionResponseBlock subscriptionError:subscriptionErrorBlock];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(BESubscription *)subscribe:(NSString *)channelName subscriptionResponse:(void(^)(NSArray *))subscriptionResponseBlock subscriptionError:(void(^)(Fault *))subscriptionErrorBlock subscriptionOptions:(SubscriptionOptions *)subscriptionOptions error:(Fault **)fault
+{
+    id result = [self subscribe:channelName subscriptionResponse:subscriptionResponseBlock subscriptionError:subscriptionErrorBlock subscriptionOptions:subscriptionOptions];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(BESubscription *)subscribe:(BESubscription *)subscription subscriptionOptions:(SubscriptionOptions *)subscriptionOptions error:(Fault **)fault
+{
+    id result = [self subscribe:subscription subscriptionOptions:subscriptionOptions];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(NSArray *)pollMessages:(NSString *)channelName subscriptionId:(NSString *)subscriptionId error:(Fault **)fault
+{
+    id result = [self pollMessages:channelName subscriptionId:subscriptionId];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+-(BOOL)sendEmailWithSubject:(NSString *)subject body:(NSString *)body to:(NSArray *)to attachment:(NSArray *)attachment isHTML:(BOOL)isHTML error:(Fault **)fault
+{
+    id result = [self sendEmailWithSubject:subject body:body to:to attachment:attachment isHTML:isHTML];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return NO;
+    }
+    return YES;
+}
+
+//deprecated
 - (NSString *)registerDevice:(NSArray *)channels expiration:(NSDate *)expiration token:(NSString *)deviceToken {
     deviceRegistration.deviceToken = deviceToken;
     deviceRegistration.channels = channels;
