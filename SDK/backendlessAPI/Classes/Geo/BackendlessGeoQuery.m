@@ -43,7 +43,7 @@
         radius = [[NSNumber alloc] initWithDouble:0.0];
         [self units:(int)METERS];
         categories = nil;
-        includeMeta = [[NSNumber alloc] initWithBool:YES];
+        includeMeta = [[NSNumber alloc] initWithBool:NO];
         metadata = nil;
         searchRectangle = nil;
         pageSize = [[NSNumber alloc] initWithInt:DEFAULT_PAGE_SIZE];
@@ -65,7 +65,7 @@
         radius = [[NSNumber alloc] initWithDouble:0.0];
         [self units:(int)METERS];
         categories = (_categories) ? [[NSMutableArray alloc] initWithArray:_categories] : nil;
-        includeMeta = [[NSNumber alloc] initWithBool:YES];
+        includeMeta = [[NSNumber alloc] initWithBool:NO];
         metadata = nil;
         searchRectangle = nil;
         pageSize = [[NSNumber alloc] initWithInt:DEFAULT_PAGE_SIZE];
@@ -87,7 +87,7 @@
         radius = [[NSNumber alloc] initWithDouble:0.0];
         [self units:(int)METERS];
         categories = nil;
-        includeMeta = [[NSNumber alloc] initWithBool:YES];
+        includeMeta = [[NSNumber alloc] initWithBool:NO];
         metadata = nil;
         searchRectangle = nil;
         pageSize = [[NSNumber alloc] initWithInt:DEFAULT_PAGE_SIZE];
@@ -108,7 +108,7 @@
         radius = [[NSNumber alloc] initWithDouble:0.0];
         [self units:(int)METERS];
         categories = nil;
-        includeMeta = [[NSNumber alloc] initWithBool:YES];
+        includeMeta = [[NSNumber alloc] initWithBool:NO];
         metadata = nil;
         searchRectangle = nil;
         pageSize = [[NSNumber alloc] initWithInt:_pageSize];
@@ -129,7 +129,7 @@
         radius = [[NSNumber alloc] initWithDouble:0.0];
         [self units:(int)METERS];
         categories = (_categories) ? [[NSMutableArray alloc] initWithArray:_categories] : nil;
-        includeMeta = [[NSNumber alloc] initWithBool:YES];
+        includeMeta = [[NSNumber alloc] initWithBool:NO];
         metadata = nil;
         searchRectangle = nil;
         pageSize = [[NSNumber alloc] initWithInt:DEFAULT_PAGE_SIZE];
@@ -150,7 +150,7 @@
         radius = [[NSNumber alloc] initWithDouble:_radius];
         [self units:(int)_units];
         categories = nil;
-        includeMeta = [[NSNumber alloc] initWithBool:YES];
+        includeMeta = [[NSNumber alloc] initWithBool:NO];
         metadata = nil;
         searchRectangle = nil;
         pageSize = [[NSNumber alloc] initWithInt:DEFAULT_PAGE_SIZE];
@@ -171,7 +171,7 @@
         radius = [[NSNumber alloc] initWithDouble:_radius];
         [self units:(int)_units];
         categories = (_categories) ? [[NSMutableArray alloc] initWithArray:_categories] : nil;
-        includeMeta = [[NSNumber alloc] initWithBool:YES];
+        includeMeta = [[NSNumber alloc] initWithBool:NO];
         metadata = nil;
         searchRectangle = nil;
         pageSize = [[NSNumber alloc] initWithInt:DEFAULT_PAGE_SIZE];
@@ -193,7 +193,7 @@
         [self units:(int)_units];
         categories = (_categories) ? [[NSMutableArray alloc] initWithArray:_categories] : nil;
         metadata = (_metadata) ? [[NSMutableDictionary alloc] initWithDictionary:_metadata] : nil;
-        includeMeta = [[NSNumber alloc] initWithBool:YES];
+        includeMeta = [[NSNumber alloc] initWithBool:NO];
         searchRectangle = nil;
         pageSize = [[NSNumber alloc] initWithInt:DEFAULT_PAGE_SIZE];
         offset = [[NSNumber alloc] initWithInt:DEFAULT_OFFSET];
@@ -213,7 +213,7 @@
         radius = [[NSNumber alloc] initWithDouble:0.0];
         [self units:(int)METERS];
         categories = nil;
-        includeMeta = [[NSNumber alloc] initWithBool:YES];
+        includeMeta = [[NSNumber alloc] initWithBool:NO];
         metadata = nil;
         [self searchRectangle:nordWest southEast:southEast];
         pageSize = [[NSNumber alloc] initWithInt:DEFAULT_PAGE_SIZE];
@@ -234,7 +234,7 @@
         radius = [[NSNumber alloc] initWithDouble:0.0];
         [self units:(int)METERS];
         categories = (_categories) ? [[NSMutableArray alloc] initWithArray:_categories] : nil;
-        includeMeta = [[NSNumber alloc] initWithBool:YES];
+        includeMeta = [[NSNumber alloc] initWithBool:NO];
         metadata = nil;
         [self searchRectangle:nordWest southEast:southEast];
         pageSize = [[NSNumber alloc] initWithInt:DEFAULT_PAGE_SIZE];

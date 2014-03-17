@@ -167,8 +167,8 @@
     if (YES || !cachedData || forceUpdate) {
         if ([self.backendlessQuery isKindOfClass:[BackendlessGeoQuery class]]) {
             BackendlessGeoQuery *geoQuery = self.backendlessQuery;
-            geoQuery.offset = [NSNumber numberWithInt:_offset];
-            geoQuery.pageSize = [NSNumber numberWithInt:_pageSize];
+            geoQuery.offset = [NSNumber numberWithInteger:_offset];
+            geoQuery.pageSize = [NSNumber numberWithInteger:_pageSize];
             id response = [backendless.geoService getPoints:geoQuery];
             return [response isKindOfClass:[Fault class]] ? response : ((BackendlessCollection *)response).data;
         }
@@ -192,8 +192,8 @@
     if (YES || !cachedData || forceUpdate) {
         if ([self.backendlessQuery isKindOfClass:[BackendlessGeoQuery class]]) {
             BackendlessGeoQuery *geoQuery = self.backendlessQuery;
-            geoQuery.offset = [NSNumber numberWithInt:_offset];
-            geoQuery.pageSize = [NSNumber numberWithInt:_pageSize];
+            geoQuery.offset = [NSNumber numberWithInteger:_offset];
+            geoQuery.pageSize = [NSNumber numberWithInteger:_pageSize];
             [backendless.geoService getPoints:geoQuery responder:responder];
         }
         else

@@ -20,7 +20,7 @@
  */
 
 #import <Foundation/Foundation.h>
-
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 #import "MediaService.h"
 #import "IMediaStreamer.h"
 #import "MediaPublisher.h"
@@ -30,7 +30,8 @@
 #import "BroadcastStreamClient.h"
 #import "MediaStreamPlayer.h"
 #import "VideoPlayer.h"
-
+#else
+#endif
 
 @class MediaPublisher, MediaPlayer, MediaPublishOptions, MediaPlaybackOptions;
 @protocol IMediaStreamerDelegate;

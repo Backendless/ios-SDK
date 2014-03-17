@@ -54,6 +54,33 @@
 -(NSString *)deviceTokenAsString:(NSData *)token;
 
 // sync methods
+//new
+-(NSString *)registerDeviceWithTokenData:(NSData *)deviceToken error:(Fault **)fault;
+-(NSString *)registerDeviceToken:(NSString *)deviceToken error:(Fault **)fault;
+-(NSString *)registerDeviceExpiration:(NSDate *)expiration error:(Fault **)fault;
+-(NSString *)registerDevice:(NSArray *)channels error:(Fault **)fault;
+-(NSString *)registerDevice:(NSArray *)channels expiration:(NSDate *)expiration error:(Fault **)fault;
+-(NSString *)registerDevice:(NSArray *)channels expiration:(NSDate *)expiration token:(NSString *)deviceToken error:(Fault **)fault;
+-(NSString *)registerDeviceError:(Fault **)fault;
+-(NSArray *)getRegistrationsError:(Fault **)fault;
+-(NSArray *)getRegistrations:(NSString *)deviceId error:(Fault **)fault;
+-(BOOL)unregisterDeviceError:(Fault **)fault;
+-(BOOL)unregisterDevice:(NSString *)deviceId error:(Fault **)fault;
+-(MessageStatus *)publish:(NSString *)channelName message:(id)message error:(Fault **)fault;
+-(MessageStatus *)publish:(NSString *)channelName message:(id)message publishOptions:(PublishOptions *)publishOptions error:(Fault **)fault;
+-(MessageStatus *)publish:(NSString *)channelName message:(id)message deliveryOptions:(DeliveryOptions *)deliveryOptions error:(Fault **)fault;
+-(MessageStatus *)publish:(NSString *)channelName message:(id)message publishOptions:(PublishOptions *)publishOptions deliveryOptions:(DeliveryOptions *)deliveryOptions error:(Fault **)fault;
+-(BOOL)cancel:(NSString *)messageId error:(Fault **)fault;
+-(BESubscription *)subscribe:(NSString *)channelName error:(Fault **)fault;
+-(BESubscription *)subscribe:(NSString *)channelName subscriptionResponder:(id <IResponder>)subscriptionResponder error:(Fault **)fault;
+-(BESubscription *)subscribe:(NSString *)channelName subscriptionResponder:(id <IResponder>)subscriptionResponder subscriptionOptions:(SubscriptionOptions *)subscriptionOptions error:(Fault **)fault;
+-(BESubscription *)subscribe:(NSString *)channelName subscriptionResponse:(void(^)(NSArray *))subscriptionResponseBlock subscriptionError:(void(^)(Fault *))subscriptionErrorBlock error:(Fault **)fault;
+-(BESubscription *)subscribe:(NSString *)channelName subscriptionResponse:(void(^)(NSArray *))subscriptionResponseBlock subscriptionError:(void(^)(Fault *))subscriptionErrorBlock subscriptionOptions:(SubscriptionOptions *)subscriptionOptions error:(Fault **)fault;
+-(BESubscription *)subscribe:(BESubscription *)subscription subscriptionOptions:(SubscriptionOptions *)subscriptionOptions error:(Fault **)fault;
+-(NSArray *)pollMessages:(NSString *)channelName subscriptionId:(NSString *)subscriptionId error:(Fault **)fault;
+-(BOOL)sendEmailWithSubject:(NSString *)subject body:(NSString *)body to:(NSArray *)to attachment:(NSArray *)attachment isHTML:(BOOL)isHTML error:(Fault **)fault;
+
+//deprecated
 -(NSString *)registerDeviceWithTokenData:(NSData *)deviceToken;
 -(NSString *)registerDeviceToken:(NSString *)deviceToken;
 -(NSString *)registerDeviceExpiration:(NSDate *)expiration;
