@@ -14,6 +14,7 @@
 #import "Invoker.h"
 #import "Responder.h"
 #import "DEBUG.h"
+#import "Types.h"
 
 @interface BackendlessCache()
 {
@@ -46,6 +47,7 @@
         _cacheData = [NSMutableDictionary new];
         _cachePolicy = [[BackendlessCachePolicy alloc] init];
         _storedType = [[NSNumber alloc] initWithInt:BackendlessCacheStoredMemory];
+        [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.BackendlessCollection" mapped:[BackendlessCollection class]];
     }
     return self;
 }
@@ -75,6 +77,7 @@
         @synchronized(self) {
 //            @autoreleasepool
 //            {
+//            NSLog(@"start write");
                 NSMutableDictionary *notEditData = self.cacheData;
                 NSArray *keyes = [notEditData allKeys];
                 
@@ -101,6 +104,7 @@
                 [[NSFileManager defaultManager] removeItemAtPath:[BackendlessCache filePath] error:nil];
                 [data writeToFile:[BackendlessCache filePath] atomically:YES];
                 _cacheData = notEditData;
+//            NSLog(@"end write");
                 [DebLog logN:@"backendless cache saved on disc"];
 //                dispatch_release(queue);
 //            }
@@ -399,7 +403,15 @@
 -(id)responseError:(Fault *)error
 {
     Responder *responder = error.context;
-    BackendlessCacheKey *key = error.context;
+    id val = error.context;
+    BackendlessCacheKey *key = nil;
+    if ([val isKindOfClass:[Responder class]]) {
+        key = ((Responder*) error.context).context;
+    }
+    else
+    {
+        key = error.context;
+    }
     BackendlessCachePolicy *policy = (key.query.cachePolicy)?key.query.cachePolicy:_cachePolicy;
     switch (policy.valCachePolicy) {
         case BackendlessCachePolicyIgnoreCache:

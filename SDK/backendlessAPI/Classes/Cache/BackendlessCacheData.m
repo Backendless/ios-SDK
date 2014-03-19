@@ -25,7 +25,7 @@
 {
     self = [super init];
     if (self) {
-        _file = [self.file copy];
+        _file = [cache.file copy];
         _data = [cache.data retain];
         _timeToLive = [[NSNumber alloc] initWithInt:cache.timeToLive.intValue];
         _priority = [[NSNumber alloc] initWithInt:cache.priority.intValue];
