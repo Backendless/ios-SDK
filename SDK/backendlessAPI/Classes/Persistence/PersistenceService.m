@@ -62,7 +62,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 -(BOOL)prepareObject:(id) object;
 -(NSDictionary *)filteringProperty:(id)object;
 -(id)failWithOfflineMode:(Fault *)error;
-
+-(id)createResponse:(id)response;
 @end
 
 @implementation PersistenceService
@@ -294,6 +294,9 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     }
     BackendlessEntity *tempEntity = result;
     ((BackendlessEntity *)entity).objectId = tempEntity.objectId;
+    if ([[entity class] isSubclassOfClass:[NSManagedObject class]]) {
+        [__types.managedObjectContext deleteObject:entity];
+    }
     return result;
 }
 
@@ -498,15 +501,18 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     [self prepareObject:entity];
     NSDictionary *props = [self filteringProperty:entity];
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [Types objectClassName:entity], props, nil];
+    Responder *createResponder = [Responder responder:self selResponseHandler:@selector(createResponse:) selErrorHandler:nil];
+    createResponder.chained = responder;
+    createResponder.context = entity;
     if ([OfflineModeManager sharedInstance].isOfflineMode)
     {
         Responder *offlineModeResponder = [Responder responder:self selResponseHandler:nil selErrorHandler:@selector(failWithOfflineMode:)];
-        offlineModeResponder.chained = responder;
+        offlineModeResponder.chained = createResponder;
         offlineModeResponder.context = entity;
         [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_CREATE args:args responder:offlineModeResponder];
     }
     else
-        [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_CREATE args:args responder:responder];
+        [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_CREATE args:args responder:createResponder];
 }
 
 -(void)update:(id)entity responder:(id <IResponder>)responder {
@@ -892,7 +898,15 @@ id get_object_id(id self, SEL _cmd)
     }
     return object;
 }
-
+-(id)createResponse:(ResponseContext *)response
+{
+    id object = response.context;
+    if ([[object class] isSubclassOfClass:[NSManagedObject class]]) {
+        [__types.managedObjectContext deleteObject:object];
+    }
+    response.context = nil;
+    return response.response;
+}
 -(id)failWithOfflineMode:(Fault *)error
 {
     Responder *responder = error.context;
