@@ -175,7 +175,7 @@
         else
         {
             BackendlessDataQuery *dataQuery = self.backendlessQuery;//BACKENDLESS_DATA_QUERY;
-            dataQuery.queryOptions = [QueryOptions query:_pageSize offset:_offset];
+            dataQuery.queryOptions = [QueryOptions query:(int)_pageSize offset:(int)_offset];
             id response = [backendless.persistenceService find:type dataQuery:dataQuery];
             return [response isKindOfClass:[Fault class]] ? response : ((BackendlessCollection *)response).data;
         }
@@ -199,7 +199,7 @@
         else
         {
             BackendlessDataQuery *dataQuery = self.backendlessQuery;
-            dataQuery.queryOptions = [QueryOptions query:_pageSize offset:_offset];
+            dataQuery.queryOptions = [QueryOptions query:(int)_pageSize offset:(int)_offset];
             [backendless.persistenceService find:type dataQuery:dataQuery responder:responder];
         }
         return;
