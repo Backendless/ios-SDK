@@ -31,31 +31,8 @@
 #define MISSING_VERSION_NUMBER @"Missing version number is argument. You should set versionNum  property"
 
 //
-static NSString *HOST_URL = @"https://api.backendless.com"; // api.backendless.com
-//static NSString *HOST_URL = @"http://tc.themidnightcoders.com:9000"; // TC - 9000
-//static NSString *HOST_URL = @"http://tc.themidnightcoders.com:9090"; // TC - 9090
-//static NSString *HOST_URL = @"http://tc.themidnightcoders.com:9091"; // TC - 9091
-//
-//static NSString *HOST_URL = @"http://10.0.1.132:9090"; // backendless+wowza
-//static NSString *HOST_URL = @"http://10.0.1.33:9000"; // me
-//static NSString *HOST_URL = @"http://10.0.2.8:9000"; // Yura Yaschenko
-//static NSString *HOST_URL = @"http://10.0.2.34:9000"; // Ivan Lappo
-//static NSString *HOST_URL = @"http://10.0.2.11:9000"; // Oleg Oginsky
-//static NSString *HOST_URL = @"http://10.0.1.14:9000"; // Sergey Kukurudzyak
-//static NSString *HOST_URL = @"http://10.0.2.24:9000"; // Dmitry Naumenko
-//static NSString *HOST_URL = @"http://10.0.1.54:9001"; // Dmitry Ivaschenko
-//static NSString *HOST_URL = @"http://10.0.2.6:9000"; // Michael Cheremukhin
-//
-//static NSString *BACKENDLESS_MEDIA_STREAMING_URL = @"rtmp://10.0.1.132:1935/mediaApp"; // TC
-//static NSString *BACKENDLESS_MEDIA_STREAMING_URL = @"rtmp://10.0.2.34:1935/mediaApp"; // Ivan Lappo
-
-/*/---- Default application id & secret key arguments for iOS ---------
-static NSString *APP_ID = @"validApp-Ids0-0000-0000-000000000000";
-static NSString *SECRET_KEY = @"validSec-retK-eys0-0000-000000000003";
-// for BackendlessDemosiOS application
-static NSString *APP_ID = @"B5A98E56-E301-EE2F-FFDB-0B422FBBF800";
-static NSString *SECRET_KEY = @"666FEFFD-4120-4B75-FFBF-B8E96C84C600";
-/*///------------------------------------------------------------------
+static NSString *BACKENDLESS_HOST_URL = @"https://api.backendless.com";
+static NSString *BACKENDLESS_MEDIA_URL = @"rtmp://wowza.backendless.com:1935/mediaApp";
 
 static NSString *VERSION_NUM = @"v1";
 static NSString *APP_TYPE = @"IOS";
@@ -105,7 +82,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 #endif
         
         
-        _hostURL = [HOST_URL retain];
+        _hostURL = [BACKENDLESS_HOST_URL retain];
         _versionNum = [VERSION_NUM retain];
         
         _headers = [NSMutableDictionary new];
@@ -368,7 +345,11 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 }
 
 -(NSString *)mediaServerUrl {
+#if 0
     return [NSString stringWithFormat:@"rtmp://%@:1935/mediaApp", [[NSURL URLWithString:_hostURL] host]];
+#else
+    return [NSString stringWithFormat:@"%@", BACKENDLESS_MEDIA_URL];
+#endif
 }
 
 -(void)setThrowException:(BOOL)needThrow {
