@@ -44,8 +44,6 @@ static NSString *APP_TYPE_HEADER_KEY = @"application-type";
 static NSString *API_VERSION_HEADER_KEY = @"api-version";
 static NSString *UISTATE_HEADER_KEY = @"uiState";
 
-@class MediaService;
-
 @interface Backendless ()
 {
 }
@@ -56,6 +54,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 @implementation Backendless
 @synthesize hostURL = _hostURL, versionNum = _versionNum, reachabilityDelegate = _reachabilityDelegate;
 @synthesize mediaService = _mediaService, persistenceService = _persistenceService, messagingService = _messagingService, userService = _userService, fileService = _fileService, geoService = _geoService;
+
 // Singleton accessor:  this is how you should ALWAYS get a reference to the class instance.  Never init your own.
 +(Backendless *)sharedInstance {
 	static Backendless *sharedBackendless;
@@ -72,15 +71,12 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     if ( (self=[super init]) ) {
         
         [OfflineModeManager sharedInstance].isOfflineMode = NO;
+
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-        
         [BETableView class];
         [BEMapView class];
         [BECollectionView class];
-        
-        
 #endif
-        
         
         _hostURL = [BACKENDLESS_HOST_URL retain];
         _versionNum = [VERSION_NUM retain];
@@ -89,18 +85,8 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
         [_headers setValue:APP_TYPE forKey:APP_TYPE_HEADER_KEY];
         [_headers setValue:API_VERSION forKey:API_VERSION_HEADER_KEY];
         
-//        _userService = [UserService new];
-//        _persistenceService = [PersistenceService new];
-//        _geoService = [GeoService new];
-//        _messagingService = [MessagingService new];
-//        _fileService = [FileService new];
-//#ifdef __arm64__
-//        NSLog(@"Media Service are not available for arm64");
-//#else
-//        _mediaService = [MediaService new];
-//#endif
-        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+        
         self.hostReachability = [Reachability reachabilityWithHostName:_hostURL];
         [self.hostReachability startNotifier];
         
@@ -113,8 +99,8 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 	
 	[DebLog logN:@"DEALLOC Backendless"];
     
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
+    
     [_reachabilityDelegate release];
     [_hostReachability release];
     
@@ -138,19 +124,17 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 
 #pragma mark - getters 
 
+#if 0
 -(MediaService *)mediaService
 {
-//#ifdef __arm64__
-//    NSLog(@"Media Service are not available for arm64");
-//    return nil;
-//#else
     if (!_mediaService) {
-        _mediaService = [NSClassFromString(@"MediaService") new];
+        //_mediaService = [MediaService new];
+        _mediaService = [[Types classInstanceByClassName:@"MediaService"] retain];
+        //_mediaService = [[Types classInstance:[MediaService class]] retain];
     }
     return _mediaService;
-//#endif
-    
 }
+#endif
 
 -(PersistenceService *)persistenceService
 {
@@ -189,6 +173,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     }
     return _geoService;
 }
+
 #pragma mark - reachability
 
 -(NSInteger)getConnectionStatus

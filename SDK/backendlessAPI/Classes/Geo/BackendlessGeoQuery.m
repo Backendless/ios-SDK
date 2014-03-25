@@ -475,14 +475,14 @@ static const char * const query_units[] = { "METERS", "MILES", "YARDS", "KILOMET
     return YES;
 }
 
-static char *geoServiceUnits[] = {"METERS", "MILES", "YARDS", "KILOMETERS", "FEET"};
+//static char *geoServiceUnits[] = {"METERS", "MILES", "YARDS", "KILOMETERS", "FEET"};
 
 -(NSString *)evaluation {
-    return [NSString stringWithFormat:@"BackendlessGeoQuery: latitude:%@, lonitude:%@, radius:%@, units:%s, searchRectangle:%@, categories:%@, includeMeta:%@, metadata:%@, pageSize:%@, whereClause:\'%@\'", latitude, longitude, radius, geoServiceUnits[[self valUnits]], searchRectangle, categories, [self valIncludeMeta]?@"YES":@"NO", metadata, pageSize, whereClause];
+    return [NSString stringWithFormat:@"BackendlessGeoQuery: latitude:%@, lonitude:%@, radius:%@, units:%s, searchRectangle:%@, categories:%@, includeMeta:%@, metadata:%@, pageSize:%@, whereClause:\'%@\'", latitude, longitude, radius, query_units[[self valUnits]], searchRectangle, categories, [self valIncludeMeta]?@"YES":@"NO", metadata, pageSize, whereClause];
 }
 
 -(NSString *)description {
-    return [NSString stringWithFormat:@"BackendlessGeoQuery: latitude:%@, lonitude:%@, radius:%@, units:%s, searchRectangle:%@, categories:%@, includeMeta:%@, metadata:%@, pageSize:%@, offset:%@, whereClause:\'%@\'", latitude, longitude, radius, geoServiceUnits[[self valUnits]], searchRectangle, categories, [self valIncludeMeta]?@"YES":@"NO", metadata, pageSize, offset, whereClause];
+    return [NSString stringWithFormat:@"BackendlessGeoQuery: latitude:%@, lonitude:%@, radius:%@, units:%s, searchRectangle:%@, categories:%@, includeMeta:%@, metadata:%@, pageSize:%@, offset:%@, whereClause:\'%@\'", latitude, longitude, radius, query_units[[self valUnits]], searchRectangle, categories, [self valIncludeMeta]?@"YES":@"NO", metadata, pageSize, offset, whereClause];
 }
 
 @end

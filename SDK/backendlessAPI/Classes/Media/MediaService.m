@@ -23,9 +23,10 @@
 #import "Backendless.h"
 
 @implementation MediaService
-//#ifndef __arm64__
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 -(MediaPublisher *)publishStream:(NSString *)name tube:(NSString *)tube options:(MediaPublishOptions *)options responder:(id <IMediaStreamerDelegate>)delegate {
+    
+    [DebLog log:@"MediaService -> publishStream: options = %@", options];
     
     MediaPublisher *stream = [MediaPublisher new];
     stream.delegate = delegate;
@@ -40,6 +41,8 @@
 }
 
 -(MediaPlayer *)playbackStream:(NSString *)name tube:(NSString *)tube options:(MediaPlaybackOptions *)options responder:(id <IMediaStreamerDelegate>)delegate {
+    
+    [DebLog log:@"MediaService -> playbackStream: options = %@", options];
     
     // setup the simultaneous record and playback
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
@@ -57,5 +60,4 @@
 }
 #else
 #endif
-//#endif
 @end

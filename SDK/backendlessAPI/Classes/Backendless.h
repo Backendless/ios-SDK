@@ -20,29 +20,17 @@
  */
 
 #import <Foundation/Foundation.h>
-//#import <UIKit/UIKit.h>
+
 // CommLibiOS
 #import "DEBUG.h"
 #import "Types.h"
 #import "Responder.h"
-// MediaLibiOS
-//#ifndef __arm64__
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-
-//#import "BroadcastStreamClient.h"
-//#import "MediaStreamPlayer.h"
-//#import "VideoPlayer.h"
-
-#endif
-//#endif
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-
 //UI
 #import "BEMapView.h"
 #import "BETableView.h"
 #import "BECollectionView.h"
-
 #endif
 
 // backendless
@@ -73,16 +61,6 @@
 #import "MessagingService.h"
 #import "FileService.h"
 #import "BackendlessFile.h"
-
-//#import "MediaService.h"
-//#import "IMediaStreamer.h"
-//#import "MediaPublisher.h"
-//#import "MediaPlayer.h"
-//#import "MediaPublishOptions.h"
-//#import "MediaPlaybackOptions.h"
-//#import "BroadcastStreamClient.h"
-//#import "MediaStreamPlayer.h"
-//#import "VideoPlayer.h"
 
 //Cache
 #import "BackendlessCachePolicy.h"
@@ -124,7 +102,7 @@
 @property (strong, nonatomic, readonly) GeoService *geoService;
 @property (strong, nonatomic, readonly) MessagingService *messagingService;
 @property (strong, nonatomic, readonly) FileService *fileService;
-@property (strong, nonatomic, readonly) MediaService *mediaService;
+@property (strong, nonatomic) MediaService *mediaService;
 
 @property (strong, nonatomic) id<ReachabilityDelegate> reachabilityDelegate;
 
