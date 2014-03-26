@@ -56,8 +56,8 @@
 @end
 
 @interface NSObject (AMF)
--(id)onAMFSerialaize;
--(id)onAMFDeserialaze;
+-(id)onAMFSerialize;
+-(id)onAMFDeserialize;
 @end
 
 @interface NSString (Chars)
