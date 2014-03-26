@@ -33,6 +33,7 @@
 @property (nonatomic, assign, getter = getName, setter = setName:) NSString *name;
 @property (nonatomic, assign, getter = getUserId) NSString *userId;
 @property (nonatomic, assign, getter = getUserToken) NSString *userToken;
+@property (nonatomic, retain) NSString *objectId;
 
 -(id)initWithProperties:(NSDictionary *)props;
 

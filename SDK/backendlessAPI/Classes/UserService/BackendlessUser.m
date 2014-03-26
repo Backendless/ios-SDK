@@ -138,7 +138,14 @@
     
     [properties del:key];
 }
-
+-(void)setObjectId:(NSString *)objectId
+{
+    [self setProperty:@"objectId" object:objectId];
+}
+-(NSString *)objectId
+{
+    return [self getProperty:@"objectId"];
+}
 -(NSString *)description {
     return [NSString stringWithFormat:@"<BackendlessUser> %@", properties.node];
 }
