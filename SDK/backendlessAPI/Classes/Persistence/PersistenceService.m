@@ -66,34 +66,44 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 -(void)prepareManagedObject:(id)object;
 -(id)prepareManagedObjectResponder:(id)response;
 -(NSString *)typeClassName:(Class)entity;
+-(NSDictionary *)propertyDictionary:(id)object;
+@end
+
+@interface Users : BackendlessUser
+@end
+@implementation Users
+@end
+
+@implementation BackendlessUser (AMF)
+
+-(id)onAMFSerialize
+{
+    Users *u = [Users new];
+    NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:[self getProperties]];
+    [data removeObjectsForKeys:@[@"user-token", @"userToken"]];
+    [u setProperties:data];
+    return u;
+}
 @end
 
 @implementation NSArray (AMF)
 
 -(id)onAMFSerialize
 {
-    NSLog(@"sadasd");
-    if ([self[2] isEqualToString:NSStringFromClass([BackendlessUser class])]) {
-        NSMutableArray *data = [NSMutableArray arrayWithArray:self];
-        data[2] = @"Users";
-        return data;
+    if ([self[2] isKindOfClass:[NSString class]]) {
+        if ([self[2] isEqualToString:NSStringFromClass([BackendlessUser class])]) {
+            NSMutableArray *data = [NSMutableArray arrayWithArray:self];
+            data[2] = @"Users";
+            return data;
+        }
     }
     return self;
 }
 
 @end
 
-@interface Users : NSObject
-@end
-@implementation Users
-@end
-
 @implementation Users (AMF)
--(id)onAMFSerialize
-{
-    NSLog(@"sadasd");
-    return self;
-}
+
 -(id)onAMFDeserialize
 {
     BackendlessUser *user = [BackendlessUser new];
@@ -152,7 +162,16 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 	
 	[super dealloc];
 }
-
+-(NSDictionary *)propertyDictionary:(id)object
+{
+    if ([[object class] isSubclassOfClass:[BackendlessUser class]]) {
+        NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:[(BackendlessUser *) object getProperties]];
+        [data removeObjectsForKeys:@[@"user-token", @"userToken"]];
+        
+        return data;
+    }
+    return [Types propertyDictionary:object];
+}
 -(void)prepareManagedObject:(id)object
 {
     return;
@@ -356,7 +375,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     
     if (!entity)
         return [backendless throwFault:FAULT_NO_ENTITY];
-    NSDictionary *props = [Types propertyDictionary:entity];
+    NSDictionary *props = [self propertyDictionary:entity];
     [DebLog log:@">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> PersistenceService -> save: %@", props];
     NSString *objectId = (props) ? [props objectForKey:PERSIST_OBJECT_ID] : nil;
     
@@ -537,7 +556,15 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     NSArray *keys = [result allKeys];
     for(NSString *propertyName in keys)
     {
+        if ([[object class] isSubclassOfClass:[BackendlessUser class]]) {
+            [(BackendlessUser *) object setProperty:propertyName object:[result valueForKey:propertyName]];
+            continue;
+        }
+        if ([[object valueForKey:propertyName] isKindOfClass:[NSNull class]]) {
+            continue;
+        }
         [object setValue:[result valueForKey:propertyName] forKey:propertyName];
+        
     }
     return object;
 }
@@ -586,7 +613,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     
     if (!entity) 
         return [responder errorHandler:FAULT_NO_ENTITY];
-    NSDictionary *props = [Types propertyDictionary:entity];
+    NSDictionary *props = [self propertyDictionary:entity];
     NSString *objectId = (props) ? [props objectForKey:PERSIST_OBJECT_ID] : nil;
     if (objectId && ![objectId isKindOfClass:[NSNull class]])
         [backendless.persistenceService update:entity responder:responder];
@@ -853,7 +880,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     const NSString *metadataKeys = @",___class,__meta,created,objectId,updated,";
     
     NSMutableDictionary *metadata = [NSMutableDictionary dictionary];
-    NSDictionary *props = [Types propertyDictionary:object];
+    NSDictionary *props = [self propertyDictionary:object];
     NSArray *keys = [props allKeys];
     for (NSString *key in keys) {
         NSRange rang = [metadataKeys rangeOfString:[NSString stringWithFormat:@",%@,",key]];
@@ -926,7 +953,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 #pragma mark Private Methods
 -(NSDictionary *)filteringProperty:(id)object
 {
-    NSDictionary *properties = [Types propertyDictionary:object];
+    NSDictionary *properties = [self propertyDictionary:object];
     NSMutableDictionary *result= [NSMutableDictionary dictionaryWithDictionary:properties];
 //    [result removeObjectForKey:@"__meta"];
     
@@ -1016,10 +1043,16 @@ id get_object_id(id self, SEL _cmd)
     id result = response.response;
     for(NSString *propertyName in relations)
     {
+        if ([[object class] isSubclassOfClass:[BackendlessUser class]]) {
+            [(BackendlessUser *) object setProperty:propertyName object:[result valueForKey:propertyName]];
+            continue;
+        }
         if ([[result valueForKey:propertyName] isKindOfClass:[NSNull class]]) {
             continue;
         }
+        
         [object setValue:[result valueForKey:propertyName] forKey:propertyName];
+        
     }
     return object;
 }

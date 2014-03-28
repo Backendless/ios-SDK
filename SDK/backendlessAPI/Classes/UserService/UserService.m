@@ -75,14 +75,18 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
         _responseHandler = @selector(onResponse:);
         _errorHandler = nil;
         self.chained = responder;
-        _user = user;
+        _user = [user retain];
         _current = nil;
     }
     
     return self;
     
 }
-
+-(void)dealloc
+{
+    [_user release];
+    [super dealloc];
+}
 +(id)responder:(BackendlessUser *)_user chained:(Responder *)responder {
     return [[[UserServiceResponder alloc] initWithUser:_user chained:responder] autorelease];
 }
