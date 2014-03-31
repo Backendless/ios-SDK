@@ -36,6 +36,7 @@
 @property (strong, nonatomic) NSString *whereClause;
 @property (strong, nonatomic) QueryOptions *queryOptions;
 @property (strong, nonatomic) BackendlessCachePolicy *cachePolicy;
+@property (strong, nonatomic) NSNumber *relationsDepth;
 
 -(id)init:(NSArray *)_properties where:(NSString *)_whereClause query:(QueryOptions *)_queryOptions;
 +(BackendlessDataQuery *)query;

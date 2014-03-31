@@ -85,6 +85,9 @@ static NSString *METHOD_GET_POINTS_WITH_MATCHES = @"relativeFind";
 {
     id result = [self addCategory:categoryName];
     if ([result isKindOfClass:[Fault class]]) {
+        if (!fault) {
+            return nil;
+        }
         (*fault) = result;
         return nil;
     }
@@ -94,6 +97,9 @@ static NSString *METHOD_GET_POINTS_WITH_MATCHES = @"relativeFind";
 {
     id result = [self deleteCategory:categoryName];
     if ([result isKindOfClass:[Fault class]]) {
+        if (!fault) {
+            return nil;
+        }
         (*fault) = result;
         return NO;
     }
@@ -103,6 +109,9 @@ static NSString *METHOD_GET_POINTS_WITH_MATCHES = @"relativeFind";
 {
     id result = [self savePoint:geoPoint];
     if ([result isKindOfClass:[Fault class]]) {
+        if (!fault) {
+            return nil;
+        }
         (*fault) = result;
         return nil;
     }
@@ -112,6 +121,9 @@ static NSString *METHOD_GET_POINTS_WITH_MATCHES = @"relativeFind";
 {
     id result = [self getCategories];
     if ([result isKindOfClass:[Fault class]]) {
+        if (!fault) {
+            return nil;
+        }
         (*fault) = result;
         return nil;
     }
@@ -121,6 +133,9 @@ static NSString *METHOD_GET_POINTS_WITH_MATCHES = @"relativeFind";
 {
     id result = [self getPoints:query];
     if ([result isKindOfClass:[Fault class]]) {
+        if (!fault) {
+            return nil;
+        }
         (*fault) = result;
         return nil;
     }
@@ -130,6 +145,9 @@ static NSString *METHOD_GET_POINTS_WITH_MATCHES = @"relativeFind";
 {
     id result = [self relativeFind:query];
     if ([result isKindOfClass:[Fault class]]) {
+        if (!fault) {
+            return nil;
+        }
         (*fault) = result;
         return nil;
     }

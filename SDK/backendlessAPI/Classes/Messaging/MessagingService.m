@@ -155,6 +155,9 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 {
     id result = [self registerDeviceWithTokenData:deviceToken];
     if ([result isKindOfClass:[Fault class]]) {
+        if (!fault) {
+            return nil;
+        }
         (*fault) = result;
         return nil;
     }
@@ -164,6 +167,9 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 {
     id result = [self registerDeviceToken:deviceToken];
     if ([result isKindOfClass:[Fault class]]) {
+        if (!fault) {
+            return nil;
+        }
         (*fault) = result;
         return nil;
     }
@@ -173,6 +179,9 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 {
     id result = [self registerDeviceExpiration:expiration];
     if ([result isKindOfClass:[Fault class]]) {
+        if (!fault) {
+            return nil;
+        }
         (*fault) = result;
         return nil;
     }
@@ -182,6 +191,9 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 {
     id result = [self registerDevice:channels];
     if ([result isKindOfClass:[Fault class]]) {
+        if (!fault) {
+            return nil;
+        }
         (*fault) = result;
         return nil;
     }
@@ -191,6 +203,9 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 {
     id result = [self registerDevice:channels expiration:expiration];
     if ([result isKindOfClass:[Fault class]]) {
+        if (!fault) {
+            return nil;
+        }
         (*fault) = result;
         return nil;
     }
@@ -200,6 +215,9 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 {
     id result = [self registerDevice:channels expiration:expiration token:deviceToken];
     if ([result isKindOfClass:[Fault class]]) {
+        if (!fault) {
+            return nil;
+        }
         (*fault) = result;
         return nil;
     }
@@ -209,6 +227,9 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 {
     id result = [self registerDevice];
     if ([result isKindOfClass:[Fault class]]) {
+        if (!fault) {
+            return nil;
+        }
         (*fault) = result;
         return nil;
     }
@@ -218,6 +239,9 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 {
     id result = [self getRegistrations];
     if ([result isKindOfClass:[Fault class]]) {
+        if (!fault) {
+            return nil;
+        }
         (*fault) = result;
         return nil;
     }
@@ -227,6 +251,9 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 {
     id result = [self getRegistrations:deviceId];
     if ([result isKindOfClass:[Fault class]]) {
+        if (!fault) {
+            return nil;
+        }
         (*fault) = result;
         return nil;
     }
@@ -236,6 +263,9 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 {
     id result = [self unregisterDevice];
     if ([result isKindOfClass:[Fault class]]) {
+        if (!fault) {
+            return nil;
+        }
         (*fault) = result;
         return NO;
     }
@@ -245,6 +275,9 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 {
     id result = [self unregisterDevice:deviceId];
     if ([result isKindOfClass:[Fault class]]) {
+        if (!fault) {
+            return nil;
+        }
         (*fault) = result;
         return NO;
     }
@@ -254,6 +287,9 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 {
     id result = [self publish:channelName message:message];
     if ([result isKindOfClass:[Fault class]]) {
+        if (!fault) {
+            return nil;
+        }
         (*fault) = result;
         return nil;
     }
@@ -263,6 +299,9 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 {
     id result = [self publish:channelName message:message publishOptions:publishOptions];
     if ([result isKindOfClass:[Fault class]]) {
+        if (!fault) {
+            return nil;
+        }
         (*fault) = result;
         return nil;
     }
@@ -272,6 +311,9 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 {
     id result = [self publish:channelName message:message deliveryOptions:deliveryOptions];
     if ([result isKindOfClass:[Fault class]]) {
+        if (!fault) {
+            return nil;
+        }
         (*fault) = result;
         return nil;
     }
@@ -281,6 +323,9 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 {
     id result = [self publish:channelName message:message publishOptions:publishOptions deliveryOptions:deliveryOptions];
     if ([result isKindOfClass:[Fault class]]) {
+        if (!fault) {
+            return nil;
+        }
         (*fault) = result;
         return nil;
     }
@@ -290,6 +335,9 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 {
     id result = [self cancel:messageId];
     if ([result isKindOfClass:[Fault class]]) {
+        if (!fault) {
+            return nil;
+        }
         (*fault) = result;
         return NO;
     }
@@ -299,6 +347,9 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 {
     id result = [self subscribe:channelName];
     if ([result isKindOfClass:[Fault class]]) {
+        if (!fault) {
+            return nil;
+        }
         (*fault) = result;
         return nil;
     }
@@ -308,6 +359,9 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 {
     id result = [self subscribe:channelName subscriptionResponder:subscriptionResponder];
     if ([result isKindOfClass:[Fault class]]) {
+        if (!fault) {
+            return nil;
+        }
         (*fault) = result;
         return nil;
     }
@@ -317,6 +371,9 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 {
     id result = [self subscribe:channelName subscriptionResponder:subscriptionResponder subscriptionOptions:subscriptionOptions];
     if ([result isKindOfClass:[Fault class]]) {
+        if (!fault) {
+            return nil;
+        }
         (*fault) = result;
         return nil;
     }
@@ -326,6 +383,9 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 {
     id result = [self subscribe:channelName subscriptionResponse:subscriptionResponseBlock subscriptionError:subscriptionErrorBlock];
     if ([result isKindOfClass:[Fault class]]) {
+        if (!fault) {
+            return nil;
+        }
         (*fault) = result;
         return nil;
     }
@@ -335,6 +395,9 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 {
     id result = [self subscribe:channelName subscriptionResponse:subscriptionResponseBlock subscriptionError:subscriptionErrorBlock subscriptionOptions:subscriptionOptions];
     if ([result isKindOfClass:[Fault class]]) {
+        if (!fault) {
+            return nil;
+        }
         (*fault) = result;
         return nil;
     }
@@ -344,6 +407,9 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 {
     id result = [self subscribe:subscription subscriptionOptions:subscriptionOptions];
     if ([result isKindOfClass:[Fault class]]) {
+        if (!fault) {
+            return nil;
+        }
         (*fault) = result;
         return nil;
     }
@@ -353,6 +419,9 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 {
     id result = [self pollMessages:channelName subscriptionId:subscriptionId];
     if ([result isKindOfClass:[Fault class]]) {
+        if (!fault) {
+            return nil;
+        }
         (*fault) = result;
         return nil;
     }
@@ -362,6 +431,9 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 {
     id result = [self sendEmailWithSubject:subject body:body to:to attachment:attachment isHTML:isHTML];
     if ([result isKindOfClass:[Fault class]]) {
+        if (!fault) {
+            return nil;
+        }
         (*fault) = result;
         return NO;
     }
