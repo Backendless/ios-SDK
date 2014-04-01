@@ -98,7 +98,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 
 -(id)onAMFSerialize
 {
-    if ([self[2] isKindOfClass:[NSString class]]) {
+    if ((self.count > 2) && [self[2] isKindOfClass:[NSString class]]) {
         if ([self[2] isEqualToString:NSStringFromClass([BackendlessUser class])]) {
             NSMutableArray *data = [NSMutableArray arrayWithArray:self];
             data[2] = @"Users";
