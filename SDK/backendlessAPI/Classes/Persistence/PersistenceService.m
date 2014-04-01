@@ -74,6 +74,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 -(id)findById:(NSString *)entityName sid:(NSString *)sid relations:(NSArray *)relations relationsDepth:(int)relationsDepth;
 -(id)first:(Class)entity relations:(NSArray *)relations relationsDepth:(int)relationsDepth;
 -(id)last:(Class)entity relations:(NSArray *)relations relationsDepth:(int)relationsDepth;
+-(id)load:(id)object relations:(NSArray *)relations relationsDepth:(int)relationsDepth;
 
 @end
 
@@ -396,6 +397,19 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 -(id)load:(id)object relations:(NSArray *)relations error:(Fault **)fault
 {
     id result = [self load:object relations:relations];
+    if ([result isKindOfClass:[Fault class]]) {
+        if (!fault) {
+            return nil;
+        }
+        (*fault) = result;
+        return nil;
+    }
+    return result;
+}
+
+-(id)load:(id)object relations:(NSArray *)relations relationsDepth:(int)relationsDepth error:(Fault **)fault
+{
+    id result = [self load:object relations:relations relationsDepth:relationsDepth];
     if ([result isKindOfClass:[Fault class]]) {
         if (!fault) {
             return nil;
@@ -968,6 +982,16 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 
 }
 
+-(void)load:(BackendlessEntity *)object relations:(NSArray *)relations relationsDepth:(int)relationsDepth responder:(id<IResponder>)responder
+{
+    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self typeClassName:[object class]], object.objectId, relations, @(relationsDepth), nil];
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(loadRelations:) selErrorHandler:nil];
+    _responder.chained = responder;
+    _responder.context = @{@"object":object, @"relations":relations};
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LOAD args:args responder:_responder];
+    
+}
+
 // async methods with block-base callbacks
 
 -(void)save:(NSString *)entityName entity:(NSDictionary *)entity response:(void(^)(NSDictionary *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -1058,7 +1082,10 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 -(void)load:(id)object relations:(NSArray *)relations response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [self load:object relations:relations responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
-
+-(void)load:(id)object relations:(NSArray *)relations relationsDepth:(int)relationsDepth response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock
+{
+    [self load:object relations:relations relationsDepth:relationsDepth responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
 // IDataStore class factory
 
 -(id <IDataStore>)of:(Class)entityClass {
