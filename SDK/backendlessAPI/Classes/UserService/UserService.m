@@ -208,7 +208,7 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
     id result = [self logout];
     if ([result isKindOfClass:[Fault class]]) {
         if (!fault) {
-            return nil;
+            return NO;
         }
         (*fault) = result;
         return NO;
@@ -220,7 +220,7 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
     id result = [self restorePassword:login];
     if ([result isKindOfClass:[Fault class]]) {
         if (!fault) {
-            return nil;
+            return NO;
         }
         (*fault) = result;
         return NO;
@@ -244,7 +244,7 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
     id result = [self user:user assignRole:role];
     if ([result isKindOfClass:[Fault class]]) {
         if (!fault) {
-            return nil;
+            return NO;
         }
         (*fault) = result;
         return NO;
@@ -256,7 +256,7 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
     id result = [self user:user unassignRole:role];
     if ([result isKindOfClass:[Fault class]]) {
         if (!fault) {
-            return nil;
+            return NO;
         }
         (*fault) = result;
         return NO;

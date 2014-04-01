@@ -138,7 +138,7 @@ static NSString *METHOD_DELETE = @"deleteFileOrDirectory";
     id result = [self remove:fileURL];
     if ([result isKindOfClass:[Fault class]]) {
         if (!fault) {
-            return nil;
+            return NO;
         }
         (*fault) = result;
         return NO;
@@ -150,7 +150,7 @@ static NSString *METHOD_DELETE = @"deleteFileOrDirectory";
     id result = [self removeDirectory:path];
     if ([result isKindOfClass:[Fault class]]) {
         if (!fault) {
-            return nil;
+            return NO;
         }
         (*fault) = result;
         return NO;

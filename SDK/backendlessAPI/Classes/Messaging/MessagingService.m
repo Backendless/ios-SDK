@@ -264,7 +264,7 @@ static NSString *METHOD_SEND_EMAIL = @"send";
     id result = [self unregisterDevice];
     if ([result isKindOfClass:[Fault class]]) {
         if (!fault) {
-            return nil;
+            return NO;
         }
         (*fault) = result;
         return NO;
@@ -276,7 +276,7 @@ static NSString *METHOD_SEND_EMAIL = @"send";
     id result = [self unregisterDevice:deviceId];
     if ([result isKindOfClass:[Fault class]]) {
         if (!fault) {
-            return nil;
+            return NO;
         }
         (*fault) = result;
         return NO;
@@ -336,7 +336,7 @@ static NSString *METHOD_SEND_EMAIL = @"send";
     id result = [self cancel:messageId];
     if ([result isKindOfClass:[Fault class]]) {
         if (!fault) {
-            return nil;
+            return NO;
         }
         (*fault) = result;
         return NO;
@@ -432,7 +432,7 @@ static NSString *METHOD_SEND_EMAIL = @"send";
     id result = [self sendEmailWithSubject:subject body:body to:to attachment:attachment isHTML:isHTML];
     if ([result isKindOfClass:[Fault class]]) {
         if (!fault) {
-            return nil;
+            return NO;
         }
         (*fault) = result;
         return NO;

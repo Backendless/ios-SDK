@@ -269,7 +269,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     id result = [self remove:entity sid:sid];
     if ([result isKindOfClass:[Fault class]]) {
         if (!fault) {
-            return nil;
+            return NO;
         }
         (*fault) = result;
         return NO;
@@ -687,6 +687,30 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     return object;
 }
 
+-(id)load:(BackendlessEntity *)object relations:(NSArray *)relations relationsDepth:(int)relationsDepth
+{
+    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self typeClassName:[object class]], object.objectId, relations, @(relationsDepth), nil];
+    
+    id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LOAD args:args];
+    if ([result isKindOfClass:[Fault class]])
+    {
+        return result;
+    }
+    NSArray *keys = [result allKeys];
+    for(NSString *propertyName in keys)
+    {
+        if ([[object class] isSubclassOfClass:[BackendlessUser class]]) {
+            [(BackendlessUser *) object setProperty:propertyName object:[result valueForKey:propertyName]];
+            continue;
+        }
+        if ([[object valueForKey:propertyName] isKindOfClass:[NSNull class]]) {
+            continue;
+        }
+        [object setValue:[result valueForKey:propertyName] forKey:propertyName];
+        
+    }
+    return object;
+}
 
 // async methods with responder
 

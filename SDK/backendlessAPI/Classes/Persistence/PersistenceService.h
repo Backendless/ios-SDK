@@ -49,6 +49,7 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(NSArray *)describe:(NSString *)classCanonicalName;
 -(id)findById:(NSString *)entityName sid:(NSString *)sid relations:(NSArray *)relations;
 -(id)load:(id)object relations:(NSArray *)relations;
+-(id)load:(id)object relations:(NSArray *)relations relationsDepth:(int)relationsDepth;
 
 ///new
 -(NSDictionary *)save:(NSString *)entityName entity:(NSDictionary *)entity error:(Fault **)fault;

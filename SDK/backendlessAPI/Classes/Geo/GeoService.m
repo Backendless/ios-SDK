@@ -98,7 +98,7 @@ static NSString *METHOD_GET_POINTS_WITH_MATCHES = @"relativeFind";
     id result = [self deleteCategory:categoryName];
     if ([result isKindOfClass:[Fault class]]) {
         if (!fault) {
-            return nil;
+            return NO;
         }
         (*fault) = result;
         return NO;
