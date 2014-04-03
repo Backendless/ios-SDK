@@ -49,7 +49,6 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(NSArray *)describe:(NSString *)classCanonicalName;
 -(id)findById:(NSString *)entityName sid:(NSString *)sid relations:(NSArray *)relations;
 -(id)load:(id)object relations:(NSArray *)relations;
--(id)load:(id)object relations:(NSArray *)relations relationsDepth:(int)relationsDepth;
 
 ///new
 -(NSDictionary *)save:(NSString *)entityName entity:(NSDictionary *)entity error:(Fault **)fault;
@@ -70,7 +69,7 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(id)findById:(NSString *)entityName sid:(NSString *)sid relations:(NSArray *)relations relationsDepth:(int)relationsDepth error:(Fault **)fault;
 -(id)first:(Class)entity relations:(NSArray *)relations relationsDepth:(int)relationsDepth error:(Fault **)fault;
 -(id)last:(Class)entity relations:(NSArray *)relations relationsDepth:(int)relationsDepth error:(Fault **)fault;
-
+-(id)load:(id)object relations:(NSArray *)relations relationsDepth:(int)relationsDepth error:(Fault **)fault;
 
 // async methods with responder
 -(void)save:(NSString *)entityName entity:(NSDictionary *)entity responder:(id <IResponder>)responder;
@@ -88,7 +87,7 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(void)describe:(NSString *)classCanonicalName responder:(id <IResponder>)responder;
 -(void)findById:(NSString *)entityName sid:(NSString *)sid relations:(NSArray *)relations responder:(id <IResponder>)responder;
 -(void)load:(id)object relations:(NSArray *)relations responder:(id <IResponder>)responder;
-
+-(void)load:(id)object relations:(NSArray *)relations relationsDepth:(int)relationsDepth responder:(id <IResponder>)responder;
 -(void)findById:(NSString *)entityName sid:(NSString *)sid relations:(NSArray *)relations relationsDepth:(int)relationsDepth responder:(id <IResponder>)responder;
 -(void)first:(Class)entity relations:(NSArray *)relations relationsDepth:(int)relationsDepth responder:(id <IResponder>)responder;
 -(void)last:(Class)entity relations:(NSArray *)relations relationsDepth:(int)relationsDepth responder:(id <IResponder>)responder;
@@ -109,7 +108,7 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(void)describe:(NSString *)classCanonicalName response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)findById:(NSString *)entityName sid:(NSString *)sid relations:(NSArray *)relations response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)load:(id)object relations:(NSArray *)relations response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
-
+-(void)load:(id)object relations:(NSArray *)relations relationsDepth:(int)relationsDepth response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)findById:(NSString *)entityName sid:(NSString *)sid relations:(NSArray *)relations relationsDepth:(int)relationsDepth response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)first:(Class)entity relations:(NSArray *)relations relationsDepth:(int)relationsDepth response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)last:(Class)entity relations:(NSArray *)relations relationsDepth:(int)relationsDepth response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;

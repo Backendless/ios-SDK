@@ -315,7 +315,6 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
     [props removeObjectForKey:BACKENDLESS_USER_TOKEN];
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, props, nil];
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_UPDATE args:args];
-    NSLog(@"%@", [Types propertyDictionary:result]);
     if ([result isKindOfClass:[Fault class]]) {
         return result;
     }
@@ -403,7 +402,6 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
     if ([result isKindOfClass:[Fault class]]) {
         return result;
     }
-    NSLog(@"%@", result);
     return [self onLogin:result];
 }
 -(NSArray *)getUserRoles
