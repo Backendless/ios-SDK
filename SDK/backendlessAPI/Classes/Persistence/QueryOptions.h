@@ -33,6 +33,7 @@
 @property (strong, nonatomic) NSNumber *offset;
 @property (strong, nonatomic) NSArray *sortBy;
 @property (strong, nonatomic) NSMutableArray *related;
+@property (strong, nonatomic) NSNumber *relationsDepth;
 
 -(id)initWithPageSize:(int)_pageSize offset:(int)_offset;
 +(QueryOptions *)query;

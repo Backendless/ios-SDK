@@ -23,7 +23,7 @@
 #import "DEBUG.h"
 
 @implementation QueryOptions
-@synthesize pageSize, offset, sortBy, related;
+@synthesize pageSize, offset, sortBy, related, relationsDepth;
 
 -(id)init {
 	if ( (self=[super init]) ) {

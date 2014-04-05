@@ -29,7 +29,7 @@ typedef struct {
 
 @interface GeoPoint : NSObject
 
-@property (strong, nonatomic, readonly) NSString *objectId;
+@property (strong, nonatomic) NSString *objectId;
 @property (strong, nonatomic, readonly) NSNumber *latitude;
 @property (strong, nonatomic, readonly) NSNumber *longitude;
 @property (strong, nonatomic, readonly) NSMutableArray *categories;
