@@ -18,7 +18,7 @@
  *
  *  ********************************************************************************************************************
  */
-//#ifndef __arm64__
+
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
@@ -53,6 +53,8 @@ typedef enum {
 @property AVCaptureVideoOrientation orientation;
 @property VideoResolution resolution;
 @property MediaStreamContent content;
+@property uint videoBitrate;
+@property uint audioBitrate;
 @property (assign, nonatomic) UIView *previewPanel;
 
 +(id)liveStream:(UIView *)view;
@@ -64,5 +66,4 @@ typedef enum {
 @interface MediaPublishOptions : NSObject
 @end
 #endif
-//#endif
 

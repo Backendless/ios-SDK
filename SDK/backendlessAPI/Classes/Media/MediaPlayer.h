@@ -21,7 +21,7 @@
 
 #import <Foundation/Foundation.h>
 #import "IMediaStreamer.h"
-//#ifndef __arm64__
+
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 @class MediaPlaybackOptions;
 
@@ -36,5 +36,4 @@
 @interface MediaPlayer : NSObject
 #endif
 @end
-//#endif
 

@@ -23,7 +23,7 @@
 #import "DEBUG.h"
 #import "MediaPublishOptions.h"
 #import "Backendless.h"
-//#ifndef __arm64__
+
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 #import "BroadcastStreamClient.h"
 static NSString *OPTIONS_IS_ABSENT = @"Options is absent. You shpuld set 'options' property";
@@ -91,7 +91,25 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
     if ([self wrongOptions])
         return;
     
-    [_stream switchCameras];    
+    [_stream switchCameras];
+}
+
+-(void)setVideoBitrate:(uint)bitRate {
+    
+    if ([self wrongOptions])
+        return;
+    
+    _options.videoBitrate = bitRate;
+    [_stream setVideoBitrate:bitRate];
+}
+
+-(void)setAudioBitrate:(uint)bitRate {
+    
+    if ([self wrongOptions])
+        return;
+   
+    _options.audioBitrate = bitRate;
+    [_stream setAudioBitrate:bitRate];
 }
 
 -(AVCaptureSession *)getCaptureSession {
@@ -141,8 +159,7 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
     id identity = backendless.userService.currentUser ? backendless.userService.currentUser.userToken : nil;
     if (!identity) identity = [NSNull null];
     
-    id tube = _tubeName;
-    if (!tube) tube = [NSNull null];
+    id tube = _tubeName ? _tubeName : [NSNull null];
     
     NSArray *param = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, identity, tube, [self operationType], [self streamType], nil];
     
@@ -211,9 +228,12 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
             return;
     }
     
-    _stream.parameters = [self parameters];
+    if (_options.videoBitrate)
+        [_stream setVideoBitrate:_options.videoBitrate];
+    if (_options.audioBitrate)
+        [_stream setAudioBitrate:_options.audioBitrate];
     
-    //
+    _stream.parameters = [self parameters];
     
     _stream.delegate = self;
     [_stream stream:_streamName publishType:(MPMediaPublishType)_options.publishType];
@@ -253,9 +273,6 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
 
 -(void)disconnect {
     
-//    if ([self wrongOptions])
-//        return;
-    
     [_stream disconnect];
     _stream = nil;
 }
@@ -284,7 +301,6 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
             
         case CONN_DISCONNECTED: {
             
-            //[self disconnect];
             _stream = nil;
             
             break;
@@ -321,7 +337,6 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
     
    [DebLog log:@"MediaPublisher <IMediaStreamEvent> connectFailedEvent: %d = %@\n", code, description];
     
-    //[self disconnect];
     _stream = nil;
     
     [self streamConnectFailed:sender code:code description:description];
@@ -331,5 +346,4 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
 #endif
 
 @end
-//#endif
 

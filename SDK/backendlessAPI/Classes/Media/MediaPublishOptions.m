@@ -21,7 +21,7 @@
 
 #import "MediaPublishOptions.h"
 #import "DEBUG.h"
-//#ifndef __arm64__
+
 @implementation MediaPublishOptions
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 -(id)init {
@@ -31,6 +31,8 @@
         _orientation = AVCaptureVideoOrientationLandscapeRight;
         _content = AUDIO_AND_VIDEO;
         _resolution = LOW_RESOLUTION;
+        _videoBitrate = 0;
+        _audioBitrate = 0;
         _previewPanel = nil;
 	}
 	
@@ -83,5 +85,4 @@
 #else
 #endif
 @end
-//#endif
 

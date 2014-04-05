@@ -1840,10 +1840,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				91628DF717FAC79F00ACC36F /* backendless-mac */,
 				F97969DB166CC8C300595F5E /* backendless-simulator */,
 				F9796A27166CD3A400595F5E /* backendless-device */,
 				F9796A6F166CD49A00595F5E /* backendless-fat */,
-				91628DF717FAC79F00ACC36F /* backendless-mac */,
 			);
 		};
 /* End PBXProject section */
@@ -1860,7 +1860,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "rm -rf ${BUILT_PRODUCTS_DIR}/backendless.a\n\nlipo -create \"${BUILT_PRODUCTS_DIR}/../Release-iphonesimulator/libbackendless-simulator.a\" \\\n\"${BUILT_PRODUCTS_DIR}/libbackendless-device.a\" -output \\\n\"${BUILT_PRODUCTS_DIR}/backendless.a\"\n\ncp ${BUILT_PRODUCTS_DIR}/backendless.a ${SRCROOT}/../lib/backendless\ncp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../lib/backendless/include\n\ncp ${BUILT_PRODUCTS_DIR}/backendless.a ${SRCROOT}/../../../iOS-Samples/lib/backendless\ncp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../../../iOS-Samples/lib/backendless/include\n\nrm -rf ${BUILT_PRODUCTS_DIR}/usr/local/include/*\n";
+			shellScript = "rm -rf ${BUILT_PRODUCTS_DIR}/backendless.a\n\nlipo -create \"${BUILT_PRODUCTS_DIR}/../Release-iphonesimulator/libbackendless-simulator.a\" \\\n\"${BUILT_PRODUCTS_DIR}/libbackendless-device.a\" -output \\\n\"${BUILT_PRODUCTS_DIR}/backendless.a\"\n\ncp ${BUILT_PRODUCTS_DIR}/backendless.a ${SRCROOT}/../lib/backendless\ncp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../lib/backendless/include\n\ncp ${BUILT_PRODUCTS_DIR}/backendless.a ${SRCROOT}/../../../iOS-Samples/lib/backendless\ncp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../../../iOS-Samples/lib/backendless/include\n                                           \n# -------------------------- !!!!! TEMP TESTING COPIES !!!!! --------------------------------\n                                           \ncp ${BUILT_PRODUCTS_DIR}/backendless.a ~/Downloads/Test/lib/backendless\ncp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ~/Downloads/Test/lib/backendless/include\n\n#--------------------------------------------------------------------------------------------\n                                           \nrm -rf ${BUILT_PRODUCTS_DIR}/usr/local/include/*\n";
 		};
 		F9BBFD27187832A60076BC6D /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2073,10 +2073,7 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DSTROOT = /tmp/backendless_simulator.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../../../../../../../Documents/FacebookSDK\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "backendless-simulator/backendless-simulator-Prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
@@ -2101,10 +2098,7 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DSTROOT = /tmp/backendless_simulator.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../../../../../../../Documents/FacebookSDK\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "backendless-simulator/backendless-simulator-Prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
@@ -2195,10 +2189,7 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DSTROOT = /tmp/backendless_simulator.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../../../../../../../Documents/FacebookSDK\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "backendless-simulator/backendless-simulator-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
@@ -2232,10 +2223,7 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DSTROOT = /tmp/backendless_simulator.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../../../../../../../Documents/FacebookSDK\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "backendless-simulator/backendless-simulator-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
@@ -2269,10 +2257,7 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DSTROOT = /tmp/backendless_device.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../../../../../../../Documents/FacebookSDK\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "backendless-device/backendless-device-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
@@ -2300,10 +2285,7 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DSTROOT = /tmp/backendless_device.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../../../../../../../Documents/FacebookSDK\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "backendless-device/backendless-device-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;

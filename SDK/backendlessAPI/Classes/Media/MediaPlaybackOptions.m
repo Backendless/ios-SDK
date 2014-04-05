@@ -21,7 +21,7 @@
 
 #import "MediaPlaybackOptions.h"
 #import "DEBUG.h"
-//#ifndef __arm64__
+
 @implementation MediaPlaybackOptions
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 -(id)init {
@@ -70,4 +70,3 @@
 #else
 #endif
 @end
-//#endif
