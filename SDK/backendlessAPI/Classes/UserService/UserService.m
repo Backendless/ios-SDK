@@ -424,7 +424,6 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
     _responder.context = user;
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_REGISTER args:args responder:_responder];
 }
-
 -(void)update:(BackendlessUser *)user responder:(id <IResponder>)responder {
     
     if (!user) 
