@@ -25,7 +25,7 @@
 #import <CoreMedia/CoreMedia.h>
 #import <CoreVideo/CoreVideo.h>
 #import "IMediaStreamer.h"
-//#ifndef __arm64__
+
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 @class MediaPublishOptions;
 
@@ -38,6 +38,8 @@
 @property (strong, nonatomic) NSString *streamName;
 
 -(void)switchCameras;
+-(void)setVideoBitrate:(uint)bitRate;
+-(void)setAudioBitrate:(uint)bitRate;
 -(AVCaptureSession *)getCaptureSession;
 -(BOOL)sendFrame:(CVPixelBufferRef)pixelBuffer timestamp:(int)timestamp;
 -(BOOL)sendSampleBuffer:(CMSampleBufferRef)sampleBuffer;
@@ -48,5 +50,4 @@
 #endif
 
 @end
-//#endif
 
