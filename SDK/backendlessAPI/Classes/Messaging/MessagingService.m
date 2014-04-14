@@ -606,7 +606,7 @@ static NSString *METHOD_SEND_EMAIL = @"send";
     {
         bodyParts.textMessage = body;
     }
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, subject, bodyParts, to, attachment, nil];
+    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, (subject)?subject:@"", bodyParts, to, (attachment)?attachment:@[], nil];
     return [invoker invokeSync:SERVER_MAIL_SERVICE_PATH method:METHOD_SEND_EMAIL args:args];
 }
 // async methods with responder
@@ -757,7 +757,7 @@ static NSString *METHOD_SEND_EMAIL = @"send";
     {
         bodyParts.textMessage = body;
     }
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, subject, bodyParts, to, attachment, nil];
+    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, (subject)?subject:@"", bodyParts, to, (attachment)?attachment:@[], nil];
     [invoker invokeAsync:SERVER_MAIL_SERVICE_PATH method:METHOD_SEND_EMAIL args:args responder:responder];
 }
 // async methods with block-base callbacks
