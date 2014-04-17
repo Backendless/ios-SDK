@@ -7,10 +7,10 @@
 //
 
 #import <MapKit/MapKit.h>
+
 @class BackendlessCollection, Fault, BackendlessGeoQuery, GeoPoint;
 
 @interface BEMapView : MKMapView
-
 @property (nonatomic, strong) NSDictionary *metadata;
 @property (nonatomic, copy) NSString *whereClause;
 
@@ -28,6 +28,10 @@
 //-(void)relativeFind:(BackendlessGeoQuery *)query responder:(id)responder;
 //-(void)getPoints:(BackendlessGeoQuery *)query response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
 //-(void)relativeFind:(BackendlessGeoQuery *)query response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
-
+-(void)setUnits:(int)units;
 -(void)removeAllObjects;
+-(NSArray *)responseData;
+
+-(void)setSearchWithRadius:(float)radius;
+-(void)setSearchInMapBoundaries;
 @end
