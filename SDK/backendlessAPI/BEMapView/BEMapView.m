@@ -211,7 +211,7 @@
     _searchInRadius = NO;
     [self removeCircle];
 }
--(void)setUnits:(id)units
+-(void)setUnits:(int)units
 {
     _units = units;
     [self addCircle:_radius];
@@ -230,7 +230,7 @@
 {
     if (_autoUpdate) {
         [_responseData addObjectsFromArray:response.data];
-        if (response.data.count == response.valPageSize) {
+        if (response.valPageSize + response.valOffset < response.valTotalObjects) {
             [response nextPage:NO responder:_responder];
         }
         for (GeoPoint *point in response.data) {

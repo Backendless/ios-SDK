@@ -34,5 +34,4 @@
 
 -(void)setSearchWithRadius:(float)radius;
 -(void)setSearchInMapBoundaries;
--(void)updateData;
 @end
