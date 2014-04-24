@@ -24,8 +24,6 @@
 #import "DEBUG.h"
 #import "Backendless.h"
 
-#define POLLING_INTERVAL 1.0f
-
 
 @implementation BESubscription
 
@@ -85,7 +83,7 @@
 
 -(void)pollingMessages {
     [backendless.messagingService pollMessages:_channelName subscriptionId:_subscriptionId responder:_responder];
-    [self performSelector:@selector(pollingMessages) withObject:nil afterDelay:POLLING_INTERVAL];
+    [self performSelector:@selector(pollingMessages) withObject:nil afterDelay:backendless.messagingService.pollingFrequency];
 }
 
 #pragma mark -

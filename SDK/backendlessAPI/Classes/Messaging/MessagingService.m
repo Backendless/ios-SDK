@@ -18,6 +18,8 @@
  *
  *  ********************************************************************************************************************
  */
+#define POLLING_INTERVAL 1.0f
+
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 #else
 #import <IOKit/IOKitLib.h>
@@ -71,6 +73,7 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 
 
 @implementation MessagingService
+@synthesize pollingFrequency;
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 #else
 - (NSString *)serialNumber
@@ -99,6 +102,7 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 -(id)init {
 	
     if ( (self=[super init]) ) {
+        self.pollingFrequency = POLLING_INTERVAL;
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.management.DeviceRegistrationDto" mapped:[DeviceRegistration class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.messaging.Message" mapped:[Message class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.messaging.MessageStatus" mapped:[MessageStatus class]];
