@@ -148,7 +148,7 @@
         [self addCircle:_radius];
         point.latitude = self.centerCoordinate.latitude;
         point.longitude = self.centerCoordinate.longitude;
-        query = [BackendlessGeoQuery queryWithPoint:point radius:_radius/[self convertUnits] units:_units categories:categories];
+        query = [BackendlessGeoQuery queryWithPoint:point radius:_radius units:_units categories:categories];
     }
     else
     {
@@ -250,6 +250,7 @@
 -(id)errorHandler:(Fault *)fault
 {
     [_responseData removeAllObjects];
+    NSLog(@"%@", fault.detail);
     return fault;
 }
 -(void)removeAnnotation:(id<MKAnnotation>)annotation
