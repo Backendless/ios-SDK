@@ -12,22 +12,34 @@
 #import "BEAnnotation.h"
 @interface BEMapView ()<MKMapViewDelegate>
 {
+    UNITS _units;
     BackendlessGeoQuery *_geoQuery;
     Responder *_responder;
     NSMutableDictionary *_data;
     NSMutableSet *_categories;
     BOOL _autoUpdate;
+    NSMutableArray *_responseData;
+    float _radius;
+    BOOL _searchInRadius;
+    MKCircle *_circle;
 }
 @property (nonatomic, strong) id beMapViewDelegate;
 -(id)errorHandler:(Fault *)fault;
 -(void)initProperties;
 -(id)responseHandler:(id)response;
+-(void)removeCircle;
+-(void)addCircle:(float)radius;
+-(double)convertUnits;
+-(void)updateGeopoints;
 @end
 
 @implementation BEMapView
+@synthesize whereClause=_whereClause, metadata=_metadata;
 -(void)dealloc
 {
     self.delegate = nil;
+//    [_circle release];
+    [_responseData release];
     [_whereClause release];
     [_metadata release];
     [_categories release];
@@ -38,8 +50,11 @@
 }
 -(void)initProperties
 {
+    _units = METERS;
+    _searchInRadius = NO;
     _autoUpdate = YES;
     _categories = [NSMutableSet new];
+    _responseData = [NSMutableArray new];
     self.delegate = self;
     _data = [NSMutableDictionary new];
     _responder = [[Responder responder:self selResponseHandler:@selector(responseHandler:) selErrorHandler:@selector(errorHandler:)] retain];
@@ -117,6 +132,90 @@
     [self addAnnotation:annotation];
     return YES;
 }
+-(void)removeCircle
+{
+    if (_circle) {
+        [self removeOverlay:_circle];
+        _circle = nil;
+    }
+}
+-(void)updateGeopoints
+{
+    BackendlessGeoQuery *query;
+    GEO_POINT point;
+    NSArray *categories = (_categories.allObjects.count==0)?@[@"geoservice_sample"]:_categories.allObjects;
+    if (_searchInRadius) {
+        [self addCircle:_radius];
+        point.latitude = self.centerCoordinate.latitude;
+        point.longitude = self.centerCoordinate.longitude;
+        query = [BackendlessGeoQuery queryWithPoint:point radius:_radius units:_units categories:categories];
+    }
+    else
+    {
+        MKCoordinateRegion region = self.region;
+        
+        point.latitude = region.center.latitude;
+        point.longitude = region.center.longitude;
+        GEO_RECT rect = [backendless.geoService geoRectangle:point length:region.span.longitudeDelta widht:region.span.latitudeDelta];
+        query = [BackendlessGeoQuery queryWithRect:rect.nordWest southEast:rect.southEast categories:categories];
+    }
+    query.metadata = (NSMutableDictionary *)self.metadata;
+    query.whereClause = self.whereClause;
+    [backendless.geoService getPoints:query responder:_responder ];
+}
+-(double)convertUnits
+{
+    double unitK = 1.0;
+    switch (_units) {
+        case METERS:
+            unitK = 1.0;
+            break;
+        case MILES:
+            unitK = 1609.3;
+            break;
+        case KILOMETERS:
+            unitK = 1000.0;
+            break;
+        case YARDS:
+            unitK = 0.91440;
+            break;
+        case FEET:
+            unitK = 0.3048;
+            break;
+        default:
+            unitK = 1.0;
+            break;
+    }
+    return unitK;
+}
+-(void)addCircle:(float)radius
+{
+    [self removeCircle];
+    _radius = radius;
+    double unitK = [self convertUnits];
+    _circle = [MKCircle circleWithCenterCoordinate:self.region.center radius:(_radius * unitK)];
+    [self addOverlay:_circle];
+}
+-(NSArray *)responseData
+{
+    return _responseData;
+}
+-(void)setSearchWithRadius:(float)radius
+{
+    _searchInRadius = YES;
+    [self addCircle:radius];
+}
+-(void)setSearchInMapBoundaries
+{
+    _radius = 0;
+    _searchInRadius = NO;
+    [self removeCircle];
+}
+-(void)setUnits:(int)units
+{
+    _units = units;
+    [self addCircle:_radius];
+}
 -(void)removeAllObjects
 {
     [_data removeAllObjects];
@@ -130,7 +229,8 @@
 -(id)responseHandler:(BackendlessCollection *)response
 {
     if (_autoUpdate) {
-        if (response.data.count == response.valPageSize) {
+        [_responseData addObjectsFromArray:response.data];
+        if (response.valPageSize + response.valOffset < response.valTotalObjects) {
             [response nextPage:NO responder:_responder];
         }
         for (GeoPoint *point in response.data) {
@@ -139,6 +239,8 @@
     }
     else {
         [self removeAllObjects];
+        [_responseData removeAllObjects];
+        [_responseData addObjectsFromArray:response.data];
         for (GeoPoint *point in response.data) {
             [self addGeopointIfNeed:point];
         }
@@ -147,6 +249,8 @@
 }
 -(id)errorHandler:(Fault *)fault
 {
+    [_responseData removeAllObjects];
+    NSLog(@"%@", fault.detail);
     return fault;
 }
 -(void)removeAnnotation:(id<MKAnnotation>)annotation
@@ -186,20 +290,34 @@
 }
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
+    [_responseData removeAllObjects];
     if ([_beMapViewDelegate respondsToSelector:@selector(mapView:regionDidChangeAnimated:)]) {
         [_beMapViewDelegate mapView:mapView regionDidChangeAnimated:animated];
         return;
     }
     if (_autoUpdate) {
-        MKCoordinateRegion region = mapView.region;
-        GEO_POINT point;
-        point.latitude = region.center.latitude;
-        point.longitude = region.center.longitude;
-        GEO_RECT rect = [backendless.geoService geoRectangle:point length:region.span.longitudeDelta widht:region.span.latitudeDelta];
-        BackendlessGeoQuery *query = [BackendlessGeoQuery queryWithRect:rect.nordWest southEast:rect.southEast categories:(_categories.allObjects.count==0)?@[@"geoservice_sample"]:_categories.allObjects];
-        query.metadata = (NSMutableDictionary *)self.metadata;
-        query.whereClause = self.whereClause;
-        [backendless.geoService getPoints:query responder:_responder ];
+//        BackendlessGeoQuery *query;
+//        GEO_POINT point;
+//        NSArray *categories = (_categories.allObjects.count==0)?@[@"geoservice_sample"]:_categories.allObjects;
+//        if (_searchInRadius) {
+//            [self addCircle:_radius];
+//            point.latitude = self.centerCoordinate.latitude;
+//            point.longitude = self.centerCoordinate.longitude;
+//            query = [BackendlessGeoQuery queryWithPoint:point radius:_radius/[self convertUnits] units:_units categories:categories];
+//        }
+//        else
+//        {
+//            MKCoordinateRegion region = mapView.region;
+//            
+//            point.latitude = region.center.latitude;
+//            point.longitude = region.center.longitude;
+//            GEO_RECT rect = [backendless.geoService geoRectangle:point length:region.span.longitudeDelta widht:region.span.latitudeDelta];
+//            query = [BackendlessGeoQuery queryWithRect:rect.nordWest southEast:rect.southEast categories:categories];
+//        }
+//        query.metadata = (NSMutableDictionary *)self.metadata;
+//        query.whereClause = self.whereClause;
+//        [backendless.geoService getPoints:query responder:_responder ];
+        [self updateGeopoints];
     }
 }
 
@@ -285,14 +403,23 @@
     if ([_beMapViewDelegate respondsToSelector:@selector(mapView:rendererForOverlay:)]) {
         return [_beMapViewDelegate mapView:mapView rendererForOverlay:overlay];
     }
-    return nil;
+    MKCircleRenderer *circle = [[MKCircleRenderer alloc] initWithCircle:overlay];
+    circle.fillColor = [UIColor colorWithRed:0.1 green:0.8 blue:0.1 alpha:0.4];
+    circle.lineWidth = 1;
+    circle.strokeColor = [UIColor redColor];
+    return circle;
 }
 -(MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id<MKOverlay>)overlay
 {
     if ([_beMapViewDelegate respondsToSelector:@selector(mapView:viewForOverlay:)]) {
         return [_beMapViewDelegate mapView:mapView viewForOverlay:overlay];
     }
-    return nil;
+    MKCircle *circle = overlay;
+    MKCircleView *circleView = [[MKCircleView alloc] initWithCircle:overlay];
+    
+    circleView.fillColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.5];
+    
+    return circleView;
 }
 -(void)mapViewDidFailLoadingMap:(MKMapView *)mapView withError:(NSError *)error
 {

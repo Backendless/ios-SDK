@@ -18,6 +18,8 @@
  *
  *  ********************************************************************************************************************
  */
+#define POLLING_INTERVAL 1.0f
+
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 #else
 #import <IOKit/IOKitLib.h>
@@ -71,6 +73,7 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 
 
 @implementation MessagingService
+@synthesize pollingFrequency;
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 #else
 - (NSString *)serialNumber
@@ -99,6 +102,7 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 -(id)init {
 	
     if ( (self=[super init]) ) {
+        self.pollingFrequency = POLLING_INTERVAL;
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.management.DeviceRegistrationDto" mapped:[DeviceRegistration class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.messaging.Message" mapped:[Message class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.messaging.MessageStatus" mapped:[MessageStatus class]];
@@ -606,7 +610,7 @@ static NSString *METHOD_SEND_EMAIL = @"send";
     {
         bodyParts.textMessage = body;
     }
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, subject, bodyParts, to, attachment, nil];
+    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, (subject)?subject:@"", bodyParts, to, (attachment)?attachment:@[], nil];
     return [invoker invokeSync:SERVER_MAIL_SERVICE_PATH method:METHOD_SEND_EMAIL args:args];
 }
 // async methods with responder
@@ -757,7 +761,7 @@ static NSString *METHOD_SEND_EMAIL = @"send";
     {
         bodyParts.textMessage = body;
     }
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, subject, bodyParts, to, attachment, nil];
+    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, (subject)?subject:@"", bodyParts, to, (attachment)?attachment:@[], nil];
     [invoker invokeAsync:SERVER_MAIL_SERVICE_PATH method:METHOD_SEND_EMAIL args:args responder:responder];
 }
 // async methods with block-base callbacks
