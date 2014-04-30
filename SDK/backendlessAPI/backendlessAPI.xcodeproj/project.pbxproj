@@ -70,7 +70,6 @@
 		91628E1D17FAC79F00ACC36F /* BackendlessCacheKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1399117D7240A00D1AC4C /* BackendlessCacheKey.m */; };
 		91628E1E17FAC79F00ACC36F /* BackendlessCachePolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1399317D7240A00D1AC4C /* BackendlessCachePolicy.m */; };
 		91628E1F17FAC79F00ACC36F /* QueryOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F139B117D724C600D1AC4C /* QueryOptions.m */; };
-		91628E2217FAC79F00ACC36F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9042B0915FDD8D300C9381A /* Foundation.framework */; };
 		91628E2517FAC79F00ACC36F /* Backendless.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B47FE15FF569400012DFC /* Backendless.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91628E2617FAC79F00ACC36F /* AbstractProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = F99D9233160B61AF00AFF3F6 /* AbstractProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91628E2717FAC79F00ACC36F /* UserService.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B480415FF5AC500012DFC /* UserService.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -112,8 +111,6 @@
 		91628E4E17FAC79F00ACC36F /* BackendlessCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1398C17D7240A00D1AC4C /* BackendlessCache.h */; };
 		91628E4F17FAC79F00ACC36F /* BackendlessCacheData.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1398E17D7240A00D1AC4C /* BackendlessCacheData.h */; };
 		91628E5017FAC79F00ACC36F /* BackendlessCacheKey.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1399017D7240A00D1AC4C /* BackendlessCacheKey.h */; };
-		91628E5617FACDE200ACC36F /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91628E5517FACDE200ACC36F /* AppKit.framework */; };
-		91628E5817FAD55A00ACC36F /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91628E5717FAD55A00ACC36F /* IOKit.framework */; };
 		91764F9B1823E43400745497 /* BECollectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 91764F991823E43400745497 /* BECollectionView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91764F9C1823E43400745497 /* BECollectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 91764F991823E43400745497 /* BECollectionView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91764F9E1823E43400745497 /* BECollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91764F9A1823E43400745497 /* BECollectionView.m */; };
@@ -180,7 +177,6 @@
 		F9512974168DCFFF0041460C /* MediaPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F9512970168DCFFF0041460C /* MediaPlayer.m */; };
 		F9512979168DEA210041460C /* IMediaStreamer.h in Headers */ = {isa = PBXBuildFile; fileRef = F9512978168DEA210041460C /* IMediaStreamer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F951297A168DEA210041460C /* IMediaStreamer.h in Headers */ = {isa = PBXBuildFile; fileRef = F9512978168DEA210041460C /* IMediaStreamer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F97969DD166CC8C300595F5E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9042B0915FDD8D300C9381A /* Foundation.framework */; };
 		F97969E4166CC8C300595F5E /* backendless_simulator.m in Sources */ = {isa = PBXBuildFile; fileRef = F97969E3166CC8C300595F5E /* backendless_simulator.m */; };
 		F97969EA166CCB8200595F5E /* Backendless.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B47FF15FF569400012DFC /* Backendless.m */; };
 		F97969EB166CCB8200595F5E /* Invoker.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480215FF5AA900012DFC /* Invoker.m */; };
@@ -237,8 +233,6 @@
 		F9796A20166CCBFE00595F5E /* FileService.h in Headers */ = {isa = PBXBuildFile; fileRef = F918412C1638281600D36A61 /* FileService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9796A21166CCBFE00595F5E /* BackendlessFile.h in Headers */ = {isa = PBXBuildFile; fileRef = F9184132163AB29600D36A61 /* BackendlessFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9796A22166CCBFE00595F5E /* HashMap.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B47E915FF448F00012DFC /* HashMap.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F9796A23166CCFBB00595F5E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9042B0715FDD8D300C9381A /* UIKit.framework */; };
-		F9796A29166CD3A400595F5E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9042B0915FDD8D300C9381A /* Foundation.framework */; };
 		F9796A30166CD3A400595F5E /* backendless_device.m in Sources */ = {isa = PBXBuildFile; fileRef = F9796A2F166CD3A400595F5E /* backendless_device.m */; };
 		F9796A34166CD3DA00595F5E /* Backendless.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B47FF15FF569400012DFC /* Backendless.m */; };
 		F9796A35166CD3DA00595F5E /* Invoker.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480215FF5AA900012DFC /* Invoker.m */; };
@@ -267,7 +261,6 @@
 		F9796A4D166CD3DB00595F5E /* FileService.m in Sources */ = {isa = PBXBuildFile; fileRef = F918412D1638281600D36A61 /* FileService.m */; };
 		F9796A4E166CD3DB00595F5E /* BackendlessFile.m in Sources */ = {isa = PBXBuildFile; fileRef = F9184133163AB29600D36A61 /* BackendlessFile.m */; };
 		F9796A4F166CD3DB00595F5E /* HashMap.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B47EA15FF448F00012DFC /* HashMap.m */; };
-		F9796A51166CD3F500595F5E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9042B0715FDD8D300C9381A /* UIKit.framework */; };
 		F9796A52166CD42E00595F5E /* Backendless.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B47FE15FF569400012DFC /* Backendless.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9796A53166CD42E00595F5E /* Invoker.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B480115FF5AA900012DFC /* Invoker.h */; };
 		F9796A54166CD42E00595F5E /* AbstractProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = F99D9233160B61AF00AFF3F6 /* AbstractProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -766,9 +759,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				91628E5817FAD55A00ACC36F /* IOKit.framework in Frameworks */,
-				91628E5617FACDE200ACC36F /* AppKit.framework in Frameworks */,
-				91628E2217FAC79F00ACC36F /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -776,8 +766,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F9796A23166CCFBB00595F5E /* UIKit.framework in Frameworks */,
-				F97969DD166CC8C300595F5E /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -785,8 +773,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F9796A29166CD3A400595F5E /* Foundation.framework in Frameworks */,
-				F9796A51166CD3F500595F5E /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2088,11 +2074,9 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "backendless-simulator/backendless-simulator-Prefix.pch";
+				HEADER_SEARCH_PATHS = "../lib/libav-v9.1965/include";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../lib/CommLibiOS",
-				);
+				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "backendless-mac";
@@ -2113,11 +2097,9 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "backendless-simulator/backendless-simulator-Prefix.pch";
+				HEADER_SEARCH_PATHS = "../lib/libav-v9.1965/include";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../lib/CommLibiOS",
-				);
+				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "backendless-mac";
@@ -2208,17 +2190,9 @@
 				"GCC_WARN_64_TO_32_BIT_CONVERSION[arch=*64]" = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_VALUE = NO;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-				);
+				HEADER_SEARCH_PATHS = "../lib/libav-v9.1965/include";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../lib/CommLibiOS",
-					"$(SRCROOT)/../lib/libav-v9.1965/lib",
-					"$(SRCROOT)/../lib/MediaLibiOS",
-				);
+				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2242,17 +2216,9 @@
 				"GCC_WARN_64_TO_32_BIT_CONVERSION[arch=*64]" = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_VALUE = NO;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-				);
+				HEADER_SEARCH_PATHS = "../lib/libav-v9.1965/include";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../lib/CommLibiOS",
-					"$(SRCROOT)/../lib/libav-v9.1965/lib",
-					"$(SRCROOT)/../lib/MediaLibiOS",
-				);
+				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2274,13 +2240,9 @@
 				GCC_PREFIX_HEADER = "backendless-device/backendless-device-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_VALUE = NO;
+				HEADER_SEARCH_PATHS = "../lib/libav-v9.1965/include";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../lib/CommLibiOS",
-					"$(SRCROOT)/../lib/libav-v9.1965/lib",
-					"$(SRCROOT)/../lib/MediaLibiOS",
-				);
+				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2302,13 +2264,9 @@
 				GCC_PREFIX_HEADER = "backendless-device/backendless-device-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_VALUE = NO;
+				HEADER_SEARCH_PATHS = "../lib/libav-v9.1965/include";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../lib/CommLibiOS",
-					"$(SRCROOT)/../lib/libav-v9.1965/lib",
-					"$(SRCROOT)/../lib/MediaLibiOS",
-				);
+				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
