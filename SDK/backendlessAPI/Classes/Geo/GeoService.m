@@ -38,6 +38,7 @@ static NSString *SERVER_GEO_SERVICE_PATH = @"com.backendless.services.geo.GeoSer
 // METHOD NAMES
 static NSString *METHOD_GET_CATEGORY = @"addCategory";
 static NSString *METHOD_DELETE_CATEGORY = @"deleteCategory";
+static NSString *METHOD_DELETE_GEOPOINT = @"removeGeoPoint";
 static NSString *METHOD_ADD_POINT = @"addPoint";
 static NSString *METHOD_UPDATE_POINT = @"updatePoint";
 //static NSString *METHOD_SAVE_POINT = @"savePoint";
@@ -50,6 +51,7 @@ static NSString *METHOD_GET_POINTS_WITH_MATCHES = @"relativeFind";
 -(Fault *)isFaultGeoPoint:(GeoPoint *)geoPoint responder:(id <IResponder>)responder;
 -(id)getResponse:(ResponseContext *)response;
 -(id)getError:(id)error;
+-(id)removeGeoPoint:(NSString)pointId;
 @end
 
 
@@ -81,6 +83,18 @@ static NSString *METHOD_GET_POINTS_WITH_MATCHES = @"relativeFind";
 // sync methods
 
 //new
+-(BOOL)deleteGeoPoint:(NSString *)geopointId error:(Fault **)fault
+{
+    id result = [self removeGeoPoint:geopointId];
+    if ([result isKindOfClass:[Fault class]]) {
+        if (!fault) {
+            return NO;
+        }
+        (*fault) = result;
+        return NO;
+    }
+    return YES;
+}
 -(GeoCategory *)addCategory:(NSString *)categoryName error:(Fault **)fault
 {
     id result = [self addCategory:categoryName];
@@ -173,7 +187,14 @@ static NSString *METHOD_GET_POINTS_WITH_MATCHES = @"relativeFind";
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, categoryName, nil];
     return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_DELETE_CATEGORY args:args];
 }
-
+-(id)removeGeoPoint:(NSString)pointId
+{
+    if (pointId.length == 0) {
+        return [Fault fault:@"Empty point id"];
+    }
+    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, pointId, nil];
+    return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_DELETE_GEOPOINT args:args];
+}
 -(id)savePoint:(GeoPoint *)geoPoint {
     
     id fault = [self isFaultGeoPoint:geoPoint responder:nil];
@@ -235,7 +256,14 @@ static NSString *METHOD_GET_POINTS_WITH_MATCHES = @"relativeFind";
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, categoryName, nil];
     [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_CATEGORY args:args responder:responder];
 }
-
+-(void)deleteGeoPoint:(NSString *)pointId responder:(id<IResponder>)responder
+{
+    if (pointId.length == 0) {
+        return;
+    }
+    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, pointId, nil];
+    [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_DELETE_GEOPOINT args:args responder:responder];
+}
 -(void)deleteCategory:(NSString *)categoryName responder:(id <IResponder>)responder {
     
     if ([self isFaultCategoryName:categoryName responder:responder])
@@ -283,7 +311,10 @@ static NSString *METHOD_GET_POINTS_WITH_MATCHES = @"relativeFind";
 -(void)addCategory:(NSString *)categoryName response:(void(^)(GeoCategory *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self addCategory:categoryName responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
-
+-(void)deleteGeoPoint:(NSString *)pointId response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock
+{
+    [self deleteGeoPoint:pointId responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
 -(void)deleteCategory:(NSString *)categoryName response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [self deleteCategory:categoryName responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
