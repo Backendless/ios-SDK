@@ -22,7 +22,7 @@
 #import "Backendless.h"
 #import "Invoker.h"
 #import "BackendlessCache.h"
-#import "Reachability.h"
+#import "BEReachability.h"
 #import "OfflineModeManager.h"
 
 #define MISSING_SERVER_URL @"Missing server URL. You should set hostURL property"
@@ -47,7 +47,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 @interface Backendless ()
 {
 }
-@property (nonatomic, strong) Reachability *hostReachability;
+@property (nonatomic, strong) BEReachability *hostReachability;
 
 @end
 
@@ -87,7 +87,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
         
-        self.hostReachability = [Reachability reachabilityWithHostName:_hostURL];
+        self.hostReachability = [BEReachability reachabilityWithHostName:_hostURL];
         [self.hostReachability startNotifier];
         
 	}
@@ -183,7 +183,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 
 - (void) reachabilityChanged:(NSNotification *)note
 {
-	Reachability* reachability = [note object];
+	BEReachability* reachability = [note object];
 	NSParameterAssert([reachability isKindOfClass:[Reachability class]]);
     
     NetworkStatus netStatus = [reachability currentReachabilityStatus];
