@@ -51,7 +51,7 @@ static NSString *METHOD_GET_POINTS_WITH_MATCHES = @"relativeFind";
 -(Fault *)isFaultGeoPoint:(GeoPoint *)geoPoint responder:(id <IResponder>)responder;
 -(id)getResponse:(ResponseContext *)response;
 -(id)getError:(id)error;
--(id)removeGeoPoint:(NSString)pointId;
+-(id)removeGeoPoint:(NSString*)pointId;
 @end
 
 
@@ -187,7 +187,7 @@ static NSString *METHOD_GET_POINTS_WITH_MATCHES = @"relativeFind";
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, categoryName, nil];
     return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_DELETE_CATEGORY args:args];
 }
--(id)removeGeoPoint:(NSString)pointId
+-(id)removeGeoPoint:(NSString*)pointId
 {
     if (pointId.length == 0) {
         return [Fault fault:@"Empty point id"];
