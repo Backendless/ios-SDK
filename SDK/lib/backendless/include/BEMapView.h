@@ -26,7 +26,7 @@
 @interface BEMapView : MKMapView
 @property (nonatomic, strong) NSDictionary *metadata;
 @property (nonatomic, copy) NSString *whereClause;
-
+@property (nonatomic) BOOL includeMetadata;
 -(BOOL)addCategory:(NSString *)category;
 -(BOOL)removeCategory:(NSString *)category;
 
