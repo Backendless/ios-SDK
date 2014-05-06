@@ -38,7 +38,7 @@ static NSString *SERVER_GEO_SERVICE_PATH = @"com.backendless.services.geo.GeoSer
 // METHOD NAMES
 static NSString *METHOD_GET_CATEGORY = @"addCategory";
 static NSString *METHOD_DELETE_CATEGORY = @"deleteCategory";
-static NSString *METHOD_DELETE_GEOPOINT = @"removeGeoPoint";
+static NSString *METHOD_DELETE_GEOPOINT = @"removePoint";
 static NSString *METHOD_ADD_POINT = @"addPoint";
 static NSString *METHOD_UPDATE_POINT = @"updatePoint";
 //static NSString *METHOD_SAVE_POINT = @"savePoint";
