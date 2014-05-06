@@ -139,7 +139,7 @@
     }
     else
     {
-        annotation.title = point.objectId;
+        annotation.title = [NSString stringWithFormat:@"lat: %0.4f long: %0.4f", point.latitude.floatValue, point.longitude.floatValue];
     }
     [annotation setCoordinate:CLLocationCoordinate2DMake(point.latitude.floatValue, point.longitude.floatValue)];
     [self addAnnotation:annotation];
