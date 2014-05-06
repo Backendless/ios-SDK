@@ -63,6 +63,7 @@
 }
 -(void)initProperties
 {
+    _includeMetadata = NO;
     _units = METERS;
     _searchInRadius = NO;
     _autoUpdate = YES;
@@ -172,6 +173,7 @@
         GEO_RECT rect = [backendless.geoService geoRectangle:point length:region.span.longitudeDelta widht:region.span.latitudeDelta];
         query = [BackendlessGeoQuery queryWithRect:rect.nordWest southEast:rect.southEast categories:categories];
     }
+    query.includeMeta = @(_includeMetadata);
     query.metadata = (NSMutableDictionary *)self.metadata;
     query.whereClause = self.whereClause;
     [backendless.geoService getPoints:query responder:_responder ];
