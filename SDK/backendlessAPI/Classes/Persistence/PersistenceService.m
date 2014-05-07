@@ -149,7 +149,21 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 @implementation PersistenceService
 -(NSString *)typeClassName:(Class)entity
 {
-    NSString *name = [Types typeClassName:entity];
+    NSString *name = [__types typeMappedClassName:entity];
+    if(!name) {
+        name = [Types typeClassName:entity];
+    }
+    if ([name isEqualToString:NSStringFromClass([BackendlessUser class])]) {
+        name = @"Users";
+    }
+    return name;
+}
+-(NSString *)objectClassName:(id)object
+{
+    NSString *name = [__types objectMappedClassName:object];
+    if(!name) {
+        name = [Types objectClassName:object];
+    }
     if ([name isEqualToString:NSStringFromClass([BackendlessUser class])]) {
         name = @"Users";
     }
@@ -486,10 +500,10 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     if (!entity)
         return [backendless throwFault:FAULT_NO_ENTITY];
 
-    [DebLog log:@"PersistenceService -> create: class = %@, entity = %@", [Types objectClassName:entity], entity];
+    [DebLog log:@"PersistenceService -> create: class = %@, entity = %@", [self objectClassName:entity], entity];
     NSDictionary *props = [self filteringProperty:entity];
     [self prepareObject:entity];
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [Types objectClassName:entity], props, nil];
+    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self objectClassName:entity], props, nil];
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_CREATE args:args];
     if ([result isKindOfClass:[Fault class]]) {
         if ([OfflineModeManager sharedInstance].isOfflineMode) {
@@ -510,9 +524,9 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     if (!entity)
         return [backendless throwFault:FAULT_NO_ENTITY];
 
-    [DebLog log:@"PersistenceService -> update: class = %@, entity = %@", [Types objectClassName:entity], entity];
+    [DebLog log:@"PersistenceService -> update: class = %@, entity = %@", [self objectClassName:entity], entity];
     NSDictionary *props = [self filteringProperty:entity];
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [Types objectClassName:entity], props, nil];
+    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self objectClassName:entity], props, nil];
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_UPDATE args:args];
     if ([result isKindOfClass:[Fault class]]) {
         if ([OfflineModeManager sharedInstance].isOfflineMode) {
@@ -783,7 +797,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
         return [responder errorHandler:FAULT_NO_ENTITY];
     [self prepareObject:entity];
     NSDictionary *props = [self filteringProperty:entity];
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [Types objectClassName:entity], props, nil];
+    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self objectClassName:entity], props, nil];
     Responder *createResponder = [Responder responder:self selResponseHandler:@selector(createResponse:) selErrorHandler:nil];
     createResponder.chained = responder;
     createResponder.context = entity;
@@ -803,7 +817,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     if (!entity) 
         return [responder errorHandler:FAULT_NO_ENTITY];
     NSDictionary *props = [self filteringProperty:entity];
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [Types objectClassName:entity], props, nil];
+    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self objectClassName:entity], props, nil];
     Responder *prepareMOResponder = [Responder responder:self selResponseHandler:@selector(prepareManagedObjectResponder:) selErrorHandler:nil];
     prepareMOResponder.chained = responder;
     
