@@ -63,6 +63,7 @@
 }
 -(void)initProperties
 {
+    _includeMetadata = NO;
     _units = METERS;
     _searchInRadius = NO;
     _autoUpdate = YES;
@@ -139,7 +140,7 @@
     }
     else
     {
-        annotation.title = point.objectId;
+        annotation.title = [NSString stringWithFormat:@"lat: %0.4f long: %0.4f", point.latitude.floatValue, point.longitude.floatValue];
     }
     [annotation setCoordinate:CLLocationCoordinate2DMake(point.latitude.floatValue, point.longitude.floatValue)];
     [self addAnnotation:annotation];
@@ -172,6 +173,7 @@
         GEO_RECT rect = [backendless.geoService geoRectangle:point length:region.span.longitudeDelta widht:region.span.latitudeDelta];
         query = [BackendlessGeoQuery queryWithRect:rect.nordWest southEast:rect.southEast categories:categories];
     }
+    query.includeMeta = @(_includeMetadata);
     query.metadata = (NSMutableDictionary *)self.metadata;
     query.whereClause = self.whereClause;
     [backendless.geoService getPoints:query responder:_responder ];
