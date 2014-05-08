@@ -150,9 +150,6 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 -(NSString *)typeClassName:(Class)entity
 {
     NSString *name = [__types typeMappedClassName:entity];
-    if(!name) {
-        name = [Types typeClassName:entity];
-    }
     if ([name isEqualToString:NSStringFromClass([BackendlessUser class])]) {
         name = @"Users";
     }
@@ -161,9 +158,6 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 -(NSString *)objectClassName:(id)object
 {
     NSString *name = [__types objectMappedClassName:object];
-    if(!name) {
-        name = [Types objectClassName:object];
-    }
     if ([name isEqualToString:NSStringFromClass([BackendlessUser class])]) {
         name = @"Users";
     }
