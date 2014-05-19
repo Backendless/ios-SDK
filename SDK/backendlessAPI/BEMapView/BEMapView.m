@@ -37,6 +37,15 @@
     MKCircle *_circle;
 }
 @property (nonatomic, strong) id beMapViewDelegate;
+
+//
+//-(void)getPoints:(BackendlessGeoQuery *)query;
+//-(void)relativeFind:(BackendlessGeoQuery *)query;
+//-(void)getPoints:(BackendlessGeoQuery *)query responder:(id)responder;
+//-(void)relativeFind:(BackendlessGeoQuery *)query responder:(id)responder;
+//-(void)getPoints:(BackendlessGeoQuery *)query response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
+//-(void)relativeFind:(BackendlessGeoQuery *)query response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
+//
 -(id)errorHandler:(Fault *)fault;
 -(void)initProperties;
 -(id)responseHandler:(id)response;
@@ -230,6 +239,18 @@
 {
     _units = units;
     [self addCircle:_radius];
+}
+-(void)removeGeoPointAnnotation:(NSString *)geopointId
+{
+    NSArray *annotations = self.annotations;
+    for (id annotation in annotations) {
+        if ([annotation isKindOfClass:[BEAnnotation class]]) {
+            if ([[(BEAnnotation *)annotation geoPointId] isEqualToString:geopointId]) {
+                [self removeAnnotation:annotation];
+                return;
+            }
+        }
+    }
 }
 -(void)removeAllObjects
 {

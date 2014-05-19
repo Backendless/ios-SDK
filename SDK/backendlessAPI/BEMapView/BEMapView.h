@@ -35,14 +35,10 @@
 
 -(void)update;
 
-//-(void)getPoints:(BackendlessGeoQuery *)query;
-//-(void)relativeFind:(BackendlessGeoQuery *)query;
-//-(void)getPoints:(BackendlessGeoQuery *)query responder:(id)responder;
-//-(void)relativeFind:(BackendlessGeoQuery *)query responder:(id)responder;
-//-(void)getPoints:(BackendlessGeoQuery *)query response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
-//-(void)relativeFind:(BackendlessGeoQuery *)query response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)setUnits:(int)units;
 -(void)removeAllObjects;
+-(void)removeGeoPointAnnotation:(NSString *)geopointId;
+
 -(NSArray *)responseData;
 
 -(void)setSearchWithRadius:(float)radius;
