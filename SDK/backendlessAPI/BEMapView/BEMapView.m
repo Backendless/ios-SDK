@@ -269,6 +269,12 @@
         if (response.valPageSize + response.valOffset < response.valTotalObjects) {
             [response nextPage:NO responder:_responder];
         }
+        else
+        {
+            if ([_beMapViewDelegate respondsToSelector:@selector(mapView:didFinishLoadData:)]) {
+                [_beMapViewDelegate mapView:self didFinishLoadData:_responseData];
+            }
+        }
         for (GeoPoint *point in response.data) {
             [self addGeopointIfNeed:point];
         }
@@ -277,6 +283,9 @@
         [self removeAllObjects];
         [_responseData removeAllObjects];
         [_responseData addObjectsFromArray:response.data];
+        if ([_beMapViewDelegate respondsToSelector:@selector(mapView:didFinishLoadData:)]) {
+            [_beMapViewDelegate mapView:self didFinishLoadData:_responseData];
+        }
         for (GeoPoint *point in response.data) {
             [self addGeopointIfNeed:point];
         }
@@ -287,6 +296,9 @@
 {
     [_responseData removeAllObjects];
     NSLog(@"%@", fault.detail);
+    if ([_beMapViewDelegate respondsToSelector:@selector(mapView:didFinishWithFault:)]) {
+        [_beMapViewDelegate mapView:self didFinishWithFault:fault];
+    }
     return fault;
 }
 -(void)removeAnnotation:(id<MKAnnotation>)annotation
