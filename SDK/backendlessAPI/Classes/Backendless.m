@@ -184,7 +184,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 - (void) reachabilityChanged:(NSNotification *)note
 {
 	BEReachability* reachability = [note object];
-	NSParameterAssert([reachability isKindOfClass:[Reachability class]]);
+	NSParameterAssert([reachability isKindOfClass:[BEReachability class]]);
     
     NetworkStatus netStatus = [reachability currentReachabilityStatus];
     BOOL connectionRequired = [reachability connectionRequired];
