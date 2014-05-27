@@ -410,6 +410,11 @@
 		91FA67A6184CAB6900D69C12 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D3AD804418F01F7600AADCB0 /* backendless.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = backendless.a; sourceTree = "<group>"; };
 		D3AD806F18F01F7600AADCB0 /* libbackendless-mac.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libbackendless-mac.a"; sourceTree = "<group>"; };
+		D3B2F351193511900084D5DD /* Backendless.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Backendless.podspec; sourceTree = "<group>"; };
+		D3B2F354193511900084D5DD /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
+		D3B2F356193511900084D5DD /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
+		D3B2F358193511900084D5DD /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
+		D3B2F359193511900084D5DD /* original.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = original.podspec; sourceTree = "<group>"; };
 		F9042B0715FDD8D300C9381A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F9042B0915FDD8D300C9381A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F9042B0B15FDD8D300C9381A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -647,9 +652,71 @@
 			path = backendless;
 			sourceTree = "<group>";
 		};
+		D3B2F34E193511900084D5DD /* CocoaPods */ = {
+			isa = PBXGroup;
+			children = (
+				D3B2F34F193511900084D5DD /* Backendless */,
+				D3B2F352193511900084D5DD /* Backendless-ios-SDK */,
+				D3B2F359193511900084D5DD /* original.podspec */,
+			);
+			name = CocoaPods;
+			path = ../../CocoaPods;
+			sourceTree = "<group>";
+		};
+		D3B2F34F193511900084D5DD /* Backendless */ = {
+			isa = PBXGroup;
+			children = (
+				D3B2F350193511900084D5DD /* 0.0.1 */,
+			);
+			path = Backendless;
+			sourceTree = "<group>";
+		};
+		D3B2F350193511900084D5DD /* 0.0.1 */ = {
+			isa = PBXGroup;
+			children = (
+				D3B2F351193511900084D5DD /* Backendless.podspec */,
+			);
+			path = 0.0.1;
+			sourceTree = "<group>";
+		};
+		D3B2F352193511900084D5DD /* Backendless-ios-SDK */ = {
+			isa = PBXGroup;
+			children = (
+				D3B2F353193511900084D5DD /* 0.0.1 */,
+				D3B2F355193511900084D5DD /* 0.0.2 */,
+				D3B2F357193511900084D5DD /* 1.15.0 */,
+			);
+			path = "Backendless-ios-SDK";
+			sourceTree = "<group>";
+		};
+		D3B2F353193511900084D5DD /* 0.0.1 */ = {
+			isa = PBXGroup;
+			children = (
+				D3B2F354193511900084D5DD /* Backendless-ios-SDK.podspec */,
+			);
+			path = 0.0.1;
+			sourceTree = "<group>";
+		};
+		D3B2F355193511900084D5DD /* 0.0.2 */ = {
+			isa = PBXGroup;
+			children = (
+				D3B2F356193511900084D5DD /* Backendless-ios-SDK.podspec */,
+			);
+			path = 0.0.2;
+			sourceTree = "<group>";
+		};
+		D3B2F357193511900084D5DD /* 1.15.0 */ = {
+			isa = PBXGroup;
+			children = (
+				D3B2F358193511900084D5DD /* Backendless-ios-SDK.podspec */,
+			);
+			path = 1.15.0;
+			sourceTree = "<group>";
+		};
 		F9042AF815FDD8D300C9381A = {
 			isa = PBXGroup;
 			children = (
+				D3B2F34E193511900084D5DD /* CocoaPods */,
 				91764F981823E40000745497 /* BECollectionView */,
 				91DF02371821623E009DAE40 /* BEMapView */,
 				912D5049182102C7006A090A /* BETableView */,
