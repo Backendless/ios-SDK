@@ -294,7 +294,9 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     [_versionNum release];
     _versionNum = [version retain];
     
-    [DebLog log:@"Backendless -> initApp: versionNum = %@, headers = \n%@", _versionNum, _headers];
+    BOOL isStayLoggedIn = backendless.userService.isStayLoggedIn;
+    
+    [DebLog logY:@"Backendless -> initApp: versionNum = %@, isStayLoggedIn = %@\ncurrentUser = %@\nheaders = \n%@", _versionNum, isStayLoggedIn?@"YES":@"NO", backendless.userService.currentUser, _headers];
     
     [invoker setup];    
 }

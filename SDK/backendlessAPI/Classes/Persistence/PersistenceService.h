@@ -32,8 +32,7 @@ extern NSString *LOAD_ALL_RELATIONS;
 
 @interface PersistenceService : NSObject
 
-// sync methods
-////deprecated
+// sync methods with fault return (will be depricated)
 -(NSDictionary *)save:(NSString *)entityName entity:(NSDictionary *)entity;
 -(NSDictionary *)update:(NSString *)entityName entity:(NSDictionary *)entity sid:(NSString *)sid;
 -(id)save:(id)entity;
@@ -50,7 +49,7 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(id)findById:(NSString *)entityName sid:(NSString *)sid relations:(NSArray *)relations;
 -(id)load:(id)object relations:(NSArray *)relations;
 
-///new
+// sync methods with fault option
 -(NSDictionary *)save:(NSString *)entityName entity:(NSDictionary *)entity error:(Fault **)fault;
 -(NSDictionary *)update:(NSString *)entityName entity:(NSDictionary *)entity sid:(NSString *)sid error:(Fault **)fault;
 -(id)save:(id)entity error:(Fault **)fault;
@@ -92,7 +91,7 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(void)first:(Class)entity relations:(NSArray *)relations relationsDepth:(int)relationsDepth responder:(id <IResponder>)responder;
 -(void)last:(Class)entity relations:(NSArray *)relations relationsDepth:(int)relationsDepth responder:(id <IResponder>)responder;
 
-// async methods with block-base callbacks
+// async methods with block-based callback
 -(void)save:(NSString *)entityName entity:(NSDictionary *)entity response:(void(^)(NSDictionary *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)update:(NSString *)entityName entity:(NSDictionary *)entity sid:(NSString *)sid response:(void(^)(NSDictionary *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)save:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;

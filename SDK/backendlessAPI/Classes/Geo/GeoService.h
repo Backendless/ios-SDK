@@ -34,16 +34,15 @@ typedef struct {
 
 @interface GeoService : NSObject
 
-// sync methods
-//deprecated
+// sync methods with fault return (will be depricated)
 -(GeoCategory *)addCategory:(NSString *)categoryName;
 -(id)deleteCategory:(NSString *)categoryName;
 -(GeoPoint *)savePoint:(GeoPoint *)geoPoint;
 -(NSArray *)getCategories;
 -(BackendlessCollection *)getPoints:(BackendlessGeoQuery *)query;
 -(BackendlessCollection *)relativeFind:(BackendlessGeoQuery *)query;
-//new
 
+// sync methods with fault option
 -(GeoCategory *)addCategory:(NSString *)categoryName error:(Fault **)fault;
 -(BOOL)deleteCategory:(NSString *)categoryName error:(Fault **)fault;
 -(GeoPoint *)savePoint:(GeoPoint *)geoPoint error:(Fault **)fault;
@@ -61,7 +60,7 @@ typedef struct {
 -(void)getPoints:(BackendlessGeoQuery *)query responder:(id <IResponder>)responder;
 -(void)relativeFind:(BackendlessGeoQuery *)query responder:(id<IResponder>)responder;
 
-// async methods with block-base callbacks
+// async methods with block-based callback
 -(void)addCategory:(NSString *)categoryName response:(void(^)(GeoCategory *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)deleteCategory:(NSString *)categoryName response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)deleteGeoPoint:(NSString *)pointId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
