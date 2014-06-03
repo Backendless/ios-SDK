@@ -29,11 +29,12 @@
 @interface UserService : NSObject
 
 @property (strong, nonatomic, readonly) BackendlessUser *currentUser;
+@property (readonly) BOOL isStayLoggedIn;
 
-// sync methods
+// switch on/off the persistent user mode
+-(BOOL)setStayLoggedIn:(BOOL)value;
 
-/////__deprecated
-
+// sync methods with fault return (will be depricated)
 -(BackendlessUser *)registering:(BackendlessUser *)user;
 -(BackendlessUser *)update:(BackendlessUser *)user;
 -(BackendlessUser *)login:(NSString *)login password:(NSString *)password;
@@ -45,6 +46,7 @@
 -(id)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping;
 -(NSArray *)getUserRoles;
 
+// sync methods with fault option
 -(BackendlessUser *)registering:(BackendlessUser *)user error:(Fault **)fault;
 -(BackendlessUser *)update:(BackendlessUser *)user error:(Fault **)fault;
 -(BackendlessUser *)login:(NSString *)login password:(NSString *)password error:(Fault **)fault;
@@ -55,7 +57,6 @@
 -(BOOL)user:(NSString *)user unassignRole:(NSString *)role error:(Fault **)fault;
 -(BackendlessUser *)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping error:(Fault **)fault;
 -(NSArray *)getUserRolesError:(Fault **)fault;
-
 
 // async methods with responder
 -(void)registering:(BackendlessUser *)user responder:(id <IResponder>)responder;
@@ -69,7 +70,7 @@
 -(void)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping responder:(id <IResponder>)responder;
 -(void)getUserRoles:(id <IResponder>)responder;
 
-// async methods with block-base callbacks
+// async methods with block-based callback
 -(void)registering:(BackendlessUser *)user response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)update:(BackendlessUser *)user response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)login:(NSString *)login password:(NSString *)password response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock;
@@ -81,7 +82,7 @@
 -(void)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getUserRoles:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 
-// async social easy logins
+// async methods of social easy logins
 -(void)easyLoginWithFacebookFieldsMapping:(NSDictionary *)fieldsMapping permissions:(NSArray *)permissions response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)easyLoginWithTwitterFieldsMapping:(NSDictionary *)fieldsMapping response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)easyLoginWithFacebookFieldsMapping:(NSDictionary *)fieldsMapping permissions:(NSArray *)permissions responder:(id<IResponder>)responder;

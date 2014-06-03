@@ -49,12 +49,12 @@
 
 @interface MessagingService : NSObject
 @property (nonatomic) float pollingFrequency;
+
 // utilites
 -(DeviceRegistration *)currentDevice;
 -(NSString *)deviceTokenAsString:(NSData *)token;
 
-// sync methods
-//new
+// sync methods with fault option
 -(NSString *)registerDeviceWithTokenData:(NSData *)deviceToken error:(Fault **)fault;
 -(NSString *)registerDeviceToken:(NSString *)deviceToken error:(Fault **)fault;
 -(NSString *)registerDeviceExpiration:(NSDate *)expiration error:(Fault **)fault;
@@ -80,7 +80,7 @@
 -(NSArray *)pollMessages:(NSString *)channelName subscriptionId:(NSString *)subscriptionId error:(Fault **)fault;
 -(BOOL)sendEmailWithSubject:(NSString *)subject body:(NSString *)body to:(NSArray *)to attachment:(NSArray *)attachment isHTML:(BOOL)isHTML error:(Fault **)fault;
 
-//deprecated
+// sync methods with fault return (will be depricated)
 -(NSString *)registerDeviceWithTokenData:(NSData *)deviceToken;
 -(NSString *)registerDeviceToken:(NSString *)deviceToken;
 -(NSString *)registerDeviceExpiration:(NSDate *)expiration;
@@ -130,7 +130,7 @@
 -(void)pollMessages:(NSString *)channelName subscriptionId:(NSString *)subscriptionId responder:(id <IResponder>)responder;
 -(void)sendEmailWithSubject:(NSString *)subject body:(NSString *)body to:(NSArray *)to attachment:(NSArray *)attachment isHTML:(BOOL)isHTML responder:(id <IResponder>)responder;
 
-// async methods with block-base callbacks
+// async methods with block-based callback
 -(void)registerDevice:(NSArray *)channels expiration:(NSDate *)expiration token:(NSString *)deviceToken response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)registerDeviceWithTokenData:(NSData *)deviceToken response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)registerDeviceToken:(NSString *)deviceToken response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
@@ -153,4 +153,5 @@
 -(void)subscribe:(BESubscription *)subscription subscriptionOptions:(SubscriptionOptions *)subscriptionOptions response:(void(^)(BESubscription *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)pollMessages:(NSString *)channelName subscriptionId:(NSString *)subscriptionId response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)sendEmailWithSubject:(NSString *)subject body:(NSString *)body to:(NSArray *)to attachment:(NSArray *)attachment isHTML:(BOOL)isHTML response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+
 @end

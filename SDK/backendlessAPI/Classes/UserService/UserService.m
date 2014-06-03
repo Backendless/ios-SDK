@@ -18,6 +18,7 @@
  *
  *  ********************************************************************************************************************
  */
+
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 #import <UIKit/UIKit.h>
 #else
@@ -33,11 +34,14 @@
 #import "Invoker.h"
 #import "BackendlessUser.h"
 #import "UserProperty.h"
+#import "AMFSerializer.h"
 
 #define FAULT_NO_USER [Fault fault:@"user is not exist" detail:@"backendless user is not exist" faultCode:@"3100"]
 #define FAULT_NO_USER_ID [Fault fault:@"user ID is not exist" detail:@"backendless user ID is not exist" faultCode:@"3101"]
 #define FAULT_NO_USER_CREDENTIALS [Fault fault:@"user credentials is not valid" detail:@"backendless user credentials is not valid" faultCode:@"3102"]
 #define FAULT_NO_USER_ROLE [Fault fault:@"user role is not valid" detail:@"user role is not valid" faultCode:@"3103"]
+// PERSISTENT USER
+static NSString *PERSIST_USER_FILE_NAME = @"user.bin";
 // SERVICE NAME
 static NSString *SERVER_USER_SERVICE_PATH = @"com.backendless.services.users.UserService";
 // METHOD NAMES
@@ -53,6 +57,13 @@ static NSString *METHOD_USER_LOGIN_WITH_FACEBOOK = @"getFacebookServiceAuthoriza
 static NSString *METHOD_USER_LOGIN_WITH_TWITTER = @"getTwitterServiceAuthorizationUrlLink";
 static NSString *METHOD_USER_LOGIN_WITH_FACEBOOK_SDK = @"loginWithFacebook";
 static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
+//  BACKENDLESS HEADER KEYS
+static NSString *USER_TOKEN_KEY = @"user-token\0";
+
+#define _UPDATE_NEW_ 1
+
+#if !_UPDATE_NEW_
+
 #pragma mark -
 #pragma mark UserServiceResponder Class
 
@@ -82,11 +93,13 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
     return self;
     
 }
+
 -(void)dealloc
 {
     [_user release];
     [super dealloc];
 }
+
 +(id)responder:(BackendlessUser *)_user chained:(Responder *)responder {
     return [[[UserServiceResponder alloc] initWithUser:_user chained:responder] autorelease];
 }
@@ -105,6 +118,8 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
 }
 
 @end
+
+#endif
 
 
 #pragma mark -
@@ -128,25 +143,31 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
 // async
 -(void)loginWithFacebookSocialUserId:(NSString *)userId accessToken:(NSString *)accessToken expirationDate:(NSDate *)expirationDate permissions:(NSArray *)permissions fieldsMapping:(NSDictionary *)fieldsMapping responder:(id <IResponder>)responder;
 // callbacks
--(id)onLogin:(id)response;
--(id)onLogout:(id)response;
+-(id)registerResponse:(ResponseContext *)response;
+-(id)registerError:(id)error;
 -(id)easyLoginResponder:(id)response;
 -(id)easyLoginError:(Fault *)fault;
--(id)registerResponse:(id)response;
--(id)registerError:(id)error;
+-(id)onLogin:(id)response;
+-(id)onUpdate:(ResponseContext *)response;
+-(id)onLogout:(id)response;
+// persistent user
+-(BOOL)getPersistentUser;
+-(BOOL)setPersistentUser;
+-(BOOL)resetPersistentUser;
 @end
 
 @implementation UserService
 
 -(id)init {
 	if ( (self=[super init]) ) {
+        
         _currentUser = nil;
-        /*/
-        [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.users.UserProperty" mapped:[UserProperty class]];
-        /*/
+        _isStayLoggedIn = NO;
+        
+        [self getPersistentUser];
+
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.users.property.UserProperty" mapped:[UserProperty class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.users.property.AbstractProperty" mapped:[AbstractProperty class]];
-        //
 	}
 	
 	return self;
@@ -165,7 +186,15 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
 #pragma mark -
 #pragma mark Public Methods
 
-// sync methods
+-(BOOL)setStayLoggedIn:(BOOL)value {
+    
+    if (value == _isStayLoggedIn)
+        return YES;
+    
+    return (_isStayLoggedIn = value) ? [self setPersistentUser] : [self resetPersistentUser];
+}
+
+// sync methods with fault option
 
 -(BackendlessUser *)registering:(BackendlessUser *)user error:(Fault **)fault
 {
@@ -179,6 +208,7 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
     }
     return result;
 }
+
 -(BackendlessUser *)update:(BackendlessUser *)user error:(Fault **)fault
 {
     id result = [self update:user];
@@ -191,6 +221,7 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
     }
     return result;
 }
+
 -(BackendlessUser *)login:(NSString *)login password:(NSString *)password error:(Fault **)fault
 {
     id result = [self login:login password:password];
@@ -203,6 +234,7 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
     }
     return result;
 }
+
 -(BOOL)logoutError:(Fault **)fault
 {
     id result = [self logout];
@@ -215,6 +247,7 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
     }
     return YES;
 }
+
 -(BOOL)restorePassword:(NSString *)login error:(Fault **)fault
 {
     id result = [self restorePassword:login];
@@ -227,6 +260,7 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
     }
     return YES;
 }
+
 -(NSArray *)describeUserClassError:(Fault **)fault
 {
     id result = [self describeUserClass];
@@ -239,6 +273,7 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
     }
     return result;
 }
+
 -(BOOL)user:(NSString *)user assignRole:(NSString *)role error:(Fault **)fault
 {
     id result = [self user:user assignRole:role];
@@ -251,6 +286,7 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
     }
     return YES;
 }
+
 -(BOOL)user:(NSString *)user unassignRole:(NSString *)role error:(Fault **)fault
 {
     id result = [self user:user unassignRole:role];
@@ -263,6 +299,7 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
     }
     return YES;
 }
+
 -(BackendlessUser *)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping error:(Fault **)fault
 {
     id result = [self loginWithFacebookSDK:session user:user fieldsMapping:fieldsMapping];
@@ -275,6 +312,7 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
     }
     return result;
 }
+
 -(NSArray *)getUserRolesError:(Fault **)fault
 {
     id result = [self getUserRoles];
@@ -288,6 +326,7 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
     return result;
 }
 
+// sync methods with fault return
 
 -(BackendlessUser *)registering:(BackendlessUser *)user {
     
@@ -311,6 +350,7 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
     
     if (!user) 
         return [backendless throwFault:FAULT_NO_USER];
+    
     NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
     [props removeObjectForKey:BACKENDLESS_USER_TOKEN];
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, props, nil];
@@ -318,16 +358,26 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
     if ([result isKindOfClass:[Fault class]]) {
         return result;
     }
+#if _UPDATE_NEW_
+    [self onLogin:result];
+    [user setProperties:result];
+    
+    return user;
+#else
     [user setProperties:result];
     [_currentUser setProperties:result];
+    
+    [self setPersistentUser];
    
     return user;
+#endif
 }
 
 -(BackendlessUser *)login:(NSString *)login password:(NSString *)password {
     
     if (!login || !password || ![login length] || ![password length])
         return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
+    
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, login, password, nil];
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_LOGIN args:args];
     if ([result isKindOfClass:[Fault class]]) {
@@ -404,11 +454,13 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
     }
     return [self onLogin:result];
 }
+
 -(NSArray *)getUserRoles
 {
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, nil];
     return [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_GET_USER_ROLES args:args];
 }
+
 // async methods with responder
 
 -(void)registering:(BackendlessUser *)user responder:(id <IResponder>)responder {
@@ -424,15 +476,23 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
     _responder.context = user;
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_REGISTER args:args responder:_responder];
 }
+
 -(void)update:(BackendlessUser *)user responder:(id <IResponder>)responder {
     
     if (!user) 
         return [responder errorHandler:FAULT_NO_USER];
+    
     NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
     [props removeObjectForKey:BACKENDLESS_USER_TOKEN];
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, props, nil];
+#if _UPDATE_NEW_
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onUpdate:) selErrorHandler:nil];
+    _responder.chained = responder;
+    _responder.context = user;
+#else
     UserServiceResponder *_responder = [UserServiceResponder responder:user chained:responder];
     _responder.current = backendless.userService.currentUser;
+#endif
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_UPDATE args:args responder:_responder];
 }
 
@@ -504,13 +564,15 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
     _responder.chained = responder;
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_FACEBOOK_SDK args:args responder:_responder];
 }
+
 -(void)getUserRoles:(id<IResponder>)responder
 {
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, nil];
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_GET_USER_ROLES args:args responder:responder];
 
 }
-// async methods with block-base callbacks
+
+// async methods with block-based callbacks
 
 -(void)registering:(BackendlessUser *)user response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self registering:user responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
@@ -550,6 +612,7 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
 -(void)getUserRoles:(void (^)(NSArray *))responseBlock error:(void (^)(Fault *))errorBlock {
     [self getUserRoles:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
+
 // async social easy logins
 
 -(void)easyLoginWithFacebookFieldsMapping:(NSDictionary *)fieldsMapping permissions:(NSArray *)permissions responder:(id<IResponder>)responder
@@ -567,22 +630,27 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, backendless.applicationType, fieldsMapping, nil];
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_TWITTER args:args responder:_responder];
 }
+
 -(void)easyLoginWithFacebookFieldsMapping:(NSDictionary *)fieldsMapping permissions:(NSArray *)permissions
 {
     [self easyLoginWithFacebookFieldsMapping:fieldsMapping permissions:permissions responder:nil];
 }
+
 -(void)easyLoginWithTwitterFieldsMapping:(NSDictionary *)fieldsMapping
 {
     [self easyLoginWithTwitterFieldsMapping:fieldsMapping responder:nil];
 }
+
 -(void)easyLoginWithTwitterFieldsMapping:(NSDictionary *)fieldsMapping response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock
 {
     [self easyLoginWithTwitterFieldsMapping:fieldsMapping responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
+
 -(void)easyLoginWithFacebookFieldsMapping:(NSDictionary *)fieldsMapping permissions:(NSArray *)permissions response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock
 {
     [self easyLoginWithFacebookFieldsMapping:fieldsMapping permissions:permissions responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
+
 // utilites
 
 -(id)handleOpenURL:(NSURL *)url {
@@ -603,26 +671,31 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
 #pragma mark Private Methods
 
 // callbacks
+
 -(id)registerError:(id)error {
+    
+    [DebLog log:@"UserService -> registerError: %@", error];
     return error;
 }
 
 -(id)registerResponse:(ResponseContext *)response {
     
-    [DebLog log:@"UserService -> registerResponse: response = '%@'", response];
+    [DebLog log:@"UserService -> registerResponse: %@", response];
     
     BackendlessUser *user = response.context;
     [user setProperties:response.response];
     return user;
 }
--(id)easyLoginError:(Fault *)fault
-{
-    [DebLog log:@"UserService -> easyLoginError: Error = '%@'", fault.detail];
+
+-(id)easyLoginError:(Fault *)fault {
+
+    [DebLog log:@"UserService -> easyLoginError: %@", fault.detail];
     return fault;
 }
+
 -(id)easyLoginResponder:(id)response {
     
-    [DebLog log:@"UserService -> easyLoginResponder: response = '%@'", response];
+    [DebLog log:@"UserService -> easyLoginResponder: %@", response];
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:response]];
 #else
@@ -636,8 +709,25 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
     NSDictionary *props = (NSDictionary *)response;
     (_currentUser) ? [_currentUser setProperties:props] : (_currentUser = [[BackendlessUser alloc] initWithProperties:props]);
     if (_currentUser.userToken)
-        [backendless.headers setValue:_currentUser.userToken forKey:@"user-token\0"];
+        [backendless.headers setValue:_currentUser.userToken forKey:USER_TOKEN_KEY];
+    
+    [DebLog log:@"UserService -> onLogin: response = %@\n backendless.headers = %@", response, backendless.headers];
+    
+    [self setPersistentUser];
+    
     return _currentUser;
+}
+
+-(id)onUpdate:(ResponseContext *)response {
+    
+    [DebLog log:@"UserService -> onUpdate: %@", response];
+    
+    [self onLogin:response.response];
+    
+    BackendlessUser *user = response.context;
+    [user setProperties:response.response];
+    
+    return user;
 }
 
 -(id)onLogout:(id)response {
@@ -645,9 +735,34 @@ static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
     if (_currentUser) [_currentUser release];
     _currentUser = nil;
     
-    [backendless.headers removeObjectForKey:@"user-token\0"];
+    [backendless.headers removeObjectForKey:USER_TOKEN_KEY];
     
     return response;
+}
+
+// persistent user
+
+-(BOOL)getPersistentUser {
+    
+    id obj = [AMFSerializer deserializeFromFile:PERSIST_USER_FILE_NAME];
+    _currentUser = obj ? [[BackendlessUser alloc] initWithProperties:obj] : nil;
+    _isStayLoggedIn = (BOOL)_currentUser;
+    if (_isStayLoggedIn && _currentUser.userToken) {
+        [backendless.headers setValue:_currentUser.userToken forKey:USER_TOKEN_KEY];
+    }
+    
+    [DebLog log:@"UserService -> getPersistentUser: currentUser = %@", _currentUser];
+
+    return _isStayLoggedIn;
+}
+
+-(BOOL)setPersistentUser {
+    return (_currentUser && _isStayLoggedIn) ? [AMFSerializer serializeToFile:[_currentUser getProperties] fileName:PERSIST_USER_FILE_NAME] : NO;
+    
+}
+
+-(BOOL)resetPersistentUser {
+    return [AMFSerializer serializeToFile:nil fileName:PERSIST_USER_FILE_NAME];
 }
 
 @end

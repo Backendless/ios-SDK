@@ -415,6 +415,8 @@
 		D3B2F356193511900084D5DD /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
 		D3B2F358193511900084D5DD /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
 		D3B2F359193511900084D5DD /* original.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = original.podspec; sourceTree = "<group>"; };
+		D3B2F3DD1936019E0084D5DD /* Create Xcode Backendless Project Using CocoaPods.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Create Xcode Backendless Project Using CocoaPods.docx"; sourceTree = "<group>"; };
+		D3B2F3DE1936019E0084D5DD /* Create Xcode Backendless Project Using CocoaPods.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Create Xcode Backendless Project Using CocoaPods.pdf"; sourceTree = "<group>"; };
 		F9042B0715FDD8D300C9381A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F9042B0915FDD8D300C9381A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F9042B0B15FDD8D300C9381A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -655,6 +657,7 @@
 		D3B2F34E193511900084D5DD /* CocoaPods */ = {
 			isa = PBXGroup;
 			children = (
+				D3B2F3DC1936019E0084D5DD /* Guides */,
 				D3B2F34F193511900084D5DD /* Backendless */,
 				D3B2F352193511900084D5DD /* Backendless-ios-SDK */,
 				D3B2F359193511900084D5DD /* original.podspec */,
@@ -711,6 +714,15 @@
 				D3B2F358193511900084D5DD /* Backendless-ios-SDK.podspec */,
 			);
 			path = 1.15.0;
+			sourceTree = "<group>";
+		};
+		D3B2F3DC1936019E0084D5DD /* Guides */ = {
+			isa = PBXGroup;
+			children = (
+				D3B2F3DD1936019E0084D5DD /* Create Xcode Backendless Project Using CocoaPods.docx */,
+				D3B2F3DE1936019E0084D5DD /* Create Xcode Backendless Project Using CocoaPods.pdf */,
+			);
+			path = Guides;
 			sourceTree = "<group>";
 		};
 		F9042AF815FDD8D300C9381A = {

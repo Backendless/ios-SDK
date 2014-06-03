@@ -147,7 +147,7 @@
     return [self getProperty:@"objectId"];
 }
 -(NSString *)description {
-    return [NSString stringWithFormat:@"<BackendlessUser> %@", properties.node];
+    return [NSString stringWithFormat:@"<BackendlessUser> email:'%@', password:'%@', name:'%@', userId:'%@', userToken:'%@', objectId:'%@', properties:%@", self.email, self.password, self.name, self.userId, self.userToken, self.objectId, properties.node];
 }
 
 @end
