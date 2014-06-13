@@ -164,7 +164,9 @@
 
 -(NSArray *)downloadPage:(NSInteger)_offset page:(NSInteger)_pageSize update:(BOOL)forceUpdate {
     
-    if (YES || !cachedData || forceUpdate) {
+    forceUpdate = YES;
+    
+    if (!cachedData || forceUpdate) {
         if ([self.backendlessQuery isKindOfClass:[BackendlessGeoQuery class]]) {
             BackendlessGeoQuery *geoQuery = self.backendlessQuery;
             geoQuery.offset = [NSNumber numberWithInteger:_offset];
@@ -189,7 +191,9 @@
 
 -(void)downloadPage:(NSInteger)_offset page:(NSInteger)_pageSize update:(BOOL)forceUpdate responder:(id <IResponder>)responder {
     
-    if (YES || !cachedData || forceUpdate) {
+    forceUpdate = YES;
+    
+    if (!cachedData || forceUpdate) {
         if ([self.backendlessQuery isKindOfClass:[BackendlessGeoQuery class]]) {
             BackendlessGeoQuery *geoQuery = self.backendlessQuery;
             geoQuery.offset = [NSNumber numberWithInteger:_offset];
