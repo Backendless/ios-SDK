@@ -38,9 +38,9 @@
 -(NSArray *)describe;
 -(void)load:(id)object relations:(NSArray *)relations;
 
--(id)findFirstWithRelationsDepth:(int)relationsDepth error:(Fault **)fault;
--(id)findLastWithRelationsDepth:(int)relationsDepth error:(Fault **)fault;
--(id)findID:(NSString *)objectID relationsDepth:(int)relationsDepth error:(Fault **)fault;
+-(id)findFirst:(int)relationsDepth fault:(Fault **)fault;
+-(id)findLast:(int)relationsDepth fault:(Fault **)fault;
+-(id)findID:(NSString *)objectID relationsDepth:(int)relationsDepth fault:(Fault **)fault;
 
 // async methods with responder
 -(void)save:(id)entity responder:(id <IResponder>)responder;
@@ -54,8 +54,8 @@
 -(void)describeResponder:(id <IResponder>)responder;
 -(void)load:(id)object relations:(NSArray *)relations responder:(id <IResponder>)responder;
 
--(void)findFirstWithRelationsDepth:(int)relationsDepth responder:(id <IResponder>)responder;
--(void)findLastWithRelationsDepth:(int)relationsDepth responder:(id <IResponder>)responder;
+-(void)findFirst:(int)relationsDepth responder:(id <IResponder>)responder;
+-(void)findLast:(int)relationsDepth responder:(id <IResponder>)responder;
 -(void)findID:(NSString *)objectID relationsDepth:(int)relationsDepth responder:(id <IResponder>)responder;
 
 
@@ -71,7 +71,7 @@
 -(void)describeResponse:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)load:(id)object relations:(NSArray *)relations response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
 
--(void)findFirstWithRelationsDepth:(int)relationsDepth response:(void(^)(id result))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)findFirst:(int)relationsDepth response:(void(^)(id result))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)findLastWithRelationsDepth:(int)relationsDepth response:(void(^)(id result))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)findID:(NSString *)objectID relationsDepth:(int)relationsDepth response:(void(^)(id result))responseBlock error:(void(^)(Fault *))errorBlock;
 @end

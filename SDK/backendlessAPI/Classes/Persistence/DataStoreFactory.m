@@ -109,15 +109,15 @@
 {
     [backendless.persistenceService load:object relations:relations];
 }
--(id)findFirstWithRelationsDepth:(int)relationsDepth error:(Fault **)fault
+-(id)findFirst:(int)relationsDepth fault:(Fault **)fault
 {
     return [backendless.persistenceService first:_entityClass relations:@[] relationsDepth:relationsDepth error:fault];
 }
--(id)findLastWithRelationsDepth:(int)relationsDepth error:(Fault **)fault
+-(id)findLast:(int)relationsDepth fault:(Fault **)fault
 {
     return [backendless.persistenceService last:_entityClass relations:@[] relationsDepth:relationsDepth error:fault];
 }
--(id)findID:(NSString *)objectID relationsDepth:(int)relationsDepth error:(Fault **)fault
+-(id)findID:(NSString *)objectID relationsDepth:(int)relationsDepth fault:(Fault **)fault
 {
     return [backendless.persistenceService findById:NSStringFromClass(_entityClass) sid:objectID relations:@[] relationsDepth:relationsDepth error:fault];
 }
@@ -163,11 +163,11 @@
 {
     [backendless.persistenceService load:object relations:relations responder:responder];
 }
--(void)findFirstWithRelationsDepth:(int)relationsDepth responder:(id<IResponder>)responder
+-(void)findFirst:(int)relationsDepth responder:(id<IResponder>)responder
 {
     [backendless.persistenceService first:_entityClass relations:@[] relationsDepth:relationsDepth responder:responder];
 }
--(void)findLastWithRelationsDepth:(int)relationsDepth responder:(id<IResponder>)responder
+-(void)findLast:(int)relationsDepth responder:(id<IResponder>)responder
 {
     [backendless.persistenceService last:_entityClass relations:@[] relationsDepth:relationsDepth responder:responder];
 }
@@ -216,11 +216,11 @@
 {
     [backendless.persistenceService load:object relations:relations response:responseBlock error:errorBlock];
 }
--(void)findFirstWithRelationsDepth:(int)relationsDepth response:(void(^)(id result))responseBlock error:(void(^)(Fault *))errorBlock
+-(void)findFirst:(int)relationsDepth response:(void(^)(id result))responseBlock error:(void(^)(Fault *))errorBlock
 {
     [backendless.persistenceService first:_entityClass relations:@[] relationsDepth:relationsDepth response:responseBlock error:errorBlock];
 }
--(void)findLastWithRelationsDepth:(int)relationsDepth response:(void(^)(id result))responseBlock error:(void(^)(Fault *))errorBlock
+-(void)findLast:(int)relationsDepth response:(void(^)(id result))responseBlock error:(void(^)(Fault *))errorBlock
 {
     [backendless.persistenceService last:_entityClass relations:@[] relationsDepth:relationsDepth response:responseBlock error:errorBlock];
 }
