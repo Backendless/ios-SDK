@@ -38,6 +38,10 @@
 -(NSArray *)describe;
 -(void)load:(id)object relations:(NSArray *)relations;
 
+-(id)findFirstWithRelationsDepth:(int)relationsDepth error:(Fault **)fault;
+-(id)findLastWithRelationsDepth:(int)relationsDepth error:(Fault **)fault;
+-(id)findID:(NSString *)objectID relationsDepth:(int)relationsDepth error:(Fault **)fault;
+
 // async methods with responder
 -(void)save:(id)entity responder:(id <IResponder>)responder;
 -(void)findID:(NSString *)objectID responder:(id <IResponder>)responder;
@@ -50,6 +54,11 @@
 -(void)describeResponder:(id <IResponder>)responder;
 -(void)load:(id)object relations:(NSArray *)relations responder:(id <IResponder>)responder;
 
+-(void)findFirstWithRelationsDepth:(int)relationsDepth responder:(id <IResponder>)responder;
+-(void)findLastWithRelationsDepth:(int)relationsDepth responder:(id <IResponder>)responder;
+-(void)findID:(NSString *)objectID relationsDepth:(int)relationsDepth responder:(id <IResponder>)responder;
+
+
 // async methods with block-base callbacks
 -(void)save:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)findID:(NSString *)objectID response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
@@ -61,4 +70,8 @@
 -(void)findLast:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)describeResponse:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)load:(id)object relations:(NSArray *)relations response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
+
+-(void)findFirstWithRelationsDepth:(int)relationsDepth response:(void(^)(id result))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)findLastWithRelationsDepth:(int)relationsDepth response:(void(^)(id result))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)findID:(NSString *)objectID relationsDepth:(int)relationsDepth response:(void(^)(id result))responseBlock error:(void(^)(Fault *))errorBlock;
 @end
