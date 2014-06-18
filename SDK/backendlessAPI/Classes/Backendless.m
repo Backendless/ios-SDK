@@ -181,7 +181,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     return _hostReachability.currentReachabilityStatus;
 }
 
-- (void) reachabilityChanged:(NSNotification *)note
+-(void)reachabilityChanged:(NSNotification *)note
 {
 	BEReachability* reachability = [note object];
 	NSParameterAssert([reachability isKindOfClass:[BEReachability class]]);
@@ -293,6 +293,10 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     
     [_versionNum release];
     _versionNum = [version retain];
+    
+#if 1
+    [AMFSerializer setAMFStringWriter:applicationID];
+#endif
     
     BOOL isStayLoggedIn = backendless.userService.isStayLoggedIn;
     

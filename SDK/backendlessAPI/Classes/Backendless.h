@@ -25,6 +25,7 @@
 #import "DEBUG.h"
 #import "Types.h"
 #import "Responder.h"
+#import "AMFSerializer.h"
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 //UI

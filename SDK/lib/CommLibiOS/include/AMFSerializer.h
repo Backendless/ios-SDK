@@ -18,4 +18,5 @@
 +(id)deserializeFromBytes:(BinaryStream *)bytes adapt:(BOOL)doNotAdapt type:(int)serializationType;
 +(BOOL)serializeToFile:(id)obj fileName:(NSString *)fileName;
 +(id)deserializeFromFile:(NSString *)fileName;
++(void)setAMFStringWriter:(id)obj;
 @end
