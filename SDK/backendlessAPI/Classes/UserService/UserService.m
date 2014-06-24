@@ -737,6 +737,8 @@ static NSString *USER_TOKEN_KEY = @"user-token\0";
     
     [backendless.headers removeObjectForKey:USER_TOKEN_KEY];
     
+    [self resetPersistentUser];
+    
     return response;
 }
 
