@@ -53,7 +53,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 
 @implementation Backendless
 @synthesize hostURL = _hostURL, versionNum = _versionNum, reachabilityDelegate = _reachabilityDelegate;
-@synthesize mediaService = _mediaService, persistenceService = _persistenceService, messagingService = _messagingService, userService = _userService, fileService = _fileService, geoService = _geoService;
+@synthesize mediaService = _mediaService, persistenceService = _persistenceService, messagingService = _messagingService, userService = _userService, fileService = _fileService, geoService = _geoService, events = _events;
 
 // Singleton accessor:  this is how you should ALWAYS get a reference to the class instance.  Never init your own.
 +(Backendless *)sharedInstance {
@@ -135,7 +135,13 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     return _mediaService;
 }
 #endif
-
+-(Events *)events
+{
+    if (!_events) {
+        _events = [Events new];
+    }
+    return _events;
+}
 -(PersistenceService *)persistenceService
 {
     if (!_persistenceService) {

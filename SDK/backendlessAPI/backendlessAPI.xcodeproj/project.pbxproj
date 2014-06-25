@@ -27,6 +27,12 @@
 		910117D7180C0CCF008102A7 /* BodyParts.m in Sources */ = {isa = PBXBuildFile; fileRef = 910117D3180C0CCF008102A7 /* BodyParts.m */; };
 		910117D8180C0CCF008102A7 /* BodyParts.m in Sources */ = {isa = PBXBuildFile; fileRef = 910117D3180C0CCF008102A7 /* BodyParts.m */; };
 		910117DC180C0CCF008102A7 /* BodyParts.m in Sources */ = {isa = PBXBuildFile; fileRef = 910117D3180C0CCF008102A7 /* BodyParts.m */; };
+		91223DCA195AF6AB00F72F48 /* Events.h in Headers */ = {isa = PBXBuildFile; fileRef = 91223DC8195AF6AB00F72F48 /* Events.h */; };
+		91223DCB195AF6AB00F72F48 /* Events.h in Headers */ = {isa = PBXBuildFile; fileRef = 91223DC8195AF6AB00F72F48 /* Events.h */; };
+		91223DCC195AF6AB00F72F48 /* Events.h in Headers */ = {isa = PBXBuildFile; fileRef = 91223DC8195AF6AB00F72F48 /* Events.h */; };
+		91223DCD195AF6AB00F72F48 /* Events.m in Sources */ = {isa = PBXBuildFile; fileRef = 91223DC9195AF6AB00F72F48 /* Events.m */; };
+		91223DCE195AF6AB00F72F48 /* Events.m in Sources */ = {isa = PBXBuildFile; fileRef = 91223DC9195AF6AB00F72F48 /* Events.m */; };
+		91223DCF195AF6AB00F72F48 /* Events.m in Sources */ = {isa = PBXBuildFile; fileRef = 91223DC9195AF6AB00F72F48 /* Events.m */; };
 		912D504C182102F0006A090A /* BETableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 912D504A182102F0006A090A /* BETableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		912D504D182102F0006A090A /* BETableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 912D504A182102F0006A090A /* BETableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		912D504F182102F0006A090A /* BETableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 912D504B182102F0006A090A /* BETableView.m */; };
@@ -373,6 +379,8 @@
 		910117D2180C0CCF008102A7 /* BodyParts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BodyParts.h; sourceTree = "<group>"; };
 		910117D3180C0CCF008102A7 /* BodyParts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BodyParts.m; sourceTree = "<group>"; };
 		9113C5D9180FDA3A0052DFA3 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		91223DC8195AF6AB00F72F48 /* Events.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Events.h; sourceTree = "<group>"; };
+		91223DC9195AF6AB00F72F48 /* Events.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Events.m; sourceTree = "<group>"; };
 		912D504A182102F0006A090A /* BETableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BETableView.h; sourceTree = "<group>"; };
 		912D504B182102F0006A090A /* BETableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BETableView.m; sourceTree = "<group>"; };
 		91628E5417FAC79F00ACC36F /* libbackendless-mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libbackendless-mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -571,6 +579,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		91223DC7195AF68900F72F48 /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				91223DC8195AF6AB00F72F48 /* Events.h */,
+				91223DC9195AF6AB00F72F48 /* Events.m */,
+			);
+			path = Events;
+			sourceTree = "<group>";
+		};
 		912D5049182102C7006A090A /* BETableView */ = {
 			isa = PBXGroup;
 			children = (
@@ -820,6 +837,7 @@
 		F91B47E115FF448F00012DFC /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				91223DC7195AF68900F72F48 /* Events */,
 				91A42804184E2419005F91DE /* OfflineModeManager */,
 				F91B47FE15FF569400012DFC /* Backendless.h */,
 				F91B47FF15FF569400012DFC /* Backendless.m */,
@@ -1159,6 +1177,7 @@
 				91628E4D17FAC79F00ACC36F /* Invoker.h in Headers */,
 				91628E4E17FAC79F00ACC36F /* BackendlessCache.h in Headers */,
 				91628E4F17FAC79F00ACC36F /* BackendlessCacheData.h in Headers */,
+				91223DCA195AF6AB00F72F48 /* Events.h in Headers */,
 				91628E5017FAC79F00ACC36F /* BackendlessCacheKey.h in Headers */,
 				F9BBFD5018783B750076BC6D /* DEBUG.h in Headers */,
 			);
@@ -1214,6 +1233,7 @@
 				F9796A22166CCBFE00595F5E /* HashMap.h in Headers */,
 				F994A3F4168DC36B00C1A498 /* MediaPublishOptions.h in Headers */,
 				F994A3FE168DC39400C1A498 /* MediaPlaybackOptions.h in Headers */,
+				91223DCB195AF6AB00F72F48 /* Events.h in Headers */,
 				F994A407168DC3BA00C1A498 /* MediaService.h in Headers */,
 				F9512967168DCFE90041460C /* MediaPublisher.h in Headers */,
 				F9BBFD6018783B750076BC6D /* IPendingServiceCallback.h in Headers */,
@@ -1293,6 +1313,7 @@
 				F9796A6E166CD42E00595F5E /* HashMap.h in Headers */,
 				F994A3F5168DC36B00C1A498 /* MediaPublishOptions.h in Headers */,
 				F994A3FF168DC39400C1A498 /* MediaPlaybackOptions.h in Headers */,
+				91223DCC195AF6AB00F72F48 /* Events.h in Headers */,
 				F994A408168DC3BA00C1A498 /* MediaService.h in Headers */,
 				F9512968168DCFE90041460C /* MediaPublisher.h in Headers */,
 				F9BBFD6118783B750076BC6D /* IPendingServiceCallback.h in Headers */,
@@ -1457,6 +1478,7 @@
 				91628E0417FAC79F00ACC36F /* DataStoreFactory.m in Sources */,
 				91628E0517FAC79F00ACC36F /* GeoService.m in Sources */,
 				91628E0617FAC79F00ACC36F /* GeoCategory.m in Sources */,
+				91223DCD195AF6AB00F72F48 /* Events.m in Sources */,
 				91628E0717FAC79F00ACC36F /* GeoPoint.m in Sources */,
 				91628E0817FAC79F00ACC36F /* BackendlessGeoQuery.m in Sources */,
 				91628E0917FAC79F00ACC36F /* MessagingService.m in Sources */,
@@ -1515,6 +1537,7 @@
 				F97969FD166CCB8200595F5E /* DeliveryOptions.m in Sources */,
 				F97969FE166CCB8200595F5E /* PublishOptions.m in Sources */,
 				F97969FF166CCB8200595F5E /* SubscriptionOptions.m in Sources */,
+				91223DCE195AF6AB00F72F48 /* Events.m in Sources */,
 				F9796A00166CCB8200595F5E /* BESubscription.m in Sources */,
 				F9796A01166CCB8200595F5E /* Message.m in Sources */,
 				F9796A02166CCB8200595F5E /* MessageStatus.m in Sources */,
@@ -1569,6 +1592,7 @@
 				F9796A47166CD3DB00595F5E /* DeliveryOptions.m in Sources */,
 				F9796A48166CD3DB00595F5E /* PublishOptions.m in Sources */,
 				F9796A49166CD3DB00595F5E /* SubscriptionOptions.m in Sources */,
+				91223DCF195AF6AB00F72F48 /* Events.m in Sources */,
 				F9796A4A166CD3DB00595F5E /* BESubscription.m in Sources */,
 				F9796A4B166CD3DB00595F5E /* Message.m in Sources */,
 				F9796A4C166CD3DB00595F5E /* MessageStatus.m in Sources */,
