@@ -34,7 +34,7 @@ static NSString *METHOD_DISPATCH_EVENT = @"dispatchEvent";
 
 -(NSDictionary *)dispatchEventName:(NSString *)name args:(NSDictionary *)eventArgs fault:(Fault **)fault
 {
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, name, eventArgs nil];
+    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, name, eventArgs, nil];
     id result = [invoker invokeSync:SERVER_EVENTS_PATH method:METHOD_DISPATCH_EVENT args:args];
     if ([result isKindOfClass:[Fault class]]) {
         if (!fault) {
@@ -48,7 +48,7 @@ static NSString *METHOD_DISPATCH_EVENT = @"dispatchEvent";
 
 -(void)dispatchEventName:(NSString *)name args:(NSDictionary *)eventArgs responder:(id<IResponder>)responder
 {
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, name, eventArgs nil];
+    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, name, eventArgs, nil];
     [invoker invokeAsync:SERVER_EVENTS_PATH method:METHOD_DISPATCH_EVENT args:args responder:responder];
 }
 
