@@ -336,10 +336,10 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 }
 
 -(NSString *)mediaServerUrl {
-#if 0
-    return [NSString stringWithFormat:@"rtmp://%@:1935/mediaApp", [[NSURL URLWithString:_hostURL] host]];
-#else
+#if OLD_MEDIA_APP
     return [NSString stringWithFormat:@"%@", BACKENDLESS_MEDIA_URL];
+#else
+    return [NSString stringWithFormat:@"%@", @"rtmp://54.85.180.71:1935/mediaApp"];
 #endif
 }
 

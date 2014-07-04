@@ -315,7 +315,17 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
             
             break;
         }
+#if 0
+        case STREAM_CREATED: {
             
+            if ([description isEqualToString:@"NetStream.Publish.Start"])
+                break;
+            
+            [self streamConnectFailed:sender code:(int)state description:description];
+            
+            return;
+        }
+#endif
         case STREAM_PAUSED: {
             
             break;

@@ -21,6 +21,7 @@
 
 #import "MediaPublishOptions.h"
 #import "DEBUG.h"
+#import "Backendless.h"
 
 @implementation MediaPublishOptions
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
@@ -82,6 +83,16 @@
     
     return [instance autorelease];
 }
+
+-(NSString *)getServerURL {
+#if OLD_MEDIA_APP
+    return [backendless mediaServerUrl];
+#else
+    //return [NSString stringWithFormat:@"%@Live", [backendless mediaServerUrl]];
+    return [NSString stringWithFormat:@"rtmp://tc.themidnightcoders.com:1935/mediaAppLive"]; //Denis
+#endif
+}
+
 #else
 #endif
 @end

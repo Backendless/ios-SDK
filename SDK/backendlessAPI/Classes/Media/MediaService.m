@@ -31,7 +31,7 @@
     MediaPublisher *stream = [MediaPublisher new];
     stream.delegate = delegate;
     stream.options = options;
-    stream.streamPath = [backendless mediaServerUrl];
+    stream.streamPath = [options getServerURL];
     stream.tubeName = tube;
     stream.streamName = name;
     
@@ -50,7 +50,7 @@
     MediaPlayer *stream = [MediaPlayer new];
     stream.delegate = delegate;
     stream.options = options;
-    stream.streamPath = [backendless mediaServerUrl];
+    stream.streamPath = [options getServerURL];
     stream.tubeName = tube;
     stream.streamName = name;
     

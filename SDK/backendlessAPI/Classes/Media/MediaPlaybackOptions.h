@@ -32,6 +32,7 @@
 +(id)liveStream:(UIImageView *)view;
 +(id)recordStream:(UIImageView *)view;
 +(id)options:(BOOL)isLive orientation:(UIImageOrientation)orientation view:(UIImageView *)view;
+-(NSString *)getServerURL;
 @end
 #else
 @interface MediaPlaybackOptions : NSObject

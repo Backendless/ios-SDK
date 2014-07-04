@@ -21,6 +21,7 @@
 
 #import "MediaPlaybackOptions.h"
 #import "DEBUG.h"
+#import "Backendless.h"
 
 @implementation MediaPlaybackOptions
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
@@ -67,6 +68,15 @@
     
     return [instance autorelease];  
 }
+
+-(NSString *)getServerURL {
+#if OLD_MEDIA_APP
+    return [backendless mediaServerUrl];
+#else
+    return [NSString stringWithFormat:@"%@%@", [backendless mediaServerUrl], _isLive?@"Live":@"Vod"];
+#endif
+}
+
 #else
 #endif
 @end

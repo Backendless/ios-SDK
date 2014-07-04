@@ -32,11 +32,10 @@ typedef enum {
 
 
 typedef enum {
-    LOW_RESOLUTION,     // 192x144px
-    CIF_RESOLUTION,     // 352x288px
-    MEDIUM_RESOLUTION,  // 480x360px
-    VGA_RESOLUTION,     // 640x480px
-    HIGH_RESOLUTION,    // 1280x720px
+    LOW_RESOLUTION,     // 144x192px (landscape) & 192x144px (portrait)
+    CIF_RESOLUTION,     // 288x352px (landscape) & 352x288px (portrait)
+    MEDIUM_RESOLUTION,  // 360x480px (landscape) & 480x368px (portrait)
+    VGA_RESOLUTION,     // 480x640px (landscape) & 640x480px (portrait)
 } VideoResolution;
 
 typedef enum {
@@ -61,6 +60,7 @@ typedef enum {
 +(id)recordStream:(UIView *)view;
 +(id)appendStream:(UIView *)view;
 +(id)options:(MediaPublishType)type orientation:(AVCaptureVideoOrientation)orientation resolution:(VideoResolution)resolution view:(UIView *)view;
+-(NSString *)getServerURL;
 @end
 #else
 @interface MediaPublishOptions : NSObject

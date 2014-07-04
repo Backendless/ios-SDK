@@ -80,6 +80,9 @@
 #define BACKENDLESS_VERSION_NUM @"VersionNum"
 #define BACKENDLESS_DEBLOG_ON @"DebLogOn"
 
+// media application deploiment
+#define OLD_MEDIA_APP 1
+
 @class MediaService;
 
 @protocol ReachabilityDelegate <NSObject>
@@ -105,7 +108,7 @@
 @property (strong, nonatomic, readonly) FileService *fileService;
 @property (strong, nonatomic) MediaService *mediaService;
 
-@property (strong, nonatomic) id<ReachabilityDelegate> reachabilityDelegate;
+@property (strong, nonatomic) id <ReachabilityDelegate> reachabilityDelegate;
 
 // Singleton accessor:  this is how you should ALWAYS get a reference to the class instance.  Never init your own.
 +(Backendless *)sharedInstance;
