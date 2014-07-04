@@ -62,7 +62,7 @@
 #import "MessagingService.h"
 #import "FileService.h"
 #import "BackendlessFile.h"
-
+#import "Events.h"
 //Cache
 #import "BackendlessCachePolicy.h"
 #import "AbstractQuery.h"
