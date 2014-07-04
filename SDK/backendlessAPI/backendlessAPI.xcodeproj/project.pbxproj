@@ -27,9 +27,9 @@
 		910117D7180C0CCF008102A7 /* BodyParts.m in Sources */ = {isa = PBXBuildFile; fileRef = 910117D3180C0CCF008102A7 /* BodyParts.m */; };
 		910117D8180C0CCF008102A7 /* BodyParts.m in Sources */ = {isa = PBXBuildFile; fileRef = 910117D3180C0CCF008102A7 /* BodyParts.m */; };
 		910117DC180C0CCF008102A7 /* BodyParts.m in Sources */ = {isa = PBXBuildFile; fileRef = 910117D3180C0CCF008102A7 /* BodyParts.m */; };
-		91223DCA195AF6AB00F72F48 /* Events.h in Headers */ = {isa = PBXBuildFile; fileRef = 91223DC8195AF6AB00F72F48 /* Events.h */; };
-		91223DCB195AF6AB00F72F48 /* Events.h in Headers */ = {isa = PBXBuildFile; fileRef = 91223DC8195AF6AB00F72F48 /* Events.h */; };
-		91223DCC195AF6AB00F72F48 /* Events.h in Headers */ = {isa = PBXBuildFile; fileRef = 91223DC8195AF6AB00F72F48 /* Events.h */; };
+		91223DCA195AF6AB00F72F48 /* Events.h in Headers */ = {isa = PBXBuildFile; fileRef = 91223DC8195AF6AB00F72F48 /* Events.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		91223DCB195AF6AB00F72F48 /* Events.h in Headers */ = {isa = PBXBuildFile; fileRef = 91223DC8195AF6AB00F72F48 /* Events.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		91223DCC195AF6AB00F72F48 /* Events.h in Headers */ = {isa = PBXBuildFile; fileRef = 91223DC8195AF6AB00F72F48 /* Events.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91223DCD195AF6AB00F72F48 /* Events.m in Sources */ = {isa = PBXBuildFile; fileRef = 91223DC9195AF6AB00F72F48 /* Events.m */; };
 		91223DCE195AF6AB00F72F48 /* Events.m in Sources */ = {isa = PBXBuildFile; fileRef = 91223DC9195AF6AB00F72F48 /* Events.m */; };
 		91223DCF195AF6AB00F72F48 /* Events.m in Sources */ = {isa = PBXBuildFile; fileRef = 91223DC9195AF6AB00F72F48 /* Events.m */; };
@@ -1152,6 +1152,7 @@
 				91628E3817FAC79F00ACC36F /* PublishOptions.h in Headers */,
 				91628E3917FAC79F00ACC36F /* SubscriptionOptions.h in Headers */,
 				F9BBFD7D18783B750076BC6D /* WeborbClient.h in Headers */,
+				91223DCA195AF6AB00F72F48 /* Events.h in Headers */,
 				F9BBFD6218783B750076BC6D /* IPendingServiceCallback.h in Headers */,
 				91628E3A17FAC79F00ACC36F /* BESubscription.h in Headers */,
 				91628E3B17FAC79F00ACC36F /* Message.h in Headers */,
@@ -1177,7 +1178,6 @@
 				91628E4D17FAC79F00ACC36F /* Invoker.h in Headers */,
 				91628E4E17FAC79F00ACC36F /* BackendlessCache.h in Headers */,
 				91628E4F17FAC79F00ACC36F /* BackendlessCacheData.h in Headers */,
-				91223DCA195AF6AB00F72F48 /* Events.h in Headers */,
 				91628E5017FAC79F00ACC36F /* BackendlessCacheKey.h in Headers */,
 				F9BBFD5018783B750076BC6D /* DEBUG.h in Headers */,
 			);
@@ -1187,6 +1187,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91223DCB195AF6AB00F72F48 /* Events.h in Headers */,
 				91DF023A1821625B009DAE40 /* BEMapView.h in Headers */,
 				F9BBFD6C18783B750076BC6D /* ISharedObjectListener.h in Headers */,
 				F9BBFD5718783B750076BC6D /* IAttributeStore.h in Headers */,
@@ -1233,7 +1234,6 @@
 				F9796A22166CCBFE00595F5E /* HashMap.h in Headers */,
 				F994A3F4168DC36B00C1A498 /* MediaPublishOptions.h in Headers */,
 				F994A3FE168DC39400C1A498 /* MediaPlaybackOptions.h in Headers */,
-				91223DCB195AF6AB00F72F48 /* Events.h in Headers */,
 				F994A407168DC3BA00C1A498 /* MediaService.h in Headers */,
 				F9512967168DCFE90041460C /* MediaPublisher.h in Headers */,
 				F9BBFD6018783B750076BC6D /* IPendingServiceCallback.h in Headers */,
@@ -1267,6 +1267,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91223DCC195AF6AB00F72F48 /* Events.h in Headers */,
 				91DF023B1821625B009DAE40 /* BEMapView.h in Headers */,
 				F9BBFD6D18783B750076BC6D /* ISharedObjectListener.h in Headers */,
 				F9BBFD5818783B750076BC6D /* IAttributeStore.h in Headers */,
@@ -1313,7 +1314,6 @@
 				F9796A6E166CD42E00595F5E /* HashMap.h in Headers */,
 				F994A3F5168DC36B00C1A498 /* MediaPublishOptions.h in Headers */,
 				F994A3FF168DC39400C1A498 /* MediaPlaybackOptions.h in Headers */,
-				91223DCC195AF6AB00F72F48 /* Events.h in Headers */,
 				F994A408168DC3BA00C1A498 /* MediaService.h in Headers */,
 				F9512968168DCFE90041460C /* MediaPublisher.h in Headers */,
 				F9BBFD6118783B750076BC6D /* IPendingServiceCallback.h in Headers */,
