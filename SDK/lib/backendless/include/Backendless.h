@@ -19,6 +19,10 @@
  *  ********************************************************************************************************************
  */
 
+// application services deploiment
+#define OLD_MEDIA_APP 1
+#define EVENTS_ON 0
+
 #import <Foundation/Foundation.h>
 
 // CommLibiOS
@@ -62,7 +66,9 @@
 #import "MessagingService.h"
 #import "FileService.h"
 #import "BackendlessFile.h"
+#if EVENTS_ON
 #import "Events.h"
+#endif
 //Cache
 #import "BackendlessCachePolicy.h"
 #import "AbstractQuery.h"
@@ -79,9 +85,6 @@
 #define BACKENDLESS_SECRET_KEY @"SecretKey"
 #define BACKENDLESS_VERSION_NUM @"VersionNum"
 #define BACKENDLESS_DEBLOG_ON @"DebLogOn"
-
-// media application deploiment
-#define OLD_MEDIA_APP 1
 
 @class MediaService;
 
@@ -105,7 +108,9 @@
 @property (strong, nonatomic, readonly) GeoService *geoService;
 @property (strong, nonatomic, readonly) MessagingService *messagingService;
 @property (strong, nonatomic, readonly) FileService *fileService;
+#if EVENTS_ON
 @property (strong, nonatomic, readonly) Events *events;
+#endif
 @property (strong, nonatomic) MediaService *mediaService;
 // delegates
 @property (strong, nonatomic) id <ReachabilityDelegate> reachabilityDelegate;

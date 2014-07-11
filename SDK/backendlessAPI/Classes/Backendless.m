@@ -25,6 +25,7 @@
 #import "BEReachability.h"
 #import "OfflineModeManager.h"
 
+
 #define MISSING_SERVER_URL @"Missing server URL. You should set hostURL property"
 #define MISSING_APP_ID @"Missing application ID argument. Login to Backendless Console, select your app and get the ID and key from the Manage > App Settings screen. Copy/paste the values into the [backendless initApp:secret:version:]"
 #define MISSING_SECRET_KEY @"Missing secret key argument. Login to Backendless Console, select your app and get the ID and key from the Manage > App Settings screen. Copy/paste the values into the [backendless initApp:secret:version:]"
@@ -58,7 +59,10 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 
 @implementation Backendless
 @synthesize hostURL = _hostURL, versionNum = _versionNum, reachabilityDelegate = _reachabilityDelegate;
-@synthesize mediaService = _mediaService, persistenceService = _persistenceService, messagingService = _messagingService, userService = _userService, fileService = _fileService, geoService = _geoService, events = _events;
+@synthesize mediaService = _mediaService, persistenceService = _persistenceService, messagingService = _messagingService, userService = _userService, fileService = _fileService, geoService = _geoService;
+#if EVENTS_ON
+@synthesize events = _events;
+#endif
 
 // Singleton accessor:  this is how you should ALWAYS get a reference to the class instance.  Never init your own.
 +(Backendless *)sharedInstance {
@@ -122,7 +126,9 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     [_geoService release];
     [_messagingService release];
     [_fileService release];
+#if EVENTS_ON
     [_events release];
+#endif
     [_mediaService release];
 	
 	[super dealloc];
@@ -142,6 +148,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 }
 #endif
 
+#if EVENTS_ON
 -(Events *)events
 {
     if (!_events) {
@@ -149,6 +156,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     }
     return _events;
 }
+#endif
 
 -(PersistenceService *)persistenceService
 {
