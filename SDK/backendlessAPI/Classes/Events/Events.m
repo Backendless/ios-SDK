@@ -43,9 +43,9 @@ static NSString *METHOD_DISPATCH_EVENT = @"dispatchEvent";
 	[super dealloc];
 }
 
-//api
+// sync methods with fault option
 
--(NSDictionary *)dispatchEventName:(NSString *)name args:(NSDictionary *)eventArgs fault:(Fault **)fault
+-(NSDictionary *)dispatch:(NSString *)name args:(NSDictionary *)eventArgs fault:(Fault **)fault
 {
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, name, eventArgs, nil];
     id result = [invoker invokeSync:SERVER_EVENTS_PATH method:METHOD_DISPATCH_EVENT args:args];
@@ -59,14 +59,16 @@ static NSString *METHOD_DISPATCH_EVENT = @"dispatchEvent";
     return result;
 }
 
--(void)dispatchEventName:(NSString *)name args:(NSDictionary *)eventArgs responder:(id<IResponder>)responder
+// async methods with responder
+
+-(void)dispatch:(NSString *)name args:(NSDictionary *)eventArgs responder:(id<IResponder>)responder
 {
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, name, eventArgs, nil];
     [invoker invokeAsync:SERVER_EVENTS_PATH method:METHOD_DISPATCH_EVENT args:args responder:responder];
 }
 
--(void)dispatchEventName:(NSString *)name args:(NSDictionary *)eventArgs response:(void (^)(NSDictionary *))responseBlock error:(void (^)(Fault *))errorBlock
+-(void)dispatch:(NSString *)name args:(NSDictionary *)eventArgs response:(void (^)(NSDictionary *))responseBlock error:(void (^)(Fault *))errorBlock
 {
-    [self dispatchEventName:name args:eventArgs responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    [self dispatch:name args:eventArgs responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 @end

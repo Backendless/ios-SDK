@@ -73,7 +73,9 @@
 #if OLD_MEDIA_APP
     return [backendless mediaServerUrl];
 #else
-    return [NSString stringWithFormat:@"%@%@", [backendless mediaServerUrl], _isLive?@"Live":@"Vod"];
+    NSString *url = [NSString stringWithFormat:@"%@%@/_definst_/%@%@/media", [backendless mediaServerUrl], _isLive?@"Live":@"Vod", _isLive?@"":@"flv:", [backendless.appID lowercaseString]];
+    [DebLog log:@">>>>>>>>>>>>>>>>>> MediaPlaybackOptions -> getServerURL: %@", url];
+    return url;
 #endif
 }
 

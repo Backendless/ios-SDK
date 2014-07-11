@@ -30,7 +30,6 @@ typedef enum  {
 } StateMediaStream;
 
 @protocol IMediaStreamer <NSObject>
-
 -(StateMediaStream)currentState;
 -(void)connect;
 -(void)start;
@@ -38,12 +37,9 @@ typedef enum  {
 -(void)resume;
 -(void)stop;
 -(void)disconnect;
-
 @end
 
 @protocol IMediaStreamerDelegate <NSObject>
-
 -(void)streamStateChanged:(id)sender state:(StateMediaStream)state description:(NSString *)description;
 -(void)streamConnectFailed:(id)sender code:(int)code description:(NSString *)description;
-
 @end

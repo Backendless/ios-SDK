@@ -32,7 +32,7 @@ extern NSString *LOAD_ALL_RELATIONS;
 
 @interface PersistenceService : NSObject
 
-// sync methods with fault return (will be depricated)
+// sync methods with fault return (will be depricated soon)
 -(NSDictionary *)save:(NSString *)entityName entity:(NSDictionary *)entity;
 -(NSDictionary *)update:(NSString *)entityName entity:(NSDictionary *)entity sid:(NSString *)sid;
 -(id)save:(id)entity;

@@ -32,7 +32,12 @@
 
 //
 static NSString *BACKENDLESS_HOST_URL = @"https://api.backendless.com";
+#if OLD_MEDIA_APP
 static NSString *BACKENDLESS_MEDIA_URL = @"rtmp://wowza.backendless.com:1935/mediaApp";
+#else
+//static NSString *BACKENDLESS_MEDIA_URL = @"rtmp://54.85.180.71:1935/mediaApp"; // api.test.backendless.com
+static NSString *BACKENDLESS_MEDIA_URL = @"rtmp://tc.themidnightcoders.com:1935/mediaApp"; // Denis
+#endif
 
 static NSString *VERSION_NUM = @"v1";
 static NSString *APP_TYPE = @"IOS";
@@ -117,6 +122,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     [_geoService release];
     [_messagingService release];
     [_fileService release];
+    [_events release];
     [_mediaService release];
 	
 	[super dealloc];
@@ -135,6 +141,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     return _mediaService;
 }
 #endif
+
 -(Events *)events
 {
     if (!_events) {
@@ -142,6 +149,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     }
     return _events;
 }
+
 -(PersistenceService *)persistenceService
 {
     if (!_persistenceService) {
@@ -342,11 +350,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 }
 
 -(NSString *)mediaServerUrl {
-#if OLD_MEDIA_APP
     return [NSString stringWithFormat:@"%@", BACKENDLESS_MEDIA_URL];
-#else
-    return [NSString stringWithFormat:@"%@", @"rtmp://54.85.180.71:1935/mediaApp"];
-#endif
 }
 
 -(void)setThrowException:(BOOL)needThrow {

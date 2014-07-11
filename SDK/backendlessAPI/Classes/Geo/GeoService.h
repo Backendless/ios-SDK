@@ -34,7 +34,7 @@ typedef struct {
 
 @interface GeoService : NSObject
 
-// sync methods with fault return (will be depricated)
+// sync methods with fault return (will be depricated soon)
 -(GeoCategory *)addCategory:(NSString *)categoryName;
 -(id)deleteCategory:(NSString *)categoryName;
 -(GeoPoint *)savePoint:(GeoPoint *)geoPoint;

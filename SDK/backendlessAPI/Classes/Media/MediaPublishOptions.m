@@ -88,8 +88,7 @@
 #if OLD_MEDIA_APP
     return [backendless mediaServerUrl];
 #else
-    //return [NSString stringWithFormat:@"%@Live", [backendless mediaServerUrl]];
-    return [NSString stringWithFormat:@"rtmp://tc.themidnightcoders.com:1935/mediaAppLive"]; //Denis
+    return [NSString stringWithFormat:@"%@Live", [backendless mediaServerUrl]];
 #endif
 }
 
