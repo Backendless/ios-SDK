@@ -416,6 +416,7 @@
 		91F139B017D724C600D1AC4C /* QueryOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryOptions.h; sourceTree = "<group>"; };
 		91F139B117D724C600D1AC4C /* QueryOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryOptions.m; sourceTree = "<group>"; };
 		91FA67A6184CAB6900D69C12 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		D3625CE6197EA248006E5779 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
 		D3AD804418F01F7600AADCB0 /* backendless.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = backendless.a; sourceTree = "<group>"; };
 		D3AD806F18F01F7600AADCB0 /* libbackendless-mac.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libbackendless-mac.a"; sourceTree = "<group>"; };
 		D3B2F351193511900084D5DD /* Backendless.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Backendless.podspec; sourceTree = "<group>"; };
@@ -662,6 +663,14 @@
 			path = Cache;
 			sourceTree = "<group>";
 		};
+		D3625CE5197EA248006E5779 /* 1.16.1 */ = {
+			isa = PBXGroup;
+			children = (
+				D3625CE6197EA248006E5779 /* Backendless-ios-SDK.podspec */,
+			);
+			path = 1.16.1;
+			sourceTree = "<group>";
+		};
 		D3AD804318F01F7600AADCB0 /* backendless */ = {
 			isa = PBXGroup;
 			children = (
@@ -702,6 +711,7 @@
 		D3B2F352193511900084D5DD /* Backendless-ios-SDK */ = {
 			isa = PBXGroup;
 			children = (
+				D3625CE5197EA248006E5779 /* 1.16.1 */,
 				D3B2F353193511900084D5DD /* 0.0.1 */,
 				D3B2F355193511900084D5DD /* 0.0.2 */,
 				D3B2F357193511900084D5DD /* 1.15.0 */,
