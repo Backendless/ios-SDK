@@ -173,6 +173,12 @@
 		91F139B317D724C700D1AC4C /* QueryOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F139B017D724C600D1AC4C /* QueryOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91F139B417D724C700D1AC4C /* QueryOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F139B117D724C600D1AC4C /* QueryOptions.m */; };
 		91F139B517D724C700D1AC4C /* QueryOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F139B117D724C600D1AC4C /* QueryOptions.m */; };
+		D39A468119811D9B006CBD1B /* CacheService.h in Headers */ = {isa = PBXBuildFile; fileRef = D39A467F19811D9B006CBD1B /* CacheService.h */; };
+		D39A468219811D9B006CBD1B /* CacheService.h in Headers */ = {isa = PBXBuildFile; fileRef = D39A467F19811D9B006CBD1B /* CacheService.h */; };
+		D39A468319811D9B006CBD1B /* CacheService.h in Headers */ = {isa = PBXBuildFile; fileRef = D39A467F19811D9B006CBD1B /* CacheService.h */; };
+		D39A468419811D9B006CBD1B /* CacheService.m in Sources */ = {isa = PBXBuildFile; fileRef = D39A468019811D9B006CBD1B /* CacheService.m */; };
+		D39A468519811D9B006CBD1B /* CacheService.m in Sources */ = {isa = PBXBuildFile; fileRef = D39A468019811D9B006CBD1B /* CacheService.m */; };
+		D39A468619811D9B006CBD1B /* CacheService.m in Sources */ = {isa = PBXBuildFile; fileRef = D39A468019811D9B006CBD1B /* CacheService.m */; };
 		F9512967168DCFE90041460C /* MediaPublisher.h in Headers */ = {isa = PBXBuildFile; fileRef = F9512965168DCFE90041460C /* MediaPublisher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9512968168DCFE90041460C /* MediaPublisher.h in Headers */ = {isa = PBXBuildFile; fileRef = F9512965168DCFE90041460C /* MediaPublisher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9512969168DCFE90041460C /* MediaPublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = F9512966168DCFE90041460C /* MediaPublisher.m */; };
@@ -417,6 +423,8 @@
 		91F139B117D724C600D1AC4C /* QueryOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryOptions.m; sourceTree = "<group>"; };
 		91FA67A6184CAB6900D69C12 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D3625CE6197EA248006E5779 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
+		D39A467F19811D9B006CBD1B /* CacheService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacheService.h; sourceTree = "<group>"; };
+		D39A468019811D9B006CBD1B /* CacheService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheService.m; sourceTree = "<group>"; };
 		D3AD804418F01F7600AADCB0 /* backendless.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = backendless.a; sourceTree = "<group>"; };
 		D3AD806F18F01F7600AADCB0 /* libbackendless-mac.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libbackendless-mac.a"; sourceTree = "<group>"; };
 		D3B2F351193511900084D5DD /* Backendless.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Backendless.podspec; sourceTree = "<group>"; };
@@ -671,6 +679,15 @@
 			path = 1.16.1;
 			sourceTree = "<group>";
 		};
+		D39A467E19811CDC006CBD1B /* CacheService */ = {
+			isa = PBXGroup;
+			children = (
+				D39A467F19811D9B006CBD1B /* CacheService.h */,
+				D39A468019811D9B006CBD1B /* CacheService.m */,
+			);
+			path = CacheService;
+			sourceTree = "<group>";
+		};
 		D3AD804318F01F7600AADCB0 /* backendless */ = {
 			isa = PBXGroup;
 			children = (
@@ -849,7 +866,6 @@
 			children = (
 				F91B47FE15FF569400012DFC /* Backendless.h */,
 				F91B47FF15FF569400012DFC /* Backendless.m */,
-				91223DC7195AF68900F72F48 /* Events */,
 				91A42804184E2419005F91DE /* OfflineModeManager */,
 				91F1398917D7240A00D1AC4C /* Cache */,
 				F91B47EC15FF48AF00012DFC /* IO */,
@@ -860,6 +876,8 @@
 				F91B480715FF655800012DFC /* Messaging */,
 				F91B47E215FF448F00012DFC /* Files */,
 				F91B47E415FF448F00012DFC /* Media */,
+				91223DC7195AF68900F72F48 /* Events */,
+				D39A467E19811CDC006CBD1B /* CacheService */,
 				F91B47E715FF448F00012DFC /* Util */,
 			);
 			path = Classes;
@@ -1150,6 +1168,7 @@
 				91A427FD184E23D5005F91DE /* ISDatabase.h in Headers */,
 				91628E3017FAC79F00ACC36F /* DataStoreFactory.h in Headers */,
 				91628E3117FAC79F00ACC36F /* GeoService.h in Headers */,
+				D39A468119811D9B006CBD1B /* CacheService.h in Headers */,
 				91628E3217FAC79F00ACC36F /* GeoCategory.h in Headers */,
 				91628E3317FAC79F00ACC36F /* GeoPoint.h in Headers */,
 				F9BBFD5C18783B750076BC6D /* IClientSharedObject.h in Headers */,
@@ -1250,6 +1269,7 @@
 				F9512971168DCFFF0041460C /* MediaPlayer.h in Headers */,
 				91A427FB184E23D5005F91DE /* ISDatabase.h in Headers */,
 				F9BBFE7D18783DD00076BC6D /* MediaStreamPlayer.h in Headers */,
+				D39A468219811D9B006CBD1B /* CacheService.h in Headers */,
 				F9512979168DEA210041460C /* IMediaStreamer.h in Headers */,
 				91A4285B18508269005F91DE /* BEReachability.h in Headers */,
 				F9BBFE7F18783DD00076BC6D /* MPMediaData.h in Headers */,
@@ -1330,6 +1350,7 @@
 				F9512972168DCFFF0041460C /* MediaPlayer.h in Headers */,
 				91A427FC184E23D5005F91DE /* ISDatabase.h in Headers */,
 				F9BBFE7E18783DD00076BC6D /* MediaStreamPlayer.h in Headers */,
+				D39A468319811D9B006CBD1B /* CacheService.h in Headers */,
 				F951297A168DEA210041460C /* IMediaStreamer.h in Headers */,
 				91A4285C18508269005F91DE /* BEReachability.h in Headers */,
 				F9BBFE8018783DD00076BC6D /* MPMediaData.h in Headers */,
@@ -1504,6 +1525,7 @@
 				91628E1317FAC79F00ACC36F /* HashMap.m in Sources */,
 				91A4286318508269005F91DE /* BEReachability.m in Sources */,
 				91628E1417FAC79F00ACC36F /* backendless_simulator.m in Sources */,
+				D39A468419811D9B006CBD1B /* CacheService.m in Sources */,
 				91628E1517FAC79F00ACC36F /* MediaPublishOptions.m in Sources */,
 				91628E1617FAC79F00ACC36F /* MediaPlaybackOptions.m in Sources */,
 				910117DC180C0CCF008102A7 /* BodyParts.m in Sources */,
@@ -1554,6 +1576,7 @@
 				F9796A03166CCB8200595F5E /* FileService.m in Sources */,
 				F9796A04166CCB8200595F5E /* BackendlessFile.m in Sources */,
 				91764F9E1823E43400745497 /* BECollectionView.m in Sources */,
+				D39A468519811D9B006CBD1B /* CacheService.m in Sources */,
 				F9796A05166CCB8200595F5E /* HashMap.m in Sources */,
 				F97969E4166CC8C300595F5E /* backendless_simulator.m in Sources */,
 				F994A3F6168DC36B00C1A498 /* MediaPublishOptions.m in Sources */,
@@ -1609,6 +1632,7 @@
 				F9796A4D166CD3DB00595F5E /* FileService.m in Sources */,
 				F9796A4E166CD3DB00595F5E /* BackendlessFile.m in Sources */,
 				91764F9F1823E43400745497 /* BECollectionView.m in Sources */,
+				D39A468619811D9B006CBD1B /* CacheService.m in Sources */,
 				F9796A4F166CD3DB00595F5E /* HashMap.m in Sources */,
 				F9796A30166CD3A400595F5E /* backendless_device.m in Sources */,
 				F994A3F7168DC36B00C1A498 /* MediaPublishOptions.m in Sources */,

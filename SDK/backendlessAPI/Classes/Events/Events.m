@@ -23,9 +23,11 @@
 #import "Backendless.h"
 #import "Invoker.h"
 
+// SERVICE NAME
 static NSString *SERVER_EVENTS_PATH = @"com.backendless.services.servercode.EventHandler";
-
+// METHOD NAMES
 static NSString *METHOD_DISPATCH_EVENT = @"dispatchEvent";
+
 @implementation Events
 
 -(id)init {
@@ -42,6 +44,9 @@ static NSString *METHOD_DISPATCH_EVENT = @"dispatchEvent";
 	
 	[super dealloc];
 }
+
+#pragma mark -
+#pragma mark Public Methods
 
 // sync methods with fault option
 
@@ -71,4 +76,5 @@ static NSString *METHOD_DISPATCH_EVENT = @"dispatchEvent";
 {
     [self dispatch:name args:eventArgs responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
+
 @end
