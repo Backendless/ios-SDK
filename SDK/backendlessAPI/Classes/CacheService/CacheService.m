@@ -22,6 +22,7 @@
 #import "CacheService.h"
 #import "Backendless.h"
 #import "Invoker.h"
+#import "CacheFactory.h"
 
 #define FAULT_NO_RESULT [Fault fault:@"Result is not valid" faultCode:@"0000"]
 #define FAULT_NO_ENTITY [Fault fault:@"Entity is not valid" faultCode:@"0000"]
@@ -271,6 +272,16 @@ static NSString *METHOD_DELETE = @"delete";
 
 -(void)delete:(NSString *)key response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
     [self delete:key responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+
+// ICacheService factory
+
+-(id <ICacheService>)with:(NSString *)key {
+    return [CacheFactory create:key];
+}
+
+-(id <ICacheService>)with:(NSString *)key type:(Class)entityClass {
+    return [CacheFactory create:key type:entityClass];
 }
 
 #pragma mark -

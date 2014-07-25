@@ -20,6 +20,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "ICacheService.h"
 
 @protocol IResponder;
 @class Fault;
@@ -49,5 +50,9 @@
 -(void)contains:(NSString *)key response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
 -(void)expire:(NSString *)key timeToKeep:(int)expire response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
 -(void)delete:(NSString *)key response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
+
+// ICacheService factory
+-(id <ICacheService>)with:(NSString *)key;
+-(id <ICacheService>)with:(NSString *)key type:(Class)entityClass;
 
 @end

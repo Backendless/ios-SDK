@@ -1094,6 +1094,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 {
     [self load:object relations:relations relationsDepth:relationsDepth responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
+
 // IDataStore class factory
 
 -(id <IDataStore>)of:(Class)entityClass {
