@@ -173,12 +173,21 @@
 		91F139B317D724C700D1AC4C /* QueryOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F139B017D724C600D1AC4C /* QueryOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91F139B417D724C700D1AC4C /* QueryOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F139B117D724C600D1AC4C /* QueryOptions.m */; };
 		91F139B517D724C700D1AC4C /* QueryOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F139B117D724C600D1AC4C /* QueryOptions.m */; };
-		D39A468119811D9B006CBD1B /* CacheService.h in Headers */ = {isa = PBXBuildFile; fileRef = D39A467F19811D9B006CBD1B /* CacheService.h */; };
-		D39A468219811D9B006CBD1B /* CacheService.h in Headers */ = {isa = PBXBuildFile; fileRef = D39A467F19811D9B006CBD1B /* CacheService.h */; };
-		D39A468319811D9B006CBD1B /* CacheService.h in Headers */ = {isa = PBXBuildFile; fileRef = D39A467F19811D9B006CBD1B /* CacheService.h */; };
+		D39A468119811D9B006CBD1B /* CacheService.h in Headers */ = {isa = PBXBuildFile; fileRef = D39A467F19811D9B006CBD1B /* CacheService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D39A468219811D9B006CBD1B /* CacheService.h in Headers */ = {isa = PBXBuildFile; fileRef = D39A467F19811D9B006CBD1B /* CacheService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D39A468319811D9B006CBD1B /* CacheService.h in Headers */ = {isa = PBXBuildFile; fileRef = D39A467F19811D9B006CBD1B /* CacheService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D39A468419811D9B006CBD1B /* CacheService.m in Sources */ = {isa = PBXBuildFile; fileRef = D39A468019811D9B006CBD1B /* CacheService.m */; };
 		D39A468519811D9B006CBD1B /* CacheService.m in Sources */ = {isa = PBXBuildFile; fileRef = D39A468019811D9B006CBD1B /* CacheService.m */; };
 		D39A468619811D9B006CBD1B /* CacheService.m in Sources */ = {isa = PBXBuildFile; fileRef = D39A468019811D9B006CBD1B /* CacheService.m */; };
+		D3F8BD99198256AF0009DB40 /* ICacheService.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F8BD98198256AF0009DB40 /* ICacheService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3F8BD9A198256AF0009DB40 /* ICacheService.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F8BD98198256AF0009DB40 /* ICacheService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3F8BD9B198256AF0009DB40 /* ICacheService.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F8BD98198256AF0009DB40 /* ICacheService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3F8BD9E19825CF80009DB40 /* CacheFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F8BD9C19825CF80009DB40 /* CacheFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3F8BD9F19825CF80009DB40 /* CacheFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F8BD9C19825CF80009DB40 /* CacheFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3F8BDA019825CF80009DB40 /* CacheFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F8BD9C19825CF80009DB40 /* CacheFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3F8BDA119825CF80009DB40 /* CacheFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F8BD9D19825CF80009DB40 /* CacheFactory.m */; };
+		D3F8BDA219825CF80009DB40 /* CacheFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F8BD9D19825CF80009DB40 /* CacheFactory.m */; };
+		D3F8BDA319825CF80009DB40 /* CacheFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F8BD9D19825CF80009DB40 /* CacheFactory.m */; };
 		F9512967168DCFE90041460C /* MediaPublisher.h in Headers */ = {isa = PBXBuildFile; fileRef = F9512965168DCFE90041460C /* MediaPublisher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9512968168DCFE90041460C /* MediaPublisher.h in Headers */ = {isa = PBXBuildFile; fileRef = F9512965168DCFE90041460C /* MediaPublisher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9512969168DCFE90041460C /* MediaPublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = F9512966168DCFE90041460C /* MediaPublisher.m */; };
@@ -434,6 +443,9 @@
 		D3B2F359193511900084D5DD /* original.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = original.podspec; sourceTree = "<group>"; };
 		D3B2F3DD1936019E0084D5DD /* Create Xcode Backendless Project Using CocoaPods.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Create Xcode Backendless Project Using CocoaPods.docx"; sourceTree = "<group>"; };
 		D3B2F3DE1936019E0084D5DD /* Create Xcode Backendless Project Using CocoaPods.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Create Xcode Backendless Project Using CocoaPods.pdf"; sourceTree = "<group>"; };
+		D3F8BD98198256AF0009DB40 /* ICacheService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICacheService.h; sourceTree = "<group>"; };
+		D3F8BD9C19825CF80009DB40 /* CacheFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacheFactory.h; sourceTree = "<group>"; };
+		D3F8BD9D19825CF80009DB40 /* CacheFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheFactory.m; sourceTree = "<group>"; };
 		F9042B0715FDD8D300C9381A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F9042B0915FDD8D300C9381A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F9042B0B15FDD8D300C9381A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -684,6 +696,9 @@
 			children = (
 				D39A467F19811D9B006CBD1B /* CacheService.h */,
 				D39A468019811D9B006CBD1B /* CacheService.m */,
+				D3F8BD98198256AF0009DB40 /* ICacheService.h */,
+				D3F8BD9C19825CF80009DB40 /* CacheFactory.h */,
+				D3F8BD9D19825CF80009DB40 /* CacheFactory.m */,
 			);
 			path = CacheService;
 			sourceTree = "<group>";
@@ -1168,7 +1183,6 @@
 				91A427FD184E23D5005F91DE /* ISDatabase.h in Headers */,
 				91628E3017FAC79F00ACC36F /* DataStoreFactory.h in Headers */,
 				91628E3117FAC79F00ACC36F /* GeoService.h in Headers */,
-				D39A468119811D9B006CBD1B /* CacheService.h in Headers */,
 				91628E3217FAC79F00ACC36F /* GeoCategory.h in Headers */,
 				91628E3317FAC79F00ACC36F /* GeoPoint.h in Headers */,
 				F9BBFD5C18783B750076BC6D /* IClientSharedObject.h in Headers */,
@@ -1179,6 +1193,9 @@
 				91628E3717FAC79F00ACC36F /* DeliveryOptions.h in Headers */,
 				91A4285D18508269005F91DE /* BEReachability.h in Headers */,
 				91628E3817FAC79F00ACC36F /* PublishOptions.h in Headers */,
+				D3F8BD9E19825CF80009DB40 /* CacheFactory.h in Headers */,
+				D39A468119811D9B006CBD1B /* CacheService.h in Headers */,
+				D3F8BD99198256AF0009DB40 /* ICacheService.h in Headers */,
 				91628E3917FAC79F00ACC36F /* SubscriptionOptions.h in Headers */,
 				F9BBFD7D18783B750076BC6D /* WeborbClient.h in Headers */,
 				91223DCA195AF6AB00F72F48 /* Events.h in Headers */,
@@ -1256,6 +1273,9 @@
 				F9BBFD7818783B750076BC6D /* Types.h in Headers */,
 				F9BBFD7B18783B750076BC6D /* WeborbClient.h in Headers */,
 				F9796A1F166CCBFE00595F5E /* MessageStatus.h in Headers */,
+				D3F8BD9F19825CF80009DB40 /* CacheFactory.h in Headers */,
+				D3F8BD9A198256AF0009DB40 /* ICacheService.h in Headers */,
+				D39A468219811D9B006CBD1B /* CacheService.h in Headers */,
 				F9BBFD5418783B750076BC6D /* FlashorbBinaryWriter.h in Headers */,
 				F9796A20166CCBFE00595F5E /* FileService.h in Headers */,
 				F9BBFD7518783B750076BC6D /* RTMPClient.h in Headers */,
@@ -1269,7 +1289,6 @@
 				F9512971168DCFFF0041460C /* MediaPlayer.h in Headers */,
 				91A427FB184E23D5005F91DE /* ISDatabase.h in Headers */,
 				F9BBFE7D18783DD00076BC6D /* MediaStreamPlayer.h in Headers */,
-				D39A468219811D9B006CBD1B /* CacheService.h in Headers */,
 				F9512979168DEA210041460C /* IMediaStreamer.h in Headers */,
 				91A4285B18508269005F91DE /* BEReachability.h in Headers */,
 				F9BBFE7F18783DD00076BC6D /* MPMediaData.h in Headers */,
@@ -1337,6 +1356,9 @@
 				F9BBFD7918783B750076BC6D /* Types.h in Headers */,
 				F9BBFD7C18783B750076BC6D /* WeborbClient.h in Headers */,
 				F9796A6B166CD42E00595F5E /* MessageStatus.h in Headers */,
+				D3F8BDA019825CF80009DB40 /* CacheFactory.h in Headers */,
+				D3F8BD9B198256AF0009DB40 /* ICacheService.h in Headers */,
+				D39A468319811D9B006CBD1B /* CacheService.h in Headers */,
 				F9BBFD5518783B750076BC6D /* FlashorbBinaryWriter.h in Headers */,
 				F9796A6C166CD42E00595F5E /* FileService.h in Headers */,
 				F9BBFD7618783B750076BC6D /* RTMPClient.h in Headers */,
@@ -1350,7 +1372,6 @@
 				F9512972168DCFFF0041460C /* MediaPlayer.h in Headers */,
 				91A427FC184E23D5005F91DE /* ISDatabase.h in Headers */,
 				F9BBFE7E18783DD00076BC6D /* MediaStreamPlayer.h in Headers */,
-				D39A468319811D9B006CBD1B /* CacheService.h in Headers */,
 				F951297A168DEA210041460C /* IMediaStreamer.h in Headers */,
 				91A4285C18508269005F91DE /* BEReachability.h in Headers */,
 				F9BBFE8018783DD00076BC6D /* MPMediaData.h in Headers */,
@@ -1536,6 +1557,7 @@
 				91628E1B17FAC79F00ACC36F /* BackendlessCache.m in Sources */,
 				91628E1C17FAC79F00ACC36F /* BackendlessCacheData.m in Sources */,
 				91628E1D17FAC79F00ACC36F /* BackendlessCacheKey.m in Sources */,
+				D3F8BDA119825CF80009DB40 /* CacheFactory.m in Sources */,
 				91628E1E17FAC79F00ACC36F /* BackendlessCachePolicy.m in Sources */,
 				91628E1F17FAC79F00ACC36F /* QueryOptions.m in Sources */,
 			);
@@ -1552,6 +1574,7 @@
 				F97969EC166CCB8200595F5E /* AbstractProperty.m in Sources */,
 				F97969ED166CCB8200595F5E /* UserService.m in Sources */,
 				F97969EE166CCB8200595F5E /* BackendlessUser.m in Sources */,
+				D3F8BDA219825CF80009DB40 /* CacheFactory.m in Sources */,
 				F97969EF166CCB8200595F5E /* UserProperty.m in Sources */,
 				F97969F0166CCB8200595F5E /* PersistenceService.m in Sources */,
 				91A4285E18508269005F91DE /* BEReachability.m in Sources */,
@@ -1608,6 +1631,7 @@
 				F9796A36166CD3DA00595F5E /* AbstractProperty.m in Sources */,
 				F9796A37166CD3DA00595F5E /* UserService.m in Sources */,
 				F9796A38166CD3DA00595F5E /* BackendlessUser.m in Sources */,
+				D3F8BDA319825CF80009DB40 /* CacheFactory.m in Sources */,
 				F9796A39166CD3DA00595F5E /* UserProperty.m in Sources */,
 				F9796A3A166CD3DA00595F5E /* PersistenceService.m in Sources */,
 				91A4285F18508269005F91DE /* BEReachability.m in Sources */,

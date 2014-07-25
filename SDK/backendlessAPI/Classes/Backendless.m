@@ -24,6 +24,10 @@
 #import "BackendlessCache.h"
 #import "BEReachability.h"
 #import "OfflineModeManager.h"
+#if !NEW_API_ON
+#import "Events.h"
+#import "CacheService.h"
+#endif
 
 
 #define MISSING_SERVER_URL @"Missing server URL. You should set hostURL property"
@@ -50,8 +54,7 @@ static NSString *APP_TYPE_HEADER_KEY = @"application-type";
 static NSString *API_VERSION_HEADER_KEY = @"api-version";
 static NSString *UISTATE_HEADER_KEY = @"uiState";
 
-@interface Backendless ()
-{
+@interface Backendless () {
 }
 @property (nonatomic, strong) BEReachability *hostReachability;
 
@@ -59,10 +62,9 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 
 @implementation Backendless
 @synthesize hostURL = _hostURL, versionNum = _versionNum, reachabilityDelegate = _reachabilityDelegate;
-@synthesize mediaService = _mediaService, persistenceService = _persistenceService, messagingService = _messagingService, userService = _userService, fileService = _fileService, geoService = _geoService;
-#if EVENTS_ON
-@synthesize events = _events;
-#endif
+@synthesize userService = _userService, persistenceService = _persistenceService, messagingService = _messagingService;
+@synthesize geoService = _geoService, fileService = _fileService, mediaService = _mediaService;
+@synthesize events = _events, cacheService = _cacheService;
 
 // Singleton accessor:  this is how you should ALWAYS get a reference to the class instance.  Never init your own.
 +(Backendless *)sharedInstance {
@@ -121,24 +123,64 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     
     [_appConf release];
    
+    // services
     [_userService release];
     [_persistenceService release];
     [_geoService release];
     [_messagingService release];
     [_fileService release];
-#if EVENTS_ON
-    [_events release];
-#endif
     [_mediaService release];
+    [_events release];
+    [_cacheService release];
 	
 	[super dealloc];
 }
 
-#pragma mark - getters 
+#pragma mark - service getters
+
+-(UserService *)userService {
+    
+    if (!_userService) {
+        _userService = [UserService new];
+    }
+    return _userService;
+}
+
+-(PersistenceService *)persistenceService {
+    
+    if (!_persistenceService) {
+        _persistenceService = [PersistenceService new];
+    }
+    return _persistenceService;
+}
+
+-(MessagingService *)messagingService {
+    
+    if (!_messagingService) {
+        _messagingService = [MessagingService new];
+    }
+    return _messagingService;
+}
+
+-(GeoService *)geoService {
+    
+    if (!_geoService) {
+        _geoService = [GeoService new];
+    }
+    return _geoService;
+}
+
+-(FileService *)fileService {
+    
+    if (!_fileService) {
+        _fileService = [FileService new];
+    }
+    return _fileService;
+}
 
 #if 0
--(MediaService *)mediaService
-{
+-(MediaService *)mediaService {
+    
     if (!_mediaService) {
         //_mediaService = [MediaService new];
         _mediaService = [[Types classInstanceByClassName:@"MediaService"] retain];
@@ -148,52 +190,20 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 }
 #endif
 
-#if EVENTS_ON
--(Events *)events
-{
+-(Events *)events {
+    
     if (!_events) {
         _events = [Events new];
     }
     return _events;
 }
-#endif
 
--(PersistenceService *)persistenceService
-{
-    if (!_persistenceService) {
-        _persistenceService = [PersistenceService new];
+-(CacheService *)cacheService {
+    
+    if (!_cacheService) {
+        _cacheService = [CacheService new];
     }
-    return _persistenceService;
-}
-
--(MessagingService *)messagingService
-{
-    if (!_messagingService) {
-        _messagingService = [MessagingService new];
-    }
-    return _messagingService;
-}
--(UserService *)userService
-{
-    if (!_userService) {
-        _userService = [UserService new];
-    }
-    return _userService;
-}
--(FileService *)fileService
-{
-    if (!_fileService) {
-        _fileService = [FileService new];
-    }
-    return _fileService;
-}
-
--(GeoService *)geoService
-{
-    if (!_geoService) {
-        _geoService = [GeoService new];
-    }
-    return _geoService;
+    return _cacheService;
 }
 
 #pragma mark - reachability
@@ -398,39 +408,40 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 }
 
 #pragma mark - cache
--(void)clearAllCache
-{
+
+-(void)clearAllCache {
     [backendlessCache clearAllCache];
 }
--(void)clearCacheForClassName:(NSString *)className query:(id)query
-{
+
+-(void)clearCacheForClassName:(NSString *)className query:(id)query {
     [backendlessCache clearCacheForClassName:className query:query];
 }
--(BOOL)hasResultForClassName:(NSString *)className query:(id)query
-{
+
+-(BOOL)hasResultForClassName:(NSString *)className query:(id)query {
     return [backendlessCache hasResultForClassName:className query:query];
 }
--(void)setCachePolicy:(BackendlessCachePolicy *)policy
-{
+
+-(void)setCachePolicy:(BackendlessCachePolicy *)policy {
     [backendlessCache setCachePolicy:policy];
 }
--(void)setCacheStoredType:(BackendlessCacheStoredEnum)storedType
-{
+
+-(void)setCacheStoredType:(BackendlessCacheStoredEnum)storedType {
     if (backendlessCache.storedType.integerValue == BackendlessCacheStoredDisc) {
         [backendlessCache saveOnDisc];
     }
     [backendlessCache storedType:storedType];
 }
--(void)saveCache
-{
+
+-(void)saveCache {
     if (backendlessCache.storedType.integerValue == BackendlessCacheStoredDisc) {
         [backendlessCache saveOnDisc];
     }
-   
 }
+
 #pragma mark - offline mode
--(void)setOfflineMode:(BOOL)offlineMode
-{
+
+-(void)setOfflineMode:(BOOL)offlineMode {
+    
     if (offlineMode) {
         [invoker setThrowException:NO];
     }

@@ -29,6 +29,7 @@
 @end
 
 @implementation DataStoreFactory
+
 -(id)init {
 	if ( (self=[super init]) ) {
         _entityClass = nil;

@@ -8,7 +8,7 @@
  *
  *  ********************************************************************************************************************
  *
- *  Copyright 2012 BACKENDLESS.COM. All Rights Reserved.
+ *  Copyright 2014 BACKENDLESS.COM. All Rights Reserved.
  *
  *  NOTICE: All information contained herein is, and remains the property of Backendless.com and its suppliers,
  *  if any. The intellectual and technical concepts contained herein are proprietary to Backendless.com and its
@@ -23,6 +23,7 @@
 #import "Backendless.h"
 #import "Invoker.h"
 
+#define FAULT_NO_RESULT [Fault fault:@"Result is not valid" faultCode:@"0000"]
 #define FAULT_NO_ENTITY [Fault fault:@"Entity is not valid" faultCode:@"0000"]
 #define FAULT_NO_KEY [Fault fault:@"Key is not valid" faultCode:@"0000"]
 
@@ -77,7 +78,7 @@ static NSString *METHOD_DELETE = @"delete";
     
     BinaryStream *stream = [AMFSerializer serializeToBytes:entity];
     NSData *data = [NSData dataWithBytes:stream.buffer length:stream.size];
-    NSNumber *time = [NSNumber numberWithInt:(expire > 0)?expire:0];
+    NSNumber *time = [NSNumber numberWithInt:((expire > 0) && (expire <= 7200))?expire:0];
     NSArray *args = @[backendless.appID, backendless.versionNum, key, data, time];
     id result = [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_PUT_BYTES args:args];
     if ([result isKindOfClass:[Fault class]]) {
@@ -109,12 +110,82 @@ static NSString *METHOD_DELETE = @"delete";
     }
     if (![result isKindOfClass:[NSData class]]) {
         if (fault) {
-            (*fault) = [backendless throwFault:FAULT_NO_ENTITY];
+            (*fault) = [backendless throwFault:FAULT_NO_RESULT];
         }
         return nil;
     }
     
     return [self onGet:result];
+}
+
+-(NSNumber *)contains:(NSString *)key fault:(Fault **)fault {
+    
+    if (!key) {
+        if (fault) {
+            (*fault) = [backendless throwFault:FAULT_NO_KEY];
+        }
+        return nil;
+    }
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, key];
+    id result = [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_CONTAINS_KEY args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        if (fault) {
+            (*fault) = result;
+        }
+        return nil;
+    }
+    if (![result isKindOfClass:[NSNumber class]]) {
+        if (fault) {
+            (*fault) = [backendless throwFault:FAULT_NO_RESULT];
+        }
+        return nil;
+    }
+    
+    return result;
+}
+
+-(BOOL)expire:(NSString *)key timeToKeep:(int)expire fault:(Fault **)fault {
+    
+    if (!key) {
+        if (fault) {
+            (*fault) = [backendless throwFault:FAULT_NO_KEY];
+        }
+        return NO;
+    }
+    
+    NSNumber *time = [NSNumber numberWithInt:((expire > 0) && (expire <= 7200))?expire:0];
+    NSArray *args = @[backendless.appID, backendless.versionNum, key, time];
+    id result = [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_EXTEND_LIFE args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        if (fault) {
+            (*fault) = result;
+        }
+        return NO;
+    }
+    
+    return YES;
+}
+
+-(BOOL)delete:(NSString *)key fault:(Fault **)fault {
+    
+    if (!key) {
+        if (fault) {
+            (*fault) = [backendless throwFault:FAULT_NO_KEY];
+        }
+        return NO;
+    }
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, key];
+    id result = [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_DELETE args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        if (fault) {
+            (*fault) = result;
+        }
+        return NO;
+    }
+    
+    return YES;
 }
 
 // async methods with responder
@@ -132,7 +203,7 @@ static NSString *METHOD_DELETE = @"delete";
     
     BinaryStream *stream = [AMFSerializer serializeToBytes:entity];
     NSData *data = [NSData dataWithBytes:stream.buffer length:stream.size];
-    NSNumber *time = [NSNumber numberWithInt:(expire > 0)?expire:0];
+    NSNumber *time = [NSNumber numberWithInt:((expire > 0) && (expire <= 7200))?expire:0];
     NSArray *args = @[backendless.appID, backendless.versionNum, key, data, time];
     [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_PUT_BYTES args:args responder:responder];
 }
@@ -148,18 +219,58 @@ static NSString *METHOD_DELETE = @"delete";
     [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_PUT_BYTES args:args responder:_responder];
 }
 
+-(void)contains:(NSString *)key responder:(id<IResponder>)responder {
+    
+    if (!key)
+        return [responder errorHandler:FAULT_NO_KEY];
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, key];
+    [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_CONTAINS_KEY args:args responder:responder];
+}
+
+-(void)expire:(NSString *)key timeToKeep:(int)expire responder:(id<IResponder>)responder {
+    
+    if (!key)
+        return [responder errorHandler:FAULT_NO_KEY];
+    
+    NSNumber *time = [NSNumber numberWithInt:((expire > 0) && (expire <= 7200))?expire:0];
+    NSArray *args = @[backendless.appID, backendless.versionNum, key, time];
+    [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_EXTEND_LIFE args:args responder:responder];
+}
+
+-(void)delete:(NSString *)key responder:(id<IResponder>)responder {
+    
+    if (!key)
+        return [responder errorHandler:FAULT_NO_KEY];
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, key];
+    [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_DELETE args:args responder:responder];
+}
+
 // async methods with block-based callback
 
--(void)put:(NSString *)key object:(id)entity response:(void (^)(NSDictionary *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)put:(NSString *)key object:(id)entity response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
     [self put:key object:entity timeToKeep:0 responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)put:(NSString *)key object:(id)entity timeToKeep:(int)expire response:(void (^)(NSDictionary *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)put:(NSString *)key object:(id)entity timeToKeep:(int)expire response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
     [self put:key object:entity timeToKeep:expire responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)get:(NSString *)key response:(void (^)(NSDictionary *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)get:(NSString *)key response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
     [self get:key responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+
+-(void)contains:(NSString *)key response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+    [self contains:key responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+
+-(void)expire:(NSString *)key timeToKeep:(int)expire response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+    [self expire:key timeToKeep:expire responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+
+-(void)delete:(NSString *)key response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+    [self delete:key responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 #pragma mark -

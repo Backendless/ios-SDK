@@ -19,9 +19,9 @@
  *  ********************************************************************************************************************
  */
 
-// application services deploiment
+// applications & services deploiment
 #define OLD_MEDIA_APP 1
-#define EVENTS_ON 0
+#define NEW_API_ON 0
 
 #import <Foundation/Foundation.h>
 
@@ -66,8 +66,12 @@
 #import "MessagingService.h"
 #import "FileService.h"
 #import "BackendlessFile.h"
-#if EVENTS_ON
+#if NEW_API_ON
 #import "Events.h"
+#import "CacheService.h"
+#else
+@class Events;
+@class CacheService;
 #endif
 
 //Cache
@@ -109,10 +113,9 @@
 @property (strong, nonatomic, readonly) GeoService *geoService;
 @property (strong, nonatomic, readonly) MessagingService *messagingService;
 @property (strong, nonatomic, readonly) FileService *fileService;
-#if EVENTS_ON
+@property (strong, nonatomic, readwrite) MediaService *mediaService;
 @property (strong, nonatomic, readonly) Events *events;
-#endif
-@property (strong, nonatomic) MediaService *mediaService;
+@property (strong, nonatomic, readonly) CacheService *cacheService;
 // delegates
 @property (strong, nonatomic) id <ReachabilityDelegate> reachabilityDelegate;
 
