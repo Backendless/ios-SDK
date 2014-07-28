@@ -69,9 +69,11 @@
 #if NEW_API_ON
 #import "Events.h"
 #import "CacheService.h"
+#import "AtomicCounters.h"
 #else
 @class Events;
 @class CacheService;
+@class AtomicCounters;
 #endif
 
 //Cache
@@ -116,6 +118,7 @@
 @property (strong, nonatomic, readwrite) MediaService *mediaService;
 @property (strong, nonatomic, readonly) Events *events;
 @property (strong, nonatomic, readonly) CacheService *cacheService;
+@property (strong, nonatomic, readonly) AtomicCounters *counters;
 // delegates
 @property (strong, nonatomic) id <ReachabilityDelegate> reachabilityDelegate;
 

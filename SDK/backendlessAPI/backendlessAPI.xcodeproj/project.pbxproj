@@ -188,6 +188,21 @@
 		D3F8BDA119825CF80009DB40 /* CacheFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F8BD9D19825CF80009DB40 /* CacheFactory.m */; };
 		D3F8BDA219825CF80009DB40 /* CacheFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F8BD9D19825CF80009DB40 /* CacheFactory.m */; };
 		D3F8BDA319825CF80009DB40 /* CacheFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F8BD9D19825CF80009DB40 /* CacheFactory.m */; };
+		D3FB9B6819867EA500A13FB6 /* AtomicCounters.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FB9B6619867EA500A13FB6 /* AtomicCounters.h */; };
+		D3FB9B6919867EA500A13FB6 /* AtomicCounters.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FB9B6619867EA500A13FB6 /* AtomicCounters.h */; };
+		D3FB9B6A19867EA500A13FB6 /* AtomicCounters.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FB9B6619867EA500A13FB6 /* AtomicCounters.h */; };
+		D3FB9B6B19867EA500A13FB6 /* AtomicCounters.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FB9B6719867EA500A13FB6 /* AtomicCounters.m */; };
+		D3FB9B6C19867EA500A13FB6 /* AtomicCounters.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FB9B6719867EA500A13FB6 /* AtomicCounters.m */; };
+		D3FB9B6D19867EA500A13FB6 /* AtomicCounters.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FB9B6719867EA500A13FB6 /* AtomicCounters.m */; };
+		D3FB9B7419867F0E00A13FB6 /* AtomicCountersFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FB9B7219867F0E00A13FB6 /* AtomicCountersFactory.h */; };
+		D3FB9B7519867F0E00A13FB6 /* AtomicCountersFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FB9B7219867F0E00A13FB6 /* AtomicCountersFactory.h */; };
+		D3FB9B7619867F0E00A13FB6 /* AtomicCountersFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FB9B7219867F0E00A13FB6 /* AtomicCountersFactory.h */; };
+		D3FB9B7719867F0E00A13FB6 /* AtomicCountersFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FB9B7319867F0E00A13FB6 /* AtomicCountersFactory.m */; };
+		D3FB9B7819867F0E00A13FB6 /* AtomicCountersFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FB9B7319867F0E00A13FB6 /* AtomicCountersFactory.m */; };
+		D3FB9B7919867F0E00A13FB6 /* AtomicCountersFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FB9B7319867F0E00A13FB6 /* AtomicCountersFactory.m */; };
+		D3FB9B7B1986818F00A13FB6 /* IAtomicCounters.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FB9B7A1986818F00A13FB6 /* IAtomicCounters.h */; };
+		D3FB9B7C1986818F00A13FB6 /* IAtomicCounters.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FB9B7A1986818F00A13FB6 /* IAtomicCounters.h */; };
+		D3FB9B7D1986818F00A13FB6 /* IAtomicCounters.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FB9B7A1986818F00A13FB6 /* IAtomicCounters.h */; };
 		F9512967168DCFE90041460C /* MediaPublisher.h in Headers */ = {isa = PBXBuildFile; fileRef = F9512965168DCFE90041460C /* MediaPublisher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9512968168DCFE90041460C /* MediaPublisher.h in Headers */ = {isa = PBXBuildFile; fileRef = F9512965168DCFE90041460C /* MediaPublisher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9512969168DCFE90041460C /* MediaPublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = F9512966168DCFE90041460C /* MediaPublisher.m */; };
@@ -446,6 +461,11 @@
 		D3F8BD98198256AF0009DB40 /* ICacheService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICacheService.h; sourceTree = "<group>"; };
 		D3F8BD9C19825CF80009DB40 /* CacheFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacheFactory.h; sourceTree = "<group>"; };
 		D3F8BD9D19825CF80009DB40 /* CacheFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheFactory.m; sourceTree = "<group>"; };
+		D3FB9B6619867EA500A13FB6 /* AtomicCounters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtomicCounters.h; sourceTree = "<group>"; };
+		D3FB9B6719867EA500A13FB6 /* AtomicCounters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtomicCounters.m; sourceTree = "<group>"; };
+		D3FB9B7219867F0E00A13FB6 /* AtomicCountersFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtomicCountersFactory.h; sourceTree = "<group>"; };
+		D3FB9B7319867F0E00A13FB6 /* AtomicCountersFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtomicCountersFactory.m; sourceTree = "<group>"; };
+		D3FB9B7A1986818F00A13FB6 /* IAtomicCounters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAtomicCounters.h; sourceTree = "<group>"; };
 		F9042B0715FDD8D300C9381A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F9042B0915FDD8D300C9381A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F9042B0B15FDD8D300C9381A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -784,6 +804,18 @@
 			path = Guides;
 			sourceTree = "<group>";
 		};
+		D3FB9B6519867D5700A13FB6 /* Atomic */ = {
+			isa = PBXGroup;
+			children = (
+				D3FB9B6619867EA500A13FB6 /* AtomicCounters.h */,
+				D3FB9B6719867EA500A13FB6 /* AtomicCounters.m */,
+				D3FB9B7A1986818F00A13FB6 /* IAtomicCounters.h */,
+				D3FB9B7219867F0E00A13FB6 /* AtomicCountersFactory.h */,
+				D3FB9B7319867F0E00A13FB6 /* AtomicCountersFactory.m */,
+			);
+			path = Atomic;
+			sourceTree = "<group>";
+		};
 		F9042AF815FDD8D300C9381A = {
 			isa = PBXGroup;
 			children = (
@@ -893,6 +925,7 @@
 				F91B47E415FF448F00012DFC /* Media */,
 				91223DC7195AF68900F72F48 /* Events */,
 				D39A467E19811CDC006CBD1B /* CacheService */,
+				D3FB9B6519867D5700A13FB6 /* Atomic */,
 				F91B47E715FF448F00012DFC /* Util */,
 			);
 			path = Classes;
@@ -1167,6 +1200,7 @@
 				91628E2717FAC79F00ACC36F /* UserService.h in Headers */,
 				91628E2817FAC79F00ACC36F /* BackendlessUser.h in Headers */,
 				F9BBFD4D18783B750076BC6D /* BinaryStream.h in Headers */,
+				D3FB9B6819867EA500A13FB6 /* AtomicCounters.h in Headers */,
 				F9BBFD5F18783B750076BC6D /* IClientSharedObjectDelegate.h in Headers */,
 				F9BBFD6B18783B750076BC6D /* IServiceCall.h in Headers */,
 				F9BBFD4A18783B750076BC6D /* BinaryCodec.h in Headers */,
@@ -1214,6 +1248,7 @@
 				91628E4317FAC79F00ACC36F /* MediaPublisher.h in Headers */,
 				91628E4417FAC79F00ACC36F /* MediaPlayer.h in Headers */,
 				91628E4517FAC79F00ACC36F /* IMediaStreamer.h in Headers */,
+				D3FB9B7419867F0E00A13FB6 /* AtomicCountersFactory.h in Headers */,
 				91628E4617FAC79F00ACC36F /* AbstractQuery.h in Headers */,
 				F9BBFD5918783B750076BC6D /* IAttributeStore.h in Headers */,
 				91628E4717FAC79F00ACC36F /* BackendlessCachePolicy.h in Headers */,
@@ -1221,6 +1256,7 @@
 				910117D6180C0CCF008102A7 /* BodyParts.h in Headers */,
 				91628E4817FAC79F00ACC36F /* BackendlessCacheProtocol.h in Headers */,
 				91628E4917FAC79F00ACC36F /* QueryOptions.h in Headers */,
+				D3FB9B7B1986818F00A13FB6 /* IAtomicCounters.h in Headers */,
 				91628E4D17FAC79F00ACC36F /* Invoker.h in Headers */,
 				91628E4E17FAC79F00ACC36F /* BackendlessCache.h in Headers */,
 				91628E4F17FAC79F00ACC36F /* BackendlessCacheData.h in Headers */,
@@ -1258,7 +1294,9 @@
 				F9796A13166CCBFE00595F5E /* DataStoreFactory.h in Headers */,
 				F9796A14166CCBFE00595F5E /* GeoService.h in Headers */,
 				F9796A15166CCBFE00595F5E /* GeoCategory.h in Headers */,
+				D3FB9B7519867F0E00A13FB6 /* AtomicCountersFactory.h in Headers */,
 				F9796A16166CCBFE00595F5E /* GeoPoint.h in Headers */,
+				D3FB9B7C1986818F00A13FB6 /* IAtomicCounters.h in Headers */,
 				F9796A17166CCBFE00595F5E /* BackendlessGeoQuery.h in Headers */,
 				F9BBFD6618783B750076BC6D /* IRTMProtocol.h in Headers */,
 				F9796A18166CCBFE00595F5E /* MessagingService.h in Headers */,
@@ -1292,6 +1330,7 @@
 				F9512979168DEA210041460C /* IMediaStreamer.h in Headers */,
 				91A4285B18508269005F91DE /* BEReachability.h in Headers */,
 				F9BBFE7F18783DD00076BC6D /* MPMediaData.h in Headers */,
+				D3FB9B6919867EA500A13FB6 /* AtomicCounters.h in Headers */,
 				F9BBFD5D18783B750076BC6D /* IClientSharedObjectDelegate.h in Headers */,
 				91F1399517D7240A00D1AC4C /* AbstractQuery.h in Headers */,
 				91F139A917D7240A00D1AC4C /* BackendlessCachePolicy.h in Headers */,
@@ -1341,7 +1380,9 @@
 				F9796A5F166CD42E00595F5E /* DataStoreFactory.h in Headers */,
 				F9796A60166CD42E00595F5E /* GeoService.h in Headers */,
 				F9796A61166CD42E00595F5E /* GeoCategory.h in Headers */,
+				D3FB9B7619867F0E00A13FB6 /* AtomicCountersFactory.h in Headers */,
 				F9796A62166CD42E00595F5E /* GeoPoint.h in Headers */,
+				D3FB9B7D1986818F00A13FB6 /* IAtomicCounters.h in Headers */,
 				F9796A63166CD42E00595F5E /* BackendlessGeoQuery.h in Headers */,
 				F9BBFD6718783B750076BC6D /* IRTMProtocol.h in Headers */,
 				F9796A64166CD42E00595F5E /* MessagingService.h in Headers */,
@@ -1375,6 +1416,7 @@
 				F951297A168DEA210041460C /* IMediaStreamer.h in Headers */,
 				91A4285C18508269005F91DE /* BEReachability.h in Headers */,
 				F9BBFE8018783DD00076BC6D /* MPMediaData.h in Headers */,
+				D3FB9B6A19867EA500A13FB6 /* AtomicCounters.h in Headers */,
 				F9BBFD5E18783B750076BC6D /* IClientSharedObjectDelegate.h in Headers */,
 				91F1399617D7240A00D1AC4C /* AbstractQuery.h in Headers */,
 				91F139AA17D7240A00D1AC4C /* BackendlessCachePolicy.h in Headers */,
@@ -1531,6 +1573,7 @@
 				91628E0517FAC79F00ACC36F /* GeoService.m in Sources */,
 				91628E0617FAC79F00ACC36F /* GeoCategory.m in Sources */,
 				91223DCD195AF6AB00F72F48 /* Events.m in Sources */,
+				D3FB9B6B19867EA500A13FB6 /* AtomicCounters.m in Sources */,
 				91628E0717FAC79F00ACC36F /* GeoPoint.m in Sources */,
 				91628E0817FAC79F00ACC36F /* BackendlessGeoQuery.m in Sources */,
 				91628E0917FAC79F00ACC36F /* MessagingService.m in Sources */,
@@ -1554,6 +1597,7 @@
 				91628E1817FAC79F00ACC36F /* MediaPublisher.m in Sources */,
 				91628E1917FAC79F00ACC36F /* MediaPlayer.m in Sources */,
 				91628E1A17FAC79F00ACC36F /* AbstractQuery.m in Sources */,
+				D3FB9B7719867F0E00A13FB6 /* AtomicCountersFactory.m in Sources */,
 				91628E1B17FAC79F00ACC36F /* BackendlessCache.m in Sources */,
 				91628E1C17FAC79F00ACC36F /* BackendlessCacheData.m in Sources */,
 				91628E1D17FAC79F00ACC36F /* BackendlessCacheKey.m in Sources */,
@@ -1582,6 +1626,7 @@
 				F97969F2166CCB8200595F5E /* BackendlessEntity.m in Sources */,
 				F97969F3166CCB8200595F5E /* BackendlessCollection.m in Sources */,
 				F97969F4166CCB8200595F5E /* BackendlessDataQuery.m in Sources */,
+				D3FB9B6C19867EA500A13FB6 /* AtomicCounters.m in Sources */,
 				F97969F6166CCB8200595F5E /* DataStoreFactory.m in Sources */,
 				F97969F7166CCB8200595F5E /* GeoService.m in Sources */,
 				F97969F8166CCB8200595F5E /* GeoCategory.m in Sources */,
@@ -1603,6 +1648,7 @@
 				F9796A05166CCB8200595F5E /* HashMap.m in Sources */,
 				F97969E4166CC8C300595F5E /* backendless_simulator.m in Sources */,
 				F994A3F6168DC36B00C1A498 /* MediaPublishOptions.m in Sources */,
+				D3FB9B7819867F0E00A13FB6 /* AtomicCountersFactory.m in Sources */,
 				F994A400168DC39400C1A498 /* MediaPlaybackOptions.m in Sources */,
 				91DF02491821718C009DAE40 /* BEAnnotation.m in Sources */,
 				910117D7180C0CCF008102A7 /* BodyParts.m in Sources */,
@@ -1639,6 +1685,7 @@
 				F9796A3C166CD3DA00595F5E /* BackendlessEntity.m in Sources */,
 				F9796A3D166CD3DA00595F5E /* BackendlessCollection.m in Sources */,
 				F9796A3E166CD3DA00595F5E /* BackendlessDataQuery.m in Sources */,
+				D3FB9B6D19867EA500A13FB6 /* AtomicCounters.m in Sources */,
 				F9796A40166CD3DA00595F5E /* DataStoreFactory.m in Sources */,
 				F9796A41166CD3DA00595F5E /* GeoService.m in Sources */,
 				F9796A42166CD3DB00595F5E /* GeoCategory.m in Sources */,
@@ -1660,6 +1707,7 @@
 				F9796A4F166CD3DB00595F5E /* HashMap.m in Sources */,
 				F9796A30166CD3A400595F5E /* backendless_device.m in Sources */,
 				F994A3F7168DC36B00C1A498 /* MediaPublishOptions.m in Sources */,
+				D3FB9B7919867F0E00A13FB6 /* AtomicCountersFactory.m in Sources */,
 				F994A401168DC39400C1A498 /* MediaPlaybackOptions.m in Sources */,
 				91DF024A1821718C009DAE40 /* BEAnnotation.m in Sources */,
 				910117D8180C0CCF008102A7 /* BodyParts.m in Sources */,
