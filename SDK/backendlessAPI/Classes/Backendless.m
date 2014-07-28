@@ -24,10 +24,6 @@
 #import "BackendlessCache.h"
 #import "BEReachability.h"
 #import "OfflineModeManager.h"
-#if !NEW_API_ON
-#import "Events.h"
-#import "CacheService.h"
-#endif
 
 
 #define MISSING_SERVER_URL @"Missing server URL. You should set hostURL property"
@@ -190,6 +186,8 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 }
 #endif
 
+#if NEW_API_ON
+
 -(Events *)events {
     
     if (!_events) {
@@ -205,6 +203,8 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     }
     return _cacheService;
 }
+
+#endif
 
 #pragma mark - reachability
 
