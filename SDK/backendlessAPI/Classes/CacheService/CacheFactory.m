@@ -119,55 +119,54 @@
 // async methods with responder
 
 -(void)put:(id)entity responder:(id<IResponder>)responder {
-    return [self put:entity timeToKeep:0 responder:responder];
+    [self put:entity timeToKeep:0 responder:responder];
 }
 
 -(void)put:(id)entity timeToKeep:(int)expire responder:(id<IResponder>)responder {
     Fault *noValid = [self entityValidation:entity];
-    return (noValid) ? [responder errorHandler:noValid] : [backendless.cacheService put:_key object:entity timeToKeep:expire responder:responder];
+    noValid ? [responder errorHandler:noValid] : [backendless.cacheService put:_key object:entity timeToKeep:expire responder:responder];
 }
 
 -(void)getToResponder:(id<IResponder>)responder {
-    return [backendless.cacheService get:_key responder:responder];
+    [backendless.cacheService get:_key responder:responder];
 }
 
 -(void)containsToResponder:(id<IResponder>)responder {
-    return [backendless.cacheService contains:_key responder:responder];
+    [backendless.cacheService contains:_key responder:responder];
 }
 
 -(void)expire:(int)expire responder:(id<IResponder>)responder {
-    return [backendless.cacheService expire:_key timeToKeep:expire responder:responder];
+    [backendless.cacheService expire:_key timeToKeep:expire responder:responder];
 }
 
 -(void)deleteToResponder:(id<IResponder>)responder {
-    return [backendless.cacheService delete:_key responder:responder];
+    [backendless.cacheService delete:_key responder:responder];
 }
 
 // async methods with block-based callback
 
 -(void)put:(id)entity response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
-    return [self put:entity timeToKeep:0 response:responseBlock error:errorBlock];
+    [self put:entity timeToKeep:0 response:responseBlock error:errorBlock];
 }
 
 -(void)put:(id)entity timeToKeep:(int)expire response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
-    Fault *noValid = [self entityValidation:entity];
-    return noValid ? errorBlock(noValid) : [backendless.cacheService put:_key object:entity timeToKeep:expire response:responseBlock error:errorBlock];
+    [self put:entity timeToKeep:expire responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 -(void)get:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
-    return [backendless.cacheService get:_key response:responseBlock error:errorBlock];
+    [backendless.cacheService get:_key response:responseBlock error:errorBlock];
 }
 
 -(void)contains:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
-    return [backendless.cacheService contains:_key response:responseBlock error:errorBlock];
+    [backendless.cacheService contains:_key response:responseBlock error:errorBlock];
 }
 
 -(void)expire:(int)expire response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
-    return [backendless.cacheService expire:_key timeToKeep:expire response:responseBlock error:errorBlock];
+    [backendless.cacheService expire:_key timeToKeep:expire response:responseBlock error:errorBlock];
 }
 
 -(void)delete:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
-    return [backendless.cacheService delete:_key response:responseBlock error:errorBlock];
+    [backendless.cacheService delete:_key response:responseBlock error:errorBlock];
 }
 
 @end

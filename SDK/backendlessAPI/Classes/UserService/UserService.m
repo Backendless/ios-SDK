@@ -57,6 +57,7 @@ static NSString *METHOD_USER_LOGIN_WITH_FACEBOOK = @"getFacebookServiceAuthoriza
 static NSString *METHOD_USER_LOGIN_WITH_TWITTER = @"getTwitterServiceAuthorizationUrlLink";
 static NSString *METHOD_USER_LOGIN_WITH_FACEBOOK_SDK = @"loginWithFacebook";
 static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
+static NSString *METHOD_IS_VALID_USER_TOKEN = @"isValidUserToken"; 
 //  BACKENDLESS HEADER KEYS
 static NSString *USER_TOKEN_KEY = @"user-token\0";
 
@@ -150,6 +151,7 @@ static NSString *USER_TOKEN_KEY = @"user-token\0";
 -(id)onLogin:(id)response;
 -(id)onUpdate:(ResponseContext *)response;
 -(id)onLogout:(id)response;
+-(id)onLogoutError:(Fault *)fault;
 // persistent user
 -(BOOL)getPersistentUser;
 -(BOOL)setPersistentUser;
@@ -196,8 +198,8 @@ static NSString *USER_TOKEN_KEY = @"user-token\0";
 
 // sync methods with fault option
 
--(BackendlessUser *)registering:(BackendlessUser *)user error:(Fault **)fault
-{
+-(BackendlessUser *)registering:(BackendlessUser *)user error:(Fault **)fault {
+    
     id result = [self registering:user];
     if ([result isKindOfClass:[Fault class]]) {
         if (!fault) {
@@ -209,8 +211,8 @@ static NSString *USER_TOKEN_KEY = @"user-token\0";
     return result;
 }
 
--(BackendlessUser *)update:(BackendlessUser *)user error:(Fault **)fault
-{
+-(BackendlessUser *)update:(BackendlessUser *)user error:(Fault **)fault {
+    
     id result = [self update:user];
     if ([result isKindOfClass:[Fault class]]) {
         if (!fault) {
@@ -222,8 +224,8 @@ static NSString *USER_TOKEN_KEY = @"user-token\0";
     return result;
 }
 
--(BackendlessUser *)login:(NSString *)login password:(NSString *)password error:(Fault **)fault
-{
+-(BackendlessUser *)login:(NSString *)login password:(NSString *)password error:(Fault **)fault {
+    
     id result = [self login:login password:password];
     if ([result isKindOfClass:[Fault class]]) {
         if (!fault) {
@@ -235,8 +237,8 @@ static NSString *USER_TOKEN_KEY = @"user-token\0";
     return result;
 }
 
--(BOOL)logoutError:(Fault **)fault
-{
+-(BOOL)logoutError:(Fault **)fault {
+    
     id result = [self logout];
     if ([result isKindOfClass:[Fault class]]) {
         if (!fault) {
@@ -248,8 +250,20 @@ static NSString *USER_TOKEN_KEY = @"user-token\0";
     return YES;
 }
 
--(BOOL)restorePassword:(NSString *)login error:(Fault **)fault
-{
+-(NSNumber *)isValidUserTokenError:(Fault **)fault {
+    
+    id result = [self isValidUserToken];
+    if ([result isKindOfClass:[Fault class]]) {
+        if (fault) {
+            (*fault) = result;
+        }
+        return nil;
+    }
+    return result;
+}
+
+-(BOOL)restorePassword:(NSString *)login error:(Fault **)fault {
+    
     id result = [self restorePassword:login];
     if ([result isKindOfClass:[Fault class]]) {
         if (!fault) {
@@ -261,8 +275,8 @@ static NSString *USER_TOKEN_KEY = @"user-token\0";
     return YES;
 }
 
--(NSArray *)describeUserClassError:(Fault **)fault
-{
+-(NSArray *)describeUserClassError:(Fault **)fault {
+    
     id result = [self describeUserClass];
     if ([result isKindOfClass:[Fault class]]) {
         if (!fault) {
@@ -274,8 +288,8 @@ static NSString *USER_TOKEN_KEY = @"user-token\0";
     return result;
 }
 
--(BOOL)user:(NSString *)user assignRole:(NSString *)role error:(Fault **)fault
-{
+-(BOOL)user:(NSString *)user assignRole:(NSString *)role error:(Fault **)fault {
+    
     id result = [self user:user assignRole:role];
     if ([result isKindOfClass:[Fault class]]) {
         if (!fault) {
@@ -287,8 +301,8 @@ static NSString *USER_TOKEN_KEY = @"user-token\0";
     return YES;
 }
 
--(BOOL)user:(NSString *)user unassignRole:(NSString *)role error:(Fault **)fault
-{
+-(BOOL)user:(NSString *)user unassignRole:(NSString *)role error:(Fault **)fault {
+    
     id result = [self user:user unassignRole:role];
     if ([result isKindOfClass:[Fault class]]) {
         if (!fault) {
@@ -300,8 +314,8 @@ static NSString *USER_TOKEN_KEY = @"user-token\0";
     return YES;
 }
 
--(BackendlessUser *)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping error:(Fault **)fault
-{
+-(BackendlessUser *)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping error:(Fault **)fault {
+    
     id result = [self loginWithFacebookSDK:session user:user fieldsMapping:fieldsMapping];
     if ([result isKindOfClass:[Fault class]]) {
         if (!fault) {
@@ -313,8 +327,8 @@ static NSString *USER_TOKEN_KEY = @"user-token\0";
     return result;
 }
 
--(NSArray *)getUserRolesError:(Fault **)fault
-{
+-(NSArray *)getUserRolesError:(Fault **)fault {
+    
     id result = [self getUserRoles];
     if ([result isKindOfClass:[Fault class]]) {
         if (!fault) {
@@ -326,7 +340,7 @@ static NSString *USER_TOKEN_KEY = @"user-token\0";
     return result;
 }
 
-// sync methods with fault return
+// sync methods with fault return (will be depricated soon)
 
 -(BackendlessUser *)registering:(BackendlessUser *)user {
     
@@ -393,14 +407,28 @@ static NSString *USER_TOKEN_KEY = @"user-token\0";
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_LOGOUT args:args];
     if ([result isKindOfClass:[Fault class]]) {
         Fault *f = result;
+#if 0
         if ([f.faultCode isEqualToString:@"3064"] || [f.faultCode isEqualToString:@"3090"] || [f.faultCode isEqualToString:@"3091"]) {
             return [self onLogout:f];
         }
         return result;
+#else
+        return [self onLogoutError:f];
+#endif
     }
     
     return [self onLogout:result];
 }
+
+-(NSNumber *)isValidUserToken {
+
+    if (!_currentUser || !_currentUser.userToken)
+        return [backendless throwFault:FAULT_NO_USER];
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, _currentUser.userToken];
+    return [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_IS_VALID_USER_TOKEN args:args];
+}
+
 
 -(id)restorePassword:(NSString *)login {
     
@@ -510,9 +538,18 @@ static NSString *USER_TOKEN_KEY = @"user-token\0";
 -(void)logout:(id <IResponder>)responder {
     
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, nil];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onLogout:) selErrorHandler:nil];
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onLogout:) selErrorHandler:@selector(onLogoutError:)];
     _responder.chained = responder;
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_LOGOUT args:args responder:_responder];
+}
+
+-(void)isValidUserToken:(id <IResponder>)responder {
+    
+    if (!_currentUser || !_currentUser.userToken)
+        return [responder errorHandler:[backendless throwFault:FAULT_NO_USER]];
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, _currentUser.userToken];
+    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_IS_VALID_USER_TOKEN args:args responder:responder];
 }
 
 -(void)restorePassword:(NSString *)login responder:(id <IResponder>)responder {
@@ -588,6 +625,10 @@ static NSString *USER_TOKEN_KEY = @"user-token\0";
 
 -(void)logout:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [self logout:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+
+-(void)isValidUserToken:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self isValidUserToken:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 -(void)restorePassword:(NSString *)login response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -741,6 +782,19 @@ static NSString *USER_TOKEN_KEY = @"user-token\0";
     
     return response;
 }
+
+// fix BKNDLSS-6164
+-(id)onLogoutError:(Fault *)fault {
+    
+    [DebLog log:@"UserService -> onLogoutError: %@", fault.detail];
+    
+    if ([fault.faultCode isEqualToString:@"3064"] || [fault.faultCode isEqualToString:@"3090"] || [fault.faultCode isEqualToString:@"3091"]) {
+        [self onLogout:nil];
+    }
+    
+    return fault;
+}
+
 
 // persistent user
 

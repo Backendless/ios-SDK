@@ -126,6 +126,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     [_messagingService release];
     [_fileService release];
     [_mediaService release];
+    //new apis
     [_events release];
     [_cacheService release];
 	

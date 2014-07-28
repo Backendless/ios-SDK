@@ -39,6 +39,7 @@
 -(BackendlessUser *)update:(BackendlessUser *)user;
 -(BackendlessUser *)login:(NSString *)login password:(NSString *)password;
 -(id)logout;
+-(NSNumber *)isValidUserToken;
 -(id)restorePassword:(NSString *)login;
 -(NSArray *)describeUserClass;
 -(id)user:(NSString *)user assignRole:(NSString *)role;
@@ -51,6 +52,7 @@
 -(BackendlessUser *)update:(BackendlessUser *)user error:(Fault **)fault;
 -(BackendlessUser *)login:(NSString *)login password:(NSString *)password error:(Fault **)fault;
 -(BOOL)logoutError:(Fault **)fault;
+-(NSNumber *)isValidUserTokenError:(Fault **)fault;
 -(BOOL)restorePassword:(NSString *)login error:(Fault **)fault;
 -(NSArray *)describeUserClassError:(Fault **)fault;
 -(BOOL)user:(NSString *)user assignRole:(NSString *)role error:(Fault **)fault;
@@ -63,6 +65,7 @@
 -(void)update:(BackendlessUser *)user responder:(id <IResponder>)responder;
 -(void)login:(NSString *)login password:(NSString *)password responder:(id <IResponder>)responder;
 -(void)logout:(id <IResponder>)responder;
+-(void)isValidUserToken:(id <IResponder>)responder;
 -(void)restorePassword:(NSString *)login responder:(id <IResponder>)responder;
 -(void)describeUserClass:(id <IResponder>)responder;
 -(void)user:(NSString *)user assignRole:(NSString *)role responder:(id <IResponder>)responder;
@@ -75,6 +78,7 @@
 -(void)update:(BackendlessUser *)user response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)login:(NSString *)login password:(NSString *)password response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)logout:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)isValidUserToken:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)restorePassword:(NSString *)login response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)describeUserClass:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)user:(NSString *)user assignRole:(NSString *)role response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
