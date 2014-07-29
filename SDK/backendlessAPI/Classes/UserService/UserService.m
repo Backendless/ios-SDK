@@ -394,27 +394,23 @@ static NSString *USER_TOKEN_KEY = @"user-token\0";
     
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, login, password, nil];
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_LOGIN args:args];
-    if ([result isKindOfClass:[Fault class]]) {
-        return result;
-    }
-    
-    return [self onLogin:result];
+    return [result isKindOfClass:[Fault class]] ? result : [self onLogin:result];
 }
 
 -(id)logout {
     
+    BOOL throwException = invoker.throwException;
+    invoker.throwException = NO;
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, nil];
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_LOGOUT args:args];
+    invoker.throwException = throwException;
+    
     if ([result isKindOfClass:[Fault class]]) {
-        Fault *f = result;
-#if 0
-        if ([f.faultCode isEqualToString:@"3064"] || [f.faultCode isEqualToString:@"3090"] || [f.faultCode isEqualToString:@"3091"]) {
-            return [self onLogout:f];
-        }
+        
+        [self onLogoutError:result];
+        if (throwException)
+            @throw result;
         return result;
-#else
-        return [self onLogoutError:f];
-#endif
     }
     
     return [self onLogout:result];
@@ -446,6 +442,7 @@ static NSString *USER_TOKEN_KEY = @"user-token\0";
 }
 
 -(id)user:(NSString *)user assignRole:(NSString *)role {
+    
     if (!user||![user length])
         return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
     if (!role||![role length]) {
@@ -454,10 +451,10 @@ static NSString *USER_TOKEN_KEY = @"user-token\0";
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, user, role, nil];
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_ASSIGN_ROLE args:args];
     return result;
-
 }
 
 -(id)user:(NSString *)user unassignRole:(NSString *)role {
+    
     if (!user||![user length])
         return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
     if (!role||![role length]) {
@@ -468,23 +465,19 @@ static NSString *USER_TOKEN_KEY = @"user-token\0";
     return result;
 }
 
--(id)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping
-{
+-(id)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping {
+    
     return [self loginWithFacebookSocialUserId:[user valueForKey:@"id"] accessToken:[[session valueForKey:@"accessTokenData"] valueForKey:@"accessToken"] expirationDate:[[session valueForKey:@"accessTokenData"] valueForKey:@"expirationDate"] permissions:[[session valueForKey:@"accessTokenData"] valueForKey:@"permissions"] fieldsMapping:fieldsMapping];
 }
 
--(id)loginWithFacebookSocialUserId:(NSString *)userId accessToken:(NSString *)accessToken expirationDate:(NSDate *)expirationDate permissions:(NSArray *)permissions fieldsMapping:(NSDictionary *)fieldsMapping
-{
+-(id)loginWithFacebookSocialUserId:(NSString *)userId accessToken:(NSString *)accessToken expirationDate:(NSDate *)expirationDate permissions:(NSArray *)permissions fieldsMapping:(NSDictionary *)fieldsMapping {
+    
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, userId, accessToken, expirationDate, permissions, fieldsMapping, nil];
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_FACEBOOK_SDK args:args];
-    if ([result isKindOfClass:[Fault class]]) {
-        return result;
-    }
-    return [self onLogin:result];
+    return [result isKindOfClass:[Fault class]] ? result : [self onLogin:result];
 }
 
--(NSArray *)getUserRoles
-{
+-(NSArray *)getUserRoles {
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, nil];
     return [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_GET_USER_ROLES args:args];
 }
@@ -783,15 +776,18 @@ static NSString *USER_TOKEN_KEY = @"user-token\0";
     return response;
 }
 
-// fix BKNDLSS-6164
+// fix BKNDLSS-6164 & BKNDLSS-6173
 -(id)onLogoutError:(Fault *)fault {
     
-    [DebLog log:@"UserService -> onLogoutError: %@", fault.detail];
-    
-    if ([fault.faultCode isEqualToString:@"3064"] || [fault.faultCode isEqualToString:@"3090"] || [fault.faultCode isEqualToString:@"3091"]) {
-        [self onLogout:nil];
+    [DebLog log:@"UserService -> onLogoutError: %@", fault];
+
+    NSArray *faultCodes = @[@"3023", @"3064", @"3090", @"3091"];
+    for (NSString *code in faultCodes) {
+        if ([fault.faultCode isEqualToString:code]) {
+            return [self onLogout:fault];
+        }
     }
-    
+
     return fault;
 }
 
