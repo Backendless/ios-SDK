@@ -29,6 +29,7 @@
 // SERVICE NAME
 static NSString *SERVER_ATOMIC_OPERATION_SERVICE_PATH = @"com.backendless.services.redis.AtomicOperationService";
 // METHOD NAMES
+static NSString *METHOD_GET = @"get";
 static NSString *METHOD_GET_AND_INCREMENT = @"getAndIncrement";
 static NSString *METHOD_INCREMENT_AND_GET = @"incrementAndGet";
 static NSString *METHOD_GET_AND_DECREMENT = @"getAndDEcrement";
@@ -58,6 +59,27 @@ static NSString *METHOD_COMPARE_AND_SET = @"compareAndSet";
 #pragma mark Public Methods
 
 // sync methods with fault option
+
+-(NSNumber *)get:(NSString *)name fault:(Fault **)fault {
+    
+    if (!name) {
+        if (fault) {
+            (*fault) = [backendless throwFault:FAULT_NO_NAME];
+        }
+        return nil;
+    }
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, name];
+    id result = [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        if (fault) {
+            (*fault) = result;
+        }
+        return nil;
+    }
+    
+    return result;
+}
 
 -(NSNumber *)getAndIncrement:(NSString *)name fault:(Fault **)fault {
     
@@ -208,6 +230,15 @@ static NSString *METHOD_COMPARE_AND_SET = @"compareAndSet";
 
 // async methods with responder
 
+-(void)get:(NSString *)name responder:(id<IResponder>)responder {
+    
+    if (!name)
+        return [responder errorHandler:FAULT_NO_NAME];
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, name];
+    [invoker invokeAsync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET args:args responder:responder];
+}
+
 -(void)getAndIncrement:(NSString *)name responder:(id<IResponder>)responder {
     
     if (!name)
@@ -272,6 +303,10 @@ static NSString *METHOD_COMPARE_AND_SET = @"compareAndSet";
 }
 
 // async methods with block-based callback
+
+-(void)get:(NSString *)name response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+    [self get:name responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
 
 -(void)getAndIncrement:(NSString *)name response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
     [self getAndIncrement:name responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];

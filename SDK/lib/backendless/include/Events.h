@@ -20,8 +20,10 @@
  */
 
 #import <Foundation/Foundation.h>
+
 @protocol IResponder;
 @class Fault;
+
 @interface Events : NSObject
 // sync methods with fault option
 -(NSDictionary *)dispatch:(NSString *)name args:(NSDictionary *)eventArgs fault:(Fault **)fault;

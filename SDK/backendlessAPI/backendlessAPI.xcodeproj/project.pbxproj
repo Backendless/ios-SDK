@@ -188,21 +188,21 @@
 		D3F8BDA119825CF80009DB40 /* CacheFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F8BD9D19825CF80009DB40 /* CacheFactory.m */; };
 		D3F8BDA219825CF80009DB40 /* CacheFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F8BD9D19825CF80009DB40 /* CacheFactory.m */; };
 		D3F8BDA319825CF80009DB40 /* CacheFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F8BD9D19825CF80009DB40 /* CacheFactory.m */; };
-		D3FB9B6819867EA500A13FB6 /* AtomicCounters.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FB9B6619867EA500A13FB6 /* AtomicCounters.h */; };
-		D3FB9B6919867EA500A13FB6 /* AtomicCounters.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FB9B6619867EA500A13FB6 /* AtomicCounters.h */; };
-		D3FB9B6A19867EA500A13FB6 /* AtomicCounters.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FB9B6619867EA500A13FB6 /* AtomicCounters.h */; };
+		D3FB9B6819867EA500A13FB6 /* AtomicCounters.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FB9B6619867EA500A13FB6 /* AtomicCounters.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3FB9B6919867EA500A13FB6 /* AtomicCounters.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FB9B6619867EA500A13FB6 /* AtomicCounters.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3FB9B6A19867EA500A13FB6 /* AtomicCounters.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FB9B6619867EA500A13FB6 /* AtomicCounters.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3FB9B6B19867EA500A13FB6 /* AtomicCounters.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FB9B6719867EA500A13FB6 /* AtomicCounters.m */; };
 		D3FB9B6C19867EA500A13FB6 /* AtomicCounters.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FB9B6719867EA500A13FB6 /* AtomicCounters.m */; };
 		D3FB9B6D19867EA500A13FB6 /* AtomicCounters.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FB9B6719867EA500A13FB6 /* AtomicCounters.m */; };
-		D3FB9B7419867F0E00A13FB6 /* AtomicCountersFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FB9B7219867F0E00A13FB6 /* AtomicCountersFactory.h */; };
-		D3FB9B7519867F0E00A13FB6 /* AtomicCountersFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FB9B7219867F0E00A13FB6 /* AtomicCountersFactory.h */; };
-		D3FB9B7619867F0E00A13FB6 /* AtomicCountersFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FB9B7219867F0E00A13FB6 /* AtomicCountersFactory.h */; };
+		D3FB9B7419867F0E00A13FB6 /* AtomicCountersFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FB9B7219867F0E00A13FB6 /* AtomicCountersFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3FB9B7519867F0E00A13FB6 /* AtomicCountersFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FB9B7219867F0E00A13FB6 /* AtomicCountersFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3FB9B7619867F0E00A13FB6 /* AtomicCountersFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FB9B7219867F0E00A13FB6 /* AtomicCountersFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3FB9B7719867F0E00A13FB6 /* AtomicCountersFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FB9B7319867F0E00A13FB6 /* AtomicCountersFactory.m */; };
 		D3FB9B7819867F0E00A13FB6 /* AtomicCountersFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FB9B7319867F0E00A13FB6 /* AtomicCountersFactory.m */; };
 		D3FB9B7919867F0E00A13FB6 /* AtomicCountersFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FB9B7319867F0E00A13FB6 /* AtomicCountersFactory.m */; };
-		D3FB9B7B1986818F00A13FB6 /* IAtomicCounters.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FB9B7A1986818F00A13FB6 /* IAtomicCounters.h */; };
-		D3FB9B7C1986818F00A13FB6 /* IAtomicCounters.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FB9B7A1986818F00A13FB6 /* IAtomicCounters.h */; };
-		D3FB9B7D1986818F00A13FB6 /* IAtomicCounters.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FB9B7A1986818F00A13FB6 /* IAtomicCounters.h */; };
+		D3FB9B7B1986818F00A13FB6 /* IAtomicCounters.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FB9B7A1986818F00A13FB6 /* IAtomicCounters.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3FB9B7C1986818F00A13FB6 /* IAtomicCounters.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FB9B7A1986818F00A13FB6 /* IAtomicCounters.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3FB9B7D1986818F00A13FB6 /* IAtomicCounters.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FB9B7A1986818F00A13FB6 /* IAtomicCounters.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9512967168DCFE90041460C /* MediaPublisher.h in Headers */ = {isa = PBXBuildFile; fileRef = F9512965168DCFE90041460C /* MediaPublisher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9512968168DCFE90041460C /* MediaPublisher.h in Headers */ = {isa = PBXBuildFile; fileRef = F9512965168DCFE90041460C /* MediaPublisher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9512969168DCFE90041460C /* MediaPublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = F9512966168DCFE90041460C /* MediaPublisher.m */; };
@@ -1192,6 +1192,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9BBFD7718783B750076BC6D /* RTMPClient.h in Headers */,
+				D3FB9B6819867EA500A13FB6 /* AtomicCounters.h in Headers */,
+				D3FB9B7419867F0E00A13FB6 /* AtomicCountersFactory.h in Headers */,
+				D3FB9B7B1986818F00A13FB6 /* IAtomicCounters.h in Headers */,
 				91628E2517FAC79F00ACC36F /* Backendless.h in Headers */,
 				91628E2617FAC79F00ACC36F /* AbstractProperty.h in Headers */,
 				91A42809184E2447005F91DE /* OfflineModeManager.h in Headers */,
@@ -1200,7 +1203,6 @@
 				91628E2717FAC79F00ACC36F /* UserService.h in Headers */,
 				91628E2817FAC79F00ACC36F /* BackendlessUser.h in Headers */,
 				F9BBFD4D18783B750076BC6D /* BinaryStream.h in Headers */,
-				D3FB9B6819867EA500A13FB6 /* AtomicCounters.h in Headers */,
 				F9BBFD5F18783B750076BC6D /* IClientSharedObjectDelegate.h in Headers */,
 				F9BBFD6B18783B750076BC6D /* IServiceCall.h in Headers */,
 				F9BBFD4A18783B750076BC6D /* BinaryCodec.h in Headers */,
@@ -1248,7 +1250,6 @@
 				91628E4317FAC79F00ACC36F /* MediaPublisher.h in Headers */,
 				91628E4417FAC79F00ACC36F /* MediaPlayer.h in Headers */,
 				91628E4517FAC79F00ACC36F /* IMediaStreamer.h in Headers */,
-				D3FB9B7419867F0E00A13FB6 /* AtomicCountersFactory.h in Headers */,
 				91628E4617FAC79F00ACC36F /* AbstractQuery.h in Headers */,
 				F9BBFD5918783B750076BC6D /* IAttributeStore.h in Headers */,
 				91628E4717FAC79F00ACC36F /* BackendlessCachePolicy.h in Headers */,
@@ -1256,7 +1257,6 @@
 				910117D6180C0CCF008102A7 /* BodyParts.h in Headers */,
 				91628E4817FAC79F00ACC36F /* BackendlessCacheProtocol.h in Headers */,
 				91628E4917FAC79F00ACC36F /* QueryOptions.h in Headers */,
-				D3FB9B7B1986818F00A13FB6 /* IAtomicCounters.h in Headers */,
 				91628E4D17FAC79F00ACC36F /* Invoker.h in Headers */,
 				91628E4E17FAC79F00ACC36F /* BackendlessCache.h in Headers */,
 				91628E4F17FAC79F00ACC36F /* BackendlessCacheData.h in Headers */,
@@ -1294,9 +1294,7 @@
 				F9796A13166CCBFE00595F5E /* DataStoreFactory.h in Headers */,
 				F9796A14166CCBFE00595F5E /* GeoService.h in Headers */,
 				F9796A15166CCBFE00595F5E /* GeoCategory.h in Headers */,
-				D3FB9B7519867F0E00A13FB6 /* AtomicCountersFactory.h in Headers */,
 				F9796A16166CCBFE00595F5E /* GeoPoint.h in Headers */,
-				D3FB9B7C1986818F00A13FB6 /* IAtomicCounters.h in Headers */,
 				F9796A17166CCBFE00595F5E /* BackendlessGeoQuery.h in Headers */,
 				F9BBFD6618783B750076BC6D /* IRTMProtocol.h in Headers */,
 				F9796A18166CCBFE00595F5E /* MessagingService.h in Headers */,
@@ -1313,6 +1311,9 @@
 				F9796A1F166CCBFE00595F5E /* MessageStatus.h in Headers */,
 				D3F8BD9F19825CF80009DB40 /* CacheFactory.h in Headers */,
 				D3F8BD9A198256AF0009DB40 /* ICacheService.h in Headers */,
+				D3FB9B7519867F0E00A13FB6 /* AtomicCountersFactory.h in Headers */,
+				D3FB9B7C1986818F00A13FB6 /* IAtomicCounters.h in Headers */,
+				D3FB9B6919867EA500A13FB6 /* AtomicCounters.h in Headers */,
 				D39A468219811D9B006CBD1B /* CacheService.h in Headers */,
 				F9BBFD5418783B750076BC6D /* FlashorbBinaryWriter.h in Headers */,
 				F9796A20166CCBFE00595F5E /* FileService.h in Headers */,
@@ -1330,7 +1331,6 @@
 				F9512979168DEA210041460C /* IMediaStreamer.h in Headers */,
 				91A4285B18508269005F91DE /* BEReachability.h in Headers */,
 				F9BBFE7F18783DD00076BC6D /* MPMediaData.h in Headers */,
-				D3FB9B6919867EA500A13FB6 /* AtomicCounters.h in Headers */,
 				F9BBFD5D18783B750076BC6D /* IClientSharedObjectDelegate.h in Headers */,
 				91F1399517D7240A00D1AC4C /* AbstractQuery.h in Headers */,
 				91F139A917D7240A00D1AC4C /* BackendlessCachePolicy.h in Headers */,
@@ -1380,9 +1380,7 @@
 				F9796A5F166CD42E00595F5E /* DataStoreFactory.h in Headers */,
 				F9796A60166CD42E00595F5E /* GeoService.h in Headers */,
 				F9796A61166CD42E00595F5E /* GeoCategory.h in Headers */,
-				D3FB9B7619867F0E00A13FB6 /* AtomicCountersFactory.h in Headers */,
 				F9796A62166CD42E00595F5E /* GeoPoint.h in Headers */,
-				D3FB9B7D1986818F00A13FB6 /* IAtomicCounters.h in Headers */,
 				F9796A63166CD42E00595F5E /* BackendlessGeoQuery.h in Headers */,
 				F9BBFD6718783B750076BC6D /* IRTMProtocol.h in Headers */,
 				F9796A64166CD42E00595F5E /* MessagingService.h in Headers */,
@@ -1391,6 +1389,9 @@
 				F9BBFD4F18783B750076BC6D /* DEBUG.h in Headers */,
 				F9BBFD6418783B750076BC6D /* IPersistable.h in Headers */,
 				F9796A67166CD42E00595F5E /* PublishOptions.h in Headers */,
+				D3FB9B7619867F0E00A13FB6 /* AtomicCountersFactory.h in Headers */,
+				D3FB9B7D1986818F00A13FB6 /* IAtomicCounters.h in Headers */,
+				D3FB9B6A19867EA500A13FB6 /* AtomicCounters.h in Headers */,
 				F9796A68166CD42E00595F5E /* SubscriptionOptions.h in Headers */,
 				F9796A69166CD42E00595F5E /* BESubscription.h in Headers */,
 				F9796A6A166CD42E00595F5E /* Message.h in Headers */,
@@ -1416,7 +1417,6 @@
 				F951297A168DEA210041460C /* IMediaStreamer.h in Headers */,
 				91A4285C18508269005F91DE /* BEReachability.h in Headers */,
 				F9BBFE8018783DD00076BC6D /* MPMediaData.h in Headers */,
-				D3FB9B6A19867EA500A13FB6 /* AtomicCounters.h in Headers */,
 				F9BBFD5E18783B750076BC6D /* IClientSharedObjectDelegate.h in Headers */,
 				91F1399617D7240A00D1AC4C /* AbstractQuery.h in Headers */,
 				91F139AA17D7240A00D1AC4C /* BackendlessCachePolicy.h in Headers */,
@@ -1534,7 +1534,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "rm -rf ${BUILT_PRODUCTS_DIR}/backendless.a\n\nlipo -create \"${BUILT_PRODUCTS_DIR}/../Release-iphonesimulator/libbackendless-simulator.a\" \\\n\"${BUILT_PRODUCTS_DIR}/libbackendless-device.a\" -output \\\n\"${BUILT_PRODUCTS_DIR}/backendless.a\"\n\ncp ${BUILT_PRODUCTS_DIR}/backendless.a ${SRCROOT}/../lib/backendless\ncp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../lib/backendless/include\n\ncp ${BUILT_PRODUCTS_DIR}/backendless.a ${SRCROOT}/../../../iOS-Samples/lib/backendless\ncp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../../../iOS-Samples/lib/backendless/include\n \ncp ${BUILT_PRODUCTS_DIR}/backendless.a ${SRCROOT}/../../../Swift-Samples/lib/backendless\ncp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../../../Swift-Samples/lib/backendless/include\n                                           \n# -------------------------- !!!!! TEMP TESTING COPIES !!!!! --------------------------------\n                                           \ncp ${BUILT_PRODUCTS_DIR}/backendless.a ~/Downloads/Test/lib/backendless\ncp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ~/Downloads/Test/lib/backendless/include\n\n#--------------------------------------------------------------------------------------------\n                                           \nrm -rf ${BUILT_PRODUCTS_DIR}/usr/local/include/*\n";
+			shellScript = "rm -rf ${BUILT_PRODUCTS_DIR}/backendless.a\n\nlipo -create \"${BUILT_PRODUCTS_DIR}/../Release-iphonesimulator/libbackendless-simulator.a\" \\\n\"${BUILT_PRODUCTS_DIR}/libbackendless-device.a\" -output \\\n\"${BUILT_PRODUCTS_DIR}/backendless.a\"\n\ncp ${BUILT_PRODUCTS_DIR}/backendless.a ${SRCROOT}/../lib/backendless\ncp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../lib/backendless/include\n\ncp ${BUILT_PRODUCTS_DIR}/backendless.a ${SRCROOT}/../../../iOS-Samples/lib/backendless\ncp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../../../iOS-Samples/lib/backendless/include\n \ncp ${BUILT_PRODUCTS_DIR}/backendless.a ${SRCROOT}/../../../Swift-Samples/lib/backendless\ncp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../../../Swift-Samples/lib/backendless/include\n \ncp ${BUILT_PRODUCTS_DIR}/backendless.a ${SRCROOT}/../../../backendless.gitlab/src/client/sdk/ios/lib/backendless\ncp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../../../backendless.gitlab/src/client/sdk/ios/lib/backendless/include\n\n# -------------------------- !!!!! TEMP TESTING COPIES !!!!! --------------------------------\n                                           \ncp ${BUILT_PRODUCTS_DIR}/backendless.a ~/Downloads/Test/lib/backendless\ncp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ~/Downloads/Test/lib/backendless/include\n\n#--------------------------------------------------------------------------------------------\n                                           \nrm -rf ${BUILT_PRODUCTS_DIR}/usr/local/include/*\n";
 		};
 		F9BBFD27187832A60076BC6D /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;

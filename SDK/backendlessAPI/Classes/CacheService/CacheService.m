@@ -32,7 +32,7 @@
 static NSString *SERVER_CACHE_SERVICE_PATH = @"com.backendless.services.redis.CacheService";
 // METHOD NAMES
 static NSString *METHOD_PUT_BYTES = @"putBytes";
-static NSString *METHOD_CONTAINS_KEY = @"continesKey";
+static NSString *METHOD_CONTAINS_KEY = @"containsKey";
 static NSString *METHOD_GET_BYTES = @"getBytes";
 static NSString *METHOD_EXTEND_LIFE = @"extendLife";
 static NSString *METHOD_DELETE = @"delete";
@@ -78,7 +78,12 @@ static NSString *METHOD_DELETE = @"delete";
     }
     
     BinaryStream *stream = [AMFSerializer serializeToBytes:entity];
+#if 1
     NSData *data = [NSData dataWithBytes:stream.buffer length:stream.size];
+#else
+    NSMutableData *data = [NSMutableData data];
+    [data appendBytes:stream.buffer length:stream.size];
+#endif
     NSNumber *time = [NSNumber numberWithInt:((expire > 0) && (expire <= 7200))?expire:0];
     NSArray *args = @[backendless.appID, backendless.versionNum, key, data, time];
     id result = [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_PUT_BYTES args:args];
@@ -137,6 +142,7 @@ static NSString *METHOD_DELETE = @"delete";
         return nil;
     }
     if (![result isKindOfClass:[NSNumber class]]) {
+        NSLog(@"CacheService -> contains: %@", result);
         if (fault) {
             (*fault) = [backendless throwFault:FAULT_NO_RESULT];
         }
@@ -146,7 +152,7 @@ static NSString *METHOD_DELETE = @"delete";
     return result;
 }
 
--(BOOL)expire:(NSString *)key timeToKeep:(int)expire fault:(Fault **)fault {
+-(BOOL)expireIn:(NSString *)key timeToKeep:(int)expire fault:(Fault **)fault {
     
     if (!key) {
         if (fault) {
@@ -168,7 +174,7 @@ static NSString *METHOD_DELETE = @"delete";
     return YES;
 }
 
--(BOOL)delete:(NSString *)key fault:(Fault **)fault {
+-(BOOL)deleteCache:(NSString *)key fault:(Fault **)fault {
     
     if (!key) {
         if (fault) {
@@ -203,7 +209,12 @@ static NSString *METHOD_DELETE = @"delete";
         return [responder errorHandler:FAULT_NO_ENTITY];
     
     BinaryStream *stream = [AMFSerializer serializeToBytes:entity];
+#if 0
     NSData *data = [NSData dataWithBytes:stream.buffer length:stream.size];
+#else
+    NSData *data = [NSData data];
+    [data getBytes:stream.buffer length:stream.size];
+#endif
     NSNumber *time = [NSNumber numberWithInt:((expire > 0) && (expire <= 7200))?expire:0];
     NSArray *args = @[backendless.appID, backendless.versionNum, key, data, time];
     [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_PUT_BYTES args:args responder:responder];
@@ -229,7 +240,7 @@ static NSString *METHOD_DELETE = @"delete";
     [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_CONTAINS_KEY args:args responder:responder];
 }
 
--(void)expire:(NSString *)key timeToKeep:(int)expire responder:(id<IResponder>)responder {
+-(void)expireIn:(NSString *)key timeToKeep:(int)expire responder:(id<IResponder>)responder {
     
     if (!key)
         return [responder errorHandler:FAULT_NO_KEY];
@@ -239,7 +250,7 @@ static NSString *METHOD_DELETE = @"delete";
     [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_EXTEND_LIFE args:args responder:responder];
 }
 
--(void)delete:(NSString *)key responder:(id<IResponder>)responder {
+-(void)deleteCache:(NSString *)key responder:(id<IResponder>)responder {
     
     if (!key)
         return [responder errorHandler:FAULT_NO_KEY];
@@ -266,12 +277,12 @@ static NSString *METHOD_DELETE = @"delete";
     [self contains:key responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)expire:(NSString *)key timeToKeep:(int)expire response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
-    [self expire:key timeToKeep:expire responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+-(void)expireIn:(NSString *)key timeToKeep:(int)expire response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+    [self expireIn:key timeToKeep:expire responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)delete:(NSString *)key response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
-    [self delete:key responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+-(void)deleteCache:(NSString *)key response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+    [self deleteCache:key responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 // ICacheService factory

@@ -108,12 +108,12 @@
     return [backendless.cacheService contains:_key fault:fault];
 }
 
--(BOOL)expire:(int)expire fault:(Fault **)fault {
-    return [backendless.cacheService expire:_key timeToKeep:expire fault:fault];
+-(BOOL)expireIn:(int)expire fault:(Fault **)fault {
+    return [backendless.cacheService expireIn:_key timeToKeep:expire fault:fault];
 }
 
--(BOOL)delete:(Fault **)fault {
-    return [backendless.cacheService delete:_key fault:fault];
+-(BOOL)deleteCache:(Fault **)fault {
+    return [backendless.cacheService deleteCache:_key fault:fault];
 }
 
 // async methods with responder
@@ -135,12 +135,12 @@
     [backendless.cacheService contains:_key responder:responder];
 }
 
--(void)expire:(int)expire responder:(id<IResponder>)responder {
-    [backendless.cacheService expire:_key timeToKeep:expire responder:responder];
+-(void)expireIn:(int)expire responder:(id<IResponder>)responder {
+    [backendless.cacheService expireIn:_key timeToKeep:expire responder:responder];
 }
 
--(void)deleteToResponder:(id<IResponder>)responder {
-    [backendless.cacheService delete:_key responder:responder];
+-(void)deleteCacheToResponder:(id<IResponder>)responder {
+    [backendless.cacheService deleteCache:_key responder:responder];
 }
 
 // async methods with block-based callback
@@ -161,12 +161,12 @@
     [backendless.cacheService contains:_key response:responseBlock error:errorBlock];
 }
 
--(void)expire:(int)expire response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
-    [backendless.cacheService expire:_key timeToKeep:expire response:responseBlock error:errorBlock];
+-(void)expireIn:(int)expire response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+    [backendless.cacheService expireIn:_key timeToKeep:expire response:responseBlock error:errorBlock];
 }
 
--(void)delete:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
-    [backendless.cacheService delete:_key response:responseBlock error:errorBlock];
+-(void)deleteCache:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+    [backendless.cacheService deleteCache:_key response:responseBlock error:errorBlock];
 }
 
 @end

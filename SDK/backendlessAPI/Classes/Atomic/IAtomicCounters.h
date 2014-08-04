@@ -27,6 +27,7 @@
 @protocol IAtomicCounters <NSObject>
 
 // sync methods with fault option
+-(NSNumber *)get:(Fault **)fault;
 -(NSNumber *)getAndIncrement:(Fault **)fault;
 -(NSNumber *)incrementAndGet:(Fault **)fault;
 -(NSNumber *)getAndDecrement:(Fault **)fault;
@@ -36,6 +37,7 @@
 -(NSNumber *)compareAndSet:(long)expected updated:(long)updated fault:(Fault **)fault;
 
 // async methods with responder
+-(void)getToResponder:(id<IResponder>)responder;
 -(void)getAndIncrementToResponder:(id<IResponder>)responder;
 -(void)incrementAndGetToResponder:(id<IResponder>)responder;
 -(void)getAndDecrementToResponder:(id<IResponder>)responder;
@@ -45,6 +47,7 @@
 -(void)compareAndSet:(long)expected updated:(long)updated responder:(id<IResponder>)responder;
 
 // async methods with block-based callback
+-(void)get:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
 -(void)getAndIncrement:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
 -(void)incrementAndGet:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
 -(void)getAndDecrement:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;

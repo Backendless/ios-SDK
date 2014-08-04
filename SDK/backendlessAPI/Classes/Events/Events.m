@@ -50,15 +50,14 @@ static NSString *METHOD_DISPATCH_EVENT = @"dispatchEvent";
 
 // sync methods with fault option
 
--(NSDictionary *)dispatch:(NSString *)name args:(NSDictionary *)eventArgs fault:(Fault **)fault
-{
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, name, eventArgs, nil];
+-(NSDictionary *)dispatch:(NSString *)name args:(NSDictionary *)eventArgs fault:(Fault **)fault {
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, name, eventArgs];
     id result = [invoker invokeSync:SERVER_EVENTS_PATH method:METHOD_DISPATCH_EVENT args:args];
     if ([result isKindOfClass:[Fault class]]) {
-        if (!fault) {
-            return nil;
+        if (fault) {
+            (*fault) = result;
         }
-        (*fault) = result;
         return nil;
     }
     return result;
@@ -66,14 +65,14 @@ static NSString *METHOD_DISPATCH_EVENT = @"dispatchEvent";
 
 // async methods with responder
 
--(void)dispatch:(NSString *)name args:(NSDictionary *)eventArgs responder:(id<IResponder>)responder
-{
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, name, eventArgs, nil];
+-(void)dispatch:(NSString *)name args:(NSDictionary *)eventArgs responder:(id<IResponder>)responder {
+    NSArray *args = @[backendless.appID, backendless.versionNum, name, eventArgs];
     [invoker invokeAsync:SERVER_EVENTS_PATH method:METHOD_DISPATCH_EVENT args:args responder:responder];
 }
 
--(void)dispatch:(NSString *)name args:(NSDictionary *)eventArgs response:(void (^)(NSDictionary *))responseBlock error:(void (^)(Fault *))errorBlock
-{
+// async methods with block-based callback
+
+-(void)dispatch:(NSString *)name args:(NSDictionary *)eventArgs response:(void (^)(NSDictionary *))responseBlock error:(void (^)(Fault *))errorBlock {
     [self dispatch:name args:eventArgs responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 

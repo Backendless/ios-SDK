@@ -66,6 +66,10 @@
 
 // sync methods with fault option
 
+-(NSNumber *)get:(Fault **)fault {
+    return [backendless.counters get:_name fault:fault];
+}
+
 -(NSNumber *)getAndIncrement:(Fault **)fault {
     return [backendless.counters getAndIncrement:_name fault:fault];
 }
@@ -96,6 +100,10 @@
 
 // async methods with responder
 
+-(void)getToResponder:(id<IResponder>)responder {
+    [backendless.counters get:_name responder:responder];
+}
+
 -(void)getAndIncrementToResponder:(id<IResponder>)responder {
     [backendless.counters getAndIncrement:_name responder:responder];
 }
@@ -125,6 +133,10 @@
 }
 
 // async methods with block-based callback
+
+-(void)get:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+    [backendless.counters get:_name response:responseBlock error:errorBlock];
+}
 
 -(void)getAndIncrement:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
     [backendless.counters getAndIncrement:_name response:responseBlock error:errorBlock];

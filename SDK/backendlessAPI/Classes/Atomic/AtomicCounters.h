@@ -28,6 +28,7 @@
 @interface AtomicCounters : NSObject
 
 // sync methods with fault option
+-(NSNumber *)get:(NSString *)name fault:(Fault **)fault;
 -(NSNumber *)getAndIncrement:(NSString *)name fault:(Fault **)fault;
 -(NSNumber *)incrementAndGet:(NSString *)name fault:(Fault **)fault;
 -(NSNumber *)getAndDecrement:(NSString *)name fault:(Fault **)fault;
@@ -37,6 +38,7 @@
 -(NSNumber *)compareAndSet:(NSString *)name expected:(long)expected updated:(long)updated fault:(Fault **)fault;
 
 // async methods with responder
+-(void)get:(NSString *)name responder:(id<IResponder>)responder;
 -(void)getAndIncrement:(NSString *)name responder:(id<IResponder>)responder;
 -(void)incrementAndGet:(NSString *)name responder:(id<IResponder>)responder;
 -(void)getAndDecrement:(NSString *)name responder:(id<IResponder>)responder;
@@ -46,6 +48,7 @@
 -(void)compareAndSet:(NSString *)name expected:(long)expected updated:(long)updated responder:(id<IResponder>)responder;
 
 // async methods with block-based callback
+-(void)get:(NSString *)name response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
 -(void)getAndIncrement:(NSString *)name response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
 -(void)incrementAndGet:(NSString *)name response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
 -(void)getAndDecrement:(NSString *)name response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
