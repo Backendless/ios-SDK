@@ -84,10 +84,10 @@
 // sync methods with fault option
 
 -(BOOL)put:(id)entity fault:(Fault **)fault {
-    return [self put:entity timeToKeep:0 fault:fault];
+    return [self put:entity timeToLive:0 fault:fault];
 }
 
--(BOOL)put:(id)entity timeToKeep:(int)expire fault:(Fault **)fault {
+-(BOOL)put:(id)entity timeToLive:(int)seconds fault:(Fault **)fault {
     
     Fault *noValid = [self entityValidation:entity];
     if (noValid) {
@@ -97,76 +97,88 @@
         return NO;
     }
     
-    return [backendless.cacheService put:_key object:entity timeToKeep:expire fault:fault];
+    return [backendless.cache put:_key object:entity timeToLive:seconds fault:fault];
 }
 
 -(id)get:(Fault **)fault {
-    return [backendless.cacheService get:_key fault:fault];
+    return [backendless.cache get:_key fault:fault];
 }
 
 -(NSNumber *)contains:(Fault **)fault {
-    return [backendless.cacheService contains:_key fault:fault];
+    return [backendless.cache contains:_key fault:fault];
 }
 
--(BOOL)expireIn:(int)expire fault:(Fault **)fault {
-    return [backendless.cacheService expireIn:_key timeToKeep:expire fault:fault];
+-(BOOL)expireIn:(int)seconds fault:(Fault **)fault {
+    return [backendless.cache expireIn:_key timeToLive:seconds fault:fault];
 }
 
--(BOOL)deleteCache:(Fault **)fault {
-    return [backendless.cacheService deleteCache:_key fault:fault];
+-(BOOL)expireAt:(NSDate *)timestamp fault:(Fault **)fault {
+    return [backendless.cache expireAt:_key timestamp:timestamp fault:fault];
+}
+
+-(BOOL)remove:(Fault **)fault {
+    return [backendless.cache remove:_key fault:fault];
 }
 
 // async methods with responder
 
 -(void)put:(id)entity responder:(id<IResponder>)responder {
-    [self put:entity timeToKeep:0 responder:responder];
+    [self put:entity timeToLive:0 responder:responder];
 }
 
--(void)put:(id)entity timeToKeep:(int)expire responder:(id<IResponder>)responder {
+-(void)put:(id)entity timeToLive:(int)seconds responder:(id<IResponder>)responder {
     Fault *noValid = [self entityValidation:entity];
-    noValid ? [responder errorHandler:noValid] : [backendless.cacheService put:_key object:entity timeToKeep:expire responder:responder];
+    noValid ? [responder errorHandler:noValid] : [backendless.cache put:_key object:entity timeToLive:seconds responder:responder];
 }
 
 -(void)getToResponder:(id<IResponder>)responder {
-    [backendless.cacheService get:_key responder:responder];
+    [backendless.cache get:_key responder:responder];
 }
 
 -(void)containsToResponder:(id<IResponder>)responder {
-    [backendless.cacheService contains:_key responder:responder];
+    [backendless.cache contains:_key responder:responder];
 }
 
--(void)expireIn:(int)expire responder:(id<IResponder>)responder {
-    [backendless.cacheService expireIn:_key timeToKeep:expire responder:responder];
+-(void)expireIn:(int)seconds responder:(id<IResponder>)responder {
+    [backendless.cache expireIn:_key timeToLive:seconds responder:responder];
 }
 
--(void)deleteCacheToResponder:(id<IResponder>)responder {
-    [backendless.cacheService deleteCache:_key responder:responder];
+-(void)expireAt:(NSDate *)timestamp responder:(id<IResponder>)responder {
+    [backendless.cache expireAt:_key timestamp:timestamp responder:responder];
+}
+
+-(void)removeToResponder:(id<IResponder>)responder {
+    [backendless.cache remove:_key responder:responder];
 }
 
 // async methods with block-based callback
 
 -(void)put:(id)entity response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
-    [self put:entity timeToKeep:0 response:responseBlock error:errorBlock];
+    [self put:entity timeToLive:0 response:responseBlock error:errorBlock];
 }
 
--(void)put:(id)entity timeToKeep:(int)expire response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
-    [self put:entity timeToKeep:expire responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+-(void)put:(id)entity timeToLive:(int)seconds response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+    [self put:entity timeToLive:seconds responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 -(void)get:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
-    [backendless.cacheService get:_key response:responseBlock error:errorBlock];
+    [backendless.cache get:_key response:responseBlock error:errorBlock];
 }
 
 -(void)contains:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
-    [backendless.cacheService contains:_key response:responseBlock error:errorBlock];
+    [backendless.cache contains:_key response:responseBlock error:errorBlock];
 }
 
--(void)expireIn:(int)expire response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
-    [backendless.cacheService expireIn:_key timeToKeep:expire response:responseBlock error:errorBlock];
+-(void)expireIn:(int)seconds response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+    [backendless.cache expireIn:_key timeToLive:seconds response:responseBlock error:errorBlock];
 }
 
--(void)deleteCache:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
-    [backendless.cacheService deleteCache:_key response:responseBlock error:errorBlock];
+-(void)expireAt:(NSDate *)timestamp response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+    [backendless.cache expireAt:_key timestamp:timestamp response:responseBlock error:errorBlock];
+}
+
+-(void)remove:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+    [backendless.cache remove:_key response:responseBlock error:errorBlock];
 }
 
 @end

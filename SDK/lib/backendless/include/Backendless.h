@@ -117,7 +117,7 @@
 @property (strong, nonatomic, readonly) FileService *fileService;
 @property (strong, nonatomic, readwrite) MediaService *mediaService;
 @property (strong, nonatomic, readonly) Events *events;
-@property (strong, nonatomic, readonly) CacheService *cacheService;
+@property (strong, nonatomic, readonly) CacheService *cache;
 @property (strong, nonatomic, readonly) AtomicCounters *counters;
 // delegates
 @property (strong, nonatomic) id <ReachabilityDelegate> reachabilityDelegate;
