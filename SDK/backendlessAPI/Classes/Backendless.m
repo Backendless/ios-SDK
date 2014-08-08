@@ -336,7 +336,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     [_versionNum release];
     _versionNum = [version retain];
     
-#if 1
+#if 1 // for swift support
     [AMFSerializer setAMFStringWriter:applicationID];
 #endif
     

@@ -40,16 +40,16 @@
 	return self;
 }
 
--(id)init:(NSString *)name {
+-(id)init:(NSString *)counterName {
 	if ( (self=[super init]) ) {
-        _name = name?[name retain]:@"DEFAULT_NAME";
+        _name = counterName?[counterName retain]:@"DEFAULT_NAME";
 	}
 	
 	return self;
 }
 
-+(id <IAtomicCounters>)create:(NSString *)name {
-    return [[AtomicCountersFactory alloc] init:name];
++(id <IAtomic>)create:(NSString *)counterName {
+    return [[AtomicCountersFactory alloc] init:counterName];
 }
 
 -(void)dealloc {
@@ -98,6 +98,10 @@
     return [backendless.counters compareAndSet:_name expected:expected updated:updated fault:fault];
 }
 
+-(void)reset:(Fault **)fault {
+    return [backendless.counters reset:_name fault:fault];
+}
+
 // async methods with responder
 
 -(void)getToResponder:(id<IResponder>)responder {
@@ -132,6 +136,10 @@
     [backendless.counters compareAndSet:_name expected:expected updated:updated responder:responder];
 }
 
+-(void)resetToResponder:(id<IResponder>)responder {
+    [backendless.counters reset:_name responder:responder];
+}
+
 // async methods with block-based callback
 
 -(void)get:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
@@ -164,6 +172,10 @@
 
 -(void)compareAndSet:(long)expected updated:(long)updated response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
     [backendless.counters compareAndSet:_name expected:expected updated:updated response:responseBlock error:errorBlock];
+}
+
+-(void)reset:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+    [backendless.counters reset:_name response:responseBlock error:errorBlock];
 }
 
 @end

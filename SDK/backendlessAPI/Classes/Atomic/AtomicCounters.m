@@ -32,11 +32,12 @@ static NSString *SERVER_ATOMIC_OPERATION_SERVICE_PATH = @"com.backendless.servic
 static NSString *METHOD_GET = @"get";
 static NSString *METHOD_GET_AND_INCREMENT = @"getAndIncrement";
 static NSString *METHOD_INCREMENT_AND_GET = @"incrementAndGet";
-static NSString *METHOD_GET_AND_DECREMENT = @"getAndDEcrement";
+static NSString *METHOD_GET_AND_DECREMENT = @"getAndDecrement";
 static NSString *METHOD_DECREMENT_AND_GET = @"decrementAndGet";
 static NSString *METHOD_ADD_AND_GET = @"addAndGet";
 static NSString *METHOD_GET_AND_ADD = @"getAndAdd";
 static NSString *METHOD_COMPARE_AND_SET = @"compareAndSet";
+static NSString *METHOD_RESET = @"reset";
 
 @implementation AtomicCounters
 
@@ -60,16 +61,16 @@ static NSString *METHOD_COMPARE_AND_SET = @"compareAndSet";
 
 // sync methods with fault option
 
--(NSNumber *)get:(NSString *)name fault:(Fault **)fault {
+-(NSNumber *)get:(NSString *)counterName fault:(Fault **)fault {
     
-    if (!name) {
+    if (!counterName) {
         if (fault) {
             (*fault) = [backendless throwFault:FAULT_NO_NAME];
         }
         return nil;
     }
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, name];
+    NSArray *args = @[backendless.appID, backendless.versionNum, counterName];
     id result = [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET args:args];
     if ([result isKindOfClass:[Fault class]]) {
         if (fault) {
@@ -81,16 +82,16 @@ static NSString *METHOD_COMPARE_AND_SET = @"compareAndSet";
     return result;
 }
 
--(NSNumber *)getAndIncrement:(NSString *)name fault:(Fault **)fault {
+-(NSNumber *)getAndIncrement:(NSString *)counterName fault:(Fault **)fault {
     
-    if (!name) {
+    if (!counterName) {
         if (fault) {
             (*fault) = [backendless throwFault:FAULT_NO_NAME];
         }
         return nil;
     }
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, name];
+    NSArray *args = @[backendless.appID, backendless.versionNum, counterName];
     id result = [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET_AND_INCREMENT args:args];
     if ([result isKindOfClass:[Fault class]]) {
         if (fault) {
@@ -102,16 +103,16 @@ static NSString *METHOD_COMPARE_AND_SET = @"compareAndSet";
     return result;
 }
 
--(NSNumber *)incrementAndGet:(NSString *)name fault:(Fault **)fault {
+-(NSNumber *)incrementAndGet:(NSString *)counterName fault:(Fault **)fault {
     
-    if (!name) {
+    if (!counterName) {
         if (fault) {
             (*fault) = [backendless throwFault:FAULT_NO_NAME];
         }
         return nil;
     }
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, name];
+    NSArray *args = @[backendless.appID, backendless.versionNum, counterName];
     id result = [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_INCREMENT_AND_GET args:args];
     if ([result isKindOfClass:[Fault class]]) {
         if (fault) {
@@ -123,16 +124,16 @@ static NSString *METHOD_COMPARE_AND_SET = @"compareAndSet";
     return result;
 }
 
--(NSNumber *)getAndDecrement:(NSString *)name fault:(Fault **)fault {
+-(NSNumber *)getAndDecrement:(NSString *)counterName fault:(Fault **)fault {
     
-    if (!name) {
+    if (!counterName) {
         if (fault) {
             (*fault) = [backendless throwFault:FAULT_NO_NAME];
         }
         return nil;
     }
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, name];
+    NSArray *args = @[backendless.appID, backendless.versionNum, counterName];
     id result = [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET_AND_DECREMENT args:args];
     if ([result isKindOfClass:[Fault class]]) {
         if (fault) {
@@ -144,16 +145,16 @@ static NSString *METHOD_COMPARE_AND_SET = @"compareAndSet";
     return result;
 }
 
--(NSNumber *)decrementAndGet:(NSString *)name fault:(Fault **)fault {
+-(NSNumber *)decrementAndGet:(NSString *)counterName fault:(Fault **)fault {
     
-    if (!name) {
+    if (!counterName) {
         if (fault) {
             (*fault) = [backendless throwFault:FAULT_NO_NAME];
         }
         return nil;
     }
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, name];
+    NSArray *args = @[backendless.appID, backendless.versionNum, counterName];
     id result = [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_DECREMENT_AND_GET args:args];
     if ([result isKindOfClass:[Fault class]]) {
         if (fault) {
@@ -165,16 +166,16 @@ static NSString *METHOD_COMPARE_AND_SET = @"compareAndSet";
     return result;
 }
 
--(NSNumber *)addAndGet:(NSString *)name value:(long)value fault:(Fault **)fault {
+-(NSNumber *)addAndGet:(NSString *)counterName value:(long)value fault:(Fault **)fault {
     
-    if (!name) {
+    if (!counterName) {
         if (fault) {
             (*fault) = [backendless throwFault:FAULT_NO_NAME];
         }
         return nil;
     }
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, name, [NSNumber numberWithLong:value]];
+    NSArray *args = @[backendless.appID, backendless.versionNum, counterName, [NSNumber numberWithLong:value]];
     id result = [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_ADD_AND_GET args:args];
     if ([result isKindOfClass:[Fault class]]) {
         if (fault) {
@@ -186,16 +187,16 @@ static NSString *METHOD_COMPARE_AND_SET = @"compareAndSet";
     return result;
 }
 
--(NSNumber *)getAndAdd:(NSString *)name value:(long)value fault:(Fault **)fault {
+-(NSNumber *)getAndAdd:(NSString *)counterName value:(long)value fault:(Fault **)fault {
     
-    if (!name) {
+    if (!counterName) {
         if (fault) {
             (*fault) = [backendless throwFault:FAULT_NO_NAME];
         }
         return nil;
     }
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, name, [NSNumber numberWithLong:value]];
+    NSArray *args = @[backendless.appID, backendless.versionNum, counterName, [NSNumber numberWithLong:value]];
     id result = [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET_AND_ADD args:args];
     if ([result isKindOfClass:[Fault class]]) {
         if (fault) {
@@ -207,16 +208,16 @@ static NSString *METHOD_COMPARE_AND_SET = @"compareAndSet";
     return result;
 }
 
--(NSNumber *)compareAndSet:(NSString *)name expected:(long)expected updated:(long)updated fault:(Fault **)fault {
+-(NSNumber *)compareAndSet:(NSString *)counterName expected:(long)expected updated:(long)updated fault:(Fault **)fault {
     
-    if (!name) {
+    if (!counterName) {
         if (fault) {
             (*fault) = [backendless throwFault:FAULT_NO_NAME];
         }
         return nil;
     }
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, name, [NSNumber numberWithLong:expected], [NSNumber numberWithLong:updated]];
+    NSArray *args = @[backendless.appID, backendless.versionNum, counterName, [NSNumber numberWithLong:expected], [NSNumber numberWithLong:updated]];
     id result = [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_COMPARE_AND_SET args:args];
     if ([result isKindOfClass:[Fault class]]) {
         if (fault) {
@@ -228,117 +229,148 @@ static NSString *METHOD_COMPARE_AND_SET = @"compareAndSet";
     return result;
 }
 
+-(void)reset:(NSString *)counterName fault:(Fault **)fault {
+    
+    if (!counterName) {
+        if (fault) {
+            (*fault) = [backendless throwFault:FAULT_NO_NAME];
+        }
+        return;
+    }
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, counterName];
+    id result = [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_RESET args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        if (fault) {
+            (*fault) = result;
+        }
+    }
+}
+
 // async methods with responder
 
--(void)get:(NSString *)name responder:(id<IResponder>)responder {
+-(void)get:(NSString *)counterName responder:(id<IResponder>)responder {
     
-    if (!name)
+    if (!counterName)
         return [responder errorHandler:FAULT_NO_NAME];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, name];
+    NSArray *args = @[backendless.appID, backendless.versionNum, counterName];
     [invoker invokeAsync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET args:args responder:responder];
 }
 
--(void)getAndIncrement:(NSString *)name responder:(id<IResponder>)responder {
+-(void)getAndIncrement:(NSString *)counterName responder:(id<IResponder>)responder {
     
-    if (!name)
+    if (!counterName)
         return [responder errorHandler:FAULT_NO_NAME];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, name];
+    NSArray *args = @[backendless.appID, backendless.versionNum, counterName];
     [invoker invokeAsync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET_AND_INCREMENT args:args responder:responder];
 }
 
--(void)incrementAndGet:(NSString *)name responder:(id<IResponder>)responder {
+-(void)incrementAndGet:(NSString *)counterName responder:(id<IResponder>)responder {
     
-    if (!name)
+    if (!counterName)
         return [responder errorHandler:FAULT_NO_NAME];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, name];
+    NSArray *args = @[backendless.appID, backendless.versionNum, counterName];
     [invoker invokeAsync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_INCREMENT_AND_GET args:args responder:responder];
 }
 
--(void)getAndDecrement:(NSString *)name responder:(id<IResponder>)responder {
+-(void)getAndDecrement:(NSString *)counterName responder:(id<IResponder>)responder {
     
-    if (!name)
+    if (!counterName)
         return [responder errorHandler:FAULT_NO_NAME];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, name];
+    NSArray *args = @[backendless.appID, backendless.versionNum, counterName];
     [invoker invokeAsync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET_AND_DECREMENT args:args responder:responder];
 }
 
--(void)decrementAndGet:(NSString *)name responder:(id<IResponder>)responder {
+-(void)decrementAndGet:(NSString *)counterName responder:(id<IResponder>)responder {
     
-    if (!name)
+    if (!counterName)
         return [responder errorHandler:FAULT_NO_NAME];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, name];
+    NSArray *args = @[backendless.appID, backendless.versionNum, counterName];
     [invoker invokeAsync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_DECREMENT_AND_GET args:args responder:responder];
 }
 
--(void)addAndGet:(NSString *)name value:(long)value responder:(id<IResponder>)responder {
+-(void)addAndGet:(NSString *)counterName value:(long)value responder:(id<IResponder>)responder {
     
-    if (!name)
+    if (!counterName)
         return [responder errorHandler:FAULT_NO_NAME];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, name, [NSNumber numberWithLong:value]];
+    NSArray *args = @[backendless.appID, backendless.versionNum, counterName, [NSNumber numberWithLong:value]];
     [invoker invokeAsync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_ADD_AND_GET args:args responder:responder];
 }
 
--(void)getAndAdd:(NSString *)name value:(long)value responder:(id<IResponder>)responder {
+-(void)getAndAdd:(NSString *)counterName value:(long)value responder:(id<IResponder>)responder {
     
-    if (!name)
+    if (!counterName)
         return [responder errorHandler:FAULT_NO_NAME];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, name, [NSNumber numberWithLong:value]];
+    NSArray *args = @[backendless.appID, backendless.versionNum, counterName, [NSNumber numberWithLong:value]];
     [invoker invokeAsync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET_AND_ADD args:args responder:responder];
 }
 
--(void)compareAndSet:(NSString *)name expected:(long)expected updated:(long)updated responder:(id<IResponder>)responder {
+-(void)compareAndSet:(NSString *)counterName expected:(long)expected updated:(long)updated responder:(id<IResponder>)responder {
     
-    if (!name)
+    if (!counterName)
         return [responder errorHandler:FAULT_NO_NAME];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, name, [NSNumber numberWithLong:expected], [NSNumber numberWithLong:updated]];
+    NSArray *args = @[backendless.appID, backendless.versionNum, counterName, [NSNumber numberWithLong:expected], [NSNumber numberWithLong:updated]];
     [invoker invokeAsync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_COMPARE_AND_SET args:args responder:responder];
+}
+
+-(void)reset:(NSString *)counterName responder:(id<IResponder>)responder {
+    
+    if (!counterName)
+        return [responder errorHandler:FAULT_NO_NAME];
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, counterName];
+    [invoker invokeAsync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_RESET args:args responder:responder];
 }
 
 // async methods with block-based callback
 
--(void)get:(NSString *)name response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
-    [self get:name responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+-(void)get:(NSString *)counterName response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+    [self get:counterName responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)getAndIncrement:(NSString *)name response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
-    [self getAndIncrement:name responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+-(void)getAndIncrement:(NSString *)counterName response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+    [self getAndIncrement:counterName responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)incrementAndGet:(NSString *)name response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
-    [self incrementAndGet:name responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+-(void)incrementAndGet:(NSString *)counterName response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+    [self incrementAndGet:counterName responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)getAndDecrement:(NSString *)name response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
-    [self getAndDecrement:name responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+-(void)getAndDecrement:(NSString *)counterName response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+    [self getAndDecrement:counterName responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)decrementAndGet:(NSString *)name response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
-    [self decrementAndGet:name responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+-(void)decrementAndGet:(NSString *)counterName response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+    [self decrementAndGet:counterName responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)addAndGet:(NSString *)name value:(long)value response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
-    [self addAndGet:name value:value responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+-(void)addAndGet:(NSString *)counterName value:(long)value response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+    [self addAndGet:counterName value:value responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)getAndAdd:(NSString *)name value:(long)value response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {    
-    [self getAndAdd:name value:value responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+-(void)getAndAdd:(NSString *)counterName value:(long)value response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+    [self getAndAdd:counterName value:value responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)compareAndSet:(NSString *)name expected:(long)expected updated:(long)updated response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
-    [self compareAndSet:name expected:expected updated:updated responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+-(void)compareAndSet:(NSString *)counterName expected:(long)expected updated:(long)updated response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+    [self compareAndSet:counterName expected:expected updated:updated responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+
+-(void)reset:(NSString *)counterName response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+    [self reset:counterName responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 // IAtomicCounters factory
--(id <IAtomicCounters>)of:(NSString *)name {
-    return [AtomicCountersFactory create:name];
+-(id <IAtomic>)of:(NSString *)counterName {
+    return [AtomicCountersFactory create:counterName];
 }
 
 @end

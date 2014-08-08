@@ -22,6 +22,6 @@
 #import <Foundation/Foundation.h>
 #import "IAtomicCounters.h"
 
-@interface AtomicCountersFactory : NSObject <IAtomicCounters>
-+(id <IAtomicCounters>)create:(NSString *)mane;
+@interface AtomicCountersFactory : NSObject <IAtomic>
++(id <IAtomic>)create:(NSString *)counterName;
 @end
