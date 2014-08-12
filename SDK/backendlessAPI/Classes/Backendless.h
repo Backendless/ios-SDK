@@ -20,8 +20,8 @@
  */
 
 // applications & services deploiment
-#define OLD_MEDIA_APP 1
-#define NEW_API_ON 0
+#define OLD_MEDIA_APP 0
+#define NEW_API_ON 1
 
 #import <Foundation/Foundation.h>
 
