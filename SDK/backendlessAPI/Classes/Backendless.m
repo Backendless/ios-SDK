@@ -33,9 +33,8 @@
 
 //
 static NSString *BACKENDLESS_HOST_URL = @"https://api.backendless.com";
-#if OLD_MEDIA_APP
 static NSString *BACKENDLESS_MEDIA_URL = @"rtmp://wowza.backendless.com:1935/mediaApp";
-#else
+#if 0
 //static NSString *BACKENDLESS_MEDIA_URL = @"rtmp://54.85.180.71:1935/mediaApp"; // api.test.backendless.com
 static NSString *BACKENDLESS_MEDIA_URL = @"rtmp://tc.themidnightcoders.com:1935/mediaApp"; // Denis
 #endif
