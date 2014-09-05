@@ -505,8 +505,17 @@ NSString *LOAD_ALL_RELATIONS = @"*";
         }
         return result;
     }
-    BackendlessEntity *tempEntity = result;
-    ((BackendlessEntity *)entity).objectId = tempEntity.objectId;
+    
+#if 1
+    if ([result isKindOfClass:[NSDictionary class]]) {
+        [DebLog log:@"PersistenceService -> create: (!!! DICTIONARY !!!) result = %@, entity = %@", result, entity];
+        ((BackendlessEntity *)entity).objectId = [(NSDictionary *)result objectForKey:@"objectId"];
+        return entity;
+    }
+#endif
+    
+    ((BackendlessEntity *)entity).objectId = ((BackendlessEntity *)result).objectId;
+    
     if ([[entity class] isSubclassOfClass:[NSManagedObject class]]) {
         [__types.managedObjectContext deleteObject:entity];
     }
