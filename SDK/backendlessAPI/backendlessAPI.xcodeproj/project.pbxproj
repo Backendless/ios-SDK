@@ -173,6 +173,9 @@
 		91F139B317D724C700D1AC4C /* QueryOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F139B017D724C600D1AC4C /* QueryOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91F139B417D724C700D1AC4C /* QueryOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F139B117D724C600D1AC4C /* QueryOptions.m */; };
 		91F139B517D724C700D1AC4C /* QueryOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F139B117D724C600D1AC4C /* QueryOptions.m */; };
+		D30A5D7419B9CA8200C0BA44 /* Backendless-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = D30A5D7319B9CA8200C0BA44 /* Backendless-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D30A5D7519B9CA8200C0BA44 /* Backendless-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = D30A5D7319B9CA8200C0BA44 /* Backendless-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D30A5D7619B9CA8200C0BA44 /* Backendless-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = D30A5D7319B9CA8200C0BA44 /* Backendless-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D39A468119811D9B006CBD1B /* CacheService.h in Headers */ = {isa = PBXBuildFile; fileRef = D39A467F19811D9B006CBD1B /* CacheService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D39A468219811D9B006CBD1B /* CacheService.h in Headers */ = {isa = PBXBuildFile; fileRef = D39A467F19811D9B006CBD1B /* CacheService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D39A468319811D9B006CBD1B /* CacheService.h in Headers */ = {isa = PBXBuildFile; fileRef = D39A467F19811D9B006CBD1B /* CacheService.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -446,6 +449,8 @@
 		91F139B017D724C600D1AC4C /* QueryOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryOptions.h; sourceTree = "<group>"; };
 		91F139B117D724C600D1AC4C /* QueryOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryOptions.m; sourceTree = "<group>"; };
 		91FA67A6184CAB6900D69C12 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		D30A5D7319B9CA8200C0BA44 /* Backendless-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Backendless-Bridging-Header.h"; sourceTree = "<group>"; };
+		D30A5D7819B9D03100C0BA44 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
 		D3625CE6197EA248006E5779 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
 		D39A467F19811D9B006CBD1B /* CacheService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacheService.h; sourceTree = "<group>"; };
 		D39A468019811D9B006CBD1B /* CacheService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheService.m; sourceTree = "<group>"; };
@@ -819,6 +824,7 @@
 		F9042AF815FDD8D300C9381A = {
 			isa = PBXGroup;
 			children = (
+				D30A5D7819B9D03100C0BA44 /* README.md */,
 				D3B2F34E193511900084D5DD /* CocoaPods */,
 				91764F981823E40000745497 /* BECollectionView */,
 				91DF02371821623E009DAE40 /* BEMapView */,
@@ -911,6 +917,7 @@
 		F91B47E115FF448F00012DFC /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				D30A5D7319B9CA8200C0BA44 /* Backendless-Bridging-Header.h */,
 				F91B47FE15FF569400012DFC /* Backendless.h */,
 				F91B47FF15FF569400012DFC /* Backendless.m */,
 				91A42804184E2419005F91DE /* OfflineModeManager */,
@@ -1234,6 +1241,7 @@
 				D3F8BD99198256AF0009DB40 /* ICacheService.h in Headers */,
 				91628E3917FAC79F00ACC36F /* SubscriptionOptions.h in Headers */,
 				F9BBFD7D18783B750076BC6D /* WeborbClient.h in Headers */,
+				D30A5D7419B9CA8200C0BA44 /* Backendless-Bridging-Header.h in Headers */,
 				91223DCA195AF6AB00F72F48 /* Events.h in Headers */,
 				F9BBFD6218783B750076BC6D /* IPendingServiceCallback.h in Headers */,
 				91628E3A17FAC79F00ACC36F /* BESubscription.h in Headers */,
@@ -1312,6 +1320,7 @@
 				D3F8BD9F19825CF80009DB40 /* CacheFactory.h in Headers */,
 				D3F8BD9A198256AF0009DB40 /* ICacheService.h in Headers */,
 				D3FB9B7519867F0E00A13FB6 /* AtomicCountersFactory.h in Headers */,
+				D30A5D7519B9CA8200C0BA44 /* Backendless-Bridging-Header.h in Headers */,
 				D3FB9B7C1986818F00A13FB6 /* IAtomicCounters.h in Headers */,
 				D3FB9B6919867EA500A13FB6 /* AtomicCounters.h in Headers */,
 				D39A468219811D9B006CBD1B /* CacheService.h in Headers */,
@@ -1402,6 +1411,7 @@
 				D3F8BD9B198256AF0009DB40 /* ICacheService.h in Headers */,
 				D39A468319811D9B006CBD1B /* CacheService.h in Headers */,
 				F9BBFD5518783B750076BC6D /* FlashorbBinaryWriter.h in Headers */,
+				D30A5D7619B9CA8200C0BA44 /* Backendless-Bridging-Header.h in Headers */,
 				F9796A6C166CD42E00595F5E /* FileService.h in Headers */,
 				F9BBFD7618783B750076BC6D /* RTMPClient.h in Headers */,
 				F9796A6D166CD42E00595F5E /* BackendlessFile.h in Headers */,

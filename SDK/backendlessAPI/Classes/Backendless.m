@@ -33,10 +33,13 @@
 
 //
 static NSString *BACKENDLESS_HOST_URL = @"https://api.backendless.com";
+
+#if 1 // work
 static NSString *BACKENDLESS_MEDIA_URL = @"rtmp://wowza.backendless.com:1935/mediaApp";
-#if 0
+#else // test
+static NSString *BACKENDLESS_MEDIA_URL = @"rtmp://10.0.1.9:1935/mediaApp"; // Katya
 //static NSString *BACKENDLESS_MEDIA_URL = @"rtmp://54.85.180.71:1935/mediaApp"; // api.test.backendless.com
-static NSString *BACKENDLESS_MEDIA_URL = @"rtmp://tc.themidnightcoders.com:1935/mediaApp"; // Denis
+//static NSString *BACKENDLESS_MEDIA_URL = @"rtmp://tc.themidnightcoders.com:1935/mediaApp"; // Denis
 #endif
 
 static NSString *VERSION_NUM = @"v1";
@@ -334,10 +337,6 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     
     [_versionNum release];
     _versionNum = [version retain];
-    
-#if 1 // for swift support
-    [AMFSerializer setAMFStringWriter:applicationID];
-#endif
     
     BOOL isStayLoggedIn = backendless.userService.isStayLoggedIn;
     
