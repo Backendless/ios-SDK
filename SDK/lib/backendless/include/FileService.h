@@ -26,7 +26,7 @@
 
 @interface FileService : NSObject
 
-// sync methods with fault return (will be depricated soon)
+// sync methods with fault return (as exception)
 -(BackendlessFile *)upload:(NSString *)path content:(NSData *)content;
 -(id)remove:(NSString *)fileURL;
 -(id)removeDirectory:(NSString *)path;

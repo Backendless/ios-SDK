@@ -167,7 +167,7 @@ static NSString *METHOD_GET_POINTS_WITH_MATCHES = @"relativeFind";
     }
     return result;
 }
-//deprecated
+
 -(GeoCategory *)addCategory:(NSString *)categoryName {
     
     id fault = [self isFaultCategoryName:categoryName responder:nil];

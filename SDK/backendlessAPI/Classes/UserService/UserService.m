@@ -340,7 +340,7 @@ static NSString *USER_TOKEN_KEY = @"user-token\0";
     return result;
 }
 
-// sync methods with fault return (will be depricated soon)
+// sync methods with fault return  (as exception)
 
 -(BackendlessUser *)registering:(BackendlessUser *)user {
     

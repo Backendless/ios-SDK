@@ -34,7 +34,7 @@
 // switch on/off the persistent user mode
 -(BOOL)setStayLoggedIn:(BOOL)value;
 
-// sync methods with fault return (will be depricated soon)
+// sync methods with fault return  (as exception)
 -(BackendlessUser *)registering:(BackendlessUser *)user;
 -(BackendlessUser *)update:(BackendlessUser *)user;
 -(BackendlessUser *)login:(NSString *)login password:(NSString *)password;

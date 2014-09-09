@@ -26,6 +26,7 @@
 #define BACKENDLESS_PASSWORD_KEY @"password"
 #define BACKENDLESS_ID_KEY @"id"
 #define BACKENDLESS_USER_TOKEN @"user-token"
+
 @interface BackendlessUser : NSObject
 
 @property (nonatomic, assign, getter = getEmail, setter = setEmail:) NSString *email;

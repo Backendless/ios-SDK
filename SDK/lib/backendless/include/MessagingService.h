@@ -80,7 +80,7 @@
 -(NSArray *)pollMessages:(NSString *)channelName subscriptionId:(NSString *)subscriptionId error:(Fault **)fault;
 -(BOOL)sendEmailWithSubject:(NSString *)subject body:(NSString *)body to:(NSArray *)to attachment:(NSArray *)attachment isHTML:(BOOL)isHTML error:(Fault **)fault;
 
-// sync methods with fault return (will be depricated soon)
+// sync methods with fault return (as exception)
 -(NSString *)registerDeviceWithTokenData:(NSData *)deviceToken;
 -(NSString *)registerDeviceToken:(NSString *)deviceToken;
 -(NSString *)registerDeviceExpiration:(NSDate *)expiration;
