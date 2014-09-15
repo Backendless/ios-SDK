@@ -453,6 +453,7 @@
 		D30A5D7819B9D03100C0BA44 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
 		D30A5D7B19BA0E8900C0BA44 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
 		D3625CE6197EA248006E5779 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
+		D36CDCA419C6EEEC00C3FFE3 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
 		D39A467F19811D9B006CBD1B /* CacheService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacheService.h; sourceTree = "<group>"; };
 		D39A468019811D9B006CBD1B /* CacheService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheService.m; sourceTree = "<group>"; };
 		D3AD804418F01F7600AADCB0 /* backendless.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = backendless.a; sourceTree = "<group>"; };
@@ -725,6 +726,14 @@
 			path = 1.16.1;
 			sourceTree = "<group>";
 		};
+		D36CDCA319C6EEEC00C3FFE3 /* 1.18.2 */ = {
+			isa = PBXGroup;
+			children = (
+				D36CDCA419C6EEEC00C3FFE3 /* Backendless-ios-SDK.podspec */,
+			);
+			path = 1.18.2;
+			sourceTree = "<group>";
+		};
 		D39A467E19811CDC006CBD1B /* CacheService */ = {
 			isa = PBXGroup;
 			children = (
@@ -777,6 +786,7 @@
 		D3B2F352193511900084D5DD /* Backendless-ios-SDK */ = {
 			isa = PBXGroup;
 			children = (
+				D36CDCA319C6EEEC00C3FFE3 /* 1.18.2 */,
 				D30A5D7A19BA0E8900C0BA44 /* 1.18.1 */,
 				D3625CE5197EA248006E5779 /* 1.16.1 */,
 				D3B2F353193511900084D5DD /* 0.0.1 */,
