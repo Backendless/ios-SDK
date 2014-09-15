@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "Backendless-ios-SDK"
-  s.version      = "1.18.2"
+  s.version      = "1.19.1"
   s.summary      = "Backendless provides an instant backend to help developers build better apps faster."
   s.description  = <<-DESC
 	Backendless is a development and a run-time platform. It helps software developers to create 
@@ -28,8 +28,8 @@ Pod::Spec.new do |s|
   s.requires_arc   = true
   s.source         = { 
 	:git => "https://github.com/Backendless/ios-SDK.git", 
-    :commit => "34f66281f973896580efe6bff2e6aeb4fdf8005b",
-	:tag => '1.18.2'
+    :commit => "6505be6da79fd8fad70ed04e0dd98e842ab662df",
+	:tag => '1.19.1'
   }
 
   s.preserve_paths = "**/*.a"
