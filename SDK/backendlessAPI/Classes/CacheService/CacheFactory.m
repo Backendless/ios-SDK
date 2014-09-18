@@ -21,9 +21,6 @@
 
 #import "CacheFactory.h"
 #include "Backendless.h"
-#if !NEW_API_ON
-#include "CacheService.h"
-#endif
 
 #define FAULT_NO_ENTITY_TYPE [Fault fault:@"Entity type is not valid" faultCode:@"0000"]
 

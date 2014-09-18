@@ -45,7 +45,7 @@
 -(void)expireAt:(NSString *)key timestamp:(NSDate *)timestamp responder:(id<IResponder>)responder;
 -(void)remove:(NSString *)key responder:(id<IResponder>)responder;
 
-// async methods with block-based callback
+// async methods with block-based callbacks
 -(void)put:(NSString *)key object:(id)entity response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
 -(void)put:(NSString *)key object:(id)entity timeToLive:(int)seconds response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
 -(void)get:(NSString *)key response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;

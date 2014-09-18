@@ -95,7 +95,7 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(void)load:(id)object relations:(NSArray *)relations responder:(id <IResponder>)responder;
 -(void)load:(id)object relations:(NSArray *)relations relationsDepth:(int)relationsDepth responder:(id <IResponder>)responder;
 
-// async methods with block-based callback
+// async methods with block-based callbacks
 -(void)save:(NSString *)entityName entity:(NSDictionary *)entity response:(void(^)(NSDictionary *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)update:(NSString *)entityName entity:(NSDictionary *)entity sid:(NSString *)sid response:(void(^)(NSDictionary *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)save:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;

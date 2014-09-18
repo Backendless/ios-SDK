@@ -70,7 +70,7 @@ static NSString *METHOD_DISPATCH_EVENT = @"dispatchEvent";
     [invoker invokeAsync:SERVER_EVENTS_PATH method:METHOD_DISPATCH_EVENT args:args responder:responder];
 }
 
-// async methods with block-based callback
+// async methods with block-based callbacks
 
 -(void)dispatch:(NSString *)name args:(NSDictionary *)eventArgs response:(void (^)(NSDictionary *))responseBlock error:(void (^)(Fault *))errorBlock {
     [self dispatch:name args:eventArgs responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];

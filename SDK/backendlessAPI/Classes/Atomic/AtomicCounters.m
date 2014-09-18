@@ -330,7 +330,7 @@ static NSString *METHOD_RESET = @"reset";
     [invoker invokeAsync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_RESET args:args responder:responder];
 }
 
-// async methods with block-based callback
+// async methods with block-based callbacks
 
 -(void)get:(NSString *)counterName response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
     [self get:counterName responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];

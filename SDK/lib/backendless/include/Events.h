@@ -29,6 +29,6 @@
 -(NSDictionary *)dispatch:(NSString *)name args:(NSDictionary *)eventArgs fault:(Fault **)fault;
 // async methods with responder
 -(void)dispatch:(NSString *)name args:(NSDictionary *)eventArgs responder:(id <IResponder>)responder;
-// async methods with block-based callback
+// async methods with block-based callbacks
 -(void)dispatch:(NSString *)name args:(NSDictionary *)eventArgs response:(void(^)(NSDictionary *data))responseBlock error:(void(^)(Fault *fault))errorBlock;
 @end

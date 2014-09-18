@@ -130,7 +130,7 @@
 -(void)pollMessages:(NSString *)channelName subscriptionId:(NSString *)subscriptionId responder:(id <IResponder>)responder;
 -(void)sendEmailWithSubject:(NSString *)subject body:(NSString *)body to:(NSArray *)to attachment:(NSArray *)attachment isHTML:(BOOL)isHTML responder:(id <IResponder>)responder;
 
-// async methods with block-based callback
+// async methods with block-based callbacks
 -(void)registerDevice:(NSArray *)channels expiration:(NSDate *)expiration token:(NSString *)deviceToken response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)registerDeviceWithTokenData:(NSData *)deviceToken response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)registerDeviceToken:(NSString *)deviceToken response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;

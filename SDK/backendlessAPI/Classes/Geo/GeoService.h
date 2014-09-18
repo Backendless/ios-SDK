@@ -60,7 +60,7 @@ typedef struct {
 -(void)getPoints:(BackendlessGeoQuery *)query responder:(id <IResponder>)responder;
 -(void)relativeFind:(BackendlessGeoQuery *)query responder:(id<IResponder>)responder;
 
-// async methods with block-based callback
+// async methods with block-based callbacks
 -(void)addCategory:(NSString *)categoryName response:(void(^)(GeoCategory *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)deleteCategory:(NSString *)categoryName response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)deleteGeoPoint:(NSString *)pointId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;

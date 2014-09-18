@@ -41,7 +41,7 @@
 -(void)remove:(NSString *)fileURL responder:(id <IResponder>)responder;
 -(void)removeDirectory:(NSString *)path responder:(id <IResponder>)responder;
 
-// async methods with block-based callback
+// async methods with block-based callbacks
 -(void)upload:(NSString *)path content:(NSData *)content response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)remove:(NSString *)fileURL response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)removeDirectory:(NSString *)path response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;

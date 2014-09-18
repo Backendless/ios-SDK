@@ -49,7 +49,7 @@
 -(void)compareAndSet:(NSString *)counterName expected:(long)expected updated:(long)updated responder:(id<IResponder>)responder;
 -(void)reset:(NSString *)counterName responder:(id<IResponder>)responder;
 
-// async methods with block-based callback
+// async methods with block-based callbacks
 -(void)get:(NSString *)counterName response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
 -(void)getAndIncrement:(NSString *)counterName response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
 -(void)incrementAndGet:(NSString *)counterName response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;

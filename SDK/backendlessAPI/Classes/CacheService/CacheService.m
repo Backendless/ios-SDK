@@ -280,7 +280,7 @@ static NSString *METHOD_DELETE = @"delete";
     [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_DELETE args:args responder:responder];
 }
 
-// async methods with block-based callback
+// async methods with block-based callbacks
 
 -(void)put:(NSString *)key object:(id)entity response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
     [self put:key object:entity timeToLive:0 responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];

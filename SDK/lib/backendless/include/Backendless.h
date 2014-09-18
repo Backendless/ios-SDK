@@ -21,7 +21,6 @@
 
 // applications & services deploiment
 #define OLD_MEDIA_APP 0
-#define NEW_API_ON 1
 
 #import <Foundation/Foundation.h>
 
@@ -66,15 +65,10 @@
 #import "MessagingService.h"
 #import "FileService.h"
 #import "BackendlessFile.h"
-#if NEW_API_ON
+#import "CustomService.h"
 #import "Events.h"
 #import "CacheService.h"
 #import "AtomicCounters.h"
-#else
-@class Events;
-@class CacheService;
-@class AtomicCounters;
-#endif
 
 //Cache
 #import "BackendlessCachePolicy.h"
@@ -116,6 +110,7 @@
 @property (strong, nonatomic, readonly) MessagingService *messagingService;
 @property (strong, nonatomic, readonly) FileService *fileService;
 @property (strong, nonatomic, readwrite) MediaService *mediaService;
+@property (strong, nonatomic, readonly) CustomService *customService;
 @property (strong, nonatomic, readonly) Events *events;
 @property (strong, nonatomic, readonly) CacheService *cache;
 @property (strong, nonatomic, readonly) AtomicCounters *counters;

@@ -21,9 +21,6 @@
 
 #import "AtomicCountersFactory.h"
 #include "Backendless.h"
-#if !NEW_API_ON
-#include "AtomicCounters.h"
-#endif
 
 @interface AtomicCountersFactory () {
     NSString *_name;
