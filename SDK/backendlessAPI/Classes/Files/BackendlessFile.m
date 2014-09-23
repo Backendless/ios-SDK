@@ -62,14 +62,19 @@
     [backendless.fileService remove:_fileURL];
 }
 
+-(void)remove:(Fault **)fault {
+    [backendless.fileService remove:_fileURL error:fault];
+}
+
 // async
--(void)remove:(id <IResponder>)responder {
+-(void)removeWithResponder:(id <IResponder>)responder {
     [backendless.fileService remove:_fileURL responder:responder];
 }
--(void)remove:(void (^)(id))responseBlock error:(void (^)(id))errorBlock
-{
+
+-(void)remove:(void (^)(id))responseBlock error:(void (^)(id))errorBlock {
     [backendless.fileService remove:_fileURL response:responseBlock error:errorBlock];
 }
+
 -(NSString *)description {
     return [NSString stringWithFormat:@"<BackendlessFile> -> fileURL: %@", _fileURL];
 }

@@ -80,11 +80,19 @@
 }
 
 -(NSNumber *)remove:(id)entity {
+#if ADDITIONAL_METHOD_SIGNATURE_ON
+    return [backendless.persistenceService remove:entity];
+#else
     return [backendless.persistenceService remove:[entity class] sid:[self propertyValue:PERSIST_OBJECT_ID of:entity]];
+#endif
 }
 
 -(NSNumber *)removeID:(NSString *)objectID {
+#if ADDITIONAL_METHOD_SIGNATURE_ON
+    return @(NO);
+#else
     return [backendless.persistenceService remove:_entityClass sid:objectID];
+#endif
 }
 
 -(void)removeAll:(BackendlessDataQuery *)dataQuery {
@@ -134,11 +142,19 @@
 }
 
 -(void)remove:(id)entity responder:(id <IResponder>)responder {
+#if ADDITIONAL_METHOD_SIGNATURE_ON
+    [backendless.persistenceService remove:entity responder:responder];
+#else
     [backendless.persistenceService remove:[entity class] sid:[self propertyValue:PERSIST_OBJECT_ID of:entity] responder:responder];
+#endif
 }
 
 -(void)removeID:(NSString *)objectID responder:(id <IResponder>)responder {
+#if ADDITIONAL_METHOD_SIGNATURE_ON
+    [responder responseHandler:@(NO)];
+#else
     [backendless.persistenceService remove:_entityClass sid:objectID responder:responder];
+#endif
 }
 
 -(void)removeAll:(BackendlessDataQuery *)dataQuery responder:(id <IResponder>)responder {
@@ -188,11 +204,19 @@
 }
 
 -(void)remove:(id)entity response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
+#if ADDITIONAL_METHOD_SIGNATURE_ON
+    [backendless.persistenceService remove:entity response:responseBlock error:errorBlock];
+#else
     [backendless.persistenceService remove:[entity class] sid:[self propertyValue:PERSIST_OBJECT_ID of:entity] response:responseBlock error:errorBlock];
+#endif
 }
 
 -(void)removeID:(NSString *)objectID response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
+#if ADDITIONAL_METHOD_SIGNATURE_ON
+    responseBlock(@(NO));
+#else
     [backendless.persistenceService remove:_entityClass sid:objectID response:responseBlock error:errorBlock];
+#endif
 }
 
 -(void)removeAll:(BackendlessDataQuery *)dataQuery responder:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock {

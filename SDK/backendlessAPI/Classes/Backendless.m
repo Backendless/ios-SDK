@@ -31,15 +31,13 @@
 #define MISSING_SECRET_KEY @"Missing secret key argument. Login to Backendless Console, select your app and get the ID and key from the Manage > App Settings screen. Copy/paste the values into the [backendless initApp:secret:version:]"
 #define MISSING_VERSION_NUMBER @"Missing version number is argument. You should set versionNum  property"
 
-//
+// backendless default url
 static NSString *BACKENDLESS_HOST_URL = @"https://api.backendless.com";
-
+// wowza hardcorded url
 #if 1 // work
 static NSString *BACKENDLESS_MEDIA_URL = @"rtmp://wowza.backendless.com:1935/mediaApp";
 #else // test
-static NSString *BACKENDLESS_MEDIA_URL = @"rtmp://10.0.1.9:1935/mediaApp"; // Katya
-//static NSString *BACKENDLESS_MEDIA_URL = @"rtmp://54.85.180.71:1935/mediaApp"; // api.test.backendless.com
-//static NSString *BACKENDLESS_MEDIA_URL = @"rtmp://tc.themidnightcoders.com:1935/mediaApp"; // Denis
+static NSString *BACKENDLESS_MEDIA_URL = @"rtmp://tc.themidnightcoders.com:1935/mediaApp"; // Denis
 #endif
 
 static NSString *VERSION_NUM = @"v1";

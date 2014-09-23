@@ -26,7 +26,7 @@
 #import "Backendless.h"
 #import "QueryOptions.h"
 #import "BackendlessEntity.h"
-
+#import "PersistenceService.h"
 
 #pragma mark -
 #pragma mark PersistenceResponder Class
@@ -340,7 +340,11 @@
     while (YES) {
         
         for (id obj in self.data) {
+#if ADDITIONAL_METHOD_SIGNATURE_ON
+            [backendless.persistenceService remove:obj];
+#else
             [backendless.persistenceService remove:[obj class] sid:[obj valueForKey:PERSIST_OBJECT_ID]];
+#endif
         }
         
         if (([self valOffset] + self.data.count) < self.valTotalObjects) {
@@ -444,7 +448,11 @@
     
     for (id obj in self.data) {
         [backendless.persistenceService
+#if ADDITIONAL_METHOD_SIGNATURE_ON
+         remove:obj
+#else
          remove:[obj class] sid:[obj valueForKey:PERSIST_OBJECT_ID]
+#endif
          response:nil
          error:^(Fault *fault) {
              [DebLog logY:@"BackendlessCollection -> removeAll: FAULT: %@ <%@>\n %@", fault.faultCode, fault.message, fault.detail];

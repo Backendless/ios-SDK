@@ -228,6 +228,8 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
             return;
     }
     
+    [_stream setVideoOrientation:_options.orientation];
+    
     if (_options.videoBitrate)
         [_stream setVideoBitrate:_options.videoBitrate];
     if (_options.audioBitrate)

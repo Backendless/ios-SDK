@@ -36,8 +36,6 @@
 #import "BackendlessCache.h"
 #import "OfflineModeManager.h"
 
-#define NEW_SAVE_METHOD_ON 0
-
 #define FAULT_NO_ENTITY [Fault fault:@"Entity is not valid"]
 #define FAULT_OBJECT_ID_IS_NOT_EXIST [Fault fault:@"Object ID is not exist"]
 
@@ -230,6 +228,20 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     return result;
 }
 
+#if ADDITIONAL_METHOD_SIGNATURE_ON
+-(BOOL)remove:(id)entity error:(Fault **)fault {
+    
+    id result = [self remove:entity];
+    if ([result isKindOfClass:[Fault class]]) {
+        if (!fault) {
+            return NO;
+        }
+        (*fault) = result;
+        return NO;
+    }
+    return YES;
+}
+#else
 -(BOOL)remove:(Class)entity sid:(NSString *)sid error:(Fault **)fault {
     
     id result = [self remove:entity sid:sid];
@@ -242,6 +254,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     }
     return YES;
 }
+#endif
 
 -(BOOL)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault {
     
@@ -451,7 +464,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     NSDictionary *props = [self propertyDictionary:entity];
     [DebLog log:@">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> PersistenceService -> save: %@", props];
 
-#if NEW_SAVE_METHOD_ON
+#if ADDITIONAL_METHOD_SIGNATURE_ON
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self objectClassName:entity], props, nil];
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_SAVE args:args];
     if ([result isKindOfClass:[Fault class]]) {
@@ -464,7 +477,6 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     return result;
 #else
     NSString *objectId = (props) ? [props objectForKey:PERSIST_OBJECT_ID] : nil;
-    
     return (objectId && ![objectId isKindOfClass:[NSNull class]]) ? [backendless.persistenceService update:entity] : [backendless.persistenceService create:entity];
 #endif
 }
@@ -486,7 +498,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
         return result;
     }
     
-#if !NEW_SAVE_METHOD_ON
+#if !ADDITIONAL_METHOD_SIGNATURE_ON
     if ([result isKindOfClass:[NSDictionary class]]) {
         [DebLog log:@"PersistenceService -> create: (!!! DICTIONARY !!!) result = %@, entity = %@", result, entity];
         ((BackendlessEntity *)entity).objectId = [(NSDictionary *)result objectForKey:@"objectId"];
@@ -521,6 +533,16 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     return result;
 }
 
+#if ADDITIONAL_METHOD_SIGNATURE_ON
+-(NSNumber *)remove:(id)entity {
+    
+    if (!entity)
+        return [backendless throwFault:FAULT_NO_ENTITY];
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, entity];
+    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_REMOVE args:args];
+}
+#else
 -(NSNumber *)remove:(Class)entity sid:(NSString *)sid {
     
     if (!entity)
@@ -532,6 +554,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self typeClassName:entity], sid, nil];
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_REMOVE args:args];
 }
+#endif
 
 -(void)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery {
     
@@ -688,7 +711,11 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 
 -(id)load:(id)object relations:(NSArray *)relations {
     
+#if ADDITIONAL_METHOD_SIGNATURE_ON
+    NSArray *args = @[backendless.appID, backendless.versionNum, [self typeClassName:[object class]], object, relations];
+#else
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self typeClassName:[object class]], ((BackendlessEntity *)object).objectId, relations, nil];
+#endif
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LOAD args:args];
     if ([result isKindOfClass:[Fault class]]) {
         return result;
@@ -710,7 +737,11 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 
 -(id)load:(id)object relations:(NSArray *)relations relationsDepth:(int)relationsDepth {
     
+#if ADDITIONAL_METHOD_SIGNATURE_ON
+    NSArray *args = @[backendless.appID, backendless.versionNum, [self typeClassName:[object class]], object, relations, @(relationsDepth)];
+#else
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self typeClassName:[object class]], ((BackendlessEntity *)object).objectId, relations, @(relationsDepth), nil];
+#endif
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LOAD args:args];
     if ([result isKindOfClass:[Fault class]]) {
         return result;
@@ -776,7 +807,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
         return [responder errorHandler:FAULT_NO_ENTITY];
     
     NSDictionary *props = [self propertyDictionary:entity];
-#if NEW_SAVE_METHOD_ON
+#if ADDITIONAL_METHOD_SIGNATURE_ON
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self objectClassName:entity], props, nil];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(createResponse:) selErrorHandler:nil];
     _responder.chained = responder;
@@ -842,6 +873,16 @@ NSString *LOAD_ALL_RELATIONS = @"*";
         [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_UPDATE args:args responder:prepareMOResponder];
 }
 
+#if ADDITIONAL_METHOD_SIGNATURE_ON
+-(void)remove:(id)entity responder:(id <IResponder>)responder {
+    
+    if (!entity)
+        return [responder errorHandler:FAULT_NO_ENTITY];
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, entity];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_REMOVE args:args responder:responder];
+}
+#else
 -(void)remove:(Class)entity sid:(NSString *)sid responder:(id <IResponder>)responder {
     
     if (!entity) 
@@ -854,6 +895,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self typeClassName:entity], sid, nil];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_REMOVE args:args responder:responder];
 }
+#endif
 
 -(void)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery responder:(id <IResponder>)responder {
     
@@ -1005,7 +1047,11 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 
 -(void)load:(id)object relations:(NSArray *)relations responder:(id<IResponder>)responder {
     
+#if ADDITIONAL_METHOD_SIGNATURE_ON
+    NSArray *args = @[backendless.appID, backendless.versionNum, [self typeClassName:[object class]], object, relations];
+#else
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self typeClassName:[object class]], ((BackendlessEntity *)object).objectId, relations, nil];
+#endif
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(loadRelations:) selErrorHandler:nil];
     _responder.chained = responder;
     _responder.context = @{@"object":object, @"relations":relations};
@@ -1014,7 +1060,11 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 
 -(void)load:(id)object relations:(NSArray *)relations relationsDepth:(int)relationsDepth responder:(id<IResponder>)responder {
     
+#if ADDITIONAL_METHOD_SIGNATURE_ON
+    NSArray *args = @[backendless.appID, backendless.versionNum, [self typeClassName:[object class]], object, relations, @(relationsDepth)];
+#else
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self typeClassName:[object class]], ((BackendlessEntity *)object).objectId, relations, @(relationsDepth), nil];
+#endif
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(loadRelations:) selErrorHandler:nil];
     _responder.chained = responder;
     _responder.context = @{@"object":object, @"relations":relations};
@@ -1043,9 +1093,15 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     [self update:entity responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
+#if ADDITIONAL_METHOD_SIGNATURE_ON
+-(void)remove:(id)entity response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self remove:entity responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+#else
 -(void)remove:(Class)entity sid:(NSString *)sid response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self remove:entity sid:sid responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
+#endif
 
 -(void)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock {
     
@@ -1261,22 +1317,21 @@ id get_object_id(id self, SEL _cmd)
 //
 -(BOOL)prepareClass:(Class)className {
     
-    id object = [Types classInstance:className];
-#if NEW_SAVE_METHOD_ON
     BOOL result = YES;
-#else
-    BOOL result = [object resolveProperty:PERSIST_OBJECT_ID];
+#if !ADDITIONAL_METHOD_SIGNATURE_ON
+    id object = [Types classInstance:className];
+    result = [object resolveProperty:PERSIST_OBJECT_ID];
     [object resolveProperty:@"__meta"];
-#endif
     if ([[object class] isSubclassOfClass:[NSManagedObject class]]) {
         [__types.managedObjectContext deleteObject:object];
     }
+#endif
     return result;
 }
 // 
 
 -(BOOL)prepareObject:(id)object {
-#if !NEW_SAVE_METHOD_ON
+#if !ADDITIONAL_METHOD_SIGNATURE_ON
     [object resolveProperty:PERSIST_OBJECT_ID value:nil];
     [object resolveProperty:@"__meta" value:nil];
 #endif

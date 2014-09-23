@@ -21,6 +21,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define ADDITIONAL_METHOD_SIGNATURE_ON 1
+
 #define PERSIST_OBJECT_ID @"objectId"
 #define PERSIST_CLASS(CLASS) [backendless.persistenceService of:[CLASS class]]
 
@@ -33,19 +35,23 @@ extern NSString *LOAD_ALL_RELATIONS;
 @interface PersistenceService : NSObject
 
 // sync methods with fault return (as exception)
+-(NSArray *)describe:(NSString *)classCanonicalName;
 -(NSDictionary *)save:(NSString *)entityName entity:(NSDictionary *)entity;
 -(NSDictionary *)update:(NSString *)entityName entity:(NSDictionary *)entity sid:(NSString *)sid;
 -(id)save:(id)entity;
 -(id)create:(id)entity;
--(id)update:(id)entity; 
--(NSNumber *)remove:(Class)entity sid:(NSString *)sid; 
+-(id)update:(id)entity;
+#if ADDITIONAL_METHOD_SIGNATURE_ON
+-(NSNumber *)remove:(id)entity;
+#else
+-(NSNumber *)remove:(Class)entity sid:(NSString *)sid;
+#endif
 -(void)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery;
--(id)findById:(NSString *)entityName sid:(NSString *)sid;
--(id)findByClassId:(Class)entity sid:(NSString *)sid; 
 -(BackendlessCollection *)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery;
 -(id)first:(Class)entity;
 -(id)last:(Class)entity;
--(NSArray *)describe:(NSString *)classCanonicalName;
+-(id)findById:(NSString *)entityName sid:(NSString *)sid;
+-(id)findByClassId:(Class)entity sid:(NSString *)sid; 
 -(id)findById:(NSString *)entityName sid:(NSString *)sid relations:(NSArray *)relations;
 -(id)findById:(NSString *)entityName sid:(NSString *)sid relations:(NSArray *)relations relationsDepth:(int)relationsDepth;
 -(id)first:(Class)entity relations:(NSArray *)relations relationsDepth:(int)relationsDepth;
@@ -54,19 +60,23 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(id)load:(id)object relations:(NSArray *)relations relationsDepth:(int)relationsDepth;
 
 // sync methods with fault option
+-(NSArray *)describe:(NSString *)classCanonicalName error:(Fault **)fault;
 -(NSDictionary *)save:(NSString *)entityName entity:(NSDictionary *)entity error:(Fault **)fault;
 -(NSDictionary *)update:(NSString *)entityName entity:(NSDictionary *)entity sid:(NSString *)sid error:(Fault **)fault;
 -(id)save:(id)entity error:(Fault **)fault;
 -(id)create:(id)entity error:(Fault **)fault;
 -(id)update:(id)entity error:(Fault **)fault;
+#if ADDITIONAL_METHOD_SIGNATURE_ON
+-(BOOL)remove:(id)entity error:(Fault **)fault;
+#else
 -(BOOL)remove:(Class)entity sid:(NSString *)sid error:(Fault **)fault;
+#endif
 -(BOOL)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault;
--(id)findById:(NSString *)entityName sid:(NSString *)sid error:(Fault **)fault;
--(id)findByClassId:(Class)entity sid:(NSString *)sid error:(Fault **)fault;
 -(BackendlessCollection *)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault;
 -(id)first:(Class)entity error:(Fault **)fault;
 -(id)last:(Class)entity error:(Fault **)fault;
--(NSArray *)describe:(NSString *)classCanonicalName error:(Fault **)fault;
+-(id)findById:(NSString *)entityName sid:(NSString *)sid error:(Fault **)fault;
+-(id)findByClassId:(Class)entity sid:(NSString *)sid error:(Fault **)fault;
 -(id)findById:(NSString *)entityName sid:(NSString *)sid relations:(NSArray *)relations error:(Fault **)fault;
 -(id)findById:(NSString *)entityName sid:(NSString *)sid relations:(NSArray *)relations relationsDepth:(int)relationsDepth error:(Fault **)fault;
 -(id)first:(Class)entity relations:(NSArray *)relations relationsDepth:(int)relationsDepth error:(Fault **)fault;
@@ -75,19 +85,23 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(id)load:(id)object relations:(NSArray *)relations relationsDepth:(int)relationsDepth error:(Fault **)fault;
 
 // async methods with responder
+-(void)describe:(NSString *)classCanonicalName responder:(id <IResponder>)responder;
 -(void)save:(NSString *)entityName entity:(NSDictionary *)entity responder:(id <IResponder>)responder;
 -(void)update:(NSString *)entityName entity:(NSDictionary *)entity sid:(NSString *)sid responder:(id <IResponder>)responder;
 -(void)save:(id)entity responder:(id <IResponder>)responder;
 -(void)create:(id)entity responder:(id <IResponder>)responder;
 -(void)update:(id)entity responder:(id <IResponder>)responder; 
+#if ADDITIONAL_METHOD_SIGNATURE_ON
+-(void)remove:(id)entity responder:(id <IResponder>)responder;
+#else
 -(void)remove:(Class)entity sid:(NSString *)sid responder:(id <IResponder>)responder;
+#endif
 -(void)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery responder:(id <IResponder>)responder;
--(void)findById:(NSString *)entityName sid:(NSString *)sid responder:(id <IResponder>)responder; 
--(void)findByClassId:(Class)entity sid:(NSString *)sid responder:(id <IResponder>)responder; 
 -(void)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery responder:(id <IResponder>)responder;
 -(void)first:(Class)entity responder:(id <IResponder>)responder;
 -(void)last:(Class)entity responder:(id <IResponder>)responder;
--(void)describe:(NSString *)classCanonicalName responder:(id <IResponder>)responder;
+-(void)findById:(NSString *)entityName sid:(NSString *)sid responder:(id <IResponder>)responder;
+-(void)findByClassId:(Class)entity sid:(NSString *)sid responder:(id <IResponder>)responder; 
 -(void)findById:(NSString *)entityName sid:(NSString *)sid relations:(NSArray *)relations responder:(id <IResponder>)responder;
 -(void)findById:(NSString *)entityName sid:(NSString *)sid relations:(NSArray *)relations relationsDepth:(int)relationsDepth responder:(id <IResponder>)responder;
 -(void)first:(Class)entity relations:(NSArray *)relations relationsDepth:(int)relationsDepth responder:(id <IResponder>)responder;
@@ -96,19 +110,23 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(void)load:(id)object relations:(NSArray *)relations relationsDepth:(int)relationsDepth responder:(id <IResponder>)responder;
 
 // async methods with block-based callbacks
+-(void)describe:(NSString *)classCanonicalName response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)save:(NSString *)entityName entity:(NSDictionary *)entity response:(void(^)(NSDictionary *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)update:(NSString *)entityName entity:(NSDictionary *)entity sid:(NSString *)sid response:(void(^)(NSDictionary *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)save:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)create:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)update:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+#if ADDITIONAL_METHOD_SIGNATURE_ON
+-(void)remove:(id)entity response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
+#else
 -(void)remove:(Class)entity sid:(NSString *)sid response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
+#endif
 -(void)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)findById:(NSString *)entityName sid:(NSString *)sid response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)findByClassId:(Class)entity sid:(NSString *)sid response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)first:(Class)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)last:(Class)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)describe:(NSString *)classCanonicalName response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)findById:(NSString *)entityName sid:(NSString *)sid response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)findByClassId:(Class)entity sid:(NSString *)sid response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)findById:(NSString *)entityName sid:(NSString *)sid relations:(NSArray *)relations response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)findById:(NSString *)entityName sid:(NSString *)sid relations:(NSArray *)relations relationsDepth:(int)relationsDepth response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)first:(Class)entity relations:(NSArray *)relations relationsDepth:(int)relationsDepth response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
