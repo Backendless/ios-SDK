@@ -21,7 +21,7 @@
 
 #import <Foundation/Foundation.h>
 
-#define ADDITIONAL_METHOD_SIGNATURE_ON 1
+#define ADDITIONAL_METHOD_SIGNATURE_ON 0
 
 #define PERSIST_OBJECT_ID @"objectId"
 #define PERSIST_CLASS(CLASS) [backendless.persistenceService of:[CLASS class]]
