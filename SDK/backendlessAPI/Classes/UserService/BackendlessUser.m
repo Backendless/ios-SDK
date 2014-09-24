@@ -140,11 +140,11 @@
 }
 -(void)setObjectId:(NSString *)objectId
 {
-    [self setProperty:@"objectId" object:objectId];
+    [self setProperty:PERSIST_OBJECT_ID object:objectId];
 }
 -(NSString *)objectId
 {
-    return [self getProperty:@"objectId"];
+    return [self getProperty:PERSIST_OBJECT_ID];
 }
 -(NSString *)description {
     return [NSString stringWithFormat:@"<BackendlessUser> email:'%@', password:'%@', name:'%@', userId:'%@', userToken:'%@', objectId:'%@', properties:%@", self.email, self.password, self.name, self.userId, self.userToken, self.objectId, properties.node];

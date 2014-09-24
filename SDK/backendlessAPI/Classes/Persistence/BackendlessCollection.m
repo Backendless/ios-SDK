@@ -340,11 +340,12 @@
     while (YES) {
         
         for (id obj in self.data) {
-#if ADDITIONAL_METHOD_SIGNATURE_ON
-            [backendless.persistenceService remove:obj];
-#else
-            [backendless.persistenceService remove:[obj class] sid:[obj valueForKey:PERSIST_OBJECT_ID]];
-#endif
+            
+            NSString *objectId = [backendless.persistenceService getObjectId:obj];
+            if ([objectId isKindOfClass:[NSString class]])
+                [backendless.persistenceService remove:[obj class] sid:objectId];
+            else
+                [backendless.persistenceService remove:obj];
         }
         
         if (([self valOffset] + self.data.count) < self.valTotalObjects) {
@@ -404,10 +405,9 @@
     [self removeAll:^(BackendlessCollection *bc) {
         [responder responseHandler:bc];
     }
-              error:^(Fault *fault) {
-                  [responder errorHandler:fault];
-              }
-     ];
+    error:^(Fault *fault) {
+        [responder errorHandler:fault];
+    }];
 }
 
 // async methods with block-base callbacks
@@ -447,29 +447,38 @@
 -(void)removeAll:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock {
     
     for (id obj in self.data) {
-        [backendless.persistenceService
-#if ADDITIONAL_METHOD_SIGNATURE_ON
-         remove:obj
-#else
-         remove:[obj class] sid:[obj valueForKey:PERSIST_OBJECT_ID]
-#endif
-         response:nil
-         error:^(Fault *fault) {
-             [DebLog logY:@"BackendlessCollection -> removeAll: FAULT: %@ <%@>\n %@", fault.faultCode, fault.message, fault.detail];
-             errorBlock(fault);
-         }
-         ];
+        
+        NSString *objectId = [backendless.persistenceService getObjectId:obj];
+        if ([objectId isKindOfClass:[NSString class]]) {
+        
+            [backendless.persistenceService
+             remove:[obj class] sid:objectId
+             response:nil
+             error:^(Fault *fault) {
+                 [DebLog logY:@"BackendlessCollection -> removeAll: FAULT: %@ ", fault];
+                 errorBlock(fault);
+             }];
+        }
+        else {
+            
+            [backendless.persistenceService
+             remove:obj
+             response:nil
+             error:^(Fault *fault) {
+                 [DebLog logY:@"BackendlessCollection -> removeAll: FAULT: %@", fault];
+                 errorBlock(fault);
+             }];
+        }
     }
     
     if (([self valOffset] + self.data.count) < self.valTotalObjects) {
         [self nextPageAsync:^(BackendlessCollection *bc) {
             [self removeAll:responseBlock error:errorBlock];
         }
-                    error:^(Fault *fault) {
-                        [DebLog logY:@"BackendlessCollection -> removeAll: FAULT: %@ <%@>\n %@", fault.faultCode, fault.message, fault.detail];
-                        errorBlock(fault);
-                    }
-         ];
+        error:^(Fault *fault) {
+            [DebLog logY:@"BackendlessCollection -> removeAll: FAULT: %@", fault];
+            errorBlock(fault);
+        }];
     }
     else {
         responseBlock(self);

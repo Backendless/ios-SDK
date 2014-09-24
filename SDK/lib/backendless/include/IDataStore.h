@@ -38,8 +38,8 @@
 -(id)load:(id)object relations:(NSArray *)relations;
 -(id)findFirst:(int)relationsDepth fault:(Fault **)fault;
 -(id)findLast:(int)relationsDepth fault:(Fault **)fault;
--(id)findID:(NSString *)objectID;
--(id)findID:(NSString *)objectID relationsDepth:(int)relationsDepth fault:(Fault **)fault;
+-(id)findID:(id)objectID;
+-(id)findID:(id)objectID relationsDepth:(int)relationsDepth fault:(Fault **)fault;
 
 // async methods with responder
 -(void)save:(id)entity responder:(id <IResponder>)responder;
@@ -53,8 +53,8 @@
 -(void)load:(id)object relations:(NSArray *)relations responder:(id <IResponder>)responder;
 -(void)findFirst:(int)relationsDepth responder:(id <IResponder>)responder;
 -(void)findLast:(int)relationsDepth responder:(id <IResponder>)responder;
--(void)findID:(NSString *)objectID responder:(id <IResponder>)responder;
--(void)findID:(NSString *)objectID relationsDepth:(int)relationsDepth responder:(id <IResponder>)responder;
+-(void)findID:(id)objectID responder:(id <IResponder>)responder;
+-(void)findID:(id)objectID relationsDepth:(int)relationsDepth responder:(id <IResponder>)responder;
 
 // async methods with block-base callbacks
 -(void)save:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
@@ -68,7 +68,7 @@
 -(void)load:(id)object relations:(NSArray *)relations response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)findFirst:(int)relationsDepth response:(void(^)(id result))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)findLast:(int)relationsDepth response:(void(^)(id result))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)findID:(NSString *)objectID response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)findID:(NSString *)objectID relationsDepth:(int)relationsDepth response:(void(^)(id result))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)findID:(id)objectID response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)findID:(id)objectID relationsDepth:(int)relationsDepth response:(void(^)(id result))responseBlock error:(void(^)(Fault *))errorBlock;
 
 @end

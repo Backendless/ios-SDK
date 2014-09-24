@@ -141,8 +141,8 @@ static NSString *DEFAULT_DATABASE_NAME = @"OfflineModeDatabase";
         return;
     }
     BackendlessEntity *object = [self getObjectForId:[objectsId lastObject][@"object_id"]];
-    if ([[[object valueForKey:@"objectId"] substringToIndex:2] isEqualToString:@"OM"]) {
-        [object setValue:nil forKey:@"objectId"];
+    if ([[[object valueForKey:PERSIST_OBJECT_ID] substringToIndex:2] isEqualToString:@"OM"]) {
+        [object setValue:nil forKey:PERSIST_OBJECT_ID];
     }
     [backendless.persistenceService save:object responder:uploadResponder];
 }
