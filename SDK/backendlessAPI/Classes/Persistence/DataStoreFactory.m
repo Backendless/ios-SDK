@@ -62,7 +62,7 @@
 #pragma mark -
 #pragma mark IDataStore Methods
 
-// sync methods
+// sync methods with fault return (as exception)
 
 -(id)save:(id)entity {
     return [backendless.persistenceService save:entity];
@@ -104,6 +104,78 @@
     return [backendless.persistenceService load:object relations:relations];
 }
 
+-(id)findFirst:(int)relationsDepth {
+    return [backendless.persistenceService first:_entityClass relations:@[] relationsDepth:relationsDepth];
+}
+
+-(id)findLast:(int)relationsDepth {
+    return [backendless.persistenceService last:_entityClass relations:@[] relationsDepth:relationsDepth];
+}
+
+-(id)findID:(id)objectID {
+    
+    if ([objectID isKindOfClass:[NSString class]])
+        return [backendless.persistenceService findByClassId:_entityClass sid:objectID];
+    
+    if ([objectID isKindOfClass:[NSDictionary class]])
+        return [backendless.persistenceService findByObject:NSStringFromClass(_entityClass) keys:objectID];
+
+    return [backendless.persistenceService findByObject:objectID];
+}
+
+-(id)findID:(id)objectID relationsDepth:(int)relationsDepth {
+    
+    if ([objectID isKindOfClass:[NSString class]])
+        return [backendless.persistenceService findById:NSStringFromClass(_entityClass) sid:objectID relations:@[] relationsDepth:relationsDepth];
+    
+    if ([objectID isKindOfClass:[NSDictionary class]])
+        return [backendless.persistenceService findByObject:NSStringFromClass(_entityClass) keys:objectID relations:@[] relationsDepth:relationsDepth];
+
+    return [backendless.persistenceService findByObject:objectID relations:@[] relationsDepth:relationsDepth];
+}
+
+// sync methods with fault option
+
+-(id)save:(id)entity fault:(Fault **)fault {
+    return [backendless.persistenceService save:entity error:fault];
+}
+
+-(BOOL)remove:(id)entity fault:(Fault **)fault {
+    NSString *objectId = [backendless.persistenceService getObjectId:entity];
+    if ([objectId isKindOfClass:[NSString class]])
+        return [backendless.persistenceService remove:[entity class] sid:objectId error:fault];
+    else
+        return [backendless.persistenceService remove:entity error:fault];
+}
+
+-(BOOL)removeID:(NSString *)objectID fault:(Fault **)fault {
+    return [backendless.persistenceService remove:_entityClass sid:objectID error:fault];
+}
+
+-(void)removeAll:(BackendlessDataQuery *)dataQuery fault:(Fault **)fault {
+    [backendless.persistenceService removeAll:_entityClass dataQuery:dataQuery error:fault];
+}
+
+-(BackendlessCollection *)find:(BackendlessDataQuery *)dataQuery fault:(Fault **)fault {
+    return [backendless.persistenceService find:_entityClass dataQuery:dataQuery error:fault];
+}
+
+-(id)findFirstFault:(Fault **)fault {
+    return [backendless.persistenceService first:_entityClass error:fault];
+}
+
+-(id)findLastFault:(Fault **)fault {
+    return [backendless.persistenceService last:_entityClass error:fault];
+}
+
+-(NSArray *)describe:(Fault **)fault {
+    return [backendless.persistenceService describe:NSStringFromClass(_entityClass) error:fault];
+}
+
+-(id)load:(id)object relations:(NSArray *)relations fault:(Fault **)fault {
+    return [backendless.persistenceService load:object relations:relations error:fault];
+}
+
 -(id)findFirst:(int)relationsDepth fault:(Fault **)fault {
     return [backendless.persistenceService first:_entityClass relations:@[] relationsDepth:relationsDepth error:fault];
 }
@@ -112,18 +184,26 @@
     return [backendless.persistenceService last:_entityClass relations:@[] relationsDepth:relationsDepth error:fault];
 }
 
--(id)findID:(id)objectID {
+-(id)findID:(id)objectID fault:(Fault **)fault {
+    
     if ([objectID isKindOfClass:[NSString class]])
-        return [backendless.persistenceService findByClassObjectId:_entityClass sid:objectID];
-    else
-        return [backendless.persistenceService findById:objectID];
+        return [backendless.persistenceService findByClassId:_entityClass sid:objectID error:fault];
+    
+    if ([objectID isKindOfClass:[NSDictionary class]])
+        return [backendless.persistenceService findByObject:NSStringFromClass(_entityClass) keys:objectID error:fault];
+    
+    return [backendless.persistenceService findByObject:objectID error:fault];
 }
 
 -(id)findID:(id)objectID relationsDepth:(int)relationsDepth fault:(Fault **)fault {
+    
     if ([objectID isKindOfClass:[NSString class]])
         return [backendless.persistenceService findById:NSStringFromClass(_entityClass) sid:objectID relations:@[] relationsDepth:relationsDepth error:fault];
-    else
-        return [backendless.persistenceService findById:objectID relations:@[] relationsDepth:relationsDepth error:fault];
+    
+    if ([objectID isKindOfClass:[NSDictionary class]])
+        return [backendless.persistenceService findByObject:NSStringFromClass(_entityClass) keys:objectID relations:@[] relationsDepth:relationsDepth error:fault];
+    
+    return [backendless.persistenceService findByObject:objectID relations:@[] relationsDepth:relationsDepth error:fault];
 }
 
 // async methods with responder
@@ -152,11 +232,11 @@
     [backendless.persistenceService find:_entityClass dataQuery:dataQuery responder:responder];
 }
 
--(void)findFirst:(id <IResponder>)responder {
+-(void)findFirstResponder:(id <IResponder>)responder {
     [backendless.persistenceService first:_entityClass responder:responder];
 }
 
--(void)findLast:(id <IResponder>)responder {
+-(void)findLastResponder:(id <IResponder>)responder {
     [backendless.persistenceService last:_entityClass responder:responder];
 }
 
@@ -177,17 +257,25 @@
 }
 
 -(void)findID:(id)objectID responder:(id <IResponder>)responder {
+    
     if ([objectID isKindOfClass:[NSString class]])
-        [backendless.persistenceService findByClassObjectId:_entityClass sid:objectID responder:responder];
-    else
-        [backendless.persistenceService findById:objectID responder:responder];
+        [backendless.persistenceService findByClassId:_entityClass sid:objectID responder:responder];
+    
+    if ([objectID isKindOfClass:[NSDictionary class]])
+        [backendless.persistenceService findByObject:NSStringFromClass(_entityClass) keys:objectID responder:responder];
+    
+    [backendless.persistenceService findByObject:objectID responder:responder];
 }
 
 -(void)findID:(id)objectID relationsDepth:(int)relationsDepth responder:(id<IResponder>)responder {
+    
     if ([objectID isKindOfClass:[NSString class]])
         [backendless.persistenceService findById:NSStringFromClass(_entityClass) sid:objectID relations:@[] relationsDepth:relationsDepth responder:responder];
-    else
-        [backendless.persistenceService findById:objectID relations:@[] relationsDepth:relationsDepth responder:responder];
+    
+    if ([objectID isKindOfClass:[NSDictionary class]])
+        [backendless.persistenceService findByObject:NSStringFromClass(_entityClass) keys:objectID relations:@[] relationsDepth:relationsDepth responder:responder];
+    
+    [backendless.persistenceService findByObject:objectID relations:@[] relationsDepth:relationsDepth responder:responder];
 }
 
 // async methods with block-base callbacks
@@ -241,17 +329,25 @@
 }
 
 -(void)findID:(id)objectID response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+    
     if ([objectID isKindOfClass:[NSString class]])
-        [backendless.persistenceService findByClassObjectId:_entityClass sid:objectID response:responseBlock error:errorBlock];
-    else
-        [backendless.persistenceService findById:objectID response:responseBlock error:errorBlock];
+        [backendless.persistenceService findByClassId:_entityClass sid:objectID response:responseBlock error:errorBlock];
+    
+    if ([objectID isKindOfClass:[NSDictionary class]])
+        [backendless.persistenceService findByObject:NSStringFromClass(_entityClass) keys:objectID response:responseBlock error:errorBlock];
+
+    [backendless.persistenceService findByObject:objectID response:responseBlock error:errorBlock];
 }
 
 -(void)findID:(id)objectID relationsDepth:(int)relationsDepth response:(void(^)(id result))responseBlock error:(void(^)(Fault *))errorBlock {
+    
     if ([objectID isKindOfClass:[NSString class]])
         [backendless.persistenceService findById:NSStringFromClass(_entityClass) sid:objectID relations:@[] relationsDepth:relationsDepth response:responseBlock error:errorBlock];
-    else
-        [backendless.persistenceService findById:objectID relations:@[] relationsDepth:relationsDepth response:responseBlock error:errorBlock];
+    
+    if ([objectID isKindOfClass:[NSDictionary class]])
+        [backendless.persistenceService findByObject:NSStringFromClass(_entityClass) keys:objectID relations:@[] relationsDepth:relationsDepth response:responseBlock error:errorBlock];
+
+    [backendless.persistenceService findByObject:objectID relations:@[] relationsDepth:relationsDepth response:responseBlock error:errorBlock];
 }
 
 @end
