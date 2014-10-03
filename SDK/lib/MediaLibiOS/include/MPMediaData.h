@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 The Midnight Coders, Inc. All rights reserved.
 //
 
+#define IS_MEDIA_ENCODER 0
+
 #import <Foundation/Foundation.h>
 #import <CoreMedia/CoreMedia.h>
 

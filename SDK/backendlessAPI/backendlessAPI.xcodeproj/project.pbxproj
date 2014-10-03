@@ -403,14 +403,6 @@
 		F9BBFD7B18783B750076BC6D /* WeborbClient.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFD4018783B740076BC6D /* WeborbClient.h */; };
 		F9BBFD7C18783B750076BC6D /* WeborbClient.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFD4018783B740076BC6D /* WeborbClient.h */; };
 		F9BBFD7D18783B750076BC6D /* WeborbClient.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFD4018783B740076BC6D /* WeborbClient.h */; };
-		F9BBFE7B18783DD00076BC6D /* BroadcastStreamClient.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFDDE18783DCF0076BC6D /* BroadcastStreamClient.h */; };
-		F9BBFE7C18783DD00076BC6D /* BroadcastStreamClient.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFDDE18783DCF0076BC6D /* BroadcastStreamClient.h */; };
-		F9BBFE7D18783DD00076BC6D /* MediaStreamPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFDDF18783DCF0076BC6D /* MediaStreamPlayer.h */; };
-		F9BBFE7E18783DD00076BC6D /* MediaStreamPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFDDF18783DCF0076BC6D /* MediaStreamPlayer.h */; };
-		F9BBFE7F18783DD00076BC6D /* MPMediaData.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFDE018783DCF0076BC6D /* MPMediaData.h */; };
-		F9BBFE8018783DD00076BC6D /* MPMediaData.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFDE018783DCF0076BC6D /* MPMediaData.h */; };
-		F9BBFE8118783DD00076BC6D /* VideoPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFDE118783DCF0076BC6D /* VideoPlayer.h */; };
-		F9BBFE8218783DD00076BC6D /* VideoPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFDE118783DCF0076BC6D /* VideoPlayer.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -458,6 +450,13 @@
 		D30A5D7319B9CA8200C0BA44 /* Backendless-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Backendless-Bridging-Header.h"; sourceTree = "<group>"; };
 		D30A5D7819B9D03100C0BA44 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
 		D30A5D7B19BA0E8900C0BA44 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
+		D30E66A419DE946D00AE3949 /* Building Media Stream Apps.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Building Media Stream Apps.docx"; sourceTree = "<group>"; };
+		D30E66A519DE946D00AE3949 /* Media Library for iOS User Guide.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Media Library for iOS User Guide.docx"; sourceTree = "<group>"; };
+		D30E66A719DE946D00AE3949 /* BroadcastStreamClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BroadcastStreamClient.h; sourceTree = "<group>"; };
+		D30E66A819DE946D00AE3949 /* MediaStreamPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaStreamPlayer.h; sourceTree = "<group>"; };
+		D30E66A919DE946D00AE3949 /* MPMediaData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPMediaData.h; sourceTree = "<group>"; };
+		D30E66AA19DE946D00AE3949 /* VideoPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoPlayer.h; sourceTree = "<group>"; };
+		D30E66AB19DE946D00AE3949 /* MediaLibiOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = MediaLibiOS.a; sourceTree = "<group>"; };
 		D3625CE6197EA248006E5779 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
 		D36CDCA419C6EEEC00C3FFE3 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
 		D36CDCA619C6FBFF00C3FFE3 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
@@ -579,13 +578,6 @@
 		F9BBFD3F18783B740076BC6D /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
 		F9BBFD4018783B740076BC6D /* WeborbClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeborbClient.h; sourceTree = "<group>"; };
 		F9BBFD4118783B740076BC6D /* libCommLibMac.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libCommLibMac.a; sourceTree = "<group>"; };
-		F9BBFDDB18783DCF0076BC6D /* Building Media Stream Apps.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Building Media Stream Apps.docx"; sourceTree = "<group>"; };
-		F9BBFDDC18783DCF0076BC6D /* Media Library for iOS User Guide.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Media Library for iOS User Guide.docx"; sourceTree = "<group>"; };
-		F9BBFDDE18783DCF0076BC6D /* BroadcastStreamClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BroadcastStreamClient.h; sourceTree = "<group>"; };
-		F9BBFDDF18783DCF0076BC6D /* MediaStreamPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaStreamPlayer.h; sourceTree = "<group>"; };
-		F9BBFDE018783DCF0076BC6D /* MPMediaData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPMediaData.h; sourceTree = "<group>"; };
-		F9BBFDE118783DCF0076BC6D /* VideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayer.h; sourceTree = "<group>"; };
-		F9BBFDE218783DCF0076BC6D /* MediaLibiOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = MediaLibiOS.a; sourceTree = "<group>"; };
 		F9C3BF711613175600409FF2 /* BackendlessDataQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackendlessDataQuery.h; sourceTree = "<group>"; };
 		F9C3BF721613175600409FF2 /* BackendlessDataQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackendlessDataQuery.m; sourceTree = "<group>"; };
 		F9C3BF75161486B500409FF2 /* BackendlessGeoQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackendlessGeoQuery.h; sourceTree = "<group>"; };
@@ -725,6 +717,36 @@
 				D30A5D7B19BA0E8900C0BA44 /* Backendless-ios-SDK.podspec */,
 			);
 			path = 1.18.1;
+			sourceTree = "<group>";
+		};
+		D30E66A219DE946D00AE3949 /* MediaLibiOS */ = {
+			isa = PBXGroup;
+			children = (
+				D30E66A319DE946D00AE3949 /* doc */,
+				D30E66A619DE946D00AE3949 /* include */,
+				D30E66AB19DE946D00AE3949 /* MediaLibiOS.a */,
+			);
+			path = MediaLibiOS;
+			sourceTree = "<group>";
+		};
+		D30E66A319DE946D00AE3949 /* doc */ = {
+			isa = PBXGroup;
+			children = (
+				D30E66A419DE946D00AE3949 /* Building Media Stream Apps.docx */,
+				D30E66A519DE946D00AE3949 /* Media Library for iOS User Guide.docx */,
+			);
+			path = doc;
+			sourceTree = "<group>";
+		};
+		D30E66A619DE946D00AE3949 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				D30E66A719DE946D00AE3949 /* BroadcastStreamClient.h */,
+				D30E66A819DE946D00AE3949 /* MediaStreamPlayer.h */,
+				D30E66A919DE946D00AE3949 /* MPMediaData.h */,
+				D30E66AA19DE946D00AE3949 /* VideoPlayer.h */,
+			);
+			path = include;
 			sourceTree = "<group>";
 		};
 		D3625CE5197EA248006E5779 /* 1.16.1 */ = {
@@ -953,8 +975,8 @@
 		F91B47C415FE380C00012DFC /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				D30E66A219DE946D00AE3949 /* MediaLibiOS */,
 				D3AD804318F01F7600AADCB0 /* backendless */,
-				F9BBFDD918783DCF0076BC6D /* MediaLibiOS */,
 				F9BBFD2818783B740076BC6D /* CommLibiOS */,
 			);
 			name = lib;
@@ -1209,36 +1231,6 @@
 			path = include;
 			sourceTree = "<group>";
 		};
-		F9BBFDD918783DCF0076BC6D /* MediaLibiOS */ = {
-			isa = PBXGroup;
-			children = (
-				F9BBFDDA18783DCF0076BC6D /* doc */,
-				F9BBFDDD18783DCF0076BC6D /* include */,
-				F9BBFDE218783DCF0076BC6D /* MediaLibiOS.a */,
-			);
-			path = MediaLibiOS;
-			sourceTree = "<group>";
-		};
-		F9BBFDDA18783DCF0076BC6D /* doc */ = {
-			isa = PBXGroup;
-			children = (
-				F9BBFDDB18783DCF0076BC6D /* Building Media Stream Apps.docx */,
-				F9BBFDDC18783DCF0076BC6D /* Media Library for iOS User Guide.docx */,
-			);
-			path = doc;
-			sourceTree = "<group>";
-		};
-		F9BBFDDD18783DCF0076BC6D /* include */ = {
-			isa = PBXGroup;
-			children = (
-				F9BBFDDE18783DCF0076BC6D /* BroadcastStreamClient.h */,
-				F9BBFDDF18783DCF0076BC6D /* MediaStreamPlayer.h */,
-				F9BBFDE018783DCF0076BC6D /* MPMediaData.h */,
-				F9BBFDE118783DCF0076BC6D /* VideoPlayer.h */,
-			);
-			path = include;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1342,7 +1334,6 @@
 				F9BBFD7218783B750076BC6D /* Responder.h in Headers */,
 				F9796A0B166CCBFE00595F5E /* UserProperty.h in Headers */,
 				F9796A0C166CCBFE00595F5E /* PersistenceService.h in Headers */,
-				F9BBFE8118783DD00076BC6D /* VideoPlayer.h in Headers */,
 				F9796A0D166CCBFE00595F5E /* ObjectProperty.h in Headers */,
 				F9796A0E166CCBFE00595F5E /* BackendlessEntity.h in Headers */,
 				F9796A0F166CCBFE00595F5E /* BackendlessCollection.h in Headers */,
@@ -1386,10 +1377,8 @@
 				F9BBFD6018783B750076BC6D /* IPendingServiceCallback.h in Headers */,
 				F9512971168DCFFF0041460C /* MediaPlayer.h in Headers */,
 				91A427FB184E23D5005F91DE /* ISDatabase.h in Headers */,
-				F9BBFE7D18783DD00076BC6D /* MediaStreamPlayer.h in Headers */,
 				F9512979168DEA210041460C /* IMediaStreamer.h in Headers */,
 				91A4285B18508269005F91DE /* BEReachability.h in Headers */,
-				F9BBFE7F18783DD00076BC6D /* MPMediaData.h in Headers */,
 				F9BBFD5D18783B750076BC6D /* IClientSharedObjectDelegate.h in Headers */,
 				91F1399517D7240A00D1AC4C /* AbstractQuery.h in Headers */,
 				91F139A917D7240A00D1AC4C /* BackendlessCachePolicy.h in Headers */,
@@ -1403,7 +1392,6 @@
 				F9BBFD4518783B750076BC6D /* AMFSerializer.h in Headers */,
 				F9BBFD6918783B750076BC6D /* IServiceCall.h in Headers */,
 				F9BBFD4B18783B750076BC6D /* BinaryStream.h in Headers */,
-				F9BBFE7B18783DD00076BC6D /* BroadcastStreamClient.h in Headers */,
 				91F139A417D7240A00D1AC4C /* BackendlessCacheKey.h in Headers */,
 				91A42807184E2447005F91DE /* OfflineModeManager.h in Headers */,
 				F9BBFD6F18783B750076BC6D /* MemoryTicker.h in Headers */,
@@ -1430,7 +1418,6 @@
 				F9BBFD7318783B750076BC6D /* Responder.h in Headers */,
 				F9796A57166CD42E00595F5E /* UserProperty.h in Headers */,
 				F9796A58166CD42E00595F5E /* PersistenceService.h in Headers */,
-				F9BBFE8218783DD00076BC6D /* VideoPlayer.h in Headers */,
 				F9796A59166CD42E00595F5E /* ObjectProperty.h in Headers */,
 				F9796A5A166CD42E00595F5E /* BackendlessEntity.h in Headers */,
 				F9796A5B166CD42E00595F5E /* BackendlessCollection.h in Headers */,
@@ -1474,10 +1461,8 @@
 				F9BBFD6118783B750076BC6D /* IPendingServiceCallback.h in Headers */,
 				F9512972168DCFFF0041460C /* MediaPlayer.h in Headers */,
 				91A427FC184E23D5005F91DE /* ISDatabase.h in Headers */,
-				F9BBFE7E18783DD00076BC6D /* MediaStreamPlayer.h in Headers */,
 				F951297A168DEA210041460C /* IMediaStreamer.h in Headers */,
 				91A4285C18508269005F91DE /* BEReachability.h in Headers */,
-				F9BBFE8018783DD00076BC6D /* MPMediaData.h in Headers */,
 				F9BBFD5E18783B750076BC6D /* IClientSharedObjectDelegate.h in Headers */,
 				91F1399617D7240A00D1AC4C /* AbstractQuery.h in Headers */,
 				91F139AA17D7240A00D1AC4C /* BackendlessCachePolicy.h in Headers */,
@@ -1491,7 +1476,6 @@
 				F9BBFD4618783B750076BC6D /* AMFSerializer.h in Headers */,
 				F9BBFD6A18783B750076BC6D /* IServiceCall.h in Headers */,
 				F9BBFD4C18783B750076BC6D /* BinaryStream.h in Headers */,
-				F9BBFE7C18783DD00076BC6D /* BroadcastStreamClient.h in Headers */,
 				91F139A517D7240A00D1AC4C /* BackendlessCacheKey.h in Headers */,
 				91A42808184E2447005F91DE /* OfflineModeManager.h in Headers */,
 				F9BBFD7018783B750076BC6D /* MemoryTicker.h in Headers */,
@@ -1829,7 +1813,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "backendless-simulator/backendless-simulator-Prefix.pch";
-				HEADER_SEARCH_PATHS = "../lib/libav-v9.1965/include";
+				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = YES;
@@ -1852,7 +1836,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "backendless-simulator/backendless-simulator-Prefix.pch";
-				HEADER_SEARCH_PATHS = "../lib/libav-v9.1965/include";
+				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = YES;
@@ -1945,7 +1929,7 @@
 				"GCC_WARN_64_TO_32_BIT_CONVERSION[arch=*64]" = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_VALUE = NO;
-				HEADER_SEARCH_PATHS = "../lib/libav-v9.1965/include";
+				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = NO;
@@ -1971,7 +1955,7 @@
 				"GCC_WARN_64_TO_32_BIT_CONVERSION[arch=*64]" = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_VALUE = NO;
-				HEADER_SEARCH_PATHS = "../lib/libav-v9.1965/include";
+				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = NO;
@@ -1995,7 +1979,7 @@
 				GCC_PREFIX_HEADER = "backendless-device/backendless-device-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_VALUE = NO;
-				HEADER_SEARCH_PATHS = "../lib/libav-v9.1965/include";
+				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = NO;
@@ -2019,7 +2003,7 @@
 				GCC_PREFIX_HEADER = "backendless-device/backendless-device-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_VALUE = NO;
-				HEADER_SEARCH_PATHS = "../lib/libav-v9.1965/include";
+				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = NO;
