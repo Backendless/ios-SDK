@@ -172,8 +172,8 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
 #pragma mark -
 #pragma mark IMediaStream Methods
 
--(StateMediaStream)currentState {
-    return [self wrongOptions] ? MEDIASTREAM_DISCONNECTED : (StateMediaStream)_stream.state;
+-(MPMediaStreamState)currentState {
+    return [self wrongOptions] ? CONN_DISCONNECTED : (MPMediaStreamState)_stream.state;
 }
 
 -(void)connect {
@@ -283,7 +283,7 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
 #pragma mark -
 #pragma mark IMediaStreamerDelegate Methods
 
--(void)streamStateChanged:(id)sender state:(StateMediaStream)state description:(NSString *)description {
+-(void)streamStateChanged:(id)sender state:(MPMediaStreamState)state description:(NSString *)description {
     if ([_delegate respondsToSelector:@selector(streamStateChanged:state:description:)])
         [_delegate streamStateChanged:sender state:state description:description];
 }
@@ -343,7 +343,7 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
             break;
     }
     
-    [self streamStateChanged:sender state:(StateMediaStream)state description:description];
+    [self streamStateChanged:sender state:(MPMediaStreamState)state description:description];
 }
 
 -(void)connectFailed:(id)sender code:(int)code description:(NSString *)description {

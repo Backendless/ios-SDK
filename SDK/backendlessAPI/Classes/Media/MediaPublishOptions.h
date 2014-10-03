@@ -23,20 +23,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
-
-typedef enum {
-	VIDEO_RECORD,
-	VIDEO_APPEND,
-	VIDEO_LIVE,
-} MediaPublishType;
-
-
-typedef enum {
-    LOW_RESOLUTION,     // 144x192px (landscape) & 192x144px (portrait)
-    CIF_RESOLUTION,     // 288x352px (landscape) & 352x288px (portrait)
-    MEDIUM_RESOLUTION,  // 360x480px (landscape) & 480x368px (portrait)
-    VGA_RESOLUTION,     // 480x640px (landscape) & 640x480px (portrait)
-} VideoResolution;
+#import "MPMediaData.h"
 
 typedef enum {
     AUDIO_AND_VIDEO,
@@ -48,9 +35,9 @@ typedef enum {
 
 @interface MediaPublishOptions : NSObject
 
-@property MediaPublishType publishType;
+@property MPMediaPublishType publishType;
 @property AVCaptureVideoOrientation orientation;
-@property VideoResolution resolution;
+@property MPVideoResolution resolution;
 @property MediaStreamContent content;
 @property uint videoBitrate;
 @property uint audioBitrate;
@@ -59,7 +46,7 @@ typedef enum {
 +(id)liveStream:(UIView *)view;
 +(id)recordStream:(UIView *)view;
 +(id)appendStream:(UIView *)view;
-+(id)options:(MediaPublishType)type orientation:(AVCaptureVideoOrientation)orientation resolution:(VideoResolution)resolution view:(UIView *)view;
++(id)options:(MPMediaPublishType)type orientation:(AVCaptureVideoOrientation)orientation resolution:(MPVideoResolution)resolution view:(UIView *)view;
 -(NSString *)getServerURL;
 @end
 #else

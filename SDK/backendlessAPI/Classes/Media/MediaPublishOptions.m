@@ -28,10 +28,10 @@
 -(id)init {
 	
     if ( (self=[super init]) ) {
-        _publishType = VIDEO_LIVE;
+        _publishType = PUBLISH_LIVE;
         _orientation = AVCaptureVideoOrientationLandscapeRight;
         _content = AUDIO_AND_VIDEO;
-        _resolution = LOW_RESOLUTION;
+        _resolution = RESOLUTION_LOW;
         _videoBitrate = 0;
         _audioBitrate = 0;
         _previewPanel = nil;
@@ -59,7 +59,7 @@
     
     MediaPublishOptions *instance = [MediaPublishOptions new];
     instance.previewPanel = view;
-    instance.publishType = VIDEO_RECORD;
+    instance.publishType = PUBLISH_RECORD;
     
     return [instance autorelease];    
 }
@@ -68,12 +68,12 @@
     
     MediaPublishOptions *instance = [MediaPublishOptions new];
     instance.previewPanel = view;
-    instance.publishType = VIDEO_APPEND;
+    instance.publishType = PUBLISH_APPEND;
     
     return [instance autorelease];    
 }
 
-+(id)options:(MediaPublishType)type orientation:(AVCaptureVideoOrientation)orientation resolution:(VideoResolution)resolution view:(UIView *)view {
++(id)options:(MPMediaPublishType)type orientation:(AVCaptureVideoOrientation)orientation resolution:(MPVideoResolution)resolution view:(UIView *)view {
     
     MediaPublishOptions *instance = [MediaPublishOptions new];
     instance.previewPanel = view;
