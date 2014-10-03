@@ -20,8 +20,7 @@
  */
 
 #import <Foundation/Foundation.h>
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-#import "MediaService.h"
+#if TARGET_OS_IPHONE
 #import "IMediaStreamer.h"
 #import "MediaPublisher.h"
 #import "MediaPlayer.h"
@@ -30,18 +29,16 @@
 #import "BroadcastStreamClient.h"
 #import "MediaStreamPlayer.h"
 #import "VideoPlayer.h"
-#else
 #endif
 
 @class MediaPublisher, MediaPlayer, MediaPublishOptions, MediaPlaybackOptions;
 @protocol IMediaStreamerDelegate;
 
 @interface MediaService : NSObject
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#if TARGET_OS_IPHONE
 -(MediaPublisher *)publishStream:(NSString *)name tube:(NSString *)tube
                          options:(MediaPublishOptions *)options responder:(id <IMediaStreamerDelegate>)delegate;
 -(MediaPlayer *)playbackStream:(NSString *)name tube:(NSString *)tube
                        options:(MediaPlaybackOptions *)options responder:(id <IMediaStreamerDelegate>)delegate;
-#else
 #endif
 @end

@@ -20,9 +20,10 @@
  */
 
 #import <Foundation/Foundation.h>
+
+#if TARGET_OS_IPHONE
 #import "IMediaStreamer.h"
 
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 @class MediaPlaybackOptions;
 
 @interface MediaPlayer : NSObject <IMediaStreamer>
@@ -32,8 +33,9 @@
 @property (strong, nonatomic) NSString *streamPath;
 @property (strong, nonatomic) NSString *tubeName;
 @property (strong, nonatomic) NSString *streamName;
+@end
 #else
 @interface MediaPlayer : NSObject
-#endif
 @end
+#endif
 

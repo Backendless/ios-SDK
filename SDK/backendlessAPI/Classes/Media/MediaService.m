@@ -23,7 +23,7 @@
 #import "Backendless.h"
 
 @implementation MediaService
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#if TARGET_OS_IPHONE
 -(MediaPublisher *)publishStream:(NSString *)name tube:(NSString *)tube options:(MediaPublishOptions *)options responder:(id <IMediaStreamerDelegate>)delegate {
     
     [DebLog log:@"MediaService -> publishStream: options = %@", options];
@@ -58,6 +58,5 @@
     
     return stream;
 }
-#else
 #endif
 @end

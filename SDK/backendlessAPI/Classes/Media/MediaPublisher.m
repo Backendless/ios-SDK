@@ -24,8 +24,9 @@
 #import "MediaPublishOptions.h"
 #import "Backendless.h"
 
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#if TARGET_OS_IPHONE
 #import "BroadcastStreamClient.h"
+
 static NSString *OPTIONS_IS_ABSENT = @"Options is absent. You shpuld set 'options' property";
 static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'connect' method";
 
@@ -353,9 +354,11 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
     
     [self streamConnectFailed:sender code:code description:description];
 }
-#else
-@implementation MediaPublisher
-#endif
-
 @end
+
+#else
+
+@implementation MediaPublisher
+@end
+#endif
 

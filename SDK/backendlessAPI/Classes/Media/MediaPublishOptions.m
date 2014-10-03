@@ -24,7 +24,7 @@
 #import "Backendless.h"
 
 @implementation MediaPublishOptions
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#if TARGET_OS_IPHONE
 -(id)init {
 	
     if ( (self=[super init]) ) {
@@ -91,8 +91,6 @@
     return [NSString stringWithFormat:@"%@Live", [backendless mediaServerUrl]];
 #endif
 }
-
-#else
 #endif
 @end
 

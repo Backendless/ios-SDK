@@ -21,6 +21,7 @@
 
 #import <Foundation/Foundation.h>
 
+#if TARGET_OS_IPHONE
 typedef enum  {
     MEDIASTREAM_DISCONNECTED,
     MEDIASTREAM_CONNECTED,
@@ -43,3 +44,4 @@ typedef enum  {
 -(void)streamStateChanged:(id)sender state:(StateMediaStream)state description:(NSString *)description;
 -(void)streamConnectFailed:(id)sender code:(int)code description:(NSString *)description;
 @end
+#endif

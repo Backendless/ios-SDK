@@ -24,7 +24,7 @@
 #import "Backendless.h"
 
 @implementation MediaPlaybackOptions
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#if TARGET_OS_IPHONE
 -(id)init {
 	if ( (self=[super init]) ) {
         _isLive = YES;
@@ -78,7 +78,5 @@
     return url;
 #endif
 }
-
-#else
 #endif
 @end
