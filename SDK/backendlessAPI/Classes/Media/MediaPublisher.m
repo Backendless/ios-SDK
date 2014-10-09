@@ -104,15 +104,6 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
     [_stream setVideoBitrate:bitRate];
 }
 
--(void)setAudioBitrate:(uint)bitRate {
-    
-    if ([self wrongOptions])
-        return;
-   
-    _options.audioBitrate = bitRate;
-    [_stream setAudioBitrate:bitRate];
-}
-
 -(AVCaptureSession *)getCaptureSession {
     return [_stream getCaptureSession];
 }
@@ -229,12 +220,15 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
             return;
     }
     
+#if IS_MEDIA_ENCODER
+    _stream.videoCodecId = _options.videoCodecId;
+    _stream.audioCodecId = _options.audioCodecId;
+#endif
+    
     [_stream setVideoOrientation:_options.orientation];
     
     if (_options.videoBitrate)
         [_stream setVideoBitrate:_options.videoBitrate];
-    if (_options.audioBitrate)
-        [_stream setAudioBitrate:_options.audioBitrate];
     
     _stream.parameters = [self parameters];
     

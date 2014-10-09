@@ -28,6 +28,8 @@
 -(id)init {
 	if ( (self=[super init]) ) {
         _isLive = YES;
+        _isRealTime = NO;
+        _clientBufferMs = 0;
         _orientation = UIImageOrientationRight;
         _previewPanel = nil;
 	}
@@ -73,7 +75,7 @@
 #if OLD_MEDIA_APP
     return [backendless mediaServerUrl];
 #else
-    NSString *url = [NSString stringWithFormat:@"%@%@/_definst_/%@%@/media", [backendless mediaServerUrl], _isLive?@"Live":@"Vod", _isLive?@"":@"flv:", [backendless.appID lowercaseString]];
+    NSString *url = [NSString stringWithFormat:@"%@%@/_definst_", [backendless mediaServerUrl], _isLive?@"Live":@"Vod"];
     [DebLog log:@">>>>>>>>>>>>>>>>>> MediaPlaybackOptions -> getServerURL: %@", url];
     return url;
 #endif

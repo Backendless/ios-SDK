@@ -26,6 +26,8 @@
 @interface MediaPlaybackOptions : NSObject
 
 @property BOOL isLive;
+@property BOOL isRealTime;
+@property uint clientBufferMs;
 @property UIImageOrientation orientation;
 @property (assign, nonatomic) UIImageView *previewPanel;
 

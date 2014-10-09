@@ -34,7 +34,10 @@ typedef enum {
 } MediaStreamContent;
 
 @interface MediaPublishOptions : NSObject
-
+#if IS_MEDIA_ENCODER
+@property MPVideoCodec videoCodecId;
+@property MPAudioCodec audioCodecId;
+#endif
 @property MPMediaPublishType publishType;
 @property AVCaptureVideoOrientation orientation;
 @property MPVideoResolution resolution;

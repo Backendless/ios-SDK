@@ -28,6 +28,10 @@
 -(id)init {
 	
     if ( (self=[super init]) ) {
+#if IS_MEDIA_ENCODER
+        _videoCodecId = MP_VIDEO_CODEC_H264;
+        _audioCodecId = MP_AUDIO_CODEC_AAC;
+#endif
         _publishType = PUBLISH_LIVE;
         _orientation = AVCaptureVideoOrientationLandscapeRight;
         _content = AUDIO_AND_VIDEO;

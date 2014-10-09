@@ -450,13 +450,13 @@
 		D30A5D7319B9CA8200C0BA44 /* Backendless-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Backendless-Bridging-Header.h"; sourceTree = "<group>"; };
 		D30A5D7819B9D03100C0BA44 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
 		D30A5D7B19BA0E8900C0BA44 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
-		D30E66A419DE946D00AE3949 /* Building Media Stream Apps.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Building Media Stream Apps.docx"; sourceTree = "<group>"; };
-		D30E66A519DE946D00AE3949 /* Media Library for iOS User Guide.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Media Library for iOS User Guide.docx"; sourceTree = "<group>"; };
-		D30E66A719DE946D00AE3949 /* BroadcastStreamClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BroadcastStreamClient.h; sourceTree = "<group>"; };
-		D30E66A819DE946D00AE3949 /* MediaStreamPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaStreamPlayer.h; sourceTree = "<group>"; };
-		D30E66A919DE946D00AE3949 /* MPMediaData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPMediaData.h; sourceTree = "<group>"; };
-		D30E66AA19DE946D00AE3949 /* VideoPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoPlayer.h; sourceTree = "<group>"; };
-		D30E66AB19DE946D00AE3949 /* MediaLibiOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = MediaLibiOS.a; sourceTree = "<group>"; };
+		D30E684219E28E0C00AE3949 /* BroadcastStreamClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BroadcastStreamClient.h; sourceTree = "<group>"; };
+		D30E684319E28E0C00AE3949 /* MediaStreamPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaStreamPlayer.h; sourceTree = "<group>"; };
+		D30E684419E28E0C00AE3949 /* MPMediaData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPMediaData.h; sourceTree = "<group>"; };
+		D30E684519E28E0C00AE3949 /* MPMediaDecoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPMediaDecoder.h; sourceTree = "<group>"; };
+		D30E684619E28E0C00AE3949 /* MPMediaEncoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPMediaEncoder.h; sourceTree = "<group>"; };
+		D30E684719E28E0C00AE3949 /* VideoPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoPlayer.h; sourceTree = "<group>"; };
+		D30E684819E28E0C00AE3949 /* MediaLibiOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = MediaLibiOS.a; sourceTree = "<group>"; };
 		D3625CE6197EA248006E5779 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
 		D36CDCA419C6EEEC00C3FFE3 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
 		D36CDCA619C6FBFF00C3FFE3 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
@@ -719,32 +719,24 @@
 			path = 1.18.1;
 			sourceTree = "<group>";
 		};
-		D30E66A219DE946D00AE3949 /* MediaLibiOS */ = {
+		D30E684019E28E0C00AE3949 /* MediaLibiOS3x */ = {
 			isa = PBXGroup;
 			children = (
-				D30E66A319DE946D00AE3949 /* doc */,
-				D30E66A619DE946D00AE3949 /* include */,
-				D30E66AB19DE946D00AE3949 /* MediaLibiOS.a */,
+				D30E684119E28E0C00AE3949 /* include */,
+				D30E684819E28E0C00AE3949 /* MediaLibiOS.a */,
 			);
-			path = MediaLibiOS;
+			path = MediaLibiOS3x;
 			sourceTree = "<group>";
 		};
-		D30E66A319DE946D00AE3949 /* doc */ = {
+		D30E684119E28E0C00AE3949 /* include */ = {
 			isa = PBXGroup;
 			children = (
-				D30E66A419DE946D00AE3949 /* Building Media Stream Apps.docx */,
-				D30E66A519DE946D00AE3949 /* Media Library for iOS User Guide.docx */,
-			);
-			path = doc;
-			sourceTree = "<group>";
-		};
-		D30E66A619DE946D00AE3949 /* include */ = {
-			isa = PBXGroup;
-			children = (
-				D30E66A719DE946D00AE3949 /* BroadcastStreamClient.h */,
-				D30E66A819DE946D00AE3949 /* MediaStreamPlayer.h */,
-				D30E66A919DE946D00AE3949 /* MPMediaData.h */,
-				D30E66AA19DE946D00AE3949 /* VideoPlayer.h */,
+				D30E684219E28E0C00AE3949 /* BroadcastStreamClient.h */,
+				D30E684319E28E0C00AE3949 /* MediaStreamPlayer.h */,
+				D30E684419E28E0C00AE3949 /* MPMediaData.h */,
+				D30E684519E28E0C00AE3949 /* MPMediaDecoder.h */,
+				D30E684619E28E0C00AE3949 /* MPMediaEncoder.h */,
+				D30E684719E28E0C00AE3949 /* VideoPlayer.h */,
 			);
 			path = include;
 			sourceTree = "<group>";
@@ -975,7 +967,7 @@
 		F91B47C415FE380C00012DFC /* lib */ = {
 			isa = PBXGroup;
 			children = (
-				D30E66A219DE946D00AE3949 /* MediaLibiOS */,
+				D30E684019E28E0C00AE3949 /* MediaLibiOS3x */,
 				D3AD804318F01F7600AADCB0 /* backendless */,
 				F9BBFD2818783B740076BC6D /* CommLibiOS */,
 			);
