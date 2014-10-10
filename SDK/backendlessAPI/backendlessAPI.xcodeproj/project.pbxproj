@@ -457,6 +457,7 @@
 		D30E684619E28E0C00AE3949 /* MPMediaEncoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPMediaEncoder.h; sourceTree = "<group>"; };
 		D30E684719E28E0C00AE3949 /* VideoPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoPlayer.h; sourceTree = "<group>"; };
 		D30E684819E28E0C00AE3949 /* MediaLibiOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = MediaLibiOS.a; sourceTree = "<group>"; };
+		D353120E19E8152300895ACC /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
 		D3625CE6197EA248006E5779 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
 		D36CDCA419C6EEEC00C3FFE3 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
 		D36CDCA619C6FBFF00C3FFE3 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
@@ -741,6 +742,14 @@
 			path = include;
 			sourceTree = "<group>";
 		};
+		D353120D19E8152300895ACC /* 2.0.1 */ = {
+			isa = PBXGroup;
+			children = (
+				D353120E19E8152300895ACC /* Backendless-ios-SDK.podspec */,
+			);
+			path = 2.0.1;
+			sourceTree = "<group>";
+		};
 		D3625CE5197EA248006E5779 /* 1.16.1 */ = {
 			isa = PBXGroup;
 			children = (
@@ -826,6 +835,7 @@
 		D3B2F352193511900084D5DD /* Backendless-ios-SDK */ = {
 			isa = PBXGroup;
 			children = (
+				D353120D19E8152300895ACC /* 2.0.1 */,
 				D36CDCA519C6FBFF00C3FFE3 /* 1.19.1 */,
 				D36CDCA319C6EEEC00C3FFE3 /* 1.18.2 */,
 				D30A5D7A19BA0E8900C0BA44 /* 1.18.1 */,
