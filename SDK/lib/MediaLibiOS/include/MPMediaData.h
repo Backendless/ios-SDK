@@ -26,7 +26,6 @@ enum mp_media_channel_id
     COMMAND_CHANNEL_ID = 8,
 };
 
-
 typedef enum mp_media_stream_state MPMediaStreamState;
 enum mp_media_stream_state
 {
