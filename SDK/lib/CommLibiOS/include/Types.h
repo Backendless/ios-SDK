@@ -77,5 +77,6 @@
 -(BOOL)getPropertyIfResolved:(NSString *)name value:(id *)value;
 -(BOOL)resolveProperty:(NSString *)name;
 -(BOOL)resolveProperty:(NSString *)name value:(id)value;
+-(BOOL)resolveProperties:(NSDictionary *)properties;
 @end
 

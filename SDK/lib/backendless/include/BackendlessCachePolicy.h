@@ -20,6 +20,7 @@
  */
 
 #import <Foundation/Foundation.h>
+
 typedef enum
 {
     BackendlessCachePolicyIgnoreCache,

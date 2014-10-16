@@ -30,14 +30,12 @@
 #import "Types.h"
 
 @interface BackendlessCache()
-{
-    
-}
 +(NSString *)filePath;
 -(id)responseHandler:(id)response;
 -(id)responseError:(id)error;
 -(void)prepareToClear:(BackendlessCacheKey *)key;
 @end
+
 @implementation BackendlessCache
 
 +(BackendlessCache *)sharedInstance {

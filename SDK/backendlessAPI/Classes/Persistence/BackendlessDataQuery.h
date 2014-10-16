@@ -26,19 +26,15 @@
 
 @class QueryOptions;
 
-@interface BackendlessDataQuery : AbstractQuery {
-    
-    NSArray     *properties;
-    NSString    *whereClause;
-    QueryOptions *queryOptions;    
-}
+@interface BackendlessDataQuery : NSObject //AbstractQuery
+
 @property (strong, nonatomic) NSArray *properties;
 @property (strong, nonatomic) NSString *whereClause;
 @property (strong, nonatomic) QueryOptions *queryOptions;
 @property (strong, nonatomic) BackendlessCachePolicy *cachePolicy;
 
--(id)init:(NSArray *)_properties where:(NSString *)_whereClause query:(QueryOptions *)_queryOptions;
+-(id)init:(NSArray *)properties where:(NSString *)whereClause query:(QueryOptions *)queryOptions;
 +(BackendlessDataQuery *)query;
-+(BackendlessDataQuery *)query:(NSArray *)_properties where:(NSString *)_whereClause query:(QueryOptions *)_queryOptions;
++(BackendlessDataQuery *)query:(NSArray *)properties where:(NSString *)whereClause query:(QueryOptions *)queryOptions;
 
 @end

@@ -1545,7 +1545,7 @@
 		F9042AFA15FDD8D300C9381A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = BACKENDLESS.COM;
 			};
 			buildConfigurationList = F9042AFD15FDD8D300C9381A /* Build configuration list for PBXProject "backendlessAPI" */;
@@ -1581,7 +1581,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "rm -rf ${BUILT_PRODUCTS_DIR}/backendless.a\n\nlipo -create \"${BUILT_PRODUCTS_DIR}/../Release-iphonesimulator/libbackendless-simulator.a\" \\\n\"${BUILT_PRODUCTS_DIR}/libbackendless-device.a\" -output \\\n\"${BUILT_PRODUCTS_DIR}/backendless.a\"\n\ncp ${BUILT_PRODUCTS_DIR}/backendless.a ${SRCROOT}/../lib/backendless\ncp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../lib/backendless/include\n\ncp ${BUILT_PRODUCTS_DIR}/backendless.a ${SRCROOT}/../../../iOS-Samples/lib/backendless\ncp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../../../iOS-Samples/lib/backendless/include\n \ncp ${BUILT_PRODUCTS_DIR}/backendless.a ${SRCROOT}/../../../Swift-Samples/lib/backendless\ncp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../../../Swift-Samples/lib/backendless/include\n \ncp ${BUILT_PRODUCTS_DIR}/backendless.a ${SRCROOT}/../../../backendless.gitlab/src/client/sdk/ios/lib/backendless\ncp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../../../backendless.gitlab/src/client/sdk/ios/lib/backendless/include\n\n# -------------------------- !!!!! TEMP TESTING COPIES !!!!! --------------------------------\n                                           \ncp ${BUILT_PRODUCTS_DIR}/backendless.a ~/Downloads/Test/lib/backendless\ncp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ~/Downloads/Test/lib/backendless/include\n\n#--------------------------------------------------------------------------------------------\n                                           \nrm -rf ${BUILT_PRODUCTS_DIR}/usr/local/include/*\n";
+			shellScript = "rm -rf ${BUILT_PRODUCTS_DIR}/backendless.a\n\nlipo -create \"${BUILT_PRODUCTS_DIR}/../Release-iphonesimulator/libbackendless-simulator.a\" \\\n\"${BUILT_PRODUCTS_DIR}/libbackendless-device.a\" -output \\\n\"${BUILT_PRODUCTS_DIR}/backendless.a\"\n\ncp ${BUILT_PRODUCTS_DIR}/backendless.a ${SRCROOT}/../lib/backendless\ncp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../lib/backendless/include\n\ncp ${BUILT_PRODUCTS_DIR}/backendless.a ${SRCROOT}/../../../iOS-Samples/lib/backendless\ncp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../../../iOS-Samples/lib/backendless/include\n \ncp ${BUILT_PRODUCTS_DIR}/backendless.a ${SRCROOT}/../../../Swift-Samples/lib/backendless\ncp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../../../Swift-Samples/lib/backendless/include\n \ncp ${BUILT_PRODUCTS_DIR}/backendless.a ~/backendless.gitlab/src/client/sdk/ios/lib/backendless\ncp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ~/backendless.gitlab/src/client/sdk/ios/lib/backendless/include\n\n# -------------------------- !!!!! TEMP TESTING COPIES !!!!! --------------------------------\n                                           \ncp ${BUILT_PRODUCTS_DIR}/backendless.a ~/Downloads/Test/lib/backendless\ncp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ~/Downloads/Test/lib/backendless/include\n\n#--------------------------------------------------------------------------------------------\n                                           \nrm -rf ${BUILT_PRODUCTS_DIR}/usr/local/include/*\n";
 		};
 		F9BBFD27187832A60076BC6D /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1811,6 +1811,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_EMPTY_BODY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COMBINE_HIDPI_IMAGES = YES;
 				DSTROOT = /tmp/backendless_simulator.dst;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1834,6 +1835,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_EMPTY_BODY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COMBINE_HIDPI_IMAGES = YES;
 				DSTROOT = /tmp/backendless_simulator.dst;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1861,9 +1863,11 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1897,9 +1901,11 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

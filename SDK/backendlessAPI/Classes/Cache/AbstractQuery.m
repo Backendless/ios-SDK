@@ -23,8 +23,21 @@
 #import "BackendlessCachePolicy.h"
 
 @implementation AbstractQuery
--(BOOL)isEqualToQuery:(id)query
-{
+
+-(id)init {
+    if ( (self=[super init]) ) {
+        self.cachePolicy = nil;
+    }
+    return self;
+}
+
+-(void)dealloc {
+    [self.cachePolicy release];
+    [super dealloc];
+}
+
+-(BOOL)isEqualToQuery:(id)query {
     return NO;
 }
+
 @end

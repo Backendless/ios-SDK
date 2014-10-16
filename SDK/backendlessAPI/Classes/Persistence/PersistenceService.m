@@ -63,10 +63,11 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 -(NSString *)typeClassName:(Class)entity;
 -(NSString *)objectClassName:(id)object;
 -(NSDictionary *)propertyDictionary:(id)object;
+-(BackendlessCollection *)getAsCollection:(id)data query:(BackendlessDataQuery *)query;
 // callbacks
--(id)setCurrentPageSize:(id)collection;
--(id)loadRelations:(id)response;
--(id)createResponse:(id)response;
+-(id)setCurrentPageSize:(ResponseContext *)collection;
+-(id)loadRelations:(ResponseContext *)response;
+-(id)createResponse:(ResponseContext *)response;
 -(id)failWithOfflineMode:(Fault *)error;
 @end
 
@@ -143,7 +144,6 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 
 -(id)init {
 	if ( (self=[super init]) ) {
-        
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.BackendlessCollection" mapped:[BackendlessCollection class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.ObjectProperty" mapped:[ObjectProperty class]];
 	}
@@ -553,6 +553,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     if (![objectId isKindOfClass:[NSNumber class]])
         return (objectId && [objectId isKindOfClass:[NSString class]]) ? [backendless.persistenceService update:entity] : [backendless.persistenceService create:entity];
 #endif
+    
     NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], [self propertyDictionary:entity]];
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_SAVE args:args];
     if ([result isKindOfClass:[Fault class]]) {
@@ -661,6 +662,9 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self typeClassName:entity], dataQuery, nil];
     id result = [backendlessCache invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args];
+#if 1
+    return [result isKindOfClass:[Fault class]]? result : [self getAsCollection:result query:dataQuery];
+#else
     if (![result isKindOfClass:[Fault class]])
     {
         BackendlessCollection *bc = result;
@@ -670,6 +674,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     }
     else
         return result;
+#endif
 }
 
 -(id)first:(Class)entity {
@@ -920,6 +925,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
         return (objectId && [objectId isKindOfClass:[NSString class]]) ?
             [backendless.persistenceService update:entity responder:responder] : [backendless.persistenceService create:entity responder:responder];
 #endif
+    
     NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], [self propertyDictionary:entity]];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(createResponse:) selErrorHandler:nil];
     _responder.chained = responder;
@@ -1347,7 +1353,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     return metadata;
 }
 
-/*/
+#if 0
 -(void)removeAllSync:(Class)entity {
     
     if (!entity)
@@ -1373,9 +1379,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
         break;
     }    
 }
-/*/ 
 
-/*/
 -(void)removeAllPagesAsync:(BackendlessCollection *)bc {
     
     for (id obj in bc.data) {
@@ -1399,7 +1403,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
          ];
     }
 }
-/*/ 
+#endif
 
 #pragma mark -
 #pragma mark Private Methods
@@ -1414,11 +1418,12 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     return result;
 }
 
-/*/
+#if 0
 void set_meta(id self, SEL _cmd, id value)
 {
     objc_setAssociatedObject(self, @selector(backendlessMeta), value, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
+
 id get_meta(id self, SEL _cmd)
 {
     return objc_getAssociatedObject(self, @selector(backendlessMeta));
@@ -1428,10 +1433,12 @@ void set_object_id(id self, SEL _cmd, id value)
 {
     objc_setAssociatedObject(self, @selector(backendlessObjectId), value, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
+
 id get_object_id(id self, SEL _cmd)
 {
     return objc_getAssociatedObject(self, @selector(backendlessObjectId));
 }
+
 -(BOOL)prepareClass:(Class)className
 {
     Class cl = [className class];
@@ -1451,7 +1458,6 @@ id get_object_id(id self, SEL _cmd)
     return YES;
 }
 
-// 
 -(BOOL)prepareObject:(id)object
 {
     if([self prepareClass:[object class]])
@@ -1463,7 +1469,7 @@ id get_object_id(id self, SEL _cmd)
     }
     return NO;
 }
-/*/
+#endif
 
 #if !OLD_SAVE_METHOD_ON
 -(BOOL)prepareClass:(Class)className {
@@ -1520,17 +1526,34 @@ id get_object_id(id self, SEL _cmd)
     return [Types propertyDictionary:object];
 }
 
+-(BackendlessCollection *)getAsCollection:(id)data query:(BackendlessDataQuery *)query {
+    
+    BackendlessCollection *collection = nil;
+    
+    if ([data isKindOfClass:[BackendlessCollection class]]) {
+        collection = data;
+    }
+    else
+        if ([data isKindOfClass:[NSDictionary class]]) {
+            collection = [[BackendlessCollection new] autorelease];
+            [collection resolveProperties:data];
+        }
+    
+    if (collection) {
+        collection.backendlessQuery = query;
+        [collection pageSize:query.queryOptions.pageSize.integerValue];
+    }
+    
+    [DebLog logN:@"PersistenceService -> getAsCollection: %@ -> \n%@", data, collection];
+    
+    return collection;
+}
+
 #pragma mark -
 #pragma mark Callback Methods
 
--(id)setCurrentPageSize:(id)response {
-    
-    BackendlessDataQuery *dataQuery = ((ResponseContext *)response).context;
-    BackendlessCollection *collection = ((ResponseContext *)response).response;
-    collection.backendlessQuery = dataQuery;
-    [collection pageSize:dataQuery.queryOptions.pageSize.integerValue];
-    
-    return collection;
+-(id)setCurrentPageSize:(ResponseContext *)response {
+    return [self getAsCollection:response.response query:response.context];
 }
 
 -(id)loadRelations:(ResponseContext *)response {

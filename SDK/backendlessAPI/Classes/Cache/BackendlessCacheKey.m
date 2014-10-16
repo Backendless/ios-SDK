@@ -20,8 +20,10 @@
  */
 
 #import "BackendlessCacheKey.h"
+
 @interface BackendlessCacheKey()
 @end
+
 @implementation BackendlessCacheKey
 -(BackendlessCacheKey *)initWithClass:(Class)_class query:(id)query
 {

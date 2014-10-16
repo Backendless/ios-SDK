@@ -21,9 +21,11 @@
 
 #import "BackendlessCacheData.h"
 #import "AMFSerializer.h"
+
 @interface BackendlessCacheData()
 -(NSString *)createFilePath;
 @end
+
 @implementation BackendlessCacheData
 -(id)init
 {
