@@ -277,10 +277,17 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
 #pragma mark -
 #pragma mark IMediaStreamerDelegate Methods
 
+#if SWIFT_ENUM_OFF
 -(void)streamStateChanged:(id)sender state:(MPMediaStreamState)state description:(NSString *)description {
     if ([_delegate respondsToSelector:@selector(streamStateChanged:state:description:)])
         [_delegate streamStateChanged:sender state:state description:description];
 }
+#else
+-(void)streamStateChanged:(id)sender state:(int)state description:(NSString *)description {
+    if ([_delegate respondsToSelector:@selector(streamStateChanged:state:description:)])
+        [_delegate streamStateChanged:sender state:state description:description];
+}
+#endif
 
 -(void)streamConnectFailed:(id)sender code:(int)code description:(NSString *)description {
     if ([_delegate respondsToSelector:@selector(streamConnectFailed:code:description:)])

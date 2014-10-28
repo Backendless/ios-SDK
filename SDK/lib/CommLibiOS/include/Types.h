@@ -73,6 +73,7 @@
 @end
 
 @interface NSObject (Properties)
+-(Class)ofClass;
 -(BOOL)isPropertyResolved:(NSString *)name;
 -(BOOL)getPropertyIfResolved:(NSString *)name value:(id *)value;
 -(BOOL)resolveProperty:(NSString *)name;
