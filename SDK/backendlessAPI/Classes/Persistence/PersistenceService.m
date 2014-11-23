@@ -19,7 +19,7 @@
  *  ********************************************************************************************************************
  */
 
-#define OLD_SAVE_METHOD_ON 1
+#define OLD_SAVE_METHOD_ON 0
 
 #import "PersistenceService.h"
 #import "DEBUG.h"
@@ -549,10 +549,12 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 
 #if OLD_SAVE_METHOD_ON
     id objectId = [self getObjectId:entity];
-    [DebLog logY:@">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> PersistenceService -> save: objectId = %@", [objectId isKindOfClass:[NSNumber class]]?@"NO":objectId];
+    [DebLog log:@">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> PersistenceService -> save: objectId = %@", [objectId isKindOfClass:[NSNumber class]]?@"NO":objectId];
     if (![objectId isKindOfClass:[NSNumber class]])
         return (objectId && [objectId isKindOfClass:[NSString class]]) ? [backendless.persistenceService update:entity] : [backendless.persistenceService create:entity];
 #endif
+    
+    [DebLog log:@"PersistenceService -> save: class = %@, entity = %@", [self objectClassName:entity], [self propertyDictionary:entity]];
     
     NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], [self propertyDictionary:entity]];
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_SAVE args:args];
@@ -596,6 +598,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
         return [backendless throwFault:FAULT_NO_ENTITY];
 
     [DebLog log:@"PersistenceService -> update: class = %@, entity = %@", [self objectClassName:entity], entity];
+    
     NSDictionary *props = [self filteringProperty:entity];
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self objectClassName:entity], props, nil];
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_UPDATE args:args];
@@ -925,6 +928,8 @@ NSString *LOAD_ALL_RELATIONS = @"*";
         return (objectId && [objectId isKindOfClass:[NSString class]]) ?
             [backendless.persistenceService update:entity responder:responder] : [backendless.persistenceService create:entity responder:responder];
 #endif
+    
+    [DebLog log:@"PersistenceService -> save: class = %@, entity = %@", [self objectClassName:entity], [self propertyDictionary:entity]];
     
     NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], [self propertyDictionary:entity]];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(createResponse:) selErrorHandler:nil];
@@ -1523,7 +1528,15 @@ id get_object_id(id self, SEL _cmd)
         
         return data;
     }
+#if 0
     return [Types propertyDictionary:object];
+#else
+    NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:[Types propertyDictionary:object]];
+    [data removeObjectsForKeys:@[@"__meta", @"___class"]];
+    
+    return data;
+    
+#endif
 }
 
 -(BackendlessCollection *)getAsCollection:(id)data query:(BackendlessDataQuery *)query {

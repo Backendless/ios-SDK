@@ -401,6 +401,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 }
 
 // Generates a random string of up to 1000 characters in length. Generates a random length up to 1000 if numCharacters is set to 0
+#if 0
 -(NSString *)randomString:(int)numCharacters {
     
     static char const possibleChars[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -412,6 +413,19 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     
     return [[NSString stringWithCharacters:characters length:len] autorelease];
 }
+#else
+-(NSString *)randomString:(int)numCharacters {
+    static char const possibleChars[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    int len;
+    if(numCharacters > 1000 || numCharacters == 0) len = (int)rand() % (1000);
+    else len = numCharacters;
+    unichar characters[len];
+    for( int i=0; i < len; ++i ) {
+        characters[i] = possibleChars[arc4random_uniform(sizeof(possibleChars)-1)];
+    }
+    return [NSString stringWithCharacters:characters length:len] ;
+}
+#endif
 
 -(NSString *)applicationType {
     return APP_TYPE;
