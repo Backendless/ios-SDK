@@ -46,10 +46,14 @@
 +(NSArray *)propertyAttributes:(id)obj;
 +(NSDictionary *)propertyKeysWithAttributes:(id)obj;
 +(NSDictionary *)propertyDictionary:(id)obj;
-//target/plist options 
+// target/plist options
 +(NSString *)targetName;
 +(NSDictionary *)getInfoPlist;
 +(id)getInfoPlist:(NSString *)key;
+// try catch functionality for swift by wrapping around Objective-C
++(void)try:(void(^)())try catch:(void(^)(id exception))catch finally:(void(^)())finally;
++(void)try:(void(^)())try catch:(void(^)(id exception))catch;
++(void)throwObjectAsException:(id)obj;
 @end
 
 @interface NSDictionary (Class)
