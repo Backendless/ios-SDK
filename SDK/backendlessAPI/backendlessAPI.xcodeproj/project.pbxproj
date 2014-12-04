@@ -182,12 +182,24 @@
 		D36CDDF319C99D5900C3FFE3 /* CustomService.m in Sources */ = {isa = PBXBuildFile; fileRef = D36CDDEF19C99D5900C3FFE3 /* CustomService.m */; };
 		D36CDDF419C99D5900C3FFE3 /* CustomService.m in Sources */ = {isa = PBXBuildFile; fileRef = D36CDDEF19C99D5900C3FFE3 /* CustomService.m */; };
 		D36CDDF519C99D5900C3FFE3 /* CustomService.m in Sources */ = {isa = PBXBuildFile; fileRef = D36CDDEF19C99D5900C3FFE3 /* CustomService.m */; };
+		D36CF3FB1A2F68DA00B6468A /* DataPermission.h in Headers */ = {isa = PBXBuildFile; fileRef = D36CF3F91A2F68DA00B6468A /* DataPermission.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D36CF3FC1A2F68DA00B6468A /* DataPermission.h in Headers */ = {isa = PBXBuildFile; fileRef = D36CF3F91A2F68DA00B6468A /* DataPermission.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D36CF3FD1A2F68DA00B6468A /* DataPermission.h in Headers */ = {isa = PBXBuildFile; fileRef = D36CF3F91A2F68DA00B6468A /* DataPermission.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D36CF3FE1A2F68DA00B6468A /* DataPermission.m in Sources */ = {isa = PBXBuildFile; fileRef = D36CF3FA1A2F68DA00B6468A /* DataPermission.m */; };
+		D36CF3FF1A2F68DA00B6468A /* DataPermission.m in Sources */ = {isa = PBXBuildFile; fileRef = D36CF3FA1A2F68DA00B6468A /* DataPermission.m */; };
+		D36CF4001A2F68DA00B6468A /* DataPermission.m in Sources */ = {isa = PBXBuildFile; fileRef = D36CF3FA1A2F68DA00B6468A /* DataPermission.m */; };
 		D39A468119811D9B006CBD1B /* CacheService.h in Headers */ = {isa = PBXBuildFile; fileRef = D39A467F19811D9B006CBD1B /* CacheService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D39A468219811D9B006CBD1B /* CacheService.h in Headers */ = {isa = PBXBuildFile; fileRef = D39A467F19811D9B006CBD1B /* CacheService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D39A468319811D9B006CBD1B /* CacheService.h in Headers */ = {isa = PBXBuildFile; fileRef = D39A467F19811D9B006CBD1B /* CacheService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D39A468419811D9B006CBD1B /* CacheService.m in Sources */ = {isa = PBXBuildFile; fileRef = D39A468019811D9B006CBD1B /* CacheService.m */; };
 		D39A468519811D9B006CBD1B /* CacheService.m in Sources */ = {isa = PBXBuildFile; fileRef = D39A468019811D9B006CBD1B /* CacheService.m */; };
 		D39A468619811D9B006CBD1B /* CacheService.m in Sources */ = {isa = PBXBuildFile; fileRef = D39A468019811D9B006CBD1B /* CacheService.m */; };
+		D3EA53011A3077C1009C5FE0 /* FilePermission.h in Headers */ = {isa = PBXBuildFile; fileRef = D3EA52FF1A3077C1009C5FE0 /* FilePermission.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3EA53021A3077C1009C5FE0 /* FilePermission.h in Headers */ = {isa = PBXBuildFile; fileRef = D3EA52FF1A3077C1009C5FE0 /* FilePermission.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3EA53031A3077C1009C5FE0 /* FilePermission.h in Headers */ = {isa = PBXBuildFile; fileRef = D3EA52FF1A3077C1009C5FE0 /* FilePermission.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3EA53041A3077C1009C5FE0 /* FilePermission.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EA53001A3077C1009C5FE0 /* FilePermission.m */; };
+		D3EA53051A3077C1009C5FE0 /* FilePermission.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EA53001A3077C1009C5FE0 /* FilePermission.m */; };
+		D3EA53061A3077C1009C5FE0 /* FilePermission.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EA53001A3077C1009C5FE0 /* FilePermission.m */; };
 		D3F8BD99198256AF0009DB40 /* ICacheService.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F8BD98198256AF0009DB40 /* ICacheService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3F8BD9A198256AF0009DB40 /* ICacheService.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F8BD98198256AF0009DB40 /* ICacheService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3F8BD9B198256AF0009DB40 /* ICacheService.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F8BD98198256AF0009DB40 /* ICacheService.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -463,6 +475,8 @@
 		D36CDCA619C6FBFF00C3FFE3 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
 		D36CDDEE19C99D5900C3FFE3 /* CustomService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomService.h; sourceTree = "<group>"; };
 		D36CDDEF19C99D5900C3FFE3 /* CustomService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomService.m; sourceTree = "<group>"; };
+		D36CF3F91A2F68DA00B6468A /* DataPermission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataPermission.h; sourceTree = "<group>"; };
+		D36CF3FA1A2F68DA00B6468A /* DataPermission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataPermission.m; sourceTree = "<group>"; };
 		D39A467F19811D9B006CBD1B /* CacheService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacheService.h; sourceTree = "<group>"; };
 		D39A468019811D9B006CBD1B /* CacheService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheService.m; sourceTree = "<group>"; };
 		D3AD804418F01F7600AADCB0 /* backendless.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = backendless.a; sourceTree = "<group>"; };
@@ -474,6 +488,8 @@
 		D3B2F359193511900084D5DD /* original.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = original.podspec; sourceTree = "<group>"; };
 		D3B2F3DD1936019E0084D5DD /* Create Xcode Backendless Project Using CocoaPods.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Create Xcode Backendless Project Using CocoaPods.docx"; sourceTree = "<group>"; };
 		D3B2F3DE1936019E0084D5DD /* Create Xcode Backendless Project Using CocoaPods.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Create Xcode Backendless Project Using CocoaPods.pdf"; sourceTree = "<group>"; };
+		D3EA52FF1A3077C1009C5FE0 /* FilePermission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilePermission.h; sourceTree = "<group>"; };
+		D3EA53001A3077C1009C5FE0 /* FilePermission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilePermission.m; sourceTree = "<group>"; };
 		D3F8BD98198256AF0009DB40 /* ICacheService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICacheService.h; sourceTree = "<group>"; };
 		D3F8BD9C19825CF80009DB40 /* CacheFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacheFactory.h; sourceTree = "<group>"; };
 		D3F8BD9D19825CF80009DB40 /* CacheFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheFactory.m; sourceTree = "<group>"; };
@@ -1015,6 +1031,8 @@
 			children = (
 				F918412C1638281600D36A61 /* FileService.h */,
 				F918412D1638281600D36A61 /* FileService.m */,
+				D3EA52FF1A3077C1009C5FE0 /* FilePermission.h */,
+				D3EA53001A3077C1009C5FE0 /* FilePermission.m */,
 				F9184132163AB29600D36A61 /* BackendlessFile.h */,
 				F9184133163AB29600D36A61 /* BackendlessFile.m */,
 			);
@@ -1059,6 +1077,8 @@
 			children = (
 				F91B48131602254900012DFC /* PersistenceService.h */,
 				F91B48141602254900012DFC /* PersistenceService.m */,
+				D36CF3F91A2F68DA00B6468A /* DataPermission.h */,
+				D36CF3FA1A2F68DA00B6468A /* DataPermission.m */,
 				F91B481616032EA900012DFC /* ObjectProperty.h */,
 				F91B481716032EA900012DFC /* ObjectProperty.m */,
 				F91B48191603340A00012DFC /* BackendlessEntity.h */,
@@ -1286,6 +1306,8 @@
 				D30A5D7419B9CA8200C0BA44 /* Backendless-Bridging-Header.h in Headers */,
 				D36CDDF019C99D5900C3FFE3 /* CustomService.h in Headers */,
 				91223DCA195AF6AB00F72F48 /* Events.h in Headers */,
+				D3EA53011A3077C1009C5FE0 /* FilePermission.h in Headers */,
+				D36CF3FB1A2F68DA00B6468A /* DataPermission.h in Headers */,
 				F9BBFD6218783B750076BC6D /* IPendingServiceCallback.h in Headers */,
 				91628E3A17FAC79F00ACC36F /* BESubscription.h in Headers */,
 				91628E3B17FAC79F00ACC36F /* Message.h in Headers */,
@@ -1370,6 +1392,8 @@
 				F9BBFD5418783B750076BC6D /* FlashorbBinaryWriter.h in Headers */,
 				F9796A20166CCBFE00595F5E /* FileService.h in Headers */,
 				F9BBFD7518783B750076BC6D /* RTMPClient.h in Headers */,
+				D3EA53021A3077C1009C5FE0 /* FilePermission.h in Headers */,
+				D36CF3FC1A2F68DA00B6468A /* DataPermission.h in Headers */,
 				F9796A21166CCBFE00595F5E /* BackendlessFile.h in Headers */,
 				F9796A22166CCBFE00595F5E /* HashMap.h in Headers */,
 				F994A3F4168DC36B00C1A498 /* MediaPublishOptions.h in Headers */,
@@ -1454,6 +1478,8 @@
 				D30A5D7619B9CA8200C0BA44 /* Backendless-Bridging-Header.h in Headers */,
 				F9796A6C166CD42E00595F5E /* FileService.h in Headers */,
 				F9BBFD7618783B750076BC6D /* RTMPClient.h in Headers */,
+				D36CF3FD1A2F68DA00B6468A /* DataPermission.h in Headers */,
+				D3EA53031A3077C1009C5FE0 /* FilePermission.h in Headers */,
 				F9796A6D166CD42E00595F5E /* BackendlessFile.h in Headers */,
 				F9796A6E166CD42E00595F5E /* HashMap.h in Headers */,
 				F994A3F5168DC36B00C1A498 /* MediaPublishOptions.h in Headers */,
@@ -1605,6 +1631,7 @@
 			files = (
 				91628DF917FAC79F00ACC36F /* Backendless.m in Sources */,
 				D36CDDF319C99D5900C3FFE3 /* CustomService.m in Sources */,
+				D3EA53041A3077C1009C5FE0 /* FilePermission.m in Sources */,
 				91628DFA17FAC79F00ACC36F /* Invoker.m in Sources */,
 				91628DFB17FAC79F00ACC36F /* AbstractProperty.m in Sources */,
 				91628DFC17FAC79F00ACC36F /* UserService.m in Sources */,
@@ -1641,6 +1668,7 @@
 				91628E1517FAC79F00ACC36F /* MediaPublishOptions.m in Sources */,
 				91628E1617FAC79F00ACC36F /* MediaPlaybackOptions.m in Sources */,
 				910117DC180C0CCF008102A7 /* BodyParts.m in Sources */,
+				D36CF3FE1A2F68DA00B6468A /* DataPermission.m in Sources */,
 				91628E1717FAC79F00ACC36F /* MediaService.m in Sources */,
 				91628E1817FAC79F00ACC36F /* MediaPublisher.m in Sources */,
 				91628E1917FAC79F00ACC36F /* MediaPlayer.m in Sources */,
@@ -1689,6 +1717,7 @@
 				91223DCE195AF6AB00F72F48 /* Events.m in Sources */,
 				F9796A00166CCB8200595F5E /* BESubscription.m in Sources */,
 				F9796A01166CCB8200595F5E /* Message.m in Sources */,
+				D36CF3FF1A2F68DA00B6468A /* DataPermission.m in Sources */,
 				F9796A02166CCB8200595F5E /* MessageStatus.m in Sources */,
 				F9796A03166CCB8200595F5E /* FileService.m in Sources */,
 				F9796A04166CCB8200595F5E /* BackendlessFile.m in Sources */,
@@ -1711,6 +1740,7 @@
 				91F139A117D7240A00D1AC4C /* BackendlessCacheData.m in Sources */,
 				91F139A617D7240A00D1AC4C /* BackendlessCacheKey.m in Sources */,
 				91F139AB17D7240A00D1AC4C /* BackendlessCachePolicy.m in Sources */,
+				D3EA53051A3077C1009C5FE0 /* FilePermission.m in Sources */,
 				91F139B417D724C700D1AC4C /* QueryOptions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1749,6 +1779,7 @@
 				91223DCF195AF6AB00F72F48 /* Events.m in Sources */,
 				F9796A4A166CD3DB00595F5E /* BESubscription.m in Sources */,
 				F9796A4B166CD3DB00595F5E /* Message.m in Sources */,
+				D36CF4001A2F68DA00B6468A /* DataPermission.m in Sources */,
 				F9796A4C166CD3DB00595F5E /* MessageStatus.m in Sources */,
 				F9796A4D166CD3DB00595F5E /* FileService.m in Sources */,
 				F9796A4E166CD3DB00595F5E /* BackendlessFile.m in Sources */,
@@ -1771,6 +1802,7 @@
 				91F139A217D7240A00D1AC4C /* BackendlessCacheData.m in Sources */,
 				91F139A717D7240A00D1AC4C /* BackendlessCacheKey.m in Sources */,
 				91F139AC17D7240A00D1AC4C /* BackendlessCachePolicy.m in Sources */,
+				D3EA53061A3077C1009C5FE0 /* FilePermission.m in Sources */,
 				91F139B517D724C700D1AC4C /* QueryOptions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

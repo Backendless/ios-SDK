@@ -20,11 +20,14 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "FilePermission.h"
 
 @class BackendlessFile, Fault;
 @protocol IResponder;
 
 @interface FileService : NSObject
+
+@property (strong, nonatomic, readonly) FilePermission *permissions;
 
 // sync methods with fault return (as exception)
 -(BackendlessFile *)upload:(NSString *)path content:(NSData *)content;

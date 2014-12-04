@@ -20,6 +20,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "DataPermission.h"
 
 #define PERSIST_OBJECT_ID @"objectId"
 #define PERSIST_CLASS(CLASS) [backendless.persistenceService of:[CLASS class]]
@@ -31,6 +32,8 @@ extern NSString *LOAD_ALL_RELATIONS;
 
 
 @interface PersistenceService : NSObject
+
+@property (strong, nonatomic, readonly) DataPermission *permissions;
 
 // sync methods with fault return (as exception)
 -(NSArray *)describe:(NSString *)classCanonicalName;
