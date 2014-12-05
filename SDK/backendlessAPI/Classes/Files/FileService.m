@@ -99,6 +99,8 @@ static NSString *METHOD_SAVE_FILE = @"saveFile";
 -(id)init {
 	if ( (self=[super init]) ) {
         asyncResponses = [NSMutableArray new];
+        
+        _permissions = [FilePermission new];
 	}
 	
 	return self;
@@ -112,6 +114,8 @@ static NSString *METHOD_SAVE_FILE = @"saveFile";
     
     [asyncResponses removeAllObjects];
     [asyncResponses release];
+    
+    [_permissions release];
     
 	[super dealloc];
 }

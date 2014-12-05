@@ -22,6 +22,7 @@
 #define OLD_SAVE_METHOD_ON 0
 
 #import "PersistenceService.h"
+#import <objc/runtime.h>
 #import "DEBUG.h"
 #import "Types.h"
 #import "Responder.h"
@@ -34,7 +35,6 @@
 #import "BackendlessDataQuery.h"
 #import "BackendlessEntity.h"
 #import "DataStoreFactory.h"
-#import <objc/runtime.h>
 #import "BackendlessCache.h"
 #import "OfflineModeManager.h"
 
@@ -146,7 +146,9 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 	if ( (self=[super init]) ) {
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.BackendlessCollection" mapped:[BackendlessCollection class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.ObjectProperty" mapped:[ObjectProperty class]];
-	}
+	
+        _permissions = [DataPermission new];
+    }
 	
 	return self;
 }
@@ -154,6 +156,8 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 -(void)dealloc {
 	
 	[DebLog logN:@"DEALLOC PersistenceService"];
+    
+    [_permissions release];
 	
 	[super dealloc];
 }
@@ -499,7 +503,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 -(NSArray *)describe:(NSString *)classCanonicalName {
     
     if (!classCanonicalName)
-    return [backendless throwFault:FAULT_NO_ENTITY];
+        return [backendless throwFault:FAULT_NO_ENTITY];
     
     [self prepareClass:NSClassFromString(classCanonicalName)];
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, classCanonicalName, nil];
