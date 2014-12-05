@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
+		1C7BB5111A2E09D900D3C2C1 /* backendless-fat-and-copy */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 1C7BB5131A2E09D900D3C2C1 /* Build configuration list for PBXAggregateTarget "backendless-fat-and-copy" */;
+			buildPhases = (
+				1C7BB5121A2E09D900D3C2C1 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = "backendless-fat-and-copy";
+			productName = "backendless-fat";
+		};
 		F9796A6F166CD49A00595F5E /* backendless-fat */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = F9796A70166CD49A00595F5E /* Build configuration list for PBXAggregateTarget "backendless-fat" */;
@@ -21,6 +32,128 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		1C7BB4901A2E092900D3C2C1 /* Backendless.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B47FF15FF569400012DFC /* Backendless.m */; };
+		1C7BB4911A2E092900D3C2C1 /* CustomService.m in Sources */ = {isa = PBXBuildFile; fileRef = D36CDDEF19C99D5900C3FFE3 /* CustomService.m */; };
+		1C7BB4921A2E092900D3C2C1 /* Invoker.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480215FF5AA900012DFC /* Invoker.m */; };
+		1C7BB4931A2E092900D3C2C1 /* AbstractProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D9234160B61AF00AFF3F6 /* AbstractProperty.m */; };
+		1C7BB4941A2E092900D3C2C1 /* UserService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480515FF5AC500012DFC /* UserService.m */; };
+		1C7BB4951A2E092900D3C2C1 /* ISDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A427FA184E23D5005F91DE /* ISDatabase.m */; };
+		1C7BB4961A2E092900D3C2C1 /* BackendlessUser.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480915FF724000012DFC /* BackendlessUser.m */; };
+		1C7BB4971A2E092900D3C2C1 /* OfflineModeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A42806184E2447005F91DE /* OfflineModeManager.m */; };
+		1C7BB4981A2E092900D3C2C1 /* UserProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480C15FF7DEA00012DFC /* UserProperty.m */; };
+		1C7BB4991A2E092900D3C2C1 /* PersistenceService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B48141602254900012DFC /* PersistenceService.m */; };
+		1C7BB49A1A2E092900D3C2C1 /* ObjectProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B481716032EA900012DFC /* ObjectProperty.m */; };
+		1C7BB49B1A2E092900D3C2C1 /* BackendlessEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B481A1603340A00012DFC /* BackendlessEntity.m */; };
+		1C7BB49C1A2E092900D3C2C1 /* BackendlessCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B481D1603378200012DFC /* BackendlessCollection.m */; };
+		1C7BB49D1A2E092900D3C2C1 /* BackendlessDataQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3BF721613175600409FF2 /* BackendlessDataQuery.m */; };
+		1C7BB49E1A2E092900D3C2C1 /* DataStoreFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D92241607240C00AFF3F6 /* DataStoreFactory.m */; };
+		1C7BB49F1A2E092900D3C2C1 /* GeoService.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D923D160B6A7F00AFF3F6 /* GeoService.m */; };
+		1C7BB4A01A2E092900D3C2C1 /* GeoCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D9237160B6A5500AFF3F6 /* GeoCategory.m */; };
+		1C7BB4A11A2E092900D3C2C1 /* Events.m in Sources */ = {isa = PBXBuildFile; fileRef = 91223DC9195AF6AB00F72F48 /* Events.m */; };
+		1C7BB4A21A2E092900D3C2C1 /* AtomicCounters.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FB9B6719867EA500A13FB6 /* AtomicCounters.m */; };
+		1C7BB4A31A2E092900D3C2C1 /* GeoPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D923A160B6A6800AFF3F6 /* GeoPoint.m */; };
+		1C7BB4A41A2E092900D3C2C1 /* BackendlessGeoQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3BF76161486B500409FF2 /* BackendlessGeoQuery.m */; };
+		1C7BB4A51A2E092900D3C2C1 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C058161AB6A500409FF2 /* MessagingService.m */; };
+		1C7BB4A61A2E092900D3C2C1 /* DeviceRegistration.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C068161AB80C00409FF2 /* DeviceRegistration.m */; };
+		1C7BB4A71A2E092900D3C2C1 /* DeliveryOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C05C161AB72100409FF2 /* DeliveryOptions.m */; };
+		1C7BB4A81A2E092900D3C2C1 /* PublishOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C060161AB7AC00409FF2 /* PublishOptions.m */; };
+		1C7BB4A91A2E092900D3C2C1 /* SubscriptionOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C064161AB7D600409FF2 /* SubscriptionOptions.m */; };
+		1C7BB4AA1A2E092900D3C2C1 /* BESubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C082161C595D00409FF2 /* BESubscription.m */; };
+		1C7BB4AB1A2E092900D3C2C1 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C06C161AB82F00409FF2 /* Message.m */; };
+		1C7BB4AC1A2E092900D3C2C1 /* MessageStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C070161AB84100409FF2 /* MessageStatus.m */; };
+		1C7BB4AD1A2E092900D3C2C1 /* FileService.m in Sources */ = {isa = PBXBuildFile; fileRef = F918412D1638281600D36A61 /* FileService.m */; };
+		1C7BB4AE1A2E092900D3C2C1 /* BackendlessFile.m in Sources */ = {isa = PBXBuildFile; fileRef = F9184133163AB29600D36A61 /* BackendlessFile.m */; };
+		1C7BB4AF1A2E092900D3C2C1 /* HashMap.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B47EA15FF448F00012DFC /* HashMap.m */; };
+		1C7BB4B01A2E092900D3C2C1 /* BEReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A4285A18508269005F91DE /* BEReachability.m */; };
+		1C7BB4B11A2E092900D3C2C1 /* backendless_simulator.m in Sources */ = {isa = PBXBuildFile; fileRef = F97969E3166CC8C300595F5E /* backendless_simulator.m */; };
+		1C7BB4B21A2E092900D3C2C1 /* CacheService.m in Sources */ = {isa = PBXBuildFile; fileRef = D39A468019811D9B006CBD1B /* CacheService.m */; };
+		1C7BB4B31A2E092900D3C2C1 /* MediaPublishOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F994A3F3168DC36B00C1A498 /* MediaPublishOptions.m */; };
+		1C7BB4B41A2E092900D3C2C1 /* MediaPlaybackOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F994A3FD168DC39400C1A498 /* MediaPlaybackOptions.m */; };
+		1C7BB4B51A2E092900D3C2C1 /* BodyParts.m in Sources */ = {isa = PBXBuildFile; fileRef = 910117D3180C0CCF008102A7 /* BodyParts.m */; };
+		1C7BB4B61A2E092900D3C2C1 /* MediaService.m in Sources */ = {isa = PBXBuildFile; fileRef = F994A406168DC3BA00C1A498 /* MediaService.m */; };
+		1C7BB4B71A2E092900D3C2C1 /* MediaPublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = F9512966168DCFE90041460C /* MediaPublisher.m */; };
+		1C7BB4B81A2E092900D3C2C1 /* MediaPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F9512970168DCFFF0041460C /* MediaPlayer.m */; };
+		1C7BB4B91A2E092900D3C2C1 /* AbstractQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1398B17D7240A00D1AC4C /* AbstractQuery.m */; };
+		1C7BB4BA1A2E092900D3C2C1 /* AtomicCountersFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FB9B7319867F0E00A13FB6 /* AtomicCountersFactory.m */; };
+		1C7BB4BB1A2E092900D3C2C1 /* BackendlessCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1398D17D7240A00D1AC4C /* BackendlessCache.m */; };
+		1C7BB4BC1A2E092900D3C2C1 /* BackendlessCacheData.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1398F17D7240A00D1AC4C /* BackendlessCacheData.m */; };
+		1C7BB4BD1A2E092900D3C2C1 /* BackendlessCacheKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1399117D7240A00D1AC4C /* BackendlessCacheKey.m */; };
+		1C7BB4BE1A2E092900D3C2C1 /* CacheFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F8BD9D19825CF80009DB40 /* CacheFactory.m */; };
+		1C7BB4BF1A2E092900D3C2C1 /* BackendlessCachePolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1399317D7240A00D1AC4C /* BackendlessCachePolicy.m */; };
+		1C7BB4C01A2E092900D3C2C1 /* QueryOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F139B117D724C600D1AC4C /* QueryOptions.m */; };
+		1C7BB4C31A2E092900D3C2C1 /* RTMPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFD3E18783B740076BC6D /* RTMPClient.h */; };
+		1C7BB4C41A2E092900D3C2C1 /* AtomicCounters.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FB9B6619867EA500A13FB6 /* AtomicCounters.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4C51A2E092900D3C2C1 /* AtomicCountersFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FB9B7219867F0E00A13FB6 /* AtomicCountersFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4C61A2E092900D3C2C1 /* IAtomicCounters.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FB9B7A1986818F00A13FB6 /* IAtomicCounters.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4C71A2E092900D3C2C1 /* Backendless.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B47FE15FF569400012DFC /* Backendless.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4C81A2E092900D3C2C1 /* AbstractProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = F99D9233160B61AF00AFF3F6 /* AbstractProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4C91A2E092900D3C2C1 /* OfflineModeManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 91A42805184E2447005F91DE /* OfflineModeManager.h */; };
+		1C7BB4CA1A2E092900D3C2C1 /* IPersistable.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFD3818783B740076BC6D /* IPersistable.h */; };
+		1C7BB4CB1A2E092900D3C2C1 /* Responder.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFD3D18783B740076BC6D /* Responder.h */; };
+		1C7BB4CC1A2E092900D3C2C1 /* UserService.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B480415FF5AC500012DFC /* UserService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4CD1A2E092900D3C2C1 /* BackendlessUser.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B480815FF724000012DFC /* BackendlessUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4CE1A2E092900D3C2C1 /* BinaryStream.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFD3018783B740076BC6D /* BinaryStream.h */; };
+		1C7BB4CF1A2E092900D3C2C1 /* IClientSharedObjectDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFD3618783B740076BC6D /* IClientSharedObjectDelegate.h */; };
+		1C7BB4D01A2E092900D3C2C1 /* IServiceCall.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFD3A18783B740076BC6D /* IServiceCall.h */; };
+		1C7BB4D11A2E092900D3C2C1 /* BinaryCodec.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFD2F18783B740076BC6D /* BinaryCodec.h */; };
+		1C7BB4D21A2E092900D3C2C1 /* AMFSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFD2E18783B740076BC6D /* AMFSerializer.h */; };
+		1C7BB4D31A2E092900D3C2C1 /* MemoryTicker.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFD3C18783B740076BC6D /* MemoryTicker.h */; };
+		1C7BB4D41A2E092900D3C2C1 /* UserProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B480B15FF7DE900012DFC /* UserProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4D51A2E092900D3C2C1 /* PersistenceService.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B48131602254900012DFC /* PersistenceService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4D61A2E092900D3C2C1 /* ObjectProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B481616032EA900012DFC /* ObjectProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4D71A2E092900D3C2C1 /* BackendlessEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B48191603340A00012DFC /* BackendlessEntity.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4D81A2E092900D3C2C1 /* Types.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFD3F18783B740076BC6D /* Types.h */; };
+		1C7BB4D91A2E092900D3C2C1 /* BackendlessCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B481C1603378200012DFC /* BackendlessCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4DA1A2E092900D3C2C1 /* BackendlessDataQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = F9C3BF711613175600409FF2 /* BackendlessDataQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4DB1A2E092900D3C2C1 /* IDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B48291603649C00012DFC /* IDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4DC1A2E092900D3C2C1 /* ISDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = 91A427F9184E23D5005F91DE /* ISDatabase.h */; };
+		1C7BB4DD1A2E092900D3C2C1 /* DataStoreFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = F99D92231607240B00AFF3F6 /* DataStoreFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4DE1A2E092900D3C2C1 /* GeoService.h in Headers */ = {isa = PBXBuildFile; fileRef = F99D923C160B6A7F00AFF3F6 /* GeoService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4DF1A2E092900D3C2C1 /* GeoCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = F99D9236160B6A5500AFF3F6 /* GeoCategory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4E01A2E092900D3C2C1 /* GeoPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = F99D9239160B6A6800AFF3F6 /* GeoPoint.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4E11A2E092900D3C2C1 /* IClientSharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFD3518783B740076BC6D /* IClientSharedObject.h */; };
+		1C7BB4E21A2E092900D3C2C1 /* BackendlessGeoQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = F9C3BF75161486B500409FF2 /* BackendlessGeoQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4E31A2E092900D3C2C1 /* MessagingService.h in Headers */ = {isa = PBXBuildFile; fileRef = F9C3C057161AB6A500409FF2 /* MessagingService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4E41A2E092900D3C2C1 /* ISharedObjectListener.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFD3B18783B740076BC6D /* ISharedObjectListener.h */; };
+		1C7BB4E51A2E092900D3C2C1 /* DeviceRegistration.h in Headers */ = {isa = PBXBuildFile; fileRef = F9C3C067161AB80C00409FF2 /* DeviceRegistration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4E61A2E092900D3C2C1 /* DeliveryOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = F9C3C05B161AB72100409FF2 /* DeliveryOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4E71A2E092900D3C2C1 /* BEReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 91A4285918508269005F91DE /* BEReachability.h */; };
+		1C7BB4E81A2E092900D3C2C1 /* PublishOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = F9C3C05F161AB7AC00409FF2 /* PublishOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4E91A2E092900D3C2C1 /* CacheFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F8BD9C19825CF80009DB40 /* CacheFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4EA1A2E092900D3C2C1 /* CacheService.h in Headers */ = {isa = PBXBuildFile; fileRef = D39A467F19811D9B006CBD1B /* CacheService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4EB1A2E092900D3C2C1 /* ICacheService.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F8BD98198256AF0009DB40 /* ICacheService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4EC1A2E092900D3C2C1 /* SubscriptionOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = F9C3C063161AB7D600409FF2 /* SubscriptionOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4ED1A2E092900D3C2C1 /* WeborbClient.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFD4018783B740076BC6D /* WeborbClient.h */; };
+		1C7BB4EE1A2E092900D3C2C1 /* Backendless-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = D30A5D7319B9CA8200C0BA44 /* Backendless-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4EF1A2E092900D3C2C1 /* CustomService.h in Headers */ = {isa = PBXBuildFile; fileRef = D36CDDEE19C99D5900C3FFE3 /* CustomService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4F01A2E092900D3C2C1 /* Events.h in Headers */ = {isa = PBXBuildFile; fileRef = 91223DC8195AF6AB00F72F48 /* Events.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4F11A2E092900D3C2C1 /* IPendingServiceCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFD3718783B740076BC6D /* IPendingServiceCallback.h */; };
+		1C7BB4F21A2E092900D3C2C1 /* BESubscription.h in Headers */ = {isa = PBXBuildFile; fileRef = F9C3C081161C595C00409FF2 /* BESubscription.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4F31A2E092900D3C2C1 /* Message.h in Headers */ = {isa = PBXBuildFile; fileRef = F9C3C06B161AB82E00409FF2 /* Message.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4F41A2E092900D3C2C1 /* FlashorbBinaryReader.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFD3218783B740076BC6D /* FlashorbBinaryReader.h */; };
+		1C7BB4F51A2E092900D3C2C1 /* MessageStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = F9C3C06F161AB84100409FF2 /* MessageStatus.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4F61A2E092900D3C2C1 /* FileService.h in Headers */ = {isa = PBXBuildFile; fileRef = F918412C1638281600D36A61 /* FileService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4F71A2E092900D3C2C1 /* BackendlessFile.h in Headers */ = {isa = PBXBuildFile; fileRef = F9184132163AB29600D36A61 /* BackendlessFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4F81A2E092900D3C2C1 /* HashMap.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B47E915FF448F00012DFC /* HashMap.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4F91A2E092900D3C2C1 /* MediaPublishOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = F994A3F2168DC36B00C1A498 /* MediaPublishOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4FA1A2E092900D3C2C1 /* MediaPlaybackOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = F994A3FC168DC39400C1A498 /* MediaPlaybackOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4FB1A2E092900D3C2C1 /* IRTMProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFD3918783B740076BC6D /* IRTMProtocol.h */; };
+		1C7BB4FC1A2E092900D3C2C1 /* MediaService.h in Headers */ = {isa = PBXBuildFile; fileRef = F994A405168DC3BA00C1A498 /* MediaService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4FD1A2E092900D3C2C1 /* MediaPublisher.h in Headers */ = {isa = PBXBuildFile; fileRef = F9512965168DCFE90041460C /* MediaPublisher.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4FE1A2E092900D3C2C1 /* MediaPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = F951296F168DCFFF0041460C /* MediaPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB4FF1A2E092900D3C2C1 /* IMediaStreamer.h in Headers */ = {isa = PBXBuildFile; fileRef = F9512978168DEA210041460C /* IMediaStreamer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB5001A2E092900D3C2C1 /* AbstractQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1398A17D7240A00D1AC4C /* AbstractQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB5011A2E092900D3C2C1 /* IAttributeStore.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFD3418783B740076BC6D /* IAttributeStore.h */; };
+		1C7BB5021A2E092900D3C2C1 /* BackendlessCachePolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1399217D7240A00D1AC4C /* BackendlessCachePolicy.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB5031A2E092900D3C2C1 /* FlashorbBinaryWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFD3318783B740076BC6D /* FlashorbBinaryWriter.h */; };
+		1C7BB5041A2E092900D3C2C1 /* BodyParts.h in Headers */ = {isa = PBXBuildFile; fileRef = 910117D2180C0CCF008102A7 /* BodyParts.h */; };
+		1C7BB5051A2E092900D3C2C1 /* BackendlessCacheProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1399417D7240A00D1AC4C /* BackendlessCacheProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB5061A2E092900D3C2C1 /* QueryOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F139B017D724C600D1AC4C /* QueryOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C7BB5071A2E092900D3C2C1 /* Invoker.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B480115FF5AA900012DFC /* Invoker.h */; settings = {ATTRIBUTES = (); }; };
+		1C7BB5081A2E092900D3C2C1 /* BackendlessCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1398C17D7240A00D1AC4C /* BackendlessCache.h */; };
+		1C7BB5091A2E092900D3C2C1 /* BackendlessCacheData.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1398E17D7240A00D1AC4C /* BackendlessCacheData.h */; };
+		1C7BB50A1A2E092900D3C2C1 /* BackendlessCacheKey.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1399017D7240A00D1AC4C /* BackendlessCacheKey.h */; };
+		1C7BB50B1A2E092900D3C2C1 /* DEBUG.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFD3118783B740076BC6D /* DEBUG.h */; };
 		910117D4180C0CCF008102A7 /* BodyParts.h in Headers */ = {isa = PBXBuildFile; fileRef = 910117D2180C0CCF008102A7 /* BodyParts.h */; };
 		910117D5180C0CCF008102A7 /* BodyParts.h in Headers */ = {isa = PBXBuildFile; fileRef = 910117D2180C0CCF008102A7 /* BodyParts.h */; };
 		910117D6180C0CCF008102A7 /* BodyParts.h in Headers */ = {isa = PBXBuildFile; fileRef = 910117D2180C0CCF008102A7 /* BodyParts.h */; };
@@ -406,6 +539,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C7BB5101A2E092900D3C2C1 /* libbackendless-mac copy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libbackendless-mac copy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		618596321859CA5900529492 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		910117D2180C0CCF008102A7 /* BodyParts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BodyParts.h; sourceTree = "<group>"; };
 		910117D3180C0CCF008102A7 /* BodyParts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BodyParts.m; sourceTree = "<group>"; };
@@ -605,6 +739,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1C7BB4C11A2E092900D3C2C1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		91628E2017FAC79F00ACC36F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -916,6 +1057,7 @@
 				F97969DC166CC8C300595F5E /* libbackendless-simulator.a */,
 				F9796A28166CD3A400595F5E /* libbackendless-device.a */,
 				91628E5417FAC79F00ACC36F /* libbackendless-mac.a */,
+				1C7BB5101A2E092900D3C2C1 /* libbackendless-mac copy.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1236,6 +1378,86 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		1C7BB4C21A2E092900D3C2C1 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1C7BB4C31A2E092900D3C2C1 /* RTMPClient.h in Headers */,
+				1C7BB4C41A2E092900D3C2C1 /* AtomicCounters.h in Headers */,
+				1C7BB4C51A2E092900D3C2C1 /* AtomicCountersFactory.h in Headers */,
+				1C7BB4C61A2E092900D3C2C1 /* IAtomicCounters.h in Headers */,
+				1C7BB4C71A2E092900D3C2C1 /* Backendless.h in Headers */,
+				1C7BB4C81A2E092900D3C2C1 /* AbstractProperty.h in Headers */,
+				1C7BB4C91A2E092900D3C2C1 /* OfflineModeManager.h in Headers */,
+				1C7BB4CA1A2E092900D3C2C1 /* IPersistable.h in Headers */,
+				1C7BB4CB1A2E092900D3C2C1 /* Responder.h in Headers */,
+				1C7BB4CC1A2E092900D3C2C1 /* UserService.h in Headers */,
+				1C7BB4CD1A2E092900D3C2C1 /* BackendlessUser.h in Headers */,
+				1C7BB4CE1A2E092900D3C2C1 /* BinaryStream.h in Headers */,
+				1C7BB4CF1A2E092900D3C2C1 /* IClientSharedObjectDelegate.h in Headers */,
+				1C7BB4D01A2E092900D3C2C1 /* IServiceCall.h in Headers */,
+				1C7BB4D11A2E092900D3C2C1 /* BinaryCodec.h in Headers */,
+				1C7BB4D21A2E092900D3C2C1 /* AMFSerializer.h in Headers */,
+				1C7BB4D31A2E092900D3C2C1 /* MemoryTicker.h in Headers */,
+				1C7BB4D41A2E092900D3C2C1 /* UserProperty.h in Headers */,
+				1C7BB4D51A2E092900D3C2C1 /* PersistenceService.h in Headers */,
+				1C7BB4D61A2E092900D3C2C1 /* ObjectProperty.h in Headers */,
+				1C7BB4D71A2E092900D3C2C1 /* BackendlessEntity.h in Headers */,
+				1C7BB4D81A2E092900D3C2C1 /* Types.h in Headers */,
+				1C7BB4D91A2E092900D3C2C1 /* BackendlessCollection.h in Headers */,
+				1C7BB4DA1A2E092900D3C2C1 /* BackendlessDataQuery.h in Headers */,
+				1C7BB4DB1A2E092900D3C2C1 /* IDataStore.h in Headers */,
+				1C7BB4DC1A2E092900D3C2C1 /* ISDatabase.h in Headers */,
+				1C7BB4DD1A2E092900D3C2C1 /* DataStoreFactory.h in Headers */,
+				1C7BB4DE1A2E092900D3C2C1 /* GeoService.h in Headers */,
+				1C7BB4DF1A2E092900D3C2C1 /* GeoCategory.h in Headers */,
+				1C7BB4E01A2E092900D3C2C1 /* GeoPoint.h in Headers */,
+				1C7BB4E11A2E092900D3C2C1 /* IClientSharedObject.h in Headers */,
+				1C7BB4E21A2E092900D3C2C1 /* BackendlessGeoQuery.h in Headers */,
+				1C7BB4E31A2E092900D3C2C1 /* MessagingService.h in Headers */,
+				1C7BB4E41A2E092900D3C2C1 /* ISharedObjectListener.h in Headers */,
+				1C7BB4E51A2E092900D3C2C1 /* DeviceRegistration.h in Headers */,
+				1C7BB4E61A2E092900D3C2C1 /* DeliveryOptions.h in Headers */,
+				1C7BB4E71A2E092900D3C2C1 /* BEReachability.h in Headers */,
+				1C7BB4E81A2E092900D3C2C1 /* PublishOptions.h in Headers */,
+				1C7BB4E91A2E092900D3C2C1 /* CacheFactory.h in Headers */,
+				1C7BB4EA1A2E092900D3C2C1 /* CacheService.h in Headers */,
+				1C7BB4EB1A2E092900D3C2C1 /* ICacheService.h in Headers */,
+				1C7BB4EC1A2E092900D3C2C1 /* SubscriptionOptions.h in Headers */,
+				1C7BB4ED1A2E092900D3C2C1 /* WeborbClient.h in Headers */,
+				1C7BB4EE1A2E092900D3C2C1 /* Backendless-Bridging-Header.h in Headers */,
+				1C7BB4EF1A2E092900D3C2C1 /* CustomService.h in Headers */,
+				1C7BB4F01A2E092900D3C2C1 /* Events.h in Headers */,
+				1C7BB4F11A2E092900D3C2C1 /* IPendingServiceCallback.h in Headers */,
+				1C7BB4F21A2E092900D3C2C1 /* BESubscription.h in Headers */,
+				1C7BB4F31A2E092900D3C2C1 /* Message.h in Headers */,
+				1C7BB4F41A2E092900D3C2C1 /* FlashorbBinaryReader.h in Headers */,
+				1C7BB4F51A2E092900D3C2C1 /* MessageStatus.h in Headers */,
+				1C7BB4F61A2E092900D3C2C1 /* FileService.h in Headers */,
+				1C7BB4F71A2E092900D3C2C1 /* BackendlessFile.h in Headers */,
+				1C7BB4F81A2E092900D3C2C1 /* HashMap.h in Headers */,
+				1C7BB4F91A2E092900D3C2C1 /* MediaPublishOptions.h in Headers */,
+				1C7BB4FA1A2E092900D3C2C1 /* MediaPlaybackOptions.h in Headers */,
+				1C7BB4FB1A2E092900D3C2C1 /* IRTMProtocol.h in Headers */,
+				1C7BB4FC1A2E092900D3C2C1 /* MediaService.h in Headers */,
+				1C7BB4FD1A2E092900D3C2C1 /* MediaPublisher.h in Headers */,
+				1C7BB4FE1A2E092900D3C2C1 /* MediaPlayer.h in Headers */,
+				1C7BB4FF1A2E092900D3C2C1 /* IMediaStreamer.h in Headers */,
+				1C7BB5001A2E092900D3C2C1 /* AbstractQuery.h in Headers */,
+				1C7BB5011A2E092900D3C2C1 /* IAttributeStore.h in Headers */,
+				1C7BB5021A2E092900D3C2C1 /* BackendlessCachePolicy.h in Headers */,
+				1C7BB5031A2E092900D3C2C1 /* FlashorbBinaryWriter.h in Headers */,
+				1C7BB5041A2E092900D3C2C1 /* BodyParts.h in Headers */,
+				1C7BB5051A2E092900D3C2C1 /* BackendlessCacheProtocol.h in Headers */,
+				1C7BB5061A2E092900D3C2C1 /* QueryOptions.h in Headers */,
+				1C7BB5071A2E092900D3C2C1 /* Invoker.h in Headers */,
+				1C7BB5081A2E092900D3C2C1 /* BackendlessCache.h in Headers */,
+				1C7BB5091A2E092900D3C2C1 /* BackendlessCacheData.h in Headers */,
+				1C7BB50A1A2E092900D3C2C1 /* BackendlessCacheKey.h in Headers */,
+				1C7BB50B1A2E092900D3C2C1 /* DEBUG.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		91628E2417FAC79F00ACC36F /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -1487,9 +1709,27 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		91628DF717FAC79F00ACC36F /* backendless-mac */ = {
+		1C7BB48E1A2E092900D3C2C1 /* backendless-mac */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 91628E5117FAC79F00ACC36F /* Build configuration list for PBXNativeTarget "backendless-mac" */;
+			buildConfigurationList = 1C7BB50D1A2E092900D3C2C1 /* Build configuration list for PBXNativeTarget "backendless-mac" */;
+			buildPhases = (
+				1C7BB48F1A2E092900D3C2C1 /* Sources */,
+				1C7BB4C11A2E092900D3C2C1 /* Frameworks */,
+				1C7BB4C21A2E092900D3C2C1 /* Headers */,
+				1C7BB5161A319F4200D3C2C1 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "backendless-mac";
+			productName = "backendless-simulator";
+			productReference = 1C7BB5101A2E092900D3C2C1 /* libbackendless-mac copy.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		91628DF717FAC79F00ACC36F /* backendless-mac-and-copy */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 91628E5117FAC79F00ACC36F /* Build configuration list for PBXNativeTarget "backendless-mac-and-copy" */;
 			buildPhases = (
 				91628DF817FAC79F00ACC36F /* Sources */,
 				91628E2017FAC79F00ACC36F /* Frameworks */,
@@ -1500,7 +1740,7 @@
 			);
 			dependencies = (
 			);
-			name = "backendless-mac";
+			name = "backendless-mac-and-copy";
 			productName = "backendless-simulator";
 			productReference = 91628E5417FAC79F00ACC36F /* libbackendless-mac.a */;
 			productType = "com.apple.product-type.library.static";
@@ -1512,6 +1752,7 @@
 				F97969D8166CC8C300595F5E /* Sources */,
 				F97969D9166CC8C300595F5E /* Frameworks */,
 				F97969E9166CC94900595F5E /* Headers */,
+				1C7BB5171A31B9A700D3C2C1 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1561,16 +1802,18 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				91628DF717FAC79F00ACC36F /* backendless-mac */,
+				1C7BB48E1A2E092900D3C2C1 /* backendless-mac */,
+				91628DF717FAC79F00ACC36F /* backendless-mac-and-copy */,
 				F97969DB166CC8C300595F5E /* backendless-simulator */,
 				F9796A27166CD3A400595F5E /* backendless-device */,
 				F9796A6F166CD49A00595F5E /* backendless-fat */,
+				1C7BB5111A2E09D900D3C2C1 /* backendless-fat-and-copy */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		F9796A73166CD4F800595F5E /* ShellScript */ = {
+		1C7BB5121A2E09D900D3C2C1 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1582,6 +1825,45 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "rm -rf ${BUILT_PRODUCTS_DIR}/backendless.a\n\nlipo -create \"${BUILT_PRODUCTS_DIR}/../Release-iphonesimulator/libbackendless-simulator.a\" \\\n\"${BUILT_PRODUCTS_DIR}/libbackendless-device.a\" -output \\\n\"${BUILT_PRODUCTS_DIR}/backendless.a\"\n\ncp ${BUILT_PRODUCTS_DIR}/backendless.a ${SRCROOT}/../lib/backendless\ncp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../lib/backendless/include\n\ncp ${BUILT_PRODUCTS_DIR}/backendless.a ${SRCROOT}/../../../iOS-Samples/lib/backendless\ncp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../../../iOS-Samples/lib/backendless/include\n \ncp ${BUILT_PRODUCTS_DIR}/backendless.a ${SRCROOT}/../../../Swift-Samples/lib/backendless\ncp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../../../Swift-Samples/lib/backendless/include\n                                           \ncp ${BUILT_PRODUCTS_DIR}/backendless.a ${SRCROOT}/../../../Tests/TCTestSDK/lib/backendless\ncp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../../../Tests/TCTestSDK/lib/backendless/include\n\ncp ${BUILT_PRODUCTS_DIR}/backendless.a ~/backendless.gitlab/src/client/tests/ios/TCTestSDK/lib/backendless\ncp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ~/backendless.gitlab/src/client/tests/ios/TCTestSDK/lib/backendless/include\n\n# -------------------------- !!!!! TEMP TESTING COPIES !!!!! --------------------------------\n                                           \ncp ${BUILT_PRODUCTS_DIR}/backendless.a ~/Downloads/Test/lib/backendless\ncp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ~/Downloads/Test/lib/backendless/include\n                                           \n#cp ${BUILT_PRODUCTS_DIR}/CommLibiOS.a ~/Downloads/BackendlessSDK_iOS+OSX/lib/backendless\n#cp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ~/Downloads/BackendlessSDK_iOS+OSX/lib/backendless/include\n\n#--------------------------------------------------------------------------------------------\n                                           \nrm -rf ${BUILT_PRODUCTS_DIR}/usr/local/include/*\n";
+		};
+		1C7BB5161A319F4200D3C2C1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cp ${BUILT_PRODUCTS_DIR}/libbackendless-mac.a ${SRCROOT}/../lib/backendless\ncp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../lib/backendless/include";
+		};
+		1C7BB5171A31B9A700D3C2C1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cp ${BUILT_PRODUCTS_DIR}/libbackendless-simulator.a ${SRCROOT}/../lib/backendless\ncp ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../lib/backendless/include-simulator";
+		};
+		F9796A73166CD4F800595F5E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "rm -rf ${BUILT_PRODUCTS_DIR}/backendless.a\n\nlipo -create \"${BUILT_PRODUCTS_DIR}/../Release-iphonesimulator/libbackendless-simulator.a\" \\\n\"${BUILT_PRODUCTS_DIR}/libbackendless-device.a\" -output \\\n\"${BUILT_PRODUCTS_DIR}/backendless.a\"\n";
 		};
 		F9BBFD27187832A60076BC6D /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1599,6 +1881,62 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1C7BB48F1A2E092900D3C2C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1C7BB4901A2E092900D3C2C1 /* Backendless.m in Sources */,
+				1C7BB4911A2E092900D3C2C1 /* CustomService.m in Sources */,
+				1C7BB4921A2E092900D3C2C1 /* Invoker.m in Sources */,
+				1C7BB4931A2E092900D3C2C1 /* AbstractProperty.m in Sources */,
+				1C7BB4941A2E092900D3C2C1 /* UserService.m in Sources */,
+				1C7BB4951A2E092900D3C2C1 /* ISDatabase.m in Sources */,
+				1C7BB4961A2E092900D3C2C1 /* BackendlessUser.m in Sources */,
+				1C7BB4971A2E092900D3C2C1 /* OfflineModeManager.m in Sources */,
+				1C7BB4981A2E092900D3C2C1 /* UserProperty.m in Sources */,
+				1C7BB4991A2E092900D3C2C1 /* PersistenceService.m in Sources */,
+				1C7BB49A1A2E092900D3C2C1 /* ObjectProperty.m in Sources */,
+				1C7BB49B1A2E092900D3C2C1 /* BackendlessEntity.m in Sources */,
+				1C7BB49C1A2E092900D3C2C1 /* BackendlessCollection.m in Sources */,
+				1C7BB49D1A2E092900D3C2C1 /* BackendlessDataQuery.m in Sources */,
+				1C7BB49E1A2E092900D3C2C1 /* DataStoreFactory.m in Sources */,
+				1C7BB49F1A2E092900D3C2C1 /* GeoService.m in Sources */,
+				1C7BB4A01A2E092900D3C2C1 /* GeoCategory.m in Sources */,
+				1C7BB4A11A2E092900D3C2C1 /* Events.m in Sources */,
+				1C7BB4A21A2E092900D3C2C1 /* AtomicCounters.m in Sources */,
+				1C7BB4A31A2E092900D3C2C1 /* GeoPoint.m in Sources */,
+				1C7BB4A41A2E092900D3C2C1 /* BackendlessGeoQuery.m in Sources */,
+				1C7BB4A51A2E092900D3C2C1 /* MessagingService.m in Sources */,
+				1C7BB4A61A2E092900D3C2C1 /* DeviceRegistration.m in Sources */,
+				1C7BB4A71A2E092900D3C2C1 /* DeliveryOptions.m in Sources */,
+				1C7BB4A81A2E092900D3C2C1 /* PublishOptions.m in Sources */,
+				1C7BB4A91A2E092900D3C2C1 /* SubscriptionOptions.m in Sources */,
+				1C7BB4AA1A2E092900D3C2C1 /* BESubscription.m in Sources */,
+				1C7BB4AB1A2E092900D3C2C1 /* Message.m in Sources */,
+				1C7BB4AC1A2E092900D3C2C1 /* MessageStatus.m in Sources */,
+				1C7BB4AD1A2E092900D3C2C1 /* FileService.m in Sources */,
+				1C7BB4AE1A2E092900D3C2C1 /* BackendlessFile.m in Sources */,
+				1C7BB4AF1A2E092900D3C2C1 /* HashMap.m in Sources */,
+				1C7BB4B01A2E092900D3C2C1 /* BEReachability.m in Sources */,
+				1C7BB4B11A2E092900D3C2C1 /* backendless_simulator.m in Sources */,
+				1C7BB4B21A2E092900D3C2C1 /* CacheService.m in Sources */,
+				1C7BB4B31A2E092900D3C2C1 /* MediaPublishOptions.m in Sources */,
+				1C7BB4B41A2E092900D3C2C1 /* MediaPlaybackOptions.m in Sources */,
+				1C7BB4B51A2E092900D3C2C1 /* BodyParts.m in Sources */,
+				1C7BB4B61A2E092900D3C2C1 /* MediaService.m in Sources */,
+				1C7BB4B71A2E092900D3C2C1 /* MediaPublisher.m in Sources */,
+				1C7BB4B81A2E092900D3C2C1 /* MediaPlayer.m in Sources */,
+				1C7BB4B91A2E092900D3C2C1 /* AbstractQuery.m in Sources */,
+				1C7BB4BA1A2E092900D3C2C1 /* AtomicCountersFactory.m in Sources */,
+				1C7BB4BB1A2E092900D3C2C1 /* BackendlessCache.m in Sources */,
+				1C7BB4BC1A2E092900D3C2C1 /* BackendlessCacheData.m in Sources */,
+				1C7BB4BD1A2E092900D3C2C1 /* BackendlessCacheKey.m in Sources */,
+				1C7BB4BE1A2E092900D3C2C1 /* CacheFactory.m in Sources */,
+				1C7BB4BF1A2E092900D3C2C1 /* BackendlessCachePolicy.m in Sources */,
+				1C7BB4C01A2E092900D3C2C1 /* QueryOptions.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		91628DF817FAC79F00ACC36F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1805,6 +2143,76 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		1C7BB50E1A2E092900D3C2C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				DSTROOT = /tmp/backendless_simulator.dst;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "backendless-simulator/backendless-simulator-Prefix.pch";
+				HEADER_SEARCH_PATHS = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = "";
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "backendless-mac";
+				PROVISIONING_PROFILE = "";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VALID_ARCHS = "x86_64 i386";
+			};
+			name = Debug;
+		};
+		1C7BB50F1A2E092900D3C2C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				DSTROOT = /tmp/backendless_simulator.dst;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "backendless-simulator/backendless-simulator-Prefix.pch";
+				HEADER_SEARCH_PATHS = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = "";
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "backendless-mac";
+				PROVISIONING_PROFILE = "";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VALID_ARCHS = "x86_64 i386";
+			};
+			name = Release;
+		};
+		1C7BB5141A2E09D900D3C2C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				PRODUCT_NAME = "backendless-fat copy";
+				PROVISIONING_PROFILE = "";
+				VALID_ARCHS = "i386 x86_64 armv7 armv7s arm64";
+			};
+			name = Debug;
+		};
+		1C7BB5151A2E09D900D3C2C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				PRODUCT_NAME = "backendless-fat copy";
+				PROVISIONING_PROFILE = "";
+				VALID_ARCHS = "i386 x86_64 armv7 armv7s arm64";
+			};
+			name = Release;
+		};
 		91628E5217FAC79F00ACC36F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2048,7 +2456,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		91628E5117FAC79F00ACC36F /* Build configuration list for PBXNativeTarget "backendless-mac" */ = {
+		1C7BB50D1A2E092900D3C2C1 /* Build configuration list for PBXNativeTarget "backendless-mac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1C7BB50E1A2E092900D3C2C1 /* Debug */,
+				1C7BB50F1A2E092900D3C2C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1C7BB5131A2E09D900D3C2C1 /* Build configuration list for PBXAggregateTarget "backendless-fat-and-copy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1C7BB5141A2E09D900D3C2C1 /* Debug */,
+				1C7BB5151A2E09D900D3C2C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		91628E5117FAC79F00ACC36F /* Build configuration list for PBXNativeTarget "backendless-mac-and-copy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				91628E5217FAC79F00ACC36F /* Debug */,
