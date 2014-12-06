@@ -551,7 +551,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1C7BB5101A2E092900D3C2C1 /* libbackendless-mac copy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libbackendless-mac copy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1C7BB5101A2E092900D3C2C1 /* libbackendless-mac copy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libbackendless-mac copy.a"; path = "libbackendless-mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		618596321859CA5900529492 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		910117D2180C0CCF008102A7 /* BodyParts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BodyParts.h; sourceTree = "<group>"; };
 		910117D3180C0CCF008102A7 /* BodyParts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BodyParts.m; sourceTree = "<group>"; };
@@ -1828,12 +1828,12 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1C7BB48E1A2E092900D3C2C1 /* backendless-mac */,
 				91628DF717FAC79F00ACC36F /* backendless-mac-and-copy */,
 				F97969DB166CC8C300595F5E /* backendless-simulator */,
 				F9796A27166CD3A400595F5E /* backendless-device */,
-				F9796A6F166CD49A00595F5E /* backendless-fat */,
 				1C7BB5111A2E09D900D3C2C1 /* backendless-fat-and-copy */,
+				1C7BB48E1A2E092900D3C2C1 /* backendless-mac */,
+				F9796A6F166CD49A00595F5E /* backendless-fat */,
 			);
 		};
 /* End PBXProject section */
