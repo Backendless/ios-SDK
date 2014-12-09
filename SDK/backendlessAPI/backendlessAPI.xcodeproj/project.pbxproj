@@ -1877,7 +1877,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cp ${BUILT_PRODUCTS_DIR}/libbackendless-simulator.a ${SRCROOT}/../buildtc";
+			shellScript = "cp ${BUILT_PRODUCTS_DIR}/libbackendless-simulator.a ${SRCROOT}/../buildtc\ncp -f ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../buildtc/include";
 		};
 		1C7BB5191A3306A900D3C2C1 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1890,7 +1890,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cp ${BUILT_PRODUCTS_DIR}/libbackendless-device.a ${SRCROOT}/../buildtc";
+			shellScript = "cp ${BUILT_PRODUCTS_DIR}/libbackendless-device.a ${SRCROOT}/../buildtc\ncp -f ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../buildtc/include";
 		};
 		F9796A73166CD4F800595F5E /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
