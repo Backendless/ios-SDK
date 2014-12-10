@@ -1829,12 +1829,12 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				F9796A6F166CD49A00595F5E /* backendless-fat */,
+				1C7BB48E1A2E092900D3C2C1 /* backendless-mac */,
 				91628DF717FAC79F00ACC36F /* backendless-mac-and-copy */,
 				F97969DB166CC8C300595F5E /* backendless-simulator */,
 				F9796A27166CD3A400595F5E /* backendless-device */,
 				1C7BB5111A2E09D900D3C2C1 /* backendless-fat-and-copy */,
-				1C7BB48E1A2E092900D3C2C1 /* backendless-mac */,
-				F9796A6F166CD49A00595F5E /* backendless-fat */,
 			);
 		};
 /* End PBXProject section */
