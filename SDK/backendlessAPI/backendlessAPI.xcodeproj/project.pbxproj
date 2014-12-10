@@ -551,7 +551,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1C7BB5101A2E092900D3C2C1 /* libbackendless-mac copy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libbackendless-mac copy.a"; path = "libbackendless-mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1C7BB5101A2E092900D3C2C1 /* libbackendless-mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libbackendless-mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		618596321859CA5900529492 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		910117D2180C0CCF008102A7 /* BodyParts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BodyParts.h; sourceTree = "<group>"; };
 		910117D3180C0CCF008102A7 /* BodyParts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BodyParts.m; sourceTree = "<group>"; };
@@ -1073,7 +1073,7 @@
 				F97969DC166CC8C300595F5E /* libbackendless-simulator.a */,
 				F9796A28166CD3A400595F5E /* libbackendless-device.a */,
 				91628E5417FAC79F00ACC36F /* libbackendless-mac.a */,
-				1C7BB5101A2E092900D3C2C1 /* libbackendless-mac copy.a */,
+				1C7BB5101A2E092900D3C2C1 /* libbackendless-mac.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1750,7 +1750,7 @@
 			);
 			name = "backendless-mac";
 			productName = "backendless-simulator";
-			productReference = 1C7BB5101A2E092900D3C2C1 /* libbackendless-mac copy.a */;
+			productReference = 1C7BB5101A2E092900D3C2C1 /* libbackendless-mac.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		91628DF717FAC79F00ACC36F /* backendless-mac-and-copy */ = {
