@@ -18,6 +18,17 @@
 			name = "backendless-fat-and-copy";
 			productName = "backendless-fat";
 		};
+		D3CF37DF1A38643F0070B746 /* backendless-tc-fat */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = D3CF37E11A38643F0070B746 /* Build configuration list for PBXAggregateTarget "backendless-tc-fat" */;
+			buildPhases = (
+				D3CF37E01A38643F0070B746 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = "backendless-tc-fat";
+			productName = "backendless-fat";
+		};
 		F9796A6F166CD49A00595F5E /* backendless-fat */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = F9796A70166CD49A00595F5E /* Build configuration list for PBXAggregateTarget "backendless-fat" */;
@@ -1835,6 +1846,7 @@
 				F97969DB166CC8C300595F5E /* backendless-simulator */,
 				F9796A27166CD3A400595F5E /* backendless-device */,
 				1C7BB5111A2E09D900D3C2C1 /* backendless-fat-and-copy */,
+				D3CF37DF1A38643F0070B746 /* backendless-tc-fat */,
 			);
 		};
 /* End PBXProject section */
@@ -1891,6 +1903,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "cp ${BUILT_PRODUCTS_DIR}/libbackendless-device.a ${SRCROOT}/../buildtc\ncp -f ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../buildtc/include";
+		};
+		D3CF37E01A38643F0070B746 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "rm -rf ${SRCROOT}/../buildtc\nmkdir ${SRCROOT}/../buildtc\nmkdir ${SRCROOT}/../buildtc/include\n\n/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-mac TEST_AFTER_BUILD=NO clean build -arch x86_64\n/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-simulator TEST_AFTER_BUILD=NO clean build VALID_ARCHS=\"x86_64\" ARCHS=\"x86_64\"\n/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-device TEST_AFTER_BUILD=NO clean build VALID_ARCHS=\"armv7 armv7s arm64\" ARCHS=\"armv7 armv7s arm64\" TARGETED_DEVICE_FAMILY=\"1, 2\" ONLY_ACTIVE_ARCH=NO -configuration Release -sdk iphoneos\n\nlipo -create \"${SRCROOT}/../buildtc/libbackendless-simulator.a\" \\\n\"${SRCROOT}/../buildtc/libbackendless-device.a\" -output \\\n\"${SRCROOT}/../buildtc/backendless.a\"\n\nrm -rf ${SRCROOT}/../buildtc/libbackendless-simulator.a\nrm -rf ${SRCROOT}/../buildtc/libbackendless-device.a\n\n";
 		};
 		F9796A73166CD4F800595F5E /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2307,6 +2332,28 @@
 			};
 			name = Release;
 		};
+		D3CF37E21A38643F0070B746 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				PRODUCT_NAME = "backendless-fat copy";
+				PROVISIONING_PROFILE = "";
+				VALID_ARCHS = "i386 x86_64 armv7 armv7s arm64";
+			};
+			name = Debug;
+		};
+		D3CF37E31A38643F0070B746 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				PRODUCT_NAME = "backendless-fat copy";
+				PROVISIONING_PROFILE = "";
+				VALID_ARCHS = "i386 x86_64 armv7 armv7s arm64";
+			};
+			name = Release;
+		};
 		F9042B2215FDD8D300C9381A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2525,6 +2572,15 @@
 			buildConfigurations = (
 				91628E5217FAC79F00ACC36F /* Debug */,
 				91628E5317FAC79F00ACC36F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D3CF37E11A38643F0070B746 /* Build configuration list for PBXAggregateTarget "backendless-tc-fat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3CF37E21A38643F0070B746 /* Debug */,
+				D3CF37E31A38643F0070B746 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
