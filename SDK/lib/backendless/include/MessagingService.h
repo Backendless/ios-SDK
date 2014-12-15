@@ -44,7 +44,7 @@
 #define WP_TILE_BACK_CONTENT @"wp-backContent"
 #define WP_RAW_DATA @"wp-raw"
 
-@class MessageStatus, PublishOptions, DeliveryOptions, SubscriptionOptions, BESubscription, Fault;
+@class MessageStatus, PublishOptions, DeliveryOptions, SubscriptionOptions, BESubscription, BodyParts, Fault;
 @protocol IResponder;
 
 @interface MessagingService : NSObject
@@ -78,7 +78,11 @@
 -(BESubscription *)subscribe:(NSString *)channelName subscriptionResponse:(void(^)(NSArray *))subscriptionResponseBlock subscriptionError:(void(^)(Fault *))subscriptionErrorBlock subscriptionOptions:(SubscriptionOptions *)subscriptionOptions error:(Fault **)fault;
 -(BESubscription *)subscribe:(BESubscription *)subscription subscriptionOptions:(SubscriptionOptions *)subscriptionOptions error:(Fault **)fault;
 -(NSArray *)pollMessages:(NSString *)channelName subscriptionId:(NSString *)subscriptionId error:(Fault **)fault;
--(BOOL)sendEmailWithSubject:(NSString *)subject body:(NSString *)body to:(NSArray *)to attachment:(NSArray *)attachment isHTML:(BOOL)isHTML error:(Fault **)fault;
+//
+-(BOOL)sendTextEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray *)recipients error:(Fault **)fault;
+-(BOOL)sendHTMLEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray *)recipients error:(Fault **)fault;
+-(BOOL)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray *)recipients error:(Fault **)fault;
+-(BOOL)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray *)recipients attachment:(NSArray *)attachments error:(Fault **)fault;
 
 // sync methods with fault return (as exception)
 -(NSString *)registerDeviceWithTokenData:(NSData *)deviceToken;
@@ -104,7 +108,11 @@
 -(BESubscription *)subscribe:(NSString *)channelName subscriptionResponse:(void(^)(NSArray *))subscriptionResponseBlock subscriptionError:(void(^)(Fault *))subscriptionErrorBlock subscriptionOptions:(SubscriptionOptions *)subscriptionOptions;
 -(BESubscription *)subscribe:(BESubscription *)subscription subscriptionOptions:(SubscriptionOptions *)subscriptionOptions;
 -(NSArray *)pollMessages:(NSString *)channelName subscriptionId:(NSString *)subscriptionId;
--(id)sendEmailWithSubject:(NSString *)subject body:(NSString *)body to:(NSArray *)to attachment:(NSArray *)attachment isHTML:(BOOL)isHTML;
+//
+-(id)sendTextEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray *)recipients;
+-(id)sendHTMLEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray *)recipients;
+-(id)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray *)recipients;
+-(id)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray *)recipients attachment:(NSArray *)attachments;
 
 // async methods with responder
 -(void)registerDevice:(NSArray *)channels expiration:(NSDate *)expiration token:(NSString *)deviceToken responder:(id <IResponder>)responder;
@@ -128,7 +136,11 @@
 -(void)subscribe:(NSString *)channelName subscriptionResponder:(id <IResponder>)subscriptionResponder subscriptionOptions:(SubscriptionOptions *)subscriptionOptions responder:(id <IResponder>)responder;
 -(void)subscribe:(BESubscription *)subscription subscriptionOptions:(SubscriptionOptions *)subscriptionOptions responder:(id <IResponder>)responder;
 -(void)pollMessages:(NSString *)channelName subscriptionId:(NSString *)subscriptionId responder:(id <IResponder>)responder;
--(void)sendEmailWithSubject:(NSString *)subject body:(NSString *)body to:(NSArray *)to attachment:(NSArray *)attachment isHTML:(BOOL)isHTML responder:(id <IResponder>)responder;
+//
+-(void)sendTextEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray *)recipients responder:(id <IResponder>)responder;
+-(void)sendHTMLEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray *)recipients responder:(id <IResponder>)responder;
+-(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray *)recipients responder:(id <IResponder>)responder;
+-(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray *)recipients attachment:(NSArray *)attachments responder:(id <IResponder>)responder;
 
 // async methods with block-based callbacks
 -(void)registerDevice:(NSArray *)channels expiration:(NSDate *)expiration token:(NSString *)deviceToken response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
@@ -152,6 +164,10 @@
 -(void)subscribe:(NSString *)channelName subscriptionResponse:(void(^)(NSArray *))subscriptionResponseBlock subscriptionError:(void(^)(Fault *))subscriptionErrorBlock subscriptionOptions:(SubscriptionOptions *)subscriptionOptions response:(void(^)(BESubscription *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)subscribe:(BESubscription *)subscription subscriptionOptions:(SubscriptionOptions *)subscriptionOptions response:(void(^)(BESubscription *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)pollMessages:(NSString *)channelName subscriptionId:(NSString *)subscriptionId response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)sendEmailWithSubject:(NSString *)subject body:(NSString *)body to:(NSArray *)to attachment:(NSArray *)attachment isHTML:(BOOL)isHTML response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+//
+-(void)sendTextEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray *)recipients response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)sendHTMLEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray *)recipients response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray *)recipients response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray *)recipients attachment:(NSArray *)attachments response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 
 @end

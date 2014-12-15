@@ -38,6 +38,8 @@
 #define FAULT_NO_MESSAGE [Fault fault:@"Message is not set for publishing"]
 #define FAULT_NO_MESSAGE_ID [Fault fault:@"Message ID is not set"]
 #define FAULT_NO_SUBSCRIPTION_ID [Fault fault:@"Subscription ID is not set"]
+#define FAULT_NO_BODY [Fault fault:@"Message body is not set for email"]
+#define FAULT_NO_RECIPIENT [Fault fault:@"No recipient is set for email"]
 
 // SERVICE NAME
 static NSString *SERVER_DEVICE_REGISTRATION_PATH = @"com.backendless.services.messaging.DeviceRegistrationService";
@@ -74,13 +76,12 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 
 @implementation MessagingService
 @synthesize pollingFrequency;
+
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 #else
 - (NSString *)serialNumber
 {
-    io_service_t    platformExpert = IOServiceGetMatchingService(kIOMasterPortDefault,
-                                                                 
-                                                                 IOServiceMatching("IOPlatformExpertDevice"));
+    io_service_t    platformExpert = IOServiceGetMatchingService(kIOMasterPortDefault, IOServiceMatching("IOPlatformExpertDevice"));
     CFStringRef serialNumberAsCFString = NULL;
     
     if (platformExpert) {
@@ -99,16 +100,22 @@ static NSString *METHOD_SEND_EMAIL = @"send";
     return serialNumberAsNSString;
 }
 #endif
+
 -(id)init {
 	
     if ( (self=[super init]) ) {
+        
         self.pollingFrequency = POLLING_INTERVAL;
+        
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.management.DeviceRegistrationDto" mapped:[DeviceRegistration class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.messaging.Message" mapped:[Message class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.messaging.MessageStatus" mapped:[MessageStatus class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.messaging.PublishOptions" mapped:[PublishOptions class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.messaging.DeliveryOptions" mapped:[DeliveryOptions class]];
+        [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.mail.BodyParts" mapped:[BodyParts class]];
+        
         deviceRegistration = [DeviceRegistration new];
+        
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
         UIDevice *device = [UIDevice currentDevice];
         NSString *deviceId = [device.identifierForVendor UUIDString];
@@ -151,9 +158,7 @@ static NSString *METHOD_SEND_EMAIL = @"send";
     return [[[str stringByReplacingOccurrencesOfString:@" " withString:@""] stringByReplacingOccurrencesOfString:@"<" withString:@""] stringByReplacingOccurrencesOfString:@">" withString:@""];
 }
 
-// sync methods
-
-//new
+// sync methods with fault option
 
 -(NSString *)registerDeviceWithTokenData:(NSData *)deviceToken error:(Fault **)fault
 {
@@ -431,20 +436,49 @@ static NSString *METHOD_SEND_EMAIL = @"send";
     }
     return result;
 }
--(BOOL)sendEmailWithSubject:(NSString *)subject body:(NSString *)body to:(NSArray *)to attachment:(NSArray *)attachment isHTML:(BOOL)isHTML error:(Fault **)fault
-{
-    id result = [self sendEmailWithSubject:subject body:body to:to attachment:attachment isHTML:isHTML];
-    if ([result isKindOfClass:[Fault class]]) {
-        if (!fault) {
-            return NO;
-        }
-        (*fault) = result;
-        return NO;
-    }
-    return YES;
+
+-(BOOL)sendTextEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray *)recipients error:(Fault **)fault {
+    
+    id result = [self sendTextEmail:subject body:messageBody to:recipients];
+    if (![result isKindOfClass:[Fault class]])
+        return YES;
+    
+    (*fault) = result;
+    return NO;
 }
 
-//deprecated
+-(BOOL)sendHTMLEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray *)recipients error:(Fault **)fault {
+    
+    id result = [self sendHTMLEmail:subject body:messageBody to:recipients];
+    if (![result isKindOfClass:[Fault class]])
+        return YES;
+    
+    (*fault) = result;
+    return NO;
+}
+
+-(BOOL)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray *)recipients error:(Fault **)fault {
+    
+    id result = [self sendEmail:subject body:bodyParts to:recipients];
+    if (![result isKindOfClass:[Fault class]])
+        return YES;
+    
+    (*fault) = result;
+    return NO;
+}
+
+-(BOOL)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray *)recipients attachment:(NSArray *)attachments error:(Fault **)fault {
+    
+    id result = [self sendEmail:subject body:bodyParts to:recipients attachment:attachments];
+    if (![result isKindOfClass:[Fault class]])
+        return YES;
+    
+    (*fault) = result;
+    return NO;
+}
+
+// sync methods with fault return (as exception)
+
 - (NSString *)registerDevice:(NSArray *)channels expiration:(NSDate *)expiration token:(NSString *)deviceToken {
     deviceRegistration.deviceToken = deviceToken;
     deviceRegistration.channels = channels;
@@ -600,19 +634,30 @@ static NSString *METHOD_SEND_EMAIL = @"send";
     return [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_POLL_MESSAGES args:args];
 }
 
--(id)sendEmailWithSubject:(NSString *)subject body:(NSString *)body to:(NSArray *)to attachment:(NSArray *)attachment isHTML:(BOOL)isHTML
-{
-    BodyParts *bodyParts = [[BodyParts new] autorelease];
-    if (isHTML) {
-        bodyParts.htmlMessage = body;
-    }
-    else
-    {
-        bodyParts.textMessage = body;
-    }
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, (subject)?subject:@"", bodyParts, to, (attachment)?attachment:@[], nil];
+-(id)sendTextEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray *)recipients {
+    return [self sendEmail:subject body:[BodyParts bodyText:messageBody html:nil] to:recipients attachment:nil];
+}
+
+-(id)sendHTMLEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray *)recipients {
+    return [self sendEmail:subject body:[BodyParts bodyText:nil html:messageBody] to:recipients attachment:nil];
+}
+
+-(id)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray *)recipients {
+    return [self sendEmail:subject body:bodyParts to:recipients attachment:nil];
+}
+
+-(id)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray *)recipients attachment:(NSArray *)attachments {
+    
+    if (!bodyParts || ![bodyParts isBody])
+        return [backendless throwFault:FAULT_NO_BODY];
+    
+    if (!recipients || !recipients.count)
+        return [backendless throwFault:FAULT_NO_RECIPIENT];
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, (subject)?subject:@"", bodyParts, recipients, (attachments)?attachments:@[]];
     return [invoker invokeSync:SERVER_MAIL_SERVICE_PATH method:METHOD_SEND_EMAIL args:args];
 }
+
 // async methods with responder
 
 - (void)registerDevice:(NSArray *)channels expiration:(NSDate *)expiration token:(NSString *)deviceToken responder:(id<IResponder>)responder {
@@ -751,20 +796,31 @@ static NSString *METHOD_SEND_EMAIL = @"send";
     [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_POLL_MESSAGES args:args responder:responder];
 }
 
--(void)sendEmailWithSubject:(NSString *)subject body:(NSString *)body to:(NSArray *)to attachment:(NSArray *)attachment isHTML:(BOOL)isHTML responder:(id<IResponder>)responder
-{
-    BodyParts *bodyParts = [[BodyParts new] autorelease];
-    if (isHTML) {
-        bodyParts.htmlMessage = body;
-    }
-    else
-    {
-        bodyParts.textMessage = body;
-    }
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, (subject)?subject:@"", bodyParts, to, (attachment)?attachment:@[], nil];
+-(void)sendTextEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray *)recipients responder:(id <IResponder>)responder {
+    [self sendEmail:subject body:[BodyParts bodyText:messageBody html:nil] to:recipients attachment:nil responder:responder];
+}
+
+-(void)sendHTMLEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray *)recipients responder:(id <IResponder>)responder {
+    [self sendEmail:subject body:[BodyParts bodyText:nil html:messageBody] to:recipients attachment:nil responder:responder];
+}
+
+-(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray *)recipients responder:(id <IResponder>)responder {
+    [self sendEmail:subject body:bodyParts to:recipients attachment:nil responder:responder];
+}
+
+-(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray *)recipients attachment:(NSArray *)attachments responder:(id <IResponder>)responder {
+    
+    if (!bodyParts || ![bodyParts isBody])
+        return [responder errorHandler:FAULT_NO_BODY];
+    
+    if (!recipients || !recipients.count)
+        return [responder errorHandler:FAULT_NO_RECIPIENT];
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, (subject)?subject:@"", bodyParts, recipients, (attachments)?attachments:@[]];
     [invoker invokeAsync:SERVER_MAIL_SERVICE_PATH method:METHOD_SEND_EMAIL args:args responder:responder];
 }
-// async methods with block-base callbacks
+
+// async methods with block-based callbacks
 
 -(void)registerDevice:(NSArray *)channels expiration:(NSDate *)expiration token:(NSString *)deviceToken response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self registerDevice:channels expiration:expiration token:deviceToken responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
@@ -849,10 +905,23 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 -(void)pollMessages:(NSString *)channelName subscriptionId:(NSString *)subscriptionId response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self pollMessages:channelName subscriptionId:subscriptionId responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
--(void)sendEmailWithSubject:(NSString *)subject body:(NSString *)body to:(NSArray *)to attachment:(NSArray *)attachment isHTML:(BOOL)isHTML response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock
-{
-    [self sendEmailWithSubject:subject body:body to:to attachment:attachment isHTML:isHTML responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+
+-(void)sendTextEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray *)recipients response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self sendTextEmail:subject body:messageBody to:recipients responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
+
+-(void)sendHTMLEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray *)recipients response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self sendHTMLEmail:subject body:messageBody to:recipients responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+
+-(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray *)recipients response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self sendEmail:subject body:bodyParts to:recipients responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+
+-(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray *)recipients attachment:(NSArray *)attachments response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self sendEmail:subject body:bodyParts to:recipients attachment:attachments responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+
 #pragma mark -
 #pragma mark Private Methods
 
