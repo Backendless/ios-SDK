@@ -20,9 +20,6 @@
  */
 
 #import <Foundation/Foundation.h>
-
-#define SWIFT_ENUM_OFF 0
-
 #if TARGET_OS_IPHONE
 #import "MPMediaData.h"
 
@@ -37,11 +34,7 @@
 @end
 
 @protocol IMediaStreamerDelegate <NSObject>
-#if SWIFT_ENUM_OFF
--(void)streamStateChanged:(id)sender state:(MPMediaStreamState)state description:(NSString *)description;
-#else
 -(void)streamStateChanged:(id)sender state:(int)state description:(NSString *)description;
-#endif
 -(void)streamConnectFailed:(id)sender code:(int)code description:(NSString *)description;
 @end
 #endif

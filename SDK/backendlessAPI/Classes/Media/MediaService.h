@@ -29,6 +29,7 @@
 #import "BroadcastStreamClient.h"
 #import "MediaStreamPlayer.h"
 #import "VideoPlayer.h"
+#import "MPMediaDecoder.h"
 #endif
 
 @class MediaPublisher, MediaPlayer, MediaPublishOptions, MediaPlaybackOptions;

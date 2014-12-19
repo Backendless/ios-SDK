@@ -906,19 +906,19 @@ static NSString *METHOD_SEND_EMAIL = @"send";
     [self pollMessages:channelName subscriptionId:subscriptionId responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)sendTextEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray *)recipients response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)sendTextEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray *)recipients response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [self sendTextEmail:subject body:messageBody to:recipients responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)sendHTMLEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray *)recipients response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)sendHTMLEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray *)recipients response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [self sendHTMLEmail:subject body:messageBody to:recipients responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray *)recipients response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray *)recipients response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [self sendEmail:subject body:bodyParts to:recipients responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray *)recipients attachment:(NSArray *)attachments response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray *)recipients attachment:(NSArray *)attachments response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [self sendEmail:subject body:bodyParts to:recipients attachment:attachments responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 

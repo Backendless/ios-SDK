@@ -165,9 +165,9 @@
 -(void)subscribe:(BESubscription *)subscription subscriptionOptions:(SubscriptionOptions *)subscriptionOptions response:(void(^)(BESubscription *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)pollMessages:(NSString *)channelName subscriptionId:(NSString *)subscriptionId response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 //
--(void)sendTextEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray *)recipients response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)sendHTMLEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray *)recipients response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray *)recipients response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray *)recipients attachment:(NSArray *)attachments response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)sendTextEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray *)recipients response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)sendHTMLEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray *)recipients response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray *)recipients response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray *)recipients attachment:(NSArray *)attachments response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 
 @end
