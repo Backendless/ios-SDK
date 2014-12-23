@@ -19,8 +19,9 @@
  *  ********************************************************************************************************************
  */
 
-// applications & services deploiment
+// applications & services deployment
 #define OLD_MEDIA_APP 0
+#define TEST_MEDIA_INSTANCE 0
 
 #import <Foundation/Foundation.h>
 

@@ -34,7 +34,7 @@
 // backendless default url
 static NSString *BACKENDLESS_HOST_URL = @"https://api.backendless.com";
 // wowza hardcorded url
-#if 1 // work
+#if !TEST_MEDIA_INSTANCE // work
 static NSString *BACKENDLESS_MEDIA_URL = @"rtmp://wowza.backendless.com:1935/mediaApp";
 #else // test
 static NSString *BACKENDLESS_MEDIA_URL = @"rtmp://tc.themidnightcoders.com:1935/mediaApp"; // Denis

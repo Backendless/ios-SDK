@@ -117,6 +117,7 @@ enum mp_audio_pcm_type
 +(BOOL)getEchoCancellationOn;
 +(BOOL)setAudioStreamBasicDescription:(AudioStreamBasicDescription *)streamDescription pcmType:(MPAudioPCMType)pcmType;
 +(void)setAVAudioSessionCategoryPlayAndRecord:(AVAudioSessionCategoryOptions)options;
++(void)routeAudioToSpeaker;
 @end
 
 @protocol MPIMediaStream <NSObject>
