@@ -270,6 +270,8 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
 
 -(void)disconnect {
     
+    _delegate = nil;
+    
     [_stream disconnect];
     _stream = nil;
 }

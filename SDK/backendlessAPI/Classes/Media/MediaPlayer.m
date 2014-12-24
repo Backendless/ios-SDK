@@ -195,6 +195,8 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
 }
 
 -(void)disconnect {
+    
+    _delegate = nil;
 
 #if IS_MEDIA_ENCODER
     [_decoder cleanupStream];
