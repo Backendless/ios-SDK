@@ -729,13 +729,16 @@ static NSString *USER_TOKEN_KEY = @"user-token\0";
 
 -(id)easyLoginResponder:(id)response {
     
-    [DebLog log:@"UserService -> easyLoginResponder: %@", response];
+    NSURL *url = [NSURL URLWithString:response];
+    
+    [DebLog log:@"UserService -> easyLoginResponder: %@ [%@]", response, url.scheme];
+    
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:response]];
+    [[UIApplication sharedApplication] openURL:url];
 #else
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:response]];
+    [[NSWorkspace sharedWorkspace] openURL:url];
 #endif
-    return [NSNumber numberWithBool:YES];
+    return @(YES);
 }
 
 -(id)onLogin:(id)response {
@@ -765,6 +768,8 @@ static NSString *USER_TOKEN_KEY = @"user-token\0";
 }
 
 -(id)onLogout:(id)response {
+    
+    [DebLog log:@"UserService -> onLogout: %@", response];
     
     if (_currentUser) [_currentUser release];
     _currentUser = nil;
