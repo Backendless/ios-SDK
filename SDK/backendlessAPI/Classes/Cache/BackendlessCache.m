@@ -116,7 +116,7 @@
                 [data writeToFile:[BackendlessCache filePath] atomically:YES];
                 _cacheData = notEditData;
 //            NSLog(@"end write");
-                [DebLog logN:@"backendless cache saved on disc"];
+                [DebLog log:@"backendless cache saved on disc"];
 //                dispatch_release(queue);
 //            }
         }
@@ -161,6 +161,7 @@
         }
     });
 }
+
 -(void)prepareToClear:(BackendlessCacheKey *)key
 {
     @synchronized(self)
@@ -180,6 +181,7 @@
 -(void)addCacheObject:(id)object forKey:(BackendlessCacheKey *)key
 {
     @synchronized(self) {
+
         BackendlessCacheData *data = [BackendlessCacheData new];
         
         BackendlessCachePolicy *policy = (key.query.cachePolicy) ? key.query.cachePolicy : self.cachePolicy;
@@ -187,6 +189,9 @@
         if (timeToLive > 0) {
             data.timeToLive = [NSNumber numberWithInteger:timeToLive];
         }
+        
+        [DebLog log:@"BackendlessCache -> addCacheObject: %@ [policy: %i, timeToLive: %d]", object, (int)policy.valCachePolicy, timeToLive];
+
         switch (policy.valCachePolicy) {
             case BackendlessCachePolicyIgnoreCache:
                 break;
@@ -219,12 +224,12 @@
     }
 }
 
-
 -(void)addCacheObject:(id)object forClassName:(NSString *)className query:(AbstractQuery *)query
 {
     BackendlessCacheKey *key = [BackendlessCacheKey cacheKeyWithClassName:className query:query];
     [self addCacheObject:object forKey:key];
 }
+
 -(BOOL)hasResultForClassName:(NSString *)className query:(id)query
 {
     @synchronized(self)
@@ -236,11 +241,13 @@
         return NO;
     }
 }
+
 -(id)objectForClassName:(NSString *)className query:(id)query
 {
     BackendlessCacheKey *key = [BackendlessCacheKey cacheKeyWithClassName:className query:query];
     return [self objectForCacheKey:key];
 }
+
 -(id)objectForCacheKey:(BackendlessCacheKey *)key
 {
     @synchronized(self)
@@ -253,6 +260,7 @@
         return nil;
     }
 }
+
 -(void)clearCacheForClassName:(NSString *)className query:(id)query
 {
     @synchronized(self) {
@@ -260,6 +268,7 @@
         [self clearCacheForKey:key];
     }
 }
+
 -(void)clearCacheForKey:(BackendlessCacheKey *)key
 {
     @synchronized(self)
@@ -268,8 +277,11 @@
         [_cacheData removeObjectForKey:key];
     }
 }
+
 -(void)clearAllCache
 {
+    [DebLog log:@"backendless cache is clearing:\n%@", _cacheData];
+    
     @synchronized(self)
     {
         NSArray *data = [_cacheData allValues];
@@ -288,6 +300,8 @@
     NSString *className = [args objectAtIndex:2];
     BackendlessCacheKey *key = [BackendlessCacheKey cacheKeyWithClassName:className query:query];
     BackendlessCachePolicy *policy = (query.cachePolicy)?query.cachePolicy:_cachePolicy;
+    
+    [DebLog log:@"BackendlessCache -> invokeSync: '%@':'%@' [policy: %i]", name, methodName, (int)policy.valCachePolicy];
     
     switch (policy.valCachePolicy) {
         case BackendlessCachePolicyIgnoreCache:
@@ -333,6 +347,7 @@
     }
     return nil;
 }
+
 -(void)invokeAsync:(NSString *)name method:(NSString *)methodName args:(NSArray *)args responder:(Responder *)responder
 {
     Responder *cacheResponder = [Responder responder:self selResponseHandler:@selector(responseHandler:) selErrorHandler:@selector(responseError:)];
@@ -342,6 +357,9 @@
     BackendlessCacheKey *key = [BackendlessCacheKey cacheKeyWithClassName:className query:query];
     BackendlessCachePolicy *policy = (query.cachePolicy)?query.cachePolicy:_cachePolicy;
     cacheResponder.context = key;
+    
+    [DebLog log:@"BackendlessCache -> invokeAsync: '%@':'%@' [policy: %i]", name, methodName, (int)policy.valCachePolicy];
+    
     switch (policy.valCachePolicy) {
         case BackendlessCachePolicyIgnoreCache:
             [invoker invokeAsync:name method:methodName args:args responder:responder];
@@ -384,11 +402,15 @@
 }
 
 #pragma mark - Responder
+
 -(id)responseHandler:(ResponseContext *)response
 {
     BackendlessCacheKey *key = response.context;
     id data = response.response;
     BackendlessCachePolicy *policy = key.query.cachePolicy?key.query.cachePolicy:_cachePolicy;
+    
+    [DebLog log:@"BackendlessCache -> responseHandler: '%@' [policy: %i]", data, (int)policy.valCachePolicy];
+   
     switch (policy.valCachePolicy) {
         case BackendlessCachePolicyIgnoreCache:
             break;
@@ -411,6 +433,7 @@
     }
     return response.response;
 }
+
 -(id)responseError:(Fault *)error
 {
     Responder *responder = error.context;
@@ -424,6 +447,9 @@
         key = error.context;
     }
     BackendlessCachePolicy *policy = (key.query.cachePolicy)?key.query.cachePolicy:_cachePolicy;
+    
+    [DebLog log:@"BackendlessCache -> responseError: '%@' [policy: %i]", error, (int)policy.valCachePolicy];
+    
     switch (policy.valCachePolicy) {
         case BackendlessCachePolicyIgnoreCache:
             break;

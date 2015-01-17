@@ -30,7 +30,9 @@ typedef enum {
     FEET
 } UNITS;
 
-@interface BackendlessGeoQuery : NSObject {
+@interface BackendlessGeoQuery : NSObject
+/*
+{
     
     NSNumber            *latitude;          // double
     NSNumber            *longitude;         // double
@@ -44,6 +46,7 @@ typedef enum {
     NSNumber            *offset;            // int
     NSString            *whereClause;       
 }
+ */
 @property (strong, nonatomic) NSNumber *latitude;
 @property (strong, nonatomic) NSNumber *longitude;
 @property (strong, nonatomic) NSNumber *radius;
@@ -79,8 +82,6 @@ typedef enum {
 +(id)queryWithRect:(GEO_POINT)nordWest southEast:(GEO_POINT)southEast;
 +(id)queryWithRect:(GEO_POINT)nordWest southEast:(GEO_POINT)southEast categories:(NSArray *)_categories;
 
--(BOOL)relativeFindPercentThreshold:(float)_percent;
--(float)valRelativeFindPercentThreshold;
 -(double)valLatitude;
 -(BOOL)latitude:(double)_latitude;
 -(double)valLongitude;
@@ -101,9 +102,10 @@ typedef enum {
 -(BOOL)pageSize:(int)_pageSize;
 -(int)valOffset;
 -(BOOL)offset:(int)_offset;
-
+-(BOOL)relativeFindPercentThreshold:(float)_percent;
+-(float)valRelativeFindPercentThreshold;
+//
 -(BOOL)searchRectangle:(GEO_POINT)nordWest southEast:(GEO_POINT)southEast;
 -(BOOL)addCategory:(NSString *)category;
 -(BOOL)addMetadata:(NSString *)key value:(NSString *)value;
--(NSString *)evaluation;
 @end

@@ -36,8 +36,7 @@
 -(id)init {
 	
     if ( (self=[super init]) ) {
-        relativeFindPercentThreshold = [[NSNumber alloc] initWithFloat:0.0];
-        relativeFindMetadata = nil;
+        
         latitude = [[NSNumber alloc] initWithDouble:0.0];
         longitude = [[NSNumber alloc] initWithDouble:0.0];
         radius = [[NSNumber alloc] initWithDouble:0.0];
@@ -49,6 +48,8 @@
         pageSize = [[NSNumber alloc] initWithInt:DEFAULT_PAGE_SIZE];
         offset = [[NSNumber alloc] initWithInt:DEFAULT_OFFSET];
         whereClause = nil;
+        relativeFindPercentThreshold = [[NSNumber alloc] initWithFloat:0.0];
+        relativeFindMetadata = nil;
 	}
 	
 	return self;
@@ -57,8 +58,6 @@
 -(id)initWithCategories:(NSArray *)_categories {
 	
     if ( (self=[super init]) ) {
-        relativeFindPercentThreshold = [[NSNumber alloc] initWithFloat:0.0];
-        relativeFindMetadata = nil;
 
         latitude = [[NSNumber alloc] initWithDouble:0.0];
         longitude = [[NSNumber alloc] initWithDouble:0.0];
@@ -70,7 +69,9 @@
         searchRectangle = nil;
         pageSize = [[NSNumber alloc] initWithInt:DEFAULT_PAGE_SIZE];
         offset = [[NSNumber alloc] initWithInt:DEFAULT_OFFSET];
-        
+        whereClause = nil;
+        relativeFindPercentThreshold = [[NSNumber alloc] initWithFloat:0.0];
+        relativeFindMetadata = nil;
 	}
 	
 	return self;    
@@ -79,8 +80,6 @@
 -(id)initWithPoint:(GEO_POINT)point {
 	
     if ( (self=[super init]) ) {
-        relativeFindPercentThreshold = [[NSNumber alloc] initWithFloat:0.0];
-        relativeFindMetadata = nil;
 
         latitude = [[NSNumber alloc] initWithDouble:point.latitude];
         longitude = [[NSNumber alloc] initWithDouble:point.longitude];
@@ -92,6 +91,9 @@
         searchRectangle = nil;
         pageSize = [[NSNumber alloc] initWithInt:DEFAULT_PAGE_SIZE];
         offset = [[NSNumber alloc] initWithInt:DEFAULT_OFFSET];
+        whereClause = nil;
+        relativeFindPercentThreshold = [[NSNumber alloc] initWithFloat:0.0];
+        relativeFindMetadata = nil;
 	}
 	
 	return self;    
@@ -100,8 +102,6 @@
 -(id)initWithPoint:(GEO_POINT)point pageSize:(int)_pageSize offset:(int)_offset {
 	
     if ( (self=[super init]) ) {
-        relativeFindPercentThreshold = [[NSNumber alloc] initWithFloat:0.0];
-        relativeFindMetadata = nil;
 
         latitude = [[NSNumber alloc] initWithDouble:point.latitude];
         longitude = [[NSNumber alloc] initWithDouble:point.longitude];
@@ -113,6 +113,9 @@
         searchRectangle = nil;
         pageSize = [[NSNumber alloc] initWithInt:_pageSize];
         offset = [[NSNumber alloc] initWithInt:_offset];
+        whereClause = nil;
+        relativeFindPercentThreshold = [[NSNumber alloc] initWithFloat:0.0];
+        relativeFindMetadata = nil;
 	}
 	
 	return self;    
@@ -121,8 +124,6 @@
 -(id)initWithPoint:(GEO_POINT)point categories:(NSArray *)_categories {
     
 	if ( (self=[super init]) ) {
-        relativeFindPercentThreshold = [[NSNumber alloc] initWithFloat:0.0];
-        relativeFindMetadata = nil;
 
         latitude = [[NSNumber alloc] initWithDouble:point.latitude];
         longitude = [[NSNumber alloc] initWithDouble:point.longitude];
@@ -134,6 +135,9 @@
         searchRectangle = nil;
         pageSize = [[NSNumber alloc] initWithInt:DEFAULT_PAGE_SIZE];
         offset = [[NSNumber alloc] initWithInt:DEFAULT_OFFSET];
+        whereClause = nil;
+        relativeFindPercentThreshold = [[NSNumber alloc] initWithFloat:0.0];
+        relativeFindMetadata = nil;
 	}
 	
 	return self;
@@ -142,8 +146,6 @@
 -(id)initWithPoint:(GEO_POINT)point radius:(double)_radius units:(UNITS)_units {
     
 	if ( (self=[super init]) ) {
-        relativeFindPercentThreshold = [[NSNumber alloc] initWithFloat:0.0];
-        relativeFindMetadata = nil;
 
         latitude = [[NSNumber alloc] initWithDouble:point.latitude];
         longitude = [[NSNumber alloc] initWithDouble:point.longitude];
@@ -155,6 +157,9 @@
         searchRectangle = nil;
         pageSize = [[NSNumber alloc] initWithInt:DEFAULT_PAGE_SIZE];
         offset = [[NSNumber alloc] initWithInt:DEFAULT_OFFSET];
+        whereClause = nil;
+        relativeFindPercentThreshold = [[NSNumber alloc] initWithFloat:0.0];
+        relativeFindMetadata = nil;
 	}
 	
 	return self;
@@ -163,8 +168,6 @@
 -(id)initWithPoint:(GEO_POINT)point radius:(double)_radius units:(UNITS)_units categories:(NSArray *)_categories {
     
 	if ( (self=[super init]) ) {
-        relativeFindPercentThreshold = [[NSNumber alloc] initWithFloat:0.0];
-        relativeFindMetadata = nil;
 
         latitude = [[NSNumber alloc] initWithDouble:point.latitude];
         longitude = [[NSNumber alloc] initWithDouble:point.longitude];
@@ -176,6 +179,9 @@
         searchRectangle = nil;
         pageSize = [[NSNumber alloc] initWithInt:DEFAULT_PAGE_SIZE];
         offset = [[NSNumber alloc] initWithInt:DEFAULT_OFFSET];
+        whereClause = nil;
+        relativeFindPercentThreshold = [[NSNumber alloc] initWithFloat:0.0];
+        relativeFindMetadata = nil;
 	}
 	
 	return self;
@@ -184,8 +190,6 @@
 -(id)initWithPoint:(GEO_POINT)point radius:(double)_radius units:(UNITS)_units categories:(NSArray *)_categories metadata:(NSDictionary *)_metadata {
     
 	if ( (self=[super init]) ) {
-        relativeFindPercentThreshold = [[NSNumber alloc] initWithFloat:0.0];
-        relativeFindMetadata = nil;
 
         latitude = [[NSNumber alloc] initWithDouble:point.latitude];
         longitude = [[NSNumber alloc] initWithDouble:point.longitude];
@@ -197,6 +201,9 @@
         searchRectangle = nil;
         pageSize = [[NSNumber alloc] initWithInt:DEFAULT_PAGE_SIZE];
         offset = [[NSNumber alloc] initWithInt:DEFAULT_OFFSET];
+        whereClause = nil;
+        relativeFindPercentThreshold = [[NSNumber alloc] initWithFloat:0.0];
+        relativeFindMetadata = nil;
 	}
 	
 	return self;
@@ -205,8 +212,6 @@
 -(id)initWithRect:(GEO_POINT)nordWest southEast:(GEO_POINT)southEast {
     
 	if ( (self=[super init]) ) {
-        relativeFindPercentThreshold = [[NSNumber alloc] initWithFloat:0.0];
-        relativeFindMetadata = nil;
 
         latitude = [[NSNumber alloc] initWithDouble:0.0];
         longitude = [[NSNumber alloc] initWithDouble:0.0];
@@ -218,6 +223,9 @@
         [self searchRectangle:nordWest southEast:southEast];
         pageSize = [[NSNumber alloc] initWithInt:DEFAULT_PAGE_SIZE];
         offset = [[NSNumber alloc] initWithInt:DEFAULT_OFFSET];
+        whereClause = nil;
+        relativeFindPercentThreshold = [[NSNumber alloc] initWithFloat:0.0];
+        relativeFindMetadata = nil;
 	}
 	
 	return self;
@@ -226,8 +234,6 @@
 -(id)initWithRect:(GEO_POINT)nordWest southEast:(GEO_POINT)southEast categories:(NSArray *)_categories {
     
 	if ( (self=[super init]) ) {
-        relativeFindPercentThreshold = [[NSNumber alloc] initWithFloat:0.0];
-        relativeFindMetadata = nil;
 
         latitude = [[NSNumber alloc] initWithDouble:0.0];
         longitude = [[NSNumber alloc] initWithDouble:0.0];
@@ -239,6 +245,9 @@
         [self searchRectangle:nordWest southEast:southEast];
         pageSize = [[NSNumber alloc] initWithInt:DEFAULT_PAGE_SIZE];
         offset = [[NSNumber alloc] initWithInt:DEFAULT_OFFSET];
+        whereClause = nil;
+        relativeFindPercentThreshold = [[NSNumber alloc] initWithFloat:0.0];
+        relativeFindMetadata = nil;
 	}
 	
 	return self;
@@ -288,9 +297,6 @@
 	
 	[DebLog logN:@"DEALLOC BackendlessGeoQuery: %@", self];
     
-    [relativeFindPercentThreshold release];
-    [relativeFindMetadata release];
-
     [latitude release];
     [longitude release];
     [radius release];
@@ -302,24 +308,15 @@
     [pageSize release];
     [offset release];
 	[whereClause release];
+    [relativeFindPercentThreshold release];
+    [relativeFindMetadata release];
     
     [super dealloc];
 }
 
 #pragma mark -
-#pragma mark Private Methods
-
-#pragma mark -
 #pragma mark Public Methods
--(float)valRelativeFindPercentThreshold{
-    return relativeFindPercentThreshold.floatValue;
-}
--(BOOL)relativeFindPercentThreshold:(float)_percent
-{
-    [relativeFindPercentThreshold release];
-    relativeFindPercentThreshold = [[NSNumber alloc] initWithFloat:_percent];
-    return YES;
-}
+
 -(double)valLatitude {
     return [latitude doubleValue];
 }
@@ -438,6 +435,17 @@ static const char * const query_units[] = { "METERS", "MILES", "YARDS", "KILOMET
     
 }
 
+-(float)valRelativeFindPercentThreshold {
+    return relativeFindPercentThreshold.floatValue;
+}
+
+-(BOOL)relativeFindPercentThreshold:(float)_percent {
+    
+    [relativeFindPercentThreshold release];
+    relativeFindPercentThreshold = [[NSNumber alloc] initWithFloat:_percent];
+    return YES;
+}
+
 -(BOOL)searchRectangle:(GEO_POINT)nordWest southEast:(GEO_POINT)southEast {
     return [self searchRectangle:[[[NSArray alloc] initWithObjects:
                                   [NSNumber numberWithDouble:nordWest.latitude],
@@ -452,8 +460,6 @@ static const char * const query_units[] = { "METERS", "MILES", "YARDS", "KILOMET
     if (!category) {
         return NO;
     }
-    
-    //(categories) ? [categories addObject:category] : [[NSMutableArray alloc] initWithObjects:categories, nil];
     
     if (categories) {
         [categories addObject:category];
@@ -473,12 +479,6 @@ static const char * const query_units[] = { "METERS", "MILES", "YARDS", "KILOMET
     
     (metadata) ? [metadata setValue:value forKey:key] : [[NSMutableDictionary alloc] initWithObjectsAndKeys:value, key, nil];
     return YES;
-}
-
-//static char *geoServiceUnits[] = {"METERS", "MILES", "YARDS", "KILOMETERS", "FEET"};
-
--(NSString *)evaluation {
-    return [NSString stringWithFormat:@"BackendlessGeoQuery: latitude:%@, lonitude:%@, radius:%@, units:%s, searchRectangle:%@, categories:%@, includeMeta:%@, metadata:%@, pageSize:%@, whereClause:\'%@\'", latitude, longitude, radius, query_units[[self valUnits]], searchRectangle, categories, [self valIncludeMeta]?@"YES":@"NO", metadata, pageSize, whereClause];
 }
 
 -(NSString *)description {

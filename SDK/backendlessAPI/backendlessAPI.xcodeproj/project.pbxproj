@@ -218,6 +218,10 @@
 		91F139B517D724C700D1AC4C /* QueryOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F139B117D724C600D1AC4C /* QueryOptions.m */; };
 		D30A5D7519B9CA8200C0BA44 /* Backendless-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = D30A5D7319B9CA8200C0BA44 /* Backendless-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D30A5D7619B9CA8200C0BA44 /* Backendless-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = D30A5D7319B9CA8200C0BA44 /* Backendless-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D35CA5301A668AC600F500B0 /* DataPermission.h in Headers */ = {isa = PBXBuildFile; fileRef = D36CF3F91A2F68DA00B6468A /* DataPermission.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D35CA5311A668AC600F500B0 /* FilePermission.h in Headers */ = {isa = PBXBuildFile; fileRef = D3EA52FF1A3077C1009C5FE0 /* FilePermission.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D35CA5321A668E1400F500B0 /* DataPermission.m in Sources */ = {isa = PBXBuildFile; fileRef = D36CF3FA1A2F68DA00B6468A /* DataPermission.m */; };
+		D35CA5331A668E1400F500B0 /* FilePermission.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EA53001A3077C1009C5FE0 /* FilePermission.m */; };
 		D36CDDF119C99D5900C3FFE3 /* CustomService.h in Headers */ = {isa = PBXBuildFile; fileRef = D36CDDEE19C99D5900C3FFE3 /* CustomService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D36CDDF219C99D5900C3FFE3 /* CustomService.h in Headers */ = {isa = PBXBuildFile; fileRef = D36CDDEE19C99D5900C3FFE3 /* CustomService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D36CDDF419C99D5900C3FFE3 /* CustomService.m in Sources */ = {isa = PBXBuildFile; fileRef = D36CDDEF19C99D5900C3FFE3 /* CustomService.m */; };
@@ -1292,6 +1296,8 @@
 				1C7BB4EE1A2E092900D3C2C1 /* Backendless-Bridging-Header.h in Headers */,
 				1C7BB4EF1A2E092900D3C2C1 /* CustomService.h in Headers */,
 				1C7BB4F01A2E092900D3C2C1 /* Events.h in Headers */,
+				D35CA5301A668AC600F500B0 /* DataPermission.h in Headers */,
+				D35CA5311A668AC600F500B0 /* FilePermission.h in Headers */,
 				1C7BB4F11A2E092900D3C2C1 /* IPendingServiceCallback.h in Headers */,
 				1C7BB4F21A2E092900D3C2C1 /* BESubscription.h in Headers */,
 				1C7BB4F31A2E092900D3C2C1 /* Message.h in Headers */,
@@ -1655,6 +1661,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D35CA5321A668E1400F500B0 /* DataPermission.m in Sources */,
+				D35CA5331A668E1400F500B0 /* FilePermission.m in Sources */,
 				1C7BB4901A2E092900D3C2C1 /* Backendless.m in Sources */,
 				1C7BB4911A2E092900D3C2C1 /* CustomService.m in Sources */,
 				1C7BB4921A2E092900D3C2C1 /* Invoker.m in Sources */,

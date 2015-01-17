@@ -41,6 +41,7 @@ typedef struct {
 -(NSArray *)getCategories;
 -(BackendlessCollection *)getPoints:(BackendlessGeoQuery *)query;
 -(BackendlessCollection *)relativeFind:(BackendlessGeoQuery *)query;
+-(id)deleteGeoPoint:(NSString*)pointId;
 
 // sync methods with fault option
 -(GeoCategory *)addCategory:(NSString *)categoryName error:(Fault **)fault;
@@ -49,25 +50,25 @@ typedef struct {
 -(NSArray *)getCategoriesError:(Fault **)fault;
 -(BackendlessCollection *)getPoints:(BackendlessGeoQuery *)query error:(Fault **)fault;
 -(BackendlessCollection *)relativeFind:(BackendlessGeoQuery *)query error:(Fault **)fault;
--(BOOL)deleteGeoPoint:(NSString *)geopointId error:(Fault **)fault;
+-(BOOL)deleteGeoPoint:(NSString *)pointId error:(Fault **)fault;
 
 // async methods with responder
 -(void)addCategory:(NSString *)categoryName responder:(id <IResponder>)responder;
 -(void)deleteCategory:(NSString *)categoryName responder:(id <IResponder>)responder;
--(void)deleteGeoPoint:(NSString *)pointId responder:(id <IResponder>)responder;
 -(void)savePoint:(GeoPoint *)geoPoint responder:(id <IResponder>)responder;
 -(void)getCategories:(id <IResponder>)responder;
 -(void)getPoints:(BackendlessGeoQuery *)query responder:(id <IResponder>)responder;
 -(void)relativeFind:(BackendlessGeoQuery *)query responder:(id<IResponder>)responder;
+-(void)deleteGeoPoint:(NSString *)pointId responder:(id <IResponder>)responder;
 
 // async methods with block-based callbacks
 -(void)addCategory:(NSString *)categoryName response:(void(^)(GeoCategory *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)deleteCategory:(NSString *)categoryName response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)deleteGeoPoint:(NSString *)pointId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)savePoint:(GeoPoint *)geoPoint response:(void(^)(GeoPoint *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getCategories:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getPoints:(BackendlessGeoQuery *)query response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)relativeFind:(BackendlessGeoQuery *)query response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)deleteGeoPoint:(NSString *)pointId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 
 // utilites
 -(GEO_RECT)geoRectangle:(GEO_POINT)center length:(double)length widht:(double)widht;

@@ -70,6 +70,8 @@
 #import "Events.h"
 #import "CacheService.h"
 #import "AtomicCounters.h"
+#import "DataPermission.h"
+#import "FilePermission.h"
 
 //Cache
 #import "BackendlessCachePolicy.h"
