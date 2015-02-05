@@ -218,6 +218,12 @@
 		91F139B517D724C700D1AC4C /* QueryOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F139B117D724C600D1AC4C /* QueryOptions.m */; };
 		D30A5D7519B9CA8200C0BA44 /* Backendless-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = D30A5D7319B9CA8200C0BA44 /* Backendless-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D30A5D7619B9CA8200C0BA44 /* Backendless-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = D30A5D7319B9CA8200C0BA44 /* Backendless-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D316BA371A83C649007215CA /* ProtectedBackendlessGeoQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = D316BA351A83C649007215CA /* ProtectedBackendlessGeoQuery.h */; };
+		D316BA381A83C649007215CA /* ProtectedBackendlessGeoQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = D316BA351A83C649007215CA /* ProtectedBackendlessGeoQuery.h */; };
+		D316BA391A83C649007215CA /* ProtectedBackendlessGeoQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = D316BA351A83C649007215CA /* ProtectedBackendlessGeoQuery.h */; };
+		D316BA3A1A83C649007215CA /* ProtectedBackendlessGeoQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = D316BA361A83C649007215CA /* ProtectedBackendlessGeoQuery.m */; };
+		D316BA3B1A83C649007215CA /* ProtectedBackendlessGeoQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = D316BA361A83C649007215CA /* ProtectedBackendlessGeoQuery.m */; };
+		D316BA3C1A83C649007215CA /* ProtectedBackendlessGeoQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = D316BA361A83C649007215CA /* ProtectedBackendlessGeoQuery.m */; };
 		D35CA5301A668AC600F500B0 /* DataPermission.h in Headers */ = {isa = PBXBuildFile; fileRef = D36CF3F91A2F68DA00B6468A /* DataPermission.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D35CA5311A668AC600F500B0 /* FilePermission.h in Headers */ = {isa = PBXBuildFile; fileRef = D3EA52FF1A3077C1009C5FE0 /* FilePermission.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D35CA5321A668E1400F500B0 /* DataPermission.m in Sources */ = {isa = PBXBuildFile; fileRef = D36CF3FA1A2F68DA00B6468A /* DataPermission.m */; };
@@ -473,6 +479,8 @@
 		D30E684619E28E0C00AE3949 /* MPMediaEncoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPMediaEncoder.h; sourceTree = "<group>"; };
 		D30E684719E28E0C00AE3949 /* VideoPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoPlayer.h; sourceTree = "<group>"; };
 		D30E684819E28E0C00AE3949 /* MediaLibiOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = MediaLibiOS.a; sourceTree = "<group>"; };
+		D316BA351A83C649007215CA /* ProtectedBackendlessGeoQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProtectedBackendlessGeoQuery.h; sourceTree = "<group>"; };
+		D316BA361A83C649007215CA /* ProtectedBackendlessGeoQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProtectedBackendlessGeoQuery.m; sourceTree = "<group>"; };
 		D353120E19E8152300895ACC /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
 		D35CA3061A5FD31300F500B0 /* Atomic Counters API.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Atomic Counters API.pdf"; sourceTree = "<group>"; };
 		D35CA3081A5FD31300F500B0 /* Caching API.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Caching API.pdf"; sourceTree = "<group>"; };
@@ -1040,6 +1048,8 @@
 				F99D923A160B6A6800AFF3F6 /* GeoPoint.m */,
 				F9C3BF75161486B500409FF2 /* BackendlessGeoQuery.h */,
 				F9C3BF76161486B500409FF2 /* BackendlessGeoQuery.m */,
+				D316BA351A83C649007215CA /* ProtectedBackendlessGeoQuery.h */,
+				D316BA361A83C649007215CA /* ProtectedBackendlessGeoQuery.m */,
 			);
 			path = Geo;
 			sourceTree = "<group>";
@@ -1284,6 +1294,7 @@
 				1C7BB4E21A2E092900D3C2C1 /* BackendlessGeoQuery.h in Headers */,
 				1C7BB4E31A2E092900D3C2C1 /* MessagingService.h in Headers */,
 				1C7BB4E41A2E092900D3C2C1 /* ISharedObjectListener.h in Headers */,
+				D316BA371A83C649007215CA /* ProtectedBackendlessGeoQuery.h in Headers */,
 				1C7BB4E51A2E092900D3C2C1 /* DeviceRegistration.h in Headers */,
 				1C7BB4E61A2E092900D3C2C1 /* DeliveryOptions.h in Headers */,
 				1C7BB4E71A2E092900D3C2C1 /* BEReachability.h in Headers */,
@@ -1346,6 +1357,7 @@
 				F9796A09166CCBFE00595F5E /* UserService.h in Headers */,
 				F9796A0A166CCBFE00595F5E /* BackendlessUser.h in Headers */,
 				F9BBFD7218783B750076BC6D /* Responder.h in Headers */,
+				D316BA381A83C649007215CA /* ProtectedBackendlessGeoQuery.h in Headers */,
 				F9796A0B166CCBFE00595F5E /* UserProperty.h in Headers */,
 				F9796A0C166CCBFE00595F5E /* PersistenceService.h in Headers */,
 				F9796A0D166CCBFE00595F5E /* ObjectProperty.h in Headers */,
@@ -1432,6 +1444,7 @@
 				F9796A55166CD42E00595F5E /* UserService.h in Headers */,
 				F9796A56166CD42E00595F5E /* BackendlessUser.h in Headers */,
 				F9BBFD7318783B750076BC6D /* Responder.h in Headers */,
+				D316BA391A83C649007215CA /* ProtectedBackendlessGeoQuery.h in Headers */,
 				F9796A57166CD42E00595F5E /* UserProperty.h in Headers */,
 				F9796A58166CD42E00595F5E /* PersistenceService.h in Headers */,
 				F9796A59166CD42E00595F5E /* ObjectProperty.h in Headers */,
@@ -1639,7 +1652,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\n# -- THIS IS THE DEVELOPMENT SCHEME - YOU SHOULD USE BACKENDLESS-FAT SCHEME\n\n# --------------------------- BUILD -----------------------------------------------------------------------\n\nrm -rf ${SRCROOT}/../lib/backendless\nmkdir ${SRCROOT}/../lib/backendless\nmkdir ${SRCROOT}/../lib/backendless/include\n\n/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-mac TEST_AFTER_BUILD=NO clean build\n/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-simulator TEST_AFTER_BUILD=NO clean build\n/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-device TEST_AFTER_BUILD=NO clean build -sdk iphoneos\n\nlipo -create \"${SRCROOT}/../lib/backendless/libbackendless-simulator.a\" \\\n\"${SRCROOT}/../lib/backendless/libbackendless-device.a\" -output \\\n\"${SRCROOT}/../lib/backendless/backendless.a\"\n\nrm -rf ${SRCROOT}/../lib/backendless/libbackendless-simulator.a\nrm -rf ${SRCROOT}/../lib/backendless/libbackendless-device.a\n\n# ---------------------------- MAKE THE COPIES ------------------------------------------------------------\n\ncp -rf ${SRCROOT}/../lib/backendless/* ${SRCROOT}/../../../iOS-Samples/lib/backendless\n \ncp -rf ${SRCROOT}/../lib/backendless/* ${SRCROOT}/../../../Swift-Samples/lib/backendless\n                                 \ncp -rf ${SRCROOT}/../lib/backendless/* ${SRCROOT}/../../../Tests/TCTestSDK/lib/backendless\n\ncp -rf ${SRCROOT}/../lib/backendless/* ~/backendless.gitlab/src/client/tests/ios/TCTestSDK/lib/backendless\n\n# -------------------------- !!!!! TEMP TESTING COPIES !!!!! ----------------------------------------------\n                                     \ncp -rf ${SRCROOT}/../lib/backendless/* ${SRCROOT}/../../../Demo/BEVideoChatMessaging/lib/backendless\n                                     \ncp -rf ${SRCROOT}/../lib/backendless/* ~/Downloads/Test/lib/backendless\n                                 \n#cp -rf ${SRCROOT}/../lib/backendless/* ~/Downloads/BackendlessSDK_iOS+OSX/lib/backendless\n\n#----------------------------------------------------------------------------------------------------------\n";
+			shellScript = "\n# -- THIS IS THE DEVELOPMENT SCHEME - YOU SHOULD USE BACKENDLESS-FAT SCHEME\n\n# --------------------------- BUILD -----------------------------------------------------------------------\n\nrm -rf ${SRCROOT}/../lib/backendless\nmkdir ${SRCROOT}/../lib/backendless\nmkdir ${SRCROOT}/../lib/backendless/include\n\n/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-mac TEST_AFTER_BUILD=NO clean build\n/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-simulator TEST_AFTER_BUILD=NO clean build\n/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-device TEST_AFTER_BUILD=NO clean build -sdk iphoneos\n\nlipo -create \"${SRCROOT}/../lib/backendless/libbackendless-simulator.a\" \\\n\"${SRCROOT}/../lib/backendless/libbackendless-device.a\" -output \\\n\"${SRCROOT}/../lib/backendless/backendless.a\"\n\nrm -rf ${SRCROOT}/../lib/backendless/libbackendless-simulator.a\nrm -rf ${SRCROOT}/../lib/backendless/libbackendless-device.a\n\n# ---------------------------- MAKE THE COPIES ------------------------------------------------------------\n\ncp -rf ${SRCROOT}/../lib/backendless/* ${SRCROOT}/../../../iOS-Samples/lib/backendless\n \ncp -rf ${SRCROOT}/../lib/backendless/* ${SRCROOT}/../../../BlogFeatureDay/lib/backendless\n                                 \ncp -rf ${SRCROOT}/../lib/backendless/* ${SRCROOT}/../../../Tests/TCTestSDK/lib/backendless\n\ncp -rf ${SRCROOT}/../lib/backendless/* ~/backendless.gitlab/src/client/tests/ios/TCTestSDK/lib/backendless\n\n# -------------------------- !!!!! TEMP TESTING COPIES !!!!! ----------------------------------------------\n                                     \ncp -rf ${SRCROOT}/../lib/backendless/* ${SRCROOT}/../../../Demo/BEVideoChatMessaging/lib/backendless\n                                     \ncp -rf ${SRCROOT}/../lib/backendless/* ~/Downloads/Test/lib/backendless\n                                 \n#cp -rf ${SRCROOT}/../lib/backendless/* ~/Downloads/BackendlessSDK_iOS+OSX/lib/backendless\n\n#----------------------------------------------------------------------------------------------------------\n";
 		};
 		F9796A73166CD4F800595F5E /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1668,6 +1681,7 @@
 				1C7BB4921A2E092900D3C2C1 /* Invoker.m in Sources */,
 				1C7BB4931A2E092900D3C2C1 /* AbstractProperty.m in Sources */,
 				1C7BB4941A2E092900D3C2C1 /* UserService.m in Sources */,
+				D316BA3A1A83C649007215CA /* ProtectedBackendlessGeoQuery.m in Sources */,
 				1C7BB4951A2E092900D3C2C1 /* ISDatabase.m in Sources */,
 				1C7BB4961A2E092900D3C2C1 /* BackendlessUser.m in Sources */,
 				1C7BB4971A2E092900D3C2C1 /* OfflineModeManager.m in Sources */,
@@ -1746,6 +1760,7 @@
 				F97969FD166CCB8200595F5E /* DeliveryOptions.m in Sources */,
 				F97969FE166CCB8200595F5E /* PublishOptions.m in Sources */,
 				F97969FF166CCB8200595F5E /* SubscriptionOptions.m in Sources */,
+				D316BA3B1A83C649007215CA /* ProtectedBackendlessGeoQuery.m in Sources */,
 				91223DCE195AF6AB00F72F48 /* Events.m in Sources */,
 				F9796A00166CCB8200595F5E /* BESubscription.m in Sources */,
 				F9796A01166CCB8200595F5E /* Message.m in Sources */,
@@ -1808,6 +1823,7 @@
 				F9796A47166CD3DB00595F5E /* DeliveryOptions.m in Sources */,
 				F9796A48166CD3DB00595F5E /* PublishOptions.m in Sources */,
 				F9796A49166CD3DB00595F5E /* SubscriptionOptions.m in Sources */,
+				D316BA3C1A83C649007215CA /* ProtectedBackendlessGeoQuery.m in Sources */,
 				91223DCF195AF6AB00F72F48 /* Events.m in Sources */,
 				F9796A4A166CD3DB00595F5E /* BESubscription.m in Sources */,
 				F9796A4B166CD3DB00595F5E /* Message.m in Sources */,

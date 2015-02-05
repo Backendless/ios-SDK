@@ -86,7 +86,7 @@
 @end
 
 @implementation BackendlessCollection
-@synthesize data, backendlessQuery;
+@synthesize data, query;
 
 -(id)init {
 	if ( (self=[super init]) ) {
@@ -109,7 +109,7 @@
 	
 	[DebLog logN:@"DEALLOC BackendlessCollection: %@", self];
     
-    [backendlessQuery release];
+    [query release];
     [data release];
     [cachedData release];
     
@@ -117,7 +117,7 @@
 }
 
 -(NSString *)description {
-    return [NSString stringWithFormat:@"<BackendlessCollection> -> type: %@, offset: %@, pageSize: %@, totalObjects: %@, data: %@, query: %@", type, @(aOffset), @(pageSize), @(aTotalObjects), data, backendlessQuery];
+    return [NSString stringWithFormat:@"<BackendlessCollection> -> type: %@, offset: %@, pageSize: %@, totalObjects: %@, data: %@, query: %@", type, @(aOffset), @(pageSize), @(aTotalObjects), data, query];
 }
 
 #pragma mark -
@@ -167,16 +167,17 @@
     forceUpdate = YES;
     
     if (!cachedData || forceUpdate) {
-        if ([self.backendlessQuery isKindOfClass:[BackendlessGeoQuery class]]) {
-            BackendlessGeoQuery *geoQuery = self.backendlessQuery;
+        
+        if ([self.query isKindOfClass:[BackendlessGeoQuery class]]) {
+            BackendlessGeoQuery *geoQuery = [self.query copy];
             geoQuery.offset = [NSNumber numberWithInteger:_offset];
             geoQuery.pageSize = [NSNumber numberWithInteger:_pageSize];
             id response = [backendless.geoService getPoints:geoQuery];
             return [response isKindOfClass:[Fault class]] ? response : ((BackendlessCollection *)response).data;
         }
-        else
-        {
-            BackendlessDataQuery *dataQuery = self.backendlessQuery;//BACKENDLESS_DATA_QUERY;
+        
+        if ([self.query isKindOfClass:[BackendlessDataQuery class]]) {
+            BackendlessDataQuery *dataQuery = [self.query copy];
             dataQuery.queryOptions = [QueryOptions query:(int)_pageSize offset:(int)_offset];
             id response = [backendless.persistenceService find:type dataQuery:dataQuery];
             return [response isKindOfClass:[Fault class]] ? response : ((BackendlessCollection *)response).data;
@@ -194,20 +195,22 @@
     forceUpdate = YES;
     
     if (!cachedData || forceUpdate) {
-        if ([self.backendlessQuery isKindOfClass:[BackendlessGeoQuery class]]) {
-            BackendlessGeoQuery *geoQuery = self.backendlessQuery;
+        
+        if ([self.query isKindOfClass:[BackendlessGeoQuery class]]) {
+            BackendlessGeoQuery *geoQuery = [self.query copy];
             geoQuery.offset = [NSNumber numberWithInteger:_offset];
             geoQuery.pageSize = [NSNumber numberWithInteger:_pageSize];
             [backendless.geoService getPoints:geoQuery responder:responder];
+            return;
         }
-        else
-        {
-            BackendlessDataQuery *dataQuery = self.backendlessQuery;
+        
+        if ([self.query isKindOfClass:[BackendlessDataQuery class]]) {
+            BackendlessDataQuery *dataQuery = [self.query copy];
             dataQuery.queryOptions = [QueryOptions query:(int)_pageSize offset:(int)_offset];
             [backendless.persistenceService find:type dataQuery:dataQuery responder:responder];
+            return;
         }
-        return;
-    }    
+    }
 }
 
 #pragma mark -

@@ -33,7 +33,7 @@
     NSInteger   pageSize;
     HashMap     *cachedData;
 }
-@property (strong, nonatomic) id backendlessQuery;
+@property (strong, nonatomic) id query;
 @property (strong, nonatomic) NSArray *data;
 @property (strong, nonatomic, getter = getEntityName, setter = setEntityName:) NSString *entityName;
 @property (strong, nonatomic, getter = getTotalObjects, setter = setTotalObjects:) NSNumber *totalObjects;

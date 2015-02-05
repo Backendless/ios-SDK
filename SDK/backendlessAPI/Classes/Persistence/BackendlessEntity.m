@@ -40,7 +40,7 @@
 	return self;
 }
 
-+(BackendlessEntity *)entity {
++(id)entity {
     return [[[BackendlessEntity alloc] init] autorelease];
 }
 

@@ -205,7 +205,7 @@ static NSString *METHOD_DELETE_GEOPOINT = @"removePoint";
     }
     
     BackendlessCollection *collection = result;
-    collection.backendlessQuery = query;
+    collection.query = query;
     return collection;
 }
 
@@ -218,7 +218,7 @@ static NSString *METHOD_DELETE_GEOPOINT = @"removePoint";
     }
     
     BackendlessCollection *collection = result;
-    collection.backendlessQuery = query;
+    collection.query = query;
     return collection;
 }
 
@@ -382,7 +382,7 @@ static NSString *METHOD_DELETE_GEOPOINT = @"removePoint";
     
     BackendlessCollection *collection = response.response;
     BackendlessGeoQuery *geoQuery = response.context;
-    collection.backendlessQuery = geoQuery;
+    collection.query = geoQuery;
     [collection pageSize:geoQuery.pageSize.integerValue];
     return collection;
 }

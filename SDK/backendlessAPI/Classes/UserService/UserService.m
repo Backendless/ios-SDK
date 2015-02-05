@@ -539,7 +539,7 @@ static NSString *USER_TOKEN_KEY = @"user-token\0";
 -(void)isValidUserToken:(id <IResponder>)responder {
     
     if (!_currentUser || !_currentUser.userToken)
-        return [responder errorHandler:[backendless throwFault:FAULT_NO_USER]];
+        return [responder errorHandler:FAULT_NO_USER];
     
     NSArray *args = @[backendless.appID, backendless.versionNum, _currentUser.userToken];
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_IS_VALID_USER_TOKEN args:args responder:responder];

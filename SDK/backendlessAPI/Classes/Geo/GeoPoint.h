@@ -54,7 +54,7 @@ typedef struct {
 -(NSDictionary *)valMetadata;
 -(BOOL)metadata:(NSDictionary *)metadata;
 -(BOOL)addCategory:(NSString *)category;
--(BOOL)addMetadata:(NSString *)key value:(NSString *)value;
+-(BOOL)addMetadata:(NSString *)key value:(id)value;
 -(float)valDistance;
 -(BOOL)distance:(float)distance;
 @end

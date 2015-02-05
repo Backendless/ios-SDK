@@ -21,14 +21,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface QueryOptions : NSObject {
-    
-    NSNumber    *pageSize;
-    NSNumber    *offset;
-    NSArray     *sortBy;
-    NSMutableArray     *related;
+@interface QueryOptions : NSObject <NSCopying>
 
-}
 @property (strong, nonatomic) NSNumber *pageSize;
 @property (strong, nonatomic) NSNumber *offset;
 @property (strong, nonatomic) NSArray *sortBy;
@@ -36,8 +30,8 @@
 @property (strong, nonatomic) NSNumber *relationsDepth;
 
 -(id)initWithPageSize:(int)_pageSize offset:(int)_offset;
-+(QueryOptions *)query;
-+(QueryOptions *)query:(int)_pageSize offset:(int)_offset;
++(id)query;
++(id)query:(int)_pageSize offset:(int)_offset;
 
 -(QueryOptions *)pageSize:(int)_pageSize;
 -(QueryOptions *)offset:(int)_offset;

@@ -146,6 +146,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 	if ( (self=[super init]) ) {
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.BackendlessCollection" mapped:[BackendlessCollection class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.ObjectProperty" mapped:[ObjectProperty class]];
+        [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.model.GeoPoint" mapped:[GeoPoint class]];
 	
         _permissions = [DataPermission new];
     }
@@ -676,7 +677,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     {
         BackendlessCollection *bc = result;
         [bc pageSize:dataQuery.queryOptions.pageSize.integerValue];
-        bc.backendlessQuery = dataQuery;
+        bc.query = dataQuery;
         return bc;
     }
     else
@@ -1557,7 +1558,7 @@ id get_object_id(id self, SEL _cmd)
         }
     
     if (collection) {
-        collection.backendlessQuery = query;
+        collection.query = query;
         [collection pageSize:query.queryOptions.pageSize.integerValue];
     }
     

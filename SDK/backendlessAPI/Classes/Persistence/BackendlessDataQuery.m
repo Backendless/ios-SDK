@@ -51,11 +51,11 @@
 	return self;
 }
 
-+(BackendlessDataQuery *)query {
++(id)query {
     return [[BackendlessDataQuery new] autorelease];
 }
 
-+(BackendlessDataQuery *)query:(NSArray *)properties where:(NSString *)whereClause query:(QueryOptions *)queryOptions {
++(id)query:(NSArray *)properties where:(NSString *)whereClause query:(QueryOptions *)queryOptions {
     return [[[BackendlessDataQuery alloc] init:properties where:whereClause query:queryOptions] autorelease];
 }
 
@@ -78,8 +78,8 @@
     return [NSString stringWithFormat:@"<BackendlessDataQuery> -> properties: %@, whereClause: %@, queryOptions: %@", self.properties, self.whereClause, self.queryOptions];
 }
 
--(BOOL)isEqualToQuery:(BackendlessDataQuery *)query
-{
+-(BOOL)isEqualToQuery:(BackendlessDataQuery *)query {
+    
     if (self.queryOptions && query.queryOptions) {
         if (![self.queryOptions isEqualToQuery:query.queryOptions]) {
             return NO;
@@ -95,6 +95,19 @@
         }
     }
     return YES;
+}
+
+#pragma mark -
+#pragma mark NSCopying Methods
+
+-(id)copyWithZone:(NSZone *)zone {
+    
+    BackendlessDataQuery *query = [BackendlessDataQuery query];
+    query.properties = _properties.copy;
+    query.whereClause = _whereClause.copy;
+    query.queryOptions = _queryOptions.copy;
+    query.cachePolicy = _cachePolicy.copy;
+    return query;
 }
 
 @end

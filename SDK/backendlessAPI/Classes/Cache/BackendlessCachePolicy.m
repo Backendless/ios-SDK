@@ -22,8 +22,9 @@
 #import "BackendlessCachePolicy.h"
 
 @implementation BackendlessCachePolicy
--(id)init
-{
+
+-(id)init {
+    
     self = [super init];
     if (self) {
         _timeToLive = [[NSNumber alloc] initWithInt:-1];
@@ -39,14 +40,31 @@
     [super dealloc];
 }
 
--(BackendlessCachePolicyEnum)valCachePolicy
-{
-    return (BackendlessCachePolicyEnum)[_cachePolicy integerValue];
+-(BackendlessCachePolicyEnum)valCachePolicy {
+    return (BackendlessCachePolicyEnum)_cachePolicy.intValue;
 }
--(void)cachePolicy:(BackendlessCachePolicyEnum)cachePolicy
-{
-    [_cachePolicy release];
-    _cachePolicy = [[NSNumber alloc] initWithInt:cachePolicy];
+
+-(void)cachePolicy:(BackendlessCachePolicyEnum)cachePolicy {
+    self.cachePolicy = @((int)cachePolicy);
+}
+
+-(int)valTimeToLive {
+    return _timeToLive.intValue;
+}
+
+-(void)timeToLive:(int)timeToLive {
+    self.timeToLive = @(timeToLive);
+}
+
+#pragma mark -
+#pragma mark NSCopying Methods
+
+-(id)copyWithZone:(NSZone *)zone {
     
+    BackendlessCachePolicy *instance = [BackendlessCachePolicy new];
+    instance.timeToLive = _timeToLive.copy;
+    instance.cachePolicy = _cachePolicy.copy;
+    return instance.autorelease;
 }
+
 @end

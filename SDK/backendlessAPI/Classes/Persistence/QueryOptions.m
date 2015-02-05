@@ -47,11 +47,11 @@
 	return self;
 }
 
-+(QueryOptions *)query {
++(id)query {
     return [[QueryOptions new] autorelease];
 }
 
-+(QueryOptions *)query:(int)_pageSize offset:(int)_offset {
++(id)query:(int)_pageSize offset:(int)_offset {
     return [[[QueryOptions alloc] initWithPageSize:_pageSize offset:_offset] autorelease];
 }
 
@@ -94,11 +94,12 @@
     related = [[NSMutableArray alloc] initWithArray:_related];
     return self;
 }
--(BOOL)addRelated:(NSString *)_related
-{
+
+-(BOOL)addRelated:(NSString *)_related {
     [related addObject:_related];
     return YES;
 }
+
 -(NSDictionary *)getQuery {
     
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
@@ -106,29 +107,54 @@
     if (offset) [dict setValue:offset forKey:@"offset"];
     if (sortBy) [dict setValue:sortBy forKey:@"sortBy"];
     if (related) [dict setValue:related forKey:@"related"];
+    if (relationsDepth) [dict setValue:related forKey:@"relationsDepth"];
     
     return dict;
 }
--(BOOL)isEqualToQuery:(QueryOptions *)query
-{
+
+-(BOOL)isEqualToQuery:(QueryOptions *)query {
+    
     if (![self.pageSize isEqualToNumber:query.pageSize]) {
         return NO;
     }
+    
     if (![self.offset isEqualToNumber:query.offset]) {
         return NO;
     }
+    
     if (![self.related isEqualToArray:query.related]) {
         return NO;
     }
+    
     if (![self.sortBy isEqualToArray:query.sortBy]) {
-        if ((self.sortBy.count !=0)||(query.sortBy.count != 0)) {
+        if ((self.sortBy.count !=0) || (query.sortBy.count != 0)) {
             return NO;
         }
     }
+    
+    if (![self.relationsDepth isEqualToNumber:query.relationsDepth]) {
+        return NO;
+    }
+
     return YES;
 }
+
 -(NSString *)description {
     return [NSString stringWithFormat:@"<QueryOptions> -> %@", [self getQuery]];
+}
+
+#pragma mark -
+#pragma mark NSCopying Methods
+
+-(id)copyWithZone:(NSZone *)zone {
+    
+    QueryOptions *query = [QueryOptions query];
+    query.pageSize = pageSize.copy;
+    query.offset = offset.copy;
+    query.sortBy = sortBy.copy;
+    query.related = related.copy;
+    query.relationsDepth = relationsDepth.copy;
+    return query;
 }
 
 @end

@@ -24,6 +24,7 @@
 
 #define DEFAULT_PAGE_SIZE 20
 #define DEFAULT_OFFSET 0
+#define CLUSTER_SIZE_DEFAULT_VALUE 100
 
 @interface BackendlessGeoQuery () {
     UNITS queryUnits;
@@ -31,285 +32,199 @@
 @end
 
 @implementation BackendlessGeoQuery
-@synthesize latitude, longitude, radius, units, categories, includeMeta, metadata, searchRectangle, pageSize, offset, whereClause, relativeFindMetadata, relativeFindPercentThreshold;
+
+-(void)defaultInit {
+    
+    self.latitude = @0.0;
+    self.longitude = @0.0;
+    self.radius = @0.0;
+    self.units = nil;
+    self.categories = nil;
+    self.includeMeta = @NO;
+    self.metadata = nil;
+    self.searchRectangle = nil;
+    self.pageSize = @((int)DEFAULT_PAGE_SIZE);
+    self.offset = @((int)DEFAULT_OFFSET);
+    self.whereClause = nil;
+    self.relativeFindPercentThreshold = @0.0;
+    self.relativeFindMetadata = nil;
+    self.dpp = nil;
+    self.clusterGridSize = nil;
+    
+    queryUnits = -1;
+}
 
 -(id)init {
 	
     if ( (self=[super init]) ) {
-        
-        latitude = [[NSNumber alloc] initWithDouble:0.0];
-        longitude = [[NSNumber alloc] initWithDouble:0.0];
-        radius = [[NSNumber alloc] initWithDouble:0.0];
-        [self units:(int)METERS];
-        categories = nil;
-        includeMeta = [[NSNumber alloc] initWithBool:NO];
-        metadata = nil;
-        searchRectangle = nil;
-        pageSize = [[NSNumber alloc] initWithInt:DEFAULT_PAGE_SIZE];
-        offset = [[NSNumber alloc] initWithInt:DEFAULT_OFFSET];
-        whereClause = nil;
-        relativeFindPercentThreshold = [[NSNumber alloc] initWithFloat:0.0];
-        relativeFindMetadata = nil;
+        [self defaultInit];
 	}
-	
 	return self;
 }
 
--(id)initWithCategories:(NSArray *)_categories {
+-(id)initWithCategories:(NSArray *)categories {
 	
     if ( (self=[super init]) ) {
-
-        latitude = [[NSNumber alloc] initWithDouble:0.0];
-        longitude = [[NSNumber alloc] initWithDouble:0.0];
-        radius = [[NSNumber alloc] initWithDouble:0.0];
-        [self units:(int)METERS];
-        categories = (_categories) ? [[NSMutableArray alloc] initWithArray:_categories] : nil;
-        includeMeta = [[NSNumber alloc] initWithBool:NO];
-        metadata = nil;
-        searchRectangle = nil;
-        pageSize = [[NSNumber alloc] initWithInt:DEFAULT_PAGE_SIZE];
-        offset = [[NSNumber alloc] initWithInt:DEFAULT_OFFSET];
-        whereClause = nil;
-        relativeFindPercentThreshold = [[NSNumber alloc] initWithFloat:0.0];
-        relativeFindMetadata = nil;
+        [self defaultInit];
+        [self categories:categories];
 	}
-	
-	return self;    
+	return self;
 }
 
 -(id)initWithPoint:(GEO_POINT)point {
 	
     if ( (self=[super init]) ) {
-
-        latitude = [[NSNumber alloc] initWithDouble:point.latitude];
-        longitude = [[NSNumber alloc] initWithDouble:point.longitude];
-        radius = [[NSNumber alloc] initWithDouble:0.0];
-        [self units:(int)METERS];
-        categories = nil;
-        includeMeta = [[NSNumber alloc] initWithBool:NO];
-        metadata = nil;
-        searchRectangle = nil;
-        pageSize = [[NSNumber alloc] initWithInt:DEFAULT_PAGE_SIZE];
-        offset = [[NSNumber alloc] initWithInt:DEFAULT_OFFSET];
-        whereClause = nil;
-        relativeFindPercentThreshold = [[NSNumber alloc] initWithFloat:0.0];
-        relativeFindMetadata = nil;
+        [self defaultInit];
+        self.latitude = @(point.latitude);
+        self.longitude = @(point.longitude);
 	}
-	
-	return self;    
+	return self;
 }
 
--(id)initWithPoint:(GEO_POINT)point pageSize:(int)_pageSize offset:(int)_offset {
+-(id)initWithPoint:(GEO_POINT)point pageSize:(int)pageSize offset:(int)offset {
 	
     if ( (self=[super init]) ) {
-
-        latitude = [[NSNumber alloc] initWithDouble:point.latitude];
-        longitude = [[NSNumber alloc] initWithDouble:point.longitude];
-        radius = [[NSNumber alloc] initWithDouble:0.0];
-        [self units:(int)METERS];
-        categories = nil;
-        includeMeta = [[NSNumber alloc] initWithBool:NO];
-        metadata = nil;
-        searchRectangle = nil;
-        pageSize = [[NSNumber alloc] initWithInt:_pageSize];
-        offset = [[NSNumber alloc] initWithInt:_offset];
-        whereClause = nil;
-        relativeFindPercentThreshold = [[NSNumber alloc] initWithFloat:0.0];
-        relativeFindMetadata = nil;
+        [self defaultInit];
+        self.latitude = @(point.latitude);
+        self.longitude = @(point.longitude);
+        self.pageSize = @(pageSize);
+        self.offset = @(offset);
 	}
-	
-	return self;    
-}
-
--(id)initWithPoint:(GEO_POINT)point categories:(NSArray *)_categories {
-    
-	if ( (self=[super init]) ) {
-
-        latitude = [[NSNumber alloc] initWithDouble:point.latitude];
-        longitude = [[NSNumber alloc] initWithDouble:point.longitude];
-        radius = [[NSNumber alloc] initWithDouble:0.0];
-        [self units:(int)METERS];
-        categories = (_categories) ? [[NSMutableArray alloc] initWithArray:_categories] : nil;
-        includeMeta = [[NSNumber alloc] initWithBool:NO];
-        metadata = nil;
-        searchRectangle = nil;
-        pageSize = [[NSNumber alloc] initWithInt:DEFAULT_PAGE_SIZE];
-        offset = [[NSNumber alloc] initWithInt:DEFAULT_OFFSET];
-        whereClause = nil;
-        relativeFindPercentThreshold = [[NSNumber alloc] initWithFloat:0.0];
-        relativeFindMetadata = nil;
-	}
-	
 	return self;
 }
 
--(id)initWithPoint:(GEO_POINT)point radius:(double)_radius units:(UNITS)_units {
+-(id)initWithPoint:(GEO_POINT)point categories:(NSArray *)categories {
     
 	if ( (self=[super init]) ) {
-
-        latitude = [[NSNumber alloc] initWithDouble:point.latitude];
-        longitude = [[NSNumber alloc] initWithDouble:point.longitude];
-        radius = [[NSNumber alloc] initWithDouble:_radius];
-        [self units:(int)_units];
-        categories = nil;
-        includeMeta = [[NSNumber alloc] initWithBool:NO];
-        metadata = nil;
-        searchRectangle = nil;
-        pageSize = [[NSNumber alloc] initWithInt:DEFAULT_PAGE_SIZE];
-        offset = [[NSNumber alloc] initWithInt:DEFAULT_OFFSET];
-        whereClause = nil;
-        relativeFindPercentThreshold = [[NSNumber alloc] initWithFloat:0.0];
-        relativeFindMetadata = nil;
+        [self defaultInit];
+        self.latitude = @(point.latitude);
+        self.longitude = @(point.longitude);
+        [self categories:categories];
 	}
-	
 	return self;
 }
 
--(id)initWithPoint:(GEO_POINT)point radius:(double)_radius units:(UNITS)_units categories:(NSArray *)_categories {
+-(id)initWithPoint:(GEO_POINT)point radius:(double)radius units:(UNITS)units {
     
 	if ( (self=[super init]) ) {
-
-        latitude = [[NSNumber alloc] initWithDouble:point.latitude];
-        longitude = [[NSNumber alloc] initWithDouble:point.longitude];
-        radius = [[NSNumber alloc] initWithDouble:_radius];
-        [self units:(int)_units];
-        categories = (_categories) ? [[NSMutableArray alloc] initWithArray:_categories] : nil;
-        includeMeta = [[NSNumber alloc] initWithBool:NO];
-        metadata = nil;
-        searchRectangle = nil;
-        pageSize = [[NSNumber alloc] initWithInt:DEFAULT_PAGE_SIZE];
-        offset = [[NSNumber alloc] initWithInt:DEFAULT_OFFSET];
-        whereClause = nil;
-        relativeFindPercentThreshold = [[NSNumber alloc] initWithFloat:0.0];
-        relativeFindMetadata = nil;
+        [self defaultInit];
+        self.latitude = @(point.latitude);
+        self.longitude = @(point.longitude);
+        self.radius = @(radius);
+        [self units:(int)units];
 	}
-	
 	return self;
 }
 
--(id)initWithPoint:(GEO_POINT)point radius:(double)_radius units:(UNITS)_units categories:(NSArray *)_categories metadata:(NSDictionary *)_metadata {
+-(id)initWithPoint:(GEO_POINT)point radius:(double)radius units:(UNITS)units categories:(NSArray *)categories {
     
 	if ( (self=[super init]) ) {
-
-        latitude = [[NSNumber alloc] initWithDouble:point.latitude];
-        longitude = [[NSNumber alloc] initWithDouble:point.longitude];
-        radius = [[NSNumber alloc] initWithDouble:_radius];
-        [self units:(int)_units];
-        categories = (_categories) ? [[NSMutableArray alloc] initWithArray:_categories] : nil;
-        metadata = (_metadata) ? [[NSMutableDictionary alloc] initWithDictionary:_metadata] : nil;
-        includeMeta = [[NSNumber alloc] initWithBool:NO];
-        searchRectangle = nil;
-        pageSize = [[NSNumber alloc] initWithInt:DEFAULT_PAGE_SIZE];
-        offset = [[NSNumber alloc] initWithInt:DEFAULT_OFFSET];
-        whereClause = nil;
-        relativeFindPercentThreshold = [[NSNumber alloc] initWithFloat:0.0];
-        relativeFindMetadata = nil;
+        [self defaultInit];
+        self.latitude = @(point.latitude);
+        self.longitude = @(point.longitude);
+        self.radius = @(radius);
+        [self units:(int)units];
+        [self categories:categories];
 	}
-	
+	return self;
+}
+
+-(id)initWithPoint:(GEO_POINT)point radius:(double)radius units:(UNITS)units categories:(NSArray *)categories metadata:(NSDictionary *)metadata {
+    
+	if ( (self=[super init]) ) {
+        [self defaultInit];
+        self.latitude = @(point.latitude);
+        self.longitude = @(point.longitude);
+        self.radius = @(radius);
+        [self units:(int)units];
+        [self categories:categories];
+        [self metadata:metadata];
+	}
 	return self;
 }
 
 -(id)initWithRect:(GEO_POINT)nordWest southEast:(GEO_POINT)southEast {
     
 	if ( (self=[super init]) ) {
-
-        latitude = [[NSNumber alloc] initWithDouble:0.0];
-        longitude = [[NSNumber alloc] initWithDouble:0.0];
-        radius = [[NSNumber alloc] initWithDouble:0.0];
-        [self units:(int)METERS];
-        categories = nil;
-        includeMeta = [[NSNumber alloc] initWithBool:NO];
-        metadata = nil;
+        [self defaultInit];
         [self searchRectangle:nordWest southEast:southEast];
-        pageSize = [[NSNumber alloc] initWithInt:DEFAULT_PAGE_SIZE];
-        offset = [[NSNumber alloc] initWithInt:DEFAULT_OFFSET];
-        whereClause = nil;
-        relativeFindPercentThreshold = [[NSNumber alloc] initWithFloat:0.0];
-        relativeFindMetadata = nil;
 	}
-	
 	return self;
 }
 
--(id)initWithRect:(GEO_POINT)nordWest southEast:(GEO_POINT)southEast categories:(NSArray *)_categories {
+-(id)initWithRect:(GEO_POINT)nordWest southEast:(GEO_POINT)southEast categories:(NSArray *)categories {
     
 	if ( (self=[super init]) ) {
-
-        latitude = [[NSNumber alloc] initWithDouble:0.0];
-        longitude = [[NSNumber alloc] initWithDouble:0.0];
-        radius = [[NSNumber alloc] initWithDouble:0.0];
-        [self units:(int)METERS];
-        categories = (_categories) ? [[NSMutableArray alloc] initWithArray:_categories] : nil;
-        includeMeta = [[NSNumber alloc] initWithBool:NO];
-        metadata = nil;
+        [self defaultInit];
         [self searchRectangle:nordWest southEast:southEast];
-        pageSize = [[NSNumber alloc] initWithInt:DEFAULT_PAGE_SIZE];
-        offset = [[NSNumber alloc] initWithInt:DEFAULT_OFFSET];
-        whereClause = nil;
-        relativeFindPercentThreshold = [[NSNumber alloc] initWithFloat:0.0];
-        relativeFindMetadata = nil;
+        [self categories:categories];
 	}
-	
 	return self;
+}
+
+-(NSString *)description {
+    return [NSString stringWithFormat:@"BackendlessGeoQuery: latitude:%@, lonitude:%@, radius:%@, units:%@, searchRectangle:%@, categories:%@, includeMeta:%@, metadata:%@, pageSize:%@, offset:%@, whereClause:\'%@\', dpp:%@, clusterGridSize:%@, relativeFindPercentThreshold:%@, relativeFindMetadata:%@", self.latitude, self.longitude, self.radius, self.units, self.searchRectangle, self.categories, self.includeMeta, self.metadata, self.pageSize, self.offset, self.whereClause, self.dpp, self.clusterGridSize, self.relativeFindPercentThreshold, self.relativeFindMetadata];
 }
 
 +(id)query {
     return [[BackendlessGeoQuery new] autorelease];
 }
 
-+(id)queryWithCategories:(NSArray *)_categories {
-    return [[[BackendlessGeoQuery alloc] initWithCategories:_categories] autorelease];
++(id)queryWithCategories:(NSArray *)categories {
+    return [[[BackendlessGeoQuery alloc] initWithCategories:categories] autorelease];
 }
 
 +(id)queryWithPoint:(GEO_POINT)point {
     return [[[BackendlessGeoQuery alloc] initWithPoint:point] autorelease];
 }
 
-+(id)queryWithPoint:(GEO_POINT)point pageSize:(int)_pageSize offset:(int)_offset {
-    return [[[BackendlessGeoQuery alloc] initWithPoint:point pageSize:_pageSize offset:_offset] autorelease];
++(id)queryWithPoint:(GEO_POINT)point pageSize:(int)pageSize offset:(int)offset {
+    return [[[BackendlessGeoQuery alloc] initWithPoint:point pageSize:pageSize offset:offset] autorelease];
 }
 
-+(id)queryWithPoint:(GEO_POINT)point categories:(NSArray *)_categories {
-    return [[[BackendlessGeoQuery alloc] initWithPoint:point categories:_categories] autorelease];
++(id)queryWithPoint:(GEO_POINT)point categories:(NSArray *)categories {
+    return [[[BackendlessGeoQuery alloc] initWithPoint:point categories:categories] autorelease];
 }
 
-+(id)queryWithPoint:(GEO_POINT)point radius:(double)_radius units:(UNITS)_units {
-    return [[[BackendlessGeoQuery alloc] initWithPoint:point radius:_radius units:_units] autorelease];
++(id)queryWithPoint:(GEO_POINT)point radius:(double)radius units:(UNITS)units {
+    return [[[BackendlessGeoQuery alloc] initWithPoint:point radius:radius units:units] autorelease];
 }
 
-+(id)queryWithPoint:(GEO_POINT)point radius:(double)_radius units:(UNITS)_units categories:(NSArray *)_categories {
-    return [[[BackendlessGeoQuery alloc] initWithPoint:point radius:_radius units:_units categories:_categories] autorelease];
++(id)queryWithPoint:(GEO_POINT)point radius:(double)radius units:(UNITS)units categories:(NSArray *)categories {
+    return [[[BackendlessGeoQuery alloc] initWithPoint:point radius:radius units:units categories:categories] autorelease];
 }
 
-+(id)queryWithPoint:(GEO_POINT)point radius:(double)_radius units:(UNITS)_units categories:(NSArray *)_categories metadata:(NSDictionary *)_metadata {
-    return [[[BackendlessGeoQuery alloc] initWithPoint:point radius:_radius units:_units categories:_categories metadata:_metadata] autorelease];
++(id)queryWithPoint:(GEO_POINT)point radius:(double)radius units:(UNITS)units categories:(NSArray *)categories metadata:(NSDictionary *)metadata {
+    return [[[BackendlessGeoQuery alloc] initWithPoint:point radius:radius units:units categories:categories metadata:metadata] autorelease];
 }
 
 +(id)queryWithRect:(GEO_POINT)nordWest southEast:(GEO_POINT)southEast {
     return [[[BackendlessGeoQuery alloc] initWithRect:nordWest southEast:southEast] autorelease];
 }
 
-+(id)queryWithRect:(GEO_POINT)nordWest southEast:(GEO_POINT)southEast categories:(NSArray *)_categories {
-    return [[[BackendlessGeoQuery alloc] initWithRect:nordWest southEast:southEast categories:_categories] autorelease];
++(id)queryWithRect:(GEO_POINT)nordWest southEast:(GEO_POINT)southEast categories:(NSArray *)categories {
+    return [[[BackendlessGeoQuery alloc] initWithRect:nordWest southEast:southEast categories:categories] autorelease];
 }
 
 -(void)dealloc {
 	
 	[DebLog logN:@"DEALLOC BackendlessGeoQuery: %@", self];
     
-    [latitude release];
-    [longitude release];
-    [radius release];
-    [units release];
-    [categories release];
-    [includeMeta release];
-    [metadata release];
-    [searchRectangle release];
-    [pageSize release];
-    [offset release];
-	[whereClause release];
-    [relativeFindPercentThreshold release];
-    [relativeFindMetadata release];
+    [self.latitude release];
+    [self.longitude release];
+    [self.radius release];
+    [self.units release];
+    [self.categories release];
+    [self.includeMeta release];
+    [self.metadata release];
+    [self.searchRectangle release];
+    [self.pageSize release];
+    [self.offset release];
+	[self.whereClause release];
+    [self.relativeFindPercentThreshold release];
+    [self.relativeFindMetadata release];
+    [self.dpp release];
+    [self.clusterGridSize release];
     
     [super dealloc];
 }
@@ -318,171 +233,195 @@
 #pragma mark Public Methods
 
 -(double)valLatitude {
-    return [latitude doubleValue];
+    return _latitude.doubleValue;
 }
 
--(BOOL)latitude:(double)_latitude {
-    
-    [latitude release];
-    latitude = [[NSNumber alloc] initWithDouble:_latitude];
-    return YES;
+-(void)latitude:(double)latitude {
+    self.latitude = @(latitude);
 }
 
 -(double)valLongitude {
-    return [longitude doubleValue];
+    return _longitude.doubleValue;
 }
 
--(BOOL)longitude:(double)_longitude {
-    
-    [longitude release];
-    longitude = [[NSNumber alloc] initWithDouble:_longitude];
-    return YES;
+-(void)longitude:(double)longitude {
+    self.longitude = @(longitude);
 }
 
 -(double)valRadius {
-    return [radius doubleValue];
+    return _radius.doubleValue;
 }
 
--(BOOL)radius:(double)_radius {
-    
-    [radius release];
-    radius = [[NSNumber alloc] initWithDouble:_radius];
-    return YES;
+-(void)radius:(double)radius {
+    self.radius = @(radius);
 }
 
 -(UNITS)valUnits {
     return queryUnits;
 }
 
-static const char * const query_units[] = { "METERS", "MILES", "YARDS", "KILOMETERS", "FEET" };
+static const char * const backendless_geo_query_units[] = { "METERS", "MILES", "YARDS", "KILOMETERS", "FEET" };
 
--(BOOL)units:(UNITS)_units {
-    
-    queryUnits = _units;
-    
-    [units release];
-    units = [[NSString alloc] initWithUTF8String:query_units[(int)_units]];
-    return YES;
+-(void)units:(UNITS)units {
+    queryUnits = units;
+    self.units = [NSString stringWithUTF8String:backendless_geo_query_units[(int)units]];
 }
 
 -(NSArray *)valCategories {
-    return categories;
+    return _categories;
 }
 
--(BOOL)categories:(NSArray *)_categories {
-    
-    [categories removeAllObjects];
-    [categories release];
-    categories = (_categories) ? [[NSMutableArray alloc] initWithArray:_categories] : nil;
-    return YES;
+-(void)categories:(NSArray *)categories {
+    [self.categories removeAllObjects];
+    self.categories = categories? [NSMutableArray arrayWithArray:categories] : nil;
 }
 
 -(BOOL)valIncludeMeta {
-    return [includeMeta boolValue];
+    return _includeMeta.boolValue;
 }
 
--(BOOL)includeMeta:(BOOL)_includeMeta {
-    
-    [includeMeta release];
-    includeMeta = [[NSNumber alloc] initWithBool:_includeMeta];
-    return YES;
+-(void)includeMeta:(BOOL)includeMeta {
+    self.includeMeta = @(includeMeta);
 }
 
 -(NSDictionary *)valMetadata {
-    return metadata;
+    return _metadata;
 }
 
--(BOOL)metadata:(NSDictionary *)_metadata {
-    
-    [metadata removeAllObjects];
-    [metadata release];
-    metadata = (_metadata) ? [[NSMutableDictionary alloc] initWithDictionary:_metadata] : nil;
+-(void)metadata:(NSDictionary *)metadata {
     if (metadata && metadata.count) [self includeMeta:YES];
-    return YES;
+    [self.metadata removeAllObjects];
+    self.metadata = metadata? [NSMutableDictionary dictionaryWithDictionary:metadata] : nil;
 }
 
 -(NSArray *)valSearchRectangle {
-    return searchRectangle;
+    return _searchRectangle;
 }
 
--(BOOL)searchRectangle:(NSArray *)_searchRectangle {
-    
-    [searchRectangle release];
-    searchRectangle = (_searchRectangle) ? [_searchRectangle retain] : nil;//[NSArray new];
-    return YES;
+-(void)searchRectangle:(NSArray *)searchRectangle {
+    self.searchRectangle = searchRectangle;
 }
 
 -(int)valPageSize {
-    return [pageSize intValue];
+    return _pageSize.intValue;
 }
 
--(BOOL)pageSize:(int)_pageSize {
-    
-    [pageSize release];
-    pageSize = [[NSNumber alloc] initWithInt:_pageSize];
-    return YES;
+-(void)pageSize:(int)pageSize {
+    self.pageSize = @(pageSize);
 }
 
 -(int)valOffset {
-    return [offset intValue];
+    return _offset.intValue;
 }
 
--(BOOL)offset:(int)_offset {
-    
-    [offset release];
-    offset = [[NSNumber alloc] initWithInt:_offset];
-    return YES;
-    
+-(void)offset:(int)offset {
+    self.offset = @(offset);
 }
 
--(float)valRelativeFindPercentThreshold {
-    return relativeFindPercentThreshold.floatValue;
+-(double)valRelativeFindPercentThreshold {
+    return _relativeFindPercentThreshold.doubleValue;
 }
 
--(BOOL)relativeFindPercentThreshold:(float)_percent {
-    
-    [relativeFindPercentThreshold release];
-    relativeFindPercentThreshold = [[NSNumber alloc] initWithFloat:_percent];
-    return YES;
+-(void)relativeFindPercentThreshold:(double)percent {
+    self.relativeFindPercentThreshold = @(percent);
 }
 
--(BOOL)searchRectangle:(GEO_POINT)nordWest southEast:(GEO_POINT)southEast {
-    return [self searchRectangle:[[[NSArray alloc] initWithObjects:
-                                  [NSNumber numberWithDouble:nordWest.latitude],
-                                  [NSNumber numberWithDouble:nordWest.longitude],
-                                  [NSNumber numberWithDouble:southEast.latitude],
-                                  [NSNumber numberWithDouble:southEast.longitude],
-                                  nil] autorelease]];
+-(double)valDpp {
+    return _dpp.doubleValue;
+}
+
+-(void)dpp:(double)dpp {
+    self.dpp = @(dpp);
+}
+
+-(int)valClusterGridSize {
+    return _clusterGridSize.intValue;
+}
+
+-(void)clusterGridSize:(int)size {
+    self.clusterGridSize = @(size);
+}
+
+-(void)searchRectangle:(GEO_POINT)nordWest southEast:(GEO_POINT)southEast {
+    [self searchRectangle:@[@(nordWest.latitude), @(nordWest.longitude), @(southEast.latitude), @(southEast.longitude)]];
 }
 
 -(BOOL)addCategory:(NSString *)category {
     
-    if (!category) {
+    if (!category)
         return NO;
-    }
     
-    if (categories) {
-        [categories addObject:category];
-    }
-    else {
-        categories = [[NSMutableArray alloc] initWithObjects:categories, nil];
-    }
-    
-    return YES;   
-}
-
--(BOOL)addMetadata:(NSString *)key value:(NSString *)value {
-    
-    if (!key || !value) {
-        return NO;
-    }
-    
-    (metadata) ? [metadata setValue:value forKey:key] : [[NSMutableDictionary alloc] initWithObjectsAndKeys:value, key, nil];
+    _categories? [_categories addObject:category] : [self categories:@[category]];
     return YES;
 }
 
--(NSString *)description {
-    return [NSString stringWithFormat:@"BackendlessGeoQuery: latitude:%@, lonitude:%@, radius:%@, units:%s, searchRectangle:%@, categories:%@, includeMeta:%@, metadata:%@, pageSize:%@, offset:%@, whereClause:\'%@\'", latitude, longitude, radius, query_units[[self valUnits]], searchRectangle, categories, [self valIncludeMeta]?@"YES":@"NO", metadata, pageSize, offset, whereClause];
+-(BOOL)putMetadata:(NSString *)key value:(id)value {
+    
+    if (!key || !value)
+        return NO;
+    
+    _metadata? [_metadata setValue:value forKey:key] : [self metadata:@{key:value}];
+    return YES;
+}
+
+-(BOOL)putRelativeFindMetadata:(NSString *)key value:(id)value {
+    
+    if (!key || !value)
+        return NO;
+    
+    if (_relativeFindMetadata) {
+        NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:_relativeFindMetadata];
+        [dict setValue:value forKey:key];
+        self.relativeFindMetadata = dict;
+    }
+    else {
+        self.relativeFindMetadata = @{key:value};
+    }
+    return YES;
+}
+
+-(void)setClusteringParams:(double)degreePerPixel clusterGridSize:(int)size {
+    self.dpp = @(degreePerPixel);
+    self.clusterGridSize = @(size);
+}
+
+-(void)setClusteringParams:(double)westLongitude eastLongitude:(double)eastLongitude mapWidth:(int)mapWidth {
+    [self setClusteringParams:westLongitude eastLongitude:eastLongitude mapWidth:mapWidth clusterGridSize:CLUSTER_SIZE_DEFAULT_VALUE];
+}
+
+-(void)setClusteringParams:(double)westLongitude eastLongitude:(double)eastLongitude mapWidth:(int)mapWidth clusterGridSize:(int)clusterGridSize {
+    
+    double longDiff = eastLongitude - westLongitude;
+    if( longDiff < 0 ) {
+        longDiff += 360;
+    }
+    
+    double degreePerPixel = longDiff/mapWidth;
+    [self setClusteringParams:degreePerPixel clusterGridSize:clusterGridSize];
+}
+
+#pragma mark -
+#pragma mark NSCopying Methods
+
+-(id)copyWithZone:(NSZone *)zone {
+    
+    BackendlessGeoQuery *query = [BackendlessGeoQuery query];
+    query.latitude = _latitude.copy;
+    query.longitude = _longitude.copy;
+    query.radius = _radius.copy;
+    query.units = _units.copy;
+    query.categories = _categories.copy;
+    query.includeMeta = _includeMeta.copy;
+    query.metadata = _metadata.copy;
+    query.searchRectangle = _searchRectangle.copy;
+    query.pageSize = _pageSize.copy;
+    query.offset = _offset.copy;
+    query.whereClause = _whereClause.copy;
+    query.relativeFindPercentThreshold = _relativeFindPercentThreshold.copy;
+    query.relativeFindMetadata = _relativeFindMetadata.copy;
+    query.dpp = _dpp.copy;
+    query.clusterGridSize = _clusterGridSize.copy;
+    return query;
 }
 
 @end

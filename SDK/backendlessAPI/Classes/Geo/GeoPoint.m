@@ -173,7 +173,7 @@
     return YES;
 }
 
--(BOOL)addMetadata:(NSString *)key value:(NSString *)value {
+-(BOOL)addMetadata:(NSString *)key value:(id)value {
     
     if (!key || !value) {
         return NO;

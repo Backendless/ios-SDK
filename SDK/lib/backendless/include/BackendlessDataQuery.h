@@ -26,7 +26,7 @@
 
 @class QueryOptions;
 
-@interface BackendlessDataQuery : NSObject //AbstractQuery
+@interface BackendlessDataQuery : NSObject <NSCopying>
 
 @property (strong, nonatomic) NSArray *properties;
 @property (strong, nonatomic) NSString *whereClause;
@@ -34,7 +34,7 @@
 @property (strong, nonatomic) BackendlessCachePolicy *cachePolicy;
 
 -(id)init:(NSArray *)properties where:(NSString *)whereClause query:(QueryOptions *)queryOptions;
-+(BackendlessDataQuery *)query;
-+(BackendlessDataQuery *)query:(NSArray *)properties where:(NSString *)whereClause query:(QueryOptions *)queryOptions;
++(id)query;
++(id)query:(NSArray *)properties where:(NSString *)whereClause query:(QueryOptions *)queryOptions;
 
 @end

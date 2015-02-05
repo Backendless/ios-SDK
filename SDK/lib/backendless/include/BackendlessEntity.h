@@ -31,5 +31,5 @@
 @property (strong, nonatomic) NSString *__meta;
 @property (strong, nonatomic) NSDate *created;
 @property (strong, nonatomic) NSDate *updated;
-+(BackendlessEntity *)entity;
++(id)entity;
 @end
