@@ -45,12 +45,14 @@ static NSString *METHOD_GET_CATEGORIES = @"getCategories";
 static NSString *METHOD_GET_POINTS = @"getPoints";
 static NSString *METHOD_GET_POINTS_WITH_MATCHES = @"relativeFind";
 static NSString *METHOD_DELETE_GEOPOINT = @"removePoint";
+static NSString *METHOD_LOAD_METADATA = @"loadMetadata";
 
 @interface GeoService ()
 -(Fault *)isFaultCategoryName:(NSString *)categoryName responder:(id <IResponder>)responder;
 -(Fault *)isFaultGeoPoint:(GeoPoint *)geoPoint responder:(id <IResponder>)responder;
 -(Fault *)isFaultGeoPointId:(NSString *)pointId responder:(id <IResponder>)responder;
 -(id)getResponse:(ResponseContext *)response;
+-(id)getMetadata:(ResponseContext *)response;
 -(id)getError:(id)error;
 @end
 
@@ -61,6 +63,7 @@ static NSString *METHOD_DELETE_GEOPOINT = @"removePoint";
 	if ( (self=[super init]) ) {
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.model.GeoCategory" mapped:[GeoCategory class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.model.GeoPoint" mapped:[GeoPoint class]];
+        [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.model.GeoCluster" mapped:[GeoCluster class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.BackendlesGeoQuery" mapped:[BackendlessGeoQuery class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.model.SearchMatchesResult" mapped:[SearchMatchesResult class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.BackendlessCollection" mapped:[BackendlessCollection class]];
@@ -82,8 +85,8 @@ static NSString *METHOD_DELETE_GEOPOINT = @"removePoint";
 
 // sync methods with fault option
 
--(GeoCategory *)addCategory:(NSString *)categoryName error:(Fault **)fault
-{
+-(GeoCategory *)addCategory:(NSString *)categoryName error:(Fault **)fault {
+    
     id result = [self addCategory:categoryName];
     if ([result isKindOfClass:[Fault class]]) {
         (*fault) = result;
@@ -92,8 +95,8 @@ static NSString *METHOD_DELETE_GEOPOINT = @"removePoint";
     return result;
 }
 
--(BOOL)deleteCategory:(NSString *)categoryName error:(Fault **)fault
-{
+-(BOOL)deleteCategory:(NSString *)categoryName error:(Fault **)fault {
+    
     id result = [self deleteCategory:categoryName];
     if ([result isKindOfClass:[Fault class]]) {
         (*fault) = result;
@@ -102,8 +105,8 @@ static NSString *METHOD_DELETE_GEOPOINT = @"removePoint";
     return YES;
 }
 
--(GeoPoint *)savePoint:(GeoPoint *)geoPoint error:(Fault **)fault
-{
+-(GeoPoint *)savePoint:(GeoPoint *)geoPoint error:(Fault **)fault {
+    
     id result = [self savePoint:geoPoint];
     if ([result isKindOfClass:[Fault class]]) {
         (*fault) = result;
@@ -112,8 +115,8 @@ static NSString *METHOD_DELETE_GEOPOINT = @"removePoint";
     return result;
 }
 
--(NSArray *)getCategoriesError:(Fault **)fault
-{
+-(NSArray *)getCategoriesError:(Fault **)fault {
+    
     id result = [self getCategories];
     if ([result isKindOfClass:[Fault class]]) {
         (*fault) = result;
@@ -122,8 +125,8 @@ static NSString *METHOD_DELETE_GEOPOINT = @"removePoint";
     return result;
 }
 
--(BackendlessCollection *)getPoints:(BackendlessGeoQuery *)query error:(Fault **)fault
-{
+-(BackendlessCollection *)getPoints:(BackendlessGeoQuery *)query error:(Fault **)fault {
+    
     id result = [self getPoints:query];
     if ([result isKindOfClass:[Fault class]]) {
         (*fault) = result;
@@ -132,8 +135,8 @@ static NSString *METHOD_DELETE_GEOPOINT = @"removePoint";
     return result;
 }
 
--(BackendlessCollection *)relativeFind:(BackendlessGeoQuery *)query error:(Fault **)fault
-{
+-(BackendlessCollection *)relativeFind:(BackendlessGeoQuery *)query error:(Fault **)fault {
+    
     id result = [self relativeFind:query];
     if ([result isKindOfClass:[Fault class]]) {
         (*fault) = result;
@@ -142,14 +145,24 @@ static NSString *METHOD_DELETE_GEOPOINT = @"removePoint";
     return result;
 }
 
--(BOOL)deleteGeoPoint:(NSString *)pointId error:(Fault **)fault
-{
-    id result = [self deleteGeoPoint:pointId];
+-(BOOL)removePoint:(GeoPoint *)geoPoint error:(Fault **)fault {
+    
+    id result = [self removePoint:geoPoint];
     if ([result isKindOfClass:[Fault class]]) {
         (*fault) = result;
         return NO;
     }
     return YES;
+}
+
+-(GeoPoint *)loadMetadata:(GeoPoint *)geoPoint error:(Fault **)fault {
+    
+    id result = [self loadMetadata:geoPoint];
+    if ([result isKindOfClass:[Fault class]]) {
+        (*fault) = result;
+        return nil;
+    }
+    return result;
 }
 
 // sync methods with fault return (as exception)
@@ -222,14 +235,26 @@ static NSString *METHOD_DELETE_GEOPOINT = @"removePoint";
     return collection;
 }
 
--(id)deleteGeoPoint:(NSString*)pointId {
+-(id)removePoint:(GeoPoint *)geoPoint {
     
-    if (pointId.length == 0) {
-        return [Fault fault:@"Empty point id"];
-    }
+    id fault = nil;
+    if ((fault = [self isFaultGeoPoint:geoPoint responder:nil]) || (fault = [self isFaultGeoPointId:geoPoint.objectId responder:nil]))
+        return fault;
     
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, pointId, nil];
+    NSArray *args = @[backendless.appID, backendless.versionNum, geoPoint.objectId];
     return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_DELETE_GEOPOINT args:args];
+}
+
+-(GeoPoint *)loadMetadata:(GeoPoint *)geoPoint {
+    
+    id fault = nil;
+    if ((fault = [self isFaultGeoPoint:geoPoint responder:nil]) || (fault = [self isFaultGeoPointId:geoPoint.objectId responder:nil]))
+        return fault;
+
+    BackendlessGeoQuery *query = [geoPoint isKindOfClass:[GeoCluster class]]? [(GeoCluster *)geoPoint geoQuery] : nil;
+    NSArray *args = @[backendless.appID, backendless.versionNum, geoPoint.objectId, query];
+    [geoPoint metadata:[invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_LOAD_METADATA args:args]];
+    return geoPoint;
 }
 
 // async methods with responder
@@ -285,13 +310,26 @@ static NSString *METHOD_DELETE_GEOPOINT = @"removePoint";
     [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_POINTS_WITH_MATCHES args:args responder:_responder];
 }
 
--(void)deleteGeoPoint:(NSString *)pointId responder:(id<IResponder>)responder {
+-(void)removePoint:(GeoPoint *)geoPoint responder:(id<IResponder>)responder {
     
-    if ([self isFaultGeoPointId:pointId responder:responder])
+    if ([self isFaultGeoPoint:geoPoint responder:responder] || [self isFaultGeoPointId:geoPoint.objectId responder:responder])
         return;
 
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, pointId, nil];
+    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, geoPoint.objectId, nil];
     [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_DELETE_GEOPOINT args:args responder:responder];
+}
+
+-(void)loadMetadata:(GeoPoint *)geoPoint responder:(id<IResponder>)responder {
+    
+    if ([self isFaultGeoPoint:geoPoint responder:responder] || [self isFaultGeoPointId:geoPoint.objectId responder:responder])
+        return;
+    
+    BackendlessGeoQuery *query = [geoPoint isKindOfClass:[GeoCluster class]]? [(GeoCluster *)geoPoint geoQuery] : nil;
+    NSArray *args = @[backendless.appID, backendless.versionNum, geoPoint.objectId, query];
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(getMetadata:) selErrorHandler:@selector(getError:)];
+    _responder.chained = responder;
+    _responder.context = geoPoint;
+    [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_LOAD_METADATA args:args responder:_responder];
 }
 
 // async methods with block-based callbacks
@@ -320,8 +358,12 @@ static NSString *METHOD_DELETE_GEOPOINT = @"removePoint";
     [self relativeFind:query responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)deleteGeoPoint:(NSString *)pointId response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
-    [self deleteGeoPoint:pointId responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+-(void)removePoint:(GeoPoint *)geoPoint response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+    [self removePoint:geoPoint responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+
+-(void)loadMetadata:(GeoPoint *)geoPoint response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+    [self loadMetadata:geoPoint responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 // utilites
@@ -341,6 +383,18 @@ static NSString *METHOD_DELETE_GEOPOINT = @"removePoint";
     rect.southEast.longitude = (value > 180.0) ? value - 360.0 : value;
     
     return rect;
+}
+
+-(void)setReferenceToCluster:(BackendlessCollection *)points {
+    
+    BackendlessGeoQuery *geoQuery = points.query;
+    NSArray *geoPoints = points.data;
+    for (id geoPoint in geoPoints) {
+        if ([geoPoint isKindOfClass:[GeoCluster class]]) {
+            GeoCluster *geoCluster = geoPoint;
+            geoCluster.geoQuery = geoQuery;
+        }
+    }
 }
 
 
@@ -378,6 +432,9 @@ static NSString *METHOD_DELETE_GEOPOINT = @"removePoint";
     return fault;
 }
 
+#pragma mark -
+#pragma mark Callback Methods
+
 -(id)getResponse:(ResponseContext *)response {
     
     BackendlessCollection *collection = response.response;
@@ -385,6 +442,14 @@ static NSString *METHOD_DELETE_GEOPOINT = @"removePoint";
     collection.query = geoQuery;
     [collection pageSize:geoQuery.pageSize.integerValue];
     return collection;
+}
+
+-(id)getMetadata:(ResponseContext *)response {
+    
+    NSDictionary *metadata = response.response;
+    GeoPoint *geoPoint = response.context;
+    [geoPoint metadata:metadata];
+    return geoPoint;
 }
 
 -(id)getError:(id)error {

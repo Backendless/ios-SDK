@@ -41,7 +41,8 @@ typedef struct {
 -(NSArray *)getCategories;
 -(BackendlessCollection *)getPoints:(BackendlessGeoQuery *)query;
 -(BackendlessCollection *)relativeFind:(BackendlessGeoQuery *)query;
--(id)deleteGeoPoint:(NSString*)pointId;
+-(id)removePoint:(GeoPoint *)geoPoint;
+-(GeoPoint *)loadMetadata:(GeoPoint *)geoPoint;
 
 // sync methods with fault option
 -(GeoCategory *)addCategory:(NSString *)categoryName error:(Fault **)fault;
@@ -50,7 +51,8 @@ typedef struct {
 -(NSArray *)getCategoriesError:(Fault **)fault;
 -(BackendlessCollection *)getPoints:(BackendlessGeoQuery *)query error:(Fault **)fault;
 -(BackendlessCollection *)relativeFind:(BackendlessGeoQuery *)query error:(Fault **)fault;
--(BOOL)deleteGeoPoint:(NSString *)pointId error:(Fault **)fault;
+-(BOOL)removePoint:(GeoPoint *)geoPoint error:(Fault **)fault;
+-(GeoPoint *)loadMetadata:(GeoPoint *)geoPoint error:(Fault **)fault;
 
 // async methods with responder
 -(void)addCategory:(NSString *)categoryName responder:(id <IResponder>)responder;
@@ -59,7 +61,8 @@ typedef struct {
 -(void)getCategories:(id <IResponder>)responder;
 -(void)getPoints:(BackendlessGeoQuery *)query responder:(id <IResponder>)responder;
 -(void)relativeFind:(BackendlessGeoQuery *)query responder:(id<IResponder>)responder;
--(void)deleteGeoPoint:(NSString *)pointId responder:(id <IResponder>)responder;
+-(void)removePoint:(GeoPoint *)geoPoint responder:(id <IResponder>)responder;
+-(void)loadMetadata:(GeoPoint *)geoPoint responder:(id<IResponder>)responder;
 
 // async methods with block-based callbacks
 -(void)addCategory:(NSString *)categoryName response:(void(^)(GeoCategory *))responseBlock error:(void(^)(Fault *))errorBlock;
@@ -68,7 +71,8 @@ typedef struct {
 -(void)getCategories:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getPoints:(BackendlessGeoQuery *)query response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)relativeFind:(BackendlessGeoQuery *)query response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)deleteGeoPoint:(NSString *)pointId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)removePoint:(GeoPoint *)geoPoint response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)loadMetadata:(GeoPoint *)geoPoint response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
 
 // utilites
 -(GEO_RECT)geoRectangle:(GEO_POINT)center length:(double)length widht:(double)widht;

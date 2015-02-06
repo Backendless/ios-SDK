@@ -30,6 +30,7 @@
         _objectId = nil;
         _latitude = [[NSNumber alloc] initWithDouble:0.0];
         _longitude = [[NSNumber alloc] initWithDouble:0.0];
+        _distance = [[NSNumber alloc] initWithDouble:0.0];
         _categories = [NSMutableArray new];
         _metadata = [NSMutableDictionary new];
 	}
@@ -43,6 +44,7 @@
         _objectId = nil;
         _latitude = [[NSNumber alloc] initWithDouble:point.latitude];
         _longitude = [[NSNumber alloc] initWithDouble:point.longitude];
+        _distance = [[NSNumber alloc] initWithDouble:0.0];
         _categories = [NSMutableArray new];
         _metadata = [NSMutableDictionary new];
 	}
@@ -57,6 +59,7 @@
         _objectId = nil;
         _latitude = [[NSNumber alloc] initWithDouble:point.latitude];
         _longitude = [[NSNumber alloc] initWithDouble:point.longitude];
+        _distance = [[NSNumber alloc] initWithDouble:0.0];
         _categories = [[NSMutableArray alloc] initWithArray:categories];
         _metadata = [NSMutableDictionary new];
 	}
@@ -70,6 +73,7 @@
         _objectId = nil;
         _latitude = [[NSNumber alloc] initWithDouble:point.latitude];
         _longitude = [[NSNumber alloc] initWithDouble:point.longitude];
+        _distance = [[NSNumber alloc] initWithDouble:0.0];
         _categories = [[NSMutableArray alloc] initWithArray:categories];
         _metadata = [[NSMutableDictionary alloc] initWithDictionary:metadata];
 	}
@@ -109,58 +113,55 @@
 
 #pragma mark -
 #pragma mark Public Methods
--(float)valDistance
-{
-    return self.distance.floatValue;
-}
--(BOOL)distance:(float)distance
-{
-    [_distance release];
-    _distance = [[NSNumber alloc] initWithFloat:distance];
-    return YES;
-}
+
 -(double)valLatitude {
-    return [_latitude doubleValue];
+    return _latitude.doubleValue;
 }
 
--(BOOL)latitude:(double)latitude {
+-(void)latitude:(double)latitude {
     
     [_latitude release];
     _latitude = [[NSNumber alloc] initWithDouble:latitude];
-    return YES;
 }
 
 -(double)valLongitude {
-    return [_longitude doubleValue];
+    return _longitude.doubleValue;
 }
 
--(BOOL)longitude:(double)longitude {
+-(void)longitude:(double)longitude {
     
     [_longitude release];
     _longitude = [[NSNumber alloc] initWithDouble:longitude];
-    return YES;
+}
+
+-(double)valDistance {
+    return _distance.doubleValue;
+}
+
+-(void)distance:(double)distance {
+    
+    [_distance release];
+    _distance = [[NSNumber alloc] initWithDouble:distance];
 }
 
 -(NSArray *)valCategories {
     return _categories;
 }
 
--(BOOL)categories:(NSArray *)categories {
+-(void)categories:(NSArray *)categories {
     
     [_categories release];
-    _categories = (categories) ? [[NSMutableArray alloc] initWithArray:categories] : [NSMutableArray new];
-    return YES;
+    _categories = categories? [[NSMutableArray alloc] initWithArray:categories] : [NSMutableArray new];
 }
 
 -(NSDictionary *)valMetadata {
     return _metadata;
 }
 
--(BOOL)metadata:(NSDictionary *)metadata {
+-(void)metadata:(NSDictionary *)metadata {
     
     [_metadata release];
     _metadata = (metadata) ? [[NSMutableDictionary alloc] initWithDictionary:metadata] : [NSMutableDictionary new];
-    return YES;
 }
 
 -(BOOL)addCategory:(NSString *)category {
@@ -184,19 +185,14 @@
 }
 
 -(NSString *)description {
-    return [NSString stringWithFormat:@"LAT:%g LON:%g CATEGORIES:%@ METADATA:%@ objectId = %@", [self valLatitude], [self valLongitude], _categories, _metadata, _objectId];
+    return [NSString stringWithFormat:@"<GeoPoint> LAT:%@, LON:%@, distance:%@, CATEGORIES:%@, METADATA:%@, objectId = %@", _latitude, _longitude, _distance, _categories, _metadata, _objectId];
 }
-
 
 @end
 
-@implementation SearchMatchesResult
 
-@synthesize objectId;
-@synthesize matches;
-@synthesize geoPoint;
--(NSString *)description
-{
-    return [NSString stringWithFormat:@"GEOPOINT: %@ MATCHES: %@", geoPoint.description, matches];
+@implementation SearchMatchesResult
+-(NSString *)description {
+    return [NSString stringWithFormat:@"GEOPOINT: %@ MATCHES: %@", _geoPoint, _matches];
 }
 @end

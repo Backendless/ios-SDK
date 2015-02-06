@@ -32,9 +32,9 @@ typedef struct {
 @property (strong, nonatomic) NSString *objectId;
 @property (strong, nonatomic, readonly) NSNumber *latitude;
 @property (strong, nonatomic, readonly) NSNumber *longitude;
+@property (strong, nonatomic, readonly) NSNumber *distance;
 @property (strong, nonatomic, readonly) NSMutableArray *categories;
 @property (strong, nonatomic, readonly) NSMutableDictionary *metadata;
-@property (strong, nonatomic, readonly) NSNumber *distance;
 
 -(id)initWithPoint:(GEO_POINT)point;
 -(id)initWithPoint:(GEO_POINT)point categories:(NSArray *)categories;
@@ -46,23 +46,22 @@ typedef struct {
 +(id)geoPoint:(GEO_POINT)point categories:(NSArray *)categories metadata:(NSDictionary *)metadata;
 
 -(double)valLatitude;
--(BOOL)latitude:(double)latitude;
+-(void)latitude:(double)latitude;
 -(double)valLongitude;
--(BOOL)longitude:(double)longitude;
+-(void)longitude:(double)longitude;
+-(double)valDistance;
+-(void)distance:(double)distance;
 -(NSArray *)valCategories;
--(BOOL)categories:(NSArray *)categories;
+-(void)categories:(NSArray *)categories;
 -(NSDictionary *)valMetadata;
--(BOOL)metadata:(NSDictionary *)metadata;
+-(void)metadata:(NSDictionary *)metadata;
+//
 -(BOOL)addCategory:(NSString *)category;
 -(BOOL)addMetadata:(NSString *)key value:(id)value;
--(float)valDistance;
--(BOOL)distance:(float)distance;
 @end
 
 @interface SearchMatchesResult : NSObject
-
 @property (nonatomic, strong) NSString *objectId;
 @property (nonatomic, strong) GeoPoint *geoPoint;
 @property (nonatomic, strong) NSNumber *matches;
-
 @end

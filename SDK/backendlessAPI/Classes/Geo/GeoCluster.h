@@ -1,5 +1,5 @@
 //
-//  ProtectedBackendlessGeoQuery.h
+//  GeoCluster.h
 //  backendlessAPI
 /*
  * *********************************************************************************************************************
@@ -20,27 +20,13 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "BackendlessGeoQuery.h"
+#import "GeoPoint.h"
 
-@interface ProtectedBackendlessGeoQuery : NSObject <NSCopying>
--(id)initWithQuery:(BackendlessGeoQuery *)query;
-+(id)protectedQuery:(BackendlessGeoQuery *)query;
--(BackendlessGeoQuery *)query;
--(void)pageSize:(int)pageSize;
--(void)offset:(int)offset;
--(double)latitude;
--(double)longitude;
--(double)radius;
--(UNITS)units;
--(NSArray *)categories;
--(BOOL)includeMeta;
--(NSDictionary *)metadata;
--(NSArray *)searchRectangle;
--(int)pageSize;
--(int)offset;
--(NSString *)whereClause;
--(NSDictionary *)relativeFindMetadata;
--(double)relativeFindPercentThreshold;
--(double)dpp;
--(int)clusterGridSize;
+@class BackendlessGeoQuery;
+
+@interface GeoCluster : GeoPoint
+@property (nonatomic, strong) NSNumber *totalPoints;
+@property (nonatomic, strong) BackendlessGeoQuery *geoQuery;
+-(int)valTotalPoints;
+-(void)totalPoints:(int)totalPoints;
 @end

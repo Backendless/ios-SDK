@@ -1,5 +1,5 @@
 //
-//  ProtectedBackendlessGeoQuery.h
+//  GeoCluster.m
 //  backendlessAPI
 /*
  * *********************************************************************************************************************
@@ -19,28 +19,20 @@
  *  ********************************************************************************************************************
  */
 
-#import <Foundation/Foundation.h>
-#import "BackendlessGeoQuery.h"
+#import "GeoCluster.h"
 
-@interface ProtectedBackendlessGeoQuery : NSObject <NSCopying>
--(id)initWithQuery:(BackendlessGeoQuery *)query;
-+(id)protectedQuery:(BackendlessGeoQuery *)query;
--(BackendlessGeoQuery *)query;
--(void)pageSize:(int)pageSize;
--(void)offset:(int)offset;
--(double)latitude;
--(double)longitude;
--(double)radius;
--(UNITS)units;
--(NSArray *)categories;
--(BOOL)includeMeta;
--(NSDictionary *)metadata;
--(NSArray *)searchRectangle;
--(int)pageSize;
--(int)offset;
--(NSString *)whereClause;
--(NSDictionary *)relativeFindMetadata;
--(double)relativeFindPercentThreshold;
--(double)dpp;
--(int)clusterGridSize;
+@implementation GeoCluster
+
+-(int)valTotalPoints {
+    return _totalPoints.intValue;
+}
+
+-(void)totalPoints:(int)totalPoints {
+    self.totalPoints = @(totalPoints);
+}
+
+-(NSString *)description {
+    return [NSString stringWithFormat:@"<GeoCluster> LAT:%@, LON:%@, distance:%@, CATEGORIES:%@, METADATA:%@, objectId:%@, totalPoints: %@\n%@", self.latitude, self.longitude, self.distance, self.categories, self.metadata, self.objectId, _totalPoints, _geoQuery];
+}
+
 @end
