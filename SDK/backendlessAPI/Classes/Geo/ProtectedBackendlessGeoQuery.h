@@ -22,25 +22,8 @@
 #import <Foundation/Foundation.h>
 #import "BackendlessGeoQuery.h"
 
-@interface ProtectedBackendlessGeoQuery : NSObject <NSCopying>
+@interface ProtectedBackendlessGeoQuery : BackendlessGeoQuery
 -(id)initWithQuery:(BackendlessGeoQuery *)query;
 +(id)protectedQuery:(BackendlessGeoQuery *)query;
--(BackendlessGeoQuery *)query;
--(void)pageSize:(int)pageSize;
--(void)offset:(int)offset;
--(double)latitude;
--(double)longitude;
--(double)radius;
--(UNITS)units;
--(NSArray *)categories;
--(BOOL)includeMeta;
--(NSDictionary *)metadata;
--(NSArray *)searchRectangle;
--(int)pageSize;
--(int)offset;
--(NSString *)whereClause;
--(NSDictionary *)relativeFindMetadata;
--(double)relativeFindPercentThreshold;
--(double)dpp;
--(int)clusterGridSize;
+-(BackendlessGeoQuery *)geoQuery;
 @end

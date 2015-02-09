@@ -20,14 +20,124 @@
  */
 
 #import "ProtectedBackendlessGeoQuery.h"
+#import "Backendless.h"
 #import "DEBUG.h"
 
-@interface ProtectedBackendlessGeoQuery () {
-    BackendlessGeoQuery *_query;
-}
+#define FAULT_GEO_QUERY_METHOD_PERMISSION [Fault fault:@"Changing the property may result in invalid cluster formation. As a result the property is immutable and cannot be changed" faultCode:@"4000"]
+
+@interface ProtectedBackendlessGeoQuery ()
+@property (nonatomic,strong) BackendlessGeoQuery *query;
 @end
 
 @implementation ProtectedBackendlessGeoQuery
+
+-(id)init {
+    
+    if ( (self=[super init]) ) {
+        _query = [BackendlessGeoQuery new];
+    }
+    return self;
+}
+
+-(id)initWithCategories:(NSArray *)categories {
+    
+    if ( (self=[super init]) ) {
+        _query = [BackendlessGeoQuery new];
+        [_query categories:categories];
+    }
+    return self;
+}
+
+-(id)initWithPoint:(GEO_POINT)point {
+    
+    if ( (self=[super init]) ) {
+        _query = [BackendlessGeoQuery new];
+        _query.latitude = @(point.latitude);
+        _query.longitude = @(point.longitude);
+    }
+    return self;
+}
+
+-(id)initWithPoint:(GEO_POINT)point pageSize:(int)pageSize offset:(int)offset {
+    
+    if ( (self=[super init]) ) {
+        _query = [BackendlessGeoQuery new];
+        _query.latitude = @(point.latitude);
+        _query.longitude = @(point.longitude);
+        _query.pageSize = @(pageSize);
+        _query.offset = @(offset);
+    }
+    return self;
+}
+
+-(id)initWithPoint:(GEO_POINT)point categories:(NSArray *)categories {
+    
+    if ( (self=[super init]) ) {
+        _query = [BackendlessGeoQuery new];
+        _query.latitude = @(point.latitude);
+        _query.longitude = @(point.longitude);
+        [_query categories:categories];
+    }
+    return self;
+}
+
+-(id)initWithPoint:(GEO_POINT)point radius:(double)radius units:(UNITS)units {
+    
+    if ( (self=[super init]) ) {
+        _query = [BackendlessGeoQuery new];
+        _query.latitude = @(point.latitude);
+        _query.longitude = @(point.longitude);
+        _query.radius = @(radius);
+        [_query units:(int)units];
+    }
+    return self;
+}
+
+-(id)initWithPoint:(GEO_POINT)point radius:(double)radius units:(UNITS)units categories:(NSArray *)categories {
+    
+    if ( (self=[super init]) ) {
+        _query = [BackendlessGeoQuery new];
+        _query.latitude = @(point.latitude);
+        _query.longitude = @(point.longitude);
+        _query.radius = @(radius);
+        [_query units:(int)units];
+        [_query categories:categories];
+    }
+    return self;
+}
+
+-(id)initWithPoint:(GEO_POINT)point radius:(double)radius units:(UNITS)units categories:(NSArray *)categories metadata:(NSDictionary *)metadata {
+    
+    if ( (self=[super init]) ) {
+        _query = [BackendlessGeoQuery new];
+        _query.latitude = @(point.latitude);
+        _query.longitude = @(point.longitude);
+        _query.radius = @(radius);
+        [_query units:(int)units];
+        [_query categories:categories];
+        [_query metadata:metadata];
+    }
+    return self;
+}
+
+-(id)initWithRect:(GEO_POINT)nordWest southEast:(GEO_POINT)southEast {
+    
+    if ( (self=[super init]) ) {
+        _query = [BackendlessGeoQuery new];
+        [_query searchRectangle:nordWest southEast:southEast];
+    }
+    return self;
+}
+
+-(id)initWithRect:(GEO_POINT)nordWest southEast:(GEO_POINT)southEast categories:(NSArray *)categories {
+    
+    if ( (self=[super init]) ) {
+        _query = [BackendlessGeoQuery new];
+        [_query searchRectangle:nordWest southEast:southEast];
+        [_query categories:categories];
+    }
+    return self;
+}
 
 -(id)initWithQuery:(BackendlessGeoQuery *)query {
     
@@ -52,76 +162,131 @@
     return [[[ProtectedBackendlessGeoQuery alloc] initWithQuery:query] autorelease];
 }
 
--(BackendlessGeoQuery *)query {
+-(BackendlessGeoQuery *)geoQuery {
     return _query.copy;
 }
 
--(void)pageSize:(int)pageSize {
-    [_query pageSize:pageSize];
+#pragma mark -
+#pragma mark Overrided Getters / Setters
+
+-(NSNumber *)latitude {
+    return _query.latitude.copy;
 }
 
--(void)offset:(int)offset {
-    [_query offset:offset];
+-(void)setLatitude:(NSNumber *)latitude {
+    if (_query) @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
 }
 
--(double)latitude {
-    return _query.valLatitude;
+-(NSNumber *)longitude {
+    return _query.longitude.copy;
 }
 
--(double)longitude {
-    return _query.valLongitude;
+-(void)setLongitude:(NSNumber *)longitude {
+    if (_query) @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
 }
 
--(double)radius {
-    return _query.valRadius;
+-(NSNumber *)radius {
+    return _query.radius.copy;
 }
 
--(UNITS)units {
-    return _query.valUnits;
+-(void)setRadius:(NSNumber *)radius {
+    if (_query) @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
 }
 
--(NSArray *)categories {
-    return _query.valCategories.copy;
+-(NSString *)units {
+    return _query.units.copy;
 }
 
--(BOOL)includeMeta {
-    return _query.valIncludeMeta;
+-(void)setUnits:(NSString *)units {
+    if (_query) @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
 }
 
--(NSDictionary *)metadata {
-    return _query.valMetadata.copy;
+-(NSMutableArray *)categories {
+    return _query.categories.copy;
+}
+
+-(void)setCategories:(NSMutableArray *)categories {
+    if (_query) @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
+}
+
+-(NSNumber *)includeMeta {
+    return _query.includeMeta.copy;
+}
+
+-(void)setIncludeMeta:(NSNumber *)includeMeta {
+    if (_query) @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
+}
+
+-(NSMutableDictionary *)metadata {
+    return _query.metadata.copy;
+}
+
+-(void)setMetadata:(NSMutableDictionary *)metadata {
+    if (_query) @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
 }
 
 -(NSArray *)searchRectangle {
-    return _query.valSearchRectangle.copy;
+    return _query.searchRectangle.copy;
 }
 
--(int)pageSize {
-    return _query.valPageSize;
+-(void)setSearchRectangle:(NSArray *)searchRectangle {
+    if (_query) @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
 }
 
--(int)offset {
-    return _query.valOffset;
+-(NSNumber *)pageSize {
+    return _query.pageSize;
+}
+
+-(void)setPageSize:(NSNumber *)pageSize {
+    _query.pageSize = pageSize;
+}
+
+-(NSNumber *)offset {
+    return _query.offset;
+}
+
+-(void)setOffset:(NSNumber *)offset {
+    _query.offset = offset;
 }
 
 -(NSString *)whereClause {
     return _query.whereClause.copy;
 }
 
+-(void)setWhereClause:(NSString *)whereClause {
+    if (_query) @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
+}
+
 -(NSDictionary *)relativeFindMetadata {
     return _query.relativeFindMetadata.copy;
 }
 
--(double)relativeFindPercentThreshold {
-    return _query.valRelativeFindPercentThreshold;
+-(void)setRelativeFindMetadata:(NSDictionary *)relativeFindMetadata {
+    if (_query) @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
 }
 
--(double)dpp {
-    return _query.valDpp;
+-(NSNumber *)relativeFindPercentThreshold {
+    return _query.relativeFindPercentThreshold.copy;
 }
 
--(int)clusterGridSize {
-    return _query.valClusterGridSize;
+-(void)setRelativeFindPercentThreshold:(NSNumber *)relativeFindPercentThreshold {
+    if (_query) @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
+}
+
+-(NSNumber *)dpp {
+    return _query.dpp.copy;
+}
+
+-(void)setDpp:(NSNumber *)dpp {
+    if (_query) @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
+}
+
+-(NSNumber *)clusterGridSize {
+    return _query.clusterGridSize.copy;
+}
+
+-(void)setClusterGridSize:(NSNumber *)clusterGridSize {
+    if (_query) @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
 }
 
 #pragma mark -

@@ -176,17 +176,10 @@
         }
         
         if ([self.query isKindOfClass:[BackendlessGeoQuery class]]) {
-            BackendlessGeoQuery *geoQuery = [self.query copy];
+            BOOL isProtected = [self.query isMemberOfClass:[ProtectedBackendlessGeoQuery class]];
+            BackendlessGeoQuery *geoQuery = isProtected? [(ProtectedBackendlessGeoQuery *)self.query geoQuery] : [self.query copy];
             geoQuery.offset = [NSNumber numberWithInteger:_offset];
             geoQuery.pageSize = [NSNumber numberWithInteger:_pageSize];
-            id response = [backendless.geoService getPoints:geoQuery];
-            return [response isKindOfClass:[Fault class]] ? response : ((BackendlessCollection *)response).data;
-        }
-        
-        if ([self.query isKindOfClass:[ProtectedBackendlessGeoQuery class]]) {
-            BackendlessGeoQuery *geoQuery = [(ProtectedBackendlessGeoQuery *)self.query query];
-            geoQuery.offset = @(_offset);
-            geoQuery.pageSize = @(_pageSize);
             id response = [backendless.geoService getPoints:geoQuery];
             return [response isKindOfClass:[Fault class]] ? response : ((BackendlessCollection *)response).data;
         }
@@ -212,17 +205,10 @@
         }
         
         if ([self.query isKindOfClass:[BackendlessGeoQuery class]]) {
-            BackendlessGeoQuery *geoQuery = [self.query copy];
+            BOOL isProtected = [self.query isMemberOfClass:[ProtectedBackendlessGeoQuery class]];
+            BackendlessGeoQuery *geoQuery = isProtected? [(ProtectedBackendlessGeoQuery *)self.query geoQuery] : [self.query copy];
             geoQuery.offset = [NSNumber numberWithInteger:_offset];
             geoQuery.pageSize = [NSNumber numberWithInteger:_pageSize];
-            [backendless.geoService getPoints:geoQuery responder:responder];
-            return;
-        }
-        
-        if ([self.query isKindOfClass:[ProtectedBackendlessGeoQuery class]]) {
-            BackendlessGeoQuery *geoQuery = [(ProtectedBackendlessGeoQuery *)self.query query];
-            geoQuery.offset = @(_offset);
-            geoQuery.pageSize = @(_pageSize);
             [backendless.geoService getPoints:geoQuery responder:responder];
             return;
         }

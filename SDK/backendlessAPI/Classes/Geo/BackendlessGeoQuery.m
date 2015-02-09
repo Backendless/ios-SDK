@@ -233,7 +233,7 @@
 #pragma mark Public Methods
 
 -(double)valLatitude {
-    return _latitude.doubleValue;
+    return self.latitude.doubleValue;
 }
 
 -(void)latitude:(double)latitude {
@@ -241,7 +241,7 @@
 }
 
 -(double)valLongitude {
-    return _longitude.doubleValue;
+    return self.longitude.doubleValue;
 }
 
 -(void)longitude:(double)longitude {
@@ -249,7 +249,7 @@
 }
 
 -(double)valRadius {
-    return _radius.doubleValue;
+    return self.radius.doubleValue;
 }
 
 -(void)radius:(double)radius {
@@ -268,7 +268,7 @@ static const char * const backendless_geo_query_units[] = { "METERS", "MILES", "
 }
 
 -(NSArray *)valCategories {
-    return _categories;
+    return self.categories;
 }
 
 -(void)categories:(NSArray *)categories {
@@ -277,7 +277,7 @@ static const char * const backendless_geo_query_units[] = { "METERS", "MILES", "
 }
 
 -(BOOL)valIncludeMeta {
-    return _includeMeta.boolValue;
+    return self.includeMeta.boolValue;
 }
 
 -(void)includeMeta:(BOOL)includeMeta {
@@ -285,7 +285,7 @@ static const char * const backendless_geo_query_units[] = { "METERS", "MILES", "
 }
 
 -(NSDictionary *)valMetadata {
-    return _metadata;
+    return self.metadata;
 }
 
 -(void)metadata:(NSDictionary *)metadata {
@@ -295,7 +295,7 @@ static const char * const backendless_geo_query_units[] = { "METERS", "MILES", "
 }
 
 -(NSArray *)valSearchRectangle {
-    return _searchRectangle;
+    return self.searchRectangle;
 }
 
 -(void)searchRectangle:(NSArray *)searchRectangle {
@@ -303,7 +303,7 @@ static const char * const backendless_geo_query_units[] = { "METERS", "MILES", "
 }
 
 -(int)valPageSize {
-    return _pageSize.intValue;
+    return self.pageSize.intValue;
 }
 
 -(void)pageSize:(int)pageSize {
@@ -311,7 +311,7 @@ static const char * const backendless_geo_query_units[] = { "METERS", "MILES", "
 }
 
 -(int)valOffset {
-    return _offset.intValue;
+    return self.offset.intValue;
 }
 
 -(void)offset:(int)offset {
@@ -319,7 +319,7 @@ static const char * const backendless_geo_query_units[] = { "METERS", "MILES", "
 }
 
 -(double)valRelativeFindPercentThreshold {
-    return _relativeFindPercentThreshold.doubleValue;
+    return self.relativeFindPercentThreshold.doubleValue;
 }
 
 -(void)relativeFindPercentThreshold:(double)percent {
@@ -327,7 +327,7 @@ static const char * const backendless_geo_query_units[] = { "METERS", "MILES", "
 }
 
 -(double)valDpp {
-    return _dpp.doubleValue;
+    return self.dpp.doubleValue;
 }
 
 -(void)dpp:(double)dpp {
@@ -335,7 +335,7 @@ static const char * const backendless_geo_query_units[] = { "METERS", "MILES", "
 }
 
 -(int)valClusterGridSize {
-    return _clusterGridSize.intValue;
+    return self.clusterGridSize.intValue;
 }
 
 -(void)clusterGridSize:(int)size {
@@ -351,7 +351,7 @@ static const char * const backendless_geo_query_units[] = { "METERS", "MILES", "
     if (!category)
         return NO;
     
-    _categories? [_categories addObject:category] : [self categories:@[category]];
+    self.categories? [self.categories addObject:category] : [self categories:@[category]];
     return YES;
 }
 
@@ -360,7 +360,7 @@ static const char * const backendless_geo_query_units[] = { "METERS", "MILES", "
     if (!key || !value)
         return NO;
     
-    _metadata? [_metadata setValue:value forKey:key] : [self metadata:@{key:value}];
+    self.metadata? [self.metadata setValue:value forKey:key] : [self metadata:@{key:value}];
     return YES;
 }
 
@@ -369,8 +369,8 @@ static const char * const backendless_geo_query_units[] = { "METERS", "MILES", "
     if (!key || !value)
         return NO;
     
-    if (_relativeFindMetadata) {
-        NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:_relativeFindMetadata];
+    if (self.relativeFindMetadata) {
+        NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:self.relativeFindMetadata];
         [dict setValue:value forKey:key];
         self.relativeFindMetadata = dict;
     }
@@ -406,21 +406,21 @@ static const char * const backendless_geo_query_units[] = { "METERS", "MILES", "
 -(id)copyWithZone:(NSZone *)zone {
     
     BackendlessGeoQuery *query = [BackendlessGeoQuery query];
-    query.latitude = _latitude.copy;
-    query.longitude = _longitude.copy;
-    query.radius = _radius.copy;
-    query.units = _units.copy;
-    query.categories = _categories.copy;
-    query.includeMeta = _includeMeta.copy;
-    query.metadata = _metadata.copy;
-    query.searchRectangle = _searchRectangle.copy;
-    query.pageSize = _pageSize.copy;
-    query.offset = _offset.copy;
-    query.whereClause = _whereClause.copy;
-    query.relativeFindPercentThreshold = _relativeFindPercentThreshold.copy;
-    query.relativeFindMetadata = _relativeFindMetadata.copy;
-    query.dpp = _dpp.copy;
-    query.clusterGridSize = _clusterGridSize.copy;
+    query.latitude = self.latitude.copy;
+    query.longitude = self.longitude.copy;
+    query.radius = self.radius.copy;
+    query.units = self.units.copy;
+    query.categories = self.categories.copy;
+    query.includeMeta = self.includeMeta.copy;
+    query.metadata = self.metadata.copy;
+    query.searchRectangle = self.searchRectangle.copy;
+    query.pageSize = self.pageSize.copy;
+    query.offset = self.offset.copy;
+    query.whereClause = self.whereClause.copy;
+    query.relativeFindPercentThreshold = self.relativeFindPercentThreshold.copy;
+    query.relativeFindMetadata = self.relativeFindMetadata.copy;
+    query.dpp = self.dpp.copy;
+    query.clusterGridSize = self.clusterGridSize.copy;
     return query;
 }
 
