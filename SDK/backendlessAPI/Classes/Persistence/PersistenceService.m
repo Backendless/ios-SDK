@@ -64,6 +64,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 -(NSString *)objectClassName:(id)object;
 -(NSDictionary *)propertyDictionary:(id)object;
 -(BackendlessCollection *)getAsCollection:(id)data query:(BackendlessDataQuery *)query;
+-(id)setRelations:(NSArray *)relations object:(id)object response:(id)response;
 // callbacks
 -(id)setCurrentPageSize:(ResponseContext *)collection;
 -(id)loadRelations:(ResponseContext *)response;
@@ -624,6 +625,10 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     if ([result isKindOfClass:[Fault class]]) {
         return result;
     }
+    
+#if 1
+    return [self setRelations:relations object:object response:result];
+#else
     NSArray *keys = [result allKeys];
     for(NSString *propertyName in keys) {
         if ([[object class] isSubclassOfClass:[BackendlessUser class]]) {
@@ -636,6 +641,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
         [object setValue:[result valueForKey:propertyName] forKey:propertyName];
     }
     return object;
+#endif
 }
 
 -(id)load:(id)object relations:(NSArray *)relations relationsDepth:(int)relationsDepth {
@@ -646,6 +652,9 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     if ([result isKindOfClass:[Fault class]]) {
         return result;
     }
+#if 1
+    return [self setRelations:relations object:object response:result];
+#else
     NSArray *keys = [result allKeys];
     for(NSString *propertyName in keys) {
         if ([[object class] isSubclassOfClass:[BackendlessUser class]]) {
@@ -658,6 +667,8 @@ NSString *LOAD_ALL_RELATIONS = @"*";
         [object setValue:[result valueForKey:propertyName] forKey:propertyName];
     }
     return object;
+#endif
+    
 }
 
 -(BackendlessCollection *)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery {
@@ -1418,14 +1429,10 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 #pragma mark -
 #pragma mark Private Methods
 
--(NSDictionary *)filteringProperty:(id)object
-{
-    NSDictionary *properties = [self propertyDictionary:object];
-    NSMutableDictionary *result= [NSMutableDictionary dictionaryWithDictionary:properties];
-    if ([result valueForKey:@"__meta"] == nil) {
-        [result removeObjectForKey:@"__meta"];
-    }
-    return result;
+-(NSDictionary *)filteringProperty:(id)object {
+    NSMutableDictionary *properties= [NSMutableDictionary dictionaryWithDictionary:[self propertyDictionary:object]];
+    [properties removeObjectForKey:@"__meta"];
+    return properties;
 }
 
 #if 0
@@ -1567,6 +1574,26 @@ id get_object_id(id self, SEL _cmd)
     return collection;
 }
 
+-(id)setRelations:(NSArray *)relations object:(id)object response:(id)response {
+    
+    for (NSString *propertyName in relations) {
+        
+        id value = [response valueForKey:propertyName];
+        if ([value isKindOfClass:[NSNull class]]) {
+            continue;
+        }
+        
+        if ([[object class] isSubclassOfClass:[BackendlessUser class]]) {
+            [(BackendlessUser *)object setProperty:propertyName object:value];
+            continue;
+        }
+        
+        [object setValue:value forKey:propertyName];
+    }
+    
+    return object;
+}
+
 #pragma mark -
 #pragma mark Callback Methods
 
@@ -1577,22 +1604,9 @@ id get_object_id(id self, SEL _cmd)
 -(id)loadRelations:(ResponseContext *)response {
     
     NSArray *relations = [response.context valueForKey:@"relations"];
-    BackendlessEntity *object = [response.context valueForKey:@"object"];
-    id result = response.response;
-    for(NSString *propertyName in relations)
-    {
-        if ([[object class] isSubclassOfClass:[BackendlessUser class]]) {
-            [(BackendlessUser *) object setProperty:propertyName object:[result valueForKey:propertyName]];
-            continue;
-        }
-        if ([[result valueForKey:propertyName] isKindOfClass:[NSNull class]]) {
-            continue;
-        }
-        
-        [object setValue:[result valueForKey:propertyName] forKey:propertyName];
-        
-    }
-    return object;
+    id object = [response.context valueForKey:@"object"];
+    
+    return [self setRelations:relations object:object response:response.response];
 }
 
 -(id)createResponse:(ResponseContext *)response {
