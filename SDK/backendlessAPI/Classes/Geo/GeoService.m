@@ -252,7 +252,7 @@ static NSString *METHOD_LOAD_METADATA = @"loadMetadata";
         return fault;
 
     BackendlessGeoQuery *query = [geoPoint isKindOfClass:[GeoCluster class]]? [(GeoCluster *)geoPoint geoQuery] : nil;
-    NSArray *args = @[backendless.appID, backendless.versionNum, geoPoint.objectId, query];
+    NSArray *args = query? @[backendless.appID, backendless.versionNum, geoPoint.objectId, query] : @[backendless.appID, backendless.versionNum, geoPoint.objectId];
     [geoPoint metadata:[invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_LOAD_METADATA args:args]];
     return geoPoint;
 }
@@ -325,7 +325,7 @@ static NSString *METHOD_LOAD_METADATA = @"loadMetadata";
         return;
     
     BackendlessGeoQuery *query = [geoPoint isKindOfClass:[GeoCluster class]]? [(GeoCluster *)geoPoint geoQuery] : nil;
-    NSArray *args = @[backendless.appID, backendless.versionNum, geoPoint.objectId, query];
+    NSArray *args = query? @[backendless.appID, backendless.versionNum, geoPoint.objectId, query] : @[backendless.appID, backendless.versionNum, geoPoint.objectId];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(getMetadata:) selErrorHandler:@selector(getError:)];
     _responder.chained = responder;
     _responder.context = geoPoint;

@@ -489,6 +489,7 @@
 		D316BA361A83C649007215CA /* ProtectedBackendlessGeoQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProtectedBackendlessGeoQuery.m; sourceTree = "<group>"; };
 		D31700D01A84D2AA00772766 /* GeoCluster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeoCluster.h; sourceTree = "<group>"; };
 		D31700D11A84D2AA00772766 /* GeoCluster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoCluster.m; sourceTree = "<group>"; };
+		D31700DD1A8D21E900772766 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
 		D353120E19E8152300895ACC /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
 		D35CA3061A5FD31300F500B0 /* Atomic Counters API.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Atomic Counters API.pdf"; sourceTree = "<group>"; };
 		D35CA3081A5FD31300F500B0 /* Caching API.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Caching API.pdf"; sourceTree = "<group>"; };
@@ -770,6 +771,14 @@
 			path = include;
 			sourceTree = "<group>";
 		};
+		D31700DC1A8D21E900772766 /* 2.0.2 */ = {
+			isa = PBXGroup;
+			children = (
+				D31700DD1A8D21E900772766 /* Backendless-ios-SDK.podspec */,
+			);
+			path = 2.0.2;
+			sourceTree = "<group>";
+		};
 		D353120D19E8152300895ACC /* 2.0.1 */ = {
 			isa = PBXGroup;
 			children = (
@@ -875,6 +884,7 @@
 		D3B2F352193511900084D5DD /* Backendless-ios-SDK */ = {
 			isa = PBXGroup;
 			children = (
+				D31700DC1A8D21E900772766 /* 2.0.2 */,
 				D353120D19E8152300895ACC /* 2.0.1 */,
 				D36CDCA519C6FBFF00C3FFE3 /* 1.19.1 */,
 				D36CDCA319C6EEEC00C3FFE3 /* 1.18.2 */,

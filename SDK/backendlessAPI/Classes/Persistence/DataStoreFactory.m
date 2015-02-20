@@ -316,7 +316,7 @@
     [backendless.persistenceService describe:NSStringFromClass(_entityClass) response:responseBlock error:errorBlock];
 }
 
--(void)load:(id)object relations:(NSArray *)relations response:(void (^)(BackendlessCollection *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)load:(id)object relations:(NSArray *)relations response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
     [backendless.persistenceService load:object relations:relations response:responseBlock error:errorBlock];
 }
 
