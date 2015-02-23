@@ -82,12 +82,27 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 
 -(id)onAMFSerialize {
     
-    Users *u = [Users new];
+    Users *user = [Users new];
     NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:[self getProperties]];
     [data removeObjectsForKeys:@[@"user-token", @"userToken"]];
-    [u setProperties:data];
-    return u;
+    [user setProperties:data];
+    return user;
 }
+
+@end
+
+@implementation Users (AMF)
+
+-(id)onAMFDeserialize {
+    
+    BackendlessUser *user = [BackendlessUser new];
+    NSMutableDictionary *properties = [NSMutableDictionary dictionaryWithDictionary:[Types propertyDictionary:self]];
+    //NSLog(@">>>>>>>>>>>>>>>>>>>> Users - > onAMFDeserialize: %@", properties);
+    [properties removeObjectsForKeys:@[@"___class", @"__meta"]];
+    [user setProperties:properties];
+    return user;
+}
+
 @end
 
 @implementation NSArray (AMF)
@@ -104,18 +119,6 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     return self;
 }
 
-@end
-
-@implementation Users (AMF)
-
--(id)onAMFDeserialize {
-    
-    BackendlessUser *user = [BackendlessUser new];
-    NSMutableDictionary *pr = [NSMutableDictionary dictionaryWithDictionary:[Types propertyDictionary:self]];
-    [pr removeObjectForKey:@"___class"];
-    [user setProperties:pr];
-    return user;
-}
 @end
 
 @implementation NSManagedObject (AMF)
@@ -140,6 +143,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 }
 
 @end
+
 
 @implementation PersistenceService
 
