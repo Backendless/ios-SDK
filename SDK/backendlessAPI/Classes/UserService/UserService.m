@@ -61,84 +61,7 @@ static NSString *METHOD_IS_VALID_USER_TOKEN = @"isValidUserToken";
 //  BACKENDLESS HEADER KEYS
 static NSString *USER_TOKEN_KEY = @"user-token\0";
 
-#define _UPDATE_NEW_ 1
-
-#if !_UPDATE_NEW_
-
-#pragma mark -
-#pragma mark UserServiceResponder Class
-
-@interface UserServiceResponder : Responder {
-    BackendlessUser *_user;
-}
-@property (nonatomic, assign) BackendlessUser *current;
-
-+(id)responder:(BackendlessUser *)user chained:(Responder *)responder;
--(id)onResponse:(id)response;
-
-@end
-
-@implementation UserServiceResponder
-
--(id)initWithUser:(BackendlessUser *)user chained:(Responder *)responder {
-    
-    if ( (self = [super init]) ) {
-        _responder = self;
-        _responseHandler = @selector(onResponse:);
-        _errorHandler = nil;
-        self.chained = responder;
-        _user = [user retain];
-        _current = nil;
-    }
-    
-    return self;
-    
-}
-
--(void)dealloc
-{
-    [_user release];
-    [super dealloc];
-}
-
-+(id)responder:(BackendlessUser *)_user chained:(Responder *)responder {
-    return [[[UserServiceResponder alloc] initWithUser:_user chained:responder] autorelease];
-}
-
-// async callback
-
--(id)onResponse:(id)response {
-    
-    if (_user)
-        [_user setProperties:response];
-        
-    if (_current)
-        [_current setProperties:response];
-    
-    return _user;
-}
-
-@end
-
-#endif
-
-
-#pragma mark -
-#pragma mark UserService Class
-
 @interface UserService ()
-
-//-(BackendlessUser *)registering:(BackendlessUser *)user;
-//-(BackendlessUser *)update:(BackendlessUser *)user;
-//-(BackendlessUser *)login:(NSString *)login password:(NSString *)password;
-//-(id)logout;
-//-(id)restorePassword:(NSString *)login;
-//-(NSArray *)describeUserClass;
-//-(id)user:(NSString *)user assignRole:(NSString *)role;
-//-(id)user:(NSString *)user unassignRole:(NSString *)role;
-//-(id)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping;
-//-(NSArray *)getUserRoles;
-
 // sync
 -(id)loginWithFacebookSocialUserId:(NSString *)userId accessToken:(NSString *)accessToken expirationDate:(NSDate *)expirationDate permissions:(NSArray *)permissions fieldsMapping:(NSDictionary *)fieldsMapping;
 // async
@@ -372,19 +295,11 @@ static NSString *USER_TOKEN_KEY = @"user-token\0";
     if ([result isKindOfClass:[Fault class]]) {
         return result;
     }
-#if _UPDATE_NEW_
+
     [self onLogin:result];
     [user setProperties:result];
     
     return user;
-#else
-    [user setProperties:result];
-    [_currentUser setProperties:result];
-    
-    [self setPersistentUser];
-   
-    return user;
-#endif
 }
 
 -(BackendlessUser *)login:(NSString *)login password:(NSString *)password {
@@ -506,14 +421,9 @@ static NSString *USER_TOKEN_KEY = @"user-token\0";
     NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
     [props removeObjectForKey:BACKENDLESS_USER_TOKEN];
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, props, nil];
-#if _UPDATE_NEW_
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onUpdate:) selErrorHandler:nil];
     _responder.chained = responder;
     _responder.context = user;
-#else
-    UserServiceResponder *_responder = [UserServiceResponder responder:user chained:responder];
-    _responder.current = backendless.userService.currentUser;
-#endif
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_UPDATE args:args responder:_responder];
 }
 
@@ -743,8 +653,15 @@ static NSString *USER_TOKEN_KEY = @"user-token\0";
 
 -(id)onLogin:(id)response {
     
-    NSDictionary *props = (NSDictionary *)response;
-    (_currentUser) ? [_currentUser setProperties:props] : (_currentUser = [[BackendlessUser alloc] initWithProperties:props]);
+    if ([response isKindOfClass:[BackendlessUser class]]) {
+        [_currentUser release];
+        _currentUser = response;
+    }
+    else {
+        NSDictionary *props = (NSDictionary *)response;
+        (_currentUser) ? [_currentUser setProperties:props] : (_currentUser = [[BackendlessUser alloc] initWithProperties:props]);        
+    }
+    
     if (_currentUser.userToken)
         [backendless.headers setValue:_currentUser.userToken forKey:USER_TOKEN_KEY];
     

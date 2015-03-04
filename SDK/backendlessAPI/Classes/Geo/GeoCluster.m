@@ -32,7 +32,7 @@
 }
 
 -(NSString *)description {
-    return [NSString stringWithFormat:@"<GeoCluster> LAT:%@, LON:%@, distance:%@, CATEGORIES:%@, METADATA:%@, objectId:%@, totalPoints: %@\n%@", self.latitude, self.longitude, self.distance, self.categories, self.metadata, self.objectId, _totalPoints, _geoQuery];
+    return [NSString stringWithFormat:@"<GeoCluster> LAT:%@, LON:%@, distance:%@, CATEGORIES:%@, METADATA:%@, objectId:%@, totalPoints: %@\n geoQuery: %@", self.latitude, self.longitude, self.distance, self.categories, self.metadata, self.objectId, _totalPoints, _geoQuery];
 }
 
 @end

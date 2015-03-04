@@ -92,7 +92,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
         [_headers setValue:APP_TYPE forKey:APP_TYPE_HEADER_KEY];
         [_headers setValue:API_VERSION forKey:API_VERSION_HEADER_KEY];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kBEReachabilityChangedNotification object:nil];
         
         self.hostReachability = [BEReachability reachabilityWithHostName:_hostURL];
         [self.hostReachability startNotifier];
@@ -106,7 +106,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 	
 	[DebLog logN:@"DEALLOC Backendless"];
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kBEReachabilityChangedNotification object:nil];
     
     [_reachabilityDelegate release];
     [_hostReachability release];
@@ -232,7 +232,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 	BEReachability* reachability = [note object];
 	NSParameterAssert([reachability isKindOfClass:[BEReachability class]]);
     
-    NetworkStatus netStatus = [reachability currentReachabilityStatus];
+    BENetworkStatus netStatus = [reachability currentReachabilityStatus];
     BOOL connectionRequired = [reachability connectionRequired];
     if (netStatus != 0) {
         [[OfflineModeManager sharedInstance] startUploadData];

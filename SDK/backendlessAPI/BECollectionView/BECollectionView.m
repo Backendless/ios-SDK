@@ -24,10 +24,10 @@
 
 @interface BECollectionView() <UICollectionViewDataSource>
 {
-    BackendlessDataQuery *_dataQuery;
-    BackendlessGeoQuery *_geoQuery;
+    //Class _className;
+    //BackendlessDataQuery *_dataQuery;
+    //BackendlessGeoQuery *_geoQuery;
     Responder *_responder;
-    Class _className;
     BOOL _needReloadData;
 }
 @property (nonatomic, strong) id<UICollectionViewDataSource> beCollectionViewDelegate;
@@ -43,8 +43,8 @@
 -(void)dealloc
 {
     [_beCollectionViewDelegate release];
-    [_dataQuery release];
-    [_geoQuery release];
+    //[_dataQuery release];
+    //[_geoQuery release];
     self.delegate = nil;
     self.dataSource = nil;
     [_responder release];
@@ -90,14 +90,6 @@
     }
     return self;
 }
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 -(NSArray *)getIndexPathsForOffset:(NSUInteger)offset Count:(NSUInteger)count
 {
@@ -148,23 +140,23 @@
 
 -(void)find:(Class)className dataQuery:(BackendlessDataQuery *)dataQuery
 {
-    _className = [className copy];
-    _dataQuery = [dataQuery retain];
+    //_className = [className copy];
+    //_dataQuery = [dataQuery retain];
     _responder.chained = nil;
     BackendlessCollection *collection = [backendless.persistenceService find:className dataQuery:dataQuery];
     [self responseHandler:collection];
 }
 -(void)find:(Class)className dataQuery:(BackendlessDataQuery *)dataQuery responder:(id)responder
 {
-    _className = [className copy];
-    _dataQuery = [dataQuery retain];
+    //_className = [className copy];
+    //_dataQuery = [dataQuery retain];
     _responder.chained = responder;
     [backendless.persistenceService find:className dataQuery:dataQuery responder:_responder];
 }
 -(void)find:(Class)className dataQuery:(BackendlessDataQuery *)dataQuery response:(void (^)(BackendlessCollection *))responseBlock error:(void (^)(Fault *))errorBlock
 {
-    _className = [className copy];
-    _dataQuery = [dataQuery retain];
+    //_className = [className copy];
+    //_dataQuery = [dataQuery retain];
     _responder.chained = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     [backendless.persistenceService find:className dataQuery:dataQuery responder:_responder];
 }
@@ -172,39 +164,39 @@
 
 -(void)getPoints:(BackendlessGeoQuery *)query
 {
-    _geoQuery = [query retain];
+    //_geoQuery = [query retain];
     _responder.chained = nil;
     BackendlessCollection *c = [backendless.geoService getPoints:query];
     [self responseHandler:c];
 }
 -(void)relativeFind:(BackendlessGeoQuery *)query
 {
-    _geoQuery = [query retain];
+    //_geoQuery = [query retain];
     _responder.chained = nil;
     BackendlessCollection *c = [backendless.geoService relativeFind:query];
     [self responseHandler:c];
 }
 -(void)getPoints:(BackendlessGeoQuery *)query responder:(id)responder
 {
-    _geoQuery = [query retain];
+    //_geoQuery = [query retain];
     _responder.chained = responder;
     [backendless.geoService getPoints:query responder:_responder];
 }
 -(void)relativeFind:(BackendlessGeoQuery *)query responder:(id)responder
 {
-    _geoQuery = [query retain];
+    //_geoQuery = [query retain];
     _responder.chained = responder;
     [backendless.geoService relativeFind:query responder:_responder];
 }
 -(void)getPoints:(BackendlessGeoQuery *)query response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock
 {
-    _geoQuery = [query retain];
+    //_geoQuery = [query retain];
     _responder.chained = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     [backendless.geoService getPoints:query responder:_responder];
 }
 -(void)relativeFind:(BackendlessGeoQuery *)query response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock
 {
-    _geoQuery = [query retain];
+    //_geoQuery = [query retain];
     _responder.chained = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     [backendless.geoService relativeFind:query responder:_responder];
 }

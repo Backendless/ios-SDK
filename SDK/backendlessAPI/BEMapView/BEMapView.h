@@ -24,10 +24,8 @@
 @class BackendlessCollection, Fault, BackendlessGeoQuery, GeoPoint, BEMapView;
 
 @protocol BEMapViewDelegate <NSObject>
-
 -(void)mapView:(BEMapView *)mapView didFinishLoadData:(NSArray *)data;
 -(void)mapView:(BEMapView *)mapView didFinishWithFault:(Fault *)fault;
-
 @end
 
 
@@ -35,20 +33,15 @@
 @property (nonatomic, strong) NSDictionary *metadata;
 @property (nonatomic, copy) NSString *whereClause;
 @property (nonatomic) BOOL includeMetadata;
+
 -(BOOL)addCategory:(NSString *)category;
 -(BOOL)removeCategory:(NSString *)category;
-
-
 -(BOOL)addGeopointIfNeed:(GeoPoint *)point;
-
 -(void)update;
-
 -(void)setUnits:(int)units;
 -(void)removeAllObjects;
 -(void)removeGeoPointAnnotation:(NSString *)geopointId;
-
 -(NSArray *)responseData;
-
 -(void)setSearchWithRadius:(float)radius;
 -(void)setSearchInMapBoundaries;
 @end

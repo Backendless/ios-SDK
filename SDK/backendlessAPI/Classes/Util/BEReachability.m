@@ -73,7 +73,7 @@
 #import "BEReachability.h"
 
 
-NSString *kReachabilityChangedNotification = @"kNetworkReachabilityChangedNotification";
+NSString *kBEReachabilityChangedNotification = @"kNetworkBEReachabilityChangedNotification";
 
 
 #pragma mark - Supporting functions
@@ -109,7 +109,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
     BEReachability* noteObject = (__bridge BEReachability *)info;
     // Post a notification to notify the client that the network reachability changed.
-    [[NSNotificationCenter defaultCenter] postNotificationName: kReachabilityChangedNotification object: noteObject];
+    [[NSNotificationCenter defaultCenter] postNotificationName: kBEReachabilityChangedNotification object: noteObject];
 }
 
 
@@ -231,35 +231,35 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 #pragma mark - Network Flag Handling
 
-- (NetworkStatus)localWiFiStatusForFlags:(SCNetworkReachabilityFlags)flags
+- (BENetworkStatus)localWiFiStatusForFlags:(SCNetworkReachabilityFlags)flags
 {
-	BOOL returnValue = NotReachable;
+	BOOL returnValue = beNotReachable;
 
 	if ((flags & kSCNetworkReachabilityFlagsReachable) && (flags & kSCNetworkReachabilityFlagsIsDirect))
 	{
-		returnValue = ReachableViaWiFi;
+		returnValue = beReachableViaWiFi;
 	}
     
 	return returnValue;
 }
 
 
-- (NetworkStatus)networkStatusForFlags:(SCNetworkReachabilityFlags)flags
+- (BENetworkStatus)networkStatusForFlags:(SCNetworkReachabilityFlags)flags
 {
 	if ((flags & kSCNetworkReachabilityFlagsReachable) == 0)
 	{
 		// The target host is not reachable.
-		return NotReachable;
+		return beNotReachable;
 	}
 
-	BOOL returnValue = NotReachable;
+	BOOL returnValue = beNotReachable;
 
 	if ((flags & kSCNetworkReachabilityFlagsConnectionRequired) == 0)
 	{
 		/*
          If the target host is reachable and no connection is required then we'll assume (for now) that you're on Wi-Fi...
          */
-		returnValue = ReachableViaWiFi;
+		returnValue = beReachableViaWiFi;
 	}
 
 	if ((((flags & kSCNetworkReachabilityFlagsConnectionOnDemand ) != 0) ||
@@ -274,7 +274,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
             /*
              ... and no [user] intervention is needed...
              */
-            returnValue = ReachableViaWiFi;
+            returnValue = beReachableViaWiFi;
         }
     }
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
@@ -283,7 +283,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 		/*
          ... but WWAN connections are OK if the calling application is using the CFNetwork APIs.
          */
-		returnValue = ReachableViaWWAN;
+		returnValue = beReachableViaWWAN;
 	}
 #endif
 	return returnValue;
@@ -304,10 +304,10 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 }
 
 
-- (NetworkStatus)currentReachabilityStatus
+- (BENetworkStatus)currentReachabilityStatus
 {
 	NSAssert(reachabilityRef != NULL, @"currentNetworkStatus called with NULL reachabilityRef");
-	NetworkStatus returnValue = NotReachable;
+	BENetworkStatus returnValue = beNotReachable;
 	SCNetworkReachabilityFlags flags;
     
 	if (SCNetworkReachabilityGetFlags(reachabilityRef, &flags))

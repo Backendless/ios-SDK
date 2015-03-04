@@ -23,10 +23,11 @@
 #import <MapKit/MapKit.h>
 #import "Backendless.h"
 #import "BEAnnotation.h"
+
 @interface BEMapView ()<MKMapViewDelegate>
 {
     UNITS _units;
-    BackendlessGeoQuery *_geoQuery;
+    //BackendlessGeoQuery *_geoQuery;
     Responder *_responder;
     NSMutableDictionary *_data;
     NSMutableSet *_categories;
@@ -36,16 +37,8 @@
     BOOL _searchInRadius;
     MKCircle *_circle;
 }
-@property (nonatomic, strong) id beMapViewDelegate;
 
-//
-//-(void)getPoints:(BackendlessGeoQuery *)query;
-//-(void)relativeFind:(BackendlessGeoQuery *)query;
-//-(void)getPoints:(BackendlessGeoQuery *)query responder:(id)responder;
-//-(void)relativeFind:(BackendlessGeoQuery *)query responder:(id)responder;
-//-(void)getPoints:(BackendlessGeoQuery *)query response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
-//-(void)relativeFind:(BackendlessGeoQuery *)query response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
-//
+@property (nonatomic, strong) id beMapViewDelegate;
 -(id)errorHandler:(Fault *)fault;
 -(void)initProperties;
 -(id)responseHandler:(id)response;
@@ -66,7 +59,7 @@
     [_metadata release];
     [_categories release];
     [_data release];
-    [_geoQuery release];
+    //[_geoQuery release];
     [_responder release];
     [super dealloc];
 }
@@ -142,9 +135,12 @@
     if (point.metadata.count > 0) {
         NSMutableArray *metadata = [[NSMutableArray alloc] init];
         for (NSString *key in point.metadata) {
-            [metadata addObject:[NSString stringWithFormat:@"%@: %@", key, [point.metadata valueForKey:key]]];
+            NSString *data = [NSString stringWithFormat:@"%@: %@", key, [point.metadata valueForKey:key]];
+            data = [data stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+            [metadata addObject:data];
+            NSLog(@"%@", data);
         }
-        annotation.title = [metadata componentsJoinedByString:@","];
+        annotation.title = [metadata componentsJoinedByString:@", "];
         [metadata release];
     }
     else
@@ -265,6 +261,12 @@
 -(id)responseHandler:(BackendlessCollection *)response
 {
     if (_autoUpdate) {
+#if 1
+        if (!_responseData.count) {
+            [self removeAllObjects];
+            NSLog(@"BEMapView -> responseHandler: (CLEAN)");
+        }
+#endif
         [_responseData addObjectsFromArray:response.data];
         if (response.valPageSize + response.valOffset < response.valTotalObjects) {
             [response nextPage:NO responder:_responder];
@@ -294,15 +296,17 @@
 }
 -(id)errorHandler:(Fault *)fault
 {
+    [self removeAllObjects];
     [_responseData removeAllObjects];
-    NSLog(@"%@", fault.detail);
+    NSLog(@"BEMapView -> errorHandler:%@", fault.detail);
     if ([_beMapViewDelegate respondsToSelector:@selector(mapView:didFinishWithFault:)]) {
         [_beMapViewDelegate mapView:self didFinishWithFault:fault];
     }
     return fault;
 }
--(void)removeAnnotation:(id<MKAnnotation>)annotation
-{
+
+-(void)removeAnnotation:(id<MKAnnotation>)annotation {
+    
     if ([annotation isKindOfClass:[BEAnnotation class]])
     {
         [_data removeObjectForKey:((BEAnnotation *)annotation).geoPointId];
@@ -310,14 +314,16 @@
     [super removeAnnotation:annotation];
 
 }
--(void)removeAnnotations:(NSArray *)annotations
-{
-    for (id ann in annotations) {
-        if ([ann isKindOfClass:[BEAnnotation class]])
-        {
-            [_data removeObjectForKey:((BEAnnotation *)ann).geoPointId];
+-(void)removeAnnotations:(NSArray *)annotations {
+    
+    if (_data.count) {
+        for (id ann in annotations) {
+            if ([ann isKindOfClass:[BEAnnotation class]]) {
+                [_data removeObjectForKey:((BEAnnotation *)ann).geoPointId];
+            }
         }
     }
+    
     [super removeAnnotations:annotations];
 }
 
@@ -336,6 +342,7 @@
     annotationView.canShowCallout = YES;
     return annotationView;
 }
+
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
     [_responseData removeAllObjects];
@@ -344,27 +351,6 @@
         return;
     }
     if (_autoUpdate) {
-//        BackendlessGeoQuery *query;
-//        GEO_POINT point;
-//        NSArray *categories = (_categories.allObjects.count==0)?@[@"geoservice_sample"]:_categories.allObjects;
-//        if (_searchInRadius) {
-//            [self addCircle:_radius];
-//            point.latitude = self.centerCoordinate.latitude;
-//            point.longitude = self.centerCoordinate.longitude;
-//            query = [BackendlessGeoQuery queryWithPoint:point radius:_radius/[self convertUnits] units:_units categories:categories];
-//        }
-//        else
-//        {
-//            MKCoordinateRegion region = mapView.region;
-//            
-//            point.latitude = region.center.latitude;
-//            point.longitude = region.center.longitude;
-//            GEO_RECT rect = [backendless.geoService geoRectangle:point length:region.span.longitudeDelta widht:region.span.latitudeDelta];
-//            query = [BackendlessGeoQuery queryWithRect:rect.nordWest southEast:rect.southEast categories:categories];
-//        }
-//        query.metadata = (NSMutableDictionary *)self.metadata;
-//        query.whereClause = self.whereClause;
-//        [backendless.geoService getPoints:query responder:_responder ];
         [self updateGeopoints];
     }
 }
@@ -376,6 +362,7 @@
         return;
     }
 }
+
 -(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view didChangeDragState:(MKAnnotationViewDragState)newState fromOldState:(MKAnnotationViewDragState)oldState
 {
     if ([_beMapViewDelegate respondsToSelector:@selector(mapView:annotationView:didChangeDragState:fromOldState:)]) {
@@ -383,6 +370,7 @@
         return;
     }
 }
+
 -(void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views
 {
     if ([_beMapViewDelegate respondsToSelector:@selector(mapView:didAddAnnotationViews:)]) {
@@ -390,6 +378,7 @@
         return;
     }
 }
+
 -(void)mapView:(MKMapView *)mapView didAddOverlayRenderers:(NSArray *)renderers
 {
     if ([_beMapViewDelegate respondsToSelector:@selector(mapView:didAddOverlayRenderers:)]) {
@@ -397,6 +386,7 @@
         return;
     }
 }
+
 -(void)mapView:(MKMapView *)mapView didAddOverlayViews:(NSArray *)overlayViews
 {
     if ([_beMapViewDelegate respondsToSelector:@selector(mapView:didAddOverlayViews:)]) {
@@ -404,6 +394,7 @@
         return;
     }
 }
+
 -(void)mapView:(MKMapView *)mapView didChangeUserTrackingMode:(MKUserTrackingMode)mode animated:(BOOL)animated
 {
     if ([_beMapViewDelegate respondsToSelector:@selector(mapView:didChangeUserTrackingMode:animated:)]) {
@@ -411,6 +402,7 @@
         return;
     }
 }
+
 -(void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view
 {
     if ([_beMapViewDelegate respondsToSelector:@selector(mapView:didDeselectAnnotationView:)]) {
@@ -418,6 +410,7 @@
         return;
     }
 }
+
 -(void)mapView:(MKMapView *)mapView didFailToLocateUserWithError:(NSError *)error
 {
     if ([_beMapViewDelegate respondsToSelector:@selector(mapView:didFailToLocateUserWithError:)]) {
@@ -425,6 +418,7 @@
         return;
     }
 }
+
 -(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {
     if ([_beMapViewDelegate respondsToSelector:@selector(mapView:didSelectAnnotationView:)]) {
@@ -432,6 +426,7 @@
         return;
     }
 }
+
 -(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
     if ([_beMapViewDelegate respondsToSelector:@selector(mapView:didUpdateUserLocation:)]) {
@@ -439,6 +434,7 @@
         return;
     }
 }
+
 -(void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated
 {
     if ([_beMapViewDelegate respondsToSelector:@selector(mapView:regionWillChangeAnimated:)]) {
@@ -446,6 +442,7 @@
         return;
     }
 }
+
 -(MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay
 {
     if ([_beMapViewDelegate respondsToSelector:@selector(mapView:rendererForOverlay:)]) {
@@ -457,6 +454,7 @@
     circle.strokeColor = [UIColor redColor];
     return circle;
 }
+
 -(MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id<MKOverlay>)overlay
 {
     if ([_beMapViewDelegate respondsToSelector:@selector(mapView:viewForOverlay:)]) {
@@ -469,6 +467,7 @@
     
     return circleView;
 }
+
 -(void)mapViewDidFailLoadingMap:(MKMapView *)mapView withError:(NSError *)error
 {
     if ([_beMapViewDelegate respondsToSelector:@selector(mapViewDidFailLoadingMap:withError:)]) {
@@ -476,6 +475,7 @@
         return;
     }
 }
+
 -(void)mapViewDidFinishLoadingMap:(MKMapView *)mapView
 {
     if ([_beMapViewDelegate respondsToSelector:@selector(mapViewDidFinishLoadingMap:)]) {
@@ -483,6 +483,7 @@
         return;
     }
 }
+
 -(void)mapViewDidFinishRenderingMap:(MKMapView *)mapView fullyRendered:(BOOL)fullyRendered
 {
     if ([_beMapViewDelegate respondsToSelector:@selector(mapViewDidFinishRenderingMap:fullyRendered:)]) {
@@ -490,6 +491,7 @@
         return;
     }
 }
+
 -(void)mapViewDidStopLocatingUser:(MKMapView *)mapView
 {
     if ([_beMapViewDelegate respondsToSelector:@selector(mapViewDidStopLocatingUser:)]) {
@@ -497,6 +499,7 @@
         return;
     }
 }
+
 -(void)mapViewWillStartLoadingMap:(MKMapView *)mapView
 {
     if ([_beMapViewDelegate respondsToSelector:@selector(mapViewWillStartLoadingMap:)]) {
@@ -504,6 +507,7 @@
         return;
     }
 }
+
 -(void)mapViewWillStartLocatingUser:(MKMapView *)mapView
 {
     if ([_beMapViewDelegate respondsToSelector:@selector(mapViewWillStartLocatingUser:)]) {
@@ -511,6 +515,7 @@
         return;
     }
 }
+
 -(void)mapViewWillStartRenderingMap:(MKMapView *)mapView
 {
     if ([_beMapViewDelegate respondsToSelector:@selector(mapViewWillStartRenderingMap:)]) {
@@ -518,56 +523,55 @@
         return;
     }
 }
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
+
 -(void)getPoints:(BackendlessGeoQuery *)query
 {
     _autoUpdate = NO;
-    _geoQuery = [query retain];
+    //_geoQuery = [query retain];
     _responder.chained = nil;
     BackendlessCollection *c = [backendless.geoService getPoints:query];
     [self responseHandler:c];
 }
+
 -(void)relativeFind:(BackendlessGeoQuery *)query
 {
     _autoUpdate = NO;
-    _geoQuery = [query retain];
+    //_geoQuery = [query retain];
     _responder.chained = nil;
     BackendlessCollection *c = [backendless.geoService relativeFind:query];
     [self responseHandler:c];
 }
+
 -(void)getPoints:(BackendlessGeoQuery *)query responder:(id)responder
 {
     _autoUpdate = NO;
-    _geoQuery = [query retain];
+    //_geoQuery = [query retain];
     _responder.chained = responder;
     [backendless.geoService getPoints:query responder:_responder];
 }
+
 -(void)relativeFind:(BackendlessGeoQuery *)query responder:(id)responder
 {
     _autoUpdate = NO;
-    _geoQuery = [query retain];
+    //_geoQuery = [query retain];
     _responder.chained = responder;
     [backendless.geoService relativeFind:query responder:_responder];
 }
+
 -(void)getPoints:(BackendlessGeoQuery *)query response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock
 {
     _autoUpdate = NO;
-    _geoQuery = [query retain];
+    //_geoQuery = [query retain];
     _responder.chained = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     [backendless.geoService getPoints:query responder:_responder];
 }
+
 -(void)relativeFind:(BackendlessGeoQuery *)query response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock
 {
     _autoUpdate = NO;
-    _geoQuery = [query retain];
+    //_geoQuery = [query retain];
     _responder.chained = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     [backendless.geoService relativeFind:query responder:_responder];
 }
+
 @end

@@ -219,6 +219,14 @@ static NSString *METHOD_LOAD_METADATA = @"loadMetadata";
     
     BackendlessCollection *collection = result;
     collection.query = query;
+    
+    for (id point in collection.data) {
+        if ([point isKindOfClass:[GeoCluster class]]) {
+            GeoCluster *cluster = point;
+            cluster.geoQuery = query;
+        }
+    }
+    
     return collection;
 }
 
@@ -232,6 +240,14 @@ static NSString *METHOD_LOAD_METADATA = @"loadMetadata";
     
     BackendlessCollection *collection = result;
     collection.query = query;
+    
+    for (id point in collection.data) {
+        if ([point isKindOfClass:[GeoCluster class]]) {
+            GeoCluster *cluster = point;
+            cluster.geoQuery = query;
+        }
+    }
+    
     return collection;
 }
 
@@ -251,8 +267,8 @@ static NSString *METHOD_LOAD_METADATA = @"loadMetadata";
     if ((fault = [self isFaultGeoPoint:geoPoint responder:nil]) || (fault = [self isFaultGeoPointId:geoPoint.objectId responder:nil]))
         return fault;
 
-    BackendlessGeoQuery *query = [geoPoint isKindOfClass:[GeoCluster class]]? [(GeoCluster *)geoPoint geoQuery] : nil;
-    NSArray *args = query? @[backendless.appID, backendless.versionNum, geoPoint.objectId, query] : @[backendless.appID, backendless.versionNum, geoPoint.objectId];
+    id query = [geoPoint isKindOfClass:[GeoCluster class]]? [(GeoCluster *)geoPoint geoQuery] : [NSNull null];
+    NSArray *args = @[backendless.appID, backendless.versionNum, geoPoint.objectId, query];
     [geoPoint metadata:[invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_LOAD_METADATA args:args]];
     return geoPoint;
 }
@@ -324,8 +340,8 @@ static NSString *METHOD_LOAD_METADATA = @"loadMetadata";
     if ([self isFaultGeoPoint:geoPoint responder:responder] || [self isFaultGeoPointId:geoPoint.objectId responder:responder])
         return;
     
-    BackendlessGeoQuery *query = [geoPoint isKindOfClass:[GeoCluster class]]? [(GeoCluster *)geoPoint geoQuery] : nil;
-    NSArray *args = query? @[backendless.appID, backendless.versionNum, geoPoint.objectId, query] : @[backendless.appID, backendless.versionNum, geoPoint.objectId];
+    id query = [geoPoint isKindOfClass:[GeoCluster class]]? [(GeoCluster *)geoPoint geoQuery] : [NSNull null];
+    NSArray *args = @[backendless.appID, backendless.versionNum, geoPoint.objectId, query];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(getMetadata:) selErrorHandler:@selector(getError:)];
     _responder.chained = responder;
     _responder.context = geoPoint;
@@ -441,6 +457,14 @@ static NSString *METHOD_LOAD_METADATA = @"loadMetadata";
     BackendlessGeoQuery *geoQuery = response.context;
     collection.query = geoQuery;
     [collection pageSize:geoQuery.pageSize.integerValue];
+    
+    for (id point in collection.data) {
+        if ([point isKindOfClass:[GeoCluster class]]) {
+            GeoCluster *cluster = point;
+            cluster.geoQuery = geoQuery;
+        }
+    }
+    
     return collection;
 }
 
