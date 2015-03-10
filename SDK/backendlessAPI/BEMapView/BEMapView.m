@@ -87,6 +87,7 @@
 {
     self = [super init];
     if (self) {
+        //NSLog(@"!!!!!!!!!! BEMapView init");
         [self initProperties];
     }
 
@@ -138,7 +139,7 @@
             NSString *data = [NSString stringWithFormat:@"%@: %@", key, [point.metadata valueForKey:key]];
             data = [data stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
             [metadata addObject:data];
-            NSLog(@"%@", data);
+            //NSLog(@"%@", data);
         }
         annotation.title = [metadata componentsJoinedByString:@", "];
         [metadata release];
@@ -264,7 +265,7 @@
 #if 1
         if (!_responseData.count) {
             [self removeAllObjects];
-            NSLog(@"BEMapView -> responseHandler: (CLEAN)");
+            //NSLog(@"BEMapView -> responseHandler: (CLEAN)");
         }
 #endif
         [_responseData addObjectsFromArray:response.data];

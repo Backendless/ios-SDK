@@ -240,7 +240,7 @@ static NSString *METHOD_DELETE = @"delete";
     NSArray *args = @[backendless.appID, backendless.versionNum, key];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onGet:) selErrorHandler:nil];
     _responder.chained = responder;
-    [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_PUT_BYTES args:args responder:_responder];
+    [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_GET_BYTES args:args responder:_responder];
 }
 
 -(void)contains:(NSString *)key responder:(id<IResponder>)responder {
