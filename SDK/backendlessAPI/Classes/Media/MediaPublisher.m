@@ -307,7 +307,7 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
             
         case CONN_CONNECTED: {
             
-            if (![description isEqualToString:@"RTMP.Client.isConnected"])
+            if (![description isEqualToString:MP_RTMP_CLIENT_IS_CONNECTED])
                 break;
             
             [self start];
@@ -317,7 +317,7 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
 #if 0
         case STREAM_CREATED: {
             
-            if ([description isEqualToString:@"NetStream.Publish.Start"])
+            if ([description isEqualToString:MP_NETSTREAM_PUBLISH_START])
                 break;
             
             [self streamConnectFailed:sender code:(int)state description:description];

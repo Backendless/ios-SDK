@@ -22,9 +22,10 @@
 #import "MediaPlayer.h"
 #if TARGET_OS_IPHONE
 #import "DEBUG.h"
-#import "MediaStreamPlayer.h"
 #if IS_MEDIA_ENCODER
 #import "MPMediaDecoder.h"
+#else
+#import "MediaStreamPlayer.h"
 #endif
 #import "VideoPlayer.h"
 #import "MediaPlaybackOptions.h"
@@ -36,9 +37,10 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
 
 @interface MediaPlayer () <MPIMediaStreamEvent, IMediaStreamerDelegate> {
 
-    MediaStreamPlayer *_stream;
 #if IS_MEDIA_ENCODER
     MPMediaDecoder *_decoder;
+#else
+    MediaStreamPlayer *_stream;
 #endif
 }
 @end
@@ -52,8 +54,9 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
         
 #if IS_MEDIA_ENCODER
         _decoder = nil;
-#endif
+#else
         _stream = nil;
+#endif
         
         _options = nil;
         _streamPath = nil;
@@ -87,11 +90,18 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
         [self streamConnectFailed:self code:-1 description:OPTIONS_IS_ABSENT];
         return YES;
     }
-    
+
+#if IS_MEDIA_ENCODER
+    if (!_decoder) {
+        [self streamConnectFailed:self code:-2 description:STREAM_IS_ABSENT];
+        return YES;
+    }
+#else
     if (!_stream) {
         [self streamConnectFailed:self code:-2 description:STREAM_IS_ABSENT];
         return YES;
     }
+#endif
     
     return NO;
 }
@@ -159,23 +169,35 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
 }
 
 -(MPMediaStreamState)currentState {
+#if IS_MEDIA_ENCODER
+    return [self wrongOptions] ? CONN_DISCONNECTED : (MPMediaStreamState)_decoder.state;
+#else
     return [self wrongOptions] ? CONN_DISCONNECTED : (MPMediaStreamState)_stream.state;
+#endif
 }
 
 -(void)start {
     
     if ([self wrongOptions])
         return;
-    
+
+#if IS_MEDIA_ENCODER
+    [_decoder resume];
+#else
     [_stream start];
+#endif
 }
 
 -(void)pause {
     
     if ([self wrongOptions])
         return;
-    
+
+#if IS_MEDIA_ENCODER
+    [_decoder pause];
+#else
     [_stream pause];
+#endif
 }
 
 -(void)resume {
@@ -183,7 +205,11 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
     if ([self wrongOptions])
         return;
     
+#if IS_MEDIA_ENCODER
+    [_decoder resume];
+#else
     [_stream resume];
+#endif
 }
 
 -(void)stop {
@@ -191,7 +217,11 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
     if ([self wrongOptions])
         return;
     
+#if IS_MEDIA_ENCODER
+    [_decoder pause];
+#else
     [_stream stop];
+#endif
 }
 
 -(void)disconnect {
@@ -201,10 +231,10 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
 #if IS_MEDIA_ENCODER
     [_decoder cleanupStream];
     _decoder = nil;
-#endif
-    
+#else
     [_stream disconnect];
     _stream = nil;
+#endif
 }
 
 #pragma mark -
@@ -251,7 +281,7 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
             
         case STREAM_PLAYING: {
             
-            if ([description isEqualToString:@"NetStream.Play.StreamNotFound"]) {
+            if ([description isEqualToString:MP_NETSTREAM_PLAY_STREAM_NOT_FOUND]) {
                 
                 [self stop];
                 
@@ -277,8 +307,6 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
     
     if (!_decoder)
         return;
-    
-    //_decoder = nil;
 #else
     
     if (!_stream)
