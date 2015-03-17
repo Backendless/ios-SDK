@@ -119,14 +119,14 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
         UIDevice *device = [UIDevice currentDevice];
         NSString *deviceId = [device.identifierForVendor UUIDString];
-        deviceRegistration.deviceToken = device.name;
-        deviceRegistration.deviceId = deviceId ? deviceId : @"c64c5320de162cc8f37a48e5c188d1621f1bd734";
+        deviceRegistration.deviceToken = nil; //device.name;
+        deviceRegistration.deviceId = deviceId; // ? deviceId : @"c64c5320de162cc8f37a48e5c188d1621f1bd734";
         deviceRegistration.os = @"IOS";
         deviceRegistration.osVersion = device.systemVersion;
 #else
         deviceRegistration.os = @"OSX";
         NSString *deviceId = [self serialNumber];
-        deviceRegistration.deviceId = deviceId ? deviceId : @"c64c5320de162cc8f37a48e5c188d1621f1bd734";
+        deviceRegistration.deviceId = deviceId; // ? deviceId : @"c64c5320de162cc8f37a48e5c188d1621f1bd734";
 #endif
         [DebLog log:@"MessagingService -> init: deviceToken = %@, deviceId = %@, os = %@, osVersion = %@", deviceRegistration.deviceToken, deviceRegistration.deviceId, deviceRegistration.os, deviceRegistration.osVersion];
 	}
@@ -515,8 +515,11 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 }
 
 -(NSString *)registerDevice {
-	
-    [DebLog log:@"MessagingService -> deviceRegistration: %@", deviceRegistration];
+#if 1
+    if (!deviceRegistration.deviceToken)
+        return nil;
+#endif
+    [DebLog log:@"MessagingService -> registerDevice (SYNC): %@", deviceRegistration];
     
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, deviceRegistration, nil];
     id result = [invoker invokeSync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_REGISTER_DEVICE args:args];
@@ -618,7 +621,6 @@ static NSString *METHOD_SEND_EMAIL = @"send";
         return result;
     
     subscription.subscriptionId = (NSString *)result;
-    
     return subscription;
 }
 
@@ -696,6 +698,12 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 }
 
 -(void)registerDeviceAsync:(id<IResponder>)responder {
+#if 1
+    if (!deviceRegistration.deviceToken)
+        return;
+#endif
+    
+    [DebLog log:@"MessagingService -> registerDevice (ASYNC): %@", deviceRegistration];
     
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, deviceRegistration, nil];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onRegistering:) selErrorHandler:nil];

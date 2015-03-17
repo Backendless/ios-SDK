@@ -25,7 +25,6 @@
 #import "BEReachability.h"
 #import "OfflineModeManager.h"
 
-
 #define MISSING_SERVER_URL @"Missing server URL. You should set hostURL property"
 #define MISSING_APP_ID @"Missing application ID argument. Login to Backendless Console, select your app and get the ID and key from the Manage > App Settings screen. Copy/paste the values into the [backendless initApp:secret:version:]"
 #define MISSING_SECRET_KEY @"Missing secret key argument. Login to Backendless Console, select your app and get the ID and key from the Manage > App Settings screen. Copy/paste the values into the [backendless initApp:secret:version:]"
@@ -180,9 +179,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 -(MediaService *)mediaService {
     
     if (!_mediaService) {
-        //_mediaService = [MediaService new];
-        _mediaService = [[Types classInstanceByClassName:@"MediaService"] retain];
-        //_mediaService = [[Types classInstance:[MediaService class]] retain];
+        _mediaService = [[NSClassFromString(@"MediaService") alloc] init];
     }
     return _mediaService;
 }
@@ -400,32 +397,26 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     return [(NSString *)string autorelease];
 }
 
-// Generates a random string of up to 1000 characters in length. Generates a random length up to 1000 if numCharacters is set to 0
-#if 0
+#define _RANDOM_MAX_LENGTH 4000
+
+// Generates a random string of up to 4000 characters in length. Generates a random length up to 4000 if numCharacters is set to 0
 -(NSString *)randomString:(int)numCharacters {
-    
     static char const possibleChars[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    int len = (numCharacters > 1000 || numCharacters == 0) ? (int)rand() % (1000) : numCharacters;    
-    unichar characters[len];
-    for( int i=0; i < len; ++i ) {
-        characters[i] = possibleChars[arc4random_uniform(sizeof(possibleChars)-1)];
-    }
-    
-    return [[NSString stringWithCharacters:characters length:len] autorelease];
-}
+#if 1
+    int len = (numCharacters > _RANDOM_MAX_LENGTH || numCharacters == 0)? (int)rand() % (_RANDOM_MAX_LENGTH) : numCharacters;
 #else
--(NSString *)randomString:(int)numCharacters {
-    static char const possibleChars[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     int len;
-    if(numCharacters > 1000 || numCharacters == 0) len = (int)rand() % (1000);
-    else len = numCharacters;
+    if (numCharacters > _RANDOM_MAX_LENGTH || numCharacters == 0)
+        len = (int)rand() % (_RANDOM_MAX_LENGTH);
+    else
+        len = numCharacters;
+#endif
     unichar characters[len];
     for( int i=0; i < len; ++i ) {
         characters[i] = possibleChars[arc4random_uniform(sizeof(possibleChars)-1)];
     }
     return [NSString stringWithCharacters:characters length:len] ;
 }
-#endif
 
 -(NSString *)applicationType {
     return APP_TYPE;

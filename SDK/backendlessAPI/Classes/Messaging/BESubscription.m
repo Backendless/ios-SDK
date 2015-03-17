@@ -95,7 +95,10 @@
     
     [_subscriptionId release];
     _subscriptionId = [subscriptionId retain];
-    [self performSelector:@selector(pollingMessages) withObject:nil afterDelay:0.1f];
+    
+    if (_subscriptionId) {
+        [self performSelector:@selector(pollingMessages) withObject:nil afterDelay:0.1f];
+    }
 }
 
 #pragma mark -
