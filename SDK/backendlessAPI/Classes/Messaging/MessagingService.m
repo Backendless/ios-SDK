@@ -119,14 +119,14 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
         UIDevice *device = [UIDevice currentDevice];
         NSString *deviceId = [device.identifierForVendor UUIDString];
-        deviceRegistration.deviceToken = nil; //device.name;
-        deviceRegistration.deviceId = deviceId; // ? deviceId : @"c64c5320de162cc8f37a48e5c188d1621f1bd734";
+        deviceRegistration.deviceToken = device.name;
+        deviceRegistration.deviceId = deviceId ? deviceId : @"c64c5320de162cc8f37a48e5c188d1621f1bd734";
         deviceRegistration.os = @"IOS";
         deviceRegistration.osVersion = device.systemVersion;
 #else
         deviceRegistration.os = @"OSX";
         NSString *deviceId = [self serialNumber];
-        deviceRegistration.deviceId = deviceId; // ? deviceId : @"c64c5320de162cc8f37a48e5c188d1621f1bd734";
+        deviceRegistration.deviceId = deviceId ? deviceId : @"c64c5320de162cc8f37a48e5c188d1621f1bd734";
 #endif
         [DebLog log:@"MessagingService -> init: deviceToken = %@, deviceId = %@, os = %@, osVersion = %@", deviceRegistration.deviceToken, deviceRegistration.deviceId, deviceRegistration.os, deviceRegistration.osVersion];
 	}
