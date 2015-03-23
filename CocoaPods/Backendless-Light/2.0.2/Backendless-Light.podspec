@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-  s.name         = "Backendless-ios-SDK"
+  s.name         = "Backendless-Light"
   s.version      = "2.0.2"
   s.summary      = "Backendless provides an instant backend to help developers build better apps faster."
   s.description  = <<-DESC
@@ -24,7 +24,7 @@ Pod::Spec.new do |s|
   s.license		= { :type => 'Apache', :text => 'Copyright (c) 2012-2014 by Backendless.com' }
   s.author      = { "Vyacheslav Vdovichenko" => "slavav@themidnightcoders.com" }
 
-  s.platform       = :ios, '8.0'
+  s.platform       = :ios, '8.1'
   s.requires_arc   = true
   s.source         = { 
 	:git => "https://github.com/Backendless/ios-SDK.git", 
@@ -35,9 +35,9 @@ Pod::Spec.new do |s|
   s.preserve_paths = "**/*.a"
   s.source_files = "**/*.h"
   s.exclude_files  = "**/*mac.a"
-  s.frameworks     = 'AVFoundation','AudioToolbox', 'CFNetwork', 'CoreData', 'CoreGraphics', 'CoreLocation', 'CoreMedia', 'CoreVideo', 'Foundation', 'MapKit', 'Security', 'SystemConfiguration', 'UIKit'
-  s.libraries 	   = 'z', 'sqlite3', 'backendless', 'CommLibiOS', 'MediaLibiOS', 'swresample', 'avformat', 'avdevice', 'swscale', 'avfilter', 'avutil', 'avcodec', 'speex', 'speexdsp', 'x264'
-  s.xcconfig       =  { 'LIBRARY_SEARCH_PATHS' => '"$(SRCROOT)/Pods/Backendless-ios-SDK/SDK/lib/backendless" "$(SRCROOT)/Pods/Backendless-ios-SDK/SDK/lib/CommLibiOS" "$(SRCROOT)/Pods/Backendless-ios-SDK/SDK/lib/MediaLibiOS3x" "$(SRCROOT)/Pods/Backendless-ios-SDK/SDK/lib/ffmpeg-2.2.1/lib" "$(SRCROOT)/Pods/Backendless-ios-SDK/SDK/lib/libspeex-1.2rc1/lib" "$(SRCROOT)/Pods/Backendless-ios-SDK/SDK/lib/libx264-r2409/lib"', 'SWIFT_OBJC_BRIDGING_HEADER' => '${PODS_ROOT}/Headers/Backendless-ios-SDK/Backendless-Bridging-Header.h' }
+  s.frameworks     = 'CFNetwork', 'CoreData', 'CoreLocation', 'MapKit', 'Security', 'SystemConfiguration', 'UIKit'
+  s.libraries 	   = 'sqlite3', 'backendless', 'CommLibiOS'
+  s.xcconfig       =  { 'OTHER_LDFLAGS' => '-ObjC', 'LIBRARY_SEARCH_PATHS' => '"$(SRCROOT)/Pods/Backendless-Light/SDK/lib/backendless" "$(SRCROOT)/Pods/Backendless-Light/SDK/lib/CommLibiOS"', 'SWIFT_OBJC_BRIDGING_HEADER' => '${PODS_ROOT}/Headers/Backendless-Light/Backendless-Bridging-Header.h' }
 
   s.prepare_command = <<-CMD
 
@@ -47,10 +47,6 @@ Pod::Spec.new do |s|
 	
 	pushd SDK/lib/CommLibiOS/
 	  ln -s CommLibiOS.a libCommLibiOS.a
-	popd
-	
-	pushd SDK/lib/MediaLibiOS3x/
-	  ln -s MediaLibiOS.a libMediaLibiOS.a
 	popd
 	
     CMD

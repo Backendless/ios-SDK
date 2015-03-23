@@ -490,6 +490,10 @@
 		D31700D01A84D2AA00772766 /* GeoCluster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeoCluster.h; sourceTree = "<group>"; };
 		D31700D11A84D2AA00772766 /* GeoCluster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoCluster.m; sourceTree = "<group>"; };
 		D31700DD1A8D21E900772766 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
+		D33DF7371AC0982C0032C073 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
+		D33DF73A1AC0984F0032C073 /* Backendless-Light.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-Light.podspec"; sourceTree = "<group>"; };
+		D33DF73C1AC0984F0032C073 /* Backendless-Light.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-Light.podspec"; sourceTree = "<group>"; };
+		D33DF73E1AC0984F0032C073 /* Backendless-Light.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-Light.podspec"; sourceTree = "<group>"; };
 		D353120E19E8152300895ACC /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
 		D35CA3061A5FD31300F500B0 /* Atomic Counters API.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Atomic Counters API.pdf"; sourceTree = "<group>"; };
 		D35CA3081A5FD31300F500B0 /* Caching API.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Caching API.pdf"; sourceTree = "<group>"; };
@@ -506,7 +510,6 @@
 		D39A468019811D9B006CBD1B /* CacheService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheService.m; sourceTree = "<group>"; };
 		D3AD804418F01F7600AADCB0 /* backendless.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = backendless.a; sourceTree = "<group>"; };
 		D3AD806F18F01F7600AADCB0 /* libbackendless-mac.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libbackendless-mac.a"; sourceTree = "<group>"; };
-		D3B2F351193511900084D5DD /* Backendless.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Backendless.podspec; sourceTree = "<group>"; };
 		D3B2F354193511900084D5DD /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
 		D3B2F356193511900084D5DD /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
 		D3B2F358193511900084D5DD /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
@@ -779,6 +782,48 @@
 			path = 2.0.2;
 			sourceTree = "<group>";
 		};
+		D33DF7361AC0982C0032C073 /* 2.0.4 */ = {
+			isa = PBXGroup;
+			children = (
+				D33DF7371AC0982C0032C073 /* Backendless-ios-SDK.podspec */,
+			);
+			path = 2.0.4;
+			sourceTree = "<group>";
+		};
+		D33DF7381AC0984F0032C073 /* Backendless-Light */ = {
+			isa = PBXGroup;
+			children = (
+				D33DF7391AC0984F0032C073 /* 2.0.2 */,
+				D33DF73B1AC0984F0032C073 /* 2.0.3 */,
+				D33DF73D1AC0984F0032C073 /* 2.0.4 */,
+			);
+			path = "Backendless-Light";
+			sourceTree = "<group>";
+		};
+		D33DF7391AC0984F0032C073 /* 2.0.2 */ = {
+			isa = PBXGroup;
+			children = (
+				D33DF73A1AC0984F0032C073 /* Backendless-Light.podspec */,
+			);
+			path = 2.0.2;
+			sourceTree = "<group>";
+		};
+		D33DF73B1AC0984F0032C073 /* 2.0.3 */ = {
+			isa = PBXGroup;
+			children = (
+				D33DF73C1AC0984F0032C073 /* Backendless-Light.podspec */,
+			);
+			path = 2.0.3;
+			sourceTree = "<group>";
+		};
+		D33DF73D1AC0984F0032C073 /* 2.0.4 */ = {
+			isa = PBXGroup;
+			children = (
+				D33DF73E1AC0984F0032C073 /* Backendless-Light.podspec */,
+			);
+			path = 2.0.4;
+			sourceTree = "<group>";
+		};
 		D353120D19E8152300895ACC /* 2.0.1 */ = {
 			isa = PBXGroup;
 			children = (
@@ -857,7 +902,7 @@
 			isa = PBXGroup;
 			children = (
 				D3B2F3DC1936019E0084D5DD /* Guides */,
-				D3B2F34F193511900084D5DD /* Backendless */,
+				D33DF7381AC0984F0032C073 /* Backendless-Light */,
 				D3B2F352193511900084D5DD /* Backendless-ios-SDK */,
 				D3B2F359193511900084D5DD /* original.podspec */,
 			);
@@ -865,25 +910,10 @@
 			path = ../../CocoaPods;
 			sourceTree = "<group>";
 		};
-		D3B2F34F193511900084D5DD /* Backendless */ = {
-			isa = PBXGroup;
-			children = (
-				D3B2F350193511900084D5DD /* 0.0.1 */,
-			);
-			path = Backendless;
-			sourceTree = "<group>";
-		};
-		D3B2F350193511900084D5DD /* 0.0.1 */ = {
-			isa = PBXGroup;
-			children = (
-				D3B2F351193511900084D5DD /* Backendless.podspec */,
-			);
-			path = 0.0.1;
-			sourceTree = "<group>";
-		};
 		D3B2F352193511900084D5DD /* Backendless-ios-SDK */ = {
 			isa = PBXGroup;
 			children = (
+				D33DF7361AC0982C0032C073 /* 2.0.4 */,
 				D31700DC1A8D21E900772766 /* 2.0.2 */,
 				D353120D19E8152300895ACC /* 2.0.1 */,
 				D36CDCA519C6FBFF00C3FFE3 /* 1.19.1 */,
