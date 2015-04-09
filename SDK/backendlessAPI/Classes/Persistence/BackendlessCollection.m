@@ -222,6 +222,10 @@
     return type;
 }
 
+-(void)type:(Class)_type {
+    type = _type;
+}
+
 -(NSInteger)valTotalObjects {
     return aTotalObjects;
 }

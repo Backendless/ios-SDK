@@ -31,6 +31,7 @@
 -(NSNumber *)remove:(id)entity;
 -(NSNumber *)removeID:(NSString *)objectID;
 -(void)removeAll:(BackendlessDataQuery *)dataQuery;
+-(BackendlessCollection *)find;
 -(BackendlessCollection *)find:(BackendlessDataQuery *)dataQuery;
 -(id)findFirst;
 -(id)findLast;
@@ -46,6 +47,7 @@
 -(BOOL)remove:(id)entity fault:(Fault **)fault;
 -(BOOL)removeID:(NSString *)objectID fault:(Fault **)fault;
 -(void)removeAll:(BackendlessDataQuery *)dataQuery fault:(Fault **)fault;
+-(BackendlessCollection *)findFault:(Fault **)fault;
 -(BackendlessCollection *)find:(BackendlessDataQuery *)dataQuery fault:(Fault **)fault;
 -(id)findFirstFault:(Fault **)fault;
 -(id)findLastFault:(Fault **)fault;
@@ -61,6 +63,7 @@
 -(void)remove:(id)entity responder:(id <IResponder>)responder;
 -(void)removeID:(NSString *)objectID responder:(id <IResponder>)responder;
 -(void)removeAll:(BackendlessDataQuery *)dataQuery responder:(id <IResponder>)responder;
+-(void)findResponder:(id <IResponder>)responder;
 -(void)find:(BackendlessDataQuery *)dataQuery responder:(id <IResponder>)responder;
 -(void)findFirstResponder:(id <IResponder>)responder;
 -(void)findLastResponder:(id <IResponder>)responder;
@@ -76,6 +79,7 @@
 -(void)remove:(id)entity response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)removeID:(NSString *)objectID response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)removeAll:(BackendlessDataQuery *)dataQuery responder:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)find:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)find:(BackendlessDataQuery *)dataQuery response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)findFirst:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)findLast:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;

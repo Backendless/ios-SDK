@@ -84,6 +84,10 @@
     [backendless.persistenceService removeAll:_entityClass dataQuery:dataQuery];
 }
 
+-(BackendlessCollection *)find {
+    return [self find:[BackendlessDataQuery query]];
+}
+
 -(BackendlessCollection *)find:(BackendlessDataQuery *)dataQuery {
     return [backendless.persistenceService find:_entityClass dataQuery:dataQuery];
 }
@@ -154,6 +158,10 @@
 
 -(void)removeAll:(BackendlessDataQuery *)dataQuery fault:(Fault **)fault {
     [backendless.persistenceService removeAll:_entityClass dataQuery:dataQuery error:fault];
+}
+
+-(BackendlessCollection *)findFault:(Fault **)fault {
+    return [self find:[BackendlessDataQuery query] fault:fault];
 }
 
 -(BackendlessCollection *)find:(BackendlessDataQuery *)dataQuery fault:(Fault **)fault {
@@ -228,6 +236,10 @@
     [backendless.persistenceService removeAll:_entityClass dataQuery:dataQuery responder:responder];
 }
 
+-(void)findResponder:(id <IResponder>)responder {
+    [self find:[BackendlessDataQuery query] responder:responder];
+}
+
 -(void)find:(BackendlessDataQuery *)dataQuery responder:(id <IResponder>)responder {
     [backendless.persistenceService find:_entityClass dataQuery:dataQuery responder:responder];
 }
@@ -298,6 +310,9 @@
 
 -(void)removeAll:(BackendlessDataQuery *)dataQuery responder:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.persistenceService removeAll:_entityClass dataQuery:dataQuery response:responseBlock error:errorBlock];
+}
+-(void)find:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self find:[BackendlessDataQuery query] response:responseBlock error:errorBlock];
 }
 
 -(void)find:(BackendlessDataQuery *)dataQuery response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock {

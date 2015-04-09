@@ -42,6 +42,7 @@
 -(id)init:(BOOL)isCaching;
 
 -(Class)type;
+-(void)type:(Class)_type;
 -(NSInteger)valTotalObjects;
 -(NSInteger)valOffset;
 -(void)offset:(NSInteger)_offset;

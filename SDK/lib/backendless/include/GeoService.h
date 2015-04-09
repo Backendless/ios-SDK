@@ -21,6 +21,7 @@
 
 #import <Foundation/Foundation.h>
 #import "GeoPoint.h"
+#import "GeoCluster.h"
 
 #define DEFAULT_CATEGORY_NAME @"Default"
 
@@ -40,7 +41,11 @@ typedef struct {
 -(GeoPoint *)savePoint:(GeoPoint *)geoPoint;
 -(NSArray *)getCategories;
 -(BackendlessCollection *)getPoints:(BackendlessGeoQuery *)query;
+-(BackendlessCollection *)getClusterPoints:(GeoCluster *)geoCluster;
 -(BackendlessCollection *)relativeFind:(BackendlessGeoQuery *)query;
+-(BackendlessCollection *)getFencePoints:(NSString *)geoFenceName;
+-(BackendlessCollection *)getFencePoints:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query;
+-(NSNumber *)runOnStayAction:(NSString *)geoFenceName;
 -(id)removePoint:(GeoPoint *)geoPoint;
 -(GeoPoint *)loadMetadata:(GeoPoint *)geoPoint;
 
@@ -50,7 +55,11 @@ typedef struct {
 -(GeoPoint *)savePoint:(GeoPoint *)geoPoint error:(Fault **)fault;
 -(NSArray *)getCategoriesError:(Fault **)fault;
 -(BackendlessCollection *)getPoints:(BackendlessGeoQuery *)query error:(Fault **)fault;
+-(BackendlessCollection *)getClusterPoints:(GeoCluster *)geoCluster error:(Fault **)fault;
 -(BackendlessCollection *)relativeFind:(BackendlessGeoQuery *)query error:(Fault **)fault;
+-(BackendlessCollection *)getFencePoints:(NSString *)geoFenceName error:(Fault **)fault;
+-(BackendlessCollection *)getFencePoints:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query error:(Fault **)fault;
+-(NSNumber *)runOnStayAction:(NSString *)geoFenceName error:(Fault **)fault;
 -(BOOL)removePoint:(GeoPoint *)geoPoint error:(Fault **)fault;
 -(GeoPoint *)loadMetadata:(GeoPoint *)geoPoint error:(Fault **)fault;
 
@@ -60,7 +69,11 @@ typedef struct {
 -(void)savePoint:(GeoPoint *)geoPoint responder:(id <IResponder>)responder;
 -(void)getCategories:(id <IResponder>)responder;
 -(void)getPoints:(BackendlessGeoQuery *)query responder:(id <IResponder>)responder;
+-(void)getClusterPoints:(GeoCluster *)geoCluster responder:(id <IResponder>)responder;
 -(void)relativeFind:(BackendlessGeoQuery *)query responder:(id<IResponder>)responder;
+-(void)getFencePoints:(NSString *)geoFenceName responder:(id<IResponder>)responder;
+-(void)getFencePoints:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query responder:(id<IResponder>)responder;
+-(void)runOnStayAction:(NSString *)geoFenceName responder:(id<IResponder>)responder;
 -(void)removePoint:(GeoPoint *)geoPoint responder:(id <IResponder>)responder;
 -(void)loadMetadata:(GeoPoint *)geoPoint responder:(id<IResponder>)responder;
 
@@ -70,7 +83,11 @@ typedef struct {
 -(void)savePoint:(GeoPoint *)geoPoint response:(void(^)(GeoPoint *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getCategories:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getPoints:(BackendlessGeoQuery *)query response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)getClusterPoints:(GeoCluster *)geoCluster response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)relativeFind:(BackendlessGeoQuery *)query response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)getFencePoints:(NSString *)geoFenceName response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)getFencePoints:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)runOnStayAction:(NSString *)geoFenceName response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)removePoint:(GeoPoint *)geoPoint response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)loadMetadata:(GeoPoint *)geoPoint response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
 
