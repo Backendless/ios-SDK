@@ -48,7 +48,7 @@
 @protocol IResponder;
 
 @interface MessagingService : NSObject
-@property (nonatomic) float pollingFrequency;
+@property (nonatomic) uint pollingFrequencyMs;
 
 // utilites
 -(DeviceRegistration *)currentDevice;

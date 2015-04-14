@@ -81,9 +81,24 @@
 #pragma mark -
 #pragma mark Private Methods
 
+#define _BY_DISPATCH_TIME_ 1
+
 -(void)pollingMessages {
+    
+    if (!_subscriptionId)
+        return;
+    
+    //printf("\n############################################### NEW POLLING #################################################\n\n");
+    
     [backendless.messagingService pollMessages:_channelName subscriptionId:_subscriptionId responder:_responder];
-    [self performSelector:@selector(pollingMessages) withObject:nil afterDelay:backendless.messagingService.pollingFrequency];
+#if _BY_DISPATCH_TIME_
+    dispatch_time_t interval = dispatch_time(DISPATCH_TIME_NOW, 1ull*NSEC_PER_MSEC*backendless.messagingService.pollingFrequencyMs);
+    dispatch_after(interval, dispatch_get_main_queue(), ^{
+        [self pollingMessages];
+    });
+#else
+    [self performSelector:@selector(pollingMessages) withObject:nil afterDelay:backendless.messagingService.pollingFrequencyMs/1000];
+#endif
 }
 
 #pragma mark -
@@ -91,13 +106,22 @@
 
 -(void)setSubscriptionId:(NSString *)subscriptionId {
     
+#if !_BY_DISPATCH_TIME_
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
+#endif
     
     [_subscriptionId release];
     _subscriptionId = [subscriptionId retain];
     
     if (_subscriptionId) {
+#if _BY_DISPATCH_TIME_
+        dispatch_time_t interval = dispatch_time(DISPATCH_TIME_NOW, 100ull*NSEC_PER_MSEC);
+        dispatch_after(interval, dispatch_get_main_queue(), ^{
+            [self pollingMessages];
+        });
+#else
         [self performSelector:@selector(pollingMessages) withObject:nil afterDelay:0.1f];
+#endif
     }
 }
 
@@ -106,13 +130,18 @@
 
 -(void)cancel {
     
+#if !_BY_DISPATCH_TIME_
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
+#endif
     
     [_subscriptionId release];
     _subscriptionId = nil;
     
     [_channelName release];
     _channelName = nil;
+    
+    [_responder release];
+    _responder = nil;
 }
 
 -(NSString *)description {

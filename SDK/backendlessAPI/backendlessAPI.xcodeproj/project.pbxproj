@@ -234,6 +234,18 @@
 		D35CA5311A668AC600F500B0 /* FilePermission.h in Headers */ = {isa = PBXBuildFile; fileRef = D3EA52FF1A3077C1009C5FE0 /* FilePermission.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D35CA5321A668E1400F500B0 /* DataPermission.m in Sources */ = {isa = PBXBuildFile; fileRef = D36CF3FA1A2F68DA00B6468A /* DataPermission.m */; };
 		D35CA5331A668E1400F500B0 /* FilePermission.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EA53001A3077C1009C5FE0 /* FilePermission.m */; };
+		D35DC3391AD6CE1500EF2A68 /* Logging.h in Headers */ = {isa = PBXBuildFile; fileRef = D35DC3371AD6CE1500EF2A68 /* Logging.h */; };
+		D35DC33A1AD6CE1500EF2A68 /* Logging.h in Headers */ = {isa = PBXBuildFile; fileRef = D35DC3371AD6CE1500EF2A68 /* Logging.h */; };
+		D35DC33B1AD6CE1500EF2A68 /* Logging.h in Headers */ = {isa = PBXBuildFile; fileRef = D35DC3371AD6CE1500EF2A68 /* Logging.h */; };
+		D35DC33C1AD6CE1500EF2A68 /* Logging.m in Sources */ = {isa = PBXBuildFile; fileRef = D35DC3381AD6CE1500EF2A68 /* Logging.m */; };
+		D35DC33D1AD6CE1500EF2A68 /* Logging.m in Sources */ = {isa = PBXBuildFile; fileRef = D35DC3381AD6CE1500EF2A68 /* Logging.m */; };
+		D35DC33E1AD6CE1500EF2A68 /* Logging.m in Sources */ = {isa = PBXBuildFile; fileRef = D35DC3381AD6CE1500EF2A68 /* Logging.m */; };
+		D35DC3411AD7E19800EF2A68 /* Logger.h in Headers */ = {isa = PBXBuildFile; fileRef = D35DC33F1AD7E19800EF2A68 /* Logger.h */; };
+		D35DC3421AD7E19800EF2A68 /* Logger.h in Headers */ = {isa = PBXBuildFile; fileRef = D35DC33F1AD7E19800EF2A68 /* Logger.h */; };
+		D35DC3431AD7E19800EF2A68 /* Logger.h in Headers */ = {isa = PBXBuildFile; fileRef = D35DC33F1AD7E19800EF2A68 /* Logger.h */; };
+		D35DC3441AD7E19800EF2A68 /* Logger.m in Sources */ = {isa = PBXBuildFile; fileRef = D35DC3401AD7E19800EF2A68 /* Logger.m */; };
+		D35DC3451AD7E19800EF2A68 /* Logger.m in Sources */ = {isa = PBXBuildFile; fileRef = D35DC3401AD7E19800EF2A68 /* Logger.m */; };
+		D35DC3461AD7E19800EF2A68 /* Logger.m in Sources */ = {isa = PBXBuildFile; fileRef = D35DC3401AD7E19800EF2A68 /* Logger.m */; };
 		D36CDDF119C99D5900C3FFE3 /* CustomService.h in Headers */ = {isa = PBXBuildFile; fileRef = D36CDDEE19C99D5900C3FFE3 /* CustomService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D36CDDF219C99D5900C3FFE3 /* CustomService.h in Headers */ = {isa = PBXBuildFile; fileRef = D36CDDEE19C99D5900C3FFE3 /* CustomService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D36CDDF419C99D5900C3FFE3 /* CustomService.m in Sources */ = {isa = PBXBuildFile; fileRef = D36CDDEF19C99D5900C3FFE3 /* CustomService.m */; };
@@ -499,6 +511,10 @@
 		D35CA3081A5FD31300F500B0 /* Caching API.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Caching API.pdf"; sourceTree = "<group>"; };
 		D35CA3091A5FD31300F500B0 /* Developing an iOS Video Recorder and Player on Swift in 10 Minutes from the Scratch.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Developing an iOS Video Recorder and Player on Swift in 10 Minutes from the Scratch.pdf"; sourceTree = "<group>"; };
 		D35CA30C1A5FD31300F500B0 /* Sending Email API.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Sending Email API.pdf"; sourceTree = "<group>"; };
+		D35DC3371AD6CE1500EF2A68 /* Logging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logging.h; sourceTree = "<group>"; };
+		D35DC3381AD6CE1500EF2A68 /* Logging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Logging.m; sourceTree = "<group>"; };
+		D35DC33F1AD7E19800EF2A68 /* Logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logger.h; sourceTree = "<group>"; };
+		D35DC3401AD7E19800EF2A68 /* Logger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Logger.m; sourceTree = "<group>"; };
 		D3625CE6197EA248006E5779 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
 		D36CDCA419C6EEEC00C3FFE3 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
 		D36CDCA619C6FBFF00C3FFE3 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
@@ -844,6 +860,17 @@
 			path = ../doc;
 			sourceTree = "<group>";
 		};
+		D35DC3361AD6CD7200EF2A68 /* Logging */ = {
+			isa = PBXGroup;
+			children = (
+				D35DC3371AD6CE1500EF2A68 /* Logging.h */,
+				D35DC3381AD6CE1500EF2A68 /* Logging.m */,
+				D35DC33F1AD7E19800EF2A68 /* Logger.h */,
+				D35DC3401AD7E19800EF2A68 /* Logger.m */,
+			);
+			path = Logging;
+			sourceTree = "<group>";
+		};
 		D3625CE5197EA248006E5779 /* 1.16.1 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1067,6 +1094,7 @@
 				91223DC7195AF68900F72F48 /* Events */,
 				D39A467E19811CDC006CBD1B /* CacheService */,
 				D3FB9B6519867D5700A13FB6 /* Atomic */,
+				D35DC3361AD6CD7200EF2A68 /* Logging */,
 				F91B47E715FF448F00012DFC /* Util */,
 			);
 			path = Classes;
@@ -1380,10 +1408,12 @@
 				1C7BB5021A2E092900D3C2C1 /* BackendlessCachePolicy.h in Headers */,
 				1C7BB5031A2E092900D3C2C1 /* FlashorbBinaryWriter.h in Headers */,
 				1C7BB5041A2E092900D3C2C1 /* BodyParts.h in Headers */,
+				D35DC3411AD7E19800EF2A68 /* Logger.h in Headers */,
 				1C7BB5051A2E092900D3C2C1 /* BackendlessCacheProtocol.h in Headers */,
 				1C7BB5061A2E092900D3C2C1 /* QueryOptions.h in Headers */,
 				1C7BB5071A2E092900D3C2C1 /* Invoker.h in Headers */,
 				1C7BB5081A2E092900D3C2C1 /* BackendlessCache.h in Headers */,
+				D35DC3391AD6CE1500EF2A68 /* Logging.h in Headers */,
 				1C7BB5091A2E092900D3C2C1 /* BackendlessCacheData.h in Headers */,
 				1C7BB50A1A2E092900D3C2C1 /* BackendlessCacheKey.h in Headers */,
 				1C7BB50B1A2E092900D3C2C1 /* DEBUG.h in Headers */,
@@ -1401,6 +1431,7 @@
 				F9796A06166CCBFE00595F5E /* Backendless.h in Headers */,
 				912D504C182102F0006A090A /* BETableView.h in Headers */,
 				F9BBFD5118783B750076BC6D /* FlashorbBinaryReader.h in Headers */,
+				D35DC3421AD7E19800EF2A68 /* Logger.h in Headers */,
 				F9BBFD4818783B750076BC6D /* BinaryCodec.h in Headers */,
 				91764F9B1823E43400745497 /* BECollectionView.h in Headers */,
 				91DF02461821718C009DAE40 /* BEAnnotation.h in Headers */,
@@ -1436,6 +1467,7 @@
 				D3F8BD9F19825CF80009DB40 /* CacheFactory.h in Headers */,
 				D3F8BD9A198256AF0009DB40 /* ICacheService.h in Headers */,
 				D3FB9B7519867F0E00A13FB6 /* AtomicCountersFactory.h in Headers */,
+				D35DC33A1AD6CE1500EF2A68 /* Logging.h in Headers */,
 				D30A5D7519B9CA8200C0BA44 /* Backendless-Bridging-Header.h in Headers */,
 				D3FB9B7C1986818F00A13FB6 /* IAtomicCounters.h in Headers */,
 				D3FB9B6919867EA500A13FB6 /* AtomicCounters.h in Headers */,
@@ -1489,6 +1521,7 @@
 				F9796A52166CD42E00595F5E /* Backendless.h in Headers */,
 				912D504D182102F0006A090A /* BETableView.h in Headers */,
 				F9BBFD5218783B750076BC6D /* FlashorbBinaryReader.h in Headers */,
+				D35DC3431AD7E19800EF2A68 /* Logger.h in Headers */,
 				F9BBFD4918783B750076BC6D /* BinaryCodec.h in Headers */,
 				91764F9C1823E43400745497 /* BECollectionView.h in Headers */,
 				91DF02471821718C009DAE40 /* BEAnnotation.h in Headers */,
@@ -1524,6 +1557,7 @@
 				F9796A6A166CD42E00595F5E /* Message.h in Headers */,
 				F9BBFD7918783B750076BC6D /* Types.h in Headers */,
 				F9BBFD7C18783B750076BC6D /* WeborbClient.h in Headers */,
+				D35DC33B1AD6CE1500EF2A68 /* Logging.h in Headers */,
 				F9796A6B166CD42E00595F5E /* MessageStatus.h in Headers */,
 				D3F8BDA019825CF80009DB40 /* CacheFactory.h in Headers */,
 				D3F8BD9B198256AF0009DB40 /* ICacheService.h in Headers */,
@@ -1756,6 +1790,7 @@
 				1C7BB4A71A2E092900D3C2C1 /* DeliveryOptions.m in Sources */,
 				1C7BB4A81A2E092900D3C2C1 /* PublishOptions.m in Sources */,
 				1C7BB4A91A2E092900D3C2C1 /* SubscriptionOptions.m in Sources */,
+				D35DC33C1AD6CE1500EF2A68 /* Logging.m in Sources */,
 				1C7BB4AA1A2E092900D3C2C1 /* BESubscription.m in Sources */,
 				1C7BB4AB1A2E092900D3C2C1 /* Message.m in Sources */,
 				1C7BB4AC1A2E092900D3C2C1 /* MessageStatus.m in Sources */,
@@ -1770,6 +1805,7 @@
 				1C7BB4B51A2E092900D3C2C1 /* BodyParts.m in Sources */,
 				D31700D51A84D2AA00772766 /* GeoCluster.m in Sources */,
 				1C7BB4B61A2E092900D3C2C1 /* MediaService.m in Sources */,
+				D35DC3441AD7E19800EF2A68 /* Logger.m in Sources */,
 				1C7BB4B71A2E092900D3C2C1 /* MediaPublisher.m in Sources */,
 				1C7BB4B81A2E092900D3C2C1 /* MediaPlayer.m in Sources */,
 				1C7BB4B91A2E092900D3C2C1 /* AbstractQuery.m in Sources */,
@@ -1810,6 +1846,7 @@
 				F97969F9166CCB8200595F5E /* GeoPoint.m in Sources */,
 				F97969FA166CCB8200595F5E /* BackendlessGeoQuery.m in Sources */,
 				F97969FB166CCB8200595F5E /* MessagingService.m in Sources */,
+				D35DC3451AD7E19800EF2A68 /* Logger.m in Sources */,
 				F97969FC166CCB8200595F5E /* DeviceRegistration.m in Sources */,
 				F97969FD166CCB8200595F5E /* DeliveryOptions.m in Sources */,
 				F97969FE166CCB8200595F5E /* PublishOptions.m in Sources */,
@@ -1826,6 +1863,7 @@
 				D39A468519811D9B006CBD1B /* CacheService.m in Sources */,
 				F9796A05166CCB8200595F5E /* HashMap.m in Sources */,
 				F97969E4166CC8C300595F5E /* backendless_simulator.m in Sources */,
+				D35DC33D1AD6CE1500EF2A68 /* Logging.m in Sources */,
 				F994A3F6168DC36B00C1A498 /* MediaPublishOptions.m in Sources */,
 				D3FB9B7819867F0E00A13FB6 /* AtomicCountersFactory.m in Sources */,
 				F994A400168DC39400C1A498 /* MediaPlaybackOptions.m in Sources */,
@@ -1874,6 +1912,7 @@
 				F9796A43166CD3DB00595F5E /* GeoPoint.m in Sources */,
 				F9796A44166CD3DB00595F5E /* BackendlessGeoQuery.m in Sources */,
 				F9796A45166CD3DB00595F5E /* MessagingService.m in Sources */,
+				D35DC3461AD7E19800EF2A68 /* Logger.m in Sources */,
 				F9796A46166CD3DB00595F5E /* DeviceRegistration.m in Sources */,
 				F9796A47166CD3DB00595F5E /* DeliveryOptions.m in Sources */,
 				F9796A48166CD3DB00595F5E /* PublishOptions.m in Sources */,
@@ -1890,6 +1929,7 @@
 				D39A468619811D9B006CBD1B /* CacheService.m in Sources */,
 				F9796A4F166CD3DB00595F5E /* HashMap.m in Sources */,
 				F9796A30166CD3A400595F5E /* backendless_device.m in Sources */,
+				D35DC33E1AD6CE1500EF2A68 /* Logging.m in Sources */,
 				F994A3F7168DC36B00C1A498 /* MediaPublishOptions.m in Sources */,
 				D3FB9B7919867F0E00A13FB6 /* AtomicCountersFactory.m in Sources */,
 				F994A401168DC39400C1A498 /* MediaPlaybackOptions.m in Sources */,
