@@ -97,7 +97,7 @@
         [self pollingMessages];
     });
 #else
-    [self performSelector:@selector(pollingMessages) withObject:nil afterDelay:backendless.messagingService.pollingFrequencyMs/1000];
+    [self performSelector:@selector(pollingMessages) withObject:nil afterDelay:(double)backendless.messagingService.pollingFrequencyMs/1000];
 #endif
 }
 
