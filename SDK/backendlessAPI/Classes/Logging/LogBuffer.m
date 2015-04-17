@@ -121,12 +121,12 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
     
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        NSMutableDictionary *logLevels = [logBatches objectForKey:logger];
+        NSMutableDictionary *logLevels = logBatches[logger];
         if (!logLevels) {
             logBatches[logger] = logLevels = [NSMutableDictionary dictionary];
         }
         
-        NSMutableArray *messages = [logLevels objectForKey:level];
+        NSMutableArray *messages = logLevels[level];
         if (!messages) {
             logLevels[level] = messages = [NSMutableArray array];
         }

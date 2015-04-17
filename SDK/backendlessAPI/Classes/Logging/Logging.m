@@ -61,12 +61,9 @@
 
 -(Logger *)getLogger:(NSString *)loggerName {
     
-    Logger *logger = [loggers objectForKey:loggerName];
-    if (logger)
-        return logger;
-    
-    logger = [Logger logger:loggerName];
-    [loggers setObject:logger forKey:loggerName];
+    Logger *logger = loggers[loggerName];
+    if (!logger)
+        loggers[loggerName] = logger = [Logger logger:loggerName];
     
     return logger;
 }
