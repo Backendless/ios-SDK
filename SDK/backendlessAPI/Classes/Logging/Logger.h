@@ -22,6 +22,5 @@
 #import <Foundation/Foundation.h>
 
 @interface Logger : NSObject
-+(id)logger:(NSString *)name;
-
++(id)logger:(NSString *)loggerName;
 @end

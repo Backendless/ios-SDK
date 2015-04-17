@@ -26,6 +26,4 @@
 -(void)setLogReportingPolicy:(int)numOfMessages time:(int)timeFrequencyMS;
 -(Logger *)getLoggerClass:(Class)clazz;
 -(Logger *)getLogger:(NSString *)loggerName;
-
--(id)log:(NSString *)logger level:(NSString *)level message:(NSString *)message exception:(NSString *)exception;
 @end

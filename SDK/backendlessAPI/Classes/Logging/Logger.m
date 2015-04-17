@@ -46,10 +46,10 @@
     [super dealloc];
 }
 
-+(id)logger:(NSString *)name {
-    Logger *_logger = [Logger new];
-    _logger.name = name;
-    return _logger;
++(id)logger:(NSString *)loggerName {
+    Logger *logger = [Logger new];
+    logger.name = loggerName;
+    return logger;
 }
 
 

@@ -218,6 +218,12 @@
 		91F139B517D724C700D1AC4C /* QueryOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F139B117D724C600D1AC4C /* QueryOptions.m */; };
 		D30A5D7519B9CA8200C0BA44 /* Backendless-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = D30A5D7319B9CA8200C0BA44 /* Backendless-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D30A5D7619B9CA8200C0BA44 /* Backendless-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = D30A5D7319B9CA8200C0BA44 /* Backendless-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D30FC9B11AE132C2007C9A83 /* LogBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = D30FC9AF1AE132C2007C9A83 /* LogBuffer.h */; };
+		D30FC9B21AE132C2007C9A83 /* LogBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = D30FC9AF1AE132C2007C9A83 /* LogBuffer.h */; };
+		D30FC9B31AE132C2007C9A83 /* LogBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = D30FC9AF1AE132C2007C9A83 /* LogBuffer.h */; };
+		D30FC9B41AE132C2007C9A83 /* LogBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = D30FC9B01AE132C2007C9A83 /* LogBuffer.m */; };
+		D30FC9B51AE132C2007C9A83 /* LogBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = D30FC9B01AE132C2007C9A83 /* LogBuffer.m */; };
+		D30FC9B61AE132C2007C9A83 /* LogBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = D30FC9B01AE132C2007C9A83 /* LogBuffer.m */; };
 		D316BA371A83C649007215CA /* ProtectedBackendlessGeoQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = D316BA351A83C649007215CA /* ProtectedBackendlessGeoQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D316BA381A83C649007215CA /* ProtectedBackendlessGeoQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = D316BA351A83C649007215CA /* ProtectedBackendlessGeoQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D316BA391A83C649007215CA /* ProtectedBackendlessGeoQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = D316BA351A83C649007215CA /* ProtectedBackendlessGeoQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -497,6 +503,8 @@
 		D30E684619E28E0C00AE3949 /* MPMediaEncoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPMediaEncoder.h; sourceTree = "<group>"; };
 		D30E684719E28E0C00AE3949 /* VideoPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoPlayer.h; sourceTree = "<group>"; };
 		D30E684819E28E0C00AE3949 /* MediaLibiOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = MediaLibiOS.a; sourceTree = "<group>"; };
+		D30FC9AF1AE132C2007C9A83 /* LogBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogBuffer.h; sourceTree = "<group>"; };
+		D30FC9B01AE132C2007C9A83 /* LogBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogBuffer.m; sourceTree = "<group>"; };
 		D316BA351A83C649007215CA /* ProtectedBackendlessGeoQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProtectedBackendlessGeoQuery.h; sourceTree = "<group>"; };
 		D316BA361A83C649007215CA /* ProtectedBackendlessGeoQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProtectedBackendlessGeoQuery.m; sourceTree = "<group>"; };
 		D31700D01A84D2AA00772766 /* GeoCluster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeoCluster.h; sourceTree = "<group>"; };
@@ -867,6 +875,8 @@
 				D35DC3381AD6CE1500EF2A68 /* Logging.m */,
 				D35DC33F1AD7E19800EF2A68 /* Logger.h */,
 				D35DC3401AD7E19800EF2A68 /* Logger.m */,
+				D30FC9AF1AE132C2007C9A83 /* LogBuffer.h */,
+				D30FC9B01AE132C2007C9A83 /* LogBuffer.m */,
 			);
 			path = Logging;
 			sourceTree = "<group>";
@@ -1399,6 +1409,7 @@
 				1C7BB4F91A2E092900D3C2C1 /* MediaPublishOptions.h in Headers */,
 				1C7BB4FA1A2E092900D3C2C1 /* MediaPlaybackOptions.h in Headers */,
 				1C7BB4FB1A2E092900D3C2C1 /* IRTMProtocol.h in Headers */,
+				D30FC9B11AE132C2007C9A83 /* LogBuffer.h in Headers */,
 				1C7BB4FC1A2E092900D3C2C1 /* MediaService.h in Headers */,
 				1C7BB4FD1A2E092900D3C2C1 /* MediaPublisher.h in Headers */,
 				1C7BB4FE1A2E092900D3C2C1 /* MediaPlayer.h in Headers */,
@@ -1453,6 +1464,7 @@
 				F9796A17166CCBFE00595F5E /* BackendlessGeoQuery.h in Headers */,
 				F9BBFD6618783B750076BC6D /* IRTMProtocol.h in Headers */,
 				F9796A18166CCBFE00595F5E /* MessagingService.h in Headers */,
+				D30FC9B21AE132C2007C9A83 /* LogBuffer.h in Headers */,
 				F9796A19166CCBFE00595F5E /* DeviceRegistration.h in Headers */,
 				F9796A1A166CCBFE00595F5E /* DeliveryOptions.h in Headers */,
 				F9BBFD4E18783B750076BC6D /* DEBUG.h in Headers */,
@@ -1543,6 +1555,7 @@
 				F9796A63166CD42E00595F5E /* BackendlessGeoQuery.h in Headers */,
 				F9BBFD6718783B750076BC6D /* IRTMProtocol.h in Headers */,
 				F9796A64166CD42E00595F5E /* MessagingService.h in Headers */,
+				D30FC9B31AE132C2007C9A83 /* LogBuffer.h in Headers */,
 				F9796A65166CD42E00595F5E /* DeviceRegistration.h in Headers */,
 				F9796A66166CD42E00595F5E /* DeliveryOptions.h in Headers */,
 				F9BBFD4F18783B750076BC6D /* DEBUG.h in Headers */,
@@ -1787,6 +1800,7 @@
 				1C7BB4A41A2E092900D3C2C1 /* BackendlessGeoQuery.m in Sources */,
 				1C7BB4A51A2E092900D3C2C1 /* MessagingService.m in Sources */,
 				1C7BB4A61A2E092900D3C2C1 /* DeviceRegistration.m in Sources */,
+				D30FC9B41AE132C2007C9A83 /* LogBuffer.m in Sources */,
 				1C7BB4A71A2E092900D3C2C1 /* DeliveryOptions.m in Sources */,
 				1C7BB4A81A2E092900D3C2C1 /* PublishOptions.m in Sources */,
 				1C7BB4A91A2E092900D3C2C1 /* SubscriptionOptions.m in Sources */,
@@ -1849,6 +1863,7 @@
 				D35DC3451AD7E19800EF2A68 /* Logger.m in Sources */,
 				F97969FC166CCB8200595F5E /* DeviceRegistration.m in Sources */,
 				F97969FD166CCB8200595F5E /* DeliveryOptions.m in Sources */,
+				D30FC9B51AE132C2007C9A83 /* LogBuffer.m in Sources */,
 				F97969FE166CCB8200595F5E /* PublishOptions.m in Sources */,
 				F97969FF166CCB8200595F5E /* SubscriptionOptions.m in Sources */,
 				D316BA3B1A83C649007215CA /* ProtectedBackendlessGeoQuery.m in Sources */,
@@ -1915,6 +1930,7 @@
 				D35DC3461AD7E19800EF2A68 /* Logger.m in Sources */,
 				F9796A46166CD3DB00595F5E /* DeviceRegistration.m in Sources */,
 				F9796A47166CD3DB00595F5E /* DeliveryOptions.m in Sources */,
+				D30FC9B61AE132C2007C9A83 /* LogBuffer.m in Sources */,
 				F9796A48166CD3DB00595F5E /* PublishOptions.m in Sources */,
 				F9796A49166CD3DB00595F5E /* SubscriptionOptions.m in Sources */,
 				D316BA3C1A83C649007215CA /* ProtectedBackendlessGeoQuery.m in Sources */,

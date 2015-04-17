@@ -21,43 +21,10 @@
 
 #import "Logging.h"
 #import "DEBUG.h"
-#import "Types.h"
-#import "Backendless.h"
-#import "Invoker.h"
-
-#define FAULT_NO_SERVICE_OPTIONS [Fault fault:@"Service options is not valid" faultCode:@"0000"]
-
-// SERVICE NAME
-static NSString *SERVER_LOG_SERVICE_PATH = @"com.backendless.services.logging.LogService";
-// METHOD NAMES
-static NSString *METHOD_LOG = @"log";
-static NSString *METHOD_BATCHLOG = @"batchLog";
-
-@interface LogMessage : NSObject
-@property (strong, nonatomic) NSDate *timestamp;
-@property (strong, nonatomic) NSString *message;
-@property (strong, nonatomic) NSString *exception;
-@end
-
-@implementation LogMessage
-@end
-
-@interface LogBatch : NSObject
-@property (strong, nonatomic) NSString *logLevel;
-@property (strong, nonatomic) NSString *logger;
-@property (strong, nonatomic) NSMutableSet *messages; // List<LogMessage>
-@end
-
-@implementation LogBatch
-@end
-
+#import "LogBuffer.h"
 
 @interface Logging () {
-    
-    NSMutableSet *_logBatchList;
-    
-    int _numOfMessages;
-    int _timeFrequencyMS;
+    NSMutableDictionary *loggers;
 }
 
 @end
@@ -65,20 +32,9 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
 @implementation Logging
 
 -(id)init {
-    
     if ( (self=[super init]) ) {
-        
-        _logBatchList = [NSMutableSet new];
-        
-        _numOfMessages = 1;
-        _timeFrequencyMS = 0;
-        
-#if 0 // ????
-        [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.logging.LogMessage" mapped:[LogMessage class]];
-        [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.logging.LogBatch" mapped:[LogBatch class]];
-#endif
+        loggers = [NSMutableDictionary new];
     }
-    
     return self;
 }
 
@@ -86,7 +42,8 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
     
     [DebLog logN:@"DEALLOC Logging"];
     
-    [_logBatchList release];
+    [loggers removeAllObjects];
+    [loggers release];
     
     [super dealloc];
 }
@@ -95,54 +52,23 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
 #pragma mark Public Methods
 
 -(void)setLogReportingPolicy:(int)numOfMessages time:(int)timeFrequencyMS {
-    _numOfMessages = numOfMessages;
-    _timeFrequencyMS = timeFrequencyMS;
+    [[LogBuffer sharedInstance] setLogReportingPolicy:numOfMessages time:timeFrequencyMS];
 }
 
 -(Logger *)getLoggerClass:(Class)clazz {
-    return [Logger logger:NSStringFromClass(clazz)];
+    return [self getLogger:NSStringFromClass(clazz)];
 }
 
 -(Logger *)getLogger:(NSString *)loggerName {
-    return [Logger logger:loggerName];
-}
-
-#if 0
-log( String appId, String version, String logLevel, String logger, String message, String exception )
-batchLog( String appId, String version, List<LogBatch> logs )
-#endif
-
--(id)log:(NSString *)logger level:(NSString *)level message:(NSString *)message exception:(NSString *)exception {
     
-    if (!logger || !message)
-        return [backendless throwFault:FAULT_NO_SERVICE_OPTIONS];
+    Logger *logger = [loggers objectForKey:loggerName];
+    if (logger)
+        return logger;
     
-    if (_numOfMessages > 1) {
-        
-        return nil;
-    }
+    logger = [Logger logger:loggerName];
+    [loggers setObject:logger forKey:loggerName];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, level, logger, message, exception];
-    return [invoker invokeSync:SERVER_LOG_SERVICE_PATH method:METHOD_LOG args:args];
-}
-
-#pragma mark -
-#pragma mark Private Methods
-
--(id)throwBatchLog {
-    
-    if (!_logBatchList || !_logBatchList.count)
-        return nil;
-    
-    NSArray *args = @[backendless.appID, backendless.versionNum, _logBatchList];
-    id result = [invoker invokeSync:SERVER_LOG_SERVICE_PATH method:METHOD_BATCHLOG args:args];
-    if ([result isKindOfClass:[Fault class]]) {
-        return result;
-    }
-    
-    [_logBatchList removeAllObjects];
-    
-    return result;
+    return logger;
 }
 
 @end
