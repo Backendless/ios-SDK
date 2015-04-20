@@ -21,9 +21,15 @@
 
 #import <Foundation/Foundation.h>
 
+@class Responder;
+
 @interface LogBuffer : NSObject
 // Singleton accessor:  this is how you should ALWAYS get a reference to the class instance.  Never init your own.
 +(LogBuffer *)sharedInstance;
--(void)setLogReportingPolicy:(int)messagesNum time:(int)timeFrequencyMS;
+
+@property (strong, nonatomic) Responder *responder;
+
+-(id)setLogReportingPolicy:(int)messagesNum time:(int)timeFrequencyMS;
 -(void)enqueue:(NSString *)logger level:(NSString *)level message:(NSString *)message exception:(NSString *)exception;
+-(void)forceFlush;
 @end

@@ -20,7 +20,8 @@
  */
 
 #import "Logger.h"
-#import "Backendless.h"
+#import "DEBUG.h"
+#import "LogBuffer.h"
 
 @interface Logger ()
 @property (strong, nonatomic) NSString *name;
@@ -55,5 +56,25 @@
 
 #pragma mark -
 #pragma mark Public Methods
+
+-(void)debug:(NSString *)message {
+    [[LogBuffer sharedInstance] enqueue:_name level:@"DEBUG" message:message exception:nil];
+}
+
+-(void)info:(NSString *)message {
+    [[LogBuffer sharedInstance] enqueue:_name level:@"INFO" message:message exception:nil];
+}
+
+-(void)warn:(NSString *)message {
+    [[LogBuffer sharedInstance] enqueue:_name level:@"WARN" message:message exception:nil];
+}
+
+-(void)error:(NSString *)message {
+    [[LogBuffer sharedInstance] enqueue:_name level:@"ERROR" message:message exception:nil];
+}
+
+-(void)fatal:(NSString *)message {
+    [[LogBuffer sharedInstance] enqueue:_name level:@"FATAL" message:message exception:nil];
+}
 
 @end

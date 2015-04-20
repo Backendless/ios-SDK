@@ -23,4 +23,9 @@
 
 @interface Logger : NSObject
 +(id)logger:(NSString *)loggerName;
+-(void)debug:(NSString *)message;
+-(void)info:(NSString *)message;
+-(void)warn:(NSString *)message;
+-(void)error:(NSString *)message;
+-(void)fatal:(NSString *)message;
 @end

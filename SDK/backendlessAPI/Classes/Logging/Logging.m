@@ -21,6 +21,8 @@
 
 #import "Logging.h"
 #import "DEBUG.h"
+#import "Responder.h"
+#import "Logger.h"
 #import "LogBuffer.h"
 
 @interface Logging () {
@@ -55,6 +57,10 @@
     [[LogBuffer sharedInstance] setLogReportingPolicy:numOfMessages time:timeFrequencyMS];
 }
 
+-(void)setLogResponder:(Responder *)responder {
+    [LogBuffer sharedInstance].responder = responder;
+}
+
 -(Logger *)getLoggerClass:(Class)clazz {
     return [self getLogger:NSStringFromClass(clazz)];
 }
@@ -62,10 +68,15 @@
 -(Logger *)getLogger:(NSString *)loggerName {
     
     Logger *logger = loggers[loggerName];
-    if (!logger)
+    if (!logger) {
         loggers[loggerName] = logger = [Logger logger:loggerName];
+    }
     
     return logger;
+}
+
+-(void)forceFlush {
+    [[LogBuffer sharedInstance] forceFlush];
 }
 
 @end

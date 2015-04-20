@@ -20,10 +20,10 @@
  */
 
 #import "LogBuffer.h"
-#import "DEBUG.h"
-#import "Types.h"
 #import "Backendless.h"
 #import "Invoker.h"
+
+#define FAULT_WRONG_FREQUENCY [Fault fault:@"The time frequency argument must be greater than zero"]
 
 // SERVICE NAME
 static NSString *SERVER_LOG_SERVICE_PATH = @"com.backendless.services.logging.LogService";
@@ -59,13 +59,11 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
 
 
 @interface LogBuffer () {
-    
     NSMutableDictionary *logBatches;
     int numOfMessages;
     int timeFrequency;
     int messageCount;
 }
-
 @end
 
 @implementation LogBuffer
@@ -83,10 +81,14 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
 
 -(id)init {
     if ( (self=[super init]) ) {
+        
+        _responder = nil;
         logBatches = [NSMutableDictionary new];
         numOfMessages = 100;
         timeFrequency = 1000*60*5; // 5 minutes
         messageCount = 0;
+        
+        [self flushMessages];
     }
     return self;
 }
@@ -95,8 +97,12 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
     
     [DebLog logN:@"DEALLOC LogBuffer"];
     
+    messageCount = 0;
+    
     [logBatches removeAllObjects];
     [logBatches release];
+    
+    [_responder release];
     
     [super dealloc];
 }
@@ -104,13 +110,17 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
 #pragma mark -
 #pragma mark Public Methods
 
--(void)setLogReportingPolicy:(int)messagesNum time:(int)timeFrequencyMS {
+-(id)setLogReportingPolicy:(int)messagesNum time:(int)timeFrequencyMS {
     
-    if (numOfMessages > 1 && timeFrequency <= 0)
-        return;
+    if (numOfMessages != 1 && timeFrequency <= 0)
+        return [backendless throwFault:FAULT_WRONG_FREQUENCY];
     
     numOfMessages = messagesNum;
     timeFrequency = timeFrequencyMS;
+    
+    [self flushMessages];
+    
+    return nil;
 }
 
 -(void)enqueue:(NSString *)logger level:(NSString *)level message:(NSString *)message exception:(NSString *)exception {
@@ -132,8 +142,15 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
         }
         
         [messages addObject:[LogMessage logMessage:[NSDate date] message:message exception:exception]];
-        if (++messageCount == numOfMessages)
+        if (++messageCount == numOfMessages) {
             [self flush];
+        }
+    });
+}
+
+-(void)forceFlush {    
+    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self flush];
     });
 }
 
@@ -141,12 +158,9 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
 #pragma mark Private Methods
 
 -(void)reportSingleLogMessage:(NSString *)logger level:(NSString *)level message:(NSString *)message exception:(NSString *)exception {
-    
-    if (!logger || !message || numOfMessages > 1)
-        return;
      
-    NSArray *args = @[backendless.appID, backendless.versionNum, level, logger, message, exception];
-    [invoker invokeAsync:SERVER_LOG_SERVICE_PATH method:METHOD_LOG args:args responder:nil];
+    NSArray *args = @[backendless.appID, backendless.versionNum, level, logger, message, exception?exception:[NSNull null]];
+    [invoker invokeAsync:SERVER_LOG_SERVICE_PATH method:METHOD_LOG args:args responder:_responder];
 }
 
 -(void)reportBatch:(NSArray *)batch {
@@ -155,10 +169,13 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
         return;
     
     NSArray *args = @[backendless.appID, backendless.versionNum, batch];
-    [invoker invokeAsync:SERVER_LOG_SERVICE_PATH method:METHOD_BATCHLOG args:args responder:nil];
+    [invoker invokeAsync:SERVER_LOG_SERVICE_PATH method:METHOD_BATCHLOG args:args responder:_responder];
 }
 
 -(void)flush {
+    
+    if (!messageCount)
+        return;
     
     NSMutableArray *allMessages = [NSMutableArray array];
     
@@ -178,8 +195,22 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
     }
     
     [logBatches removeAllObjects];
+    messageCount = 0;
     
     [self reportBatch:allMessages];
+}
+
+-(void)flushMessages {
+    
+    [self flush];
+    
+    if (numOfMessages <= 1 || timeFrequency <= 0)
+        return;
+    
+    dispatch_time_t interval = dispatch_time(DISPATCH_TIME_NOW, 1ull*NSEC_PER_MSEC*timeFrequency);
+    dispatch_after(interval, dispatch_get_main_queue(), ^{
+        [self flushMessages];
+    });
 }
 
 @end
