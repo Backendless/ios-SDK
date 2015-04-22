@@ -75,7 +75,7 @@
     return logger;
 }
 
--(void)forceFlush {
+-(void)flush {
     [[LogBuffer sharedInstance] forceFlush];
 }
 

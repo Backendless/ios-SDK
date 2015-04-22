@@ -59,7 +59,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 @synthesize hostURL = _hostURL, versionNum = _versionNum, reachabilityDelegate = _reachabilityDelegate;
 @synthesize userService = _userService, persistenceService = _persistenceService, messagingService = _messagingService;
 @synthesize geoService = _geoService, fileService = _fileService, mediaService = _mediaService;
-@synthesize customService = _customService, events = _events, cache = _cache, counters = _counters;
+@synthesize customService = _customService, events = _events, cache = _cache, counters = _counters, logging = _logging;
 
 // Singleton accessor:  this is how you should ALWAYS get a reference to the class instance.  Never init your own.
 +(Backendless *)sharedInstance {
@@ -129,6 +129,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     [_events release];
     [_cache release];
     [_counters release];
+    [_logging release];
 	
 	[super dealloc];
 }
@@ -215,6 +216,14 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
         _counters = [AtomicCounters new];
     }
     return _counters;
+}
+
+-(Logging *)logging {
+    
+    if (!_logging) {
+        _logging = [Logging new];
+    }
+    return _logging;
 }
 
 #pragma mark - reachability

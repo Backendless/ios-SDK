@@ -26,6 +26,9 @@
 -(void)debug:(NSString *)message;
 -(void)info:(NSString *)message;
 -(void)warn:(NSString *)message;
+-(void)warn:(NSString *)message exception:(NSException *)exception;
 -(void)error:(NSString *)message;
+-(void)error:(NSString *)message exception:(NSException *)exception;
 -(void)fatal:(NSString *)message;
+-(void)fatal:(NSString *)message exception:(NSException *)exception;
 @end

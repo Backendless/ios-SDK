@@ -69,12 +69,24 @@
     [[LogBuffer sharedInstance] enqueue:_name level:@"WARN" message:message exception:nil];
 }
 
+-(void)warn:(NSString *)message exception:(NSException *)exception {
+    [[LogBuffer sharedInstance] enqueue:_name level:@"WARN" message:message exception:exception.reason];
+}
+
 -(void)error:(NSString *)message {
     [[LogBuffer sharedInstance] enqueue:_name level:@"ERROR" message:message exception:nil];
 }
 
+-(void)error:(NSString *)message exception:(NSException *)exception {
+    [[LogBuffer sharedInstance] enqueue:_name level:@"ERROR" message:message exception:exception.reason];
+}
+
 -(void)fatal:(NSString *)message {
     [[LogBuffer sharedInstance] enqueue:_name level:@"FATAL" message:message exception:nil];
+}
+
+-(void)fatal:(NSString *)message exception:(NSException *)exception {
+    [[LogBuffer sharedInstance] enqueue:_name level:@"FATAL" message:message exception:exception.reason];
 }
 
 @end

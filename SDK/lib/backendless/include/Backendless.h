@@ -74,6 +74,8 @@
 #import "AtomicCounters.h"
 #import "DataPermission.h"
 #import "FilePermission.h"
+#import "Logging.h"
+#import "Logger.h"
 
 //Cache
 #import "BackendlessCachePolicy.h"
@@ -119,6 +121,7 @@
 @property (strong, nonatomic, readonly) Events *events;
 @property (strong, nonatomic, readonly) CacheService *cache;
 @property (strong, nonatomic, readonly) AtomicCounters *counters;
+@property (strong, nonatomic, readonly) Logging *logging;
 // delegates
 @property (strong, nonatomic) id <ReachabilityDelegate> reachabilityDelegate;
 

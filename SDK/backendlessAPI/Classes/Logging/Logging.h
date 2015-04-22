@@ -28,5 +28,5 @@
 -(void)setLogResponder:(Responder *)responder;
 -(Logger *)getLoggerClass:(Class)clazz;
 -(Logger *)getLogger:(NSString *)loggerName;
--(void)forceFlush;
+-(void)flush;
 @end

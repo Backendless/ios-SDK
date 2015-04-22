@@ -240,15 +240,15 @@
 		D35CA5311A668AC600F500B0 /* FilePermission.h in Headers */ = {isa = PBXBuildFile; fileRef = D3EA52FF1A3077C1009C5FE0 /* FilePermission.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D35CA5321A668E1400F500B0 /* DataPermission.m in Sources */ = {isa = PBXBuildFile; fileRef = D36CF3FA1A2F68DA00B6468A /* DataPermission.m */; };
 		D35CA5331A668E1400F500B0 /* FilePermission.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EA53001A3077C1009C5FE0 /* FilePermission.m */; };
-		D35DC3391AD6CE1500EF2A68 /* Logging.h in Headers */ = {isa = PBXBuildFile; fileRef = D35DC3371AD6CE1500EF2A68 /* Logging.h */; };
-		D35DC33A1AD6CE1500EF2A68 /* Logging.h in Headers */ = {isa = PBXBuildFile; fileRef = D35DC3371AD6CE1500EF2A68 /* Logging.h */; };
-		D35DC33B1AD6CE1500EF2A68 /* Logging.h in Headers */ = {isa = PBXBuildFile; fileRef = D35DC3371AD6CE1500EF2A68 /* Logging.h */; };
+		D35DC3391AD6CE1500EF2A68 /* Logging.h in Headers */ = {isa = PBXBuildFile; fileRef = D35DC3371AD6CE1500EF2A68 /* Logging.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D35DC33A1AD6CE1500EF2A68 /* Logging.h in Headers */ = {isa = PBXBuildFile; fileRef = D35DC3371AD6CE1500EF2A68 /* Logging.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D35DC33B1AD6CE1500EF2A68 /* Logging.h in Headers */ = {isa = PBXBuildFile; fileRef = D35DC3371AD6CE1500EF2A68 /* Logging.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D35DC33C1AD6CE1500EF2A68 /* Logging.m in Sources */ = {isa = PBXBuildFile; fileRef = D35DC3381AD6CE1500EF2A68 /* Logging.m */; };
 		D35DC33D1AD6CE1500EF2A68 /* Logging.m in Sources */ = {isa = PBXBuildFile; fileRef = D35DC3381AD6CE1500EF2A68 /* Logging.m */; };
 		D35DC33E1AD6CE1500EF2A68 /* Logging.m in Sources */ = {isa = PBXBuildFile; fileRef = D35DC3381AD6CE1500EF2A68 /* Logging.m */; };
-		D35DC3411AD7E19800EF2A68 /* Logger.h in Headers */ = {isa = PBXBuildFile; fileRef = D35DC33F1AD7E19800EF2A68 /* Logger.h */; };
-		D35DC3421AD7E19800EF2A68 /* Logger.h in Headers */ = {isa = PBXBuildFile; fileRef = D35DC33F1AD7E19800EF2A68 /* Logger.h */; };
-		D35DC3431AD7E19800EF2A68 /* Logger.h in Headers */ = {isa = PBXBuildFile; fileRef = D35DC33F1AD7E19800EF2A68 /* Logger.h */; };
+		D35DC3411AD7E19800EF2A68 /* Logger.h in Headers */ = {isa = PBXBuildFile; fileRef = D35DC33F1AD7E19800EF2A68 /* Logger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D35DC3421AD7E19800EF2A68 /* Logger.h in Headers */ = {isa = PBXBuildFile; fileRef = D35DC33F1AD7E19800EF2A68 /* Logger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D35DC3431AD7E19800EF2A68 /* Logger.h in Headers */ = {isa = PBXBuildFile; fileRef = D35DC33F1AD7E19800EF2A68 /* Logger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D35DC3441AD7E19800EF2A68 /* Logger.m in Sources */ = {isa = PBXBuildFile; fileRef = D35DC3401AD7E19800EF2A68 /* Logger.m */; };
 		D35DC3451AD7E19800EF2A68 /* Logger.m in Sources */ = {isa = PBXBuildFile; fileRef = D35DC3401AD7E19800EF2A68 /* Logger.m */; };
 		D35DC3461AD7E19800EF2A68 /* Logger.m in Sources */ = {isa = PBXBuildFile; fileRef = D35DC3401AD7E19800EF2A68 /* Logger.m */; };
@@ -1397,6 +1397,8 @@
 				D35CA5301A668AC600F500B0 /* DataPermission.h in Headers */,
 				D316BA371A83C649007215CA /* ProtectedBackendlessGeoQuery.h in Headers */,
 				D31700D21A84D2AA00772766 /* GeoCluster.h in Headers */,
+				D35DC3411AD7E19800EF2A68 /* Logger.h in Headers */,
+				D35DC3391AD6CE1500EF2A68 /* Logging.h in Headers */,
 				D35CA5311A668AC600F500B0 /* FilePermission.h in Headers */,
 				1C7BB4F11A2E092900D3C2C1 /* IPendingServiceCallback.h in Headers */,
 				1C7BB4F21A2E092900D3C2C1 /* BESubscription.h in Headers */,
@@ -1419,12 +1421,10 @@
 				1C7BB5021A2E092900D3C2C1 /* BackendlessCachePolicy.h in Headers */,
 				1C7BB5031A2E092900D3C2C1 /* FlashorbBinaryWriter.h in Headers */,
 				1C7BB5041A2E092900D3C2C1 /* BodyParts.h in Headers */,
-				D35DC3411AD7E19800EF2A68 /* Logger.h in Headers */,
 				1C7BB5051A2E092900D3C2C1 /* BackendlessCacheProtocol.h in Headers */,
 				1C7BB5061A2E092900D3C2C1 /* QueryOptions.h in Headers */,
 				1C7BB5071A2E092900D3C2C1 /* Invoker.h in Headers */,
 				1C7BB5081A2E092900D3C2C1 /* BackendlessCache.h in Headers */,
-				D35DC3391AD6CE1500EF2A68 /* Logging.h in Headers */,
 				1C7BB5091A2E092900D3C2C1 /* BackendlessCacheData.h in Headers */,
 				1C7BB50A1A2E092900D3C2C1 /* BackendlessCacheKey.h in Headers */,
 				1C7BB50B1A2E092900D3C2C1 /* DEBUG.h in Headers */,
@@ -1442,7 +1442,6 @@
 				F9796A06166CCBFE00595F5E /* Backendless.h in Headers */,
 				912D504C182102F0006A090A /* BETableView.h in Headers */,
 				F9BBFD5118783B750076BC6D /* FlashorbBinaryReader.h in Headers */,
-				D35DC3421AD7E19800EF2A68 /* Logger.h in Headers */,
 				F9BBFD4818783B750076BC6D /* BinaryCodec.h in Headers */,
 				91764F9B1823E43400745497 /* BECollectionView.h in Headers */,
 				91DF02461821718C009DAE40 /* BEAnnotation.h in Headers */,
@@ -1479,7 +1478,6 @@
 				D3F8BD9F19825CF80009DB40 /* CacheFactory.h in Headers */,
 				D3F8BD9A198256AF0009DB40 /* ICacheService.h in Headers */,
 				D3FB9B7519867F0E00A13FB6 /* AtomicCountersFactory.h in Headers */,
-				D35DC33A1AD6CE1500EF2A68 /* Logging.h in Headers */,
 				D30A5D7519B9CA8200C0BA44 /* Backendless-Bridging-Header.h in Headers */,
 				D3FB9B7C1986818F00A13FB6 /* IAtomicCounters.h in Headers */,
 				D3FB9B6919867EA500A13FB6 /* AtomicCounters.h in Headers */,
@@ -1487,8 +1485,10 @@
 				D36CDDF119C99D5900C3FFE3 /* CustomService.h in Headers */,
 				F9BBFD5418783B750076BC6D /* FlashorbBinaryWriter.h in Headers */,
 				F9796A20166CCBFE00595F5E /* FileService.h in Headers */,
+				D35DC3421AD7E19800EF2A68 /* Logger.h in Headers */,
 				F9BBFD7518783B750076BC6D /* RTMPClient.h in Headers */,
 				D316BA381A83C649007215CA /* ProtectedBackendlessGeoQuery.h in Headers */,
+				D35DC33A1AD6CE1500EF2A68 /* Logging.h in Headers */,
 				D31700D31A84D2AA00772766 /* GeoCluster.h in Headers */,
 				D3EA53021A3077C1009C5FE0 /* FilePermission.h in Headers */,
 				D36CF3FC1A2F68DA00B6468A /* DataPermission.h in Headers */,
@@ -1533,7 +1533,6 @@
 				F9796A52166CD42E00595F5E /* Backendless.h in Headers */,
 				912D504D182102F0006A090A /* BETableView.h in Headers */,
 				F9BBFD5218783B750076BC6D /* FlashorbBinaryReader.h in Headers */,
-				D35DC3431AD7E19800EF2A68 /* Logger.h in Headers */,
 				F9BBFD4918783B750076BC6D /* BinaryCodec.h in Headers */,
 				91764F9C1823E43400745497 /* BECollectionView.h in Headers */,
 				91DF02471821718C009DAE40 /* BEAnnotation.h in Headers */,
@@ -1570,14 +1569,15 @@
 				F9796A6A166CD42E00595F5E /* Message.h in Headers */,
 				F9BBFD7918783B750076BC6D /* Types.h in Headers */,
 				F9BBFD7C18783B750076BC6D /* WeborbClient.h in Headers */,
-				D35DC33B1AD6CE1500EF2A68 /* Logging.h in Headers */,
 				F9796A6B166CD42E00595F5E /* MessageStatus.h in Headers */,
 				D3F8BDA019825CF80009DB40 /* CacheFactory.h in Headers */,
 				D3F8BD9B198256AF0009DB40 /* ICacheService.h in Headers */,
 				D39A468319811D9B006CBD1B /* CacheService.h in Headers */,
 				F9BBFD5518783B750076BC6D /* FlashorbBinaryWriter.h in Headers */,
+				D35DC3431AD7E19800EF2A68 /* Logger.h in Headers */,
 				D30A5D7619B9CA8200C0BA44 /* Backendless-Bridging-Header.h in Headers */,
 				F9796A6C166CD42E00595F5E /* FileService.h in Headers */,
+				D35DC33B1AD6CE1500EF2A68 /* Logging.h in Headers */,
 				D316BA391A83C649007215CA /* ProtectedBackendlessGeoQuery.h in Headers */,
 				D31700D41A84D2AA00772766 /* GeoCluster.h in Headers */,
 				F9BBFD7618783B750076BC6D /* RTMPClient.h in Headers */,
