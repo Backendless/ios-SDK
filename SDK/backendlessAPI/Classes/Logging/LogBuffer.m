@@ -23,6 +23,7 @@
 #import "Backendless.h"
 #import "Invoker.h"
 
+#define FAULT_WRONG_MESSAGES_NUMBER [Fault fault:@"The messages number argument must be greater than zero"]
 #define FAULT_WRONG_FREQUENCY [Fault fault:@"The time frequency argument must be greater than zero"]
 
 // SERVICE NAME
@@ -32,15 +33,19 @@ static NSString *METHOD_LOG = @"log";
 static NSString *METHOD_BATCHLOG = @"batchLog";
 
 @interface LogMessage : NSObject
+@property (strong, nonatomic) NSString *logger;
+@property (strong, nonatomic) NSString *level;
 @property (strong, nonatomic) NSDate *timestamp;
 @property (strong, nonatomic) NSString *message;
 @property (strong, nonatomic) NSString *exception;
-+(LogMessage *)logMessage:(NSDate *)timestamp message:(NSString *)message exception:(NSString *)exception;
++(LogMessage *)logMessage:(NSString *)logger level:(NSString *)level time:(NSDate *)timestamp message:(NSString *)message exception:(NSString *)exception;
 @end
 
 @implementation LogMessage
-+(LogMessage *)logMessage:(NSDate *)timestamp message:(NSString *)message exception:(NSString *)exception {
++(LogMessage *)logMessage:(NSString *)logger level:(NSString *)level time:(NSDate *)timestamp message:(NSString *)message exception:(NSString *)exception {
     LogMessage *instance = [LogMessage new];
+    instance.logger = logger;
+    instance.level = level;
     instance.timestamp = timestamp;
     instance.message = message;
     instance.exception = exception;
@@ -48,21 +53,11 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
 }
 @end
 
-@interface LogBatch : NSObject
-@property (strong, nonatomic) NSString *logLevel;
-@property (strong, nonatomic) NSString *logger;
-@property (strong, nonatomic) NSMutableArray *messages; // List<LogMessage>
-@end
-
-@implementation LogBatch
-@end
-
 
 @interface LogBuffer () {
-    NSMutableDictionary *logBatches;
+    NSMutableArray *logMessages;
     int numOfMessages;
     int timeFrequency;
-    int messageCount;
 }
 @end
 
@@ -83,10 +78,9 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
     if ( (self=[super init]) ) {
         
         _responder = nil;
-        logBatches = [NSMutableDictionary new];
+        logMessages = [NSMutableArray new];
         numOfMessages = 100;
         timeFrequency = 1000*60*5; // 5 minutes
-        messageCount = 0;
         
         [self flushMessages];
     }
@@ -97,10 +91,8 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
     
     [DebLog logN:@"DEALLOC LogBuffer"];
     
-    messageCount = 0;
-    
-    [logBatches removeAllObjects];
-    [logBatches release];
+    [logMessages removeAllObjects];
+    [logMessages release];
     
     [_responder release];
     
@@ -111,6 +103,9 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
 #pragma mark Public Methods
 
 -(id)setLogReportingPolicy:(int)messagesNum time:(int)timeFrequencyMS {
+    
+    if (numOfMessages <= 0)
+        return [backendless throwFault:FAULT_WRONG_MESSAGES_NUMBER];
     
     if (numOfMessages != 1 && timeFrequency <= 0)
         return [backendless throwFault:FAULT_WRONG_FREQUENCY];
@@ -127,22 +122,13 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
     
     if (numOfMessages == 1) {
         [self reportSingleLogMessage:logger level:level message:message exception:exception];
+        return;
     }
-    
+
+    LogMessage *logMessage = [LogMessage logMessage:logger level:level time:[NSDate date] message:message exception:exception];
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        NSMutableDictionary *logLevels = logBatches[logger];
-        if (!logLevels) {
-            logBatches[logger] = logLevels = [NSMutableDictionary dictionary];
-        }
-        
-        NSMutableArray *messages = logLevels[level];
-        if (!messages) {
-            logLevels[level] = messages = [NSMutableArray array];
-        }
-        
-        [messages addObject:[LogMessage logMessage:[NSDate date] message:message exception:exception]];
-        if (++messageCount == numOfMessages) {
+        [logMessages addObject:logMessage];
+        if (logMessages.count >= numOfMessages) {
             [self flush];
         }
     });
@@ -158,6 +144,9 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
 #pragma mark Private Methods
 
 -(void)reportSingleLogMessage:(NSString *)logger level:(NSString *)level message:(NSString *)message exception:(NSString *)exception {
+    
+    if (!logger || !level || !message)
+        return;
      
     NSArray *args = @[backendless.appID, backendless.versionNum, level, logger, message, exception?exception:[NSNull null]];
     [invoker invokeAsync:SERVER_LOG_SERVICE_PATH method:METHOD_LOG args:args responder:_responder];
@@ -174,30 +163,12 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
 
 -(void)flush {
     
-    if (!messageCount)
+    if (!logMessages.count)
         return;
     
-    NSMutableArray *allMessages = [NSMutableArray array];
-    
-    NSArray *batchKeys = [logBatches allKeys];
-    for (NSString *logger in batchKeys) {
-        
-        NSDictionary *logLevels = logBatches[logger];
-        NSArray *levelKeys = [logLevels allKeys];
-        for (NSString *logLevel in levelKeys) {
-            
-            LogBatch *logBatch = [LogBatch new];
-            logBatch.logger = logger;
-            logBatch.logLevel = logLevel;
-            logBatch.messages = logLevels[logLevel];
-            [allMessages addObject:logBatch];
-       }
-    }
-    
-    [logBatches removeAllObjects];
-    messageCount = 0;
-    
-    [self reportBatch:allMessages];
+    [self reportBatch:logMessages];
+   
+    [logMessages removeAllObjects];
 }
 
 -(void)flushMessages {
@@ -208,7 +179,7 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
         return;
     
     dispatch_time_t interval = dispatch_time(DISPATCH_TIME_NOW, 1ull*NSEC_PER_MSEC*timeFrequency);
-    dispatch_after(interval, dispatch_get_main_queue(), ^{
+    dispatch_after(interval, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self flushMessages];
     });
 }
