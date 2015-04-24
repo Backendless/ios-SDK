@@ -65,6 +65,10 @@
     [[LogBuffer sharedInstance] enqueue:_name level:@"INFO" message:message exception:nil];
 }
 
+-(void)trace:(NSString *)message {
+    [[LogBuffer sharedInstance] enqueue:_name level:@"TRACE" message:message exception:nil];
+}
+
 -(void)warn:(NSString *)message {
     [[LogBuffer sharedInstance] enqueue:_name level:@"WARN" message:message exception:nil];
 }

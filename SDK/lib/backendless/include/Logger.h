@@ -25,6 +25,7 @@
 +(id)logger:(NSString *)loggerName;
 -(void)debug:(NSString *)message;
 -(void)info:(NSString *)message;
+-(void)trace:(NSString *)message;
 -(void)warn:(NSString *)message;
 -(void)warn:(NSString *)message exception:(NSException *)exception;
 -(void)error:(NSString *)message;
