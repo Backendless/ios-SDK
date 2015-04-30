@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name         = "Backendless-Light"
   s.version      = "2.0.4"
-  s.summary      = "Backendless provides an instant backend to help developers build better apps faster."
+  s.summary      = "Backendless provides an instant backend to help developers build better apps faster. 'Light' means 'without MediaService and media support libs'"
   s.description  = <<-DESC
 	Backendless is a development and a run-time platform. It helps software developers to create 
 	mobile and desktop applications while removing the need for server-side coding. The platform 
@@ -12,7 +12,6 @@ Pod::Spec.new do |s|
 		Data Service – is responsible for data management – storage, retrieval, updates and deletion.
 		Messaging Service – handles message publishing, broadcast, filtered message delivery and native mobile push notifications.
 		Files Service – is responsible for file uploads, downloads and file sharing.
-		Media Service – provides support for video and audio streaming (up and down) and server-side recording.
 		Geo-Location Service – supports geo spatial data imports and geo queries.
 
 		The Backendless services can be accessed through an easy-to-use APIs which we packaged into our 
@@ -24,7 +23,7 @@ Pod::Spec.new do |s|
   s.license		= { :type => 'Apache', :text => 'Copyright (c) 2012-2015 by Backendless.com' }
   s.author      = { "Vyacheslav Vdovichenko" => "slavav@themidnightcoders.com" }
 
-  s.platform       = :ios, '8.2'
+  s.platform       = :ios, '8.0'
   s.requires_arc   = true
   s.source         = { 
 	:git => "https://github.com/Backendless/ios-SDK.git", 
@@ -32,11 +31,13 @@ Pod::Spec.new do |s|
 	:tag => '2.0.4'
   }
 
-  s.preserve_paths = "SDK/lib/backendless/backendless.a", "SDK/lib/CommLibiOS/CommLibiOS.a"
-  s.source_files = "SDK/lib/backendless/**/*.h", "SDK/lib/CommLibiOS/**/*.h"
+  s.preserve_paths = "**/*.a"
+  s.source_files = "**/*.h"
+  s.exclude_files  = "**/*mac.a", "SDK/lib/MediaLibiOS3x/*", "SDK/lib/ffmpeg-2.2.1/*", "SDK/lib/libspeex-1.2rc1/*", "SDK/lib/libx264-r2409/*"
+
   s.frameworks = 'SystemConfiguration'
   s.libraries = 'sqlite3', 'backendless', 'CommLibiOS'
-  s.xcconfig =  { 'LIBRARY_SEARCH_PATHS' => '"$(SRCROOT)/Pods/Backendless-Light/SDK/lib/backendless" "$(SRCROOT)/Pods/Backendless-Light/SDK/lib/CommLibiOS"', 'SWIFT_OBJC_BRIDGING_HEADER' => '${PODS_ROOT}/Headers/Backendless-Light/Backendless-Bridging-Header.h' }
+  s.xcconfig =  { 'LIBRARY_SEARCH_PATHS' => '"$(SRCROOT)/Pods/Backendless-Light/SDK/lib/backendless" "$(SRCROOT)/Pods/Backendless-Light/SDK/lib/CommLibiOS"', 'SWIFT_OBJC_BRIDGING_HEADER' => '${PODS_ROOT}/Headers/Public/Backendless-Light/Backendless-Bridging-Header.h' }
 
   s.prepare_command = <<-CMD
 

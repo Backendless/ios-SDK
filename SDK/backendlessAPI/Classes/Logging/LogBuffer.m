@@ -23,8 +23,7 @@
 #import "Backendless.h"
 #import "Invoker.h"
 
-#define FAULT_WRONG_MESSAGES_NUMBER [Fault fault:@"The messages number argument must be greater than zero"]
-#define FAULT_WRONG_FREQUENCY [Fault fault:@"The time frequency argument must be greater than zero"]
+#define FAULT_WRONG_POLICY [Fault fault:@"The messages number argument or the time frequency argument must be greater than zero"]
 
 // SERVICE NAME
 static NSString *SERVER_LOG_SERVICE_PATH = @"com.backendless.services.logging.LogService";
@@ -55,9 +54,9 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
 
 
 @interface LogBuffer () {
-    NSMutableArray *logMessages;
-    int numOfMessages;
-    int timeFrequency;
+    NSMutableArray *_logMessages;
+    int _numOfMessages;
+    int _timeFrequency;
 }
 @end
 
@@ -77,10 +76,10 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
 -(id)init {
     if ( (self=[super init]) ) {
         
-        _responder = nil;
-        logMessages = [NSMutableArray new];
-        numOfMessages = 100;
-        timeFrequency = 1000*60*5; // 5 minutes
+        self.responder = [Responder responder:self selResponseHandler:@selector(getResponse:) selErrorHandler:@selector(getError:)];
+        _logMessages = [NSMutableArray new];
+        _numOfMessages = 100;
+        _timeFrequency = 1000*60*5; // 5 minutes
         
         [self flushMessages];
     }
@@ -91,8 +90,8 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
     
     [DebLog logN:@"DEALLOC LogBuffer"];
     
-    [logMessages removeAllObjects];
-    [logMessages release];
+    [_logMessages removeAllObjects];
+    [_logMessages release];
     
     [_responder release];
     
@@ -104,14 +103,13 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
 
 -(id)setLogReportingPolicy:(int)messagesNum time:(int)timeFrequencyMS {
     
-    if (numOfMessages <= 0)
-        return [backendless throwFault:FAULT_WRONG_MESSAGES_NUMBER];
+    if (messagesNum <= 0 && timeFrequencyMS <= 0)
+        return [backendless throwFault:FAULT_WRONG_POLICY];
     
-    if (numOfMessages != 1 && timeFrequency <= 0)
-        return [backendless throwFault:FAULT_WRONG_FREQUENCY];
+    [DebLog log:@"LogBuffer -> setLogReportingPolicy: messagesNum = %d, timeFrequencyMS = %d", messagesNum, timeFrequencyMS];
     
-    numOfMessages = messagesNum;
-    timeFrequency = timeFrequencyMS;
+    _numOfMessages = messagesNum;
+    _timeFrequency = timeFrequencyMS;
     
     [self flushMessages];
     
@@ -120,15 +118,18 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
 
 -(void)enqueue:(NSString *)logger level:(NSString *)level message:(NSString *)message exception:(NSString *)exception {
     
-    if (numOfMessages == 1) {
+    [DebLog logN:@"LogBuffer -> enqueue: _numOfMessages = %d, logger = '%@', level = '%@', message = '%@', exeption = '%@'", _numOfMessages, logger, level, message, exception];
+    
+    if (_numOfMessages == 1) {
         [self reportSingleLogMessage:logger level:level message:message exception:exception];
         return;
     }
 
     LogMessage *logMessage = [LogMessage logMessage:logger level:level time:[NSDate date] message:message exception:exception];
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [logMessages addObject:logMessage];
-        if (logMessages.count >= numOfMessages) {
+        [_logMessages addObject:logMessage];
+        [DebLog logN:@"LogBuffer -> enqueue: _numOfMessages = %d, _logMessages.count= %d", _numOfMessages, _logMessages.count];
+        if (_numOfMessages > 1 && _logMessages.count >= _numOfMessages) {
             [self flush];
         }
     });
@@ -143,13 +144,21 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
 #pragma mark -
 #pragma mark Private Methods
 
+#define _SYNC_INVOKER_ 0
+
 -(void)reportSingleLogMessage:(NSString *)logger level:(NSString *)level message:(NSString *)message exception:(NSString *)exception {
     
     if (!logger || !level || !message)
         return;
-     
+    
+    [DebLog log:@"LogBuffer -> reportSingleLogMessage: _numOfMessages = %d, logger = '%@', level = '%@', message = '%@', exeption = '%@'", _numOfMessages, logger, level, message, exception];
+    
     NSArray *args = @[backendless.appID, backendless.versionNum, level, logger, message, exception?exception:[NSNull null]];
+#if _SYNC_INVOKER_
+    [invoker invokeSync:SERVER_LOG_SERVICE_PATH method:METHOD_LOG args:args];
+#else
     [invoker invokeAsync:SERVER_LOG_SERVICE_PATH method:METHOD_LOG args:args responder:_responder];
+#endif
 }
 
 -(void)reportBatch:(NSArray *)batch {
@@ -157,31 +166,50 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
     if (!batch || !batch.count)
         return;
     
+    [DebLog log:@"LogBuffer -> reportBatch: %@", batch];
+    
     NSArray *args = @[backendless.appID, backendless.versionNum, batch];
+#if _SYNC_INVOKER_
+    [invoker invokeSync:SERVER_LOG_SERVICE_PATH method:METHOD_BATCHLOG args:args];
+#else
     [invoker invokeAsync:SERVER_LOG_SERVICE_PATH method:METHOD_BATCHLOG args:args responder:_responder];
+#endif
 }
 
 -(void)flush {
     
-    if (!logMessages.count)
+    if (!_logMessages.count)
         return;
     
-    [self reportBatch:logMessages];
+    [self reportBatch:_logMessages];
    
-    [logMessages removeAllObjects];
+    [_logMessages removeAllObjects];
 }
 
 -(void)flushMessages {
     
     [self flush];
     
-    if (numOfMessages <= 1 || timeFrequency <= 0)
+    if (_numOfMessages == 1 || _timeFrequency <= 0)
         return;
     
-    dispatch_time_t interval = dispatch_time(DISPATCH_TIME_NOW, 1ull*NSEC_PER_MSEC*timeFrequency);
+    dispatch_time_t interval = dispatch_time(DISPATCH_TIME_NOW, 1ull*NSEC_PER_MSEC*_timeFrequency);
     dispatch_after(interval, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self flushMessages];
     });
+}
+
+#pragma mark -
+#pragma mark Callback Methods
+
+-(id)getResponse:(id)response {
+    [DebLog log:@"LogBuffer -> getResponse: %@", response];
+    return response;
+}
+
+-(id)getError:(id)error {
+    [DebLog log:@"LogBuffer -> getError: %@", error];
+    return error;
 }
 
 @end

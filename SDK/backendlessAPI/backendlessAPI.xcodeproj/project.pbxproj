@@ -540,6 +540,8 @@
 		D3B2F359193511900084D5DD /* original.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = original.podspec; sourceTree = "<group>"; };
 		D3B2F3DD1936019E0084D5DD /* Create Xcode Backendless Project Using CocoaPods.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Create Xcode Backendless Project Using CocoaPods.docx"; sourceTree = "<group>"; };
 		D3B2F3DE1936019E0084D5DD /* Create Xcode Backendless Project Using CocoaPods.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Create Xcode Backendless Project Using CocoaPods.pdf"; sourceTree = "<group>"; };
+		D3E5C1391AEE4E620038D564 /* Backendless-Light.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-Light.podspec"; sourceTree = "<group>"; };
+		D3E5C13B1AEE4E7A0038D564 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
 		D3EA52FF1A3077C1009C5FE0 /* FilePermission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilePermission.h; sourceTree = "<group>"; };
 		D3EA53001A3077C1009C5FE0 /* FilePermission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilePermission.m; sourceTree = "<group>"; };
 		D3F8BD98198256AF0009DB40 /* ICacheService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICacheService.h; sourceTree = "<group>"; };
@@ -817,6 +819,7 @@
 		D33DF7381AC0984F0032C073 /* Backendless-Light */ = {
 			isa = PBXGroup;
 			children = (
+				D3E5C1381AEE4E620038D564 /* 2.0.5 */,
 				D33DF7391AC0984F0032C073 /* 2.0.2 */,
 				D33DF73B1AC0984F0032C073 /* 2.0.3 */,
 				D33DF73D1AC0984F0032C073 /* 2.0.4 */,
@@ -950,6 +953,7 @@
 		D3B2F352193511900084D5DD /* Backendless-ios-SDK */ = {
 			isa = PBXGroup;
 			children = (
+				D3E5C13A1AEE4E7A0038D564 /* 2.0.5 */,
 				D33DF7361AC0982C0032C073 /* 2.0.4 */,
 				D31700DC1A8D21E900772766 /* 2.0.2 */,
 				D353120D19E8152300895ACC /* 2.0.1 */,
@@ -995,6 +999,22 @@
 				D3B2F3DE1936019E0084D5DD /* Create Xcode Backendless Project Using CocoaPods.pdf */,
 			);
 			path = Guides;
+			sourceTree = "<group>";
+		};
+		D3E5C1381AEE4E620038D564 /* 2.0.5 */ = {
+			isa = PBXGroup;
+			children = (
+				D3E5C1391AEE4E620038D564 /* Backendless-Light.podspec */,
+			);
+			path = 2.0.5;
+			sourceTree = "<group>";
+		};
+		D3E5C13A1AEE4E7A0038D564 /* 2.0.5 */ = {
+			isa = PBXGroup;
+			children = (
+				D3E5C13B1AEE4E7A0038D564 /* Backendless-ios-SDK.podspec */,
+			);
+			path = 2.0.5;
 			sourceTree = "<group>";
 		};
 		D3FB9B6519867D5700A13FB6 /* Atomic */ = {
