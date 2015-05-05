@@ -20,7 +20,40 @@
  */
 
 #import "UserProperty.h"
+#import "DEBUG.h"
 
 @implementation UserProperty
+
+-(id)init {
+    if ( (self=[super init]) ) {
+        self.identity = nil;
+    }
+    
+    return self;
+}
+
+-(void)dealloc {
+    
+    [DebLog logN:@"DEALLOC UserProperty"];
+    
+    [_identity release];
+    
+    [super dealloc];
+}
+
+#pragma mark -
+#pragma mark Public Methods
+
+-(BOOL)isIdentity {
+    return _identity && [_identity boolValue];
+}
+
+-(void)isIdentity:(BOOL)identity {
+    self.identity = @(identity);
+}
+
+-(NSString *)description {
+    return [NSString stringWithFormat:@"%@\n<UserProperty> identity: %@", [super description], [self isIdentity]?@"YES":@"NO"];
+}
 
 @end

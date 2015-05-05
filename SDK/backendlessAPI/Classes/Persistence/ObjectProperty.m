@@ -24,11 +24,25 @@
 
 @implementation ObjectProperty
 
+-(id)init {
+    if ( (self=[super init]) ) {
+        self.relatedTable = nil;
+        self.customRegex = nil;
+        self.primaryKey = nil;
+        self.autoLoad = nil;
+    }
+    
+    return self;
+}
+
 -(void)dealloc {
 	
 	[DebLog logN:@"DEALLOC ObjectProperty"];
     
     [_relatedTable release];
+    [_customRegex release];
+    [_primaryKey release];
+    [_autoLoad release];
 	
 	[super dealloc];
 }
@@ -36,8 +50,38 @@
 #pragma mark -
 #pragma mark Public Methods
 
++(id)objectProperty:(NSString *)name {
+    ObjectProperty *instance = [ObjectProperty new];
+    instance.name = name;
+    return instance;
+}
+
++(id)objectProperty:(NSString *)name dataType:(ObjectDataType)type required:(BOOL)required {
+    ObjectProperty *instance = [ObjectProperty new];
+    instance.name = name;
+    instance.required = @(required);
+    [instance objectDataType:type];
+    return instance;
+}
+
+-(BOOL)isPrimaryKey {
+    return _primaryKey && [_primaryKey boolValue];
+}
+
+-(void)isPrimaryKey:(BOOL)primaryKey {
+    self.primaryKey = @(primaryKey);
+}
+
+-(BOOL)isAutoLoad {
+    return _autoLoad && [_autoLoad boolValue];
+}
+
+-(void)isAutoLoad:(BOOL)autoLoad {
+    self.autoLoad = @(autoLoad);
+}
+
 -(NSString *)description {
-    return [NSString stringWithFormat:@"%@\n<ObjectProperty> relatedTable: %@", [super description], _relatedTable];
+    return [NSString stringWithFormat:@"%@\n<ObjectProperty> relatedTable: %@, customRegex: %@, primaryKey: %@, autoLoad: %@", [super description], _relatedTable, _customRegex, [self isPrimaryKey]?@"YES":@"NO", [self isAutoLoad]?@"YES":@"NO"];
 }
 
 @end

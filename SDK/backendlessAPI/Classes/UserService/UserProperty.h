@@ -23,6 +23,8 @@
 #import "AbstractProperty.h"
 
 @interface UserProperty : AbstractProperty
-
+@property (strong, nonatomic) NSNumber *identity;
+-(BOOL)isIdentity;
+-(void)isIdentity:(BOOL)identity;
 @end
 

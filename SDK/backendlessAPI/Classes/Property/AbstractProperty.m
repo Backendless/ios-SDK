@@ -24,14 +24,11 @@
 
 static char *types[] = {"UNKNOWN", "INT" , "STRING", "BOOLEAN", "DATETIME", "DOUBLE", "RELATION", "COLLECTION", "RELATION_LIST", "STRING_ID", "TEXT"};
 
-//{"STRING", "BOOLEAN", "NUMBER", "DATE", "RELATION"};
-
 @implementation AbstractProperty
 
 -(id)init {
 	if ( (self=[super init]) ) {
         self.name = nil;
-        self.identity = nil;
         self.required = nil;
         self.type = nil;
         self.selected = nil;
@@ -45,7 +42,6 @@ static char *types[] = {"UNKNOWN", "INT" , "STRING", "BOOLEAN", "DATETIME", "DOU
 	
 	[DebLog logN:@"DEALLOC AbstractProperty"];
     
-    [_identity release];
     [_name release];
     [_required release];
     [_type release];
@@ -58,16 +54,20 @@ static char *types[] = {"UNKNOWN", "INT" , "STRING", "BOOLEAN", "DATETIME", "DOU
 #pragma mark -
 #pragma mark Public Methods
 
--(BOOL)isIdentity {
-    return (_identity) && [_identity boolValue];
+-(BOOL)isRequired {
+    return _required && [_required boolValue];
 }
 
--(BOOL)isRequired {
-    return (_required) && [_required boolValue];
+-(void)isRequired:(BOOL)required {
+    self.required = @(required);
 }
 
 -(BOOL)isSelected {
-    return (_selected) && [_selected boolValue];
+    return _selected && [_selected boolValue];
+}
+
+-(void)isSelected:(BOOL)selected {
+    self.selected = @(selected);
 }
 
 -(ObjectDataType)objectDataType {
@@ -75,18 +75,22 @@ static char *types[] = {"UNKNOWN", "INT" , "STRING", "BOOLEAN", "DATETIME", "DOU
     if (_type) {
     
         if ([_type isEqualToString:@"$"])
-            return OBJ_DOUBLE;
+            return DOUBLE_DATATYPE;
     
-        for (int i = 0; i <= OBJ_RELATION; i++)
+        for (int i = 0; i <= TEXT_DATATYPE; i++)
             if ([_type isEqualToString:[NSString stringWithUTF8String:types[i]]])
-                return i;
+                return (ObjectDataType)i;
     }
     
-    return OBJ_STRING;
+    return UNKNOWN_DATATYPE;
+}
+
+-(void)objectDataType:(ObjectDataType)dataType {
+    self.type = [NSString stringWithUTF8String:types[(int)dataType]];
 }
 
 -(NSString *)description {
-    return [NSString stringWithFormat:@"<AbstractProperty> identity = %@, name = %@, required = %@, type = %@, selected = %@, defaultValue = %@", [self isIdentity]?@"YES":@"NO", _name, [self isRequired]?@"YES":@"NO", _type, [self isSelected]?@"YES":@"NO",_defaultValue];
+    return [NSString stringWithFormat:@"<AbstractProperty> name = %@, required = %@, type = %@, selected = %@, defaultValue = %@", _name, [self isRequired]?@"YES":@"NO", _type, [self isSelected]?@"YES":@"NO", _defaultValue];
 }
 
 @end

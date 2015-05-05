@@ -19,39 +19,33 @@
  *  ********************************************************************************************************************
  */
 
+
 #import <Foundation/Foundation.h>
 
 typedef enum {
-//    OBJ_STRING,
-//    OBJ_BOOLEAN,
-//    OBJ_NUMBER,
-//    OBJ_DATE,
-//    OBJ_RELATION
-    OBJ_UNKNOWN,
-    OBJ_INT,
-    OBJ_STRING,
-    OBJ_BOOLEAN,
-    OBJ_DATETIME,
-    OBJ_DOUBLE,
-    OBJ_RELATION,
-    OBJ_COLLECTION,
-    OBJ_RELATION_LIST,
-    OBJ_STRING_ID,
-    OBJ_TEXT
+    UNKNOWN_DATATYPE,
+    INT_DATATYPE,
+    STRING_DATATYPE,
+    BOOLEAN_DATATYPE,
+    DATETIME_DATATYPE,
+    DOUBLE_DATATYPE,
+    RELATION_DATATYPE,
+    COLLECTION_DATATYPE,
+    RELATION_LIST_DATATYPE,
+    STRING_ID_DATATYPE,
+    TEXT_DATATYPE
 } ObjectDataType;
 
 @interface AbstractProperty : NSObject
-
-@property (strong, nonatomic) NSNumber *identity;
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSNumber *required;
 @property (strong, nonatomic) NSString *type;
 @property (strong, nonatomic) NSNumber *selected;
 @property (strong, nonatomic) id defaultValue;
-
--(BOOL)isIdentity;
 -(BOOL)isRequired;
+-(void)isRequired:(BOOL)required;
 -(BOOL)isSelected;
+-(void)isSelected:(BOOL)selected;
 -(ObjectDataType)objectDataType;
-
+-(void)objectDataType:(ObjectDataType)dataType;
 @end
