@@ -31,8 +31,8 @@
 #import "Responder.h"
 #import "AMFSerializer.h"
 
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 //UI
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 #import "BEMapView.h"
 #import "BETableView.h"
 #import "BECollectionView.h"
@@ -76,6 +76,7 @@
 #import "FilePermission.h"
 #import "Logging.h"
 #import "Logger.h"
+#import "LocationTracker.h"
 
 //Cache
 #import "BackendlessCachePolicy.h"
@@ -141,8 +142,10 @@
 -(void)initApp;
 -(void)initAppFault;
 -(NSString *)mediaServerUrl;
+#pragma mark - exceptions management
 -(void)setThrowException:(BOOL)needThrow;
 -(id)throwFault:(Fault *)fault;
+#pragma mark - utils
 -(NSString *)GUIDString;
 -(NSString *)randomString:(int)numCharacters;
 -(NSString *)applicationType;

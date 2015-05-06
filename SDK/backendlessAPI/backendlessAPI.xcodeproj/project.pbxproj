@@ -264,6 +264,12 @@
 		D39A468319811D9B006CBD1B /* CacheService.h in Headers */ = {isa = PBXBuildFile; fileRef = D39A467F19811D9B006CBD1B /* CacheService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D39A468519811D9B006CBD1B /* CacheService.m in Sources */ = {isa = PBXBuildFile; fileRef = D39A468019811D9B006CBD1B /* CacheService.m */; };
 		D39A468619811D9B006CBD1B /* CacheService.m in Sources */ = {isa = PBXBuildFile; fileRef = D39A468019811D9B006CBD1B /* CacheService.m */; };
+		D3A064A71AFA6E4A00779BB1 /* LocationTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064A51AFA6E4A00779BB1 /* LocationTracker.h */; };
+		D3A064A81AFA6E4A00779BB1 /* LocationTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064A51AFA6E4A00779BB1 /* LocationTracker.h */; };
+		D3A064A91AFA6E4B00779BB1 /* LocationTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064A51AFA6E4A00779BB1 /* LocationTracker.h */; };
+		D3A064AA1AFA6E4B00779BB1 /* LocationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064A61AFA6E4A00779BB1 /* LocationTracker.m */; };
+		D3A064AB1AFA6E4B00779BB1 /* LocationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064A61AFA6E4A00779BB1 /* LocationTracker.m */; };
+		D3A064AC1AFA6E4B00779BB1 /* LocationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064A61AFA6E4A00779BB1 /* LocationTracker.m */; };
 		D3EA53021A3077C1009C5FE0 /* FilePermission.h in Headers */ = {isa = PBXBuildFile; fileRef = D3EA52FF1A3077C1009C5FE0 /* FilePermission.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3EA53031A3077C1009C5FE0 /* FilePermission.h in Headers */ = {isa = PBXBuildFile; fileRef = D3EA52FF1A3077C1009C5FE0 /* FilePermission.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3EA53051A3077C1009C5FE0 /* FilePermission.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EA53001A3077C1009C5FE0 /* FilePermission.m */; };
@@ -532,6 +538,8 @@
 		D36CF3FA1A2F68DA00B6468A /* DataPermission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataPermission.m; sourceTree = "<group>"; };
 		D39A467F19811D9B006CBD1B /* CacheService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacheService.h; sourceTree = "<group>"; };
 		D39A468019811D9B006CBD1B /* CacheService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheService.m; sourceTree = "<group>"; };
+		D3A064A51AFA6E4A00779BB1 /* LocationTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationTracker.h; sourceTree = "<group>"; };
+		D3A064A61AFA6E4A00779BB1 /* LocationTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationTracker.m; sourceTree = "<group>"; };
 		D3AD804418F01F7600AADCB0 /* backendless.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = backendless.a; sourceTree = "<group>"; };
 		D3AD806F18F01F7600AADCB0 /* libbackendless-mac.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libbackendless-mac.a"; sourceTree = "<group>"; };
 		D3B2F354193511900084D5DD /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
@@ -1158,6 +1166,8 @@
 				F9C3BF76161486B500409FF2 /* BackendlessGeoQuery.m */,
 				D316BA351A83C649007215CA /* ProtectedBackendlessGeoQuery.h */,
 				D316BA361A83C649007215CA /* ProtectedBackendlessGeoQuery.m */,
+				D3A064A51AFA6E4A00779BB1 /* LocationTracker.h */,
+				D3A064A61AFA6E4A00779BB1 /* LocationTracker.m */,
 			);
 			path = Geo;
 			sourceTree = "<group>";
@@ -1379,6 +1389,7 @@
 				1C7BB4CB1A2E092900D3C2C1 /* Responder.h in Headers */,
 				1C7BB4CC1A2E092900D3C2C1 /* UserService.h in Headers */,
 				1C7BB4CD1A2E092900D3C2C1 /* BackendlessUser.h in Headers */,
+				D3A064A71AFA6E4A00779BB1 /* LocationTracker.h in Headers */,
 				1C7BB4CE1A2E092900D3C2C1 /* BinaryStream.h in Headers */,
 				1C7BB4CF1A2E092900D3C2C1 /* IClientSharedObjectDelegate.h in Headers */,
 				1C7BB4D01A2E092900D3C2C1 /* IServiceCall.h in Headers */,
@@ -1533,6 +1544,7 @@
 				F9796A07166CCBFE00595F5E /* Invoker.h in Headers */,
 				91F1399A17D7240A00D1AC4C /* BackendlessCache.h in Headers */,
 				91F1399F17D7240A00D1AC4C /* BackendlessCacheData.h in Headers */,
+				D3A064A81AFA6E4A00779BB1 /* LocationTracker.h in Headers */,
 				F9BBFD4518783B750076BC6D /* AMFSerializer.h in Headers */,
 				F9BBFD6918783B750076BC6D /* IServiceCall.h in Headers */,
 				F9BBFD4B18783B750076BC6D /* BinaryStream.h in Headers */,
@@ -1624,6 +1636,7 @@
 				F9796A53166CD42E00595F5E /* Invoker.h in Headers */,
 				91F1399B17D7240A00D1AC4C /* BackendlessCache.h in Headers */,
 				91F139A017D7240A00D1AC4C /* BackendlessCacheData.h in Headers */,
+				D3A064A91AFA6E4B00779BB1 /* LocationTracker.h in Headers */,
 				F9BBFD4618783B750076BC6D /* AMFSerializer.h in Headers */,
 				F9BBFD6A18783B750076BC6D /* IServiceCall.h in Headers */,
 				F9BBFD4C18783B750076BC6D /* BinaryStream.h in Headers */,
@@ -1829,6 +1842,7 @@
 				1C7BB4AB1A2E092900D3C2C1 /* Message.m in Sources */,
 				1C7BB4AC1A2E092900D3C2C1 /* MessageStatus.m in Sources */,
 				1C7BB4AD1A2E092900D3C2C1 /* FileService.m in Sources */,
+				D3A064AA1AFA6E4B00779BB1 /* LocationTracker.m in Sources */,
 				1C7BB4AE1A2E092900D3C2C1 /* BackendlessFile.m in Sources */,
 				1C7BB4AF1A2E092900D3C2C1 /* HashMap.m in Sources */,
 				1C7BB4B01A2E092900D3C2C1 /* BEReachability.m in Sources */,
@@ -1873,6 +1887,7 @@
 				F97969F3166CCB8200595F5E /* BackendlessCollection.m in Sources */,
 				F97969F4166CCB8200595F5E /* BackendlessDataQuery.m in Sources */,
 				D3FB9B6C19867EA500A13FB6 /* AtomicCounters.m in Sources */,
+				D3A064AB1AFA6E4B00779BB1 /* LocationTracker.m in Sources */,
 				F97969F6166CCB8200595F5E /* DataStoreFactory.m in Sources */,
 				D36CDDF419C99D5900C3FFE3 /* CustomService.m in Sources */,
 				F97969F7166CCB8200595F5E /* GeoService.m in Sources */,
@@ -1940,6 +1955,7 @@
 				F9796A3D166CD3DA00595F5E /* BackendlessCollection.m in Sources */,
 				F9796A3E166CD3DA00595F5E /* BackendlessDataQuery.m in Sources */,
 				D3FB9B6D19867EA500A13FB6 /* AtomicCounters.m in Sources */,
+				D3A064AC1AFA6E4B00779BB1 /* LocationTracker.m in Sources */,
 				F9796A40166CD3DA00595F5E /* DataStoreFactory.m in Sources */,
 				D36CDDF519C99D5900C3FFE3 /* CustomService.m in Sources */,
 				F9796A41166CD3DA00595F5E /* GeoService.m in Sources */,
