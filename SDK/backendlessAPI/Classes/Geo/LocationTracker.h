@@ -19,6 +19,8 @@
  *  ********************************************************************************************************************
  */
 
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
@@ -26,7 +28,9 @@
 -(void)onLocationChanged:(CLLocation *)location;
 @end
 
-@interface LocationTracker : NSObject
+@interface LocationTracker : NSObject <UIApplicationDelegate>
+// location manager options
+@property(assign, nonatomic) BOOL monitoringSignificantLocationChanges;
 @property(assign, nonatomic) BOOL pausesLocationUpdatesAutomatically;
 @property(assign, nonatomic) CLLocationDistance distanceFilter;
 @property(assign, nonatomic) CLLocationAccuracy desiredAccuracy;
@@ -35,9 +39,12 @@
 // Singleton accessor:  this is how you should ALWAYS get a reference to the class instance.  Never init your own.
 +(LocationTracker *)sharedInstance;
 
+-(BOOL)isBackgroundRefreshAvailable;
+-(BOOL)isSuspendedRefreshAvailable;
 -(BOOL)isContainListener:(NSString *)name;
 -(id <IBackendlessLocationListener>)findListener:(NSString *)name;
 -(BOOL)addListener:(NSString *)name listener:(id <IBackendlessLocationListener>)listener;
 -(BOOL)removeListener:(NSString *)name;
 
 @end
+#endif
