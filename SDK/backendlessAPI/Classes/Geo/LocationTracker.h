@@ -24,7 +24,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
-@protocol IBackendlessLocationListener <NSObject>
+@protocol ILocationTrackerListener <NSObject>
 -(void)onLocationChanged:(CLLocation *)location;
 @end
 
@@ -42,8 +42,8 @@
 -(BOOL)isBackgroundRefreshAvailable;
 -(BOOL)isSuspendedRefreshAvailable;
 -(BOOL)isContainListener:(NSString *)name;
--(id <IBackendlessLocationListener>)findListener:(NSString *)name;
--(BOOL)addListener:(NSString *)name listener:(id <IBackendlessLocationListener>)listener;
+-(id <ILocationTrackerListener>)findListener:(NSString *)name;
+-(BOOL)addListener:(NSString *)name listener:(id <ILocationTrackerListener>)listener;
 -(BOOL)removeListener:(NSString *)name;
 
 @end

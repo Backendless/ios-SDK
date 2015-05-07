@@ -124,11 +124,11 @@
     return [_locationListeners get:name] != nil;
 }
 
--(id <IBackendlessLocationListener>)findListener:(NSString *)name {
+-(id <ILocationTrackerListener>)findListener:(NSString *)name {
     return [_locationListeners get:name];
 }
 
--(BOOL)addListener:(NSString *)name listener:(id <IBackendlessLocationListener>)listener {
+-(BOOL)addListener:(NSString *)name listener:(id <ILocationTrackerListener>)listener {
     return [_locationListeners add:name withObject:listener];
 }
 
@@ -160,7 +160,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         NSArray *listeners = [_locationListeners values];
-        for (id <IBackendlessLocationListener> listener in listeners) {
+        for (id <ILocationTrackerListener> listener in listeners) {
             [listener onLocationChanged:location];
         }
     });
@@ -190,7 +190,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         NSArray *listeners = [_locationListeners values];
-        for (id <IBackendlessLocationListener> listener in listeners) {
+        for (id <ILocationTrackerListener> listener in listeners) {
             [listener onLocationChanged:location];
         }
         
