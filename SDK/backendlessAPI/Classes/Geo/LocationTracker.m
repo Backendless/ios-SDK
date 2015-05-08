@@ -8,7 +8,7 @@
  *
  *  ********************************************************************************************************************
  *
- *  Copyright 2012 BACKENDLESS.COM. All Rights Reserved.
+ *  Copyright 2015 BACKENDLESS.COM. All Rights Reserved.
  *
  *  NOTICE: All information contained herein is, and remains the property of Backendless.com and its suppliers,
  *  if any. The intellectual and technical concepts contained herein are proprietary to Backendless.com and its
@@ -24,14 +24,11 @@
 #import "DEBUG.h"
 #import "HashMap.h"
 
-#define IOS80_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
-#define IOS71_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.1)
-#define IOS70_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
-
 @interface LocationTracker () <CLLocationManagerDelegate> {
     CLLocationManager *_locationManager;
     HashMap *_locationListeners;
     UIBackgroundTaskIdentifier _bgTask;
+    float iOSVersion;
 }
 @end
 
@@ -51,22 +48,27 @@
 -(id)init {
     if ( (self=[super init]) ) {
         
-        self.monitoringSignificantLocationChanges = YES;
-        self.pausesLocationUpdatesAutomatically = YES;
-        self.distanceFilter = kCLDistanceFilterNone;
-        self.desiredAccuracy = kCLLocationAccuracyBest;
-        self.activityType = CLActivityTypeOther;
+        _monitoringSignificantLocationChanges = YES;
+        _pausesLocationUpdatesAutomatically = YES;
+        _distanceFilter = kCLDistanceFilterNone;
+        _desiredAccuracy = kCLLocationAccuracyBest;
+        _activityType = CLActivityTypeOther;
         
-        _locationManager = nil;
         _locationListeners = [HashMap new];
         _bgTask = UIBackgroundTaskInvalid;
+        iOSVersion = [[[UIDevice currentDevice] systemVersion] floatValue];
+        
+        [self startLocationManager];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
     }
     return self;
 }
 
 -(void)dealloc {
     
-    [DebLog logN:@"DEALLOC LocationTracker"];
+    [DebLog log:@"DEALLOC LocationTracker"];
     
     [_locationListeners release];    
     [_locationManager release];
@@ -79,45 +81,44 @@
 
 -(void)setMonitoringSignificantLocationChanges:(BOOL)monitoringSignificantLocationChanges {
     
-    if (_locationManager && (_monitoringSignificantLocationChanges != monitoringSignificantLocationChanges)) {
-        _monitoringSignificantLocationChanges?[_locationManager stopMonitoringSignificantLocationChanges]:[_locationManager stopUpdatingLocation];
-        self.monitoringSignificantLocationChanges = monitoringSignificantLocationChanges;
-        [self startLocationManager];
-    }
-    else {
-        self.monitoringSignificantLocationChanges = monitoringSignificantLocationChanges;
-    }
+    if (_monitoringSignificantLocationChanges == monitoringSignificantLocationChanges)
+        return;
+    
+    _monitoringSignificantLocationChanges?[_locationManager stopMonitoringSignificantLocationChanges]:[_locationManager stopUpdatingLocation];
+    _monitoringSignificantLocationChanges = monitoringSignificantLocationChanges;
+    if (iOSVersion >= 8.0) [_locationManager requestAlwaysAuthorization];
+    _monitoringSignificantLocationChanges?[_locationManager startMonitoringSignificantLocationChanges]:[_locationManager startUpdatingLocation];
 }
 
 -(void)setPausesLocationUpdatesAutomatically:(BOOL)pausesLocationUpdatesAutomatically {
-    self.pausesLocationUpdatesAutomatically = pausesLocationUpdatesAutomatically;
-    [_locationManager setPausesLocationUpdatesAutomatically:pausesLocationUpdatesAutomatically];
+    _pausesLocationUpdatesAutomatically = pausesLocationUpdatesAutomatically;
+    _locationManager.pausesLocationUpdatesAutomatically = pausesLocationUpdatesAutomatically;
 }
 
 -(void)setDistanceFilter:(CLLocationDistance)distanceFilter {
-    self.distanceFilter = distanceFilter;
-    [_locationManager setDistanceFilter:distanceFilter];
+    _distanceFilter = distanceFilter;
+    _locationManager.distanceFilter = distanceFilter;
 }
 
 -(void)setDesiredAccuracy:(CLLocationAccuracy)desiredAccuracy {
-    self.desiredAccuracy = desiredAccuracy;
-    [_locationManager setDesiredAccuracy:desiredAccuracy];
+    _desiredAccuracy = desiredAccuracy;
+    _locationManager.desiredAccuracy = desiredAccuracy;
 }
 
 -(void)setActivityType:(CLActivityType)activityType {
-    self.activityType = activityType;
-    [_locationManager setActivityType:activityType];
+    _activityType = activityType;
+    _locationManager.activityType = activityType;
 }
 
 #pragma mark -
 #pragma mark Public Methods
 
 -(BOOL)isBackgroundRefreshAvailable {
-    return IOS70_OR_LATER && ([[UIApplication sharedApplication] backgroundRefreshStatus] == UIBackgroundRefreshStatusAvailable);
+    return [[UIApplication sharedApplication] backgroundRefreshStatus] == UIBackgroundRefreshStatusAvailable;
 }
 
 -(BOOL)isSuspendedRefreshAvailable {
-    return IOS71_OR_LATER && _monitoringSignificantLocationChanges;
+    return _monitoringSignificantLocationChanges && (iOSVersion >= 7.1);
 }
 
 -(BOOL)isContainListener:(NSString *)name {
@@ -129,7 +130,7 @@
 }
 
 -(BOOL)addListener:(NSString *)name listener:(id <ILocationTrackerListener>)listener {
-    return [_locationListeners add:name withObject:listener];
+    return listener? [_locationListeners add:name?name:[self GUIDString] withObject:listener] : NO;
 }
 
 -(BOOL)removeListener:(NSString *)name {
@@ -147,14 +148,11 @@
     _locationManager.desiredAccuracy = _desiredAccuracy;
     _locationManager.activityType = _activityType;
     
-    if (IOS80_OR_LATER) {
-        [_locationManager requestAlwaysAuthorization];
-    }
-    
+    if (iOSVersion >= 8.0) [_locationManager requestAlwaysAuthorization];
     _monitoringSignificantLocationChanges?[_locationManager startMonitoringSignificantLocationChanges]:[_locationManager startUpdatingLocation];
 }
 
--(void)makeForegroundTask:(CLLocation *)location {
+-(void)makeForegroundUpdateLocations:(CLLocation *)location {
     
     // Start the long-running task and return immediately.
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -166,7 +164,7 @@
     });
 }
 
--(void)makeBackgroundTask:(CLLocation *)location {
+-(void)makeBackgroundUpdateLocations:(CLLocation *)location {
     
     if (![self isBackgroundRefreshAvailable]) {
         return;
@@ -199,12 +197,36 @@
     });
 }
 
+-(void)applicationDidEnterBackground {
+    
+    [DebLog log:@"LocationTracker -> applicationDidEnterBackground"];
+    
+    _monitoringSignificantLocationChanges?[_locationManager stopMonitoringSignificantLocationChanges]:[_locationManager stopUpdatingLocation];
+    if (iOSVersion >= 8.0) [_locationManager requestAlwaysAuthorization];
+    _monitoringSignificantLocationChanges?[_locationManager startMonitoringSignificantLocationChanges]:[_locationManager startUpdatingLocation];
+}
+
+-(void)applicationDidBecomeActive {
+    
+    [DebLog log:@"LocationTracker -> applicationDidBecomeActive"];
+    
+    _monitoringSignificantLocationChanges?[_locationManager stopMonitoringSignificantLocationChanges]:[_locationManager stopUpdatingLocation];
+    [self startLocationManager];
+}
+
+-(NSString *)GUIDString {
+    
+    CFUUIDRef theUUID = CFUUIDCreate(NULL);
+    CFStringRef string = CFUUIDCreateString(NULL, theUUID);
+    CFRelease(theUUID);
+    
+    return [(NSString *)string autorelease];
+}
+
 #pragma mark -
 #pragma mark UIApplicationDelegate Methods
 
 -(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
-    [DebLog log:@"LocationTracker -> application:%@ didFinishLaunchingWithOptions:%@", application, launchOptions];
     
     // When there is a significant changes of the location, the key UIApplicationLaunchOptionsLocationKey will be returned from didFinishLaunchingWithOptions.
     // When the app is receiving the key, it must reinitiate the locationManager and get the latest location updates.
@@ -212,7 +234,7 @@
     
     if ([launchOptions objectForKey:UIApplicationLaunchOptionsLocationKey]) {
         
-        [DebLog log:@"LocationTracker -> application:%@ didFinishLaunchingWithOptions: UIApplicationLaunchOptionsLocationKey"];
+        [DebLog log:@"LocationTracker -> application:%@ didFinishLaunchingWithOptions: UIApplicationLaunchOptionsLocationKey is - so app woke up from killed/terminated/suspended"];
         
         [self startLocationManager];
     }
@@ -220,33 +242,8 @@
     return YES;
 }
 
--(void)applicationDidEnterBackground:(UIApplication *)application {
-    
-    [DebLog log:@"LocationTracker -> applicationDidEnterBackground: %@", application];
-    
-    _monitoringSignificantLocationChanges?[_locationManager stopMonitoringSignificantLocationChanges]:[_locationManager stopUpdatingLocation];
-    
-    if (IOS80_OR_LATER) {
-        [_locationManager requestAlwaysAuthorization];
-    }
-    _monitoringSignificantLocationChanges?[_locationManager startMonitoringSignificantLocationChanges]:[_locationManager startUpdatingLocation];
-}
-
--(void)applicationDidBecomeActive:(UIApplication *)application {
-    
-    [DebLog log:@"LocationTracker -> applicationDidBecomeActive: %@", application];
-    
-    _monitoringSignificantLocationChanges?[_locationManager stopMonitoringSignificantLocationChanges]:[_locationManager stopUpdatingLocation];
-    [self startLocationManager];
-}
-
-
--(void)applicationWillTerminate:(UIApplication *)application{
-    [DebLog log:@"LocationTracker -> applicationWillTerminate: %@", application];
-}
-
 #pragma mark -
-#pragma mark UIApplicationDelegate Methods
+#pragma mark CLLocationManagerDelegate Methods
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
     
@@ -254,7 +251,11 @@
     
     [DebLog log:@"LocationTracker -> locationManager:didUpdateLocations: %@", location];
     
-    ([UIApplication sharedApplication].applicationState == UIApplicationStateActive)?[self makeForegroundTask:location]:[self makeBackgroundTask:location];
+    ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground)?[self makeBackgroundUpdateLocations:location]:[self makeForegroundUpdateLocations:location];
+}
+
+-(void)locationManager: (CLLocationManager *)manager didFailWithError: (NSError *)error {
+    [DebLog log:@"LocationTracker -> locationManager:didFailWithError: %@", error];
 }
 
 @end

@@ -270,6 +270,24 @@
 		D3A064AA1AFA6E4B00779BB1 /* LocationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064A61AFA6E4A00779BB1 /* LocationTracker.m */; };
 		D3A064AB1AFA6E4B00779BB1 /* LocationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064A61AFA6E4A00779BB1 /* LocationTracker.m */; };
 		D3A064AC1AFA6E4B00779BB1 /* LocationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064A61AFA6E4A00779BB1 /* LocationTracker.m */; };
+		D3A064B81AFCE61700779BB1 /* GeoMath.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064B61AFCE61700779BB1 /* GeoMath.h */; };
+		D3A064B91AFCE61700779BB1 /* GeoMath.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064B61AFCE61700779BB1 /* GeoMath.h */; };
+		D3A064BA1AFCE61700779BB1 /* GeoMath.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064B61AFCE61700779BB1 /* GeoMath.h */; };
+		D3A064BB1AFCE61700779BB1 /* GeoMath.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064B71AFCE61700779BB1 /* GeoMath.m */; };
+		D3A064BC1AFCE61700779BB1 /* GeoMath.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064B71AFCE61700779BB1 /* GeoMath.m */; };
+		D3A064BD1AFCE61700779BB1 /* GeoMath.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064B71AFCE61700779BB1 /* GeoMath.m */; };
+		D3A064C01AFCE64D00779BB1 /* GeoFence.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064BE1AFCE64D00779BB1 /* GeoFence.h */; };
+		D3A064C11AFCE64D00779BB1 /* GeoFence.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064BE1AFCE64D00779BB1 /* GeoFence.h */; };
+		D3A064C21AFCE64D00779BB1 /* GeoFence.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064BE1AFCE64D00779BB1 /* GeoFence.h */; };
+		D3A064C31AFCE64D00779BB1 /* GeoFence.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064BF1AFCE64D00779BB1 /* GeoFence.m */; };
+		D3A064C41AFCE64D00779BB1 /* GeoFence.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064BF1AFCE64D00779BB1 /* GeoFence.m */; };
+		D3A064C51AFCE64D00779BB1 /* GeoFence.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064BF1AFCE64D00779BB1 /* GeoFence.m */; };
+		D3A064C81AFCE69D00779BB1 /* GeoFenceMonitoring.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064C61AFCE69D00779BB1 /* GeoFenceMonitoring.h */; };
+		D3A064C91AFCE69D00779BB1 /* GeoFenceMonitoring.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064C61AFCE69D00779BB1 /* GeoFenceMonitoring.h */; };
+		D3A064CA1AFCE69D00779BB1 /* GeoFenceMonitoring.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064C61AFCE69D00779BB1 /* GeoFenceMonitoring.h */; };
+		D3A064CB1AFCE69D00779BB1 /* GeoFenceMonitoring.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064C71AFCE69D00779BB1 /* GeoFenceMonitoring.m */; };
+		D3A064CC1AFCE69D00779BB1 /* GeoFenceMonitoring.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064C71AFCE69D00779BB1 /* GeoFenceMonitoring.m */; };
+		D3A064CD1AFCE69D00779BB1 /* GeoFenceMonitoring.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064C71AFCE69D00779BB1 /* GeoFenceMonitoring.m */; };
 		D3EA53021A3077C1009C5FE0 /* FilePermission.h in Headers */ = {isa = PBXBuildFile; fileRef = D3EA52FF1A3077C1009C5FE0 /* FilePermission.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3EA53031A3077C1009C5FE0 /* FilePermission.h in Headers */ = {isa = PBXBuildFile; fileRef = D3EA52FF1A3077C1009C5FE0 /* FilePermission.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3EA53051A3077C1009C5FE0 /* FilePermission.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EA53001A3077C1009C5FE0 /* FilePermission.m */; };
@@ -540,6 +558,12 @@
 		D39A468019811D9B006CBD1B /* CacheService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheService.m; sourceTree = "<group>"; };
 		D3A064A51AFA6E4A00779BB1 /* LocationTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationTracker.h; sourceTree = "<group>"; };
 		D3A064A61AFA6E4A00779BB1 /* LocationTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationTracker.m; sourceTree = "<group>"; };
+		D3A064B61AFCE61700779BB1 /* GeoMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeoMath.h; sourceTree = "<group>"; };
+		D3A064B71AFCE61700779BB1 /* GeoMath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoMath.m; sourceTree = "<group>"; };
+		D3A064BE1AFCE64D00779BB1 /* GeoFence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeoFence.h; sourceTree = "<group>"; };
+		D3A064BF1AFCE64D00779BB1 /* GeoFence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoFence.m; sourceTree = "<group>"; };
+		D3A064C61AFCE69D00779BB1 /* GeoFenceMonitoring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeoFenceMonitoring.h; sourceTree = "<group>"; };
+		D3A064C71AFCE69D00779BB1 /* GeoFenceMonitoring.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoFenceMonitoring.m; sourceTree = "<group>"; };
 		D3AD804418F01F7600AADCB0 /* backendless.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = backendless.a; sourceTree = "<group>"; };
 		D3AD806F18F01F7600AADCB0 /* libbackendless-mac.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libbackendless-mac.a"; sourceTree = "<group>"; };
 		D3B2F354193511900084D5DD /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
@@ -1168,6 +1192,12 @@
 				D316BA361A83C649007215CA /* ProtectedBackendlessGeoQuery.m */,
 				D3A064A51AFA6E4A00779BB1 /* LocationTracker.h */,
 				D3A064A61AFA6E4A00779BB1 /* LocationTracker.m */,
+				D3A064B61AFCE61700779BB1 /* GeoMath.h */,
+				D3A064B71AFCE61700779BB1 /* GeoMath.m */,
+				D3A064BE1AFCE64D00779BB1 /* GeoFence.h */,
+				D3A064BF1AFCE64D00779BB1 /* GeoFence.m */,
+				D3A064C61AFCE69D00779BB1 /* GeoFenceMonitoring.h */,
+				D3A064C71AFCE69D00779BB1 /* GeoFenceMonitoring.m */,
 			);
 			path = Geo;
 			sourceTree = "<group>";
@@ -1394,8 +1424,10 @@
 				1C7BB4CF1A2E092900D3C2C1 /* IClientSharedObjectDelegate.h in Headers */,
 				1C7BB4D01A2E092900D3C2C1 /* IServiceCall.h in Headers */,
 				1C7BB4D11A2E092900D3C2C1 /* BinaryCodec.h in Headers */,
+				D3A064C81AFCE69D00779BB1 /* GeoFenceMonitoring.h in Headers */,
 				1C7BB4D21A2E092900D3C2C1 /* AMFSerializer.h in Headers */,
 				1C7BB4D31A2E092900D3C2C1 /* MemoryTicker.h in Headers */,
+				D3A064B81AFCE61700779BB1 /* GeoMath.h in Headers */,
 				1C7BB4D41A2E092900D3C2C1 /* UserProperty.h in Headers */,
 				1C7BB4D51A2E092900D3C2C1 /* PersistenceService.h in Headers */,
 				1C7BB4D61A2E092900D3C2C1 /* ObjectProperty.h in Headers */,
@@ -1429,6 +1461,7 @@
 				D316BA371A83C649007215CA /* ProtectedBackendlessGeoQuery.h in Headers */,
 				D31700D21A84D2AA00772766 /* GeoCluster.h in Headers */,
 				D35DC3411AD7E19800EF2A68 /* Logger.h in Headers */,
+				D3A064C01AFCE64D00779BB1 /* GeoFence.h in Headers */,
 				D35DC3391AD6CE1500EF2A68 /* Logging.h in Headers */,
 				D35CA5311A668AC600F500B0 /* FilePermission.h in Headers */,
 				1C7BB4F11A2E092900D3C2C1 /* IPendingServiceCallback.h in Headers */,
@@ -1478,6 +1511,7 @@
 				91DF02461821718C009DAE40 /* BEAnnotation.h in Headers */,
 				F9796A08166CCBFE00595F5E /* AbstractProperty.h in Headers */,
 				F9796A09166CCBFE00595F5E /* UserService.h in Headers */,
+				D3A064B91AFCE61700779BB1 /* GeoMath.h in Headers */,
 				F9796A0A166CCBFE00595F5E /* BackendlessUser.h in Headers */,
 				F9BBFD7218783B750076BC6D /* Responder.h in Headers */,
 				F9796A0B166CCBFE00595F5E /* UserProperty.h in Headers */,
@@ -1517,6 +1551,7 @@
 				F9BBFD5418783B750076BC6D /* FlashorbBinaryWriter.h in Headers */,
 				F9796A20166CCBFE00595F5E /* FileService.h in Headers */,
 				D35DC3421AD7E19800EF2A68 /* Logger.h in Headers */,
+				D3A064C91AFCE69D00779BB1 /* GeoFenceMonitoring.h in Headers */,
 				F9BBFD7518783B750076BC6D /* RTMPClient.h in Headers */,
 				D316BA381A83C649007215CA /* ProtectedBackendlessGeoQuery.h in Headers */,
 				D35DC33A1AD6CE1500EF2A68 /* Logging.h in Headers */,
@@ -1544,6 +1579,7 @@
 				F9796A07166CCBFE00595F5E /* Invoker.h in Headers */,
 				91F1399A17D7240A00D1AC4C /* BackendlessCache.h in Headers */,
 				91F1399F17D7240A00D1AC4C /* BackendlessCacheData.h in Headers */,
+				D3A064C11AFCE64D00779BB1 /* GeoFence.h in Headers */,
 				D3A064A81AFA6E4A00779BB1 /* LocationTracker.h in Headers */,
 				F9BBFD4518783B750076BC6D /* AMFSerializer.h in Headers */,
 				F9BBFD6918783B750076BC6D /* IServiceCall.h in Headers */,
@@ -1570,6 +1606,7 @@
 				91DF02471821718C009DAE40 /* BEAnnotation.h in Headers */,
 				F9796A54166CD42E00595F5E /* AbstractProperty.h in Headers */,
 				F9796A55166CD42E00595F5E /* UserService.h in Headers */,
+				D3A064BA1AFCE61700779BB1 /* GeoMath.h in Headers */,
 				F9796A56166CD42E00595F5E /* BackendlessUser.h in Headers */,
 				F9BBFD7318783B750076BC6D /* Responder.h in Headers */,
 				F9796A57166CD42E00595F5E /* UserProperty.h in Headers */,
@@ -1609,6 +1646,7 @@
 				D35DC3431AD7E19800EF2A68 /* Logger.h in Headers */,
 				D30A5D7619B9CA8200C0BA44 /* Backendless-Bridging-Header.h in Headers */,
 				F9796A6C166CD42E00595F5E /* FileService.h in Headers */,
+				D3A064CA1AFCE69D00779BB1 /* GeoFenceMonitoring.h in Headers */,
 				D35DC33B1AD6CE1500EF2A68 /* Logging.h in Headers */,
 				D316BA391A83C649007215CA /* ProtectedBackendlessGeoQuery.h in Headers */,
 				D31700D41A84D2AA00772766 /* GeoCluster.h in Headers */,
@@ -1636,6 +1674,7 @@
 				F9796A53166CD42E00595F5E /* Invoker.h in Headers */,
 				91F1399B17D7240A00D1AC4C /* BackendlessCache.h in Headers */,
 				91F139A017D7240A00D1AC4C /* BackendlessCacheData.h in Headers */,
+				D3A064C21AFCE64D00779BB1 /* GeoFence.h in Headers */,
 				D3A064A91AFA6E4B00779BB1 /* LocationTracker.h in Headers */,
 				F9BBFD4618783B750076BC6D /* AMFSerializer.h in Headers */,
 				F9BBFD6A18783B750076BC6D /* IServiceCall.h in Headers */,
@@ -1832,6 +1871,7 @@
 				1C7BB4A31A2E092900D3C2C1 /* GeoPoint.m in Sources */,
 				1C7BB4A41A2E092900D3C2C1 /* BackendlessGeoQuery.m in Sources */,
 				1C7BB4A51A2E092900D3C2C1 /* MessagingService.m in Sources */,
+				D3A064BB1AFCE61700779BB1 /* GeoMath.m in Sources */,
 				1C7BB4A61A2E092900D3C2C1 /* DeviceRegistration.m in Sources */,
 				D30FC9B41AE132C2007C9A83 /* LogBuffer.m in Sources */,
 				1C7BB4A71A2E092900D3C2C1 /* DeliveryOptions.m in Sources */,
@@ -1840,12 +1880,14 @@
 				D35DC33C1AD6CE1500EF2A68 /* Logging.m in Sources */,
 				1C7BB4AA1A2E092900D3C2C1 /* BESubscription.m in Sources */,
 				1C7BB4AB1A2E092900D3C2C1 /* Message.m in Sources */,
+				D3A064C31AFCE64D00779BB1 /* GeoFence.m in Sources */,
 				1C7BB4AC1A2E092900D3C2C1 /* MessageStatus.m in Sources */,
 				1C7BB4AD1A2E092900D3C2C1 /* FileService.m in Sources */,
 				D3A064AA1AFA6E4B00779BB1 /* LocationTracker.m in Sources */,
 				1C7BB4AE1A2E092900D3C2C1 /* BackendlessFile.m in Sources */,
 				1C7BB4AF1A2E092900D3C2C1 /* HashMap.m in Sources */,
 				1C7BB4B01A2E092900D3C2C1 /* BEReachability.m in Sources */,
+				D3A064CB1AFCE69D00779BB1 /* GeoFenceMonitoring.m in Sources */,
 				1C7BB4B11A2E092900D3C2C1 /* backendless_simulator.m in Sources */,
 				1C7BB4B21A2E092900D3C2C1 /* CacheService.m in Sources */,
 				1C7BB4B31A2E092900D3C2C1 /* MediaPublishOptions.m in Sources */,
@@ -1876,6 +1918,7 @@
 				91A4280A184E2447005F91DE /* OfflineModeManager.m in Sources */,
 				F97969EB166CCB8200595F5E /* Invoker.m in Sources */,
 				F97969EC166CCB8200595F5E /* AbstractProperty.m in Sources */,
+				D3A064C41AFCE64D00779BB1 /* GeoFence.m in Sources */,
 				F97969ED166CCB8200595F5E /* UserService.m in Sources */,
 				F97969EE166CCB8200595F5E /* BackendlessUser.m in Sources */,
 				D3F8BDA219825CF80009DB40 /* CacheFactory.m in Sources */,
@@ -1887,7 +1930,9 @@
 				F97969F3166CCB8200595F5E /* BackendlessCollection.m in Sources */,
 				F97969F4166CCB8200595F5E /* BackendlessDataQuery.m in Sources */,
 				D3FB9B6C19867EA500A13FB6 /* AtomicCounters.m in Sources */,
+				D3A064CC1AFCE69D00779BB1 /* GeoFenceMonitoring.m in Sources */,
 				D3A064AB1AFA6E4B00779BB1 /* LocationTracker.m in Sources */,
+				D3A064BC1AFCE61700779BB1 /* GeoMath.m in Sources */,
 				F97969F6166CCB8200595F5E /* DataStoreFactory.m in Sources */,
 				D36CDDF419C99D5900C3FFE3 /* CustomService.m in Sources */,
 				F97969F7166CCB8200595F5E /* GeoService.m in Sources */,
@@ -1944,6 +1989,7 @@
 				91A4280B184E2447005F91DE /* OfflineModeManager.m in Sources */,
 				F9796A35166CD3DA00595F5E /* Invoker.m in Sources */,
 				F9796A36166CD3DA00595F5E /* AbstractProperty.m in Sources */,
+				D3A064C51AFCE64D00779BB1 /* GeoFence.m in Sources */,
 				F9796A37166CD3DA00595F5E /* UserService.m in Sources */,
 				F9796A38166CD3DA00595F5E /* BackendlessUser.m in Sources */,
 				D3F8BDA319825CF80009DB40 /* CacheFactory.m in Sources */,
@@ -1955,7 +2001,9 @@
 				F9796A3D166CD3DA00595F5E /* BackendlessCollection.m in Sources */,
 				F9796A3E166CD3DA00595F5E /* BackendlessDataQuery.m in Sources */,
 				D3FB9B6D19867EA500A13FB6 /* AtomicCounters.m in Sources */,
+				D3A064CD1AFCE69D00779BB1 /* GeoFenceMonitoring.m in Sources */,
 				D3A064AC1AFA6E4B00779BB1 /* LocationTracker.m in Sources */,
+				D3A064BD1AFCE61700779BB1 /* GeoMath.m in Sources */,
 				F9796A40166CD3DA00595F5E /* DataStoreFactory.m in Sources */,
 				D36CDDF519C99D5900C3FFE3 /* CustomService.m in Sources */,
 				F9796A41166CD3DA00595F5E /* GeoService.m in Sources */,
