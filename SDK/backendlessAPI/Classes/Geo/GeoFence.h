@@ -26,20 +26,7 @@ typedef enum {
     CIRCLE_FENCE, RECT_FENCE, SHAPE_FENCE
 } FenceType;
 
-@class GeoPoint, GeoFence;
-
-@protocol ICallback <NSObject>
--(void)callOnEnter:(GeoFence *)geoFence location:(CLLocation *)location;
--(void)callOnStay:(GeoFence *)geoFence location:(CLLocation *)location;
--(void)callOnExit:(GeoFence *)geoFence location:(CLLocation *)location;
--(BOOL)equalCallbackParameter:(id) object;
-@end
-
-@protocol IGeofenceCallback <NSObject>
--(void)geoPointEntered:(NSString *)geofenceName geofenceId:(NSString *)geofenceId latitude:(double)latitude longitude:(double)longitude;
--(void)geoPointStayed:(NSString *)geofenceName geofenceId:(NSString *)geofenceId latitude:(double)latitude longitude:(double)longitude;
--(void)geoPointExited:(NSString *)geofenceName geofenceId:(NSString *)geofenceId latitude:(double)latitude longitude:(double)longitude;
-@end
+@class GeoPoint;
 
 @interface GeoFence : NSObject
 @property (strong, nonatomic) NSString *objectId;

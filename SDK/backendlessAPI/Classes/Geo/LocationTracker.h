@@ -43,6 +43,7 @@
 -(BOOL)isSuspendedRefreshAvailable;
 -(BOOL)isContainListener:(NSString *)name;
 -(id <ILocationTrackerListener>)findListener:(NSString *)name;
+-(NSString *)addListener:(id <ILocationTrackerListener>)listener;
 -(BOOL)addListener:(NSString *)name listener:(id <ILocationTrackerListener>)listener;
 -(BOOL)removeListener:(NSString *)name;
 

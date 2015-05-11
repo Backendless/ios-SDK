@@ -68,7 +68,7 @@
 
 -(void)dealloc {
     
-    [DebLog log:@"DEALLOC LocationTracker"];
+    [DebLog logN:@"DEALLOC LocationTracker"];
     
     [_locationListeners release];    
     [_locationManager release];
@@ -129,6 +129,11 @@
     return [_locationListeners get:name];
 }
 
+-(NSString *)addListener:(id <ILocationTrackerListener>)listener {
+    NSString *GUID = [self GUIDString];
+    return [self addListener:GUID listener:listener]?GUID:nil;
+}
+
 -(BOOL)addListener:(NSString *)name listener:(id <ILocationTrackerListener>)listener {
     return listener? [_locationListeners add:name?name:[self GUIDString] withObject:listener] : NO;
 }
@@ -152,15 +157,21 @@
     _monitoringSignificantLocationChanges?[_locationManager startMonitoringSignificantLocationChanges]:[_locationManager startUpdatingLocation];
 }
 
+-(void)onLocationChanged:(CLLocation *)location {
+    
+    NSArray *listeners = [_locationListeners values];
+    for (id <ILocationTrackerListener> listener in listeners) {
+        if ([listener respondsToSelector:@selector(onLocationChanged:)]) {
+            [listener onLocationChanged:location];
+        }
+    }
+}
+
 -(void)makeForegroundUpdateLocations:(CLLocation *)location {
     
     // Start the long-running task and return immediately.
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        NSArray *listeners = [_locationListeners values];
-        for (id <ILocationTrackerListener> listener in listeners) {
-            [listener onLocationChanged:location];
-        }
+        [self onLocationChanged:location];
     });
 }
 
@@ -187,10 +198,7 @@
     // Start the long-running task and return immediately.
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        NSArray *listeners = [_locationListeners values];
-        for (id <ILocationTrackerListener> listener in listeners) {
-            [listener onLocationChanged:location];
-        }
+        [self onLocationChanged:location];
         
         [[UIApplication sharedApplication] endBackgroundTask:_bgTask];
         _bgTask = UIBackgroundTaskInvalid;
