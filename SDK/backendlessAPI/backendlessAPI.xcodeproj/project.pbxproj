@@ -288,6 +288,21 @@
 		D3A064CB1AFCE69D00779BB1 /* GeoFenceMonitoring.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064C71AFCE69D00779BB1 /* GeoFenceMonitoring.m */; };
 		D3A064CC1AFCE69D00779BB1 /* GeoFenceMonitoring.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064C71AFCE69D00779BB1 /* GeoFenceMonitoring.m */; };
 		D3A064CD1AFCE69D00779BB1 /* GeoFenceMonitoring.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064C71AFCE69D00779BB1 /* GeoFenceMonitoring.m */; };
+		D3A064D01B02429100779BB1 /* ServerCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064CE1B02429100779BB1 /* ServerCallback.h */; };
+		D3A064D11B02429100779BB1 /* ServerCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064CE1B02429100779BB1 /* ServerCallback.h */; };
+		D3A064D21B02429100779BB1 /* ServerCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064CE1B02429100779BB1 /* ServerCallback.h */; };
+		D3A064D31B02429100779BB1 /* ServerCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064CF1B02429100779BB1 /* ServerCallback.m */; };
+		D3A064D41B02429100779BB1 /* ServerCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064CF1B02429100779BB1 /* ServerCallback.m */; };
+		D3A064D51B02429100779BB1 /* ServerCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064CF1B02429100779BB1 /* ServerCallback.m */; };
+		D3A064D81B0242B900779BB1 /* ClientCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064D61B0242B900779BB1 /* ClientCallback.h */; };
+		D3A064D91B0242B900779BB1 /* ClientCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064D61B0242B900779BB1 /* ClientCallback.h */; };
+		D3A064DA1B0242B900779BB1 /* ClientCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064D61B0242B900779BB1 /* ClientCallback.h */; };
+		D3A064DB1B0242B900779BB1 /* ClientCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064D71B0242B900779BB1 /* ClientCallback.m */; };
+		D3A064DC1B0242B900779BB1 /* ClientCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064D71B0242B900779BB1 /* ClientCallback.m */; };
+		D3A064DD1B0242B900779BB1 /* ClientCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064D71B0242B900779BB1 /* ClientCallback.m */; };
+		D3A064DF1B0243ED00779BB1 /* ICallback.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064DE1B0243ED00779BB1 /* ICallback.h */; };
+		D3A064E01B0243ED00779BB1 /* ICallback.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064DE1B0243ED00779BB1 /* ICallback.h */; };
+		D3A064E11B0243ED00779BB1 /* ICallback.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064DE1B0243ED00779BB1 /* ICallback.h */; };
 		D3EA53021A3077C1009C5FE0 /* FilePermission.h in Headers */ = {isa = PBXBuildFile; fileRef = D3EA52FF1A3077C1009C5FE0 /* FilePermission.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3EA53031A3077C1009C5FE0 /* FilePermission.h in Headers */ = {isa = PBXBuildFile; fileRef = D3EA52FF1A3077C1009C5FE0 /* FilePermission.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3EA53051A3077C1009C5FE0 /* FilePermission.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EA53001A3077C1009C5FE0 /* FilePermission.m */; };
@@ -564,6 +579,11 @@
 		D3A064BF1AFCE64D00779BB1 /* GeoFence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoFence.m; sourceTree = "<group>"; };
 		D3A064C61AFCE69D00779BB1 /* GeoFenceMonitoring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeoFenceMonitoring.h; sourceTree = "<group>"; };
 		D3A064C71AFCE69D00779BB1 /* GeoFenceMonitoring.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoFenceMonitoring.m; sourceTree = "<group>"; };
+		D3A064CE1B02429100779BB1 /* ServerCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerCallback.h; sourceTree = "<group>"; };
+		D3A064CF1B02429100779BB1 /* ServerCallback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerCallback.m; sourceTree = "<group>"; };
+		D3A064D61B0242B900779BB1 /* ClientCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClientCallback.h; sourceTree = "<group>"; };
+		D3A064D71B0242B900779BB1 /* ClientCallback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClientCallback.m; sourceTree = "<group>"; };
+		D3A064DE1B0243ED00779BB1 /* ICallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICallback.h; sourceTree = "<group>"; };
 		D3AD804418F01F7600AADCB0 /* backendless.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = backendless.a; sourceTree = "<group>"; };
 		D3AD806F18F01F7600AADCB0 /* libbackendless-mac.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libbackendless-mac.a"; sourceTree = "<group>"; };
 		D3B2F354193511900084D5DD /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
@@ -1198,6 +1218,11 @@
 				D3A064BF1AFCE64D00779BB1 /* GeoFence.m */,
 				D3A064C61AFCE69D00779BB1 /* GeoFenceMonitoring.h */,
 				D3A064C71AFCE69D00779BB1 /* GeoFenceMonitoring.m */,
+				D3A064CE1B02429100779BB1 /* ServerCallback.h */,
+				D3A064CF1B02429100779BB1 /* ServerCallback.m */,
+				D3A064D61B0242B900779BB1 /* ClientCallback.h */,
+				D3A064D71B0242B900779BB1 /* ClientCallback.m */,
+				D3A064DE1B0243ED00779BB1 /* ICallback.h */,
 			);
 			path = Geo;
 			sourceTree = "<group>";
@@ -1426,6 +1451,7 @@
 				1C7BB4D11A2E092900D3C2C1 /* BinaryCodec.h in Headers */,
 				D3A064C81AFCE69D00779BB1 /* GeoFenceMonitoring.h in Headers */,
 				1C7BB4D21A2E092900D3C2C1 /* AMFSerializer.h in Headers */,
+				D3A064D81B0242B900779BB1 /* ClientCallback.h in Headers */,
 				1C7BB4D31A2E092900D3C2C1 /* MemoryTicker.h in Headers */,
 				D3A064B81AFCE61700779BB1 /* GeoMath.h in Headers */,
 				1C7BB4D41A2E092900D3C2C1 /* UserProperty.h in Headers */,
@@ -1449,6 +1475,7 @@
 				1C7BB4E61A2E092900D3C2C1 /* DeliveryOptions.h in Headers */,
 				1C7BB4E71A2E092900D3C2C1 /* BEReachability.h in Headers */,
 				1C7BB4E81A2E092900D3C2C1 /* PublishOptions.h in Headers */,
+				D3A064D01B02429100779BB1 /* ServerCallback.h in Headers */,
 				1C7BB4E91A2E092900D3C2C1 /* CacheFactory.h in Headers */,
 				1C7BB4EA1A2E092900D3C2C1 /* CacheService.h in Headers */,
 				1C7BB4EB1A2E092900D3C2C1 /* ICacheService.h in Headers */,
@@ -1491,6 +1518,7 @@
 				1C7BB5081A2E092900D3C2C1 /* BackendlessCache.h in Headers */,
 				1C7BB5091A2E092900D3C2C1 /* BackendlessCacheData.h in Headers */,
 				1C7BB50A1A2E092900D3C2C1 /* BackendlessCacheKey.h in Headers */,
+				D3A064DF1B0243ED00779BB1 /* ICallback.h in Headers */,
 				1C7BB50B1A2E092900D3C2C1 /* DEBUG.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1530,6 +1558,7 @@
 				F9796A18166CCBFE00595F5E /* MessagingService.h in Headers */,
 				D30FC9B21AE132C2007C9A83 /* LogBuffer.h in Headers */,
 				F9796A19166CCBFE00595F5E /* DeviceRegistration.h in Headers */,
+				D3A064E01B0243ED00779BB1 /* ICallback.h in Headers */,
 				F9796A1A166CCBFE00595F5E /* DeliveryOptions.h in Headers */,
 				F9BBFD4E18783B750076BC6D /* DEBUG.h in Headers */,
 				F9BBFD6318783B750076BC6D /* IPersistable.h in Headers */,
@@ -1539,6 +1568,7 @@
 				F9796A1E166CCBFE00595F5E /* Message.h in Headers */,
 				F9BBFD7818783B750076BC6D /* Types.h in Headers */,
 				F9BBFD7B18783B750076BC6D /* WeborbClient.h in Headers */,
+				D3A064D91B0242B900779BB1 /* ClientCallback.h in Headers */,
 				F9796A1F166CCBFE00595F5E /* MessageStatus.h in Headers */,
 				D3F8BD9F19825CF80009DB40 /* CacheFactory.h in Headers */,
 				D3F8BD9A198256AF0009DB40 /* ICacheService.h in Headers */,
@@ -1567,6 +1597,7 @@
 				F9BBFD6018783B750076BC6D /* IPendingServiceCallback.h in Headers */,
 				F9512971168DCFFF0041460C /* MediaPlayer.h in Headers */,
 				91A427FB184E23D5005F91DE /* ISDatabase.h in Headers */,
+				D3A064D11B02429100779BB1 /* ServerCallback.h in Headers */,
 				F9512979168DEA210041460C /* IMediaStreamer.h in Headers */,
 				91A4285B18508269005F91DE /* BEReachability.h in Headers */,
 				F9BBFD5D18783B750076BC6D /* IClientSharedObjectDelegate.h in Headers */,
@@ -1625,6 +1656,7 @@
 				F9796A64166CD42E00595F5E /* MessagingService.h in Headers */,
 				D30FC9B31AE132C2007C9A83 /* LogBuffer.h in Headers */,
 				F9796A65166CD42E00595F5E /* DeviceRegistration.h in Headers */,
+				D3A064E11B0243ED00779BB1 /* ICallback.h in Headers */,
 				F9796A66166CD42E00595F5E /* DeliveryOptions.h in Headers */,
 				F9BBFD4F18783B750076BC6D /* DEBUG.h in Headers */,
 				F9BBFD6418783B750076BC6D /* IPersistable.h in Headers */,
@@ -1634,6 +1666,7 @@
 				D3FB9B6A19867EA500A13FB6 /* AtomicCounters.h in Headers */,
 				F9796A68166CD42E00595F5E /* SubscriptionOptions.h in Headers */,
 				D36CDDF219C99D5900C3FFE3 /* CustomService.h in Headers */,
+				D3A064DA1B0242B900779BB1 /* ClientCallback.h in Headers */,
 				F9796A69166CD42E00595F5E /* BESubscription.h in Headers */,
 				F9796A6A166CD42E00595F5E /* Message.h in Headers */,
 				F9BBFD7918783B750076BC6D /* Types.h in Headers */,
@@ -1662,6 +1695,7 @@
 				F9BBFD6118783B750076BC6D /* IPendingServiceCallback.h in Headers */,
 				F9512972168DCFFF0041460C /* MediaPlayer.h in Headers */,
 				91A427FC184E23D5005F91DE /* ISDatabase.h in Headers */,
+				D3A064D21B02429100779BB1 /* ServerCallback.h in Headers */,
 				F951297A168DEA210041460C /* IMediaStreamer.h in Headers */,
 				91A4285C18508269005F91DE /* BEReachability.h in Headers */,
 				F9BBFD5E18783B750076BC6D /* IClientSharedObjectDelegate.h in Headers */,
@@ -1893,6 +1927,7 @@
 				1C7BB4B31A2E092900D3C2C1 /* MediaPublishOptions.m in Sources */,
 				1C7BB4B41A2E092900D3C2C1 /* MediaPlaybackOptions.m in Sources */,
 				1C7BB4B51A2E092900D3C2C1 /* BodyParts.m in Sources */,
+				D3A064DB1B0242B900779BB1 /* ClientCallback.m in Sources */,
 				D31700D51A84D2AA00772766 /* GeoCluster.m in Sources */,
 				1C7BB4B61A2E092900D3C2C1 /* MediaService.m in Sources */,
 				D35DC3441AD7E19800EF2A68 /* Logger.m in Sources */,
@@ -1900,6 +1935,7 @@
 				1C7BB4B81A2E092900D3C2C1 /* MediaPlayer.m in Sources */,
 				1C7BB4B91A2E092900D3C2C1 /* AbstractQuery.m in Sources */,
 				1C7BB4BA1A2E092900D3C2C1 /* AtomicCountersFactory.m in Sources */,
+				D3A064D31B02429100779BB1 /* ServerCallback.m in Sources */,
 				1C7BB4BB1A2E092900D3C2C1 /* BackendlessCache.m in Sources */,
 				1C7BB4BC1A2E092900D3C2C1 /* BackendlessCacheData.m in Sources */,
 				1C7BB4BD1A2E092900D3C2C1 /* BackendlessCacheKey.m in Sources */,
@@ -1939,6 +1975,7 @@
 				F97969F8166CCB8200595F5E /* GeoCategory.m in Sources */,
 				F97969F9166CCB8200595F5E /* GeoPoint.m in Sources */,
 				F97969FA166CCB8200595F5E /* BackendlessGeoQuery.m in Sources */,
+				D3A064D41B02429100779BB1 /* ServerCallback.m in Sources */,
 				F97969FB166CCB8200595F5E /* MessagingService.m in Sources */,
 				D35DC3451AD7E19800EF2A68 /* Logger.m in Sources */,
 				F97969FC166CCB8200595F5E /* DeviceRegistration.m in Sources */,
@@ -1947,6 +1984,7 @@
 				F97969FE166CCB8200595F5E /* PublishOptions.m in Sources */,
 				F97969FF166CCB8200595F5E /* SubscriptionOptions.m in Sources */,
 				D316BA3B1A83C649007215CA /* ProtectedBackendlessGeoQuery.m in Sources */,
+				D3A064DC1B0242B900779BB1 /* ClientCallback.m in Sources */,
 				91223DCE195AF6AB00F72F48 /* Events.m in Sources */,
 				F9796A00166CCB8200595F5E /* BESubscription.m in Sources */,
 				F9796A01166CCB8200595F5E /* Message.m in Sources */,
@@ -2010,6 +2048,7 @@
 				F9796A42166CD3DB00595F5E /* GeoCategory.m in Sources */,
 				F9796A43166CD3DB00595F5E /* GeoPoint.m in Sources */,
 				F9796A44166CD3DB00595F5E /* BackendlessGeoQuery.m in Sources */,
+				D3A064D51B02429100779BB1 /* ServerCallback.m in Sources */,
 				F9796A45166CD3DB00595F5E /* MessagingService.m in Sources */,
 				D35DC3461AD7E19800EF2A68 /* Logger.m in Sources */,
 				F9796A46166CD3DB00595F5E /* DeviceRegistration.m in Sources */,
@@ -2018,6 +2057,7 @@
 				F9796A48166CD3DB00595F5E /* PublishOptions.m in Sources */,
 				F9796A49166CD3DB00595F5E /* SubscriptionOptions.m in Sources */,
 				D316BA3C1A83C649007215CA /* ProtectedBackendlessGeoQuery.m in Sources */,
+				D3A064DD1B0242B900779BB1 /* ClientCallback.m in Sources */,
 				91223DCF195AF6AB00F72F48 /* Events.m in Sources */,
 				F9796A4A166CD3DB00595F5E /* BESubscription.m in Sources */,
 				F9796A4B166CD3DB00595F5E /* Message.m in Sources */,

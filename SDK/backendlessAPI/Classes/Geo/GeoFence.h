@@ -28,7 +28,7 @@ typedef enum {
 
 @class GeoPoint;
 
-@interface GeoFence : NSObject
+@interface GeoFence : NSObject <NSCopying>
 @property (strong, nonatomic) NSString *objectId;
 @property (strong, nonatomic) NSString *geofenceName;
 @property (strong, nonatomic) NSNumber *onStayDuration; // long

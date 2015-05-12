@@ -87,6 +87,11 @@ static NSString *METHOD_RUN_ONSTAY_ACTION = @"runOnStayAction";
 #pragma mark -
 #pragma mark Public Methods
 
++(NSString *)servicePath {
+    return SERVER_GEO_SERVICE_PATH;
+}
+
+
 // sync methods with fault option
 
 -(GeoCategory *)addCategory:(NSString *)categoryName error:(Fault **)fault {

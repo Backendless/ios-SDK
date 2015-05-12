@@ -19,28 +19,20 @@
  *  ********************************************************************************************************************
  */
 
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
-@class GeoFence;
-
-@protocol ICallback <NSObject>
--(void)callOnEnter:(GeoFence *)geoFence location:(CLLocation *)location;
--(void)callOnStay:(GeoFence *)geoFence location:(CLLocation *)location;
--(void)callOnExit:(GeoFence *)geoFence location:(CLLocation *)location;
--(BOOL)equalCallbackParameter:(id) object;
-@end
-
-@protocol IGeofenceCallback <NSObject>
--(void)geoPointEntered:(NSString *)geofenceName geofenceId:(NSString *)geofenceId latitude:(double)latitude longitude:(double)longitude;
--(void)geoPointStayed:(NSString *)geofenceName geofenceId:(NSString *)geofenceId latitude:(double)latitude longitude:(double)longitude;
--(void)geoPointExited:(NSString *)geofenceName geofenceId:(NSString *)geofenceId latitude:(double)latitude longitude:(double)longitude;
-@end
+@protocol ICallback;
+@class Fault, GeoFence;
 
 @interface GeoFenceMonitoring : NSObject
 // Singleton accessor:  this is how you should ALWAYS get a reference to the class instance.  Never init your own.
 +(GeoFenceMonitoring *)sharedInstance;
 
+-(Fault *)addGeoFences:(NSArray *)geoFences callback:(id <ICallback>)callback;
+-(Fault *)addGeoFence:(GeoFence *)geoFence callback:(id <ICallback>)callback;
+-(void)removeGeoFence:(NSString *)geoFenceName;
+-(void)removeGeoFences;
+-(BOOL)isMonitoring;
+
 @end
-#endif

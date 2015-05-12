@@ -62,4 +62,11 @@ static const char * const backendless_geo_fence_types[] = { "CIRCLE", "RECT", "S
     return [_geofenceName isEqualToString:[(GeoFence *)o geofenceName]];
 }
 
+#pragma mark -
+#pragma mark NSCopying Methods
+
+-(id)copyWithZone:(NSZone *)zone {
+    return self;
+}
+
 @end

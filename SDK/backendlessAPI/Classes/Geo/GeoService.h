@@ -35,6 +35,8 @@ typedef struct {
 
 @interface GeoService : NSObject
 
++(NSString *)servicePath;
+
 // sync methods with fault return (as exception)
 -(GeoCategory *)addCategory:(NSString *)categoryName;
 -(id)deleteCategory:(NSString *)categoryName;
