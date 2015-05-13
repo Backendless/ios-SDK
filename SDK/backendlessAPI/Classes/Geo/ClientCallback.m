@@ -117,7 +117,7 @@
 }
 
 -(BOOL)equalCallbackParameter:(id)object {
-    return [object isMemberOfClass:[(NSObject *)_geofenceCallback class]] && [_geofenceCallback isEqual:object];
+    return [_geofenceCallback isMemberOfClass:[(NSObject *)object class]] && [_geofenceCallback isEqual:object];
 }
 
 @end

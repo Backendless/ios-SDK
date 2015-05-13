@@ -52,14 +52,15 @@ static const char * const backendless_geo_fence_types[] = { "CIRCLE", "RECT", "S
     self.type = [NSString stringWithUTF8String:backendless_geo_fence_types[(int)type]];
 }
 
--(BOOL)equals:(id)o {
+#pragma mark -
+#pragma mark overwride NSObject Method
+
+-(BOOL)isEqual:(id)object {
     
-    if (self == o)
-        return YES;
-    if (!o || self.class != [(NSObject *)o class])
+    if (!object || ![object isKindOfClass:self.class])
         return NO;
     
-    return [_geofenceName isEqualToString:[(GeoFence *)o geofenceName]];
+    return [_geofenceName isEqualToString:[(GeoFence *)object geofenceName]];
 }
 
 #pragma mark -

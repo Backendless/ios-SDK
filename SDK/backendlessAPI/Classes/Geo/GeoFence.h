@@ -38,9 +38,9 @@ typedef enum {
 @property (strong, nonatomic) GeoPoint *sePoint;
 
 +(id)geoFence:(NSString *)geofenceName;
+
 -(long)valOnStayDuration;
 -(void)onStayDuration:(long)onStayDuration;
 -(FenceType)valType;
 -(void)type:(FenceType)type;
--(BOOL)equals:(id)o;
 @end

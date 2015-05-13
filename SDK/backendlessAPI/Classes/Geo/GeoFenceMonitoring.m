@@ -22,7 +22,6 @@
 #import "GeoFenceMonitoring.h"
 #import "Backendless.h"
 #import "DEBUG.h"
-#import "LocationTracker.h"
 #import "GeoPoint.h"
 #import "GeoFence.h"
 #import "GeoMath.h"
@@ -40,7 +39,7 @@
 
  */
 
-@interface GeoFenceMonitoring () <ILocationTrackerListener>
+@interface GeoFenceMonitoring ()
 @property (strong) NSMutableArray *onStaySet;                // Set<GeoFence>
 @property (strong) NSMutableDictionary *fencesToCallback;    // Map<GeoFence, ICallback>
 @property (strong) NSMutableArray *pointFences;              // Set<GeoFence>
@@ -147,6 +146,10 @@ static NSString *GEOFENCES_MONITORING = @"Cannot start geofence monitoring for a
 
 #pragma mark -
 #pragma mark Public Methods
+
+-(NSString *)listenerName {
+    return @"GeoFenceMonitoring";
+}
 
 /*
 

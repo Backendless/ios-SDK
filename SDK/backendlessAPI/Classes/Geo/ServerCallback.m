@@ -122,7 +122,7 @@
     [self onGeofenceServerCallback:@"onExitGeofence" geofenceId:geoFence.objectId geoPoint:_geoPoint];
 }
 
--(BOOL)equalCallbackParameter:(id) object {
+-(BOOL)equalCallbackParameter:(id)object {
     
     if (![object isKindOfClass:GeoPoint.class]) {
         return NO;

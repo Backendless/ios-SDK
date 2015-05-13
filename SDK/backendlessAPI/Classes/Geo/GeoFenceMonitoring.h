@@ -21,14 +21,16 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import "LocationTracker.h"
 
 @protocol ICallback;
 @class Fault, GeoFence;
 
-@interface GeoFenceMonitoring : NSObject
+@interface GeoFenceMonitoring : NSObject <ILocationTrackerListener>
 // Singleton accessor:  this is how you should ALWAYS get a reference to the class instance.  Never init your own.
 +(GeoFenceMonitoring *)sharedInstance;
 
+-(NSString *)listenerName;
 -(Fault *)addGeoFences:(NSArray *)geoFences callback:(id <ICallback>)callback;
 -(Fault *)addGeoFence:(GeoFence *)geoFence callback:(id <ICallback>)callback;
 -(void)removeGeoFence:(NSString *)geoFenceName;

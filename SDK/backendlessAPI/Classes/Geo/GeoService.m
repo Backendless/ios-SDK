@@ -27,6 +27,9 @@
 #import "Invoker.h"
 #import "BackendlessGeoQuery.h"
 #import "BackendlessCollection.h"
+#import "LocationTracker.h"
+#import "GeoFence.h"
+#import "GeoFenceMonitoring.h"
 
 #define FAULT_CATEGORY_NAME_IS_NULL [Fault fault:@"Category name is NULL" faultCode:@"4005"]
 #define FAULT_CATEGORY_NAME_IS_EMPTY [Fault fault:@"Category name is empty" faultCode:@"4006"]
@@ -38,7 +41,7 @@
 // SERVICE NAME
 static NSString *SERVER_GEO_SERVICE_PATH = @"com.backendless.services.geo.GeoService";
 // METHOD NAMES
-static NSString *METHOD_GET_CATEGORY = @"addCategory";
+static NSString *METHOD_ADD_CATEGORY = @"addCategory";
 static NSString *METHOD_DELETE_CATEGORY = @"deleteCategory";
 static NSString *METHOD_ADD_POINT = @"addPoint";
 static NSString *METHOD_UPDATE_POINT = @"updatePoint";
@@ -49,6 +52,7 @@ static NSString *METHOD_DELETE_GEOPOINT = @"removePoint";
 static NSString *METHOD_LOAD_METADATA = @"loadMetadata";
 static NSString *METHOD_LOAD_GEOPOINTS = @"loadGeoPoints";
 static NSString *METHOD_RUN_ONSTAY_ACTION = @"runOnStayAction";
+static NSString *METHOD_GET_FENCE = @"getFence";
 
 @interface GeoService ()
 -(Fault *)isFaultCategoryName:(NSString *)categoryName responder:(id <IResponder>)responder;
@@ -71,6 +75,7 @@ static NSString *METHOD_RUN_ONSTAY_ACTION = @"runOnStayAction";
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.BackendlesGeoQuery" mapped:[BackendlessGeoQuery class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.model.SearchMatchesResult" mapped:[SearchMatchesResult class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.BackendlessCollection" mapped:[BackendlessCollection class]];
+        [[Types sharedInstance] addClientClassMapping:@"com.backendless.geofence.model.GeoFenceAMF" mapped:[GeoFence class]];
 	}
 	
 	return self;
@@ -217,7 +222,7 @@ static NSString *METHOD_RUN_ONSTAY_ACTION = @"runOnStayAction";
         return fault;
     
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, categoryName, nil];
-    return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_CATEGORY args:args];
+    return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_ADD_CATEGORY args:args];
 }
 
 -(id)deleteCategory:(NSString *)categoryName {
@@ -379,7 +384,7 @@ static NSString *METHOD_RUN_ONSTAY_ACTION = @"runOnStayAction";
         return;
     
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, categoryName, nil];
-    [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_CATEGORY args:args responder:responder];
+    [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_ADD_CATEGORY args:args responder:responder];
 }
 
 -(void)deleteCategory:(NSString *)categoryName responder:(id <IResponder>)responder {
@@ -532,6 +537,192 @@ static NSString *METHOD_RUN_ONSTAY_ACTION = @"runOnStayAction";
 -(void)loadMetadata:(GeoPoint *)geoPoint response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
     [self loadMetadata:geoPoint responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
+
+// geo fence minitoring
+/*
+ 
+ public void startGeofenceMonitoring( GeoPoint geoPoint,
+ final AsyncCallback<Void> responder ) throws BackendlessException
+ {
+ ICallback bCallback = new ServerCallback( geoPoint );
+ 
+ startGeofenceMonitoring( bCallback, responder );
+ }
+ 
+ public void startGeofenceMonitoring( IGeofenceCallback callback,
+ final AsyncCallback<Void> responder ) throws BackendlessException
+ {
+ ICallback bCallback = new ClientCallback( callback );
+ 
+ startGeofenceMonitoring( bCallback, responder );
+ }
+ 
+ public void startGeofenceMonitoring( String geofenceName, GeoPoint geoPoint,
+ final AsyncCallback<Void> responder ) throws BackendlessException
+ {
+ ICallback bCallback = new ServerCallback( geoPoint );
+ 
+ startGeofenceMonitoring( bCallback, geofenceName, responder );
+ }
+ 
+ public void startGeofenceMonitoring( String geofenceName, IGeofenceCallback callback,
+ final AsyncCallback<Void> responder ) throws BackendlessException
+ {
+ ICallback bCallback = new ClientCallback( callback );
+ 
+ startGeofenceMonitoring( bCallback, geofenceName, responder );
+ }
+ 
+ public void stopGeofenceMonitoring()
+ {
+ GeoFenceMonitoring.getInstance().removeGeoFences();
+ LocationTracker.getInstance().removeListener( GeoFenceMonitoring.NAME );
+ }
+ 
+ public void stopGeofenceMonitoring( String geofenceName )
+ {
+ GeoFenceMonitoring.getInstance().removeGeoFence( geofenceName );
+ if( !GeoFenceMonitoring.getInstance().isMonitoring() )
+ {
+ LocationTracker.getInstance().removeListener( GeoFenceMonitoring.NAME );
+ }
+ }
+ */
+
+
+/*
+ 
+ private void startGeofenceMonitoring( final ICallback callback, final AsyncCallback<Void> responder )
+ {
+ Invoker.invokeAsync( GEO_MANAGER_SERVER_ALIAS, "getFences", new Object[] { Backendless.getApplicationId(), Backendless.getVersion() }, new AsyncCallback<GeoFence[]>()
+ {
+ @Override
+ public void handleResponse( GeoFence[] geoFences )
+ {
+ try
+ {
+ addFenceMonitoring( callback, geoFences );
+ 
+ if( responder != null )
+ responder.handleResponse( null );
+ }
+ catch( Exception ex )
+ {
+ if( responder != null )
+ responder.handleFault( new BackendlessFault( ex ) );
+ }
+ }
+ 
+ @Override
+ public void handleFault( BackendlessFault fault )
+ {
+ responder.handleFault( fault );
+ }
+ } );
+ }
+ */
+
+/*
+ 
+ private void startGeofenceMonitoring( final ICallback callback, String geofenceName,
+ final AsyncCallback<Void> responder )
+ {
+ Invoker.invokeAsync( GEO_MANAGER_SERVER_ALIAS, "getFence", new Object[] { Backendless.getApplicationId(), Backendless.getVersion(), geofenceName }, new AsyncCallback<GeoFence>()
+ {
+ @Override
+ public void handleResponse( GeoFence geoFences )
+ {
+ try
+ {
+ addFenceMonitoring( callback, geoFences );
+ 
+ if( responder != null )
+ responder.handleResponse( null );
+ }
+ catch( Exception ex )
+ {
+ if( responder != null )
+ responder.handleFault( new BackendlessFault( ex ) );
+ }
+ }
+ 
+ @Override
+ public void handleFault( BackendlessFault fault )
+ {
+ responder.handleFault( fault );
+ }
+ } );
+ }
+ */
+
+-(void)startGeofenceMonitoring:(id <ICallback>)callback name:(NSString *)geofenceName responder:(Responder *)responder {
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, geofenceName];
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(getGeoFence:) selErrorHandler:@selector(getError:)];
+    _responder.chained = responder;
+    _responder.context = callback;
+    [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_FENCE args:args responder:_responder];
+
+}
+
+ /*
+ 
+ private void addFenceMonitoring( ICallback callback, GeoFence... geoFences )
+ {
+ 
+ if( geoFences.length == 0 )
+ {
+ return;
+ }
+ 
+ if( geoFences.length == 1 )
+ {
+ GeoFenceMonitoring.getInstance().addGeoFence( geoFences[ 0 ], callback );
+ }
+ else
+ {
+ GeoFenceMonitoring.getInstance().addGeoFences( new HashSet<GeoFence>( Arrays.asList( geoFences ) ), callback );
+ }
+ 
+ if( !LocationTracker.getInstance().isContainListener( GeoFenceMonitoring.NAME ) )
+ {
+ try
+ {
+ LocationTracker.getInstance().addListeners( GeoFenceMonitoring.NAME, GeoFenceMonitoring.getInstance() );
+ }
+ catch( RuntimeException e )
+ {
+ GeoFenceMonitoring.getInstance().removeGeoFences();
+ throw e;
+ }
+ }
+ }
+ */
+
+-(void)addFenceMonitoring:(id <ICallback>)callback geoFences:(NSArray *)geoFences {
+    
+    if (!callback || !geoFences || !geoFences.count) {
+        return;
+    }
+    
+    GeoFenceMonitoring *monitiring = [GeoFenceMonitoring sharedInstance];
+    geoFences.count == 1? [monitiring addGeoFence:geoFences[0] callback:callback] : [monitiring addGeoFences:geoFences callback:callback];
+    
+    LocationTracker *locationTracker = [LocationTracker sharedInstance];
+    NSString *listenerName = [monitiring listenerName];
+    if (![locationTracker isContainListener:listenerName]) {
+        [locationTracker addListener:listenerName listener:monitiring];
+    }
+}
+
+-(id)getGeoFence:(ResponseContext *)response {
+    
+    NSDictionary *metadata = response.response;
+    GeoPoint *geoPoint = response.context;
+    [geoPoint metadata:metadata];
+    return geoPoint;
+}
+
 
 // utilites
 
