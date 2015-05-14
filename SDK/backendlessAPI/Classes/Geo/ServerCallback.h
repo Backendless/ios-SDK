@@ -22,9 +22,11 @@
 #import <Foundation/Foundation.h>
 #import "ICallback.h"
 
-@class GeoPoint, Responder;
+@class GeoPoint;
+@protocol IResponder;
+
 
 @interface ServerCallback : NSObject <ICallback>
-@property (strong, nonatomic) Responder *responder;
+@property (strong, nonatomic) id <IResponder> responder;
 +(id)callback:(GeoPoint *)geoPoint;
 @end

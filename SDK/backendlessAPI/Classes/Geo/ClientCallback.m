@@ -56,44 +56,6 @@
     return [[ClientCallback alloc] init:geofenceCallback];
 }
 
-/*
- public class ClientCallback implements ICallback
- {
- private IGeofenceCallback geofenceCallback;
- 
- public ClientCallback( IGeofenceCallback geofenceCallback )
- {
- this.geofenceCallback = geofenceCallback;
- }
- 
- @Override
- public void callOnEnter( GeoFence geoFence, Location location )
- {
- geofenceCallback.geoPointEntered( geoFence.getGeofenceName(), geoFence.getObjectId(), location.getLatitude(), location.getLongitude() );
- }
- 
- @Override
- public void callOnStay( GeoFence geoFence, Location location )
- {
- geofenceCallback.geoPointStayed( geoFence.getGeofenceName(), geoFence.getObjectId(), location.getLatitude(), location.getLongitude() );
- }
- 
- @Override
- public void callOnExit( GeoFence geoFence, Location location )
- {
- geofenceCallback.geoPointExited( geoFence.getGeofenceName(), geoFence.getObjectId(), location.getLatitude(), location.getLongitude() );
- }
- 
- @Override
- public boolean equalCallbackParameter( Object object )
- {
- if(object.getClass() != geofenceCallback.getClass())
- return false;
- return this.geofenceCallback.equals( object );
- }
- }
- */
-
 #pragma mark -
 #pragma mark ICallback Methods
 

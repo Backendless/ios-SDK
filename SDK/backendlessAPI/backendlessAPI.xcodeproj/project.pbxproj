@@ -276,9 +276,9 @@
 		D3A064BB1AFCE61700779BB1 /* GeoMath.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064B71AFCE61700779BB1 /* GeoMath.m */; };
 		D3A064BC1AFCE61700779BB1 /* GeoMath.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064B71AFCE61700779BB1 /* GeoMath.m */; };
 		D3A064BD1AFCE61700779BB1 /* GeoMath.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064B71AFCE61700779BB1 /* GeoMath.m */; };
-		D3A064C01AFCE64D00779BB1 /* GeoFence.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064BE1AFCE64D00779BB1 /* GeoFence.h */; };
-		D3A064C11AFCE64D00779BB1 /* GeoFence.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064BE1AFCE64D00779BB1 /* GeoFence.h */; };
-		D3A064C21AFCE64D00779BB1 /* GeoFence.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064BE1AFCE64D00779BB1 /* GeoFence.h */; };
+		D3A064C01AFCE64D00779BB1 /* GeoFence.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064BE1AFCE64D00779BB1 /* GeoFence.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3A064C11AFCE64D00779BB1 /* GeoFence.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064BE1AFCE64D00779BB1 /* GeoFence.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3A064C21AFCE64D00779BB1 /* GeoFence.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064BE1AFCE64D00779BB1 /* GeoFence.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3A064C31AFCE64D00779BB1 /* GeoFence.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064BF1AFCE64D00779BB1 /* GeoFence.m */; };
 		D3A064C41AFCE64D00779BB1 /* GeoFence.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064BF1AFCE64D00779BB1 /* GeoFence.m */; };
 		D3A064C51AFCE64D00779BB1 /* GeoFence.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064BF1AFCE64D00779BB1 /* GeoFence.m */; };
@@ -300,9 +300,9 @@
 		D3A064DB1B0242B900779BB1 /* ClientCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064D71B0242B900779BB1 /* ClientCallback.m */; };
 		D3A064DC1B0242B900779BB1 /* ClientCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064D71B0242B900779BB1 /* ClientCallback.m */; };
 		D3A064DD1B0242B900779BB1 /* ClientCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064D71B0242B900779BB1 /* ClientCallback.m */; };
-		D3A064DF1B0243ED00779BB1 /* ICallback.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064DE1B0243ED00779BB1 /* ICallback.h */; };
-		D3A064E01B0243ED00779BB1 /* ICallback.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064DE1B0243ED00779BB1 /* ICallback.h */; };
-		D3A064E11B0243ED00779BB1 /* ICallback.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064DE1B0243ED00779BB1 /* ICallback.h */; };
+		D3A064DF1B0243ED00779BB1 /* ICallback.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064DE1B0243ED00779BB1 /* ICallback.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3A064E01B0243ED00779BB1 /* ICallback.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064DE1B0243ED00779BB1 /* ICallback.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3A064E11B0243ED00779BB1 /* ICallback.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064DE1B0243ED00779BB1 /* ICallback.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3EA53021A3077C1009C5FE0 /* FilePermission.h in Headers */ = {isa = PBXBuildFile; fileRef = D3EA52FF1A3077C1009C5FE0 /* FilePermission.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3EA53031A3077C1009C5FE0 /* FilePermission.h in Headers */ = {isa = PBXBuildFile; fileRef = D3EA52FF1A3077C1009C5FE0 /* FilePermission.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3EA53051A3077C1009C5FE0 /* FilePermission.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EA53001A3077C1009C5FE0 /* FilePermission.m */; };
@@ -1480,15 +1480,16 @@
 				1C7BB4EA1A2E092900D3C2C1 /* CacheService.h in Headers */,
 				1C7BB4EB1A2E092900D3C2C1 /* ICacheService.h in Headers */,
 				1C7BB4EC1A2E092900D3C2C1 /* SubscriptionOptions.h in Headers */,
+				D3A064DF1B0243ED00779BB1 /* ICallback.h in Headers */,
 				1C7BB4ED1A2E092900D3C2C1 /* WeborbClient.h in Headers */,
 				1C7BB4EE1A2E092900D3C2C1 /* Backendless-Bridging-Header.h in Headers */,
 				1C7BB4EF1A2E092900D3C2C1 /* CustomService.h in Headers */,
+				D3A064C01AFCE64D00779BB1 /* GeoFence.h in Headers */,
 				1C7BB4F01A2E092900D3C2C1 /* Events.h in Headers */,
 				D35CA5301A668AC600F500B0 /* DataPermission.h in Headers */,
 				D316BA371A83C649007215CA /* ProtectedBackendlessGeoQuery.h in Headers */,
 				D31700D21A84D2AA00772766 /* GeoCluster.h in Headers */,
 				D35DC3411AD7E19800EF2A68 /* Logger.h in Headers */,
-				D3A064C01AFCE64D00779BB1 /* GeoFence.h in Headers */,
 				D35DC3391AD6CE1500EF2A68 /* Logging.h in Headers */,
 				D35CA5311A668AC600F500B0 /* FilePermission.h in Headers */,
 				1C7BB4F11A2E092900D3C2C1 /* IPendingServiceCallback.h in Headers */,
@@ -1518,7 +1519,6 @@
 				1C7BB5081A2E092900D3C2C1 /* BackendlessCache.h in Headers */,
 				1C7BB5091A2E092900D3C2C1 /* BackendlessCacheData.h in Headers */,
 				1C7BB50A1A2E092900D3C2C1 /* BackendlessCacheKey.h in Headers */,
-				D3A064DF1B0243ED00779BB1 /* ICallback.h in Headers */,
 				1C7BB50B1A2E092900D3C2C1 /* DEBUG.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1558,7 +1558,6 @@
 				F9796A18166CCBFE00595F5E /* MessagingService.h in Headers */,
 				D30FC9B21AE132C2007C9A83 /* LogBuffer.h in Headers */,
 				F9796A19166CCBFE00595F5E /* DeviceRegistration.h in Headers */,
-				D3A064E01B0243ED00779BB1 /* ICallback.h in Headers */,
 				F9796A1A166CCBFE00595F5E /* DeliveryOptions.h in Headers */,
 				F9BBFD4E18783B750076BC6D /* DEBUG.h in Headers */,
 				F9BBFD6318783B750076BC6D /* IPersistable.h in Headers */,
@@ -1579,6 +1578,8 @@
 				D39A468219811D9B006CBD1B /* CacheService.h in Headers */,
 				D36CDDF119C99D5900C3FFE3 /* CustomService.h in Headers */,
 				F9BBFD5418783B750076BC6D /* FlashorbBinaryWriter.h in Headers */,
+				D3A064E01B0243ED00779BB1 /* ICallback.h in Headers */,
+				D3A064C11AFCE64D00779BB1 /* GeoFence.h in Headers */,
 				F9796A20166CCBFE00595F5E /* FileService.h in Headers */,
 				D35DC3421AD7E19800EF2A68 /* Logger.h in Headers */,
 				D3A064C91AFCE69D00779BB1 /* GeoFenceMonitoring.h in Headers */,
@@ -1610,7 +1611,6 @@
 				F9796A07166CCBFE00595F5E /* Invoker.h in Headers */,
 				91F1399A17D7240A00D1AC4C /* BackendlessCache.h in Headers */,
 				91F1399F17D7240A00D1AC4C /* BackendlessCacheData.h in Headers */,
-				D3A064C11AFCE64D00779BB1 /* GeoFence.h in Headers */,
 				D3A064A81AFA6E4A00779BB1 /* LocationTracker.h in Headers */,
 				F9BBFD4518783B750076BC6D /* AMFSerializer.h in Headers */,
 				F9BBFD6918783B750076BC6D /* IServiceCall.h in Headers */,
@@ -1656,7 +1656,6 @@
 				F9796A64166CD42E00595F5E /* MessagingService.h in Headers */,
 				D30FC9B31AE132C2007C9A83 /* LogBuffer.h in Headers */,
 				F9796A65166CD42E00595F5E /* DeviceRegistration.h in Headers */,
-				D3A064E11B0243ED00779BB1 /* ICallback.h in Headers */,
 				F9796A66166CD42E00595F5E /* DeliveryOptions.h in Headers */,
 				F9BBFD4F18783B750076BC6D /* DEBUG.h in Headers */,
 				F9BBFD6418783B750076BC6D /* IPersistable.h in Headers */,
@@ -1679,9 +1678,11 @@
 				D35DC3431AD7E19800EF2A68 /* Logger.h in Headers */,
 				D30A5D7619B9CA8200C0BA44 /* Backendless-Bridging-Header.h in Headers */,
 				F9796A6C166CD42E00595F5E /* FileService.h in Headers */,
+				D3A064E11B0243ED00779BB1 /* ICallback.h in Headers */,
 				D3A064CA1AFCE69D00779BB1 /* GeoFenceMonitoring.h in Headers */,
 				D35DC33B1AD6CE1500EF2A68 /* Logging.h in Headers */,
 				D316BA391A83C649007215CA /* ProtectedBackendlessGeoQuery.h in Headers */,
+				D3A064C21AFCE64D00779BB1 /* GeoFence.h in Headers */,
 				D31700D41A84D2AA00772766 /* GeoCluster.h in Headers */,
 				F9BBFD7618783B750076BC6D /* RTMPClient.h in Headers */,
 				D36CF3FD1A2F68DA00B6468A /* DataPermission.h in Headers */,
@@ -1708,7 +1709,6 @@
 				F9796A53166CD42E00595F5E /* Invoker.h in Headers */,
 				91F1399B17D7240A00D1AC4C /* BackendlessCache.h in Headers */,
 				91F139A017D7240A00D1AC4C /* BackendlessCacheData.h in Headers */,
-				D3A064C21AFCE64D00779BB1 /* GeoFence.h in Headers */,
 				D3A064A91AFA6E4B00779BB1 /* LocationTracker.h in Headers */,
 				F9BBFD4618783B750076BC6D /* AMFSerializer.h in Headers */,
 				F9BBFD6A18783B750076BC6D /* IServiceCall.h in Headers */,
