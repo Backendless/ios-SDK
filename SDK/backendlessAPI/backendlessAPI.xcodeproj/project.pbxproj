@@ -264,9 +264,9 @@
 		D39A468319811D9B006CBD1B /* CacheService.h in Headers */ = {isa = PBXBuildFile; fileRef = D39A467F19811D9B006CBD1B /* CacheService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D39A468519811D9B006CBD1B /* CacheService.m in Sources */ = {isa = PBXBuildFile; fileRef = D39A468019811D9B006CBD1B /* CacheService.m */; };
 		D39A468619811D9B006CBD1B /* CacheService.m in Sources */ = {isa = PBXBuildFile; fileRef = D39A468019811D9B006CBD1B /* CacheService.m */; };
-		D3A064A71AFA6E4A00779BB1 /* LocationTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064A51AFA6E4A00779BB1 /* LocationTracker.h */; };
-		D3A064A81AFA6E4A00779BB1 /* LocationTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064A51AFA6E4A00779BB1 /* LocationTracker.h */; };
-		D3A064A91AFA6E4B00779BB1 /* LocationTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064A51AFA6E4A00779BB1 /* LocationTracker.h */; };
+		D3A064A71AFA6E4A00779BB1 /* LocationTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064A51AFA6E4A00779BB1 /* LocationTracker.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3A064A81AFA6E4A00779BB1 /* LocationTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064A51AFA6E4A00779BB1 /* LocationTracker.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3A064A91AFA6E4B00779BB1 /* LocationTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064A51AFA6E4A00779BB1 /* LocationTracker.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3A064AA1AFA6E4B00779BB1 /* LocationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064A61AFA6E4A00779BB1 /* LocationTracker.m */; };
 		D3A064AB1AFA6E4B00779BB1 /* LocationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064A61AFA6E4A00779BB1 /* LocationTracker.m */; };
 		D3A064AC1AFA6E4B00779BB1 /* LocationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064A61AFA6E4A00779BB1 /* LocationTracker.m */; };
@@ -1444,7 +1444,6 @@
 				1C7BB4CB1A2E092900D3C2C1 /* Responder.h in Headers */,
 				1C7BB4CC1A2E092900D3C2C1 /* UserService.h in Headers */,
 				1C7BB4CD1A2E092900D3C2C1 /* BackendlessUser.h in Headers */,
-				D3A064A71AFA6E4A00779BB1 /* LocationTracker.h in Headers */,
 				1C7BB4CE1A2E092900D3C2C1 /* BinaryStream.h in Headers */,
 				1C7BB4CF1A2E092900D3C2C1 /* IClientSharedObjectDelegate.h in Headers */,
 				1C7BB4D01A2E092900D3C2C1 /* IServiceCall.h in Headers */,
@@ -1483,6 +1482,7 @@
 				D3A064DF1B0243ED00779BB1 /* ICallback.h in Headers */,
 				1C7BB4ED1A2E092900D3C2C1 /* WeborbClient.h in Headers */,
 				1C7BB4EE1A2E092900D3C2C1 /* Backendless-Bridging-Header.h in Headers */,
+				D3A064A71AFA6E4A00779BB1 /* LocationTracker.h in Headers */,
 				1C7BB4EF1A2E092900D3C2C1 /* CustomService.h in Headers */,
 				D3A064C01AFCE64D00779BB1 /* GeoFence.h in Headers */,
 				1C7BB4F01A2E092900D3C2C1 /* Events.h in Headers */,
@@ -1582,6 +1582,7 @@
 				D3A064C11AFCE64D00779BB1 /* GeoFence.h in Headers */,
 				F9796A20166CCBFE00595F5E /* FileService.h in Headers */,
 				D35DC3421AD7E19800EF2A68 /* Logger.h in Headers */,
+				D3A064A81AFA6E4A00779BB1 /* LocationTracker.h in Headers */,
 				D3A064C91AFCE69D00779BB1 /* GeoFenceMonitoring.h in Headers */,
 				F9BBFD7518783B750076BC6D /* RTMPClient.h in Headers */,
 				D316BA381A83C649007215CA /* ProtectedBackendlessGeoQuery.h in Headers */,
@@ -1611,7 +1612,6 @@
 				F9796A07166CCBFE00595F5E /* Invoker.h in Headers */,
 				91F1399A17D7240A00D1AC4C /* BackendlessCache.h in Headers */,
 				91F1399F17D7240A00D1AC4C /* BackendlessCacheData.h in Headers */,
-				D3A064A81AFA6E4A00779BB1 /* LocationTracker.h in Headers */,
 				F9BBFD4518783B750076BC6D /* AMFSerializer.h in Headers */,
 				F9BBFD6918783B750076BC6D /* IServiceCall.h in Headers */,
 				F9BBFD4B18783B750076BC6D /* BinaryStream.h in Headers */,
@@ -1681,6 +1681,7 @@
 				D3A064E11B0243ED00779BB1 /* ICallback.h in Headers */,
 				D3A064CA1AFCE69D00779BB1 /* GeoFenceMonitoring.h in Headers */,
 				D35DC33B1AD6CE1500EF2A68 /* Logging.h in Headers */,
+				D3A064A91AFA6E4B00779BB1 /* LocationTracker.h in Headers */,
 				D316BA391A83C649007215CA /* ProtectedBackendlessGeoQuery.h in Headers */,
 				D3A064C21AFCE64D00779BB1 /* GeoFence.h in Headers */,
 				D31700D41A84D2AA00772766 /* GeoCluster.h in Headers */,
@@ -1709,7 +1710,6 @@
 				F9796A53166CD42E00595F5E /* Invoker.h in Headers */,
 				91F1399B17D7240A00D1AC4C /* BackendlessCache.h in Headers */,
 				91F139A017D7240A00D1AC4C /* BackendlessCacheData.h in Headers */,
-				D3A064A91AFA6E4B00779BB1 /* LocationTracker.h in Headers */,
 				F9BBFD4618783B750076BC6D /* AMFSerializer.h in Headers */,
 				F9BBFD6A18783B750076BC6D /* IServiceCall.h in Headers */,
 				F9BBFD4C18783B750076BC6D /* BinaryStream.h in Headers */,

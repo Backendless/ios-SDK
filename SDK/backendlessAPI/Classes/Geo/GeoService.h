@@ -47,12 +47,12 @@ typedef struct {
 -(BackendlessCollection *)relativeFind:(BackendlessGeoQuery *)query;
 -(id)removePoint:(GeoPoint *)geoPoint;
 -(GeoPoint *)loadMetadata:(GeoPoint *)geoPoint;
--(NSNumber *)runOnEnterAction:(NSString *)geoFenceName;
--(NSNumber *)runOnEnterAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint;
--(NSNumber *)runOnStayAction:(NSString *)geoFenceName;
--(NSNumber *)runOnStayAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint;
--(NSNumber *)runOnExitAction:(NSString *)geoFenceName;
--(NSNumber *)runOnExitAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint;
+-(id)runOnEnterAction:(NSString *)geoFenceName;
+-(id)runOnEnterAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint;
+-(id)runOnStayAction:(NSString *)geoFenceName;
+-(id)runOnStayAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint;
+-(id)runOnExitAction:(NSString *)geoFenceName;
+-(id)runOnExitAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint;
 
 // sync methods with fault option
 -(GeoCategory *)addCategory:(NSString *)categoryName error:(Fault **)fault;
@@ -66,12 +66,12 @@ typedef struct {
 -(BackendlessCollection *)relativeFind:(BackendlessGeoQuery *)query error:(Fault **)fault;
 -(BOOL)removePoint:(GeoPoint *)geoPoint error:(Fault **)fault;
 -(GeoPoint *)loadMetadata:(GeoPoint *)geoPoint error:(Fault **)fault;
--(NSNumber *)runOnEnterAction:(NSString *)geoFenceName error:(Fault **)fault;
--(NSNumber *)runOnEnterAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint error:(Fault **)fault;
--(NSNumber *)runOnStayAction:(NSString *)geoFenceName error:(Fault **)fault;
--(NSNumber *)runOnStayAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint error:(Fault **)fault;
--(NSNumber *)runOnExitAction:(NSString *)geoFenceName error:(Fault **)fault;
--(NSNumber *)runOnExitAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint error:(Fault **)fault;
+-(BOOL)runOnEnterAction:(NSString *)geoFenceName error:(Fault **)fault;
+-(BOOL)runOnEnterAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint error:(Fault **)fault;
+-(BOOL)runOnStayAction:(NSString *)geoFenceName error:(Fault **)fault;
+-(BOOL)runOnStayAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint error:(Fault **)fault;
+-(BOOL)runOnExitAction:(NSString *)geoFenceName error:(Fault **)fault;
+-(BOOL)runOnExitAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint error:(Fault **)fault;
 
 // async methods with responder
 -(void)addCategory:(NSString *)categoryName responder:(id <IResponder>)responder;

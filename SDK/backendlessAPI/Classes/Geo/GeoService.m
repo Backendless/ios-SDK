@@ -204,64 +204,64 @@ static NSString *METHOD_GET_FENCE = @"getFence";
     return result;
 }
 
--(NSNumber *)runOnEnterAction:(NSString *)geoFenceName error:(Fault **)fault {
+-(BOOL)runOnEnterAction:(NSString *)geoFenceName error:(Fault **)fault {
     
     id result = [self runOnEnterAction:geoFenceName];
     if ([result isKindOfClass:[Fault class]]) {
         (*fault) = result;
-        return nil;
+        return NO;
     }
-    return result;
+    return YES;
 }
 
--(NSNumber *)runOnEnterAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint error:(Fault **)fault {
+-(BOOL)runOnEnterAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint error:(Fault **)fault {
     
     id result = [self runOnEnterAction:geoFenceName geoPoint:geoPoint];
     if ([result isKindOfClass:[Fault class]]) {
         (*fault) = result;
-        return nil;
+        return NO;
     }
-    return result;
+    return YES;
 }
 
--(NSNumber *)runOnStayAction:(NSString *)geoFenceName error:(Fault **)fault {
+-(BOOL)runOnStayAction:(NSString *)geoFenceName error:(Fault **)fault {
     
     id result = [self runOnStayAction:geoFenceName];
     if ([result isKindOfClass:[Fault class]]) {
         (*fault) = result;
-        return nil;
+        return NO;
     }
-    return result;
+    return YES;
 }
 
--(NSNumber *)runOnStayAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint error:(Fault **)fault {
+-(BOOL)runOnStayAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint error:(Fault **)fault {
     
     id result = [self runOnStayAction:geoFenceName geoPoint:geoPoint];
     if ([result isKindOfClass:[Fault class]]) {
         (*fault) = result;
-        return nil;
+        return NO;
     }
-    return result;
+    return YES;
 }
 
--(NSNumber *)runOnExitAction:(NSString *)geoFenceName error:(Fault **)fault {
+-(BOOL)runOnExitAction:(NSString *)geoFenceName error:(Fault **)fault {
     
     id result = [self runOnExitAction:geoFenceName];
     if ([result isKindOfClass:[Fault class]]) {
         (*fault) = result;
-        return nil;
+        return NO;
     }
-    return result;
+    return YES;
 }
 
--(NSNumber *)runOnExitAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint error:(Fault **)fault {
+-(BOOL)runOnExitAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint error:(Fault **)fault {
     
     id result = [self runOnExitAction:geoFenceName geoPoint:geoPoint];
     if ([result isKindOfClass:[Fault class]]) {
         (*fault) = result;
-        return nil;
+        return NO;
     }
-    return result;
+    return YES;
 }
 
 // sync methods with fault return (as exception)
@@ -418,7 +418,7 @@ static NSString *METHOD_GET_FENCE = @"getFence";
     return geoPoint;
 }
 
--(NSNumber *)runOnEnterAction:(NSString *)geoFenceName {
+-(id)runOnEnterAction:(NSString *)geoFenceName {
     
     id fault = nil;
     if ((fault = [self isFaultGeoFenceName:geoFenceName responder:nil]))
@@ -428,7 +428,7 @@ static NSString *METHOD_GET_FENCE = @"getFence";
     return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_RUN_ON_ENTER_ACTION args:args];
 }
 
--(NSNumber *)runOnEnterAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint {
+-(id)runOnEnterAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint {
     
     id fault = nil;
     if ((fault = [self isFaultGeoFenceName:geoFenceName responder:nil]) || (fault = [self isFaultGeoPoint:geoPoint responder:nil]))
@@ -438,7 +438,7 @@ static NSString *METHOD_GET_FENCE = @"getFence";
     return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_RUN_ON_ENTER_ACTION args:args];
 }
 
--(NSNumber *)runOnStayAction:(NSString *)geoFenceName {
+-(id)runOnStayAction:(NSString *)geoFenceName {
     
     id fault = nil;
     if ((fault = [self isFaultGeoFenceName:geoFenceName responder:nil]))
@@ -448,7 +448,7 @@ static NSString *METHOD_GET_FENCE = @"getFence";
     return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_RUN_ON_STAY_ACTION args:args];
 }
 
--(NSNumber *)runOnStayAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint {
+-(id)runOnStayAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint {
     
     id fault = nil;
     if ((fault = [self isFaultGeoFenceName:geoFenceName responder:nil]) || (fault = [self isFaultGeoPoint:geoPoint responder:nil]))
@@ -458,7 +458,7 @@ static NSString *METHOD_GET_FENCE = @"getFence";
     return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_RUN_ON_STAY_ACTION args:args];
 }
 
--(NSNumber *)runOnExitAction:(NSString *)geoFenceName {
+-(id)runOnExitAction:(NSString *)geoFenceName {
     
     id fault = nil;
     if ((fault = [self isFaultGeoFenceName:geoFenceName responder:nil]))
@@ -468,7 +468,7 @@ static NSString *METHOD_GET_FENCE = @"getFence";
     return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_RUN_ON_EXIT_ACTION args:args];
 }
 
--(NSNumber *)runOnExitAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint {
+-(id)runOnExitAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint {
     
     id fault = nil;
     if ((fault = [self isFaultGeoFenceName:geoFenceName responder:nil]) || (fault = [self isFaultGeoPoint:geoPoint responder:nil]))

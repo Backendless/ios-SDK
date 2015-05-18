@@ -58,6 +58,9 @@
 #import "GeoCategory.h"
 #import "BackendlessGeoQuery.h"
 #import "GeoService.h"
+#import "ICallback.h"
+#import "GeoFence.h"
+#import "LocationTracker.h"
 #import "Message.h"
 #import "MessageStatus.h"
 #import "DeliveryOptions.h"
@@ -76,7 +79,6 @@
 #import "FilePermission.h"
 #import "Logging.h"
 #import "Logger.h"
-//#import "LocationTracker.h"
 
 //Cache
 #import "BackendlessCachePolicy.h"
