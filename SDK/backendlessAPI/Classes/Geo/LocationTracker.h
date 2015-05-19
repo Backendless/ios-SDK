@@ -57,4 +57,7 @@
 -(BOOL)addListener:(NSString *)name listener:(id <ILocationTrackerListener>)listener;
 -(BOOL)removeListener:(NSString *)name;
 
+-(void)startLocationManager;
+-(CLLocation *)getLocation;
+
 @end

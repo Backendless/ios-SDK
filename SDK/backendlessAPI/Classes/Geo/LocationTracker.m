@@ -40,8 +40,11 @@
     static LocationTracker *sharedLocationTracker;
     @synchronized(self)
     {
-        if (!sharedLocationTracker)
+        if (!sharedLocationTracker) {
             sharedLocationTracker = [LocationTracker new];
+            [DebLog log:@"CREATE LocationTracker: sharedLocationTracker = %@", sharedLocationTracker];
+        }
+        
     }
     return sharedLocationTracker;
 }
@@ -176,16 +179,13 @@
     return [_locationListeners del:name];
 }
 
-#pragma mark -
-#pragma mark Private Methods
-
 -(void)startLocationManager {
     
     _locationManager = [CLLocationManager new];
     _locationManager.delegate = self;
     _locationManager.distanceFilter = _distanceFilter;
     _locationManager.desiredAccuracy = _desiredAccuracy;
-
+    
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
     _locationManager.activityType = _activityType;
     _locationManager.pausesLocationUpdatesAutomatically = _pausesLocationUpdatesAutomatically;
@@ -195,6 +195,13 @@
     
     _monitoringSignificantLocationChanges?[_locationManager startMonitoringSignificantLocationChanges]:[_locationManager startUpdatingLocation];
 }
+
+-(CLLocation *)getLocation {
+    return _locationManager.location;
+}
+
+#pragma mark -
+#pragma mark Private Methods
 
 -(void)onLocationChanged:(CLLocation *)location {
     

@@ -60,12 +60,14 @@
 #pragma mark ICallback Methods
 
 -(void)callOnEnter:(GeoFence *)geoFence location:(CLLocation *)location {
+    [DebLog log:@"ClientCallback -> callOnEnter: geoFence = %@\nlocation = %@", geoFence, location];
     if ([_geofenceCallback respondsToSelector:@selector(geoPointEntered:geofenceId:latitude:longitude:)]) {
         [_geofenceCallback geoPointEntered:geoFence.geofenceName geofenceId:geoFence.objectId latitude:location.coordinate.latitude longitude:location.coordinate.longitude];
     }
 }
 
 -(void)callOnStay:(GeoFence *)geoFence location:(CLLocation *)location {
+    [DebLog log:@"ClientCallback -> callOnStay: geoFence = %@\nlocation = %@", geoFence, location];
     if ([_geofenceCallback respondsToSelector:@selector(geoPointStayed:geofenceId:latitude:longitude:)]) {
         [_geofenceCallback geoPointStayed:geoFence.geofenceName geofenceId:geoFence.objectId latitude:location.coordinate.latitude longitude:location.coordinate.longitude];
     }
@@ -73,6 +75,7 @@
 }
 
 -(void)callOnExit:(GeoFence *)geoFence location:(CLLocation *)location {
+    [DebLog log:@"ClientCallback -> callOnExit: geoFence = %@\nlocation = %@", geoFence, location];
     if ([_geofenceCallback respondsToSelector:@selector(geoPointExited:geofenceId:latitude:longitude:)]) {
         [_geofenceCallback geoPointExited:geoFence.geofenceName geofenceId:geoFence.objectId latitude:location.coordinate.latitude longitude:location.coordinate.longitude];
     }

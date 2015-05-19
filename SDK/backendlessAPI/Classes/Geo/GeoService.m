@@ -59,6 +59,7 @@ static NSString *METHOD_RUN_ON_ENTER_ACTION = @"runOnEnterAction";
 static NSString *METHOD_RUN_ON_STAY_ACTION = @"runOnStayAction";
 static NSString *METHOD_RUN_ON_EXIT_ACTION = @"runOnExitAction";
 static NSString *METHOD_GET_FENCE = @"getFence";
+static NSString *METHOD_GET_FENCES = @"getFences";
 
 @interface GeoService ()
 -(Fault *)isFaultCategoryName:(NSString *)categoryName responder:(id <IResponder>)responder;
@@ -878,7 +879,7 @@ static NSString *METHOD_GET_FENCE = @"getFence";
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(getGeoFences:) selErrorHandler:@selector(getError:)];
     _responder.chained = responder;
     _responder.context = callback;
-    [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_FENCE args:args responder:_responder];
+    [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_FENCES args:args responder:_responder];
 }
 
 /*
@@ -962,17 +963,23 @@ static NSString *METHOD_GET_FENCE = @"getFence";
 
 -(void)addFenceMonitoring:(id <ICallback>)callback geoFences:(NSArray *)geoFences {
     
-    if (!callback || !geoFences || !geoFences.count) {
-        return;
+    [DebLog log:@"GeoService -> addFenceMonitoring: callback = %@, geoFences = %@", callback, geoFences];
+    
+    @try {
+        
+        GeoFenceMonitoring *monitiring = [GeoFenceMonitoring sharedInstance];
+        geoFences.count == 1? [monitiring addGeoFence:geoFences[0] callback:callback] : [monitiring addGeoFences:geoFences callback:callback];
+        
+        LocationTracker *locationTracker = [LocationTracker sharedInstance];
+        NSString *listenerName = [monitiring listenerName];
+        if (![locationTracker isContainListener:listenerName]) {
+            [DebLog log:@"GeoService -> addFenceMonitoring: add listener = %@", listenerName];
+            [locationTracker addListener:listenerName listener:monitiring];
+            [locationTracker startLocationManager];
+        }
     }
-    
-    GeoFenceMonitoring *monitiring = [GeoFenceMonitoring sharedInstance];
-    geoFences.count == 1? [monitiring addGeoFence:geoFences[0] callback:callback] : [monitiring addGeoFences:geoFences callback:callback];
-    
-    LocationTracker *locationTracker = [LocationTracker sharedInstance];
-    NSString *listenerName = [monitiring listenerName];
-    if (![locationTracker isContainListener:listenerName]) {
-        [locationTracker addListener:listenerName listener:monitiring];
+    @catch (Fault *fault) {
+        [DebLog logY:@"GeoService -> addFenceMonitoring: (FAULT) %@", fault];
     }
 }
 

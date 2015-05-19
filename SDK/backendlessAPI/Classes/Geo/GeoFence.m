@@ -53,7 +53,7 @@ static const char * const backendless_geo_fence_types[] = { "CIRCLE", "RECT", "S
 }
 
 #pragma mark -
-#pragma mark overwride NSObject Method
+#pragma mark overwride NSObject Methods
 
 -(BOOL)isEqual:(id)object {
     
@@ -63,11 +63,15 @@ static const char * const backendless_geo_fence_types[] = { "CIRCLE", "RECT", "S
     return [_geofenceName isEqualToString:[(GeoFence *)object geofenceName]];
 }
 
+-(NSString *)description {
+    return [NSString stringWithFormat:@"<GeoFence> geofenceName:%@, onStayDuration:%@, type:%@\nnwPoint:%@\nsePoint:%@", _geofenceName, _onStayDuration, _type, _nwPoint, _sePoint];
+}
+
 #pragma mark -
 #pragma mark NSCopying Methods
 
 -(id)copyWithZone:(NSZone *)zone {
-    return self;
+    return [self retain]; // TODO !!!
 }
 
 @end

@@ -66,19 +66,54 @@
 #pragma mark -
 #pragma mark ICallback Methods
 
+#define _ASYNC_INVOKE_ 1
+
 -(void)callOnEnter:(GeoFence *)geoFence location:(CLLocation *)location {
+    [DebLog log:@"ServerCallback -> callOnEnter: geoFence = %@\ngeoPoint = %@", geoFence, _geoPoint];
     [self updatePoint:location];
+#if _ASYNC_INVOKE_
     [backendless.geoService runOnEnterAction:geoFence.geofenceName geoPoint:_geoPoint responder:_responder];
+#else
+    @try {
+        id response = [backendless.geoService runOnEnterAction:geoFence.geofenceName geoPoint:_geoPoint];
+        [DebLog log:@"ServerCallback -> callOnEnter: RESPONSE = %@", response];
+    }
+    @catch (Fault *fault) {
+        [DebLog log:@"ServerCallback -> callOnEnter: FAULT = %@", fault];
+    }
+#endif
 }
 
 -(void)callOnStay:(GeoFence *)geoFence location:(CLLocation *)location {
+    [DebLog log:@"ServerCallback -> callOnStay: geoFence = %@\ngeoPoint = %@", geoFence, _geoPoint];
     [self updatePoint:location];
+#if _ASYNC_INVOKE_
     [backendless.geoService runOnStayAction:geoFence.geofenceName geoPoint:_geoPoint responder:_responder];
+#else
+    @try {
+        id response = [backendless.geoService runOnStayAction:geoFence.geofenceName geoPoint:_geoPoint];
+        [DebLog log:@"ServerCallback -> callOnStay: RESPONSE = %@", response];
+    }
+    @catch (Fault *fault) {
+        [DebLog log:@"ServerCallback -> callOnStay: FAULT = %@", fault];
+    }
+#endif
 }
 
 -(void)callOnExit:(GeoFence *)geoFence location:(CLLocation *)location {
+    [DebLog log:@"ServerCallback -> callOnExit: geoFence = %@\ngeoPoint = %@", geoFence, _geoPoint];
     [self updatePoint:location];
+#if _ASYNC_INVOKE_
     [backendless.geoService runOnExitAction:geoFence.geofenceName geoPoint:_geoPoint responder:_responder];
+#else
+    @try {
+        id response = [backendless.geoService runOnExitAction:geoFence.geofenceName geoPoint:_geoPoint];
+        [DebLog log:@"ServerCallback -> callOnExit: RESPONSE = %@", response];
+    }
+    @catch (Fault *fault) {
+        [DebLog log:@"ServerCallback -> callOnExit: FAULT = %@", fault];
+    }
+#endif
 }
 
 -(BOOL)equalCallbackParameter:(id)object {
@@ -107,9 +142,9 @@
     return response;
 }
 
--(id)getError:(id)error {
-    [DebLog log:@"ServerCallback -> getError: %@", error];
-    return error;
+-(id)getError:(Fault *)fault {
+    [DebLog log:@"ServerCallback -> getError: (FAULT) %@", fault];
+    return fault;
 }
 
 @end

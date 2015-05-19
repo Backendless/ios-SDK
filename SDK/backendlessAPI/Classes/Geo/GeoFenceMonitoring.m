@@ -40,10 +40,10 @@
  */
 
 @interface GeoFenceMonitoring ()
-@property (strong) NSMutableArray *onStaySet;                // Set<GeoFence>
-@property (strong) NSMutableDictionary *fencesToCallback;    // Map<GeoFence, ICallback>
-@property (strong) NSMutableArray *pointFences;              // Set<GeoFence>
-@property (strong) CLLocation *location;
+@property (strong, nonatomic) NSMutableArray *onStaySet;                // Set<GeoFence>
+@property (strong, nonatomic) NSMutableDictionary *fencesToCallback;    // Map<GeoFence, ICallback>
+@property (strong, nonatomic) NSMutableArray *pointFences;              // Set<GeoFence>
+@property (strong, nonatomic) CLLocation *location;
 @end
 
 @implementation GeoFenceMonitoring
@@ -53,17 +53,19 @@
     static GeoFenceMonitoring *sharedGeoFenceMonitoring;
     @synchronized(self)
     {
-        if (!sharedGeoFenceMonitoring)
+        if (!sharedGeoFenceMonitoring) {
             sharedGeoFenceMonitoring = [GeoFenceMonitoring new];
+            [DebLog logN:@"CREATE GeoFenceMonitoring: sharedGeoFenceMonitoring = %@", sharedGeoFenceMonitoring];
+        }
     }
     return sharedGeoFenceMonitoring;
 }
 
 -(id)init {
     if ( (self=[super init]) ) {
-        self.onStaySet = [NSMutableArray array];
-        self.fencesToCallback = [NSMutableDictionary dictionary];
-        self.pointFences = [NSMutableArray array];
+        self.onStaySet = [NSMutableArray new];
+        self.fencesToCallback = [NSMutableDictionary new];
+        self.pointFences = [NSMutableArray new];
         _location = nil;
     }
     return self;
@@ -121,12 +123,17 @@ public void onLocationChanged( Location location )
     
     self.location = location;
     
+    GeoPoint *point = [GeoPoint geoPoint:(GEO_POINT){.latitude=location.coordinate.latitude, .longitude=location.coordinate.longitude}];
+    
     NSMutableArray *oldFences = _pointFences;
-    NSMutableArray *currFence = [self findGeoPointsFence:[GeoPoint geoPoint:(GEO_POINT){.latitude=location.coordinate.latitude, .longitude=location.coordinate.longitude}] geoFences:[_fencesToCallback allKeys]];
+    NSArray *geoFences = [_fencesToCallback allKeys];
+    NSMutableArray *currFence = [self findGeoPointsFence:point geoFences:geoFences];
     NSMutableArray *newFences = [NSMutableArray arrayWithArray:currFence];
     
     [newFences removeObjectsInArray:oldFences];
     [oldFences removeObjectsInArray:currFence];
+    
+    [DebLog log:@"GeoFenceMonitoring -> onLocationChanged: %@\nnewFences: %@\noldFences: %@\ncurrFence: %@", location, newFences, oldFences, currFence];
     
     [self callOnEnter:newFences];
     [self callOnStay:newFences];
@@ -137,7 +144,7 @@ public void onLocationChanged( Location location )
 }
 
 -(void)onLocationFailed:(NSError *)error {
-    
+    [DebLog log:@"GeoFenceMonitoring -> onLocationFailed: %@", error];
 }
 
 static NSString *GEOFENCE_OR_CALLBACK_IS_NOT_VALUED = @"The geofence %@ or callback %@ is not valued";
@@ -167,7 +174,7 @@ public void addGeoFences( Set<GeoFence> geoFences, ICallback callback )
 
 -(Fault *)addGeoFences:(NSArray *)geoFences callback:(id <ICallback>)callback {
     
-    if (!geoFences || !callback) {
+    if (!callback || !geoFences || !geoFences.count) {
         return [backendless throwFault:[Fault fault:[NSString stringWithFormat:GEOFENCE_OR_CALLBACK_IS_NOT_VALUED, geoFences, callback] faultCode:@"0000"]];
     }
     
