@@ -60,6 +60,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 @synthesize userService = _userService, persistenceService = _persistenceService, messagingService = _messagingService;
 @synthesize geoService = _geoService, fileService = _fileService, mediaService = _mediaService;
 @synthesize customService = _customService, events = _events, cache = _cache, counters = _counters, logging = _logging;
+@synthesize data = _data, geo = _geo, messaging = _messaging, file = _file;
 
 // Singleton accessor:  this is how you should ALWAYS get a reference to the class instance.  Never init your own.
 +(Backendless *)sharedInstance {
@@ -148,32 +149,74 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     
     if (!_persistenceService) {
         _persistenceService = [PersistenceService new];
+        _data = _persistenceService;
+        
     }
     return _persistenceService;
+}
+
+-(PersistenceService *)data {
+    
+    if (!_persistenceService) {
+        _persistenceService = [PersistenceService new];
+        _data = _persistenceService;
+        
+    }
+    return _data;
 }
 
 -(MessagingService *)messagingService {
     
     if (!_messagingService) {
         _messagingService = [MessagingService new];
+        _messaging = _messagingService;
     }
     return _messagingService;
+}
+
+-(MessagingService *)messaging {
+    
+    if (!_messagingService) {
+        _messagingService = [MessagingService new];
+        _messaging = _messagingService;
+    }
+    return _messaging;
 }
 
 -(GeoService *)geoService {
     
     if (!_geoService) {
         _geoService = [GeoService new];
+        _geo = _geoService;
     }
     return _geoService;
+}
+
+-(GeoService *)geo {
+    
+    if (!_geoService) {
+        _geoService = [GeoService new];
+        _geo = _geoService;
+    }
+    return _geo;
 }
 
 -(FileService *)fileService {
     
     if (!_fileService) {
         _fileService = [FileService new];
+        _file = _fileService;
     }
     return _fileService;
+}
+
+-(FileService *)file {
+    
+    if (!_fileService) {
+        _fileService = [FileService new];
+        _file = _fileService;
+    }
+    return _file;
 }
 
 #if 0

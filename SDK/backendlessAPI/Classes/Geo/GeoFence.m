@@ -53,7 +53,7 @@ static const char * const backendless_geo_fence_types[] = { "CIRCLE", "RECT", "S
 }
 
 #pragma mark -
-#pragma mark overwride NSObject Methods
+#pragma mark overwrided NSObject Methods
 
 -(BOOL)isEqual:(id)object {
     

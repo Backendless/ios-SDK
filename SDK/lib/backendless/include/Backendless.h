@@ -125,6 +125,11 @@
 @property (strong, nonatomic, readonly) CacheService *cache;
 @property (strong, nonatomic, readonly) AtomicCounters *counters;
 @property (strong, nonatomic, readonly) Logging *logging;
+// service shortcuts
+@property (assign, nonatomic, readonly) PersistenceService *data;
+@property (assign, nonatomic, readonly) GeoService *geo;
+@property (assign, nonatomic, readonly) MessagingService *messaging;
+@property (assign, nonatomic, readonly) FileService *file;
 // delegates
 @property (strong, nonatomic) id <ReachabilityDelegate> reachabilityDelegate;
 

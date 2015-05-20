@@ -276,7 +276,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     }
     return result;
 }
-
+#if 0
 -(BackendlessCollection *)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault {
     
     id result = [self find:entity dataQuery:dataQuery];
@@ -289,7 +289,29 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     }
     return result;
 }
-
+#else
+-(BackendlessCollection *)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self find:entity dataQuery:dataQuery];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        
+        if ([result isKindOfClass:[Fault class]]) {
+            if (!fault) {
+                return nil;
+            }
+            (*fault) = result;
+            return nil;
+        }
+        return result;
+   }
+}
+#endif
 -(id)first:(Class)entity error:(Fault **)fault {
     
     id result = [self first:entity];
