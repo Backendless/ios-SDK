@@ -542,21 +542,25 @@ private void cancelOnStay( GeoFence geoFence )
 
 -(void)checkOnStay:(GeoFence *)geoFence {
     
+    [DebLog log:@"GeoFenceMonitoring -> checkOnStay:"];
+    
     if ([_onStaySet containsObject:geoFence]) {
         
         [(id <ICallback>)_fencesToCallback[geoFence] callOnStay:geoFence location:_location];
         [self cancelOnStayGeoFence:geoFence];
-        
-        dispatch_time_t interval = dispatch_time(DISPATCH_TIME_NOW, 1ull*NSEC_PER_SEC*geoFence.valOnStayDuration);
-        dispatch_after(interval, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [self checkOnStay:geoFence];
-        });
     }
 }
 
 -(void)addOnStay:(GeoFence *)geoFence {
+    
     [_onStaySet addObject:geoFence];
-    [self checkOnStay:geoFence];
+    
+    [DebLog log:@"GeoFenceMonitoring -> addOnStay: geofence = %@, onStayDuration = %dsec", geoFence.geofenceName, geoFence.valOnStayDuration];
+    
+    dispatch_time_t interval = dispatch_time(DISPATCH_TIME_NOW, 1ull*NSEC_PER_SEC*geoFence.valOnStayDuration);
+    dispatch_after(interval, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self checkOnStay:geoFence];
+    });
 }
 
 -(void)cancelOnStayGeoFence:(GeoFence *)geoFence {

@@ -1276,14 +1276,22 @@ id result = nil;
  }
  */
 
--(void)addFenceMonitoring:(id <ICallback>)callback geoFences:(NSArray *)geoFences {
+-(void)addFenceMonitoring:(id <ICallback>)callback geoFences:(id)geoFences {
     
     [DebLog log:@"GeoService -> addFenceMonitoring: callback = %@, geoFences = %@", callback, geoFences];
     
     @try {
         
         GeoFenceMonitoring *monitiring = [GeoFenceMonitoring sharedInstance];
-        geoFences.count == 1? [monitiring addGeoFence:geoFences[0] callback:callback] : [monitiring addGeoFences:geoFences callback:callback];
+        if ([geoFences isKindOfClass:GeoFence.class])
+            [monitiring addGeoFence:geoFences callback:callback];
+        else
+            if ([geoFences isKindOfClass:NSArray.class])
+                [monitiring addGeoFences:geoFences callback:callback];
+            else {
+                [DebLog logY:@"GeoService -> addFenceMonitoring: (ERROR) Illegal class in response: %@", geoFences];
+                return;
+            }
         
         LocationTracker *locationTracker = [LocationTracker sharedInstance];
         NSString *listenerName = [monitiring listenerName];
@@ -1373,8 +1381,8 @@ id result = nil;
 }
 
 -(id)getGeoFences:(ResponseContext *)response {
-    
-    NSArray *geoFences = response.response;
+
+    id geoFences = response.response;
     id <ICallback> callback = response.context;
     [self addFenceMonitoring:callback geoFences:geoFences];
     return nil;
