@@ -121,6 +121,8 @@ static NSString *USER_TOKEN_KEY = @"user-token\0";
 
 // sync methods with fault option
 
+#if OLD_ASYNC_WITH_FAULT
+
 -(BackendlessUser *)registering:(BackendlessUser *)user error:(Fault **)fault {
     
     id result = [self registering:user];
@@ -262,6 +264,226 @@ static NSString *USER_TOKEN_KEY = @"user-token\0";
     }
     return result;
 }
+#else
+
+#if 0 // wrapper for work without exception
+
+id result = nil;
+@try {
+}
+@catch (Fault *fault) {
+    result = fault;
+}
+@finally {
+    if ([result isKindOfClass:Fault.class]) {
+        if (fault)(*fault) = result;
+        return nil;
+    }
+    return result;
+}
+
+#endif
+
+-(BackendlessUser *)registering:(BackendlessUser *)user error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self registering:user];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(BackendlessUser *)update:(BackendlessUser *)user error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self update:user];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(BackendlessUser *)login:(NSString *)login password:(NSString *)password error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self login:login password:password];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(BOOL)logoutError:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self logout];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return NO;
+        }
+        return YES;
+    }
+}
+
+-(NSNumber *)isValidUserTokenError:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self isValidUserToken];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(BOOL)restorePassword:(NSString *)login error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self restorePassword:login];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return NO;
+        }
+        return YES;
+    }
+}
+
+-(NSArray *)describeUserClassError:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self describeUserClass];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(BOOL)user:(NSString *)user assignRole:(NSString *)role error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self user:user assignRole:role];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return NO;
+        }
+        return YES;
+    }
+}
+
+-(BOOL)user:(NSString *)user unassignRole:(NSString *)role error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self user:user unassignRole:role];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return NO;
+        }
+        return YES;
+    }
+}
+
+-(BackendlessUser *)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self loginWithFacebookSDK:session user:user fieldsMapping:fieldsMapping];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(NSArray *)getUserRolesError:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self getUserRoles];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+#endif
+
 
 // sync methods with fault return  (as exception)
 

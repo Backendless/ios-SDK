@@ -101,6 +101,8 @@ static NSString *METHOD_GET_FENCES = @"getFences";
 
 // sync methods with fault option
 
+#if OLD_ASYNC_WITH_FAULT
+
 -(GeoCategory *)addCategory:(NSString *)categoryName error:(Fault **)fault {
     
     id result = [self addCategory:categoryName];
@@ -264,6 +266,319 @@ static NSString *METHOD_GET_FENCES = @"getFences";
     }
     return YES;
 }
+#else
+
+#if 0 // wrapper for work without exception
+
+id result = nil;
+@try {
+}
+@catch (Fault *fault) {
+    result = fault;
+}
+@finally {
+    if ([result isKindOfClass:Fault.class]) {
+        if (fault)(*fault) = result;
+        return nil;
+    }
+    return result;
+}
+
+#endif
+
+-(GeoCategory *)addCategory:(NSString *)categoryName error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self addCategory:categoryName];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(BOOL)deleteCategory:(NSString *)categoryName error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self deleteCategory:categoryName];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return NO;
+        }
+        return YES;
+    }
+}
+
+-(GeoPoint *)savePoint:(GeoPoint *)geoPoint error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self savePoint:geoPoint];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(NSArray *)getCategoriesError:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self getCategories];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(BackendlessCollection *)getPoints:(BackendlessGeoQuery *)query error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self getPoints:query];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(BackendlessCollection *)getClusterPoints:(GeoCluster *)geoCluster error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self getClusterPoints:geoCluster];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(BackendlessCollection *)getFencePoints:(NSString *)geoFenceName error:(Fault **)fault {
+    return [self getFencePoints:geoFenceName query:nil error:fault];
+}
+
+-(BackendlessCollection *)getFencePoints:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self getFencePoints:geoFenceName query:query];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(BackendlessCollection *)relativeFind:(BackendlessGeoQuery *)query error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self relativeFind:query];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(BOOL)removePoint:(GeoPoint *)geoPoint error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self removePoint:geoPoint];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return NO;
+        }
+        return YES;
+    }
+}
+
+-(GeoPoint *)loadMetadata:(GeoPoint *)geoPoint error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self loadMetadata:geoPoint];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(BOOL)runOnEnterAction:(NSString *)geoFenceName error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self runOnEnterAction:geoFenceName];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return NO;
+        }
+        return YES;
+    }
+}
+
+-(BOOL)runOnEnterAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self runOnEnterAction:geoFenceName geoPoint:geoPoint];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return NO;
+        }
+        return YES;
+    }
+}
+
+-(BOOL)runOnStayAction:(NSString *)geoFenceName error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self runOnStayAction:geoFenceName];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return NO;
+        }
+        return YES;
+    }
+}
+
+-(BOOL)runOnStayAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self runOnStayAction:geoFenceName geoPoint:geoPoint];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return NO;
+        }
+        return YES;
+    }
+}
+
+-(BOOL)runOnExitAction:(NSString *)geoFenceName error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self runOnExitAction:geoFenceName];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return NO;
+        }
+        return YES;
+    }
+}
+
+-(BOOL)runOnExitAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self runOnExitAction:geoFenceName geoPoint:geoPoint];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return NO;
+        }
+        return YES;
+    }
+}
+
+#endif
 
 // sync methods with fault return (as exception)
 

@@ -26,6 +26,17 @@
 
 @protocol IAtomic <NSObject>
 
+// sync methods with fault return (as exception)
+-(NSNumber *)get;
+-(NSNumber *)getAndIncrement;
+-(NSNumber *)incrementAndGet;
+-(NSNumber *)getAndDecrement;
+-(NSNumber *)decrementAndGet;
+-(NSNumber *)addAndGet:(long)value;
+-(NSNumber *)getAndAdd:(long)value;
+-(NSNumber *)compareAndSet:(long)expected updated:(long)updated;
+-(id)reset;
+
 // sync methods with fault option
 -(NSNumber *)get:(Fault **)fault;
 -(NSNumber *)getAndIncrement:(Fault **)fault;
@@ -35,7 +46,7 @@
 -(NSNumber *)addAndGet:(long)value fault:(Fault **)fault;
 -(NSNumber *)getAndAdd:(long)value fault:(Fault **)fault;
 -(NSNumber *)compareAndSet:(long)expected updated:(long)updated fault:(Fault **)fault;
--(void)reset:(Fault **)fault;
+-(BOOL)reset:(Fault **)fault;
 
 // async methods with responder
 -(void)getToResponder:(id<IResponder>)responder;

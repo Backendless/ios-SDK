@@ -27,6 +27,17 @@
 
 @interface AtomicCounters : NSObject
 
+// sync methods with fault return (as exception)
+-(NSNumber *)get:(NSString *)counterName;
+-(NSNumber *)getAndIncrement:(NSString *)counterName;
+-(NSNumber *)incrementAndGet:(NSString *)counterName;
+-(NSNumber *)getAndDecrement:(NSString *)counterName;
+-(NSNumber *)decrementAndGet:(NSString *)counterName;
+-(NSNumber *)addAndGet:(NSString *)counterName value:(long)value;
+-(NSNumber *)getAndAdd:(NSString *)counterName value:(long)value;
+-(NSNumber *)compareAndSet:(NSString *)counterName expected:(long)expected updated:(long)updated;
+-(id)reset:(NSString *)counterName;
+
 // sync methods with fault option
 -(NSNumber *)get:(NSString *)counterName fault:(Fault **)fault;
 -(NSNumber *)getAndIncrement:(NSString *)counterName fault:(Fault **)fault;
@@ -34,9 +45,9 @@
 -(NSNumber *)getAndDecrement:(NSString *)counterName fault:(Fault **)fault;
 -(NSNumber *)decrementAndGet:(NSString *)counterName fault:(Fault **)fault;
 -(NSNumber *)addAndGet:(NSString *)counterName value:(long)value fault:(Fault **)fault;
--(NSNumber *)getAndAdd:(NSString *)ncounterName value:(long)value fault:(Fault **)fault;
+-(NSNumber *)getAndAdd:(NSString *)counterName value:(long)value fault:(Fault **)fault;
 -(NSNumber *)compareAndSet:(NSString *)counterName expected:(long)expected updated:(long)updated fault:(Fault **)fault;
--(void)reset:(NSString *)counterName fault:(Fault **)fault;
+-(BOOL)reset:(NSString *)counterName fault:(Fault **)fault;
 
 // async methods with responder
 -(void)get:(NSString *)counterName responder:(id<IResponder>)responder;

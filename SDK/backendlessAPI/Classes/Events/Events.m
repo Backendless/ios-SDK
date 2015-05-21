@@ -50,6 +50,8 @@ static NSString *METHOD_DISPATCH_EVENT = @"dispatchEvent";
 
 // sync methods with fault option
 
+#if OLD_ASYNC_WITH_FAULT
+
 -(NSDictionary *)dispatch:(NSString *)name args:(NSDictionary *)eventArgs fault:(Fault **)fault {
     
     NSArray *args = @[backendless.appID, backendless.versionNum, name, eventArgs];
@@ -61,6 +63,54 @@ static NSString *METHOD_DISPATCH_EVENT = @"dispatchEvent";
         return nil;
     }
     return result;
+}
+#else
+
+#if 0 // wrapper for work without exception
+
+id result = nil;
+@try {
+}
+@catch (Fault *fault) {
+    result = fault;
+}
+@finally {
+    if ([result isKindOfClass:Fault.class]) {
+        if (fault)(*fault) = result;
+        return nil;
+    }
+    return result;
+}
+
+#endif
+
+-(NSDictionary *)dispatch:(NSString *)name args:(NSDictionary *)eventArgs fault:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self dispatch:name args:eventArgs];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+#endif
+
+
+// sync methods with fault return (as exception)
+
+-(NSDictionary *)dispatch:(NSString *)name args:(NSDictionary *)eventArgs {
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, name, eventArgs];
+    return [invoker invokeSync:SERVER_EVENTS_PATH method:METHOD_DISPATCH_EVENT args:args];
 }
 
 // async methods with responder

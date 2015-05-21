@@ -173,6 +173,8 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 
 // sync methods with fault option
 
+#if OLD_ASYNC_WITH_FAULT
+
 -(NSArray *)describe:(NSString *)classCanonicalName error:(Fault **)fault {
     
     id result = [self describe:classCanonicalName];
@@ -276,7 +278,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     }
     return result;
 }
-#if 0
+
 -(BackendlessCollection *)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault {
     
     id result = [self find:entity dataQuery:dataQuery];
@@ -289,29 +291,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     }
     return result;
 }
-#else
--(BackendlessCollection *)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault {
-    
-    id result = nil;
-    @try {
-        result = [self find:entity dataQuery:dataQuery];
-    }
-    @catch (Fault *fault) {
-        result = fault;
-    }
-    @finally {
-        
-        if ([result isKindOfClass:[Fault class]]) {
-            if (!fault) {
-                return nil;
-            }
-            (*fault) = result;
-            return nil;
-        }
-        return result;
-   }
-}
-#endif
+
 -(id)first:(Class)entity error:(Fault **)fault {
     
     id result = [self first:entity];
@@ -522,9 +502,504 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 
 -(BOOL)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault {
     
-    [self removeAll:entity dataQuery:dataQuery];
+    id result = [self removeAll:entity dataQuery:dataQuery];
+    if ([result isKindOfClass:[Fault class]]) {
+        if (!fault) {
+            return NO;
+        }
+        (*fault) = result;
+        return NO;
+    }
     return YES;
 }
+#else
+
+#if 0 // wrapper for work without exception
+
+id result = nil;
+@try {
+}
+@catch (Fault *fault) {
+    result = fault;
+}
+@finally {
+    if ([result isKindOfClass:Fault.class]) {
+        if (fault)(*fault) = result;
+        return nil;
+    }
+    return result;
+}
+
+#endif
+
+-(NSArray *)describe:(NSString *)classCanonicalName error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self describe:classCanonicalName];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(NSDictionary *)save:(NSString *)entityName entity:(NSDictionary *)entity error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self save:entityName entity:entity];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(NSDictionary *)update:(NSString *)entityName entity:(NSDictionary *)entity sid:(NSString *)sid error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self update:entityName entity:entity sid:sid];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(id)save:(id)entity error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self save:entity];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(id)create:(id)entity error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self create:entity];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(id)update:(id)entity error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self update:entity];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(id)load:(id)object relations:(NSArray *)relations error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self load:object relations:relations];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(id)load:(id)object relations:(NSArray *)relations relationsDepth:(int)relationsDepth error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self load:object relations:relations relationsDepth:relationsDepth];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(BackendlessCollection *)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self find:entity dataQuery:dataQuery];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(id)first:(Class)entity error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self first:entity];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(id)last:(Class)entity error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self last:entity];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(id)first:(Class)entity relations:(NSArray *)relations relationsDepth:(int)relationsDepth error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self first:entity relations:relations relationsDepth:relationsDepth];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(id)last:(Class)entity relations:(NSArray *)relations relationsDepth:(int)relationsDepth error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self last:entity relations:relations relationsDepth:relationsDepth];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(id)findByObject:(id)entity error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self findByObject:entity];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(id)findByObject:(id)entity relations:(NSArray *)relations error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self findByObject:entity relations:relations];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(id)findByObject:(id)entity relations:(NSArray *)relations relationsDepth:(int)relationsDepth error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self findByObject:entity relations:relations relationsDepth:relationsDepth];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(id)findByObject:(NSString *)className keys:(NSDictionary *)props error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self findByObject:className keys:props];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(id)findByObject:(NSString *)className keys:(NSDictionary *)props relations:(NSArray *)relations error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self findByObject:className keys:props relations:relations];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(id)findByObject:(NSString *)className keys:(NSDictionary *)props relations:(NSArray *)relations relationsDepth:(int)relationsDepth error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self findByObject:className keys:props relations:relations relationsDepth:relationsDepth];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(id)findById:(NSString *)entityName sid:(NSString *)sid error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self findById:entityName sid:sid];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(id)findById:(NSString *)entityName sid:(NSString *)sid relations:(NSArray *)relations error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self findById:entityName sid:sid relations:relations];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(id)findById:(NSString *)entityName sid:(NSString *)sid relations:(NSArray *)relations relationsDepth:(int)relationsDepth error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self findById:entityName sid:sid relations:relations relationsDepth:relationsDepth];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(id)findByClassId:(Class)entity sid:(NSString *)sid error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self findByClassId:entity sid:sid];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(BOOL)remove:(id)entity error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self remove:entity];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return NO;
+        }
+        return YES;
+    }
+}
+
+-(BOOL)remove:(Class)entity sid:(NSString *)sid error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self remove:entity sid:sid];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return NO;
+        }
+        return YES;
+    }
+}
+
+-(BOOL)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self removeAll:entity dataQuery:dataQuery];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return NO;
+        }
+        return YES;
+    }
+}
+#endif
 
 // sync methods with fault return  (as exception)
 
@@ -898,15 +1373,15 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_REMOVE args:args];
 }
 
--(void)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery {
+-(id)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery {
     
     if (!entity)
-        [backendless throwFault:FAULT_NO_ENTITY];
+        return [backendless throwFault:FAULT_NO_ENTITY];
     
-    BackendlessCollection *bc = [backendless.persistenceService find:entity dataQuery:dataQuery];
+    Fault *fault = nil;
+    BackendlessCollection *bc = [backendless.persistenceService find:entity dataQuery:dataQuery error:&fault];
     [bc removeAll];
-    
-    [DebLog log:@"PersistenceService -> removeAll: totalObjects = %@", bc.totalObjects];
+    return fault;
 }
 
 // async methods with responder

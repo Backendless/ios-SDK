@@ -20,6 +20,7 @@
  */
 
 // applications & services deployment
+#define OLD_ASYNC_WITH_FAULT 0
 #define OLD_MEDIA_APP 0
 #define TEST_MEDIA_INSTANCE 0
 

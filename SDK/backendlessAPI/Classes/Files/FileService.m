@@ -126,8 +126,10 @@ static NSString *METHOD_SAVE_FILE = @"saveFile";
 
 // sync methods with fault option
 
+#if OLD_ASYNC_WITH_FAULT
+
 -(BackendlessFile *)upload:(NSString *)path content:(NSData *)content error:(Fault **)fault {
-   
+    
     id result = [self upload:path content:content];
     if ([result isKindOfClass:[Fault class]]) {
         if (!fault) {
@@ -163,7 +165,7 @@ static NSString *METHOD_SAVE_FILE = @"saveFile";
         return NO;
     }
     return YES;
-
+    
 }
 
 -(BackendlessFile *)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content error:(Fault **)fault {
@@ -218,6 +220,154 @@ static NSString *METHOD_SAVE_FILE = @"saveFile";
     }
     return result;
 }
+#else
+
+#if 0 // wrapper for work without exception
+
+id result = nil;
+@try {
+}
+@catch (Fault *fault) {
+    result = fault;
+}
+@finally {
+    if ([result isKindOfClass:Fault.class]) {
+        if (fault)(*fault) = result;
+        return nil;
+    }
+    return result;
+}
+
+#endif
+
+-(BackendlessFile *)upload:(NSString *)path content:(NSData *)content error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self upload:path content:content];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(BOOL)remove:(NSString *)fileURL error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self remove:fileURL];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return NO;
+        }
+        return YES;
+    }
+}
+
+-(BOOL)removeDirectory:(NSString *)path error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self removeDirectory:path];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return NO;
+        }
+        return YES;
+    }
+}
+
+-(BackendlessFile *)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self saveFile:path fileName:fileName content:content];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(BackendlessFile *)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content overwriteIfExist:(BOOL)overwrite error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self saveFile:path fileName:fileName content:content overwriteIfExist:overwrite];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+
+-(BackendlessFile *)saveFile:(NSString *)filePathName content:(NSData *)content error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self saveFile:filePathName content:content];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(BackendlessFile *)saveFile:(NSString *)filePathName content:(NSData *)content overwriteIfExist:(BOOL)overwrite error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self saveFile:filePathName content:content overwriteIfExist:overwrite];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+#endif
 
 // sync methods with fault return (as exception)
 

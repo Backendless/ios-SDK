@@ -61,6 +61,44 @@
 #pragma mark -
 #pragma mark ICacheService Methods
 
+// sync methods with fault return (as exception)
+
+-(NSNumber *)get {
+    return [backendless.counters get:_name ];
+}
+
+-(NSNumber *)getAndIncrement {
+    return [backendless.counters getAndIncrement:_name];
+}
+
+-(NSNumber *)incrementAndGet {
+    return [backendless.counters incrementAndGet:_name];
+}
+
+-(NSNumber *)getAndDecrement {
+    return [backendless.counters getAndDecrement:_name];
+}
+
+-(NSNumber *)decrementAndGet {
+    return [backendless.counters decrementAndGet:_name];
+}
+
+-(NSNumber *)addAndGet:(long)value {
+    return [backendless.counters addAndGet:_name value:value];
+}
+
+-(NSNumber *)getAndAdd:(long)value {
+    return [backendless.counters getAndAdd:_name value:value];
+}
+
+-(NSNumber *)compareAndSet:(long)expected updated:(long)updated  {
+    return [backendless.counters compareAndSet:_name expected:expected updated:updated];
+}
+
+-(id)reset {
+    return [backendless.counters reset:_name];
+}
+
 // sync methods with fault option
 
 -(NSNumber *)get:(Fault **)fault {
@@ -95,7 +133,7 @@
     return [backendless.counters compareAndSet:_name expected:expected updated:updated fault:fault];
 }
 
--(void)reset:(Fault **)fault {
+-(BOOL)reset:(Fault **)fault {
     return [backendless.counters reset:_name fault:fault];
 }
 

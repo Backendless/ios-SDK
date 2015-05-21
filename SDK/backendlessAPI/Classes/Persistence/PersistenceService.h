@@ -61,7 +61,7 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(id)findByClassId:(Class)entity sid:(NSString *)sid;
 -(NSNumber *)remove:(id)entity;
 -(NSNumber *)remove:(Class)entity sid:(NSString *)sid;
--(void)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery;
+-(id)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery;
 
 // sync methods with fault option
 -(NSArray *)describe:(NSString *)classCanonicalName error:(Fault **)fault;

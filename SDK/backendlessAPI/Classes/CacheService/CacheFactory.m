@@ -78,6 +78,38 @@
 #pragma mark -
 #pragma mark ICacheService Methods
 
+// sync methods with fault return (as exception)
+
+-(id)put:(id)entity {
+    return [self put:entity timeToLive:0];
+}
+
+-(id)put:(id)entity timeToLive:(int)seconds {
+    
+    Fault *fault = [self entityValidation:entity];
+    return fault? fault : [backendless.cache put:_key object:entity timeToLive:seconds];
+}
+
+-(id)get {
+    return [backendless.cache get:_key];
+}
+
+-(NSNumber *)contains {
+    return [backendless.cache contains:_key];
+}
+
+-(id)expireIn:(int)seconds {
+    return [backendless.cache expireIn:_key timeToLive:seconds];
+}
+
+-(id)expireAt:(NSDate *)timestamp {
+    return [backendless.cache expireAt:_key timestamp:timestamp];
+}
+
+-(id)remove {
+    return [backendless.cache remove:_key];
+}
+
 // sync methods with fault option
 
 -(BOOL)put:(id)entity fault:(Fault **)fault {
@@ -88,9 +120,7 @@
     
     Fault *noValid = [self entityValidation:entity];
     if (noValid) {
-        if (fault) {
-            (*fault) = noValid;
-        }
+        if (fault)(*fault) = noValid;
         return NO;
     }
     

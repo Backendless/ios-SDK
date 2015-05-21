@@ -64,6 +64,8 @@ static NSString *METHOD_DELETE = @"delete";
 
 // sync methods with fault option
 
+#if OLD_ASYNC_WITH_FAULT
+
 -(BOOL)put:(NSString *)key object:(id)entity fault:(Fault **)fault {
     return [self put:key object:entity timeToLive:0 fault:fault];
 }
@@ -101,7 +103,7 @@ static NSString *METHOD_DELETE = @"delete";
         }
         return nil;
     }
-
+    
     NSArray *args = @[backendless.appID, backendless.versionNum, key];
     id result = [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_GET_BYTES args:args];
     if ([result isKindOfClass:[Fault class]]) {
@@ -210,6 +212,226 @@ static NSString *METHOD_DELETE = @"delete";
     }
     
     return YES;
+}
+#else
+
+#if 0 // wrapper for work without exception
+
+id result = nil;
+@try {
+}
+@catch (Fault *fault) {
+    result = fault;
+}
+@finally {
+    if ([result isKindOfClass:Fault.class]) {
+        if (fault)(*fault) = result;
+        return nil;
+    }
+    return result;
+}
+
+#endif
+
+-(BOOL)put:(NSString *)key object:(id)entity fault:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self put:key object:entity];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return NO;
+        }
+        return YES;
+    }
+}
+
+-(BOOL)put:(NSString *)key object:(id)entity timeToLive:(int)seconds fault:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self put:key object:entity timeToLive:seconds];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return NO;
+        }
+        return YES;
+    }
+}
+
+-(id)get:(NSString *)key fault:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self get:key];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(NSNumber *)contains:(NSString *)key fault:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self contains:key];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(BOOL)expireIn:(NSString *)key timeToLive:(int)seconds fault:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self expireIn:key timeToLive:seconds];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return NO;
+        }
+        return YES;
+    }
+}
+
+-(BOOL)expireAt:(NSString *)key timestamp:(NSDate *)timestamp fault:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self expireAt:key timestamp:timestamp];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return NO;
+        }
+        return YES;
+    }
+}
+
+-(BOOL)remove:(NSString *)key fault:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self remove:key];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return NO;
+        }
+        return YES;
+    }
+}
+
+#endif
+
+// sync methods with fault return (as exception)
+
+-(id)put:(NSString *)key object:(id)entity {
+    return [self put:key object:entity timeToLive:0];
+}
+
+-(id)put:(NSString *)key object:(id)entity timeToLive:(int)seconds {
+    
+    if (!key)
+        return [backendless throwFault:FAULT_NO_KEY];
+    
+    if (!entity)
+        return [backendless throwFault:FAULT_NO_ENTITY];
+    
+    BinaryStream *stream = [AMFSerializer serializeToBytes:entity];
+    NSData *data = [NSData dataWithBytes:stream.buffer length:stream.size];
+    NSNumber *time = [NSNumber numberWithInt:((seconds > 0) && (seconds <= 7200))?seconds:0];
+    NSArray *args = @[backendless.appID, backendless.versionNum, key, data, time];
+    return [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_PUT_BYTES args:args];
+}
+
+-(id)get:(NSString *)key {
+    
+    if (!key)
+        return [backendless throwFault:FAULT_NO_KEY];
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, key];
+    id result = [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_GET_BYTES args:args];
+    if ([result isKindOfClass:Fault.class])
+        return result;
+    if (![result isKindOfClass:NSData.class])
+        return [backendless throwFault:FAULT_NO_RESULT];
+    
+    return [self onGet:result];
+}
+
+-(NSNumber *)contains:(NSString *)key {
+    
+    if (!key)
+        return [backendless throwFault:FAULT_NO_KEY];
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, key];
+    return [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_CONTAINS_KEY args:args];
+}
+
+-(id)expireIn:(NSString *)key timeToLive:(int)seconds {
+    
+    if (!key)
+        return [backendless throwFault:FAULT_NO_KEY];
+    
+    NSNumber *time = [NSNumber numberWithInt:((seconds > 0) && (seconds <= 7200))?seconds:0];
+    NSArray *args = @[backendless.appID, backendless.versionNum, key, time];
+    return [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_EXPIRE_IN args:args];
+}
+
+-(id)expireAt:(NSString *)key timestamp:(NSDate *)timestamp {
+    
+    if (!key)
+        return [backendless throwFault:FAULT_NO_KEY];
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, key, timestamp];
+    return [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_EXPIRE_AT args:args];
+}
+
+-(id)remove:(NSString *)key {
+    
+    if (!key)
+        return [backendless throwFault:FAULT_NO_KEY];
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, key];
+    return [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_DELETE args:args];
 }
 
 // async methods with responder

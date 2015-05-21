@@ -43,6 +43,9 @@ static NSString *METHOD_DISPATCH_SERVICE = @"dispatchService";
 }
 
 // sync methods with fault option
+
+#if OLD_ASYNC_WITH_FAULT
+
 -(id)invoke:(NSString *)serviceName serviceVersion:(NSString *)serviceVersion method:(NSString *)method args:(NSArray *)args fault:(Fault **)fault {
     
     id result = [self invoke:serviceName serviceVersion:serviceVersion method:method args:args];
@@ -52,6 +55,44 @@ static NSString *METHOD_DISPATCH_SERVICE = @"dispatchService";
     }
     return result;
 }
+#else
+
+#if 0 // wrapper for work without exception
+
+id result = nil;
+@try {
+}
+@catch (Fault *fault) {
+    result = fault;
+}
+@finally {
+    if ([result isKindOfClass:Fault.class]) {
+        if (fault)(*fault) = result;
+        return nil;
+    }
+    return result;
+}
+
+#endif
+
+-(id)invoke:(NSString *)serviceName serviceVersion:(NSString *)serviceVersion method:(NSString *)method args:(NSArray *)args fault:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self invoke:serviceName serviceVersion:serviceVersion method:method args:args];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+#endif
 
 // async methods with responder
 -(void)invoke:(NSString *)serviceName serviceVersion:(NSString *)serviceVersion method:(NSString *)method args:(NSArray *)args responder:(id <IResponder>)responder {

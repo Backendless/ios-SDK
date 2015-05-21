@@ -25,6 +25,8 @@
 @class Fault;
 
 @interface Events : NSObject
+// sync methods with fault return (as exception)
+-(NSDictionary *)dispatch:(NSString *)name args:(NSDictionary *)eventArgs;
 // sync methods with fault option
 -(NSDictionary *)dispatch:(NSString *)name args:(NSDictionary *)eventArgs fault:(Fault **)fault;
 // async methods with responder
