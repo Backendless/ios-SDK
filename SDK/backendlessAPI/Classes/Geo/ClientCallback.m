@@ -24,7 +24,6 @@
 #import "GeoFence.h"
 
 @interface ClientCallback ()
-@property (strong, nonatomic) id <IGeofenceCallback> geofenceCallback;
 @end
 
 @implementation ClientCallback
@@ -59,25 +58,44 @@
 #pragma mark -
 #pragma mark ICallback Methods
 
+#define _MAIN_THREAD_INVOKE_ 1
+
 -(void)callOnEnter:(GeoFence *)geoFence location:(CLLocation *)location {
     [DebLog log:@"ClientCallback -> callOnEnter: geoFence = %@\nlocation = %@", geoFence, location];
     if ([_geofenceCallback respondsToSelector:@selector(geoPointEntered:geofenceId:latitude:longitude:)]) {
+#if _MAIN_THREAD_INVOKE_
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [_geofenceCallback geoPointEntered:geoFence.geofenceName geofenceId:geoFence.objectId latitude:location.coordinate.latitude longitude:location.coordinate.longitude];
+        });
+#else
         [_geofenceCallback geoPointEntered:geoFence.geofenceName geofenceId:geoFence.objectId latitude:location.coordinate.latitude longitude:location.coordinate.longitude];
+#endif
     }
 }
 
 -(void)callOnStay:(GeoFence *)geoFence location:(CLLocation *)location {
     [DebLog log:@"ClientCallback -> callOnStay: geoFence = %@\nlocation = %@", geoFence, location];
     if ([_geofenceCallback respondsToSelector:@selector(geoPointStayed:geofenceId:latitude:longitude:)]) {
+#if _MAIN_THREAD_INVOKE_
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [_geofenceCallback geoPointStayed:geoFence.geofenceName geofenceId:geoFence.objectId latitude:location.coordinate.latitude longitude:location.coordinate.longitude];
+        });
+#else
         [_geofenceCallback geoPointStayed:geoFence.geofenceName geofenceId:geoFence.objectId latitude:location.coordinate.latitude longitude:location.coordinate.longitude];
+#endif
     }
-   
 }
 
 -(void)callOnExit:(GeoFence *)geoFence location:(CLLocation *)location {
     [DebLog log:@"ClientCallback -> callOnExit: geoFence = %@\nlocation = %@", geoFence, location];
     if ([_geofenceCallback respondsToSelector:@selector(geoPointExited:geofenceId:latitude:longitude:)]) {
+#if _MAIN_THREAD_INVOKE_
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [_geofenceCallback geoPointExited:geoFence.geofenceName geofenceId:geoFence.objectId latitude:location.coordinate.latitude longitude:location.coordinate.longitude];
+        });
+#else
         [_geofenceCallback geoPointExited:geoFence.geofenceName geofenceId:geoFence.objectId latitude:location.coordinate.latitude longitude:location.coordinate.longitude];
+#endif
     }
 }
 

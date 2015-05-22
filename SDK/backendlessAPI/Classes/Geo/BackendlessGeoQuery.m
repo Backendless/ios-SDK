@@ -22,7 +22,7 @@
 #import "BackendlessGeoQuery.h"
 #import "DEBUG.h"
 
-#define DEFAULT_PAGE_SIZE 20
+#define DEFAULT_PAGE_SIZE 100
 #define DEFAULT_OFFSET 0
 #define CLUSTER_SIZE_DEFAULT_VALUE 100
 

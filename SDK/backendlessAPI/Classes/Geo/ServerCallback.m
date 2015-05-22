@@ -27,7 +27,6 @@
 
 
 @interface ServerCallback ()
-@property (strong, nonatomic) GeoPoint *geoPoint;
 @end
 
 
@@ -66,20 +65,27 @@
 #pragma mark -
 #pragma mark ICallback Methods
 
-#define _ASYNC_INVOKE_ 1
+#define _ASYNC_INVOKE_ 0
+#define _ASYNC_WAIT_RESPONSE_ 1
 
 -(void)callOnEnter:(GeoFence *)geoFence location:(CLLocation *)location {
     [DebLog log:@"ServerCallback -> callOnEnter: geoFence = %@\ngeoPoint = %@", geoFence, _geoPoint];
     [self updatePoint:location];
 #if _ASYNC_INVOKE_
-    [backendless.geoService runOnEnterAction:geoFence.geofenceName geoPoint:_geoPoint responder:_responder];
+#if _ASYNC_WAIT_RESPONSE_
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [backendless.geoService runOnEnterAction:geoFence.geofenceName geoPoint:_geoPoint responder:_responder];
+    });
+#else
+    [backendless.geoService runOnEnterAction:geoFence.geofenceName geoPoint:_geoPoint responder:nil];
+#endif
 #else
     @try {
         id response = [backendless.geoService runOnEnterAction:geoFence.geofenceName geoPoint:_geoPoint];
-        [DebLog log:@"ServerCallback -> callOnEnter: RESPONSE = %@", response];
+        [_responder responseHandler:response];
     }
     @catch (Fault *fault) {
-        [DebLog log:@"ServerCallback -> callOnEnter: FAULT = %@", fault];
+        [_responder errorHandler:fault];
     }
 #endif
 }
@@ -88,14 +94,20 @@
     [DebLog log:@"ServerCallback -> callOnStay: geoFence = %@\ngeoPoint = %@", geoFence, _geoPoint];
     [self updatePoint:location];
 #if _ASYNC_INVOKE_
-    [backendless.geoService runOnStayAction:geoFence.geofenceName geoPoint:_geoPoint responder:_responder];
+#if _ASYNC_WAIT_RESPONSE_
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [backendless.geoService runOnStayAction:geoFence.geofenceName geoPoint:_geoPoint responder:_responder];
+    });
+#else
+    [backendless.geoService runOnStayAction:geoFence.geofenceName geoPoint:_geoPoint responder:nil];
+#endif
 #else
     @try {
         id response = [backendless.geoService runOnStayAction:geoFence.geofenceName geoPoint:_geoPoint];
-        [DebLog log:@"ServerCallback -> callOnStay: RESPONSE = %@", response];
+        [_responder responseHandler:response];
     }
     @catch (Fault *fault) {
-        [DebLog log:@"ServerCallback -> callOnStay: FAULT = %@", fault];
+        [_responder errorHandler:fault];
     }
 #endif
 }
@@ -104,14 +116,20 @@
     [DebLog log:@"ServerCallback -> callOnExit: geoFence = %@\ngeoPoint = %@", geoFence, _geoPoint];
     [self updatePoint:location];
 #if _ASYNC_INVOKE_
-    [backendless.geoService runOnExitAction:geoFence.geofenceName geoPoint:_geoPoint responder:_responder];
+#if _ASYNC_WAIT_RESPONSE_
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [backendless.geoService runOnExitAction:geoFence.geofenceName geoPoint:_geoPoint responder:_responder];
+    });
+#else
+    [backendless.geoService runOnExitAction:geoFence.geofenceName geoPoint:_geoPoint responder:nil];
+#endif
 #else
     @try {
         id response = [backendless.geoService runOnExitAction:geoFence.geofenceName geoPoint:_geoPoint];
-        [DebLog log:@"ServerCallback -> callOnExit: RESPONSE = %@", response];
+        [_responder responseHandler:response];
     }
     @catch (Fault *fault) {
-        [DebLog log:@"ServerCallback -> callOnExit: FAULT = %@", fault];
+        [_responder errorHandler:fault];
     }
 #endif
 }
@@ -138,7 +156,7 @@
 #pragma mark IResponder Methods
 
 -(id)getResponse:(id)response {
-    [DebLog log:@"ServerCallback -> getResponse: %@", response];
+    [DebLog log:@"ServerCallback -> getResponse: (RESPONSE) %@", response];
     return response;
 }
 

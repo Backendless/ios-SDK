@@ -23,5 +23,6 @@
 #import "ICallback.h"
 
 @interface ClientCallback : NSObject <ICallback>
+@property (strong, nonatomic) id <IGeofenceCallback> geofenceCallback;
 +(id)callback:(id <IGeofenceCallback>)geofenceCallback;
 @end

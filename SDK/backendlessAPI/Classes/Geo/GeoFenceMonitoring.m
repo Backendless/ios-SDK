@@ -63,9 +63,9 @@
 
 -(id)init {
     if ( (self=[super init]) ) {
-        self.onStaySet = [NSMutableArray new];
-        self.fencesToCallback = [NSMutableDictionary new];
-        self.pointFences = [NSMutableArray new];
+        _onStaySet = [NSMutableArray new];
+        _fencesToCallback = [NSMutableDictionary new];
+        _pointFences = [NSMutableArray new];
         _location = nil;
     }
     return self;

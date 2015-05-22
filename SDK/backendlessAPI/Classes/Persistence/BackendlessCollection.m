@@ -156,7 +156,7 @@
     type = [NSObject class];
     aTotalObjects = 0;
     aOffset = 0;    
-    pageSize = 20;
+    pageSize = 100;
     cachedData = nil;
 }
  

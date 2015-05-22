@@ -27,7 +27,7 @@
 
 -(id)init {
 	if ( (self=[super init]) ) {
-        pageSize = [[NSNumber alloc] initWithInt:20];
+        pageSize = [[NSNumber alloc] initWithInt:100];
         offset = [[NSNumber alloc] initWithInt:0];
         sortBy = nil;
         related = [[NSMutableArray alloc] init];
