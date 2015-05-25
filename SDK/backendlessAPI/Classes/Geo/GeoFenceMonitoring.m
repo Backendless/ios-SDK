@@ -40,9 +40,9 @@
  */
 
 @interface GeoFenceMonitoring ()
-@property (strong, nonatomic) NSMutableArray *onStaySet;                // Set<GeoFence>
-@property (strong, nonatomic) NSMutableDictionary *fencesToCallback;    // Map<GeoFence, ICallback>
-@property (strong, nonatomic) NSMutableArray *pointFences;              // Set<GeoFence>
+@property (strong, atomic) NSMutableArray *onStaySet;                // Set<GeoFence>
+@property (strong, atomic) NSMutableDictionary *fencesToCallback;    // Map<GeoFence, ICallback>
+@property (strong, atomic) NSMutableArray *pointFences;              // Set<GeoFence>
 @property (strong, nonatomic) CLLocation *location;
 @end
 
@@ -63,9 +63,9 @@
 
 -(id)init {
     if ( (self=[super init]) ) {
-        _onStaySet = [NSMutableArray new];
-        _fencesToCallback = [NSMutableDictionary new];
-        _pointFences = [NSMutableArray new];
+        self.onStaySet = [NSMutableArray array];
+        self.fencesToCallback = [NSMutableDictionary dictionary];
+        self.pointFences = [NSMutableArray array];
         _location = nil;
     }
     return self;
@@ -75,16 +75,16 @@
     
     [DebLog logN:@"DEALLOC GeoFenceMonitoring"];
     
-    [_onStaySet removeAllObjects];
-    [_onStaySet release];
+    [self.onStaySet removeAllObjects];
+    [self.onStaySet release];
     
-    [_fencesToCallback removeAllObjects];
-    [_fencesToCallback release];
+    [self.fencesToCallback removeAllObjects];
+    [self.fencesToCallback release];
     
-    [_pointFences removeAllObjects];
-    [_pointFences release];
+    [self.pointFences removeAllObjects];
+    [self.pointFences release];
     
-    [_location release];
+    [self.location release];
     
     [super dealloc];
 }
@@ -120,31 +120,52 @@ public void onLocationChanged( Location location )
  */
 
 -(void)onLocationChanged:(CLLocation *)location {
-    
-    self.location = location;
-    
-    GeoPoint *point = [GeoPoint geoPoint:(GEO_POINT){.latitude=location.coordinate.latitude, .longitude=location.coordinate.longitude}];
-    
-    NSMutableArray *oldFences = _pointFences;
-    NSArray *geoFences = [_fencesToCallback allKeys];
-    NSMutableArray *currFence = [self findGeoPointsFence:point geoFences:geoFences];
-    NSMutableArray *newFences = [NSMutableArray arrayWithArray:currFence];
-    
-    [newFences removeObjectsInArray:oldFences];
-    [oldFences removeObjectsInArray:currFence];
-    
-    [DebLog log:@"GeoFenceMonitoring -> onLocationChanged: %@\nnewFences: %@\noldFences: %@\ncurrFence: %@", location, newFences, oldFences, currFence];
-    
-    [self callOnEnter:newFences];
-    [self callOnStay:newFences];
-    [self callOnExit:oldFences];
-    [self cancelOnStay:oldFences];
-    
-    self.pointFences = currFence;
+
+    @synchronized(self) {
+        
+        [DebLog log:@">>>>>>>>>>>>>>>>>>> GeoFenceMonitoring -> onLocationChanged: START >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"];
+        
+        self.location = location;
+        
+        GeoPoint *point = [GeoPoint geoPoint:(GEO_POINT){.latitude=location.coordinate.latitude, .longitude=location.coordinate.longitude}];
+        
+        NSMutableArray *oldFences = self.pointFences;
+        NSArray *geoFences = [self.fencesToCallback allKeys];
+        NSMutableArray *currFence = [self findGeoPointsFence:point geoFences:geoFences];
+        NSMutableArray *newFences = [NSMutableArray arrayWithArray:currFence];
+        
+        [newFences removeObjectsInArray:oldFences];
+        [oldFences removeObjectsInArray:currFence];
+        
+        [DebLog log:@"GeoFenceMonitoring -> onLocationChanged: %@\nnewFences: %@\noldFences: %@\ncurrFence: %@", location, newFences, oldFences, currFence];
+        
+        [self callOnEnter:newFences];
+        [self callOnStay:newFences];
+        [self callOnExit:oldFences];
+        [self cancelOnStay:oldFences];
+        
+        self.pointFences = currFence;
+        
+        [DebLog log:@"<<<<<<<<<<<<<<<<<<<<<<<< GeoFenceMonitoring -> onLocationChanged: FINISH <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"];
+        
+     }
 }
 
 -(void)onLocationFailed:(NSError *)error {
     [DebLog log:@"GeoFenceMonitoring -> onLocationFailed: %@", error];
+}
+
+// test method
+-(void)testOnExit {
+
+    dispatch_time_t interval = dispatch_time(DISPATCH_TIME_NOW, 1ull*NSEC_PER_SEC*60);
+    dispatch_after(interval, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        if (self.pointFences.count) {
+            [self callOnExit:self.pointFences];
+            [self cancelOnStay:self.pointFences];
+            [self.pointFences removeAllObjects];
+        }
+    });
 }
 
 static NSString *GEOFENCE_OR_CALLBACK_IS_NOT_VALUED = @"The geofence %@ or callback %@ is not valued";
@@ -178,7 +199,7 @@ public void addGeoFences( Set<GeoFence> geoFences, ICallback callback )
         return [backendless throwFault:[Fault fault:[NSString stringWithFormat:GEOFENCE_OR_CALLBACK_IS_NOT_VALUED, geoFences, callback] faultCode:@"0000"]];
     }
     
-    if (_fencesToCallback.count) {
+    if (self.fencesToCallback.count) {
         return [backendless throwFault:[Fault fault:GEOFENCES_MONITORING faultCode:@"0000"]];
     }
     
@@ -221,7 +242,7 @@ public void addGeoFence( GeoFence geoFence, ICallback callback )
         return [backendless throwFault:[Fault fault:[NSString stringWithFormat:GEOFENCE_OR_CALLBACK_IS_NOT_VALUED, geoFence, callback] faultCode:@"0000"]];
     }
     
-    id <ICallback> _callback = [_fencesToCallback objectForKey:geoFence];
+    id <ICallback> _callback = [self.fencesToCallback objectForKey:geoFence];
     if (_callback && ![_callback equalCallbackParameter:callback]) {
         return [backendless throwFault:[Fault fault:[NSString stringWithFormat:GEOFENCE_ALREADY_MONITORING, geoFence.geofenceName] faultCode:@"0000"]];
     }
@@ -230,11 +251,11 @@ public void addGeoFence( GeoFence geoFence, ICallback callback )
         [self definiteRect:geoFence];
     }
     
-    [_fencesToCallback setObject:callback forKey:geoFence];
+    [self.fencesToCallback setObject:callback forKey:geoFence];
     
     if (_location && [self isPointInFence:[GeoPoint geoPoint:(GEO_POINT){.latitude=_location.coordinate.latitude, .longitude=_location.coordinate.latitude}] geoFence:geoFence]) {
         
-        [_pointFences addObject:geoFence];
+        [self.pointFences addObject:geoFence];
         [callback callOnEnter:geoFence location:_location];
         [self addOnStay:geoFence];
     }
@@ -258,12 +279,12 @@ public void removeGeoFence( String geoFenceName )
 
 -(void)removeGeoFence:(NSString *)geoFenceName {
     
-    NSArray *geoFences = [_fencesToCallback allKeys];
+    NSArray *geoFences = [self.fencesToCallback allKeys];
     for (GeoFence *geoFence in geoFences) {
         if ([geoFence.geofenceName isEqualToString:geoFenceName ]) {
-            [_fencesToCallback removeObjectForKey:geoFence];
+            [self.fencesToCallback removeObjectForKey:geoFence];
             [self cancelOnStayGeoFence:geoFence];
-            [_pointFences removeObject:geoFence];
+            [self.pointFences removeObject:geoFence];
             return;
         }
     }
@@ -279,9 +300,9 @@ public void removeGeoFences()
  */
 
 -(void)removeGeoFences {
-    [_onStaySet removeAllObjects];
-    [_pointFences removeAllObjects];
-    [_fencesToCallback removeAllObjects];
+    [self.onStaySet removeAllObjects];
+    [self.pointFences removeAllObjects];
+    [self.fencesToCallback removeAllObjects];
 }
 /*
 
@@ -292,7 +313,7 @@ public boolean isMonitoring()
  */
 
 -(BOOL)isMonitoring {
-    return _fencesToCallback.count > 0;
+    return self.fencesToCallback.count > 0;
 }
 
 #pragma mark -
@@ -337,7 +358,7 @@ public boolean isMonitoring()
 
 -(void)callOnEnter:(NSArray *)geoFences {
     for (GeoFence *geoFence in geoFences) {
-        [(id <ICallback>)_fencesToCallback[geoFence] callOnEnter:geoFence location:_location];
+        [(id <ICallback>)self.fencesToCallback[geoFence] callOnEnter:geoFence location:_location];
     }
 }
 
@@ -356,7 +377,7 @@ public boolean isMonitoring()
 
 -(void)callOnExit:(NSArray *)geoFences {
     for (GeoFence *geoFence in geoFences) {
-        [(id <ICallback>)_fencesToCallback[geoFence] callOnExit:geoFence location:_location];
+        [(id <ICallback>)self.fencesToCallback[geoFence] callOnExit:geoFence location:_location];
     }
 }
 
@@ -382,13 +403,13 @@ private Set<GeoFence> findGeoPointsFence( GeoPoint geoPoint, Set<GeoFence> geoFe
 
 -(NSMutableArray *)findGeoPointsFence:(GeoPoint *)geoPoint geoFences:(NSArray *)geoFences {
     
-    NSMutableArray *pointFences = [NSMutableArray new];
+    NSMutableArray *fencePoints = [NSMutableArray array];
     for (GeoFence *geoFence in geoFences) {
         if ([self isPointInFence:geoPoint geoFence:geoFence]) {
-            [pointFences addObject:geoFence];
+            [fencePoints addObject:geoFence];
         }
     }
-    return pointFences;
+    return fencePoints;
 }
 
 
@@ -541,19 +562,22 @@ private void cancelOnStay( GeoFence geoFence )
 */
 
 -(void)checkOnStay:(GeoFence *)geoFence {
-    
-    [DebLog log:@"GeoFenceMonitoring -> checkOnStay:"];
-    
-    if ([_onStaySet containsObject:geoFence]) {
+
+    @synchronized(self) {
         
-        [(id <ICallback>)_fencesToCallback[geoFence] callOnStay:geoFence location:_location];
-        [self cancelOnStayGeoFence:geoFence];
+        [DebLog log:@"GeoFenceMonitoring -> checkOnStay:"];
+        
+        if ([self.onStaySet containsObject:geoFence]) {
+            
+            [(id <ICallback>)self.fencesToCallback[geoFence] callOnStay:geoFence location:_location];
+            [self cancelOnStayGeoFence:geoFence];
+        }
     }
 }
 
 -(void)addOnStay:(GeoFence *)geoFence {
     
-    [_onStaySet addObject:geoFence];
+    [self.onStaySet addObject:geoFence];
     
     [DebLog log:@"GeoFenceMonitoring -> addOnStay: geofence = %@, onStayDuration = %dsec", geoFence.geofenceName, geoFence.valOnStayDuration];
     
@@ -564,7 +588,7 @@ private void cancelOnStay( GeoFence geoFence )
 }
 
 -(void)cancelOnStayGeoFence:(GeoFence *)geoFence {
-    [_onStaySet removeObject:geoFence];
+    [self.onStaySet removeObject:geoFence];
 }
 
 @end
