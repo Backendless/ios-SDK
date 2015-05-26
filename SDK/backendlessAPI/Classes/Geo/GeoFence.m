@@ -58,8 +58,6 @@ static const char * const backendless_geo_fence_types[] = { "CIRCLE", "RECT", "S
 
 -(BOOL)isEqual:(id)object {
     
-    [DebLog log:@"############# GeoFence -> isEqual: %@", object];
-    
     if (!object || ![object isKindOfClass:self.class])
         return NO;
     
@@ -74,8 +72,7 @@ static const char * const backendless_geo_fence_types[] = { "CIRCLE", "RECT", "S
 #pragma mark NSCopying Methods
 
 -(id)copyWithZone:(NSZone *)zone {
-    [DebLog log:@"############ GeoFence -> copyWithZone:", zone];
-    return [self retain]; // TODO !!!
+    return [self retain]; 
 }
 
 @end

@@ -61,7 +61,7 @@
 #define _MAIN_THREAD_INVOKE_ 1
 
 -(void)callOnEnter:(GeoFence *)geoFence location:(CLLocation *)location {
-    [DebLog log:@"ClientCallback -> callOnEnter: geoFence = %@\nlocation = %@", geoFence, location];
+    [DebLog logN:@"ClientCallback -> callOnEnter: geoFence = %@\nlocation = %@", geoFence, location];
     if ([_geofenceCallback respondsToSelector:@selector(geoPointEntered:geofenceId:latitude:longitude:)]) {
 #if _MAIN_THREAD_INVOKE_
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -74,7 +74,7 @@
 }
 
 -(void)callOnStay:(GeoFence *)geoFence location:(CLLocation *)location {
-    [DebLog log:@"ClientCallback -> callOnStay: geoFence = %@\nlocation = %@", geoFence, location];
+    [DebLog logN:@"ClientCallback -> callOnStay: geoFence = %@\nlocation = %@", geoFence, location];
     if ([_geofenceCallback respondsToSelector:@selector(geoPointStayed:geofenceId:latitude:longitude:)]) {
 #if _MAIN_THREAD_INVOKE_
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -87,7 +87,7 @@
 }
 
 -(void)callOnExit:(GeoFence *)geoFence location:(CLLocation *)location {
-    [DebLog log:@"ClientCallback -> callOnExit: geoFence = %@\nlocation = %@", geoFence, location];
+    [DebLog logN:@"ClientCallback -> callOnExit: geoFence = %@\nlocation = %@", geoFence, location];
     if ([_geofenceCallback respondsToSelector:@selector(geoPointExited:geofenceId:latitude:longitude:)]) {
 #if _MAIN_THREAD_INVOKE_
         dispatch_async(dispatch_get_main_queue(), ^{

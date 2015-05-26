@@ -69,7 +69,7 @@
 #define _ASYNC_WAIT_RESPONSE_ 1
 
 -(void)callOnEnter:(GeoFence *)geoFence location:(CLLocation *)location {
-    [DebLog log:@"ServerCallback -> callOnEnter: geoFence = %@\ngeoPoint = %@", geoFence, _geoPoint];
+    [DebLog logN:@"ServerCallback -> callOnEnter: geoFence = %@\ngeoPoint = %@", geoFence, _geoPoint];
     [self updatePoint:location];
 #if _ASYNC_INVOKE_
 #if _ASYNC_WAIT_RESPONSE_
@@ -91,7 +91,7 @@
 }
 
 -(void)callOnStay:(GeoFence *)geoFence location:(CLLocation *)location {
-    [DebLog log:@"ServerCallback -> callOnStay: geoFence = %@\ngeoPoint = %@", geoFence, _geoPoint];
+    [DebLog logN:@"ServerCallback -> callOnStay: geoFence = %@\ngeoPoint = %@", geoFence, _geoPoint];
     [self updatePoint:location];
 #if _ASYNC_INVOKE_
 #if _ASYNC_WAIT_RESPONSE_
@@ -113,7 +113,7 @@
 }
 
 -(void)callOnExit:(GeoFence *)geoFence location:(CLLocation *)location {
-    [DebLog log:@"ServerCallback -> callOnExit: geoFence = %@\ngeoPoint = %@", geoFence, _geoPoint];
+    [DebLog logN:@"ServerCallback -> callOnExit: geoFence = %@\ngeoPoint = %@", geoFence, _geoPoint];
     [self updatePoint:location];
 #if _ASYNC_INVOKE_
 #if _ASYNC_WAIT_RESPONSE_
@@ -156,12 +156,12 @@
 #pragma mark IResponder Methods
 
 -(id)getResponse:(id)response {
-    [DebLog log:@"ServerCallback -> getResponse: (RESPONSE) %@", response];
+    [DebLog logN:@"ServerCallback -> getResponse: (RESPONSE) %@", response];
     return response;
 }
 
 -(id)getError:(Fault *)fault {
-    [DebLog log:@"ServerCallback -> getError: (FAULT) %@", fault];
+    [DebLog logN:@"ServerCallback -> getError: (FAULT) %@", fault];
     return fault;
 }
 

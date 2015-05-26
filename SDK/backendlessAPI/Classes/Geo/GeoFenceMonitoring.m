@@ -27,23 +27,16 @@
 #import "GeoMath.h"
 #import "ICallback.h"
 
-/*
- 
- private ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
- private Set<GeoFence> onStaySet = Collections.synchronizedSet( new HashSet<GeoFence>() );
- 
- private Map<GeoFence, ICallback> fencesToCallback = Collections.synchronizedMap( new HashMap<GeoFence, ICallback>() );
- private Set<GeoFence> pointFences = new HashSet<GeoFence>();
- 
- private volatile Location location;
-
- */
+#define _TEST_EXIT_ON_ 0
 
 @interface GeoFenceMonitoring ()
 @property (strong, atomic) NSMutableArray *onStaySet;                // Set<GeoFence>
 @property (strong, atomic) NSMutableDictionary *fencesToCallback;    // Map<GeoFence, ICallback>
 @property (strong, atomic) NSMutableArray *pointFences;              // Set<GeoFence>
 @property (strong, nonatomic) CLLocation *location;
+#if _TEST_EXIT_ON_
+@property BOOL tested;
+#endif
 @end
 
 @implementation GeoFenceMonitoring
@@ -67,6 +60,9 @@
         self.fencesToCallback = [NSMutableDictionary dictionary];
         self.pointFences = [NSMutableArray array];
         _location = nil;
+#if _TEST_EXIT_ON_
+        self.tested = NO;
+#endif
     }
     return self;
 }
@@ -89,41 +85,36 @@
     [super dealloc];
 }
 
+
+#if _TEST_EXIT_ON_
+
+#pragma mark -
+#pragma mark Private Test Methods
+// test method
+
+-(void)testExit {
+    
+    if (self.tested)
+        return;
+    
+    self.tested = YES;
+    
+    dispatch_time_t interval = dispatch_time(DISPATCH_TIME_NOW, 1ull*NSEC_PER_SEC*60);
+    dispatch_after(interval, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self onLocationChanged:[[[CLLocation alloc] initWithLatitude:0.0 longitude:0.0] autorelease]];
+        self.tested = NO;
+    });
+}
+#endif
+
 #pragma mark -
 #pragma mark ILocationTrackerListener Methods
-
-/*
-@Override
-public void onLocationChanged( Location location )
-{
-    Set<GeoFence> oldFences, newFences, currFence;
-    
-    synchronized( this )
-    {
-        this.location = location;
-        oldFences = pointFences;
-        currFence = findGeoPointsFence( new GeoPoint( location.getLatitude(), location.getLongitude() ), fencesToCallback.keySet() );
-        newFences = new HashSet<GeoFence>( currFence );
-        
-        newFences.removeAll( oldFences );
-        oldFences.removeAll( currFence );
-        
-        callOnEnter( newFences );
-        callOnStay( newFences );
-        callOnExit( oldFences );
-        cancelOnStay( oldFences );
-        
-        pointFences = currFence;
-    }
-}
- 
- */
 
 -(void)onLocationChanged:(CLLocation *)location {
 
     @synchronized(self) {
         
-        [DebLog log:@">>>>>>>>>>>>>>>>>>> GeoFenceMonitoring -> onLocationChanged: START >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"];
+        //[DebLog log:@">>>>>>>>>>>>>>>>>>> GeoFenceMonitoring -> onLocationChanged: START >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"];
         
         self.location = location;
         
@@ -137,7 +128,7 @@ public void onLocationChanged( Location location )
         [newFences removeObjectsInArray:oldFences];
         [oldFences removeObjectsInArray:currFence];
         
-        [DebLog log:@"GeoFenceMonitoring -> onLocationChanged: %@\nnewFences: %@\noldFences: %@\ncurrFence: %@", location, newFences, oldFences, currFence];
+        //[DebLog log:@"GeoFenceMonitoring -> onLocationChanged: %@\nnewFences: %@\noldFences: %@\ncurrFence: %@", location, newFences, oldFences, currFence];
         
         [self callOnEnter:newFences];
         [self callOnStay:newFences];
@@ -146,26 +137,17 @@ public void onLocationChanged( Location location )
         
         self.pointFences = currFence;
         
-        [DebLog log:@"<<<<<<<<<<<<<<<<<<<<<<<< GeoFenceMonitoring -> onLocationChanged: FINISH <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"];
+        //[DebLog log:@"<<<<<<<<<<<<<<<<<<<<<<<< GeoFenceMonitoring -> onLocationChanged: FINISH <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"];
+        
+#if _TEST_EXIT_ON_
+        [self testExit];
+#endif
         
      }
 }
 
 -(void)onLocationFailed:(NSError *)error {
-    [DebLog log:@"GeoFenceMonitoring -> onLocationFailed: %@", error];
-}
-
-// test method
--(void)testOnExit {
-
-    dispatch_time_t interval = dispatch_time(DISPATCH_TIME_NOW, 1ull*NSEC_PER_SEC*60);
-    dispatch_after(interval, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        if (self.pointFences.count) {
-            [self callOnExit:self.pointFences];
-            [self cancelOnStay:self.pointFences];
-            [self.pointFences removeAllObjects];
-        }
-    });
+    [DebLog logY:@"GeoFenceMonitoring -> onLocationFailed: %@", error];
 }
 
 static NSString *GEOFENCE_OR_CALLBACK_IS_NOT_VALUED = @"The geofence %@ or callback %@ is not valued";
@@ -178,20 +160,6 @@ static NSString *GEOFENCES_MONITORING = @"Cannot start geofence monitoring for a
 -(NSString *)listenerName {
     return @"GeoFenceMonitoring";
 }
-
-/*
-
-public void addGeoFences( Set<GeoFence> geoFences, ICallback callback )
-{
-    if( !fencesToCallback.isEmpty() )
-        throw new BackendlessException( ExceptionMessage.GEOFENCES_MONITORING );
-    
-    for( GeoFence geoFence : geoFences )
-    {
-        addGeoFence( geoFence, callback );
-    }
-}
- */
 
 -(Fault *)addGeoFences:(NSArray *)geoFences callback:(id <ICallback>)callback {
     
@@ -209,32 +177,6 @@ public void addGeoFences( Set<GeoFence> geoFences, ICallback callback )
     
     return nil;
 }
-
-/*
-
-public void addGeoFence( GeoFence geoFence, ICallback callback )
-{
-    if( fencesToCallback.containsKey( geoFence ) )
-    {
-        if( !fencesToCallback.get( geoFence ).equalCallbackParameter( callback ) )
-            throw new BackendlessException( String.format( ExceptionMessage.GEOFENCE_ALREADY_MONITORING, geoFence.getGeofenceName() ) );
-        return;
-    }
-    
-    if( !isDefiniteRect( geoFence.getNwPoint(), geoFence.getSePoint() ) )
-    {
-        definiteRect( geoFence );
-    }
-    this.fencesToCallback.put( geoFence, callback );
-    
-    if( location != null && isPointInFence( new GeoPoint( location.getLatitude(), location.getLongitude() ), geoFence ) )
-    {
-        pointFences.add( geoFence );
-        callback.callOnEnter( geoFence, location );
-        addOnStay( geoFence );
-    }
-}
- */
 
 -(Fault *)addGeoFence:(GeoFence *)geoFence callback:(id <ICallback>)callback {
     
@@ -263,20 +205,6 @@ public void addGeoFence( GeoFence geoFence, ICallback callback )
     return nil;
 }
 
-/*
-
-public void removeGeoFence( String geoFenceName )
-{
-    GeoFence removed = new GeoFence( geoFenceName );
-    if( fencesToCallback.containsKey( removed ) )
-    {
-        fencesToCallback.remove( removed );
-        cancelOnStay( removed );
-        pointFences.remove( removed );
-    }
-}
- */
-
 -(void)removeGeoFence:(NSString *)geoFenceName {
     
     NSArray *geoFences = [self.fencesToCallback allKeys];
@@ -289,28 +217,12 @@ public void removeGeoFence( String geoFenceName )
         }
     }
 }
-/*
-
-public void removeGeoFences()
-{
-    onStaySet.clear();
-    pointFences.clear();
-    fencesToCallback.clear();
-}
- */
 
 -(void)removeGeoFences {
     [self.onStaySet removeAllObjects];
     [self.pointFences removeAllObjects];
     [self.fencesToCallback removeAllObjects];
 }
-/*
-
-public boolean isMonitoring()
-{
-    return !fencesToCallback.isEmpty();
-}
- */
 
 -(BOOL)isMonitoring {
     return self.fencesToCallback.count > 0;
@@ -318,43 +230,6 @@ public boolean isMonitoring()
 
 #pragma mark -
 #pragma mark Private Methods
-
-/*
- 
- private void callOnEnter( Set<GeoFence> geoFences )
- {
- for( GeoFence geoFence : geoFences )
- {
- fencesToCallback.get( geoFence ).callOnEnter( geoFence, location );
- }
- }
- 
- private void callOnStay( Set<GeoFence> geoFences )
- {
- for( GeoFence geoFence : geoFences )
- {
- if( geoFence.getOnStayDuration() > 0 )
- addOnStay( geoFence );
- }
- }
- 
- private void cancelOnStay( Set<GeoFence> geoFences )
- {
- for( GeoFence geoFence : geoFences )
- {
- cancelOnStay( geoFence );
- }
- }
- 
- private void callOnExit( Set<GeoFence> geoFences )
- {
- for( GeoFence geoFence : geoFences )
- {
- fencesToCallback.get( geoFence ).callOnExit( geoFence, location );
- }
- }
- 
- */
 
 -(void)callOnEnter:(NSArray *)geoFences {
     for (GeoFence *geoFence in geoFences) {
@@ -381,26 +256,6 @@ public boolean isMonitoring()
     }
 }
 
-
-/*
-
-private Set<GeoFence> findGeoPointsFence( GeoPoint geoPoint, Set<GeoFence> geoFences )
-{
-    Set<GeoFence> pointFences = new HashSet<GeoFence>();
-    
-    for( GeoFence geoFence : geoFences )
-    {
-        
-        if( isPointInFence( geoPoint, geoFence ) )
-        {
-            pointFences.add( geoFence );
-        }
-    }
-    
-    return pointFences;
-}
- */
-
 -(NSMutableArray *)findGeoPointsFence:(GeoPoint *)geoPoint geoFences:(NSArray *)geoFences {
     
     NSMutableArray *fencePoints = [NSMutableArray array];
@@ -411,30 +266,6 @@ private Set<GeoFence> findGeoPointsFence( GeoPoint geoPoint, Set<GeoFence> geoFe
     }
     return fencePoints;
 }
-
-
-/*
-
-private boolean isPointInFence( GeoPoint geoPoint, GeoFence geoFence )
-{
-    if( !GeoMath.isPointInRectangular( geoPoint, geoFence.getNwPoint(), geoFence.getSePoint() ) )
-    {
-        return false;
-    }
-    
-    if( geoFence.getType() == FenceType.CIRCLE && !GeoMath.isPointInCircle( geoPoint, geoFence.getNodes().get( 0 ), GeoMath.distance( geoFence.getNodes().get( 0 ).getLatitude(), geoFence.getNodes().get( 0 ).getLongitude(), geoFence.getNodes().get( 1 ).getLatitude(), geoFence.getNodes().get( 1 ).getLongitude() ) ) )
-    {
-        return false;
-    }
-    
-    if( geoFence.getType() == FenceType.SHAPE && !GeoMath.isPointInShape( geoPoint, geoFence.getNodes() ) )
-    {
-        return false;
-    }
-    
-    return true;
-}
- */
 
 -(BOOL)isPointInFence:(GeoPoint *)geoPoint geoFence:(GeoFence *)geoFence {
     
@@ -461,49 +292,9 @@ private boolean isPointInFence( GeoPoint geoPoint, GeoFence geoFence )
     }
 }
 
-/*
-
-private boolean isDefiniteRect( GeoPoint nwPoint, GeoPoint sePoint )
-{
-    return nwPoint != null && sePoint != null;
-}
-*/
-
 -(BOOL)isDefiniteRect:(GeoPoint *)nwPoint se:(GeoPoint *)sePoint {
     return (nwPoint != nil) && (sePoint != nil);
 }
-
-/*
-private void definiteRect( GeoFence geoFence )
-{
-    switch( geoFence.getType() )
-    {
-        case RECT:
-        {
-            GeoPoint nwPoint = geoFence.getNodes().get( 0 );
-            GeoPoint sePoint = geoFence.getNodes().get( 1 );
-            geoFence.setNwPoint( nwPoint );
-            geoFence.setSePoint( sePoint );
-            break;
-        }
-        case CIRCLE:
-        {
-            double[] outRect = GeoMath.getOutRectangle( geoFence.getNodes().get( 0 ), geoFence.getNodes().get( 1 ) );
-            geoFence.setNwPoint( new GeoPoint( outRect[ 0 ], outRect[ 1 ] ) );
-            geoFence.setSePoint( new GeoPoint( outRect[ 2 ], outRect[ 3 ] ) );
-            break;
-        }
-        case SHAPE:
-        {
-            double[] outRect = GeoMath.getOutRectangle( geoFence.getNodes() );
-            geoFence.setNwPoint( new GeoPoint( outRect[ 0 ], outRect[ 1 ] ) );
-            geoFence.setSePoint( new GeoPoint( outRect[ 2 ], outRect[ 3 ] ) );
-            break;
-        }
-        default:
-    }
-}
- */
 
 -(void)definiteRect:(GeoFence *)geoFence {
     
@@ -536,36 +327,11 @@ private void definiteRect( GeoFence geoFence )
     }
 }
 
-/*
-
-private void addOnStay( final GeoFence geoFence )
-{
-    onStaySet.add(geoFence);
-    scheduledExecutorService.schedule( new Runnable()
-                                      {
-                                          @Override
-                                          public void run()
-                                          {
-                                              if( onStaySet.contains(geoFence) )
-                                              {
-                                                  fencesToCallback.get(geoFence).callOnStay(geoFence, location);
-                                                  cancelOnStay(geoFence);
-                                              }
-                                          }
-                                      }, geoFence.getOnStayDuration(), TimeUnit.SECONDS );
-}
-
-private void cancelOnStay( GeoFence geoFence )
-{
-    onStaySet.remove( geoFence );
-}
-*/
-
 -(void)checkOnStay:(GeoFence *)geoFence {
 
     @synchronized(self) {
         
-        [DebLog log:@"GeoFenceMonitoring -> checkOnStay:"];
+        [DebLog logN:@"GeoFenceMonitoring -> checkOnStay:"];
         
         if ([self.onStaySet containsObject:geoFence]) {
             
@@ -579,7 +345,7 @@ private void cancelOnStay( GeoFence geoFence )
     
     [self.onStaySet addObject:geoFence];
     
-    [DebLog log:@"GeoFenceMonitoring -> addOnStay: geofence = %@, onStayDuration = %dsec", geoFence.geofenceName, geoFence.valOnStayDuration];
+    [DebLog logN:@"GeoFenceMonitoring -> addOnStay: geofence = %@, onStayDuration = %dsec", geoFence.geofenceName, geoFence.valOnStayDuration];
     
     dispatch_time_t interval = dispatch_time(DISPATCH_TIME_NOW, 1ull*NSEC_PER_SEC*geoFence.valOnStayDuration);
     dispatch_after(interval, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
