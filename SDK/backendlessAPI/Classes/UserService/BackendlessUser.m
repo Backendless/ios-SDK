@@ -60,6 +60,24 @@
 #pragma mark -
 #pragma mark getters / setters
 
+#if _OBJECT_ID_WITHOUT_SETTER_GETTER_
+-(void)setObjectId:(NSString *)objectId {
+    [self setProperty:PERSIST_OBJECT_ID object:objectId];
+}
+
+-(NSString *)objectId {
+    return [self getProperty:PERSIST_OBJECT_ID];
+}
+#else
+-(NSString *)getObjectId {
+    return [self getProperty:PERSIST_OBJECT_ID];
+}
+
+-(void)setObjectId:(NSString *)objectId {
+    [self setProperty:PERSIST_OBJECT_ID object:objectId];
+}
+#endif
+
 -(NSString *)getEmail {
     return [self getProperty:BACKENDLESS_EMAIL_KEY];
 }
@@ -108,7 +126,7 @@
     }
 }
 
--(NSDictionary *)getProperties {
+-(NSMutableDictionary *)getProperties {
     return (properties) ? properties.node : nil;
 }
 
@@ -135,17 +153,30 @@
     
     if (!properties)
         return;
-    
+#if 0
     [properties del:key];
+#else
+    if ([properties get:key]) {
+        [properties push:key withObject:nil];
+    }
+#endif
 }
--(void)setObjectId:(NSString *)objectId
-{
-    [self setProperty:PERSIST_OBJECT_ID object:objectId];
+
+-(void)removeProperties:(NSArray *)keys {
+    
+    if (!properties)
+        return;
+    
+    for (NSString *key in keys) {
+        if ([properties get:key]) {
+            [properties push:key withObject:nil];
+        }
+    }
 }
--(NSString *)objectId
-{
-    return [self getProperty:PERSIST_OBJECT_ID];
-}
+
+#pragma mark -
+#pragma mark overwrided NSObject Methods
+
 -(NSString *)description {
     return [NSString stringWithFormat:@"<BackendlessUser> email:'%@', password:'%@', name:'%@', userId:'%@', userToken:'%@', objectId:'%@', properties:%@", self.email, self.password, self.name, self.userId, self.userToken, self.objectId, properties.node];
 }

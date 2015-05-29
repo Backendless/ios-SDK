@@ -21,6 +21,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define _OBJECT_ID_WITHOUT_SETTER_GETTER_ 0
+
 #define BACKENDLESS_EMAIL_KEY @"email"
 #define BACKENDLESS_NAME_KEY @"name"
 #define BACKENDLESS_PASSWORD_KEY @"password"
@@ -29,19 +31,24 @@
 
 @interface BackendlessUser : NSObject
 
+#if _OBJECT_ID_WITHOUT_SETTER_GETTER_
+@property (nonatomic, retain) NSString *objectId;
+#else
+@property (nonatomic, assign, getter = getObjectId, setter = seObjectId:) NSString *objectId;
+#endif
 @property (nonatomic, assign, getter = getEmail, setter = setEmail:) NSString *email;
 @property (nonatomic, assign, getter = getPassword, setter = setPassword:) NSString *password;
 @property (nonatomic, assign, getter = getName, setter = setName:) NSString *name;
 @property (nonatomic, assign, getter = getUserId) NSString *userId;
 @property (nonatomic, assign, getter = getUserToken) NSString *userToken;
-@property (nonatomic, retain) NSString *objectId;
 
 -(id)initWithProperties:(NSDictionary *)props;
 
 -(void)setProperties:(NSDictionary *)props;
--(NSDictionary *)getProperties;
+-(NSMutableDictionary *)getProperties;
 -(void)updateProperties:(NSDictionary *)props;
 -(id)getProperty:(NSString *)key;
 -(void)setProperty:(NSString *)key object:(id)value;
 -(void)removeProperty:(NSString *)key;
+-(void)removeProperties:(NSArray *)keys;
 @end

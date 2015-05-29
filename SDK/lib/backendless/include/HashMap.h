@@ -22,9 +22,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface HashMap : NSObject {
-	NSMutableDictionary		*node;		
-}
+@interface HashMap : NSObject
 @property (nonatomic, assign, readonly) NSMutableDictionary	*node;
 
 -(id)initWithNode:(NSDictionary *)dict;

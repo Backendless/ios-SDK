@@ -23,25 +23,25 @@
 
 
 @implementation HashMap
-@synthesize node;
--(id)init {	
-	if( (self=[super init] )) 
-		node = [[NSMutableDictionary alloc] init];
-	
+
+-(id)init {
+    if( (self=[super init] )) {
+		_node = [[NSMutableDictionary alloc] init];
+    }
 	return self;
 }
 
 -(id)initWithNode:(NSDictionary *)dict {
-	if( (self=[super init] ))
-		node = (dict) ? [[NSMutableDictionary alloc] initWithDictionary:dict] : [[NSMutableDictionary alloc] init];
-	
+    if( (self=[super init] )) {
+		_node = (dict) ? [[NSMutableDictionary alloc] initWithDictionary:dict] : [[NSMutableDictionary alloc] init];
+    }
 	return self;
 }
 
 -(void)dealloc {
 	
     [self clear];
-	[node release];
+	[_node release];
     
 	[super dealloc];
 }
@@ -55,7 +55,7 @@
 		return NO;	
     
     @synchronized (self) {
-        [node setObject:it?it:[NSNull null] forKey:key];
+        [_node setObject:it?it:[NSNull null] forKey:key];
     }
 	
 	return YES;
@@ -63,60 +63,60 @@
 
 -(BOOL)add:(NSString *)key withObject:(id)it {
 	
-	if (!key || [node valueForKey:key])
+	if (!key || [_node valueForKey:key])
 		return NO;	
     
     @synchronized (self) {
-        [node setObject:it?it:[NSNull null] forKey:key];
+        [_node setObject:it?it:[NSNull null] forKey:key];
     }
 	
 	return YES;
 }
 
 -(id)get:(NSString *)key {
-	return key?[node valueForKey:key]:nil;
+	return key?[_node valueForKey:key]:nil;
 }
 
 -(BOOL)pop:(NSString *)key withObject:(id)it {	
 
-    if (!key || !it || (it != [node valueForKey:key]))
+    if (!key || !it || (it != [_node valueForKey:key]))
         return NO;
         
     @synchronized (self) {
-		[node removeObjectForKey:key];
+		[_node removeObjectForKey:key];
 	}
     
     return YES;
 }
 
--(BOOL)del:(NSString *)key {	
+-(BOOL)del:(NSString *)key {
 	return [self pop:key withObject:[self get:key]];
 }
 
 -(NSUInteger)count {
-	return node.count;
+	return _node.count;
 }
 
 -(NSArray *)keys {
-	return [node allKeys];
+	return [_node allKeys];
 }
 
 -(NSArray *)values {
-	return [node allValues];
+	return [_node allValues];
 }
 
 -(void)clear {
     
-    if (!node.count)
+    if (!_node.count)
         return;
     
     @synchronized (self) {
-        [node removeAllObjects];
+        [_node removeAllObjects];
     }
 }
 
 -(Class)hashClass {
-	return [node class];
+	return [_node class];
 }
 
 @end

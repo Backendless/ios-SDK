@@ -20,6 +20,7 @@
  */
 
 #define OLD_SAVE_METHOD_ON 0
+#define _REMOVE_META_ 0
 
 #import "PersistenceService.h"
 #import <objc/runtime.h>
@@ -98,7 +99,9 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     BackendlessUser *user = [BackendlessUser new];
     NSMutableDictionary *properties = [NSMutableDictionary dictionaryWithDictionary:[Types propertyDictionary:self]];
     //NSLog(@">>>>>>>>>>>>>>>>>>>> Users - > onAMFDeserialize: %@", properties);
+#if _REMOVE_META_
     [properties removeObjectsForKeys:@[@"___class", @"__meta"]];
+#endif
     [user setProperties:properties];
     return user;
 }
@@ -1342,10 +1345,10 @@ id result = nil;
 -(id)findByClassId:(Class)entity sid:(NSString *)sid {
     
     if (!entity)
-    return [backendless throwFault:FAULT_NO_ENTITY];
+        return [backendless throwFault:FAULT_NO_ENTITY];
     
     if (!sid)
-    return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
+        return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
     [self prepareClass:entity];
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self typeClassName:entity], sid, nil];
@@ -1931,9 +1934,13 @@ id result = nil;
 #pragma mark Private Methods
 
 -(NSDictionary *)filteringProperty:(id)object {
+#if _REMOVE_META_
     NSMutableDictionary *properties= [NSMutableDictionary dictionaryWithDictionary:[self propertyDictionary:object]];
     [properties removeObjectForKey:@"__meta"];
     return properties;
+#else
+    return [self propertyDictionary:object];
+#endif
 }
 
 #if 0
@@ -2041,7 +2048,7 @@ id get_object_id(id self, SEL _cmd)
         
         return data;
     }
-#if 0
+#if !_REMOVE_META_
     return [Types propertyDictionary:object];
 #else
     NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:[Types propertyDictionary:object]];
@@ -2077,7 +2084,13 @@ id get_object_id(id self, SEL _cmd)
 
 -(id)setRelations:(NSArray *)relations object:(id)object response:(id)response {
     
+    //[DebLog logY:@"PersistenceService -> setRelations: %@ -> \n%@", relations, response];
+#if 0
     for (NSString *propertyName in relations) {
+#else
+    NSArray *keys = [response allKeys];
+    for (NSString *propertyName in keys) {
+#endif
         
         id value = [response valueForKey:propertyName];
         if ([value isKindOfClass:[NSNull class]]) {
