@@ -18,6 +18,7 @@
  *
  *  ********************************************************************************************************************
  */
+
 #define POLLING_INTERVAL 1000
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
@@ -246,7 +247,7 @@ static NSString *METHOD_SEND_EMAIL = @"send";
     }
     return result;
 }
--(NSArray *)getRegistrationsError:(Fault **)fault
+-(DeviceRegistration *)getRegistrationsError:(Fault **)fault
 {
     id result = [self getRegistrations];
     if ([result isKindOfClass:[Fault class]]) {
@@ -258,7 +259,7 @@ static NSString *METHOD_SEND_EMAIL = @"send";
     }
     return result;
 }
--(NSArray *)getRegistrations:(NSString *)deviceId error:(Fault **)fault
+-(DeviceRegistration *)getRegistrations:(NSString *)deviceId error:(Fault **)fault
 {
     id result = [self getRegistrations:deviceId];
     if ([result isKindOfClass:[Fault class]]) {
@@ -624,7 +625,7 @@ id result = nil;
     }
 }
 
--(NSArray *)getRegistrationsError:(Fault **)fault {
+-(DeviceRegistration *)getRegistrationsError:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -642,7 +643,7 @@ id result = nil;
     }
 }
 
--(NSArray *)getRegistrations:(NSString *)deviceId error:(Fault **)fault {
+-(DeviceRegistration *)getRegistrations:(NSString *)deviceId error:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -1039,11 +1040,11 @@ id result = nil;
     return (deviceRegistration.id = [NSString stringWithFormat:@"%@", result]);
 }
 
--(NSArray *)getRegistrations {
+-(DeviceRegistration *)getRegistrations {
     return [self getRegistrations:deviceRegistration.deviceId];
 }
 
--(NSArray *)getRegistrations:(NSString *)deviceId {
+-(DeviceRegistration *)getRegistrations:(NSString *)deviceId {
     
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, deviceId, nil];
     return [invoker invokeSync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_GET_REGISTRATIONS args:args];
@@ -1367,11 +1368,11 @@ id result = nil;
     [self registerDeviceAsync:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)getRegistrationsAsync:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)getRegistrationsAsync:(void(^)(DeviceRegistration *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self getRegistrationsAsync:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)getRegistrationsAsync:(NSString *)deviceId response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)getRegistrationsAsync:(NSString *)deviceId response:(void(^)(DeviceRegistration *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self getRegistrationsAsync:deviceId responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
