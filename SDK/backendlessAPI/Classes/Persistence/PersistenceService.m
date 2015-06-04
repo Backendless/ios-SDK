@@ -21,6 +21,7 @@
 
 #define OLD_SAVE_METHOD_ON 0
 #define _REMOVE_META_ 0
+#define _SAVE_OBJECT_AS_DICTIONARY_ 0
 
 #import "PersistenceService.h"
 #import <objc/runtime.h>
@@ -1065,8 +1066,11 @@ id result = nil;
 #endif
     
     [DebLog log:@"PersistenceService -> save: class = %@, entity = %@", [self objectClassName:entity], [self propertyDictionary:entity]];
-    
+#if _SAVE_OBJECT_AS_DICTIONARY_
     NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], [self propertyDictionary:entity]];
+#else
+    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], entity];
+#endif
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_SAVE args:args];
     if ([result isKindOfClass:[Fault class]]) {
         if ([OfflineModeManager sharedInstance].isOfflineMode) {
@@ -1084,9 +1088,13 @@ id result = nil;
     
     [DebLog log:@"PersistenceService -> create: class = %@, entity = %@", [self objectClassName:entity], entity];
     
+#if _SAVE_OBJECT_AS_DICTIONARY_
     [self prepareObject:entity];
     NSDictionary *props = [self filteringProperty:entity];
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self objectClassName:entity], props, nil];
+#else
+    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], entity];
+#endif
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_CREATE args:args];
     if ([result isKindOfClass:[Fault class]]) {
         if ([OfflineModeManager sharedInstance].isOfflineMode) {
@@ -1109,8 +1117,12 @@ id result = nil;
 
     [DebLog log:@"PersistenceService -> update: class = %@, entity = %@", [self objectClassName:entity], entity];
     
+#if _SAVE_OBJECT_AS_DICTIONARY_
     NSDictionary *props = [self filteringProperty:entity];
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self objectClassName:entity], props, nil];
+#else
+    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], entity];
+#endif
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_UPDATE args:args];
     if ([result isKindOfClass:[Fault class]]) {
         if ([OfflineModeManager sharedInstance].isOfflineMode) {
@@ -1450,8 +1462,12 @@ id result = nil;
 #endif
     
     [DebLog log:@"PersistenceService -> save: class = %@, entity = %@", [self objectClassName:entity], [self propertyDictionary:entity]];
-    
+
+#if _SAVE_OBJECT_AS_DICTIONARY_
     NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], [self propertyDictionary:entity]];
+#else
+    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], entity];
+#endif
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(createResponse:) selErrorHandler:nil];
     _responder.chained = responder;
     _responder.context = entity;
@@ -1471,9 +1487,13 @@ id result = nil;
     if (!entity) 
         return [responder errorHandler:FAULT_NO_ENTITY];
     
+#if _SAVE_OBJECT_AS_DICTIONARY_
     [self prepareObject:entity];
     NSDictionary *props = [self filteringProperty:entity];
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self objectClassName:entity], props, nil];
+#else
+    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], entity];
+#endif
     Responder *createResponder = [Responder responder:self selResponseHandler:@selector(createResponse:) selErrorHandler:nil];
     createResponder.chained = responder;
     createResponder.context = entity;
@@ -1493,8 +1513,12 @@ id result = nil;
     if (!entity) 
         return [responder errorHandler:FAULT_NO_ENTITY];
     
+#if _SAVE_OBJECT_AS_DICTIONARY_
     NSDictionary *props = [self filteringProperty:entity];
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self objectClassName:entity], props, nil];
+#else
+    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], entity];
+#endif
     if ([OfflineModeManager sharedInstance].isOfflineMode)
     {
         Responder *offlineModeResponder = [Responder responder:self selResponseHandler:nil selErrorHandler:@selector(failWithOfflineMode:)];
