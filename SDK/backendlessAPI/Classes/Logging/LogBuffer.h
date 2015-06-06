@@ -29,7 +29,7 @@
 
 @property (strong, nonatomic) Responder *responder;
 
--(id)setLogReportingPolicy:(int)messagesNum time:(int)timeFrequencyMS;
+-(id)setLogReportingPolicy:(int)messagesNum time:(int)timeFrequencySec;
 -(void)enqueue:(NSString *)logger level:(NSString *)level message:(NSString *)message exception:(NSString *)exception;
 -(void)forceFlush;
 @end

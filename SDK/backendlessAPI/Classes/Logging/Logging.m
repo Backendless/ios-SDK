@@ -53,8 +53,8 @@
 #pragma mark -
 #pragma mark Public Methods
 
--(void)setLogReportingPolicy:(int)numOfMessages time:(int)timeFrequencyMS {
-    [[LogBuffer sharedInstance] setLogReportingPolicy:numOfMessages time:timeFrequencyMS];
+-(void)setLogReportingPolicy:(int)numOfMessages time:(int)timeFrequencySec {
+    [[LogBuffer sharedInstance] setLogReportingPolicy:numOfMessages time:timeFrequencySec];
 }
 
 -(void)setLogResponder:(Responder *)responder {

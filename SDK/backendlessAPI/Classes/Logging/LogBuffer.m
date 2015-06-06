@@ -79,7 +79,7 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
         self.responder = [Responder responder:self selResponseHandler:@selector(getResponse:) selErrorHandler:@selector(getError:)];
         _logMessages = [NSMutableArray new];
         _numOfMessages = 100;
-        _timeFrequency = 1000*60*5; // 5 minutes
+        _timeFrequency = 60*5; // 5 minutes
         
         [self flushMessages];
     }
@@ -101,15 +101,15 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
 #pragma mark -
 #pragma mark Public Methods
 
--(id)setLogReportingPolicy:(int)messagesNum time:(int)timeFrequencyMS {
+-(id)setLogReportingPolicy:(int)messagesNum time:(int)timeFrequencySec {
     
-    if (messagesNum <= 0 && timeFrequencyMS <= 0)
+    if (messagesNum <= 0 && timeFrequencySec <= 0)
         return [backendless throwFault:FAULT_WRONG_POLICY];
     
-    [DebLog log:@"LogBuffer -> setLogReportingPolicy: messagesNum = %d, timeFrequencyMS = %d", messagesNum, timeFrequencyMS];
+    [DebLog log:@"LogBuffer -> setLogReportingPolicy: messagesNum = %d, timeFrequencyMS = %d", messagesNum, timeFrequencySec];
     
     _numOfMessages = messagesNum;
-    _timeFrequency = timeFrequencyMS;
+    _timeFrequency = timeFrequencySec;
     
     [self flushMessages];
     
@@ -193,7 +193,7 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
     if (_numOfMessages == 1 || _timeFrequency <= 0)
         return;
     
-    dispatch_time_t interval = dispatch_time(DISPATCH_TIME_NOW, 1ull*NSEC_PER_MSEC*_timeFrequency);
+    dispatch_time_t interval = dispatch_time(DISPATCH_TIME_NOW, 1ull*NSEC_PER_SEC*_timeFrequency);
     dispatch_after(interval, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self flushMessages];
     });
