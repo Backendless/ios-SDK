@@ -1871,7 +1871,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\n# --  YOU SHOULD USE THIS SCHEME TO BUILD BACKENDLESS LIBS ---------------------------------------------------\n\nrm -rf ${SRCROOT}/../lib/backendless\nmkdir ${SRCROOT}/../lib/backendless\nmkdir ${SRCROOT}/../lib/backendless/include\n\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-mac TEST_AFTER_BUILD=NO clean build\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-simulator TEST_AFTER_BUILD=NO clean build -sdk iphonesimulator\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-device TEST_AFTER_BUILD=NO clean build -sdk iphoneos\n\nlipo -create \"${SRCROOT}/../lib/backendless/libbackendless-simulator.a\" \\\n\"${SRCROOT}/../lib/backendless/libbackendless-device.a\" -output \\\n\"${SRCROOT}/../lib/backendless/backendless.a\"\n\nrm -rf ${SRCROOT}/../lib/backendless/libbackendless-simulator.a\nrm -rf ${SRCROOT}/../lib/backendless/libbackendless-device.a\n";
+			shellScript = "\n# --  YOU SHOULD USE THIS SCHEME TO BUILD BACKENDLESS LIBS ---------------------------------------------------\n\nrm -rf ${SRCROOT}/../lib/backendless\nmkdir ${SRCROOT}/../lib/backendless\nmkdir ${SRCROOT}/../lib/backendless/include\n\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-simulator TEST_AFTER_BUILD=NO clean build -sdk iphonesimulator\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-device TEST_AFTER_BUILD=NO clean build -sdk iphoneos\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-mac TEST_AFTER_BUILD=NO clean build\n\nlipo -create \"${SRCROOT}/../lib/backendless/libbackendless-simulator.a\" \\\n\"${SRCROOT}/../lib/backendless/libbackendless-device.a\" -output \\\n\"${SRCROOT}/../lib/backendless/backendless.a\"\n\nrm -rf ${SRCROOT}/../lib/backendless/libbackendless-simulator.a\nrm -rf ${SRCROOT}/../lib/backendless/libbackendless-device.a\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2177,7 +2177,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "backendless-fat-and-copy copy";
 				PROVISIONING_PROFILE = "";
-				VALID_ARCHS = "i386 x86_64 armv7 arm64";
+				VALID_ARCHS = "x86_64 armv7 arm64";
 			};
 			name = Debug;
 		};
@@ -2188,7 +2188,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "backendless-fat-and-copy copy";
 				PROVISIONING_PROFILE = "";
-				VALID_ARCHS = "i386 x86_64 armv7 arm64";
+				VALID_ARCHS = "x86_64 armv7 arm64";
 			};
 			name = Release;
 		};
@@ -2267,10 +2267,7 @@
 		F97969E5166CC8C300595F5E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					x86_64,
-					i386,
-				);
+				ARCHS = x86_64;
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_EMPTY_BODY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -2290,17 +2287,14 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
-				VALID_ARCHS = "x86_64 i386";
+				VALID_ARCHS = x86_64;
 			};
 			name = Debug;
 		};
 		F97969E6166CC8C300595F5E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					x86_64,
-					i386,
-				);
+				ARCHS = x86_64;
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_EMPTY_BODY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -2320,7 +2314,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
-				VALID_ARCHS = "x86_64 i386";
+				VALID_ARCHS = x86_64;
 			};
 			name = Release;
 		};
@@ -2380,7 +2374,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				VALID_ARCHS = "i386 x86_64 armv7 arm64";
+				VALID_ARCHS = "x86_64 armv7 arm64";
 			};
 			name = Debug;
 		};
@@ -2391,7 +2385,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				VALID_ARCHS = "i386 x86_64 armv7 arm64";
+				VALID_ARCHS = "x86_64 armv7 arm64";
 			};
 			name = Release;
 		};
