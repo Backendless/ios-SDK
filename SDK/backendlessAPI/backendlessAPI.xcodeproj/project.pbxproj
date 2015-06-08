@@ -495,6 +495,12 @@
 		F9BBFD7918783B750076BC6D /* Types.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFD3F18783B740076BC6D /* Types.h */; };
 		F9BBFD7B18783B750076BC6D /* WeborbClient.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFD4018783B740076BC6D /* WeborbClient.h */; };
 		F9BBFD7C18783B750076BC6D /* WeborbClient.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFD4018783B740076BC6D /* WeborbClient.h */; };
+		F9D5234D1B25CEF800F6A441 /* ClassCastException.h in Headers */ = {isa = PBXBuildFile; fileRef = F9D5234B1B25CEF800F6A441 /* ClassCastException.h */; };
+		F9D5234E1B25CEF800F6A441 /* ClassCastException.h in Headers */ = {isa = PBXBuildFile; fileRef = F9D5234B1B25CEF800F6A441 /* ClassCastException.h */; };
+		F9D5234F1B25CEF800F6A441 /* ClassCastException.h in Headers */ = {isa = PBXBuildFile; fileRef = F9D5234B1B25CEF800F6A441 /* ClassCastException.h */; };
+		F9D523501B25CEF800F6A441 /* ClassCastException.m in Sources */ = {isa = PBXBuildFile; fileRef = F9D5234C1B25CEF800F6A441 /* ClassCastException.m */; };
+		F9D523511B25CEF800F6A441 /* ClassCastException.m in Sources */ = {isa = PBXBuildFile; fileRef = F9D5234C1B25CEF800F6A441 /* ClassCastException.m */; };
+		F9D523521B25CEF800F6A441 /* ClassCastException.m in Sources */ = {isa = PBXBuildFile; fileRef = F9D5234C1B25CEF800F6A441 /* ClassCastException.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -711,6 +717,8 @@
 		F9C3C070161AB84100409FF2 /* MessageStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageStatus.m; sourceTree = "<group>"; };
 		F9C3C081161C595C00409FF2 /* BESubscription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BESubscription.h; sourceTree = "<group>"; };
 		F9C3C082161C595D00409FF2 /* BESubscription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BESubscription.m; sourceTree = "<group>"; };
+		F9D5234B1B25CEF800F6A441 /* ClassCastException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassCastException.h; sourceTree = "<group>"; };
+		F9D5234C1B25CEF800F6A441 /* ClassCastException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassCastException.m; sourceTree = "<group>"; };
 		F9FF0E8B160DA8F400AEB3B7 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1297,6 +1305,8 @@
 			children = (
 				F91B47E915FF448F00012DFC /* HashMap.h */,
 				F91B47EA15FF448F00012DFC /* HashMap.m */,
+				F9D5234B1B25CEF800F6A441 /* ClassCastException.h */,
+				F9D5234C1B25CEF800F6A441 /* ClassCastException.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1483,6 +1493,7 @@
 				1C7BB4ED1A2E092900D3C2C1 /* WeborbClient.h in Headers */,
 				1C7BB4EE1A2E092900D3C2C1 /* Backendless-Bridging-Header.h in Headers */,
 				D3A064A71AFA6E4A00779BB1 /* LocationTracker.h in Headers */,
+				F9D5234D1B25CEF800F6A441 /* ClassCastException.h in Headers */,
 				1C7BB4EF1A2E092900D3C2C1 /* CustomService.h in Headers */,
 				D3A064C01AFCE64D00779BB1 /* GeoFence.h in Headers */,
 				1C7BB4F01A2E092900D3C2C1 /* Events.h in Headers */,
@@ -1573,6 +1584,7 @@
 				D3F8BD9A198256AF0009DB40 /* ICacheService.h in Headers */,
 				D3FB9B7519867F0E00A13FB6 /* AtomicCountersFactory.h in Headers */,
 				D30A5D7519B9CA8200C0BA44 /* Backendless-Bridging-Header.h in Headers */,
+				F9D5234E1B25CEF800F6A441 /* ClassCastException.h in Headers */,
 				D3FB9B7C1986818F00A13FB6 /* IAtomicCounters.h in Headers */,
 				D3FB9B6919867EA500A13FB6 /* AtomicCounters.h in Headers */,
 				D39A468219811D9B006CBD1B /* CacheService.h in Headers */,
@@ -1671,6 +1683,7 @@
 				F9BBFD7918783B750076BC6D /* Types.h in Headers */,
 				F9BBFD7C18783B750076BC6D /* WeborbClient.h in Headers */,
 				F9796A6B166CD42E00595F5E /* MessageStatus.h in Headers */,
+				F9D5234F1B25CEF800F6A441 /* ClassCastException.h in Headers */,
 				D3F8BDA019825CF80009DB40 /* CacheFactory.h in Headers */,
 				D3F8BD9B198256AF0009DB40 /* ICacheService.h in Headers */,
 				D39A468319811D9B006CBD1B /* CacheService.h in Headers */,
@@ -1935,6 +1948,7 @@
 				1C7BB4B81A2E092900D3C2C1 /* MediaPlayer.m in Sources */,
 				1C7BB4B91A2E092900D3C2C1 /* AbstractQuery.m in Sources */,
 				1C7BB4BA1A2E092900D3C2C1 /* AtomicCountersFactory.m in Sources */,
+				F9D523501B25CEF800F6A441 /* ClassCastException.m in Sources */,
 				D3A064D31B02429100779BB1 /* ServerCallback.m in Sources */,
 				1C7BB4BB1A2E092900D3C2C1 /* BackendlessCache.m in Sources */,
 				1C7BB4BC1A2E092900D3C2C1 /* BackendlessCacheData.m in Sources */,
@@ -1962,6 +1976,7 @@
 				F97969F0166CCB8200595F5E /* PersistenceService.m in Sources */,
 				91A4285E18508269005F91DE /* BEReachability.m in Sources */,
 				F97969F1166CCB8200595F5E /* ObjectProperty.m in Sources */,
+				F9D523511B25CEF800F6A441 /* ClassCastException.m in Sources */,
 				F97969F2166CCB8200595F5E /* BackendlessEntity.m in Sources */,
 				F97969F3166CCB8200595F5E /* BackendlessCollection.m in Sources */,
 				F97969F4166CCB8200595F5E /* BackendlessDataQuery.m in Sources */,
@@ -2035,6 +2050,7 @@
 				F9796A3A166CD3DA00595F5E /* PersistenceService.m in Sources */,
 				91A4285F18508269005F91DE /* BEReachability.m in Sources */,
 				F9796A3B166CD3DA00595F5E /* ObjectProperty.m in Sources */,
+				F9D523521B25CEF800F6A441 /* ClassCastException.m in Sources */,
 				F9796A3C166CD3DA00595F5E /* BackendlessEntity.m in Sources */,
 				F9796A3D166CD3DA00595F5E /* BackendlessCollection.m in Sources */,
 				F9796A3E166CD3DA00595F5E /* BackendlessDataQuery.m in Sources */,

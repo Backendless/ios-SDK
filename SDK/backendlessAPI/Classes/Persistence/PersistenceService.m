@@ -29,6 +29,7 @@
 #import "Types.h"
 #import "Responder.h"
 #import "HashMap.h"
+#import "ClassCastException.h"
 #import "Backendless.h"
 #import "Invoker.h"
 #import "BackendlessCollection.h"
@@ -65,6 +66,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 -(NSString *)typeClassName:(Class)entity;
 -(NSString *)objectClassName:(id)object;
 -(NSDictionary *)propertyDictionary:(id)object;
+-(id)propertyObject:(id)object;
 -(BackendlessCollection *)getAsCollection:(id)data query:(BackendlessDataQuery *)query;
 -(id)setRelations:(NSArray *)relations object:(id)object response:(id)response;
 // callbacks
@@ -156,6 +158,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.BackendlessCollection" mapped:[BackendlessCollection class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.ObjectProperty" mapped:[ObjectProperty class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.model.GeoPoint" mapped:[GeoPoint class]];
+        [[Types sharedInstance] addClientClassMapping:@"java.lang.ClassCastException" mapped:[ClassCastException class]];
 	
         _permissions = [DataPermission new];
     }
@@ -1069,7 +1072,7 @@ id result = nil;
 #if _SAVE_OBJECT_AS_DICTIONARY_
     NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], [self propertyDictionary:entity]];
 #else
-    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], entity];
+    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], [self propertyObject:entity]];
 #endif
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_SAVE args:args];
     if ([result isKindOfClass:[Fault class]]) {
@@ -1093,7 +1096,7 @@ id result = nil;
     NSDictionary *props = [self filteringProperty:entity];
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self objectClassName:entity], props, nil];
 #else
-    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], entity];
+    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity],  [self propertyObject:entity]];
 #endif
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_CREATE args:args];
     if ([result isKindOfClass:[Fault class]]) {
@@ -1121,7 +1124,7 @@ id result = nil;
     NSDictionary *props = [self filteringProperty:entity];
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self objectClassName:entity], props, nil];
 #else
-    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], entity];
+    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity],  [self propertyObject:entity]];
 #endif
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_UPDATE args:args];
     if ([result isKindOfClass:[Fault class]]) {
@@ -1466,7 +1469,7 @@ id result = nil;
 #if _SAVE_OBJECT_AS_DICTIONARY_
     NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], [self propertyDictionary:entity]];
 #else
-    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], entity];
+    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity],  [self propertyObject:entity]];
 #endif
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(createResponse:) selErrorHandler:nil];
     _responder.chained = responder;
@@ -1492,7 +1495,7 @@ id result = nil;
     NSDictionary *props = [self filteringProperty:entity];
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self objectClassName:entity], props, nil];
 #else
-    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], entity];
+    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity],  [self propertyObject:entity]];
 #endif
     Responder *createResponder = [Responder responder:self selResponseHandler:@selector(createResponse:) selErrorHandler:nil];
     createResponder.chained = responder;
@@ -1517,7 +1520,7 @@ id result = nil;
     NSDictionary *props = [self filteringProperty:entity];
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self objectClassName:entity], props, nil];
 #else
-    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], entity];
+    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity],  [self propertyObject:entity]];
 #endif
     if ([OfflineModeManager sharedInstance].isOfflineMode)
     {
@@ -2082,6 +2085,19 @@ id get_object_id(id self, SEL _cmd)
     
 #endif
 }
+
+-(id)propertyObject:(id)object {
+    
+    if ([[object class] isSubclassOfClass:[BackendlessUser class]]) {
+        NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:[(BackendlessUser *) object getProperties]];
+        [data removeObjectsForKeys:@[@"user-token", @"userToken"]];
+        
+        return data;
+    }
+    
+    return object;
+}
+
 
 -(BackendlessCollection *)getAsCollection:(id)data query:(BackendlessDataQuery *)query {
     
