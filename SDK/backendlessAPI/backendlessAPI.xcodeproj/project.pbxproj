@@ -705,6 +705,7 @@
 		F9BBFD4118783B740076BC6D /* libCommLibMac.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libCommLibMac.a; sourceTree = "<group>"; };
 		F9BE41C21B2ED98200CD0A72 /* AuthorizationException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthorizationException.h; sourceTree = "<group>"; };
 		F9BE41C31B2ED98200CD0A72 /* AuthorizationException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthorizationException.m; sourceTree = "<group>"; };
+		F9BE42991B2F198700CD0A72 /* Backendless Mac OS application setup.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Backendless Mac OS application setup.pdf"; sourceTree = "<group>"; };
 		F9C3BF711613175600409FF2 /* BackendlessDataQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackendlessDataQuery.h; sourceTree = "<group>"; };
 		F9C3BF721613175600409FF2 /* BackendlessDataQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackendlessDataQuery.m; sourceTree = "<group>"; };
 		F9C3BF75161486B500409FF2 /* BackendlessGeoQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackendlessGeoQuery.h; sourceTree = "<group>"; };
@@ -930,6 +931,7 @@
 		D35CA3041A5FD31300F500B0 /* doc */ = {
 			isa = PBXGroup;
 			children = (
+				F9BE42991B2F198700CD0A72 /* Backendless Mac OS application setup.pdf */,
 				D35CA3061A5FD31300F500B0 /* Atomic Counters API.pdf */,
 				D35CA3081A5FD31300F500B0 /* Caching API.pdf */,
 				D35CA3091A5FD31300F500B0 /* Developing an iOS Video Recorder and Player on Swift in 10 Minutes from the Scratch.pdf */,
