@@ -35,6 +35,7 @@
 #import "BackendlessUser.h"
 #import "UserProperty.h"
 #import "AMFSerializer.h"
+#import "AuthorizationException.h"
 
 #define FAULT_NO_USER [Fault fault:@"user is not exist" detail:@"backendless user is not exist" faultCode:@"3100"]
 #define FAULT_NO_USER_ID [Fault fault:@"user ID is not exist" detail:@"backendless user ID is not exist" faultCode:@"3101"]
@@ -93,6 +94,7 @@ static NSString *USER_TOKEN_KEY = @"user-token\0";
 
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.users.property.UserProperty" mapped:[UserProperty class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.users.property.AbstractProperty" mapped:[AbstractProperty class]];
+        [[Types sharedInstance] addClientClassMapping:@"com.backendless.exceptions.security.AuthorizationException" mapped:[AuthorizationException class]];
 	}
 	
 	return self;

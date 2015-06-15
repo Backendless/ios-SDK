@@ -495,6 +495,12 @@
 		F9BBFD7918783B750076BC6D /* Types.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFD3F18783B740076BC6D /* Types.h */; };
 		F9BBFD7B18783B750076BC6D /* WeborbClient.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFD4018783B740076BC6D /* WeborbClient.h */; };
 		F9BBFD7C18783B750076BC6D /* WeborbClient.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFD4018783B740076BC6D /* WeborbClient.h */; };
+		F9BE41C41B2ED98200CD0A72 /* AuthorizationException.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BE41C21B2ED98200CD0A72 /* AuthorizationException.h */; };
+		F9BE41C51B2ED98200CD0A72 /* AuthorizationException.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BE41C21B2ED98200CD0A72 /* AuthorizationException.h */; };
+		F9BE41C61B2ED98200CD0A72 /* AuthorizationException.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BE41C21B2ED98200CD0A72 /* AuthorizationException.h */; };
+		F9BE41C71B2ED98200CD0A72 /* AuthorizationException.m in Sources */ = {isa = PBXBuildFile; fileRef = F9BE41C31B2ED98200CD0A72 /* AuthorizationException.m */; };
+		F9BE41C81B2ED98200CD0A72 /* AuthorizationException.m in Sources */ = {isa = PBXBuildFile; fileRef = F9BE41C31B2ED98200CD0A72 /* AuthorizationException.m */; };
+		F9BE41C91B2ED98200CD0A72 /* AuthorizationException.m in Sources */ = {isa = PBXBuildFile; fileRef = F9BE41C31B2ED98200CD0A72 /* AuthorizationException.m */; };
 		F9D5234D1B25CEF800F6A441 /* ClassCastException.h in Headers */ = {isa = PBXBuildFile; fileRef = F9D5234B1B25CEF800F6A441 /* ClassCastException.h */; };
 		F9D5234E1B25CEF800F6A441 /* ClassCastException.h in Headers */ = {isa = PBXBuildFile; fileRef = F9D5234B1B25CEF800F6A441 /* ClassCastException.h */; };
 		F9D5234F1B25CEF800F6A441 /* ClassCastException.h in Headers */ = {isa = PBXBuildFile; fileRef = F9D5234B1B25CEF800F6A441 /* ClassCastException.h */; };
@@ -697,6 +703,8 @@
 		F9BBFD3F18783B740076BC6D /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
 		F9BBFD4018783B740076BC6D /* WeborbClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeborbClient.h; sourceTree = "<group>"; };
 		F9BBFD4118783B740076BC6D /* libCommLibMac.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libCommLibMac.a; sourceTree = "<group>"; };
+		F9BE41C21B2ED98200CD0A72 /* AuthorizationException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthorizationException.h; sourceTree = "<group>"; };
+		F9BE41C31B2ED98200CD0A72 /* AuthorizationException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthorizationException.m; sourceTree = "<group>"; };
 		F9C3BF711613175600409FF2 /* BackendlessDataQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackendlessDataQuery.h; sourceTree = "<group>"; };
 		F9C3BF721613175600409FF2 /* BackendlessDataQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackendlessDataQuery.m; sourceTree = "<group>"; };
 		F9C3BF75161486B500409FF2 /* BackendlessGeoQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackendlessGeoQuery.h; sourceTree = "<group>"; };
@@ -1173,6 +1181,7 @@
 				91A42804184E2419005F91DE /* OfflineModeManager */,
 				91F1398917D7240A00D1AC4C /* Cache */,
 				F91B47EC15FF48AF00012DFC /* IO */,
+				F9BE41C11B2ED8FC00CD0A72 /* Exceptions */,
 				F99D9232160B617200AFF3F6 /* Property */,
 				F91B47E615FF448F00012DFC /* UserService */,
 				F91B47E515FF448F00012DFC /* Persistence */,
@@ -1436,6 +1445,15 @@
 			path = include;
 			sourceTree = "<group>";
 		};
+		F9BE41C11B2ED8FC00CD0A72 /* Exceptions */ = {
+			isa = PBXGroup;
+			children = (
+				F9BE41C21B2ED98200CD0A72 /* AuthorizationException.h */,
+				F9BE41C31B2ED98200CD0A72 /* AuthorizationException.m */,
+			);
+			path = Exceptions;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1481,6 +1499,7 @@
 				1C7BB4E31A2E092900D3C2C1 /* MessagingService.h in Headers */,
 				1C7BB4E41A2E092900D3C2C1 /* ISharedObjectListener.h in Headers */,
 				1C7BB4E51A2E092900D3C2C1 /* DeviceRegistration.h in Headers */,
+				F9BE41C41B2ED98200CD0A72 /* AuthorizationException.h in Headers */,
 				1C7BB4E61A2E092900D3C2C1 /* DeliveryOptions.h in Headers */,
 				1C7BB4E71A2E092900D3C2C1 /* BEReachability.h in Headers */,
 				1C7BB4E81A2E092900D3C2C1 /* PublishOptions.h in Headers */,
@@ -1614,6 +1633,7 @@
 				D3A064D11B02429100779BB1 /* ServerCallback.h in Headers */,
 				F9512979168DEA210041460C /* IMediaStreamer.h in Headers */,
 				91A4285B18508269005F91DE /* BEReachability.h in Headers */,
+				F9BE41C51B2ED98200CD0A72 /* AuthorizationException.h in Headers */,
 				F9BBFD5D18783B750076BC6D /* IClientSharedObjectDelegate.h in Headers */,
 				91F1399517D7240A00D1AC4C /* AbstractQuery.h in Headers */,
 				91F139A917D7240A00D1AC4C /* BackendlessCachePolicy.h in Headers */,
@@ -1713,6 +1733,7 @@
 				D3A064D21B02429100779BB1 /* ServerCallback.h in Headers */,
 				F951297A168DEA210041460C /* IMediaStreamer.h in Headers */,
 				91A4285C18508269005F91DE /* BEReachability.h in Headers */,
+				F9BE41C61B2ED98200CD0A72 /* AuthorizationException.h in Headers */,
 				F9BBFD5E18783B750076BC6D /* IClientSharedObjectDelegate.h in Headers */,
 				91F1399617D7240A00D1AC4C /* AbstractQuery.h in Headers */,
 				91F139AA17D7240A00D1AC4C /* BackendlessCachePolicy.h in Headers */,
@@ -1912,6 +1933,7 @@
 				1C7BB49D1A2E092900D3C2C1 /* BackendlessDataQuery.m in Sources */,
 				1C7BB49E1A2E092900D3C2C1 /* DataStoreFactory.m in Sources */,
 				1C7BB49F1A2E092900D3C2C1 /* GeoService.m in Sources */,
+				F9BE41C71B2ED98200CD0A72 /* AuthorizationException.m in Sources */,
 				1C7BB4A01A2E092900D3C2C1 /* GeoCategory.m in Sources */,
 				1C7BB4A11A2E092900D3C2C1 /* Events.m in Sources */,
 				1C7BB4A21A2E092900D3C2C1 /* AtomicCounters.m in Sources */,
@@ -2010,6 +2032,7 @@
 				91764F9E1823E43400745497 /* BECollectionView.m in Sources */,
 				D39A468519811D9B006CBD1B /* CacheService.m in Sources */,
 				F9796A05166CCB8200595F5E /* HashMap.m in Sources */,
+				F9BE41C81B2ED98200CD0A72 /* AuthorizationException.m in Sources */,
 				F97969E4166CC8C300595F5E /* backendless_simulator.m in Sources */,
 				D35DC33D1AD6CE1500EF2A68 /* Logging.m in Sources */,
 				F994A3F6168DC36B00C1A498 /* MediaPublishOptions.m in Sources */,
@@ -2084,6 +2107,7 @@
 				91764F9F1823E43400745497 /* BECollectionView.m in Sources */,
 				D39A468619811D9B006CBD1B /* CacheService.m in Sources */,
 				F9796A4F166CD3DB00595F5E /* HashMap.m in Sources */,
+				F9BE41C91B2ED98200CD0A72 /* AuthorizationException.m in Sources */,
 				F9796A30166CD3A400595F5E /* backendless_device.m in Sources */,
 				D35DC33E1AD6CE1500EF2A68 /* Logging.m in Sources */,
 				F994A3F7168DC36B00C1A498 /* MediaPublishOptions.m in Sources */,
