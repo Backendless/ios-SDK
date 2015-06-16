@@ -665,6 +665,27 @@
 		F9796A2F166CD3A400595F5E /* backendless_device.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = backendless_device.m; sourceTree = "<group>"; };
 		F98A7D8A1B30295A007635B6 /* Communication Library for iOS User Guide.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Communication Library for iOS User Guide.pdf"; sourceTree = "<group>"; };
 		F98A7D8B1B30295A007635B6 /* WeborbClient Class Reference.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "WeborbClient Class Reference.pdf"; sourceTree = "<group>"; };
+		F98A7EFC1B307017007635B6 /* libbackendless-mac.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libbackendless-mac.a"; sourceTree = "<group>"; };
+		F98A7EFF1B307017007635B6 /* AMFSerializer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AMFSerializer.h; sourceTree = "<group>"; };
+		F98A7F001B307017007635B6 /* BinaryCodec.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BinaryCodec.h; sourceTree = "<group>"; };
+		F98A7F011B307017007635B6 /* BinaryStream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BinaryStream.h; sourceTree = "<group>"; };
+		F98A7F021B307017007635B6 /* DEBUG.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DEBUG.h; sourceTree = "<group>"; };
+		F98A7F031B307017007635B6 /* FlashorbBinaryReader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlashorbBinaryReader.h; sourceTree = "<group>"; };
+		F98A7F041B307017007635B6 /* FlashorbBinaryWriter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlashorbBinaryWriter.h; sourceTree = "<group>"; };
+		F98A7F051B307017007635B6 /* IAttributeStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IAttributeStore.h; sourceTree = "<group>"; };
+		F98A7F061B307017007635B6 /* IClientSharedObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IClientSharedObject.h; sourceTree = "<group>"; };
+		F98A7F071B307017007635B6 /* IClientSharedObjectDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IClientSharedObjectDelegate.h; sourceTree = "<group>"; };
+		F98A7F081B307017007635B6 /* IPendingServiceCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IPendingServiceCallback.h; sourceTree = "<group>"; };
+		F98A7F091B307017007635B6 /* IPersistable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IPersistable.h; sourceTree = "<group>"; };
+		F98A7F0A1B307017007635B6 /* IRTMProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IRTMProtocol.h; sourceTree = "<group>"; };
+		F98A7F0B1B307017007635B6 /* IServiceCall.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IServiceCall.h; sourceTree = "<group>"; };
+		F98A7F0C1B307017007635B6 /* ISharedObjectListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISharedObjectListener.h; sourceTree = "<group>"; };
+		F98A7F0D1B307017007635B6 /* MemoryTicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MemoryTicker.h; sourceTree = "<group>"; };
+		F98A7F0E1B307017007635B6 /* Responder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Responder.h; sourceTree = "<group>"; };
+		F98A7F0F1B307017007635B6 /* RTMPClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTMPClient.h; sourceTree = "<group>"; };
+		F98A7F101B307017007635B6 /* Types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
+		F98A7F111B307017007635B6 /* WeborbClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeborbClient.h; sourceTree = "<group>"; };
+		F98A7F121B307017007635B6 /* libCommLib-osx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCommLib-osx.a"; sourceTree = "<group>"; };
 		F994A3F2168DC36B00C1A498 /* MediaPublishOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaPublishOptions.h; sourceTree = "<group>"; };
 		F994A3F3168DC36B00C1A498 /* MediaPublishOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaPublishOptions.m; sourceTree = "<group>"; };
 		F994A3FC168DC39400C1A498 /* MediaPlaybackOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaPlaybackOptions.h; sourceTree = "<group>"; };
@@ -1108,6 +1129,7 @@
 				91DF02371821623E009DAE40 /* BEMapView */,
 				912D5049182102C7006A090A /* BETableView */,
 				F91B47C415FE380C00012DFC /* lib */,
+				F98A7EBE1B307017007635B6 /* osx */,
 				F91B47E115FF448F00012DFC /* Classes */,
 				F9042B0D15FDD8D300C9381A /* backendlessAPI */,
 				F97969DE166CC8C300595F5E /* backendless-simulator */,
@@ -1389,6 +1411,59 @@
 				F9796A2C166CD3A400595F5E /* backendless-device-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F98A7EBE1B307017007635B6 /* osx */ = {
+			isa = PBXGroup;
+			children = (
+				F98A7EBF1B307017007635B6 /* backendless */,
+				F98A7EFD1B307017007635B6 /* CommLib */,
+			);
+			name = osx;
+			path = ../osx;
+			sourceTree = "<group>";
+		};
+		F98A7EBF1B307017007635B6 /* backendless */ = {
+			isa = PBXGroup;
+			children = (
+				F98A7EFC1B307017007635B6 /* libbackendless-mac.a */,
+			);
+			path = backendless;
+			sourceTree = "<group>";
+		};
+		F98A7EFD1B307017007635B6 /* CommLib */ = {
+			isa = PBXGroup;
+			children = (
+				F98A7EFE1B307017007635B6 /* include */,
+				F98A7F121B307017007635B6 /* libCommLib-osx.a */,
+			);
+			path = CommLib;
+			sourceTree = "<group>";
+		};
+		F98A7EFE1B307017007635B6 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F98A7EFF1B307017007635B6 /* AMFSerializer.h */,
+				F98A7F001B307017007635B6 /* BinaryCodec.h */,
+				F98A7F011B307017007635B6 /* BinaryStream.h */,
+				F98A7F021B307017007635B6 /* DEBUG.h */,
+				F98A7F031B307017007635B6 /* FlashorbBinaryReader.h */,
+				F98A7F041B307017007635B6 /* FlashorbBinaryWriter.h */,
+				F98A7F051B307017007635B6 /* IAttributeStore.h */,
+				F98A7F061B307017007635B6 /* IClientSharedObject.h */,
+				F98A7F071B307017007635B6 /* IClientSharedObjectDelegate.h */,
+				F98A7F081B307017007635B6 /* IPendingServiceCallback.h */,
+				F98A7F091B307017007635B6 /* IPersistable.h */,
+				F98A7F0A1B307017007635B6 /* IRTMProtocol.h */,
+				F98A7F0B1B307017007635B6 /* IServiceCall.h */,
+				F98A7F0C1B307017007635B6 /* ISharedObjectListener.h */,
+				F98A7F0D1B307017007635B6 /* MemoryTicker.h */,
+				F98A7F0E1B307017007635B6 /* Responder.h */,
+				F98A7F0F1B307017007635B6 /* RTMPClient.h */,
+				F98A7F101B307017007635B6 /* Types.h */,
+				F98A7F111B307017007635B6 /* WeborbClient.h */,
+			);
+			path = include;
 			sourceTree = "<group>";
 		};
 		F99D9232160B617200AFF3F6 /* Property */ = {
