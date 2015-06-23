@@ -1905,6 +1905,11 @@ id result = nil;
     return metadata;
 }
 
+-(void)mapTableToClass:(NSString *)tableName type:(Class)type {
+    [[Types sharedInstance] addClientClassMapping:tableName mapped:type];
+}
+
+
 #if 0
 -(void)removeAllSync:(Class)entity {
     

@@ -153,5 +153,6 @@ extern NSString *LOAD_ALL_RELATIONS;
 // utilites
 -(id)getObjectId:(id)object;
 -(NSDictionary *)getObjectMetadata:(id)object;
+-(void)mapTableToClass:(NSString *)tableName type:(Class)type;
 
 @end
