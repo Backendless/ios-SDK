@@ -64,6 +64,7 @@ enum audio_mode
 -(BOOL)setVideoBitrate:(uint)bitRate;
 -(BOOL)setVideoResolution:(MPVideoResolution)resolution bitRate:(uint)bitRate;
 -(BOOL)setVideoOrientation:(AVCaptureVideoOrientation)orientation;
+-(BOOL)setVideoCustom:(uint)fps width:(uint)width height:(uint)height;
 -(void)setPreviewLayer:(UIView *)preview;
 -(void)teardownPreviewLayer;
 -(void)switchCameras;
@@ -72,14 +73,17 @@ enum audio_mode
 -(double)getMeanFPS;
 
 -(BOOL)setAudioMode:(AudioMode)mode;
+-(BOOL)setAudioBitrate:(uint)bitRate;
 
 -(BOOL)connect:(NSString *)url name:(NSString *)name publishType:(MPMediaPublishType)type;
 -(BOOL)attach:(RTMPClient *)client name:(NSString *)name publishType:(MPMediaPublishType)type;
 -(BOOL)stream:(NSString *)name publishType:(MPMediaPublishType)type;
 #if IS_MEDIA_ENCODER
+-(BOOL)sendImage:(CGImageRef)image timestamp:(int64_t)timestamp;
 -(BOOL)sendFrame:(CVPixelBufferRef)pixelBuffer timestamp:(int64_t)timestamp;
 -(BOOL)sendFrame:(CVPixelBufferRef)pixelBuffer timestamp:(int64_t)timestamp pts:(CMTime)pts duration:(CMTime)duration;
 #else
+-(BOOL)sendImage:(CGImageRef)image timestamp:(int)timestamp;
 -(BOOL)sendFrame:(CVPixelBufferRef)pixelBuffer timestamp:(int)timestamp;
 #endif
 -(BOOL)sendSampleBuffer:(CMSampleBufferRef)sampleBuffer;
