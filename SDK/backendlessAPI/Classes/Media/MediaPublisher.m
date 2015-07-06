@@ -104,8 +104,21 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
     [_stream setVideoBitrate:bitRate];
 }
 
+-(void)setAudioBitrate:(uint)bitRate {
+    
+    if ([self wrongOptions])
+        return;
+    
+    _options.audioBitrate = bitRate;
+    [_stream setAudioBitrate:bitRate];
+}
+
 -(AVCaptureSession *)getCaptureSession {
     return [_stream getCaptureSession];
+}
+
+-(BOOL)sendImage:(CGImageRef)image timestamp:(int64_t)timestamp {
+    return [_stream sendImage:image timestamp:timestamp];
 }
 
 -(BOOL)sendFrame:(CVPixelBufferRef)pixelBuffer timestamp:(int)timestamp {
@@ -202,7 +215,10 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
             
         case CUSTOM_VIDEO: {
             _stream = [[BroadcastStreamClient alloc] init:_streamPath resolution:(MPVideoResolution)_options.resolution];
-            [_stream setVideoMode:VIDEO_CUSTOM];
+            if (_options.resolution == RESOLUTION_CUSTOM)
+                [_stream setVideoCustom:_options.fps width:_options.width height:_options.height];
+            else
+                [_stream setVideoMode:VIDEO_CUSTOM];
             [_stream setAudioMode:AUDIO_OFF];
             [_stream setPreviewLayer:_options.previewPanel];
             break;
@@ -210,7 +226,10 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
             
         case AUDIO_AND_CUSTOM_VIDEO: {
             _stream = [[BroadcastStreamClient alloc] init:_streamPath resolution:(MPVideoResolution)_options.resolution];
-            [_stream setVideoMode:VIDEO_CUSTOM];
+            if (_options.resolution == RESOLUTION_CUSTOM)
+                [_stream setVideoCustom:_options.fps width:_options.width height:_options.height];
+            else
+                [_stream setVideoMode:VIDEO_CUSTOM];
             [_stream setAudioMode:AUDIO_ON];
             [_stream setPreviewLayer:_options.previewPanel];
             break;
@@ -229,6 +248,9 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
     
     if (_options.videoBitrate)
         [_stream setVideoBitrate:_options.videoBitrate];
+    
+    if (_options.audioBitrate)
+        [_stream setAudioBitrate:_options.audioBitrate];
     
     _stream.parameters = [self parameters];
     

@@ -32,13 +32,17 @@
         _videoCodecId = MP_VIDEO_CODEC_H264;
         _audioCodecId = MP_AUDIO_CODEC_AAC;
 #endif
+        _previewPanel = nil;
         _publishType = PUBLISH_LIVE;
         _orientation = AVCaptureVideoOrientationLandscapeRight;
         _content = AUDIO_AND_VIDEO;
         _resolution = RESOLUTION_LOW;
         _videoBitrate = 0;
         _audioBitrate = 0;
-        _previewPanel = nil;
+        _fps = 15;
+        _width = 192;
+        _height = 144;
+        
 	}
 	
 	return self;
@@ -86,6 +90,25 @@
     instance.resolution = resolution;
     
     return [instance autorelease];
+}
+
+-(void)setCustomVideo:(uint)fps width:(uint)width height:(uint)height {
+    
+    _audioCodecId = MP_AUDIO_CODEC_NONE;
+    _content = CUSTOM_VIDEO;
+    _resolution = RESOLUTION_CUSTOM;
+    _fps = fps;
+    _width = width;
+    _height = height;
+}
+
+-(void)setAudioAndCustomVideo:(uint)fps width:(uint)width height:(uint)height {
+    
+    _content = AUDIO_AND_CUSTOM_VIDEO;
+    _resolution = RESOLUTION_CUSTOM;
+    _fps = fps;
+    _width = width;
+    _height = height;
 }
 
 -(NSString *)getServerURL {

@@ -34,6 +34,7 @@ typedef enum {
 } MediaStreamContent;
 
 @interface MediaPublishOptions : NSObject
+@property (assign, nonatomic) UIView *previewPanel;
 #if IS_MEDIA_ENCODER
 @property MPVideoCodec videoCodecId;
 @property MPAudioCodec audioCodecId;
@@ -44,13 +45,18 @@ typedef enum {
 @property MediaStreamContent content;
 @property uint videoBitrate;
 @property uint audioBitrate;
-@property (assign, nonatomic) UIView *previewPanel;
+// custom mode options
+@property uint fps;
+@property uint width;
+@property uint height;
 
 +(id)liveStream:(UIView *)view;
 +(id)recordStream:(UIView *)view;
 +(id)appendStream:(UIView *)view;
 +(id)options:(MPMediaPublishType)type orientation:(AVCaptureVideoOrientation)orientation resolution:(MPVideoResolution)resolution view:(UIView *)view;
 -(NSString *)getServerURL;
+-(void)setCustomVideo:(uint)fps width:(uint)width height:(uint)height;
+-(void)setAudioAndCustomVideo:(uint)fps width:(uint)width height:(uint)height;
 @end
 #else
 @interface MediaPublishOptions : NSObject

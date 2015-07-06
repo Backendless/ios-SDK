@@ -40,7 +40,9 @@
 
 -(void)switchCameras;
 -(void)setVideoBitrate:(uint)bitRate;
+-(void)setAudioBitrate:(uint)bitRate;
 -(AVCaptureSession *)getCaptureSession;
+-(BOOL)sendImage:(CGImageRef)image timestamp:(int64_t)timestamp;
 -(BOOL)sendFrame:(CVPixelBufferRef)pixelBuffer timestamp:(int)timestamp;
 -(BOOL)sendSampleBuffer:(CMSampleBufferRef)sampleBuffer;
 -(void)sendMetadata:(NSDictionary *)data;
