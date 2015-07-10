@@ -21,13 +21,11 @@
 
 #import <Foundation/Foundation.h>
 
-typedef enum data_permission_operation DataPermissionOperation;
-enum data_permission_operation
-{
+typedef enum {
     DATA_UPDATE,
     DATA_FIND,
     DATA_REMOVE,
-};
+} DataPermissionOperation;
 
 @class Fault;
 @protocol IResponder;

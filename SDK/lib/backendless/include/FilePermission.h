@@ -21,13 +21,11 @@
 
 #import <Foundation/Foundation.h>
 
-typedef enum file_permission_operation FilePermissionOperation;
-enum file_permission_operation
-{
+typedef enum {
     FILE_READ,
     FILE_WRITE,
     FILE_REMOVE,
-};
+} FilePermissionOperation;
 
 @class Fault;
 @protocol IResponder;

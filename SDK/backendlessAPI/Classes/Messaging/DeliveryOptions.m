@@ -29,7 +29,7 @@
 	
     if ( (self=[super init]) ) {
         [self pushPolicy:PUSHONLY];
-        [self pushBroadcast:IOS];
+        [self pushBroadcast:ALL];
         _pushSinglecast = nil;
         _publishAt = nil;
         [self repeatEvery:0];
