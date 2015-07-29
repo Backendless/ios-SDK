@@ -323,6 +323,7 @@
 		D3FB9B7919867F0E00A13FB6 /* AtomicCountersFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FB9B7319867F0E00A13FB6 /* AtomicCountersFactory.m */; };
 		D3FB9B7C1986818F00A13FB6 /* IAtomicCounters.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FB9B7A1986818F00A13FB6 /* IAtomicCounters.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3FB9B7D1986818F00A13FB6 /* IAtomicCounters.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FB9B7A1986818F00A13FB6 /* IAtomicCounters.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F94487621B68EBA400EB12A5 /* Backendless-With-Media-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = F94487611B68EBA400EB12A5 /* Backendless-With-Media-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9512967168DCFE90041460C /* MediaPublisher.h in Headers */ = {isa = PBXBuildFile; fileRef = F9512965168DCFE90041460C /* MediaPublisher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9512968168DCFE90041460C /* MediaPublisher.h in Headers */ = {isa = PBXBuildFile; fileRef = F9512965168DCFE90041460C /* MediaPublisher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9512969168DCFE90041460C /* MediaPublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = F9512966168DCFE90041460C /* MediaPublisher.m */; };
@@ -650,6 +651,8 @@
 		F91B481C1603378200012DFC /* BackendlessCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackendlessCollection.h; sourceTree = "<group>"; };
 		F91B481D1603378200012DFC /* BackendlessCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackendlessCollection.m; sourceTree = "<group>"; };
 		F91B48291603649C00012DFC /* IDataStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDataStore.h; sourceTree = "<group>"; };
+		F94487601B68E60200EB12A5 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
+		F94487611B68EBA400EB12A5 /* Backendless-With-Media-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Backendless-With-Media-Bridging-Header.h"; sourceTree = "<group>"; };
 		F9512965168DCFE90041460C /* MediaPublisher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaPublisher.h; sourceTree = "<group>"; };
 		F9512966168DCFE90041460C /* MediaPublisher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaPublisher.m; sourceTree = "<group>"; };
 		F951296F168DCFFF0041460C /* MediaPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaPlayer.h; sourceTree = "<group>"; };
@@ -1043,6 +1046,7 @@
 		D3B2F352193511900084D5DD /* Backendless-ios-SDK */ = {
 			isa = PBXGroup;
 			children = (
+				F944875F1B68E60200EB12A5 /* 2.0.6 */,
 				D3E5C13A1AEE4E7A0038D564 /* 2.0.5 */,
 				D33DF7361AC0982C0032C073 /* 2.0.4 */,
 				D31700DC1A8D21E900772766 /* 2.0.2 */,
@@ -1198,6 +1202,7 @@
 		F91B47E115FF448F00012DFC /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				F94487611B68EBA400EB12A5 /* Backendless-With-Media-Bridging-Header.h */,
 				D30A5D7319B9CA8200C0BA44 /* Backendless-Bridging-Header.h */,
 				F91B47FE15FF569400012DFC /* Backendless.h */,
 				F91B47FF15FF569400012DFC /* Backendless.m */,
@@ -1375,6 +1380,14 @@
 				910117D3180C0CCF008102A7 /* BodyParts.m */,
 			);
 			path = Messaging;
+			sourceTree = "<group>";
+		};
+		F944875F1B68E60200EB12A5 /* 2.0.6 */ = {
+			isa = PBXGroup;
+			children = (
+				F94487601B68E60200EB12A5 /* Backendless-ios-SDK.podspec */,
+			);
+			path = 2.0.6;
 			sourceTree = "<group>";
 		};
 		F97969DE166CC8C300595F5E /* backendless-simulator */ = {
@@ -1760,6 +1773,7 @@
 				D3FB9B7619867F0E00A13FB6 /* AtomicCountersFactory.h in Headers */,
 				D3FB9B7D1986818F00A13FB6 /* IAtomicCounters.h in Headers */,
 				D3FB9B6A19867EA500A13FB6 /* AtomicCounters.h in Headers */,
+				F94487621B68EBA400EB12A5 /* Backendless-With-Media-Bridging-Header.h in Headers */,
 				F9796A68166CD42E00595F5E /* SubscriptionOptions.h in Headers */,
 				D36CDDF219C99D5900C3FFE3 /* CustomService.h in Headers */,
 				D3A064DA1B0242B900779BB1 /* ClientCallback.h in Headers */,
@@ -1881,7 +1895,7 @@
 		F9042AFA15FDD8D300C9381A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = BACKENDLESS.COM;
 			};
 			buildConfigurationList = F9042AFD15FDD8D300C9381A /* Build configuration list for PBXProject "backendlessAPI" */;
@@ -2372,10 +2386,6 @@
 		F97969E5166CC8C300595F5E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					x86_64,
-					i386,
-				);
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_EMPTY_BODY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -2402,10 +2412,6 @@
 		F97969E6166CC8C300595F5E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					x86_64,
-					i386,
-				);
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_EMPTY_BODY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
