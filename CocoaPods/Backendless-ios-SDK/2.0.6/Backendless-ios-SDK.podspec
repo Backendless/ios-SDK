@@ -21,14 +21,14 @@ Pod::Spec.new do |s|
                    DESC
   s.homepage    = "http://Backendless.com"
   s.screenshots = "https://backendless.com/wp-content/uploads/2013/03/Backendless_architecture-1024x710.jpg"
-  s.license		= { :type => 'Apache', :text => 'Copyright (c) 2012-2014 by Backendless.com' }
+  s.license		= { :type => 'Apache', :text => 'Copyright (c) 2012-2015 by Backendless.com' }
   s.author      = { "Vyacheslav Vdovichenko" => "slavav@themidnightcoders.com" }
 
   s.platform       = :ios, '8.3'
   s.requires_arc   = true
   s.source         = { 
 	:git => "https://github.com/Backendless/ios-SDK.git", 
-    :commit => "23c70990e90b05c5a3e9b3c3c0b1bd8c49e3583f",
+    :commit => "fceadb719f2d6ffb016753eec859e7c390b3598c",
 	:tag => '2.0.6'
   }
 
@@ -38,7 +38,7 @@ Pod::Spec.new do |s|
 
   s.frameworks     = 'AVFoundation','AudioToolbox', 'CFNetwork', 'CoreData', 'CoreGraphics', 'CoreLocation', 'CoreMedia', 'CoreVideo', 'Foundation', 'MapKit', 'Security', 'SystemConfiguration', 'UIKit'
   s.libraries 	   = 'z', 'sqlite3', 'backendless', 'CommLibiOS', 'MediaLibiOS', 'swresample', 'avformat', 'avdevice', 'swscale', 'avfilter', 'avutil', 'avcodec', 'speex', 'speexdsp', 'x264'
-  s.xcconfig       =  { 'LIBRARY_SEARCH_PATHS' => '"$(SRCROOT)/Pods/Backendless-ios-SDK/SDK/lib/backendless" "$(SRCROOT)/Pods/Backendless-ios-SDK/SDK/lib/CommLibiOS" "$(SRCROOT)/Pods/Backendless-ios-SDK/SDK/lib/MediaLibiOS3x" "$(SRCROOT)/Pods/Backendless-ios-SDK/SDK/lib/ffmpeg-2.2.1/lib" "$(SRCROOT)/Pods/Backendless-ios-SDK/SDK/lib/libspeex-1.2rc1/lib" "$(SRCROOT)/Pods/Backendless-ios-SDK/SDK/lib/libx264-r2409/lib"', 'SWIFT_OBJC_BRIDGING_HEADER' => '${PODS_ROOT}/Headers/Public/Backendless-ios-SDK/Backendless-Bridging-Header.h' }
+  s.xcconfig       =  { 'LIBRARY_SEARCH_PATHS' => '"$(SRCROOT)/Pods/Backendless-ios-SDK/SDK/lib/backendless" "$(SRCROOT)/Pods/Backendless-ios-SDK/SDK/lib/CommLibiOS" "$(SRCROOT)/Pods/Backendless-ios-SDK/SDK/lib/MediaLibiOS3x" "$(SRCROOT)/Pods/Backendless-ios-SDK/SDK/lib/ffmpeg-2.2.1/lib" "$(SRCROOT)/Pods/Backendless-ios-SDK/SDK/lib/libspeex-1.2rc1/lib" "$(SRCROOT)/Pods/Backendless-ios-SDK/SDK/lib/libx264-r2409/lib"', 'SWIFT_OBJC_BRIDGING_HEADER' => '${PODS_ROOT}/Headers/Public/Backendless-ios-SDK/Backendless-With-Media-Bridging-Header.h' }
 
   s.prepare_command = <<-CMD
 
