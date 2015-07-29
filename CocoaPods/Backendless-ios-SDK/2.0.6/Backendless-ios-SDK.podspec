@@ -27,8 +27,8 @@ Pod::Spec.new do |s|
   s.platform       = :ios, '8.3'
   s.requires_arc   = true
   s.source         = { 
-	:git => "https://github.com/Backendless/ios-SDK.git", 
-    :commit => "fceadb719f2d6ffb016753eec859e7c390b3598c",
+	:git => "https://github.com/Backendless/ios-SDK.git",
+    :commit => "79b3b8eeff114c0a8c33f59d519306ab19d722af",
 	:tag => '2.0.6'
   }
 
