@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
-  s.name         = "Backendless-ios-SDK"
-  s.version      = "2.0.9"
+  s.name         = "Backendless-Light"
+  s.version      = "2.0.6"
   s.summary      = "Backendless provides an instant backend to help developers build better apps faster."
   s.description  = <<-DESC
 	Backendless is a development and a run-time platform. It helps software developers to create 
@@ -12,7 +12,6 @@ Pod::Spec.new do |s|
 		Data Service – is responsible for data management – storage, retrieval, updates and deletion.
 		Messaging Service – handles message publishing, broadcast, filtered message delivery and native mobile push notifications.
 		Files Service – is responsible for file uploads, downloads and file sharing.
-		Media Service – provides support for video and audio streaming (up and down) and server-side recording.
 		Geo-Location Service – supports geo spatial data imports and geo queries.
 
 		The Backendless services can be accessed through an easy-to-use APIs which we packaged into our 
@@ -27,18 +26,17 @@ Pod::Spec.new do |s|
   s.platform       = :ios, '8.3'
   s.requires_arc   = true
   s.source         = { 
-	:git => "https://github.com/Backendless/ios-SDK.git",
-    :commit =>"528c61499c1d91e8db2a6113a14f1c7e557e6d8f",
-	:tag => '2.0.9'
+	:git => "https://github.com/Backendless/ios-SDK.git", 
+    :commit => "528c61499c1d91e8db2a6113a14f1c7e557e6d8f",
+	:tag => '2.0.6'
   }
 
-  s.preserve_paths = "**/*.a"
-  s.source_files = "**/*.h"
-  s.exclude_files  = "**/*mac.a", "**/*osx.a"
+  s.preserve_paths = "./SDK/lib/CommLibiOS/*.a", "./SDK/lib/backendless/*.a"
+  s.source_files = "./SDK/lib/CommLibiOS/include/*.h", "./SDK/lib/backendless/include/*.h"
 
-  s.frameworks     = 'AVFoundation','AudioToolbox', 'CFNetwork', 'CoreData', 'CoreGraphics', 'CoreLocation', 'CoreMedia', 'CoreVideo', 'Foundation', 'MapKit', 'Security', 'SystemConfiguration', 'UIKit'
-  s.libraries 	   = 'z', 'sqlite3', 'backendless', 'CommLibiOS', 'MediaLibiOS', 'swresample', 'avformat', 'avdevice', 'swscale', 'avfilter', 'avutil', 'avcodec', 'speex', 'speexdsp', 'x264'
-  s.xcconfig       =  { 'SWIFT_OBJC_BRIDGING_HEADER' => '${PODS_ROOT}/Headers/Public/Backendless-ios-SDK/Backendless-With-Media-Bridging-Header.h' }
+  s.frameworks = 'SystemConfiguration'
+  s.libraries = 'sqlite3', 'backendless', 'CommLibiOS'
+  s.xcconfig =  { 'LIBRARY_SEARCH_PATHS' => '"$(SRCROOT)/Pods/Backendless-Light/SDK/lib/backendless" "$(SRCROOT)/Pods/Backendless-Light/SDK/lib/CommLibiOS"', 'SWIFT_OBJC_BRIDGING_HEADER' => '${PODS_ROOT}/Headers/Public/Backendless-Light/Backendless-Bridging-Header.h' }
 
   s.prepare_command = <<-CMD
 
@@ -48,10 +46,6 @@ Pod::Spec.new do |s|
 	
 	pushd SDK/lib/CommLibiOS/
 	  ln -s CommLibiOS.a libCommLibiOS.a
-	popd
-	
-	pushd SDK/lib/MediaLibiOS3x/
-	  ln -s MediaLibiOS.a libMediaLibiOS.a
 	popd
 	
     CMD
