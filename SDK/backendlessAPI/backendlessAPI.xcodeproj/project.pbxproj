@@ -603,7 +603,6 @@
 		D3B2F358193511900084D5DD /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
 		D3B2F359193511900084D5DD /* original.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = original.podspec; sourceTree = "<group>"; };
 		D3B2F3DD1936019E0084D5DD /* Create Xcode Backendless Project Using CocoaPods.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Create Xcode Backendless Project Using CocoaPods.docx"; sourceTree = "<group>"; };
-		D3B2F3DE1936019E0084D5DD /* Create Xcode Backendless Project Using CocoaPods.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Create Xcode Backendless Project Using CocoaPods.pdf"; sourceTree = "<group>"; };
 		D3E5C1391AEE4E620038D564 /* Backendless-Light.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-Light.podspec"; sourceTree = "<group>"; };
 		D3E5C13B1AEE4E7A0038D564 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
 		D3EA52FF1A3077C1009C5FE0 /* FilePermission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilePermission.h; sourceTree = "<group>"; };
@@ -661,6 +660,7 @@
 		F944889A1B6A64EE00EB12A5 /* Backendless-Light.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-Light.podspec"; sourceTree = "<group>"; };
 		F94488CE1B6A6E8700EB12A5 /* Backendless-Light.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-Light.podspec"; sourceTree = "<group>"; };
 		F94489021B6A794900EB12A5 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
+		F94489361B6A7F9200EB12A5 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
 		F9512965168DCFE90041460C /* MediaPublisher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaPublisher.h; sourceTree = "<group>"; };
 		F9512966168DCFE90041460C /* MediaPublisher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaPublisher.m; sourceTree = "<group>"; };
 		F951296F168DCFFF0041460C /* MediaPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaPlayer.h; sourceTree = "<group>"; };
@@ -1058,6 +1058,7 @@
 		D3B2F352193511900084D5DD /* Backendless-ios-SDK */ = {
 			isa = PBXGroup;
 			children = (
+				F94489351B6A7F9200EB12A5 /* 2.0.11 */,
 				F94489011B6A794900EB12A5 /* 2.0.10 */,
 				F94487FD1B695C6800EB12A5 /* 2.0.9 */,
 				F94487C91B69124A00EB12A5 /* 2.0.8 */,
@@ -1106,7 +1107,6 @@
 			isa = PBXGroup;
 			children = (
 				D3B2F3DD1936019E0084D5DD /* Create Xcode Backendless Project Using CocoaPods.docx */,
-				D3B2F3DE1936019E0084D5DD /* Create Xcode Backendless Project Using CocoaPods.pdf */,
 			);
 			path = Guides;
 			sourceTree = "<group>";
@@ -1468,6 +1468,14 @@
 				F94489021B6A794900EB12A5 /* Backendless-ios-SDK.podspec */,
 			);
 			path = 2.0.10;
+			sourceTree = "<group>";
+		};
+		F94489351B6A7F9200EB12A5 /* 2.0.11 */ = {
+			isa = PBXGroup;
+			children = (
+				F94489361B6A7F9200EB12A5 /* Backendless-ios-SDK.podspec */,
+			);
+			path = 2.0.11;
 			sourceTree = "<group>";
 		};
 		F97969DE166CC8C300595F5E /* backendless-simulator */ = {
