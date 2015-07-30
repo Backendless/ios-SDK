@@ -27,12 +27,12 @@ Pod::Spec.new do |s|
   s.requires_arc   = true
   s.source         = { 
 	:git => "https://github.com/Backendless/ios-SDK.git", 
-    :commit => "528c61499c1d91e8db2a6113a14f1c7e557e6d8f",
+    :commit => "913bfbc8cb58fcbc6405addef8129e97cc246e32",
 	:tag => '2.0.7'
   }
 
-  s.preserve_paths = "./SDK/lib/CommLibiOS/*.a", "./SDK/lib/backendless/*.a"
-  s.source_files = "./SDK/lib/CommLibiOS/include/*.h", "./SDK/lib/backendless/include/*.h"
+  s.preserve_paths = "SDK/lib/**/*.a"
+  s.source_files = "SDK/lib/**/*.h"
 
   s.frameworks = 'SystemConfiguration'
   s.libraries = 'sqlite3', 'backendless', 'CommLibiOS'
