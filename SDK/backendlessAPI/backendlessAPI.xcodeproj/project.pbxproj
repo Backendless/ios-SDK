@@ -650,6 +650,7 @@
 		F91B481C1603378200012DFC /* BackendlessCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackendlessCollection.h; sourceTree = "<group>"; };
 		F91B481D1603378200012DFC /* BackendlessCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackendlessCollection.m; sourceTree = "<group>"; };
 		F91B48291603649C00012DFC /* IDataStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDataStore.h; sourceTree = "<group>"; };
+		F9356C701B6FA479009A01D9 /* getting-started.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = "getting-started.pdf"; path = "../getting-started.pdf"; sourceTree = "<group>"; };
 		F94487601B68E60200EB12A5 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
 		F94487611B68EBA400EB12A5 /* Backendless-With-Media-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Backendless-With-Media-Bridging-Header.h"; sourceTree = "<group>"; };
 		F94487961B6905D400EB12A5 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
@@ -1143,6 +1144,7 @@
 			isa = PBXGroup;
 			children = (
 				D30A5D7819B9D03100C0BA44 /* README.md */,
+				F9356C701B6FA479009A01D9 /* getting-started.pdf */,
 				D35CA3041A5FD31300F500B0 /* doc */,
 				D3B2F34E193511900084D5DD /* CocoaPods */,
 				91764F981823E40000745497 /* BECollectionView */,
