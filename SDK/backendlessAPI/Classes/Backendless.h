@@ -26,6 +26,10 @@
 
 #import <Foundation/Foundation.h>
 
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#import <AdSupport/AdSupport.h>
+#endif
+
 // CommLibiOS
 #import "DEBUG.h"
 #import "Types.h"

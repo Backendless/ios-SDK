@@ -119,7 +119,11 @@ static NSString *METHOD_SEND_EMAIL = @"send";
         
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
         UIDevice *device = [UIDevice currentDevice];
+#if 0
         NSString *deviceId = [device.identifierForVendor UUIDString];
+#else
+        NSString *deviceId = [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
+#endif
         deviceRegistration.deviceToken = device.name;
         deviceRegistration.deviceId = deviceId ? deviceId : @"c64c5320de162cc8f37a48e5c188d1621f1bd734";
         deviceRegistration.os = @"IOS";
