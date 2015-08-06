@@ -30,7 +30,7 @@
 #define FAULT_NO_USER_ID [Fault fault:@"UserId is not valid"]
 #define FAULT_NO_ROLE_NAME [Fault fault:@"RoleName is not valid"]
 
-#define FILE_PERMISSION_OPERATION @[@"READ", @"WRITE", @"REMOVE"]
+#define FILE_PERMISSION_OPERATION @[@"READ", @"WRITE", @"DELETE"]
 
 // SERVICE NAME
 static NSString *SERVER_FILE_PERMISSIONS_SERVICE_PATH = @"com.backendless.services.file.FileService";
@@ -49,7 +49,7 @@ static NSString *_DENY = @"DENY";
 // -------------------------------------- PRIVATE CLASSES -------------------------------------------
 
 @interface Permission : NSObject
-@property (strong, nonatomic) NSString *url;
+@property (strong, nonatomic) NSString *folder;
 @property (strong, nonatomic) NSString *access;
 @property (strong, nonatomic) NSString *operation;
 @end
@@ -66,7 +66,7 @@ static NSString *_DENY = @"DENY";
 
 +(id)grant:(NSString *)url operation:(FilePermissionOperation)operation {
     FileUserPermission *permission = [FileUserPermission new];
-    permission.url = url;
+    permission.folder = url;
     permission.access = _GRANT;
     permission.operation = FILE_PERMISSION_OPERATION[operation];
     return [permission autorelease];
@@ -74,7 +74,7 @@ static NSString *_DENY = @"DENY";
 
 +(id)deny:(NSString *)url operation:(FilePermissionOperation)operation {
     FileUserPermission *permission = [FileUserPermission new];
-    permission.url = url;
+    permission.folder = url;
     permission.access = _DENY;
     permission.operation = FILE_PERMISSION_OPERATION[operation];
     return [permission autorelease];
@@ -91,7 +91,7 @@ static NSString *_DENY = @"DENY";
 
 +(id)grant:(NSString *)url operation:(FilePermissionOperation)operation {
     FileRolePermission *permission = [FileRolePermission new];
-    permission.url = url;
+    permission.folder = url;
     permission.access = _GRANT;
     permission.operation = FILE_PERMISSION_OPERATION[operation];
     return [permission autorelease];
@@ -99,7 +99,7 @@ static NSString *_DENY = @"DENY";
 
 +(id)deny:(NSString *)url operation:(FilePermissionOperation)operation {
     FileRolePermission *permission = [FileRolePermission new];
-    permission.url = url;
+    permission.folder = url;
     permission.access = _DENY;
     permission.operation = FILE_PERMISSION_OPERATION[operation];
     return [permission autorelease];

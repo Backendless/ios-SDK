@@ -103,7 +103,11 @@
 }
 
 -(NSString *)getUserId {
+#if 0
     return [self getProperty:BACKENDLESS_ID_KEY];
+#else
+    return [self getProperty:PERSIST_OBJECT_ID];
+#endif
 }
 
 -(NSString *)getUserToken {
