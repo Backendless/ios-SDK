@@ -107,6 +107,7 @@ static NSString *METHOD_SEND_EMAIL = @"send";
     if ( (self=[super init]) ) {
         
         self.pollingFrequencyMs = POLLING_INTERVAL;
+        self.subscriptions = [HashMap new];
         
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.management.DeviceRegistrationDto" mapped:[DeviceRegistration class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.messaging.Message" mapped:[Message class]];
@@ -144,6 +145,7 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 	[DebLog logN:@"DEALLOC MessagingService"];
     
     [deviceRegistration release];
+    [self.subscriptions release];
 	
 	[super dealloc];
 }
@@ -1130,6 +1132,8 @@ id result = nil;
     if (!subscription)
         return [backendless throwFault:FAULT_NO_CHANNEL];
     
+    subscription.deliveryMethod = [subscriptionOptions valDeliveryMethod];
+    
     id result = [self subscribeForPollingAccess:subscription.channelName subscriptionOptions:subscriptionOptions];
     if ([result isKindOfClass:[Fault class]])
         return result;
@@ -1300,6 +1304,8 @@ id result = nil;
     if (!subscription)
         return [responder errorHandler:FAULT_NO_CHANNEL];
     
+    subscription.deliveryMethod = [subscriptionOptions valDeliveryMethod];
+    
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onSubscribe:) selErrorHandler:nil];
     _responder.context = [subscription retain];
     _responder.chained = responder;
@@ -1443,6 +1449,105 @@ id result = nil;
 -(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray *)recipients attachment:(NSArray *)attachments response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [self sendEmail:subject body:bodyParts to:recipients attachment:attachments responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
+
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+// for pubsub using silent remote notification (SubscriptionOptions.deliveryMethod = DELIVERY_PUSH)
+
+-(void)registerForRemoteNotifications {
+    
+    // check if iOS8
+    if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+        UIUserNotificationType types = UIUserNotificationTypeNone;
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+    }
+    else {
+        UIRemoteNotificationType types = UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound;
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:types];
+    }
+}
+
+-(void)unregisterForRemoteNotifications {
+    [[UIApplication sharedApplication] unregisterForRemoteNotifications];
+}
+
+-(void)didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    NSDictionary *remoteDict = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    if (remoteDict) [self didReceiveRemoteNotification:remoteDict];
+}
+
+-(void)didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken {
+    
+    NSString *deviceTokenStr = [self deviceTokenAsString:deviceToken];
+    [DebLog log:@"MessagingService -> didRegisterForRemoteNotificationsWithDeviceToken: ->  deviceToken = %@", deviceTokenStr];
+    
+    @try {
+        NSString *deviceRegistrationId = [self registerDeviceToken:deviceTokenStr];
+        [DebLog log:@"MessagingService -> application:didRegisterForRemoteNotificationsWithDeviceToken: -> registerDeviceToken: deviceRegistrationId = %@", deviceRegistrationId];
+    }
+    @catch (Fault *fault) {
+        [DebLog logY:@"MessagingService -> application:didRegisterForRemoteNotificationsWithDeviceToken: -> registerDeviceToken: %@", fault];
+    }
+}
+
+-(void)didFailToRegisterForRemoteNotificationsWithError:(NSError *)err {
+    [DebLog logY:@"MessagingService -> application:didFailToRegisterForRemoteNotificationsWithError: %@", err];
+}
+
+-(void)didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    
+    [DebLog logY:@"MessagingService -> application:didReceiveRemoteNotification: %@", userInfo];
+
+    /*
+     String pushMessage = intent.getStringExtra( "message" );
+     String chanelName = intent.getStringExtra( NOTIFICATION_STRING );
+     
+     if (chanelName != null )
+     {
+     Subscription subscription = Backendless.Messaging.getSubscription( chanelName );
+     
+     if ( pushMessage.isEmpty() )
+     {
+     List<Message> messages = Backendless.Messaging.pollMessages( chanelName, subscription.getSubscriptionId() );
+     
+     subscription.handlerMessage( messages );
+     }
+     else
+     {
+     byte[] byteMessage = Base64.decode( pushMessage, Base64.DEFAULT );
+     byteMessage = CompressUtils.decompress( byteMessage );
+     Message message = BackendlessSerializer.deserializeAMF( byteMessage );
+     
+     subscription.handlerMessage( Arrays.asList( message ) );
+     }
+     }
+     */
+    
+    NSString *pushMessage = [userInfo objectForKey:@"message"];
+    NSString *channelName = [userInfo objectForKey:@"{n}"];
+    
+    if (channelName && channelName.length) {
+        
+        BESubscription *subscription = [backendless.messaging.subscriptions get:channelName];
+        if (!subscription)
+            return;
+        
+        if (pushMessage && pushMessage.length) {
+            
+            NSData *data = [Base64 decode:pushMessage];
+            BinaryStream *bytes = [BinaryStream streamWithStream:(char*)data.bytes andSize:(size_t)data.length];
+            id message = [AMFSerializer deserializeFromBytes:bytes];
+            if (message && [message isKindOfClass:Message.class]) {
+                [subscription.responder responseHandler:@[message]];
+            }
+        }
+        else {
+            [backendless.messagingService pollMessages:channelName subscriptionId:subscription.subscriptionId responder:subscription.responder];
+        }
+    }
+}
+#endif
 
 #pragma mark -
 #pragma mark Private Methods

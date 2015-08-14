@@ -22,6 +22,7 @@
 #import "BESubscription.h"
 #import "Responder.h"
 #import "DEBUG.h"
+#import "HashMap.h"
 #import "Backendless.h"
 
 
@@ -33,6 +34,7 @@
         _subscriptionId = nil;
         _channelName = nil;
         _responder = nil;
+        _deliveryMethod = DELIVERY_PULL;
 	}
 	
 	return self;
@@ -44,6 +46,7 @@
         self.subscriptionId = nil;
         self.channelName = channelName;
         self.responder = subscriptionResponder;
+        _deliveryMethod = DELIVERY_PULL;
 	}
 	
 	return self;    
@@ -55,6 +58,7 @@
         self.subscriptionId = nil;
         self.channelName = channelName;
         self.responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+        _deliveryMethod = DELIVERY_PULL;
 	}
 	
 	return self;
@@ -113,15 +117,34 @@
     [_subscriptionId release];
     _subscriptionId = [subscriptionId retain];
     
-    if (_subscriptionId) {
+    if (!_subscriptionId)
+        return;
+    
+    switch (_deliveryMethod) {
+        
+        case DELIVERY_PULL: {
+            
+            [DebLog log:@"BESubscription -> (DELIVERY_PULL) pollingFrequency: %d", (double)backendless.messagingService.pollingFrequencyMs/1000];
+            
 #if _BY_DISPATCH_TIME_
-        dispatch_time_t interval = dispatch_time(DISPATCH_TIME_NOW, 100ull*NSEC_PER_MSEC);
-        dispatch_after(interval, dispatch_get_main_queue(), ^{
-            [self pollingMessages];
-        });
+            dispatch_time_t interval = dispatch_time(DISPATCH_TIME_NOW, 100ull*NSEC_PER_MSEC);
+            dispatch_after(interval, dispatch_get_main_queue(), ^{
+                [self pollingMessages];
+            });
 #else
-        [self performSelector:@selector(pollingMessages) withObject:nil afterDelay:0.1f];
+            [self performSelector:@selector(pollingMessages) withObject:nil afterDelay:0.1f];
 #endif
+            break;
+        }
+        
+        case DELIVERY_PUSH: {
+            [backendless.messaging.subscriptions push:_channelName withObject:self];
+            [DebLog log:@"BESubscription -> (DELIVERY_PUSH) subscriptions: %@", backendless.messaging.subscriptions.node];
+            break;
+        }
+            
+        default:
+            break;
     }
 }
 
@@ -133,6 +156,10 @@
 #if !_BY_DISPATCH_TIME_
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
 #endif
+    
+    if (_deliveryMethod == DELIVERY_PUSH) {
+        [backendless.messaging.subscriptions pop:_channelName withObject:self];
+    }
     
     [_subscriptionId release];
     _subscriptionId = nil;

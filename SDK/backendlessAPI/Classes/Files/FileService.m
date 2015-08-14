@@ -29,12 +29,17 @@
 #define FAULT_NO_FILE_URL [Fault fault:@"File URL is not set"]
 #define FAULT_NO_FILE_NAME [Fault fault:@"File name is not set"]
 #define FAULT_NO_DIRECTORY_PATH [Fault fault:@"Directory path is not set"]
+#define FAULT_NO_FILE_DATA [Fault fault:@"File data is not set"]
 
 // SERVICE NAME
 static NSString *SERVER_FILE_SERVICE_PATH = @"com.backendless.services.file.FileService";
 // METHOD NAMES
 static NSString *METHOD_DELETE = @"deleteFileOrDirectory";
 static NSString *METHOD_SAVE_FILE = @"saveFile";
+static NSString *METHOD_RENAME_FILE = @"renameFile";
+static NSString *METHOD_COPY_FILE = @"copyFile";
+static NSString *METHOD_MOVE_FILE = @"moveFile";
+static NSString *METHOD_LISTING = @"listing";
 
 
 #pragma mark -
@@ -124,6 +129,112 @@ static NSString *METHOD_SAVE_FILE = @"saveFile";
 #pragma mark -
 #pragma mark Public Methods
 
+// sync methods with fault return (as exception)
+
+-(BackendlessFile *)upload:(NSString *)path content:(NSData *)content {
+    return [self sendUploadRequest:path content:content];
+}
+
+-(id)remove:(NSString *)fileURL {
+    
+    if (!fileURL || !fileURL.length)
+        return [backendless throwFault:FAULT_NO_FILE_URL];
+    
+    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, fileURL, nil];
+    return [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_DELETE args:args];
+}
+
+-(id)removeDirectory:(NSString *)path {
+    
+    if (!path || !path.length)
+        return [backendless throwFault:FAULT_NO_DIRECTORY_PATH];
+    
+    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, path, nil];
+    return [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_DELETE args:args];
+}
+
+-(BackendlessFile *)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content {
+    return [self saveFile:path fileName:fileName content:content overwriteIfExist:NO];
+}
+
+-(BackendlessFile *)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content overwriteIfExist:(BOOL)overwrite {
+    
+    if (!path || !path.length)
+        return [backendless throwFault:FAULT_NO_DIRECTORY_PATH];
+    
+    if (!fileName || !fileName.length)
+        return [backendless throwFault:FAULT_NO_FILE_NAME];
+    
+    if (!content || !content.length)
+        return [backendless throwFault:FAULT_NO_FILE_DATA];
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, path, fileName, content, @(overwrite)];
+    NSString *receiveUrl = [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_SAVE_FILE args:args];
+    return [BackendlessFile file:receiveUrl];
+}
+
+-(BackendlessFile *)saveFile:(NSString *)filePathName content:(NSData *)content {
+    return [self saveFile:filePathName content:content overwriteIfExist:NO];
+}
+
+-(BackendlessFile *)saveFile:(NSString *)filePathName content:(NSData *)content overwriteIfExist:(BOOL)overwrite {
+    
+    if (!filePathName || !filePathName.length)
+        return [backendless throwFault:FAULT_NO_FILE_NAME];
+    
+    if (!content || !content.length)
+        return [backendless throwFault:FAULT_NO_FILE_DATA];
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, filePathName, content, @(overwrite)];
+    NSString *receiveUrl = [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_SAVE_FILE args:args];
+    return [BackendlessFile file:receiveUrl];
+}
+
+-(id)renameFile:(NSString *)oldPathName newName:(NSString *)newName {
+    
+    if (!oldPathName || !oldPathName.length)
+        return [backendless throwFault:FAULT_NO_DIRECTORY_PATH];
+    
+    if (!newName || !newName.length)
+        return [backendless throwFault:FAULT_NO_FILE_NAME];
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, oldPathName, newName];
+    return [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_RENAME_FILE args:args];
+}
+
+-(id)copyFile:(NSString *)sourcePathName target:(NSString *)targetPathName {
+    
+    if (!sourcePathName || !sourcePathName.length || !targetPathName || !targetPathName.length)
+        return [backendless throwFault:FAULT_NO_DIRECTORY_PATH];
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, sourcePathName, targetPathName];
+    return [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_COPY_FILE args:args];
+}
+
+-(id)moveFile:(NSString *)sourcePathName target:(NSString *)targetPathName {
+    
+    if (!sourcePathName || !sourcePathName.length || !targetPathName || !targetPathName.length)
+        return [backendless throwFault:FAULT_NO_DIRECTORY_PATH];
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, sourcePathName, targetPathName];
+    return [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_MOVE_FILE args:args];
+}
+
+-(BackendlessCollection *)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive {
+    return [self listing:path pattern:pattern recursive:recursive pagesize:DEFAULT_PAGE_SIZE offset:DEFAULT_OFFSET];
+}
+
+-(BackendlessCollection *)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive pagesize:(int)pagesize offset:(int)offset {
+    
+    if (!path || !path.length)
+        return [backendless throwFault:FAULT_NO_FILE_NAME];
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, path, pattern, @(recursive), @(pagesize), @(offset)];
+    BackendlessCollection *collection = [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_LISTING args:args];
+    collection.query = [BackendlessSimpleQuery query:pagesize offset:offset];
+    return collection;
+}
+
 // sync methods with fault option
 
 #if OLD_ASYNC_WITH_FAULT
@@ -193,7 +304,6 @@ static NSString *METHOD_SAVE_FILE = @"saveFile";
     }
     return result;
 }
-
 
 -(BackendlessFile *)saveFile:(NSString *)filePathName content:(NSData *)content error:(Fault **)fault {
     
@@ -367,64 +477,97 @@ id result = nil;
     }
 }
 
+-(BOOL)renameFile:(NSString *)oldPathName newName:(NSString *)newName error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self renameFile:oldPathName newName:newName];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return NO;
+        }
+        return YES;
+    }
+}
+
+-(BOOL)copyFile:(NSString *)sourcePathName target:(NSString *)targetPathName error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self copyFile:sourcePathName target:targetPathName];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return NO;
+        }
+        return YES;
+    }
+}
+
+-(BOOL)moveFile:(NSString *)sourcePathName target:(NSString *)targetPathName error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self moveFile:sourcePathName target:targetPathName];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return NO;
+        }
+        return YES;
+    }
+}
+
+-(BackendlessCollection *)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self listing:path pattern:pattern recursive:recursive];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(BackendlessCollection *)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive pagesize:(int)pagesize offset:(int)offset error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self listing:path pattern:pattern recursive:recursive pagesize:pagesize offset:offset];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
 #endif
-
-// sync methods with fault return (as exception)
-
--(BackendlessFile *)upload:(NSString *)path content:(NSData *)content {
-    return [self sendUploadRequest:path content:content];
-}
-
--(id)remove:(NSString *)fileURL {
-    
-    if (!fileURL)
-        return [backendless throwFault:FAULT_NO_FILE_URL];
-    
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, fileURL, nil];
-    return [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_DELETE args:args];
-    
-}
-
--(id)removeDirectory:(NSString *)path {
-    
-    if (!path)
-        return [backendless throwFault:FAULT_NO_DIRECTORY_PATH];
-    
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, path, nil];
-    return [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_DELETE args:args];
-    
-}
-
--(BackendlessFile *)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content {
-    return [self saveFile:path fileName:fileName content:content overwriteIfExist:NO];
-}
-
--(BackendlessFile *)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content overwriteIfExist:(BOOL)overwrite {
-    
-    if (!path)
-        return [backendless throwFault:FAULT_NO_DIRECTORY_PATH];
-    if (!fileName)
-        return [backendless throwFault:FAULT_NO_FILE_NAME];
-    
-    NSArray *args = @[backendless.appID, backendless.versionNum, path, fileName, content, @(overwrite)];
-    NSString *receiveUrl = [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_SAVE_FILE args:args];
-    return [BackendlessFile file:receiveUrl];
-}
-
--(BackendlessFile *)saveFile:(NSString *)filePathName content:(NSData *)content {
-    return [self saveFile:filePathName content:content overwriteIfExist:NO];
-}
-
--(BackendlessFile *)saveFile:(NSString *)filePathName content:(NSData *)content overwriteIfExist:(BOOL)overwrite {
-    
-    if (!filePathName)
-        return [backendless throwFault:FAULT_NO_FILE_NAME];
-    
-    NSArray *args = @[backendless.appID, backendless.versionNum, filePathName, content, @(overwrite)];
-    NSString *receiveUrl = [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_SAVE_FILE args:args];
-    return [BackendlessFile file:receiveUrl];
-    
-}
 
 // async methods with responder
 
@@ -434,7 +577,7 @@ id result = nil;
 
 -(void)remove:(NSString *)fileURL responder:(id <IResponder>)responder {
     
-    if (!fileURL)
+    if (!fileURL || !fileURL.length)
         return [responder errorHandler:FAULT_NO_FILE_URL];
     
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, fileURL, nil];
@@ -443,7 +586,7 @@ id result = nil;
 
 -(void)removeDirectory:(NSString *)path responder:(id <IResponder>)responder {
     
-    if (!path)
+    if (!path || !path.length)
         return [responder errorHandler:FAULT_NO_DIRECTORY_PATH];
     
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, path, nil];
@@ -456,10 +599,14 @@ id result = nil;
 
 -(void)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content overwriteIfExist:(BOOL)overwrite responder:(id <IResponder>)responder {
     
-    if (!path)
+    if (!path || !path.length)
         return [responder errorHandler:FAULT_NO_DIRECTORY_PATH];
-    if (!fileName)
+    
+    if (!fileName || !fileName.length)
         return [responder errorHandler:FAULT_NO_FILE_NAME];
+    
+    if (!content|| !content.length)
+        return [responder errorHandler:FAULT_NO_FILE_DATA];
     
     NSArray *args = @[backendless.appID, backendless.versionNum, path, fileName, content, @(overwrite)];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(saveFileResponse:) selErrorHandler:nil];
@@ -473,13 +620,62 @@ id result = nil;
 
 -(void)saveFile:(NSString *)filePathName content:(NSData *)content overwriteIfExist:(BOOL)overwrite responder:(id <IResponder>)responder {
     
-    if (!filePathName)
+    if (!filePathName || !filePathName.length)
         return [responder errorHandler:FAULT_NO_FILE_NAME];
+    
+    if (!content|| !content.length)
+        return [responder errorHandler:FAULT_NO_FILE_DATA];
     
     NSArray *args = @[backendless.appID, backendless.versionNum, filePathName, content, @(overwrite)];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(saveFileResponse:) selErrorHandler:nil];
     _responder.chained = responder;
     [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_SAVE_FILE args:args responder:_responder];
+}
+
+-(void)renameFile:(NSString *)oldPathName newName:(NSString *)newName responder:(id <IResponder>)responder {
+    
+    if (!oldPathName || !oldPathName.length)
+        return [responder errorHandler:FAULT_NO_DIRECTORY_PATH];
+    
+    if (!newName || !newName.length)
+        return [responder errorHandler:FAULT_NO_FILE_NAME];
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, oldPathName, newName];
+    [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_RENAME_FILE args:args responder:responder];
+}
+
+-(void)copyFile:(NSString *)sourcePathName target:(NSString *)targetPathName responder:(id <IResponder>)responder {
+    
+    if (!sourcePathName || !sourcePathName.length || !targetPathName || !targetPathName.length)
+        return [responder errorHandler:FAULT_NO_DIRECTORY_PATH];
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, sourcePathName, targetPathName];
+    [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_COPY_FILE args:args responder:responder];
+}
+
+-(void)moveFile:(NSString *)sourcePathName target:(NSString *)targetPathName responder:(id <IResponder>)responder {
+    
+    if (!sourcePathName || !sourcePathName.length || !targetPathName || !targetPathName.length)
+        return [responder errorHandler:FAULT_NO_DIRECTORY_PATH];
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, sourcePathName, targetPathName];
+    [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_MOVE_FILE args:args responder:responder];
+}
+
+-(void)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive responder:(id <IResponder>)responder {
+    [self listing:path pattern:pattern recursive:recursive pagesize:DEFAULT_PAGE_SIZE offset:DEFAULT_OFFSET responder:responder];
+}
+
+-(void)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive pagesize:(int)pagesize offset:(int)offset responder:(id <IResponder>)responder {
+    
+    if (!path || !path.length)
+        return [responder errorHandler:FAULT_NO_FILE_NAME];
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, path, pattern, @(recursive), @(pagesize), @(offset)];
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(getListing:) selErrorHandler:nil];
+    _responder.chained = responder;
+    _responder.context = [BackendlessSimpleQuery query:pagesize offset:offset];
+    [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_LISTING args:args responder:_responder];
 }
 
 // async methods with block-base callbacks
@@ -512,6 +708,26 @@ id result = nil;
     [self saveFile:filePathName content:content overwriteIfExist:overwrite responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
+-(void)renameFile:(NSString *)oldPathName newName:(NSString *)newName response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self renameFile:oldPathName newName:newName responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+
+-(void)copyFile:(NSString *)sourcePathName target:(NSString *)targetPathName response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self copyFile:sourcePathName target:targetPathName responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+
+-(void)moveFile:(NSString *)sourcePathName target:(NSString *)targetPathName response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self moveFile:sourcePathName target:targetPathName responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+
+-(void)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self listing:path pattern:pattern recursive:recursive responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+
+-(void)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive pagesize:(int)pagesize offset:(int)offset response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self listing:path pattern:pattern recursive:recursive pagesize:pagesize offset:offset responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+
 #pragma mark -
 #pragma mark Private Methods
 
@@ -521,6 +737,14 @@ id result = nil;
     return [BackendlessFile file:(NSString *)response];
 }
 
+-(id)getListing:(ResponseContext *)response {
+    
+    BackendlessCollection *collection = (BackendlessCollection *)response.response;
+    collection.query = response.context;
+    return collection;
+}
+
+//
 -(NSURLRequest *)httpUploadRequest:(NSString *)path content:(NSData *)content {
     
     NSString *boundary = [backendless GUIDString];

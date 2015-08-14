@@ -20,6 +20,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "HashMap.h"
 #import "DeviceRegistration.h"
 
 #define MESSAGE_TAG @"message"
@@ -49,6 +50,7 @@
 
 @interface MessagingService : NSObject
 @property (nonatomic) uint pollingFrequencyMs;
+@property (strong, nonatomic) HashMap *subscriptions;
 
 // sync methods with fault return (as exception)
 -(NSString *)registerDeviceWithTokenData:(NSData *)deviceToken;
@@ -169,5 +171,22 @@
 // utilites
 -(DeviceRegistration *)currentDevice;
 -(NSString *)deviceTokenAsString:(NSData *)token;
+
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+// for pubsub using silent remote notification (SubscriptionOptions.deliveryMethod = DELIVERY_PUSH)
+-(void)registerForRemoteNotifications;
+// invoke it in -(void)applicationWillTerminate:(UIApplication *)application
+-(void)unregisterForRemoteNotifications;
+// invoke it in -(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+-(void)didFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
+// invoke it in - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
+-(void)didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken;
+// invoke it in - (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err
+-(void)didFailToRegisterForRemoteNotificationsWithError:(NSError *)err;
+// invoke it in:
+// - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+// -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))handler
+-(void)didReceiveRemoteNotification:(NSDictionary *)userInfo;
+#endif
 
 @end

@@ -21,10 +21,18 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum {
+    DELIVERY_PULL,
+    DELIVERY_PUSH
+} DeliveryMethodEnum;
+
 @interface SubscriptionOptions : NSObject
 
 @property (strong, nonatomic) NSString *subscriberId;
 @property (strong, nonatomic) NSString *subtopic;
 @property (strong, nonatomic) NSString *selector;
+@property (strong, nonatomic, readonly) NSString *deliveryMethod;
 
+-(DeliveryMethodEnum)valDeliveryMethod;
+-(void)deliveryMethod:(DeliveryMethodEnum)deliveryMethod;
 @end

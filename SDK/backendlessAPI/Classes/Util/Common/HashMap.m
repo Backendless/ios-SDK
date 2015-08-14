@@ -26,14 +26,14 @@
 
 -(id)init {
     if( (self=[super init] )) {
-		_node = [[NSMutableDictionary alloc] init];
+		_node = [NSMutableDictionary new];
     }
 	return self;
 }
 
 -(id)initWithNode:(NSDictionary *)dict {
     if( (self=[super init] )) {
-		_node = (dict) ? [[NSMutableDictionary alloc] initWithDictionary:dict] : [[NSMutableDictionary alloc] init];
+		_node = (dict) ? [[NSMutableDictionary alloc] initWithDictionary:dict] : [NSMutableDictionary new];
     }
 	return self;
 }

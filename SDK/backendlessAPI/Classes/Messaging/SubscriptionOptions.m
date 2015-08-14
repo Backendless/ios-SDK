@@ -22,6 +22,8 @@
 #import "SubscriptionOptions.h"
 #import "DEBUG.h"
 
+#define DELIVERY_METHOD @[@"PULL", @"PUSH"]
+
 @implementation SubscriptionOptions
 
 -(id)init {
@@ -30,6 +32,7 @@
         _subscriberId = nil;
         _subtopic = nil;
         _selector = nil;
+        _deliveryMethod = DELIVERY_METHOD[DELIVERY_PULL];
 	}
 	
 	return self;
@@ -49,8 +52,16 @@
 #pragma mark -
 #pragma mark Public Methods
 
+-(DeliveryMethodEnum)valDeliveryMethod {
+    return _deliveryMethod?(DeliveryMethodEnum)[DELIVERY_METHOD indexOfObject:_deliveryMethod]:DELIVERY_PULL;
+}
+
+-(void)deliveryMethod:(DeliveryMethodEnum)deliveryMethod {
+    _deliveryMethod = DELIVERY_METHOD[deliveryMethod];
+}
+
 -(NSString *)description {
-    return [NSString stringWithFormat:@"<SubscriptionOptions> subscriberId: %@, subtopic: %@, selector = %@", _subscriberId, _subtopic, _selector];
+    return [NSString stringWithFormat:@"<SubscriptionOptions> subscriberId: %@, subtopic: %@, selector = %@, deliveryMethod = %@", _subscriberId, _subtopic, _selector, _deliveryMethod];
 }
 
 @end

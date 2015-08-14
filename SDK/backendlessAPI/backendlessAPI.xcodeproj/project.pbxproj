@@ -502,6 +502,18 @@
 		F9BE41C71B2ED98200CD0A72 /* AuthorizationException.m in Sources */ = {isa = PBXBuildFile; fileRef = F9BE41C31B2ED98200CD0A72 /* AuthorizationException.m */; };
 		F9BE41C81B2ED98200CD0A72 /* AuthorizationException.m in Sources */ = {isa = PBXBuildFile; fileRef = F9BE41C31B2ED98200CD0A72 /* AuthorizationException.m */; };
 		F9BE41C91B2ED98200CD0A72 /* AuthorizationException.m in Sources */ = {isa = PBXBuildFile; fileRef = F9BE41C31B2ED98200CD0A72 /* AuthorizationException.m */; };
+		F9C7DE8F1B7CBF0300AFCD06 /* BEFileInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = F9C7DE8D1B7CBF0300AFCD06 /* BEFileInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F9C7DE901B7CBF0300AFCD06 /* BEFileInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = F9C7DE8D1B7CBF0300AFCD06 /* BEFileInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F9C7DE911B7CBF0300AFCD06 /* BEFileInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = F9C7DE8D1B7CBF0300AFCD06 /* BEFileInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F9C7DE921B7CBF0300AFCD06 /* BEFileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C7DE8E1B7CBF0300AFCD06 /* BEFileInfo.m */; };
+		F9C7DE931B7CBF0300AFCD06 /* BEFileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C7DE8E1B7CBF0300AFCD06 /* BEFileInfo.m */; };
+		F9C7DE941B7CBF0300AFCD06 /* BEFileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C7DE8E1B7CBF0300AFCD06 /* BEFileInfo.m */; };
+		F9C7DE971B7CBFE600AFCD06 /* BackendlessSimpleQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = F9C7DE951B7CBFE600AFCD06 /* BackendlessSimpleQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F9C7DE981B7CBFE600AFCD06 /* BackendlessSimpleQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = F9C7DE951B7CBFE600AFCD06 /* BackendlessSimpleQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F9C7DE991B7CBFE600AFCD06 /* BackendlessSimpleQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = F9C7DE951B7CBFE600AFCD06 /* BackendlessSimpleQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F9C7DE9A1B7CBFE600AFCD06 /* BackendlessSimpleQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C7DE961B7CBFE600AFCD06 /* BackendlessSimpleQuery.m */; };
+		F9C7DE9B1B7CBFE600AFCD06 /* BackendlessSimpleQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C7DE961B7CBFE600AFCD06 /* BackendlessSimpleQuery.m */; };
+		F9C7DE9C1B7CBFE600AFCD06 /* BackendlessSimpleQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C7DE961B7CBFE600AFCD06 /* BackendlessSimpleQuery.m */; };
 		F9D5234D1B25CEF800F6A441 /* ClassCastException.h in Headers */ = {isa = PBXBuildFile; fileRef = F9D5234B1B25CEF800F6A441 /* ClassCastException.h */; };
 		F9D5234E1B25CEF800F6A441 /* ClassCastException.h in Headers */ = {isa = PBXBuildFile; fileRef = F9D5234B1B25CEF800F6A441 /* ClassCastException.h */; };
 		F9D5234F1B25CEF800F6A441 /* ClassCastException.h in Headers */ = {isa = PBXBuildFile; fileRef = F9D5234B1B25CEF800F6A441 /* ClassCastException.h */; };
@@ -756,6 +768,10 @@
 		F9C3C070161AB84100409FF2 /* MessageStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageStatus.m; sourceTree = "<group>"; };
 		F9C3C081161C595C00409FF2 /* BESubscription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BESubscription.h; sourceTree = "<group>"; };
 		F9C3C082161C595D00409FF2 /* BESubscription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BESubscription.m; sourceTree = "<group>"; };
+		F9C7DE8D1B7CBF0300AFCD06 /* BEFileInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEFileInfo.h; sourceTree = "<group>"; };
+		F9C7DE8E1B7CBF0300AFCD06 /* BEFileInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEFileInfo.m; sourceTree = "<group>"; };
+		F9C7DE951B7CBFE600AFCD06 /* BackendlessSimpleQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackendlessSimpleQuery.h; sourceTree = "<group>"; };
+		F9C7DE961B7CBFE600AFCD06 /* BackendlessSimpleQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackendlessSimpleQuery.m; sourceTree = "<group>"; };
 		F9D5234B1B25CEF800F6A441 /* ClassCastException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassCastException.h; sourceTree = "<group>"; };
 		F9D5234C1B25CEF800F6A441 /* ClassCastException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassCastException.m; sourceTree = "<group>"; };
 		F9D81AF81B317DB4004CA537 /* Backendless Mac OSX application setup.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Backendless Mac OSX application setup.pdf"; sourceTree = "<group>"; };
@@ -1254,6 +1270,8 @@
 				D3EA53001A3077C1009C5FE0 /* FilePermission.m */,
 				F9184132163AB29600D36A61 /* BackendlessFile.h */,
 				F9184133163AB29600D36A61 /* BackendlessFile.m */,
+				F9C7DE8D1B7CBF0300AFCD06 /* BEFileInfo.h */,
+				F9C7DE8E1B7CBF0300AFCD06 /* BEFileInfo.m */,
 			);
 			path = Files;
 			sourceTree = "<group>";
@@ -1328,6 +1346,8 @@
 				F91B48291603649C00012DFC /* IDataStore.h */,
 				F99D92231607240B00AFF3F6 /* DataStoreFactory.h */,
 				F99D92241607240C00AFF3F6 /* DataStoreFactory.m */,
+				F9C7DE951B7CBFE600AFCD06 /* BackendlessSimpleQuery.h */,
+				F9C7DE961B7CBFE600AFCD06 /* BackendlessSimpleQuery.m */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
@@ -1682,7 +1702,9 @@
 				D3A064A71AFA6E4A00779BB1 /* LocationTracker.h in Headers */,
 				F9D5234D1B25CEF800F6A441 /* ClassCastException.h in Headers */,
 				1C7BB4EF1A2E092900D3C2C1 /* CustomService.h in Headers */,
+				F9C7DE971B7CBFE600AFCD06 /* BackendlessSimpleQuery.h in Headers */,
 				D3A064C01AFCE64D00779BB1 /* GeoFence.h in Headers */,
+				F9C7DE8F1B7CBF0300AFCD06 /* BEFileInfo.h in Headers */,
 				1C7BB4F01A2E092900D3C2C1 /* Events.h in Headers */,
 				D35CA5301A668AC600F500B0 /* DataPermission.h in Headers */,
 				D316BA371A83C649007215CA /* ProtectedBackendlessGeoQuery.h in Headers */,
@@ -1780,8 +1802,10 @@
 				D3A064E01B0243ED00779BB1 /* ICallback.h in Headers */,
 				D3A064C11AFCE64D00779BB1 /* GeoFence.h in Headers */,
 				F9796A20166CCBFE00595F5E /* FileService.h in Headers */,
+				F9C7DE901B7CBF0300AFCD06 /* BEFileInfo.h in Headers */,
 				D35DC3421AD7E19800EF2A68 /* Logger.h in Headers */,
 				D3A064A81AFA6E4A00779BB1 /* LocationTracker.h in Headers */,
+				F9C7DE981B7CBFE600AFCD06 /* BackendlessSimpleQuery.h in Headers */,
 				D3A064C91AFCE69D00779BB1 /* GeoFenceMonitoring.h in Headers */,
 				F9BBFD7518783B750076BC6D /* RTMPClient.h in Headers */,
 				D316BA381A83C649007215CA /* ProtectedBackendlessGeoQuery.h in Headers */,
@@ -1877,9 +1901,11 @@
 				D3F8BD9B198256AF0009DB40 /* ICacheService.h in Headers */,
 				D39A468319811D9B006CBD1B /* CacheService.h in Headers */,
 				F9BBFD5518783B750076BC6D /* FlashorbBinaryWriter.h in Headers */,
+				F9C7DE911B7CBF0300AFCD06 /* BEFileInfo.h in Headers */,
 				D35DC3431AD7E19800EF2A68 /* Logger.h in Headers */,
 				D30A5D7619B9CA8200C0BA44 /* Backendless-Bridging-Header.h in Headers */,
 				F9796A6C166CD42E00595F5E /* FileService.h in Headers */,
+				F9C7DE991B7CBFE600AFCD06 /* BackendlessSimpleQuery.h in Headers */,
 				D3A064E11B0243ED00779BB1 /* ICallback.h in Headers */,
 				D3A064CA1AFCE69D00779BB1 /* GeoFenceMonitoring.h in Headers */,
 				D35DC33B1AD6CE1500EF2A68 /* Logging.h in Headers */,
@@ -2093,6 +2119,7 @@
 				D316BA3A1A83C649007215CA /* ProtectedBackendlessGeoQuery.m in Sources */,
 				1C7BB4951A2E092900D3C2C1 /* ISDatabase.m in Sources */,
 				1C7BB4961A2E092900D3C2C1 /* BackendlessUser.m in Sources */,
+				F9C7DE921B7CBF0300AFCD06 /* BEFileInfo.m in Sources */,
 				1C7BB4971A2E092900D3C2C1 /* OfflineModeManager.m in Sources */,
 				1C7BB4981A2E092900D3C2C1 /* UserProperty.m in Sources */,
 				1C7BB4991A2E092900D3C2C1 /* PersistenceService.m in Sources */,
@@ -2132,6 +2159,7 @@
 				1C7BB4B41A2E092900D3C2C1 /* MediaPlaybackOptions.m in Sources */,
 				1C7BB4B51A2E092900D3C2C1 /* BodyParts.m in Sources */,
 				D3A064DB1B0242B900779BB1 /* ClientCallback.m in Sources */,
+				F9C7DE9A1B7CBFE600AFCD06 /* BackendlessSimpleQuery.m in Sources */,
 				D31700D51A84D2AA00772766 /* GeoCluster.m in Sources */,
 				1C7BB4B61A2E092900D3C2C1 /* MediaService.m in Sources */,
 				D35DC3441AD7E19800EF2A68 /* Logger.m in Sources */,
@@ -2169,6 +2197,7 @@
 				F97969F1166CCB8200595F5E /* ObjectProperty.m in Sources */,
 				F9D523511B25CEF800F6A441 /* ClassCastException.m in Sources */,
 				F97969F2166CCB8200595F5E /* BackendlessEntity.m in Sources */,
+				F9C7DE931B7CBF0300AFCD06 /* BEFileInfo.m in Sources */,
 				F97969F3166CCB8200595F5E /* BackendlessCollection.m in Sources */,
 				F97969F4166CCB8200595F5E /* BackendlessDataQuery.m in Sources */,
 				D3FB9B6C19867EA500A13FB6 /* AtomicCounters.m in Sources */,
@@ -2179,6 +2208,7 @@
 				D36CDDF419C99D5900C3FFE3 /* CustomService.m in Sources */,
 				F97969F7166CCB8200595F5E /* GeoService.m in Sources */,
 				F97969F8166CCB8200595F5E /* GeoCategory.m in Sources */,
+				F9C7DE9B1B7CBFE600AFCD06 /* BackendlessSimpleQuery.m in Sources */,
 				F97969F9166CCB8200595F5E /* GeoPoint.m in Sources */,
 				F97969FA166CCB8200595F5E /* BackendlessGeoQuery.m in Sources */,
 				D3A064D41B02429100779BB1 /* ServerCallback.m in Sources */,
@@ -2244,6 +2274,7 @@
 				F9796A3B166CD3DA00595F5E /* ObjectProperty.m in Sources */,
 				F9D523521B25CEF800F6A441 /* ClassCastException.m in Sources */,
 				F9796A3C166CD3DA00595F5E /* BackendlessEntity.m in Sources */,
+				F9C7DE941B7CBF0300AFCD06 /* BEFileInfo.m in Sources */,
 				F9796A3D166CD3DA00595F5E /* BackendlessCollection.m in Sources */,
 				F9796A3E166CD3DA00595F5E /* BackendlessDataQuery.m in Sources */,
 				D3FB9B6D19867EA500A13FB6 /* AtomicCounters.m in Sources */,
@@ -2254,6 +2285,7 @@
 				D36CDDF519C99D5900C3FFE3 /* CustomService.m in Sources */,
 				F9796A41166CD3DA00595F5E /* GeoService.m in Sources */,
 				F9796A42166CD3DB00595F5E /* GeoCategory.m in Sources */,
+				F9C7DE9C1B7CBFE600AFCD06 /* BackendlessSimpleQuery.m in Sources */,
 				F9796A43166CD3DB00595F5E /* GeoPoint.m in Sources */,
 				F9796A44166CD3DB00595F5E /* BackendlessGeoQuery.m in Sources */,
 				D3A064D51B02429100779BB1 /* ServerCallback.m in Sources */,

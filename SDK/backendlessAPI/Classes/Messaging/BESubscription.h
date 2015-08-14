@@ -20,6 +20,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "SubscriptionOptions.h"
 
 @class Fault;
 @protocol IResponder;
@@ -29,6 +30,7 @@
 @property (strong, nonatomic) NSString *subscriptionId;
 @property (strong, nonatomic) NSString *channelName;
 @property (strong, nonatomic) id <IResponder> responder;
+@property DeliveryMethodEnum deliveryMethod;
 
 -(id)initWithChannelName:(NSString *)channelName responder:(id <IResponder>)subscriptionResponder;
 -(id)initWithChannelName:(NSString *)channelName response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
