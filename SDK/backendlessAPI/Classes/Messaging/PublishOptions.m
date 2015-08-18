@@ -29,7 +29,11 @@
 	
     if ( (self=[super init]) ) {
         _publisherId = nil;
+#if 0
         _headers = nil;
+#else
+        self.headers = @{@"ios-content-available":@"1"};
+#endif
         _subtopic = nil;
 	}
 	

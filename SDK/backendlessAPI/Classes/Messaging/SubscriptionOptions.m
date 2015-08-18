@@ -22,7 +22,7 @@
 #import "SubscriptionOptions.h"
 #import "DEBUG.h"
 
-#define DELIVERY_METHOD @[@"PULL", @"PUSH"]
+#define DELIVERY_METHOD @[@"POLL", @"PUSH"]
 
 @implementation SubscriptionOptions
 
@@ -32,7 +32,8 @@
         _subscriberId = nil;
         _subtopic = nil;
         _selector = nil;
-        _deliveryMethod = DELIVERY_METHOD[DELIVERY_PULL];
+        _deliveryMethod = DELIVERY_METHOD[DELIVERY_POLL];
+        _deviceId = nil;
 	}
 	
 	return self;
@@ -45,6 +46,8 @@
     [_subscriberId release];
     [_subtopic release];
     [_selector release];
+    [_deliveryMethod release];
+    [_deviceId release];
 	
 	[super dealloc];
 }
@@ -53,7 +56,7 @@
 #pragma mark Public Methods
 
 -(DeliveryMethodEnum)valDeliveryMethod {
-    return _deliveryMethod?(DeliveryMethodEnum)[DELIVERY_METHOD indexOfObject:_deliveryMethod]:DELIVERY_PULL;
+    return _deliveryMethod?(DeliveryMethodEnum)[DELIVERY_METHOD indexOfObject:_deliveryMethod]:DELIVERY_POLL;
 }
 
 -(void)deliveryMethod:(DeliveryMethodEnum)deliveryMethod {
@@ -61,7 +64,7 @@
 }
 
 -(NSString *)description {
-    return [NSString stringWithFormat:@"<SubscriptionOptions> subscriberId: %@, subtopic: %@, selector = %@, deliveryMethod = %@", _subscriberId, _subtopic, _selector, _deliveryMethod];
+    return [NSString stringWithFormat:@"<SubscriptionOptions> subscriberId: %@, subtopic: %@, selector = %@, deliveryMethod = %@, deviceId = %@", _subscriberId, _subtopic, _selector, _deliveryMethod, _deviceId];
 }
 
 @end

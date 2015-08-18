@@ -34,7 +34,7 @@
         _subscriptionId = nil;
         _channelName = nil;
         _responder = nil;
-        _deliveryMethod = DELIVERY_PULL;
+        _deliveryMethod = DELIVERY_POLL;
 	}
 	
 	return self;
@@ -46,7 +46,7 @@
         self.subscriptionId = nil;
         self.channelName = channelName;
         self.responder = subscriptionResponder;
-        _deliveryMethod = DELIVERY_PULL;
+        _deliveryMethod = DELIVERY_POLL;
 	}
 	
 	return self;    
@@ -58,7 +58,7 @@
         self.subscriptionId = nil;
         self.channelName = channelName;
         self.responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
-        _deliveryMethod = DELIVERY_PULL;
+        _deliveryMethod = DELIVERY_POLL;
 	}
 	
 	return self;
@@ -122,9 +122,9 @@
     
     switch (_deliveryMethod) {
         
-        case DELIVERY_PULL: {
+        case DELIVERY_POLL: {
             
-            [DebLog log:@"BESubscription -> (DELIVERY_PULL) pollingFrequency: %d", (double)backendless.messagingService.pollingFrequencyMs/1000];
+            [DebLog log:@"BESubscription -> (DELIVERY_POLL) pollingFrequency: %d", (double)backendless.messagingService.pollingFrequencyMs/1000];
             
 #if _BY_DISPATCH_TIME_
             dispatch_time_t interval = dispatch_time(DISPATCH_TIME_NOW, 100ull*NSEC_PER_MSEC);

@@ -22,14 +22,19 @@
 #import "DeliveryOptions.h"
 #import "DEBUG.h"
 
+#define PUSH_POLICY @[@"ONLY", @"ALSO", @"NONE"]
 
 @implementation DeliveryOptions
 
 -(id)init {
 	
     if ( (self=[super init]) ) {
-        [self pushPolicy:PUSHONLY];
-        [self pushBroadcast:ALL];
+#if _OLD_POLICY_IMPL
+        [self pushPolicy:PUSH_ONLY];
+#else
+        [self pushPolicy:PUSH_ALSO];
+#endif
+        [self pushBroadcast:FOR_ALL];
         _pushSinglecast = nil;
         _publishAt = nil;
         [self repeatEvery:0];
@@ -60,21 +65,29 @@
 {
     DeliveryOptions *deliveryOption = [[[DeliveryOptions alloc] init] autorelease];
     [deliveryOption pushPolicy:pushPolice];
-    [deliveryOption pushBroadcast:ALL];
+    [deliveryOption pushBroadcast:FOR_ALL];
     return deliveryOption;
 }
 
 -(PushPolicyEnum)valPushPolicy {
-    return _pushPolicy ? [_pushPolicy unsignedIntValue] : 0;
+#if _OLD_POLICY_IMPL
+    return (PushPolicyEnum)(_pushPolicy?[_pushPolicy unsignedIntValue]:0);
+#else
+    return (PushPolicyEnum)(_pushPolicy?[(NSArray *)PUSH_POLICY indexOfObject:_pushPolicy]:0);
+#endif
 }
 
 -(BOOL)pushPolicy:(PushPolicyEnum)pushPolicy {
+#if _OLD_POLICY_IMPL
     _pushPolicy = [[NSNumber alloc] initWithUnsignedInt:(unsigned int)pushPolicy];
+#else
+    _pushPolicy = PUSH_POLICY[pushPolicy];
+#endif
     return YES;
 }
 
 -(PushBroadcastEnum)valPushBroadcast {
-    return _pushBroadcast ? [_pushBroadcast unsignedIntValue] : 0;
+    return (PushBroadcastEnum)(_pushBroadcast?[_pushBroadcast unsignedIntValue]:0);
 }
 
 -(BOOL)pushBroadcast:(PushBroadcastEnum)pushBroadcast {
@@ -84,7 +97,7 @@
 }
 
 -(long)valRepeatEvery {
-    return _repeatEvery ? [_repeatEvery longValue] : 0;
+    return _repeatEvery?[_repeatEvery longValue]:0;
 }
 
 -(BOOL)repeatEvery:(long)repeatEvery {

@@ -486,7 +486,6 @@ id result = nil;
 
 #endif
 
-
 // sync methods with fault return  (as exception)
 
 -(BackendlessUser *)registering:(BackendlessUser *)user {
@@ -496,6 +495,7 @@ id result = nil;
     
     if (![user getProperties])
         return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
+    
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [user getProperties], nil];
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_REGISTER args:args];
     if ([result isKindOfClass:[Fault class]]) {

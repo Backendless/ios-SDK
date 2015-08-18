@@ -186,7 +186,7 @@
 // invoke it in:
 // - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 // -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))handler
--(void)didReceiveRemoteNotification:(NSDictionary *)userInfo;
+-(NSString *)didReceiveRemoteNotification:(NSDictionary *)userInfo;
 #endif
 
 @end

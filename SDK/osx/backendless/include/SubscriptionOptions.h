@@ -22,7 +22,7 @@
 #import <Foundation/Foundation.h>
 
 typedef enum {
-    DELIVERY_PULL,
+    DELIVERY_POLL,
     DELIVERY_PUSH
 } DeliveryMethodEnum;
 
@@ -32,6 +32,7 @@ typedef enum {
 @property (strong, nonatomic) NSString *subtopic;
 @property (strong, nonatomic) NSString *selector;
 @property (strong, nonatomic, readonly) NSString *deliveryMethod;
+@property (strong, nonatomic) NSString *deviceId;
 
 -(DeliveryMethodEnum)valDeliveryMethod;
 -(void)deliveryMethod:(DeliveryMethodEnum)deliveryMethod;

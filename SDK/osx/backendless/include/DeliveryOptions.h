@@ -21,24 +21,30 @@
 
 #import <Foundation/Foundation.h>
 
+#define _OLD_POLICY_IMPL 0
+
 typedef enum {
-    PUSHONLY,
-    PUSHALSO
+    PUSH_ONLY,
+    PUSH_ALSO,
+    PUSH_NONE
 } PushPolicyEnum;
 
 typedef enum {
-    NONE = 0,
-    IOS = 1,
-    ANDROID = 2,
-    WP = 4,
-    OSX = 7,
-    ALL = 15
+    FOR_NONE = 0,
+    FOR_IOS = 1,
+    FOR_ANDROID = 2,
+    FOR_WP = 4,
+    FOR_OSX = 8,
+    FOR_ALL = 15
 } PushBroadcastEnum;
 
 
 @interface DeliveryOptions : NSObject
-
+#if _OLD_POLICY_IMPL
 @property (strong, nonatomic) NSNumber *pushPolicy;
+#else
+@property (strong, nonatomic) NSString *pushPolicy;
+#endif
 @property (strong, nonatomic) NSNumber *pushBroadcast;
 @property (strong, nonatomic) NSMutableArray *pushSinglecast;
 @property (strong, nonatomic) NSDate *publishAt;

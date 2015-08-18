@@ -1133,6 +1133,7 @@ id result = nil;
         return [backendless throwFault:FAULT_NO_CHANNEL];
     
     subscription.deliveryMethod = [subscriptionOptions valDeliveryMethod];
+    subscriptionOptions.deviceId = deviceRegistration.deviceId;
     
     id result = [self subscribeForPollingAccess:subscription.channelName subscriptionOptions:subscriptionOptions];
     if ([result isKindOfClass:[Fault class]])
@@ -1305,6 +1306,7 @@ id result = nil;
         return [responder errorHandler:FAULT_NO_CHANNEL];
     
     subscription.deliveryMethod = [subscriptionOptions valDeliveryMethod];
+    subscriptionOptions.deviceId = deviceRegistration.deviceId;
     
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onSubscribe:) selErrorHandler:nil];
     _responder.context = [subscription retain];
@@ -1495,57 +1497,35 @@ id result = nil;
     [DebLog logY:@"MessagingService -> application:didFailToRegisterForRemoteNotificationsWithError: %@", err];
 }
 
--(void)didReceiveRemoteNotification:(NSDictionary *)userInfo {
+-(NSString *)didReceiveRemoteNotification:(NSDictionary *)userInfo {
     
-    [DebLog logY:@"MessagingService -> application:didReceiveRemoteNotification: %@", userInfo];
-
-    /*
-     String pushMessage = intent.getStringExtra( "message" );
-     String chanelName = intent.getStringExtra( NOTIFICATION_STRING );
-     
-     if (chanelName != null )
-     {
-     Subscription subscription = Backendless.Messaging.getSubscription( chanelName );
-     
-     if ( pushMessage.isEmpty() )
-     {
-     List<Message> messages = Backendless.Messaging.pollMessages( chanelName, subscription.getSubscriptionId() );
-     
-     subscription.handlerMessage( messages );
-     }
-     else
-     {
-     byte[] byteMessage = Base64.decode( pushMessage, Base64.DEFAULT );
-     byteMessage = CompressUtils.decompress( byteMessage );
-     Message message = BackendlessSerializer.deserializeAMF( byteMessage );
-     
-     subscription.handlerMessage( Arrays.asList( message ) );
-     }
-     }
-     */
+    [DebLog log:@"MessagingService -> application:didReceiveRemoteNotification: %@", userInfo];
     
-    NSString *pushMessage = [userInfo objectForKey:@"message"];
+    NSString *pushMessage = [[userInfo objectForKey:@"aps"] objectForKey:@"alert"];
     NSString *channelName = [userInfo objectForKey:@"{n}"];
-    
     if (channelName && channelName.length) {
         
         BESubscription *subscription = [backendless.messaging.subscriptions get:channelName];
-        if (!subscription)
-            return;
-        
-        if (pushMessage && pushMessage.length) {
+        if (subscription) {
             
-            NSData *data = [Base64 decode:pushMessage];
-            BinaryStream *bytes = [BinaryStream streamWithStream:(char*)data.bytes andSize:(size_t)data.length];
-            id message = [AMFSerializer deserializeFromBytes:bytes];
-            if (message && [message isKindOfClass:Message.class]) {
-                [subscription.responder responseHandler:@[message]];
+            if (pushMessage && pushMessage.length) {
+                
+                NSData *data = [Base64 decode:pushMessage];
+                BinaryStream *bytes = [BinaryStream streamWithStream:(char*)data.bytes andSize:(size_t)data.length];
+                id message = [AMFSerializer deserializeFromBytes:bytes];
+                if (message && [message isKindOfClass:Message.class]) {
+                    [subscription.responder responseHandler:@[message]];
+                }
+                [DebLog log:@"MessagingService -> application:didReceiveRemoteNotification: (MESSAGE) %@", message];
+            }
+            else {
+                [DebLog log:@"MessagingService -> application:didReceiveRemoteNotification: (!!! POLLING !!!)"];
+                [backendless.messagingService pollMessages:channelName subscriptionId:subscription.subscriptionId responder:subscription.responder];
             }
         }
-        else {
-            [backendless.messagingService pollMessages:channelName subscriptionId:subscription.subscriptionId responder:subscription.responder];
-        }
     }
+   
+    return pushMessage;
 }
 #endif
 
