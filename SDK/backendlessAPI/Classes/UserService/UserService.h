@@ -22,8 +22,10 @@
 #import <Foundation/Foundation.h>
 
 @class BackendlessUser, Fault;
-@class FBSession;
 @protocol IResponder;
+// FB
+@class FBSDKAccessToken;
+@class FBSession;
 @protocol FBGraphUser;
 
 @interface UserService : NSObject
@@ -44,8 +46,9 @@
 -(NSArray *)describeUserClass;
 -(id)user:(NSString *)user assignRole:(NSString *)role;
 -(id)user:(NSString *)user unassignRole:(NSString *)role;
--(id)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping;
 -(NSArray *)getUserRoles;
+-(id)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping;
+-(id)loginWithFacebookSDK:(FBSDKAccessToken *)accessToken fieldsMapping:(NSDictionary *)fieldsMapping;
 
 // sync methods with fault option
 -(BackendlessUser *)registering:(BackendlessUser *)user error:(Fault **)fault;
@@ -57,8 +60,9 @@
 -(NSArray *)describeUserClassError:(Fault **)fault;
 -(BOOL)user:(NSString *)user assignRole:(NSString *)role error:(Fault **)fault;
 -(BOOL)user:(NSString *)user unassignRole:(NSString *)role error:(Fault **)fault;
--(BackendlessUser *)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping error:(Fault **)fault;
 -(NSArray *)getUserRolesError:(Fault **)fault;
+-(BackendlessUser *)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping error:(Fault **)fault;
+-(BackendlessUser *)loginWithFacebookSDK:(FBSDKAccessToken *)accessToken fieldsMapping:(NSDictionary *)fieldsMapping error:(Fault **)fault;
 
 // async methods with responder
 -(void)registering:(BackendlessUser *)user responder:(id <IResponder>)responder;
@@ -70,8 +74,9 @@
 -(void)describeUserClass:(id <IResponder>)responder;
 -(void)user:(NSString *)user assignRole:(NSString *)role responder:(id <IResponder>)responder;
 -(void)user:(NSString *)user unassignRole:(NSString *)role responder:(id <IResponder>)responder;
--(void)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping responder:(id <IResponder>)responder;
 -(void)getUserRoles:(id <IResponder>)responder;
+-(void)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping responder:(id <IResponder>)responder;
+-(void)loginWithFacebookSDK:(FBSDKAccessToken *)accessToken fieldsMapping:(NSDictionary *)fieldsMapping responder:(id <IResponder>)responder;
 
 // async methods with block-based callbacks
 -(void)registering:(BackendlessUser *)user response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock;
@@ -83,8 +88,9 @@
 -(void)describeUserClass:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)user:(NSString *)user assignRole:(NSString *)role response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)user:(NSString *)user unassignRole:(NSString *)role response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getUserRoles:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)loginWithFacebookSDK:(FBSDKAccessToken *)accessToken fieldsMapping:(NSDictionary *)fieldsMapping response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 
 // async methods of social easy logins
 -(void)easyLoginWithFacebookFieldsMapping:(NSDictionary *)fieldsMapping permissions:(NSArray *)permissions response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;

@@ -64,9 +64,9 @@ static NSString *USER_TOKEN_KEY = @"user-token\0";
 
 @interface UserService ()
 // sync
--(id)loginWithFacebookSocialUserId:(NSString *)userId accessToken:(NSString *)accessToken expirationDate:(NSDate *)expirationDate permissions:(NSArray *)permissions fieldsMapping:(NSDictionary *)fieldsMapping;
+-(id)loginWithFacebookSocialUserId:(NSString *)userId accessToken:(NSString *)accessToken expirationDate:(NSDate *)expirationDate permissions:(NSSet *)permissions fieldsMapping:(NSDictionary *)fieldsMapping;
 // async
--(void)loginWithFacebookSocialUserId:(NSString *)userId accessToken:(NSString *)accessToken expirationDate:(NSDate *)expirationDate permissions:(NSArray *)permissions fieldsMapping:(NSDictionary *)fieldsMapping responder:(id <IResponder>)responder;
+-(void)loginWithFacebookSocialUserId:(NSString *)userId accessToken:(NSString *)accessToken expirationDate:(NSDate *)expirationDate permissions:(NSSet *)permissions fieldsMapping:(NSDictionary *)fieldsMapping responder:(id <IResponder>)responder;
 // callbacks
 -(id)registerResponse:(ResponseContext *)response;
 -(id)registerError:(id)error;
@@ -448,6 +448,24 @@ id result = nil;
     }
 }
 
+-(NSArray *)getUserRolesError:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self getUserRoles];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
 -(BackendlessUser *)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping error:(Fault **)fault {
     
     id result = nil;
@@ -466,11 +484,11 @@ id result = nil;
     }
 }
 
--(NSArray *)getUserRolesError:(Fault **)fault {
+-(BackendlessUser *)loginWithFacebookSDK:(FBSDKAccessToken *)accessToken fieldsMapping:(NSDictionary *)fieldsMapping error:(Fault **)fault {
     
     id result = nil;
     @try {
-        result = [self getUserRoles];
+        result = [self loginWithFacebookSDK:accessToken fieldsMapping:fieldsMapping];
     }
     @catch (Fault *fault) {
         result = fault;
@@ -604,21 +622,17 @@ id result = nil;
     return result;
 }
 
--(id)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping {
-    
-    return [self loginWithFacebookSocialUserId:[user valueForKey:@"id"] accessToken:[[session valueForKey:@"accessTokenData"] valueForKey:@"accessToken"] expirationDate:[[session valueForKey:@"accessTokenData"] valueForKey:@"expirationDate"] permissions:[[session valueForKey:@"accessTokenData"] valueForKey:@"permissions"] fieldsMapping:fieldsMapping];
-}
-
--(id)loginWithFacebookSocialUserId:(NSString *)userId accessToken:(NSString *)accessToken expirationDate:(NSDate *)expirationDate permissions:(NSArray *)permissions fieldsMapping:(NSDictionary *)fieldsMapping {
-    
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, userId, accessToken, expirationDate, permissions, fieldsMapping, nil];
-    id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_FACEBOOK_SDK args:args];
-    return [result isKindOfClass:[Fault class]] ? result : [self onLogin:result];
-}
-
 -(NSArray *)getUserRoles {
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, nil];
     return [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_GET_USER_ROLES args:args];
+}
+
+-(id)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping {
+    return [self loginWithFacebookSocialUserId:[user valueForKey:@"objectID"] accessToken:[[session valueForKey:@"accessTokenData"] valueForKey:@"accessToken"] expirationDate:[[session valueForKey:@"accessTokenData"] valueForKey:@"expirationDate"] permissions:[NSSet setWithArray:[[session valueForKey:@"accessTokenData"] valueForKey:@"permissions"]] fieldsMapping:fieldsMapping];
+}
+
+-(id)loginWithFacebookSDK:(FBSDKAccessToken *)accessToken fieldsMapping:(NSDictionary *)fieldsMapping {
+    return [self loginWithFacebookSocialUserId:[accessToken valueForKey:@"userID"] accessToken:[accessToken valueForKey:@"tokenString"] expirationDate:[accessToken valueForKey:@"expirationDate"] permissions:[accessToken valueForKey:@"permissions"] fieldsMapping:fieldsMapping];
 }
 
 // async methods with responder
@@ -716,24 +730,20 @@ id result = nil;
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_UNASSIGN_ROLE args:args responder:responder];
 }
 
--(void)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping responder:(id<IResponder>)responder
-{
-    [self loginWithFacebookSocialUserId:[user valueForKey:@"id"] accessToken:[[session valueForKey:@"accessTokenData"] valueForKey:@"accessToken"] expirationDate:[[session valueForKey:@"accessTokenData"] valueForKey:@"expirationDate"] permissions:[[session valueForKey:@"accessTokenData"] valueForKey:@"permissions"] fieldsMapping:fieldsMapping responder:responder];
-}
-
--(void)loginWithFacebookSocialUserId:(NSString *)userId accessToken:(NSString *)accessToken expirationDate:(NSDate *)expirationDate permissions:(NSArray *)permissions fieldsMapping:(NSDictionary *)fieldsMapping responder:(id<IResponder>)responder
-{
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, userId, accessToken, expirationDate, permissions, fieldsMapping, nil];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onLogin:) selErrorHandler:nil];
-    _responder.chained = responder;
-    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_FACEBOOK_SDK args:args responder:_responder];
-}
-
 -(void)getUserRoles:(id<IResponder>)responder
 {
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, nil];
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_GET_USER_ROLES args:args responder:responder];
+    
+}
 
+-(void)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping responder:(id<IResponder>)responder
+{
+    [self loginWithFacebookSocialUserId:[user valueForKey:@"objectID"] accessToken:[[session valueForKey:@"accessTokenData"] valueForKey:@"accessToken"] expirationDate:[[session valueForKey:@"accessTokenData"] valueForKey:@"expirationDate"] permissions:[[session valueForKey:@"accessTokenData"] valueForKey:@"permissions"] fieldsMapping:fieldsMapping responder:responder];
+}
+
+-(void)loginWithFacebookSDK:(FBSDKAccessToken *)accessToken fieldsMapping:(NSDictionary *)fieldsMapping responder:(id <IResponder>)responder {
+    [self loginWithFacebookSocialUserId:[accessToken valueForKey:@"userID"] accessToken:[accessToken valueForKey:@"tokenString"] expirationDate:[accessToken valueForKey:@"expirationDate"] permissions:[NSSet setWithArray:[accessToken valueForKey:@"permissions"]] fieldsMapping:fieldsMapping responder:responder];
 }
 
 // async methods with block-based callbacks
@@ -774,11 +784,16 @@ id result = nil;
     [self user:user unassignRole:role responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
+-(void)getUserRoles:(void (^)(NSArray *))responseBlock error:(void (^)(Fault *))errorBlock {
+    [self getUserRoles:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+
 -(void)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary<FBGraphUser> *)fieldsMapping response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [self loginWithFacebookSDK:session user:user fieldsMapping:fieldsMapping responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
--(void)getUserRoles:(void (^)(NSArray *))responseBlock error:(void (^)(Fault *))errorBlock {
-    [self getUserRoles:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+
+-(void)loginWithFacebookSDK:(FBSDKAccessToken *)accessToken fieldsMapping:(NSDictionary *)fieldsMapping response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self loginWithFacebookSDK:accessToken fieldsMapping:fieldsMapping responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 // async social easy logins
@@ -837,6 +852,23 @@ id result = nil;
 
 #pragma mark -
 #pragma mark Private Methods
+
+// sync
+-(id)loginWithFacebookSocialUserId:(NSString *)userId accessToken:(NSString *)accessToken expirationDate:(NSDate *)expirationDate permissions:(NSSet *)permissions fieldsMapping:(NSDictionary *)fieldsMapping {
+    
+    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, userId, accessToken, expirationDate, permissions, fieldsMapping, nil];
+    id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_FACEBOOK_SDK args:args];
+    return [result isKindOfClass:[Fault class]] ? result : [self onLogin:result];
+}
+
+//async
+-(void)loginWithFacebookSocialUserId:(NSString *)userId accessToken:(NSString *)accessToken expirationDate:(NSDate *)expirationDate permissions:(NSSet *)permissions fieldsMapping:(NSDictionary *)fieldsMapping responder:(id<IResponder>)responder
+{
+    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, userId, accessToken, expirationDate, permissions, fieldsMapping, nil];
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onLogin:) selErrorHandler:nil];
+    _responder.chained = responder;
+    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_FACEBOOK_SDK args:args responder:_responder];
+}
 
 // callbacks
 
