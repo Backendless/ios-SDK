@@ -802,7 +802,7 @@ id result = nil;
 {
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(easyLoginResponder:) selErrorHandler:@selector(easyLoginError:)];
     _responder.chained = responder;
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, backendless.applicationType, fieldsMapping, permissions, nil];
+    NSArray *args = @[backendless.appID, backendless.versionNum, backendless.applicationType, fieldsMapping?fieldsMapping:@{}, permissions?permissions:@{}];
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_FACEBOOK args:args responder:_responder];
 }
 
@@ -810,7 +810,7 @@ id result = nil;
 {
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(easyLoginResponder:) selErrorHandler:@selector(easyLoginError:)];
     _responder.chained = responder;
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, backendless.applicationType, fieldsMapping, nil];
+    NSArray *args = @[backendless.appID, backendless.versionNum, backendless.applicationType, fieldsMapping?fieldsMapping:@{}];
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_TWITTER args:args responder:_responder];
 }
 
@@ -856,15 +856,15 @@ id result = nil;
 // sync
 -(id)loginWithFacebookSocialUserId:(NSString *)userId accessToken:(NSString *)accessToken expirationDate:(NSDate *)expirationDate permissions:(NSSet *)permissions fieldsMapping:(NSDictionary *)fieldsMapping {
     
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, userId, accessToken, expirationDate, permissions, fieldsMapping, nil];
+    NSArray *args = @[backendless.appID, backendless.versionNum, userId, accessToken, expirationDate, permissions, fieldsMapping?fieldsMapping:@{}];
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_FACEBOOK_SDK args:args];
     return [result isKindOfClass:[Fault class]] ? result : [self onLogin:result];
 }
 
 //async
--(void)loginWithFacebookSocialUserId:(NSString *)userId accessToken:(NSString *)accessToken expirationDate:(NSDate *)expirationDate permissions:(NSSet *)permissions fieldsMapping:(NSDictionary *)fieldsMapping responder:(id<IResponder>)responder
-{
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, userId, accessToken, expirationDate, permissions, fieldsMapping, nil];
+-(void)loginWithFacebookSocialUserId:(NSString *)userId accessToken:(NSString *)accessToken expirationDate:(NSDate *)expirationDate permissions:(NSSet *)permissions fieldsMapping:(NSDictionary *)fieldsMapping responder:(id<IResponder>)responder {
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, userId, accessToken, expirationDate, permissions, fieldsMapping?fieldsMapping:@{}];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onLogin:) selErrorHandler:nil];
     _responder.chained = responder;
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_FACEBOOK_SDK args:args responder:_responder];
