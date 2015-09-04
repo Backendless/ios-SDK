@@ -92,9 +92,9 @@ static NSString *METHOD_LISTING = @"listing";
     NSMutableArray  *asyncResponses;
 }
 -(id)saveFileResponse:(id)response;
--(NSURLRequest *)httpUploadRequest:(NSString *)path content:(NSData *)content;
--(id)sendUploadRequest:(NSString *)path content:(NSData *)content;
--(void)sendUploadRequest:(NSString *)path content:(NSData *)content  responder:(id <IResponder>)responder;
+-(NSURLRequest *)httpUploadRequest:(NSString *)path content:(NSData *)content overwrite:(NSNumber *)overwrite;
+-(id)sendUploadRequest:(NSString *)path content:(NSData *)content overwrite:(NSNumber *)overwrite;
+-(void)sendUploadRequest:(NSString *)path content:(NSData *)content overwrite:(NSNumber *)overwrite responder:(id <IResponder>)responder;
 -(AsyncResponse *)asyncHttpResponse:(NSURLConnection *)connection;
 -(void)processAsyncResponse:(NSURLConnection *)connection;
 @end
@@ -132,7 +132,11 @@ static NSString *METHOD_LISTING = @"listing";
 // sync methods with fault return (as exception)
 
 -(BackendlessFile *)upload:(NSString *)path content:(NSData *)content {
-    return [self sendUploadRequest:path content:content];
+    return [self sendUploadRequest:path content:content overwrite:nil];
+}
+
+-(BackendlessFile *)upload:(NSString *)path content:(NSData *)content overwrite:(BOOL)overwrite {
+    return [self sendUploadRequest:path content:content overwrite:@(overwrite)];
 }
 
 -(id)remove:(NSString *)fileURL {
@@ -368,6 +372,24 @@ id result = nil;
     }
 }
 
+-(BackendlessFile *)upload:(NSString *)path content:(NSData *)content overwrite:(BOOL)overwrite error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self upload:path content:content overwrite:overwrite];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
 -(BOOL)remove:(NSString *)fileURL error:(Fault **)fault {
     
     id result = nil;
@@ -572,7 +594,11 @@ id result = nil;
 // async methods with responder
 
 -(void)upload:(NSString *)path content:(NSData *)content responder:(id <IResponder>)responder {
-    [self sendUploadRequest:path content:content responder:responder];
+    [self sendUploadRequest:path content:content overwrite:nil responder:responder];
+}
+
+-(void)upload:(NSString *)path content:(NSData *)content overwrite:(BOOL)overwrite responder:(id <IResponder>)responder {
+    [self sendUploadRequest:path content:content overwrite:@(overwrite) responder:responder];
 }
 
 -(void)remove:(NSString *)fileURL responder:(id <IResponder>)responder {
@@ -684,6 +710,10 @@ id result = nil;
     [self upload:path content:content responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
+-(void)upload:(NSString *)path content:(NSData *)content overwrite:(BOOL)overwrite response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self upload:path content:content overwrite:overwrite responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+
 -(void)remove:(NSString *)fileURL response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [self remove:fileURL responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
@@ -745,7 +775,7 @@ id result = nil;
 }
 
 //
--(NSURLRequest *)httpUploadRequest:(NSString *)path content:(NSData *)content {
+-(NSURLRequest *)httpUploadRequest:(NSString *)path content:(NSData *)content overwrite:(NSNumber *)overwrite {
     
     NSString *boundary = [backendless GUIDString];
     NSString *fileName = [path lastPathComponent];
@@ -764,13 +794,14 @@ id result = nil;
     
     // create the request
     NSString *url = [NSString stringWithFormat:@"%@/%@/files/%@", backendless.hostURL, backendless.versionNum, path];
+    if (overwrite) {
+        [url stringByAppendingFormat:@"?overwrite=%@", [overwrite boolValue]?@"true":@"false"];
+    }
     NSMutableURLRequest *webReq = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
     
     if (backendless.headers) {
         NSArray *headers = [backendless.headers allKeys];
-        for (NSString *header in headers)
-        {
-//            NSLog(@"%@", [header stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+        for (NSString *header in headers) {
             [webReq addValue:[backendless.headers valueForKey:header] forHTTPHeaderField:[header stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         }
     }
@@ -787,11 +818,11 @@ id result = nil;
 
 // sync request
 
--(id)sendUploadRequest:(NSString *)path content:(NSData *)content {
+-(id)sendUploadRequest:(NSString *)path content:(NSData *)content overwrite:(NSNumber *)overwrite {
     
     NSHTTPURLResponse *responseUrl;
     NSError *error;
-    NSURLRequest *webReq = [self httpUploadRequest:path content:content];
+    NSURLRequest *webReq = [self httpUploadRequest:path content:content overwrite:overwrite];
     NSData *receivedData = [NSURLConnection sendSynchronousRequest:webReq returningResponse:&responseUrl error:&error];
     
     NSInteger statusCode = [responseUrl statusCode];
@@ -811,10 +842,10 @@ id result = nil;
 
 // async request
 
--(void)sendUploadRequest:(NSString *)path content:(NSData *)content responder:(id <IResponder>)responder {
+-(void)sendUploadRequest:(NSString *)path content:(NSData *)content overwrite:(NSNumber *)overwrite responder:(id <IResponder>)responder {
     
     // create the connection with the request and start the data exchananging
-    NSURLRequest *webReq = [self httpUploadRequest:path content:content];
+    NSURLRequest *webReq = [self httpUploadRequest:path content:content overwrite:overwrite];
     NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:webReq delegate:self];
     if (connection) {
         
