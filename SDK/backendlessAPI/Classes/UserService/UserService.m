@@ -76,10 +76,6 @@ static NSString *USER_TOKEN_KEY = @"user-token\0";
 -(id)onUpdate:(ResponseContext *)response;
 -(id)onLogout:(id)response;
 -(id)onLogoutError:(Fault *)fault;
-// persistent user
--(BOOL)getPersistentUser;
--(BOOL)setPersistentUser;
--(BOOL)resetPersistentUser;
 @end
 
 @implementation UserService
@@ -850,6 +846,31 @@ id result = nil;
     return [self onLogin:userData];
 }
 
+// persistent user
+
+-(BOOL)getPersistentUser {
+    
+    id obj = [AMFSerializer deserializeFromFile:PERSIST_USER_FILE_NAME];
+    _currentUser = obj ? [[BackendlessUser alloc] initWithProperties:obj] : nil;
+    _isStayLoggedIn = (BOOL)_currentUser;
+    if (_isStayLoggedIn && _currentUser.userToken) {
+        [backendless.headers setValue:_currentUser.userToken forKey:USER_TOKEN_KEY];
+    }
+    
+    [DebLog log:@"UserService -> getPersistentUser: currentUser = %@", _currentUser];
+    
+    return _isStayLoggedIn;
+}
+
+-(BOOL)setPersistentUser {
+    return (_currentUser && _isStayLoggedIn) ? [AMFSerializer serializeToFile:[_currentUser getProperties] fileName:PERSIST_USER_FILE_NAME] : NO;
+    
+}
+
+-(BOOL)resetPersistentUser {
+    return [AMFSerializer serializeToFile:nil fileName:PERSIST_USER_FILE_NAME];
+}
+
 #pragma mark -
 #pragma mark Private Methods
 
@@ -967,32 +988,6 @@ id result = nil;
     }
 
     return fault;
-}
-
-
-// persistent user
-
--(BOOL)getPersistentUser {
-    
-    id obj = [AMFSerializer deserializeFromFile:PERSIST_USER_FILE_NAME];
-    _currentUser = obj ? [[BackendlessUser alloc] initWithProperties:obj] : nil;
-    _isStayLoggedIn = (BOOL)_currentUser;
-    if (_isStayLoggedIn && _currentUser.userToken) {
-        [backendless.headers setValue:_currentUser.userToken forKey:USER_TOKEN_KEY];
-    }
-    
-    [DebLog log:@"UserService -> getPersistentUser: currentUser = %@", _currentUser];
-
-    return _isStayLoggedIn;
-}
-
--(BOOL)setPersistentUser {
-    return (_currentUser && _isStayLoggedIn) ? [AMFSerializer serializeToFile:[_currentUser getProperties] fileName:PERSIST_USER_FILE_NAME] : NO;
-    
-}
-
--(BOOL)resetPersistentUser {
-    return [AMFSerializer serializeToFile:nil fileName:PERSIST_USER_FILE_NAME];
 }
 
 @end

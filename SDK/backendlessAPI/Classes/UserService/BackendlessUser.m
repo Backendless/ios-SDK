@@ -151,6 +151,12 @@
         properties = [HashMap new];
     
     [properties push:key withObject:value];
+    
+#if 1
+    if (backendless.userService.isStayLoggedIn && backendless.userService.currentUser && [self.objectId isEqualToString:backendless.userService.currentUser.objectId]) {
+        [backendless.userService setPersistentUser];
+    }
+#endif
 }
 
 -(void)removeProperty:(NSString *)key {

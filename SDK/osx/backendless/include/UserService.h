@@ -103,4 +103,9 @@
 // utilites
 -(id)handleOpenURL:(NSURL *)url;
 
+// persistent user
+-(BOOL)getPersistentUser;
+-(BOOL)setPersistentUser;
+-(BOOL)resetPersistentUser;
+
 @end
