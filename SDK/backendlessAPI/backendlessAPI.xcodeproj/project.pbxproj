@@ -520,6 +520,12 @@
 		F9D523501B25CEF800F6A441 /* ClassCastException.m in Sources */ = {isa = PBXBuildFile; fileRef = F9D5234C1B25CEF800F6A441 /* ClassCastException.m */; };
 		F9D523511B25CEF800F6A441 /* ClassCastException.m in Sources */ = {isa = PBXBuildFile; fileRef = F9D5234C1B25CEF800F6A441 /* ClassCastException.m */; };
 		F9D523521B25CEF800F6A441 /* ClassCastException.m in Sources */ = {isa = PBXBuildFile; fileRef = F9D5234C1B25CEF800F6A441 /* ClassCastException.m */; };
+		F9F58DAE1BA83BB1009B8782 /* BackendlessBeacon.h in Headers */ = {isa = PBXBuildFile; fileRef = F9F58DAC1BA83BB1009B8782 /* BackendlessBeacon.h */; };
+		F9F58DAF1BA83BB1009B8782 /* BackendlessBeacon.h in Headers */ = {isa = PBXBuildFile; fileRef = F9F58DAC1BA83BB1009B8782 /* BackendlessBeacon.h */; };
+		F9F58DB01BA83BB1009B8782 /* BackendlessBeacon.h in Headers */ = {isa = PBXBuildFile; fileRef = F9F58DAC1BA83BB1009B8782 /* BackendlessBeacon.h */; };
+		F9F58DB11BA83BB1009B8782 /* BackendlessBeacon.m in Sources */ = {isa = PBXBuildFile; fileRef = F9F58DAD1BA83BB1009B8782 /* BackendlessBeacon.m */; };
+		F9F58DB21BA83BB1009B8782 /* BackendlessBeacon.m in Sources */ = {isa = PBXBuildFile; fileRef = F9F58DAD1BA83BB1009B8782 /* BackendlessBeacon.m */; };
+		F9F58DB31BA83BB1009B8782 /* BackendlessBeacon.m in Sources */ = {isa = PBXBuildFile; fileRef = F9F58DAD1BA83BB1009B8782 /* BackendlessBeacon.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -775,6 +781,8 @@
 		F9D5234B1B25CEF800F6A441 /* ClassCastException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassCastException.h; sourceTree = "<group>"; };
 		F9D5234C1B25CEF800F6A441 /* ClassCastException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassCastException.m; sourceTree = "<group>"; };
 		F9D81AF81B317DB4004CA537 /* Backendless Mac OSX application setup.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Backendless Mac OSX application setup.pdf"; sourceTree = "<group>"; };
+		F9F58DAC1BA83BB1009B8782 /* BackendlessBeacon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackendlessBeacon.h; sourceTree = "<group>"; };
+		F9F58DAD1BA83BB1009B8782 /* BackendlessBeacon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackendlessBeacon.m; sourceTree = "<group>"; };
 		F9FF0E8B160DA8F400AEB3B7 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1247,6 +1255,7 @@
 				F99D9232160B617200AFF3F6 /* Property */,
 				F91B47E615FF448F00012DFC /* UserService */,
 				F91B47E515FF448F00012DFC /* Persistence */,
+				F9F58DAB1BA83B34009B8782 /* Beacons */,
 				F91B47E315FF448F00012DFC /* Geo */,
 				F91B480715FF655800012DFC /* Messaging */,
 				F91B47E215FF448F00012DFC /* Files */,
@@ -1642,6 +1651,15 @@
 			path = Exceptions;
 			sourceTree = "<group>";
 		};
+		F9F58DAB1BA83B34009B8782 /* Beacons */ = {
+			isa = PBXGroup;
+			children = (
+				F9F58DAC1BA83BB1009B8782 /* BackendlessBeacon.h */,
+				F9F58DAD1BA83BB1009B8782 /* BackendlessBeacon.m */,
+			);
+			path = Beacons;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1677,6 +1695,7 @@
 				1C7BB4D91A2E092900D3C2C1 /* BackendlessCollection.h in Headers */,
 				1C7BB4DA1A2E092900D3C2C1 /* BackendlessDataQuery.h in Headers */,
 				1C7BB4DB1A2E092900D3C2C1 /* IDataStore.h in Headers */,
+				F9F58DAE1BA83BB1009B8782 /* BackendlessBeacon.h in Headers */,
 				1C7BB4DC1A2E092900D3C2C1 /* ISDatabase.h in Headers */,
 				1C7BB4DD1A2E092900D3C2C1 /* DataStoreFactory.h in Headers */,
 				1C7BB4DE1A2E092900D3C2C1 /* GeoService.h in Headers */,
@@ -1795,6 +1814,7 @@
 				D30A5D7519B9CA8200C0BA44 /* Backendless-Bridging-Header.h in Headers */,
 				F9D5234E1B25CEF800F6A441 /* ClassCastException.h in Headers */,
 				D3FB9B7C1986818F00A13FB6 /* IAtomicCounters.h in Headers */,
+				F9F58DAF1BA83BB1009B8782 /* BackendlessBeacon.h in Headers */,
 				D3FB9B6919867EA500A13FB6 /* AtomicCounters.h in Headers */,
 				D39A468219811D9B006CBD1B /* CacheService.h in Headers */,
 				D36CDDF119C99D5900C3FFE3 /* CustomService.h in Headers */,
@@ -1920,6 +1940,7 @@
 				F9796A6E166CD42E00595F5E /* HashMap.h in Headers */,
 				F994A3F5168DC36B00C1A498 /* MediaPublishOptions.h in Headers */,
 				F994A3FF168DC39400C1A498 /* MediaPlaybackOptions.h in Headers */,
+				F9F58DB01BA83BB1009B8782 /* BackendlessBeacon.h in Headers */,
 				F994A408168DC3BA00C1A498 /* MediaService.h in Headers */,
 				F9512968168DCFE90041460C /* MediaPublisher.h in Headers */,
 				F9BBFD6118783B750076BC6D /* IPendingServiceCallback.h in Headers */,
@@ -2153,6 +2174,7 @@
 				1C7BB4AF1A2E092900D3C2C1 /* HashMap.m in Sources */,
 				1C7BB4B01A2E092900D3C2C1 /* BEReachability.m in Sources */,
 				D3A064CB1AFCE69D00779BB1 /* GeoFenceMonitoring.m in Sources */,
+				F9F58DB11BA83BB1009B8782 /* BackendlessBeacon.m in Sources */,
 				1C7BB4B11A2E092900D3C2C1 /* backendless_simulator.m in Sources */,
 				1C7BB4B21A2E092900D3C2C1 /* CacheService.m in Sources */,
 				1C7BB4B31A2E092900D3C2C1 /* MediaPublishOptions.m in Sources */,
@@ -2240,6 +2262,7 @@
 				91DF02491821718C009DAE40 /* BEAnnotation.m in Sources */,
 				910117D7180C0CCF008102A7 /* BodyParts.m in Sources */,
 				F994A409168DC3BA00C1A498 /* MediaService.m in Sources */,
+				F9F58DB21BA83BB1009B8782 /* BackendlessBeacon.m in Sources */,
 				F9512969168DCFE90041460C /* MediaPublisher.m in Sources */,
 				91DF023D1821625B009DAE40 /* BEMapView.m in Sources */,
 				91A427FE184E23D5005F91DE /* ISDatabase.m in Sources */,
@@ -2317,6 +2340,7 @@
 				91DF024A1821718C009DAE40 /* BEAnnotation.m in Sources */,
 				910117D8180C0CCF008102A7 /* BodyParts.m in Sources */,
 				F994A40A168DC3BA00C1A498 /* MediaService.m in Sources */,
+				F9F58DB31BA83BB1009B8782 /* BackendlessBeacon.m in Sources */,
 				F951296A168DCFE90041460C /* MediaPublisher.m in Sources */,
 				91DF023E1821625B009DAE40 /* BEMapView.m in Sources */,
 				91A427FF184E23D5005F91DE /* ISDatabase.m in Sources */,
