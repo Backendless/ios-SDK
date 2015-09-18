@@ -61,6 +61,8 @@
 -(id)initWithType:(BeaconTypeEnum)type beacon:(id)beacon {
     
     if ( (self=[super init]) ) {
+
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
         
         switch (type) {
             case BEACON_IBEACON: {
@@ -80,9 +82,10 @@
                 break;
             }
         }
+#endif
     }
     
-    return self;    
+    return self;
 }
 
 @end
