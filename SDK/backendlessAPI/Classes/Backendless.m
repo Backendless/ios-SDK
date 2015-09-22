@@ -36,7 +36,7 @@ static NSString *BACKENDLESS_HOST_URL = @"https://api.backendless.com";
 #if !TEST_MEDIA_INSTANCE // work
 static NSString *BACKENDLESS_MEDIA_URL = @"rtmp://wowza.backendless.com:1935/mediaApp";
 #else // test
-static NSString *BACKENDLESS_MEDIA_URL = @"rtmp://10.0.1.48:1935/mediaApp"; // Dima
+static NSString *BACKENDLESS_MEDIA_URL = @"rtmp://10.0.1.33:1935/live"; // Dima
 #endif
 
 static NSString *VERSION_NUM = @"v1";
