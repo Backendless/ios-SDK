@@ -643,6 +643,7 @@
 		F9042B1D15FDD8D300C9381A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		F9042B1F15FDD8D300C9381A /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		F9042B2015FDD8D300C9381A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		F90F2B5E1BB2DF9C004F8D33 /* Update Project with Backendless SDK for iOS9.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = "Update Project with Backendless SDK for iOS9.pdf"; path = "../../Update Project with Backendless SDK for iOS9.pdf"; sourceTree = "<group>"; };
 		F918412C1638281600D36A61 /* FileService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileService.h; sourceTree = "<group>"; };
 		F918412D1638281600D36A61 /* FileService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileService.m; sourceTree = "<group>"; };
 		F9184132163AB29600D36A61 /* BackendlessFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackendlessFile.h; sourceTree = "<group>"; };
@@ -1167,6 +1168,7 @@
 		F9042AF815FDD8D300C9381A = {
 			isa = PBXGroup;
 			children = (
+				F90F2B5E1BB2DF9C004F8D33 /* Update Project with Backendless SDK for iOS9.pdf */,
 				D30A5D7819B9D03100C0BA44 /* README.md */,
 				F9356C701B6FA479009A01D9 /* getting-started.pdf */,
 				D35CA3041A5FD31300F500B0 /* doc */,
