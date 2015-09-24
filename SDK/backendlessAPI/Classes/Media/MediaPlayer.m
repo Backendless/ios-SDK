@@ -115,6 +115,10 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
 }
 
 -(NSArray *)parameters {
+
+#if TEST_MEDIA_INSTANCE
+    return nil;
+#else
     
     id identity = backendless.userService.currentUser ? backendless.userService.currentUser.userToken : nil;
     if (!identity) identity = [NSNull null];
@@ -127,6 +131,7 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
     [DebLog log:@"MediaPlayer -> parameters:%@", param];
     
     return param;
+#endif
 }
 
 #pragma mark -
