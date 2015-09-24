@@ -33,7 +33,11 @@
     stream.options = options;
     stream.streamPath = [options getServerURL];
     stream.tubeName = tube;
+#if TEST_MEDIA_INSTANCE
+    stream.streamName = [NSString stringWithFormat:@"%@/%@/%@/%@", backendless.appID, backendless.versionNum, tube, name];
+#else
     stream.streamName = name;
+#endif
     
     [stream connect];
     
@@ -52,7 +56,11 @@
     stream.options = options;
     stream.streamPath = [options getServerURL];
     stream.tubeName = tube;
+#if TEST_MEDIA_INSTANCE
+    stream.streamName = [NSString stringWithFormat:@"%@/%@/%@/%@", backendless.appID, backendless.versionNum, tube, name];
+#else
     stream.streamName = name;
+#endif
     
     [stream connect];
     

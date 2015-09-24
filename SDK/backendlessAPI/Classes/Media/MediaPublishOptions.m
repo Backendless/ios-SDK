@@ -113,7 +113,7 @@
 
 -(NSString *)getServerURL {
 #if TEST_MEDIA_INSTANCE
-    return [NSString stringWithFormat:@"%@/%@/%@", [backendless mediaServerUrl], backendless.appID, backendless.versionNum];
+    return [backendless mediaServerUrl];
 #else
     return [NSString stringWithFormat:@"%@Live", [backendless mediaServerUrl]];
 #endif

@@ -72,7 +72,7 @@
 }
 
 -(NSString *)getServerURL {
-#if OLD_MEDIA_APP
+#if TEST_MEDIA_INSTANCE
     return [backendless mediaServerUrl];
 #else
     NSString *url = [NSString stringWithFormat:@"%@%@/_definst_", [backendless mediaServerUrl], _isLive?@"Live":@"Vod"];
