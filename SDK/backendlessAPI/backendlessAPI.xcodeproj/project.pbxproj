@@ -585,10 +585,6 @@
 		D33DF73C1AC0984F0032C073 /* Backendless-Light.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-Light.podspec"; sourceTree = "<group>"; };
 		D33DF73E1AC0984F0032C073 /* Backendless-Light.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-Light.podspec"; sourceTree = "<group>"; };
 		D353120E19E8152300895ACC /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
-		D35CA3061A5FD31300F500B0 /* Atomic Counters API.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Atomic Counters API.pdf"; sourceTree = "<group>"; };
-		D35CA3081A5FD31300F500B0 /* Caching API.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Caching API.pdf"; sourceTree = "<group>"; };
-		D35CA3091A5FD31300F500B0 /* Developing an iOS Video Recorder and Player on Swift in 10 Minutes from the Scratch.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Developing an iOS Video Recorder and Player on Swift in 10 Minutes from the Scratch.pdf"; sourceTree = "<group>"; };
-		D35CA30C1A5FD31300F500B0 /* Sending Email API.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Sending Email API.pdf"; sourceTree = "<group>"; };
 		D35DC3371AD6CE1500EF2A68 /* Logging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logging.h; sourceTree = "<group>"; };
 		D35DC3381AD6CE1500EF2A68 /* Logging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Logging.m; sourceTree = "<group>"; };
 		D35DC33F1AD7E19800EF2A68 /* Logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logger.h; sourceTree = "<group>"; };
@@ -694,8 +690,6 @@
 		F9796A2C166CD3A400595F5E /* backendless-device-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "backendless-device-Prefix.pch"; sourceTree = "<group>"; };
 		F9796A2D166CD3A400595F5E /* backendless_device.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = backendless_device.h; sourceTree = "<group>"; };
 		F9796A2F166CD3A400595F5E /* backendless_device.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = backendless_device.m; sourceTree = "<group>"; };
-		F98A7D8A1B30295A007635B6 /* Communication Library for iOS User Guide.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Communication Library for iOS User Guide.pdf"; sourceTree = "<group>"; };
-		F98A7D8B1B30295A007635B6 /* WeborbClient Class Reference.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "WeborbClient Class Reference.pdf"; sourceTree = "<group>"; };
 		F98A7EFC1B307017007635B6 /* libbackendless-mac.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libbackendless-mac.a"; sourceTree = "<group>"; };
 		F98A7EFF1B307017007635B6 /* AMFSerializer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AMFSerializer.h; sourceTree = "<group>"; };
 		F98A7F001B307017007635B6 /* BinaryCodec.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BinaryCodec.h; sourceTree = "<group>"; };
@@ -781,7 +775,6 @@
 		F9C7DE961B7CBFE600AFCD06 /* BackendlessSimpleQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackendlessSimpleQuery.m; sourceTree = "<group>"; };
 		F9D5234B1B25CEF800F6A441 /* ClassCastException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassCastException.h; sourceTree = "<group>"; };
 		F9D5234C1B25CEF800F6A441 /* ClassCastException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassCastException.m; sourceTree = "<group>"; };
-		F9D81AF81B317DB4004CA537 /* Backendless Mac OSX application setup.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Backendless Mac OSX application setup.pdf"; sourceTree = "<group>"; };
 		F9F58DAC1BA83BB1009B8782 /* BackendlessBeacon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackendlessBeacon.h; sourceTree = "<group>"; };
 		F9F58DAD1BA83BB1009B8782 /* BackendlessBeacon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackendlessBeacon.m; sourceTree = "<group>"; };
 		F9FF0E8B160DA8F400AEB3B7 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -988,21 +981,6 @@
 			path = 2.0.1;
 			sourceTree = "<group>";
 		};
-		D35CA3041A5FD31300F500B0 /* doc */ = {
-			isa = PBXGroup;
-			children = (
-				F9D81AF81B317DB4004CA537 /* Backendless Mac OSX application setup.pdf */,
-				F98A7D8A1B30295A007635B6 /* Communication Library for iOS User Guide.pdf */,
-				F98A7D8B1B30295A007635B6 /* WeborbClient Class Reference.pdf */,
-				D35CA3061A5FD31300F500B0 /* Atomic Counters API.pdf */,
-				D35CA3081A5FD31300F500B0 /* Caching API.pdf */,
-				D35CA3091A5FD31300F500B0 /* Developing an iOS Video Recorder and Player on Swift in 10 Minutes from the Scratch.pdf */,
-				D35CA30C1A5FD31300F500B0 /* Sending Email API.pdf */,
-			);
-			name = doc;
-			path = ../doc;
-			sourceTree = "<group>";
-		};
 		D35DC3361AD6CD7200EF2A68 /* Logging */ = {
 			isa = PBXGroup;
 			children = (
@@ -1171,7 +1149,6 @@
 				F90F2B5E1BB2DF9C004F8D33 /* Update Project with Backendless SDK for iOS9.pdf */,
 				D30A5D7819B9D03100C0BA44 /* README.md */,
 				F9356C701B6FA479009A01D9 /* getting-started.pdf */,
-				D35CA3041A5FD31300F500B0 /* doc */,
 				D3B2F34E193511900084D5DD /* CocoaPods */,
 				91764F981823E40000745497 /* BECollectionView */,
 				91DF02371821623E009DAE40 /* BEMapView */,
