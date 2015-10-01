@@ -665,6 +665,9 @@
 		F91B481C1603378200012DFC /* BackendlessCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackendlessCollection.h; sourceTree = "<group>"; };
 		F91B481D1603378200012DFC /* BackendlessCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackendlessCollection.m; sourceTree = "<group>"; };
 		F91B48291603649C00012DFC /* IDataStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDataStore.h; sourceTree = "<group>"; };
+		F92544C61BBC0C6000B17304 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
+		F92544C81BBC0C6000B17304 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
+		F92544CA1BBC0C6000B17304 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
 		F9356C701B6FA479009A01D9 /* getting-started.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = "getting-started.pdf"; path = "../getting-started.pdf"; sourceTree = "<group>"; };
 		F94487601B68E60200EB12A5 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
 		F94487611B68EBA400EB12A5 /* Backendless-With-Media-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Backendless-With-Media-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -1062,6 +1065,9 @@
 		D3B2F352193511900084D5DD /* Backendless-ios-SDK */ = {
 			isa = PBXGroup;
 			children = (
+				F92544C91BBC0C6000B17304 /* 2.0.14 */,
+				F92544C71BBC0C6000B17304 /* 2.0.13 */,
+				F92544C51BBC0C6000B17304 /* 2.0.12 */,
 				F94489351B6A7F9200EB12A5 /* 2.0.11 */,
 				F94489011B6A794900EB12A5 /* 2.0.10 */,
 				F94487FD1B695C6800EB12A5 /* 2.0.9 */,
@@ -1146,9 +1152,9 @@
 		F9042AF815FDD8D300C9381A = {
 			isa = PBXGroup;
 			children = (
-				F90F2B5E1BB2DF9C004F8D33 /* Update Project with Backendless SDK for iOS9.pdf */,
 				D30A5D7819B9D03100C0BA44 /* README.md */,
 				F9356C701B6FA479009A01D9 /* getting-started.pdf */,
+				F90F2B5E1BB2DF9C004F8D33 /* Update Project with Backendless SDK for iOS9.pdf */,
 				D3B2F34E193511900084D5DD /* CocoaPods */,
 				91764F981823E40000745497 /* BECollectionView */,
 				91DF02371821623E009DAE40 /* BEMapView */,
@@ -1406,6 +1412,30 @@
 				910117D3180C0CCF008102A7 /* BodyParts.m */,
 			);
 			path = Messaging;
+			sourceTree = "<group>";
+		};
+		F92544C51BBC0C6000B17304 /* 2.0.12 */ = {
+			isa = PBXGroup;
+			children = (
+				F92544C61BBC0C6000B17304 /* Backendless-ios-SDK.podspec */,
+			);
+			path = 2.0.12;
+			sourceTree = "<group>";
+		};
+		F92544C71BBC0C6000B17304 /* 2.0.13 */ = {
+			isa = PBXGroup;
+			children = (
+				F92544C81BBC0C6000B17304 /* Backendless-ios-SDK.podspec */,
+			);
+			path = 2.0.13;
+			sourceTree = "<group>";
+		};
+		F92544C91BBC0C6000B17304 /* 2.0.14 */ = {
+			isa = PBXGroup;
+			children = (
+				F92544CA1BBC0C6000B17304 /* Backendless-ios-SDK.podspec */,
+			);
+			path = 2.0.14;
 			sourceTree = "<group>";
 		};
 		F944875F1B68E60200EB12A5 /* 2.0.6 */ = {

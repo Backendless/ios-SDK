@@ -1031,10 +1031,12 @@ id result = nil;
 }
 
 -(NSString *)registerDevice {
-#if 1
-    if (!deviceRegistration.deviceToken)
+
+    if (!deviceRegistration.deviceToken) {
+        [DebLog logY:@"MessagingService -> registerDevice (ERROR): deviceToken is not exist"];
         return nil;
-#endif
+    }
+
     [DebLog log:@"MessagingService -> registerDevice (SYNC): %@", deviceRegistration];
     
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, deviceRegistration, nil];
@@ -1217,12 +1219,13 @@ id result = nil;
 }
 
 -(void)registerDeviceAsync:(id<IResponder>)responder {
-#if 1
-    if (!deviceRegistration.deviceToken)
+
+    if (!deviceRegistration.deviceToken) {
+        [DebLog logY:@"MessagingService -> registerDeviceASync (ERROR): deviceToken is not exist"];
         return;
-#endif
-    
-    [DebLog log:@"MessagingService -> registerDevice (ASYNC): %@", deviceRegistration];
+    }
+
+    [DebLog log:@"MessagingService -> registerDeviceAsync (ASYNC): %@", deviceRegistration];
     
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, deviceRegistration, nil];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onRegistering:) selErrorHandler:nil];
