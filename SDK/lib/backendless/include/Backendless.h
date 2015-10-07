@@ -87,6 +87,8 @@
 #import "Logger.h"
 #import "BackendlessSimpleQuery.h"
 #import "BEFileInfo.h"
+#import "IPresenceListener.h"
+#import "BackendlessBeacon.h"
 
 //Cache
 #import "BackendlessCachePolicy.h"

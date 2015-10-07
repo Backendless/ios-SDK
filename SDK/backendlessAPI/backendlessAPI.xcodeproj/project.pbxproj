@@ -514,6 +514,33 @@
 		F9C7DE9A1B7CBFE600AFCD06 /* BackendlessSimpleQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C7DE961B7CBFE600AFCD06 /* BackendlessSimpleQuery.m */; };
 		F9C7DE9B1B7CBFE600AFCD06 /* BackendlessSimpleQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C7DE961B7CBFE600AFCD06 /* BackendlessSimpleQuery.m */; };
 		F9C7DE9C1B7CBFE600AFCD06 /* BackendlessSimpleQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C7DE961B7CBFE600AFCD06 /* BackendlessSimpleQuery.m */; };
+		F9CB136B1BC284A900F3CA1D /* BeaconsInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13691BC284A900F3CA1D /* BeaconsInfo.h */; settings = {ASSET_TAGS = (); }; };
+		F9CB136C1BC284A900F3CA1D /* BeaconsInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13691BC284A900F3CA1D /* BeaconsInfo.h */; settings = {ASSET_TAGS = (); }; };
+		F9CB136D1BC284A900F3CA1D /* BeaconsInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13691BC284A900F3CA1D /* BeaconsInfo.h */; settings = {ASSET_TAGS = (); }; };
+		F9CB136E1BC284A900F3CA1D /* BeaconsInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB136A1BC284A900F3CA1D /* BeaconsInfo.m */; settings = {ASSET_TAGS = (); }; };
+		F9CB136F1BC284A900F3CA1D /* BeaconsInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB136A1BC284A900F3CA1D /* BeaconsInfo.m */; settings = {ASSET_TAGS = (); }; };
+		F9CB13701BC284A900F3CA1D /* BeaconsInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB136A1BC284A900F3CA1D /* BeaconsInfo.m */; settings = {ASSET_TAGS = (); }; };
+		F9CB13811BC53B0200F3CA1D /* IPresenceListener.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13801BC53B0200F3CA1D /* IPresenceListener.h */; settings = {ASSET_TAGS = (); }; };
+		F9CB13821BC53B0200F3CA1D /* IPresenceListener.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13801BC53B0200F3CA1D /* IPresenceListener.h */; settings = {ASSET_TAGS = (); }; };
+		F9CB13831BC53B0200F3CA1D /* IPresenceListener.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13801BC53B0200F3CA1D /* IPresenceListener.h */; settings = {ASSET_TAGS = (); }; };
+		F9CB13861BC53CDD00F3CA1D /* Presence.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13841BC53CDD00F3CA1D /* Presence.h */; settings = {ASSET_TAGS = (); }; };
+		F9CB13871BC53CDD00F3CA1D /* Presence.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13841BC53CDD00F3CA1D /* Presence.h */; settings = {ASSET_TAGS = (); }; };
+		F9CB13881BC53CDD00F3CA1D /* Presence.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13841BC53CDD00F3CA1D /* Presence.h */; settings = {ASSET_TAGS = (); }; };
+		F9CB13891BC53CDD00F3CA1D /* Presence.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB13851BC53CDD00F3CA1D /* Presence.m */; settings = {ASSET_TAGS = (); }; };
+		F9CB138A1BC53CDD00F3CA1D /* Presence.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB13851BC53CDD00F3CA1D /* Presence.m */; settings = {ASSET_TAGS = (); }; };
+		F9CB138B1BC53CDD00F3CA1D /* Presence.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB13851BC53CDD00F3CA1D /* Presence.m */; settings = {ASSET_TAGS = (); }; };
+		F9CB138E1BC53D2300F3CA1D /* BeaconTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB138C1BC53D2300F3CA1D /* BeaconTracker.h */; settings = {ASSET_TAGS = (); }; };
+		F9CB138F1BC53D2300F3CA1D /* BeaconTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB138C1BC53D2300F3CA1D /* BeaconTracker.h */; settings = {ASSET_TAGS = (); }; };
+		F9CB13901BC53D2300F3CA1D /* BeaconTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB138C1BC53D2300F3CA1D /* BeaconTracker.h */; settings = {ASSET_TAGS = (); }; };
+		F9CB13911BC53D2300F3CA1D /* BeaconTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB138D1BC53D2300F3CA1D /* BeaconTracker.m */; settings = {ASSET_TAGS = (); }; };
+		F9CB13921BC53D2300F3CA1D /* BeaconTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB138D1BC53D2300F3CA1D /* BeaconTracker.m */; settings = {ASSET_TAGS = (); }; };
+		F9CB13931BC53D2300F3CA1D /* BeaconTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB138D1BC53D2300F3CA1D /* BeaconTracker.m */; settings = {ASSET_TAGS = (); }; };
+		F9CB13961BC53D5100F3CA1D /* BeaconMonitoring.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13941BC53D5100F3CA1D /* BeaconMonitoring.h */; settings = {ASSET_TAGS = (); }; };
+		F9CB13971BC53D5100F3CA1D /* BeaconMonitoring.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13941BC53D5100F3CA1D /* BeaconMonitoring.h */; settings = {ASSET_TAGS = (); }; };
+		F9CB13981BC53D5100F3CA1D /* BeaconMonitoring.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13941BC53D5100F3CA1D /* BeaconMonitoring.h */; settings = {ASSET_TAGS = (); }; };
+		F9CB13991BC53D5100F3CA1D /* BeaconMonitoring.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB13951BC53D5100F3CA1D /* BeaconMonitoring.m */; settings = {ASSET_TAGS = (); }; };
+		F9CB139A1BC53D5100F3CA1D /* BeaconMonitoring.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB13951BC53D5100F3CA1D /* BeaconMonitoring.m */; settings = {ASSET_TAGS = (); }; };
+		F9CB139B1BC53D5100F3CA1D /* BeaconMonitoring.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB13951BC53D5100F3CA1D /* BeaconMonitoring.m */; settings = {ASSET_TAGS = (); }; };
 		F9D5234D1B25CEF800F6A441 /* ClassCastException.h in Headers */ = {isa = PBXBuildFile; fileRef = F9D5234B1B25CEF800F6A441 /* ClassCastException.h */; };
 		F9D5234E1B25CEF800F6A441 /* ClassCastException.h in Headers */ = {isa = PBXBuildFile; fileRef = F9D5234B1B25CEF800F6A441 /* ClassCastException.h */; };
 		F9D5234F1B25CEF800F6A441 /* ClassCastException.h in Headers */ = {isa = PBXBuildFile; fileRef = F9D5234B1B25CEF800F6A441 /* ClassCastException.h */; };
@@ -769,6 +796,15 @@
 		F9C7DE8E1B7CBF0300AFCD06 /* BEFileInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEFileInfo.m; sourceTree = "<group>"; };
 		F9C7DE951B7CBFE600AFCD06 /* BackendlessSimpleQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackendlessSimpleQuery.h; sourceTree = "<group>"; };
 		F9C7DE961B7CBFE600AFCD06 /* BackendlessSimpleQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackendlessSimpleQuery.m; sourceTree = "<group>"; };
+		F9CB13691BC284A900F3CA1D /* BeaconsInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconsInfo.h; sourceTree = "<group>"; };
+		F9CB136A1BC284A900F3CA1D /* BeaconsInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconsInfo.m; sourceTree = "<group>"; };
+		F9CB13801BC53B0200F3CA1D /* IPresenceListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPresenceListener.h; sourceTree = "<group>"; };
+		F9CB13841BC53CDD00F3CA1D /* Presence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Presence.h; sourceTree = "<group>"; };
+		F9CB13851BC53CDD00F3CA1D /* Presence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Presence.m; sourceTree = "<group>"; };
+		F9CB138C1BC53D2300F3CA1D /* BeaconTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconTracker.h; sourceTree = "<group>"; };
+		F9CB138D1BC53D2300F3CA1D /* BeaconTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconTracker.m; sourceTree = "<group>"; };
+		F9CB13941BC53D5100F3CA1D /* BeaconMonitoring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconMonitoring.h; sourceTree = "<group>"; };
+		F9CB13951BC53D5100F3CA1D /* BeaconMonitoring.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconMonitoring.m; sourceTree = "<group>"; };
 		F9D5234B1B25CEF800F6A441 /* ClassCastException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassCastException.h; sourceTree = "<group>"; };
 		F9D5234C1B25CEF800F6A441 /* ClassCastException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassCastException.m; sourceTree = "<group>"; };
 		F9F58DAC1BA83BB1009B8782 /* BackendlessBeacon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackendlessBeacon.h; sourceTree = "<group>"; };
@@ -1587,6 +1623,15 @@
 			children = (
 				F9F58DAC1BA83BB1009B8782 /* BackendlessBeacon.h */,
 				F9F58DAD1BA83BB1009B8782 /* BackendlessBeacon.m */,
+				F9CB13691BC284A900F3CA1D /* BeaconsInfo.h */,
+				F9CB136A1BC284A900F3CA1D /* BeaconsInfo.m */,
+				F9CB13801BC53B0200F3CA1D /* IPresenceListener.h */,
+				F9CB13841BC53CDD00F3CA1D /* Presence.h */,
+				F9CB13851BC53CDD00F3CA1D /* Presence.m */,
+				F9CB138C1BC53D2300F3CA1D /* BeaconTracker.h */,
+				F9CB138D1BC53D2300F3CA1D /* BeaconTracker.m */,
+				F9CB13941BC53D5100F3CA1D /* BeaconMonitoring.h */,
+				F9CB13951BC53D5100F3CA1D /* BeaconMonitoring.m */,
 			);
 			path = Beacons;
 			sourceTree = "<group>";
@@ -1609,6 +1654,7 @@
 				1C7BB4CB1A2E092900D3C2C1 /* Responder.h in Headers */,
 				1C7BB4CC1A2E092900D3C2C1 /* UserService.h in Headers */,
 				1C7BB4CD1A2E092900D3C2C1 /* BackendlessUser.h in Headers */,
+				F9CB13861BC53CDD00F3CA1D /* Presence.h in Headers */,
 				1C7BB4CE1A2E092900D3C2C1 /* BinaryStream.h in Headers */,
 				1C7BB4CF1A2E092900D3C2C1 /* IClientSharedObjectDelegate.h in Headers */,
 				1C7BB4D01A2E092900D3C2C1 /* IServiceCall.h in Headers */,
@@ -1646,6 +1692,7 @@
 				1C7BB4EA1A2E092900D3C2C1 /* CacheService.h in Headers */,
 				1C7BB4EB1A2E092900D3C2C1 /* ICacheService.h in Headers */,
 				1C7BB4EC1A2E092900D3C2C1 /* SubscriptionOptions.h in Headers */,
+				F9CB13961BC53D5100F3CA1D /* BeaconMonitoring.h in Headers */,
 				D3A064DF1B0243ED00779BB1 /* ICallback.h in Headers */,
 				1C7BB4ED1A2E092900D3C2C1 /* WeborbClient.h in Headers */,
 				1C7BB4EE1A2E092900D3C2C1 /* Backendless-Bridging-Header.h in Headers */,
@@ -1654,18 +1701,21 @@
 				1C7BB4EF1A2E092900D3C2C1 /* CustomService.h in Headers */,
 				F9C7DE971B7CBFE600AFCD06 /* BackendlessSimpleQuery.h in Headers */,
 				D3A064C01AFCE64D00779BB1 /* GeoFence.h in Headers */,
+				F9CB138E1BC53D2300F3CA1D /* BeaconTracker.h in Headers */,
 				F9C7DE8F1B7CBF0300AFCD06 /* BEFileInfo.h in Headers */,
 				1C7BB4F01A2E092900D3C2C1 /* Events.h in Headers */,
 				D35CA5301A668AC600F500B0 /* DataPermission.h in Headers */,
 				D316BA371A83C649007215CA /* ProtectedBackendlessGeoQuery.h in Headers */,
 				D31700D21A84D2AA00772766 /* GeoCluster.h in Headers */,
 				D35DC3411AD7E19800EF2A68 /* Logger.h in Headers */,
+				F9CB136B1BC284A900F3CA1D /* BeaconsInfo.h in Headers */,
 				D35DC3391AD6CE1500EF2A68 /* Logging.h in Headers */,
 				D35CA5311A668AC600F500B0 /* FilePermission.h in Headers */,
 				1C7BB4F11A2E092900D3C2C1 /* IPendingServiceCallback.h in Headers */,
 				1C7BB4F21A2E092900D3C2C1 /* BESubscription.h in Headers */,
 				1C7BB4F31A2E092900D3C2C1 /* Message.h in Headers */,
 				1C7BB4F41A2E092900D3C2C1 /* FlashorbBinaryReader.h in Headers */,
+				F9CB13811BC53B0200F3CA1D /* IPresenceListener.h in Headers */,
 				1C7BB4F51A2E092900D3C2C1 /* MessageStatus.h in Headers */,
 				1C7BB4F61A2E092900D3C2C1 /* FileService.h in Headers */,
 				1C7BB4F71A2E092900D3C2C1 /* BackendlessFile.h in Headers */,
@@ -1750,6 +1800,7 @@
 				D39A468219811D9B006CBD1B /* CacheService.h in Headers */,
 				D36CDDF119C99D5900C3FFE3 /* CustomService.h in Headers */,
 				F9BBFD5418783B750076BC6D /* FlashorbBinaryWriter.h in Headers */,
+				F9CB138F1BC53D2300F3CA1D /* BeaconTracker.h in Headers */,
 				D3A064E01B0243ED00779BB1 /* ICallback.h in Headers */,
 				D3A064C11AFCE64D00779BB1 /* GeoFence.h in Headers */,
 				F9796A20166CCBFE00595F5E /* FileService.h in Headers */,
@@ -1757,10 +1808,12 @@
 				D35DC3421AD7E19800EF2A68 /* Logger.h in Headers */,
 				D3A064A81AFA6E4A00779BB1 /* LocationTracker.h in Headers */,
 				F9C7DE981B7CBFE600AFCD06 /* BackendlessSimpleQuery.h in Headers */,
+				F9CB13871BC53CDD00F3CA1D /* Presence.h in Headers */,
 				D3A064C91AFCE69D00779BB1 /* GeoFenceMonitoring.h in Headers */,
 				F9BBFD7518783B750076BC6D /* RTMPClient.h in Headers */,
 				D316BA381A83C649007215CA /* ProtectedBackendlessGeoQuery.h in Headers */,
 				D35DC33A1AD6CE1500EF2A68 /* Logging.h in Headers */,
+				F9CB136C1BC284A900F3CA1D /* BeaconsInfo.h in Headers */,
 				D31700D31A84D2AA00772766 /* GeoCluster.h in Headers */,
 				D3EA53021A3077C1009C5FE0 /* FilePermission.h in Headers */,
 				D36CF3FC1A2F68DA00B6468A /* DataPermission.h in Headers */,
@@ -1785,6 +1838,7 @@
 				91F139AE17D7240A00D1AC4C /* BackendlessCacheProtocol.h in Headers */,
 				91F139B217D724C700D1AC4C /* QueryOptions.h in Headers */,
 				F9796A07166CCBFE00595F5E /* Invoker.h in Headers */,
+				F9CB13821BC53B0200F3CA1D /* IPresenceListener.h in Headers */,
 				91F1399A17D7240A00D1AC4C /* BackendlessCache.h in Headers */,
 				91F1399F17D7240A00D1AC4C /* BackendlessCacheData.h in Headers */,
 				F9BBFD4518783B750076BC6D /* AMFSerializer.h in Headers */,
@@ -1792,6 +1846,7 @@
 				F9BBFD4B18783B750076BC6D /* BinaryStream.h in Headers */,
 				91F139A417D7240A00D1AC4C /* BackendlessCacheKey.h in Headers */,
 				91A42807184E2447005F91DE /* OfflineModeManager.h in Headers */,
+				F9CB13971BC53D5100F3CA1D /* BeaconMonitoring.h in Headers */,
 				F9BBFD6F18783B750076BC6D /* MemoryTicker.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1806,10 +1861,12 @@
 				F9BBFD5818783B750076BC6D /* IAttributeStore.h in Headers */,
 				F9796A52166CD42E00595F5E /* Backendless.h in Headers */,
 				912D504D182102F0006A090A /* BETableView.h in Headers */,
+				F9CB13901BC53D2300F3CA1D /* BeaconTracker.h in Headers */,
 				F9BBFD5218783B750076BC6D /* FlashorbBinaryReader.h in Headers */,
 				F9BBFD4918783B750076BC6D /* BinaryCodec.h in Headers */,
 				91764F9C1823E43400745497 /* BECollectionView.h in Headers */,
 				91DF02471821718C009DAE40 /* BEAnnotation.h in Headers */,
+				F9CB136D1BC284A900F3CA1D /* BeaconsInfo.h in Headers */,
 				F9796A54166CD42E00595F5E /* AbstractProperty.h in Headers */,
 				F9796A55166CD42E00595F5E /* UserService.h in Headers */,
 				D3A064BA1AFCE61700779BB1 /* GeoMath.h in Headers */,
@@ -1840,6 +1897,7 @@
 				D3FB9B6A19867EA500A13FB6 /* AtomicCounters.h in Headers */,
 				F94487621B68EBA400EB12A5 /* Backendless-With-Media-Bridging-Header.h in Headers */,
 				F9796A68166CD42E00595F5E /* SubscriptionOptions.h in Headers */,
+				F9CB13881BC53CDD00F3CA1D /* Presence.h in Headers */,
 				D36CDDF219C99D5900C3FFE3 /* CustomService.h in Headers */,
 				D3A064DA1B0242B900779BB1 /* ClientCallback.h in Headers */,
 				F9796A69166CD42E00595F5E /* BESubscription.h in Headers */,
@@ -1873,6 +1931,7 @@
 				F994A3FF168DC39400C1A498 /* MediaPlaybackOptions.h in Headers */,
 				F9F58DB01BA83BB1009B8782 /* BackendlessBeacon.h in Headers */,
 				F994A408168DC3BA00C1A498 /* MediaService.h in Headers */,
+				F9CB13831BC53B0200F3CA1D /* IPresenceListener.h in Headers */,
 				F9512968168DCFE90041460C /* MediaPublisher.h in Headers */,
 				F9BBFD6118783B750076BC6D /* IPendingServiceCallback.h in Headers */,
 				F9512972168DCFFF0041460C /* MediaPlayer.h in Headers */,
@@ -1882,6 +1941,7 @@
 				91A4285C18508269005F91DE /* BEReachability.h in Headers */,
 				F9BE41C61B2ED98200CD0A72 /* AuthorizationException.h in Headers */,
 				F9BBFD5E18783B750076BC6D /* IClientSharedObjectDelegate.h in Headers */,
+				F9CB13981BC53D5100F3CA1D /* BeaconMonitoring.h in Headers */,
 				91F1399617D7240A00D1AC4C /* AbstractQuery.h in Headers */,
 				91F139AA17D7240A00D1AC4C /* BackendlessCachePolicy.h in Headers */,
 				F9BBFD5B18783B750076BC6D /* IClientSharedObject.h in Headers */,
@@ -2069,6 +2129,7 @@
 				1C7BB4931A2E092900D3C2C1 /* AbstractProperty.m in Sources */,
 				1C7BB4941A2E092900D3C2C1 /* UserService.m in Sources */,
 				D316BA3A1A83C649007215CA /* ProtectedBackendlessGeoQuery.m in Sources */,
+				F9CB13911BC53D2300F3CA1D /* BeaconTracker.m in Sources */,
 				1C7BB4951A2E092900D3C2C1 /* ISDatabase.m in Sources */,
 				1C7BB4961A2E092900D3C2C1 /* BackendlessUser.m in Sources */,
 				F9C7DE921B7CBF0300AFCD06 /* BEFileInfo.m in Sources */,
@@ -2104,10 +2165,13 @@
 				1C7BB4AE1A2E092900D3C2C1 /* BackendlessFile.m in Sources */,
 				1C7BB4AF1A2E092900D3C2C1 /* HashMap.m in Sources */,
 				1C7BB4B01A2E092900D3C2C1 /* BEReachability.m in Sources */,
+				F9CB13891BC53CDD00F3CA1D /* Presence.m in Sources */,
+				F9CB13991BC53D5100F3CA1D /* BeaconMonitoring.m in Sources */,
 				D3A064CB1AFCE69D00779BB1 /* GeoFenceMonitoring.m in Sources */,
 				F9F58DB11BA83BB1009B8782 /* BackendlessBeacon.m in Sources */,
 				1C7BB4B11A2E092900D3C2C1 /* backendless_simulator.m in Sources */,
 				1C7BB4B21A2E092900D3C2C1 /* CacheService.m in Sources */,
+				F9CB136E1BC284A900F3CA1D /* BeaconsInfo.m in Sources */,
 				1C7BB4B31A2E092900D3C2C1 /* MediaPublishOptions.m in Sources */,
 				1C7BB4B41A2E092900D3C2C1 /* MediaPlaybackOptions.m in Sources */,
 				1C7BB4B51A2E092900D3C2C1 /* BodyParts.m in Sources */,
@@ -2141,6 +2205,7 @@
 				F97969EB166CCB8200595F5E /* Invoker.m in Sources */,
 				F97969EC166CCB8200595F5E /* AbstractProperty.m in Sources */,
 				D3A064C41AFCE64D00779BB1 /* GeoFence.m in Sources */,
+				F9CB13921BC53D2300F3CA1D /* BeaconTracker.m in Sources */,
 				F97969ED166CCB8200595F5E /* UserService.m in Sources */,
 				F97969EE166CCB8200595F5E /* BackendlessUser.m in Sources */,
 				D3F8BDA219825CF80009DB40 /* CacheFactory.m in Sources */,
@@ -2182,11 +2247,13 @@
 				F9796A03166CCB8200595F5E /* FileService.m in Sources */,
 				F9796A04166CCB8200595F5E /* BackendlessFile.m in Sources */,
 				91764F9E1823E43400745497 /* BECollectionView.m in Sources */,
+				F9CB136F1BC284A900F3CA1D /* BeaconsInfo.m in Sources */,
 				D39A468519811D9B006CBD1B /* CacheService.m in Sources */,
 				F9796A05166CCB8200595F5E /* HashMap.m in Sources */,
 				F9BE41C81B2ED98200CD0A72 /* AuthorizationException.m in Sources */,
 				F97969E4166CC8C300595F5E /* backendless_simulator.m in Sources */,
 				D35DC33D1AD6CE1500EF2A68 /* Logging.m in Sources */,
+				F9CB139A1BC53D5100F3CA1D /* BeaconMonitoring.m in Sources */,
 				F994A3F6168DC36B00C1A498 /* MediaPublishOptions.m in Sources */,
 				D3FB9B7819867F0E00A13FB6 /* AtomicCountersFactory.m in Sources */,
 				F994A400168DC39400C1A498 /* MediaPlaybackOptions.m in Sources */,
@@ -2200,6 +2267,7 @@
 				F9512973168DCFFF0041460C /* MediaPlayer.m in Sources */,
 				91F1399717D7240A00D1AC4C /* AbstractQuery.m in Sources */,
 				91F1399C17D7240A00D1AC4C /* BackendlessCache.m in Sources */,
+				F9CB138A1BC53CDD00F3CA1D /* Presence.m in Sources */,
 				91F139A117D7240A00D1AC4C /* BackendlessCacheData.m in Sources */,
 				91F139A617D7240A00D1AC4C /* BackendlessCacheKey.m in Sources */,
 				91F139AB17D7240A00D1AC4C /* BackendlessCachePolicy.m in Sources */,
@@ -2219,6 +2287,7 @@
 				F9796A35166CD3DA00595F5E /* Invoker.m in Sources */,
 				F9796A36166CD3DA00595F5E /* AbstractProperty.m in Sources */,
 				D3A064C51AFCE64D00779BB1 /* GeoFence.m in Sources */,
+				F9CB13931BC53D2300F3CA1D /* BeaconTracker.m in Sources */,
 				F9796A37166CD3DA00595F5E /* UserService.m in Sources */,
 				F9796A38166CD3DA00595F5E /* BackendlessUser.m in Sources */,
 				D3F8BDA319825CF80009DB40 /* CacheFactory.m in Sources */,
@@ -2260,11 +2329,13 @@
 				F9796A4D166CD3DB00595F5E /* FileService.m in Sources */,
 				F9796A4E166CD3DB00595F5E /* BackendlessFile.m in Sources */,
 				91764F9F1823E43400745497 /* BECollectionView.m in Sources */,
+				F9CB13701BC284A900F3CA1D /* BeaconsInfo.m in Sources */,
 				D39A468619811D9B006CBD1B /* CacheService.m in Sources */,
 				F9796A4F166CD3DB00595F5E /* HashMap.m in Sources */,
 				F9BE41C91B2ED98200CD0A72 /* AuthorizationException.m in Sources */,
 				F9796A30166CD3A400595F5E /* backendless_device.m in Sources */,
 				D35DC33E1AD6CE1500EF2A68 /* Logging.m in Sources */,
+				F9CB139B1BC53D5100F3CA1D /* BeaconMonitoring.m in Sources */,
 				F994A3F7168DC36B00C1A498 /* MediaPublishOptions.m in Sources */,
 				D3FB9B7919867F0E00A13FB6 /* AtomicCountersFactory.m in Sources */,
 				F994A401168DC39400C1A498 /* MediaPlaybackOptions.m in Sources */,
@@ -2278,6 +2349,7 @@
 				F9512974168DCFFF0041460C /* MediaPlayer.m in Sources */,
 				91F1399817D7240A00D1AC4C /* AbstractQuery.m in Sources */,
 				91F1399D17D7240A00D1AC4C /* BackendlessCache.m in Sources */,
+				F9CB138B1BC53CDD00F3CA1D /* Presence.m in Sources */,
 				91F139A217D7240A00D1AC4C /* BackendlessCacheData.m in Sources */,
 				91F139A717D7240A00D1AC4C /* BackendlessCacheKey.m in Sources */,
 				91F139AC17D7240A00D1AC4C /* BackendlessCachePolicy.m in Sources */,

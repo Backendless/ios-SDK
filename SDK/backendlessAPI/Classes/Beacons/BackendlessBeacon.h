@@ -1,10 +1,23 @@
 //
 //  BackendlessBeacon.h
 //  backendlessAPI
-//
-//  Created by Slava Vdovichenko on 9/15/15.
-//  Copyright (c) 2015 BACKENDLESS.COM. All rights reserved.
-//
+/*
+ * *********************************************************************************************************************
+ *
+ *  BACKENDLESS.COM CONFIDENTIAL
+ *
+ *  ********************************************************************************************************************
+ *
+ *  Copyright 2015 BACKENDLESS.COM. All Rights Reserved.
+ *
+ *  NOTICE: All information contained herein is, and remains the property of Backendless.com and its suppliers,
+ *  if any. The intellectual and technical concepts contained herein are proprietary to Backendless.com and its
+ *  suppliers and may be covered by U.S. and Foreign Patents, patents in process, and are protected by trade secret
+ *  or copyright law. Dissemination of this information or reproduction of this material is strictly forbidden
+ *  unless prior written permission is obtained from Backendless.com.
+ *
+ *  ********************************************************************************************************************
+ */
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
@@ -12,10 +25,11 @@
 #define BEACON_SERVICE_NAME @"beacons"
 #define BEACON_SERVICE_VERSION @"1.0"
 
-#define BEACON_DISCOVERY @"beacon-frequency"
-#define BEACON_FREQUENCY @"beacon-discovery"
+#define BEACON_DISCOVERY @"beacon-discovery"
+#define BEACON_FREQUENCY @"beacon-frequency"
 #define BEACON_DEFAULT_FREQUENCY 300
 #define BEACON_DEFAULT_DISCOVERY YES
+#define BEACON_DEFAUTL_DISTANCE_CHANGE 0
 
 #define IBEACON_UUID_STR @"uuid"
 #define IBEACON_MAJOR_STR @"majorVersion"
