@@ -20,6 +20,7 @@
  */
 
 #import "BeaconsInfo.h"
+#import "Backendless.h"
 
 @implementation BeaconsInfo
 
@@ -34,6 +35,15 @@
 
 +(BeaconsInfo *)beaconsInfo:(BOOL)discovery beacons:(NSSet<BackendlessBeacon*> *)beacons {
     return [[BeaconsInfo alloc] init:discovery beacons:beacons];
+}
+
+-(void)dealloc {
+    
+    [DebLog logN:@"DEALLOC BeaconsInfo"];
+    
+    [_beacons release];
+    
+    [super dealloc];
 }
 
 @end

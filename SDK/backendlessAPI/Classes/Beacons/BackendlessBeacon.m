@@ -20,6 +20,7 @@
  */
 
 #import "BackendlessBeacon.h"
+#import "Backendless.h"
 
 @implementation BackendlessBeacon
 
@@ -82,7 +83,8 @@
                 if ([beacon isKindOfClass:CLBeacon.class]) {
                     CLBeacon *_beacon = beacon;
                     _type = type;
-                    _iBeaconProps = @{IBEACON_UUID_STR:_beacon.proximityUUID, IBEACON_MAJOR_STR:_beacon.major.stringValue, IBEACON_MINOR_STR:_beacon.minor.stringValue};
+                    _objectId = _beacon.proximityUUID.UUIDString;
+                    _iBeaconProps = @{IBEACON_UUID_STR:_objectId, IBEACON_MAJOR_STR:_beacon.major.stringValue, IBEACON_MINOR_STR:_beacon.minor.stringValue};
                 }
                 break;
             }
@@ -99,6 +101,43 @@
     }
     
     return self;
+}
+
+-(void)dealloc {
+    
+    [DebLog logN:@"DEALLOC BackendlessBeacon"];
+    
+    [_objectId release];
+    [_iBeaconProps release];
+    [_eddystoneProps release];
+    
+    [super dealloc];
+}
+
+#pragma mark -
+#pragma mark overwrided NSObject Methods
+
+-(BOOL)isEqual:(id)object {
+    
+    if (!object || ![object isKindOfClass:self.class])
+        return NO;
+    
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+    BackendlessBeacon *beacon = (BackendlessBeacon *)object;
+    switch (_type) {
+        case BEACON_IBEACON: {
+            return [self.iBeaconProps isEqualToDictionary:beacon.iBeaconProps];
+            }
+        case BEACON_EDDYSTONE: {
+            return [self.eddystoneProps isEqualToDictionary:beacon.eddystoneProps];
+        }
+        default: {
+            return NO;
+        }
+    }
+#else
+    return NO;
+#endif
 }
 
 @end

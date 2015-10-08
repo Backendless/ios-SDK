@@ -26,4 +26,7 @@
 @interface BeaconMonitoring : NSObject 
 +(BeaconMonitoring *)beaconMonitoring:(BOOL)runDiscovery timeFrequency:(int)timeFrequency;
 +(BeaconMonitoring *)beaconMonitoring:(BOOL)runDiscovery timeFrequency:(int)timeFrequency monitoredBeacons:(NSSet<BackendlessBeacon*> *)monitoredBeacons;
+-(void)sendBeacons:(NSSet<BackendlessBeacon*> *)discoveredBeacons;
+-(void)receiveBeaconsInfo;
+-(void)sendEntered:(BackendlessBeacon *)beacon distance:(double)distance;
 @end

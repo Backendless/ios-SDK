@@ -22,25 +22,25 @@
 #import <Foundation/Foundation.h>
 
 @protocol IResponder, IPresenceListener;
-@class Fault, BeaconTracker;
+@class Fault;
 
 @interface Presence : NSObject
 
 // async methods with responder
-+(void)startMonitoring:(id<IResponder>)responder;
-+(void)startMonitoring:(BOOL)runDiscovery responder:(id<IResponder>)responder;
-+(void)startMonitoring:(BOOL)runDiscovery frequency:(int)frequency responder:(id<IResponder>)responder;
-+(void)startMonitoring:(BOOL)runDiscovery frequency:(int)frequency listener:(id<IPresenceListener>)listener responder:(id<IResponder>)responder;
-+(void)startMonitoring:(BOOL)runDiscovery frequency:(int)frequency listener:(id<IPresenceListener>)listener distanceChange:(double)distanceChange responder:(id<IResponder>)responder;
+-(void)startMonitoring:(id<IResponder>)responder;
+-(void)startMonitoring:(BOOL)runDiscovery responder:(id<IResponder>)responder;
+-(void)startMonitoring:(BOOL)runDiscovery frequency:(int)frequency responder:(id<IResponder>)responder;
+-(void)startMonitoring:(BOOL)runDiscovery frequency:(int)frequency listener:(id<IPresenceListener>)listener responder:(id<IResponder>)responder;
+-(void)startMonitoring:(BOOL)runDiscovery frequency:(int)frequency listener:(id<IPresenceListener>)listener distanceChange:(double)distanceChange responder:(id<IResponder>)responder;
 
 // async methods with block-based callbacks
-+(void)startMonitoring:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
-+(void)startMonitoring:(BOOL)runDiscovery response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
-+(void)startMonitoring:(BOOL)runDiscovery frequency:(int)frequency response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
-+(void)startMonitoring:(BOOL)runDiscovery frequency:(int)frequency listener:(id<IPresenceListener>)listener response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
-+(void)startMonitoring:(BOOL)runDiscovery frequency:(int)frequency listener:(id<IPresenceListener>)listener distanceChange:(double)distanceChange response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)startMonitoring:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)startMonitoring:(BOOL)runDiscovery response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)startMonitoring:(BOOL)runDiscovery frequency:(int)frequency response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)startMonitoring:(BOOL)runDiscovery frequency:(int)frequency listener:(id<IPresenceListener>)listener response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)startMonitoring:(BOOL)runDiscovery frequency:(int)frequency listener:(id<IPresenceListener>)listener distanceChange:(double)distanceChange response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 
 // sync methods
-+(void)stopMonitoring;
+-(void)stopMonitoring;
 
 @end
