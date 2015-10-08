@@ -69,7 +69,7 @@
     [Presence startMonitoring:runDiscovery frequency:frequency listener:listener distanceChange:distanceChange responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
-// async methods
+// sync methods
 
 +(void)stopMonitoring  {
     [[BeaconTracker sharedInstance] stopMonitoring];

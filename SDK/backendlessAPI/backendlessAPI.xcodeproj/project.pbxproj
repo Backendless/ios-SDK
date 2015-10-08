@@ -520,12 +520,12 @@
 		F9CB136E1BC284A900F3CA1D /* BeaconsInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB136A1BC284A900F3CA1D /* BeaconsInfo.m */; settings = {ASSET_TAGS = (); }; };
 		F9CB136F1BC284A900F3CA1D /* BeaconsInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB136A1BC284A900F3CA1D /* BeaconsInfo.m */; settings = {ASSET_TAGS = (); }; };
 		F9CB13701BC284A900F3CA1D /* BeaconsInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB136A1BC284A900F3CA1D /* BeaconsInfo.m */; settings = {ASSET_TAGS = (); }; };
-		F9CB13811BC53B0200F3CA1D /* IPresenceListener.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13801BC53B0200F3CA1D /* IPresenceListener.h */; settings = {ASSET_TAGS = (); }; };
-		F9CB13821BC53B0200F3CA1D /* IPresenceListener.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13801BC53B0200F3CA1D /* IPresenceListener.h */; settings = {ASSET_TAGS = (); }; };
-		F9CB13831BC53B0200F3CA1D /* IPresenceListener.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13801BC53B0200F3CA1D /* IPresenceListener.h */; settings = {ASSET_TAGS = (); }; };
-		F9CB13861BC53CDD00F3CA1D /* Presence.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13841BC53CDD00F3CA1D /* Presence.h */; settings = {ASSET_TAGS = (); }; };
-		F9CB13871BC53CDD00F3CA1D /* Presence.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13841BC53CDD00F3CA1D /* Presence.h */; settings = {ASSET_TAGS = (); }; };
-		F9CB13881BC53CDD00F3CA1D /* Presence.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13841BC53CDD00F3CA1D /* Presence.h */; settings = {ASSET_TAGS = (); }; };
+		F9CB13811BC53B0200F3CA1D /* IPresenceListener.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13801BC53B0200F3CA1D /* IPresenceListener.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F9CB13821BC53B0200F3CA1D /* IPresenceListener.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13801BC53B0200F3CA1D /* IPresenceListener.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F9CB13831BC53B0200F3CA1D /* IPresenceListener.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13801BC53B0200F3CA1D /* IPresenceListener.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F9CB13861BC53CDD00F3CA1D /* Presence.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13841BC53CDD00F3CA1D /* Presence.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F9CB13871BC53CDD00F3CA1D /* Presence.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13841BC53CDD00F3CA1D /* Presence.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F9CB13881BC53CDD00F3CA1D /* Presence.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13841BC53CDD00F3CA1D /* Presence.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9CB13891BC53CDD00F3CA1D /* Presence.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB13851BC53CDD00F3CA1D /* Presence.m */; settings = {ASSET_TAGS = (); }; };
 		F9CB138A1BC53CDD00F3CA1D /* Presence.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB13851BC53CDD00F3CA1D /* Presence.m */; settings = {ASSET_TAGS = (); }; };
 		F9CB138B1BC53CDD00F3CA1D /* Presence.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB13851BC53CDD00F3CA1D /* Presence.m */; settings = {ASSET_TAGS = (); }; };
@@ -547,9 +547,9 @@
 		F9D523501B25CEF800F6A441 /* ClassCastException.m in Sources */ = {isa = PBXBuildFile; fileRef = F9D5234C1B25CEF800F6A441 /* ClassCastException.m */; };
 		F9D523511B25CEF800F6A441 /* ClassCastException.m in Sources */ = {isa = PBXBuildFile; fileRef = F9D5234C1B25CEF800F6A441 /* ClassCastException.m */; };
 		F9D523521B25CEF800F6A441 /* ClassCastException.m in Sources */ = {isa = PBXBuildFile; fileRef = F9D5234C1B25CEF800F6A441 /* ClassCastException.m */; };
-		F9F58DAE1BA83BB1009B8782 /* BackendlessBeacon.h in Headers */ = {isa = PBXBuildFile; fileRef = F9F58DAC1BA83BB1009B8782 /* BackendlessBeacon.h */; };
-		F9F58DAF1BA83BB1009B8782 /* BackendlessBeacon.h in Headers */ = {isa = PBXBuildFile; fileRef = F9F58DAC1BA83BB1009B8782 /* BackendlessBeacon.h */; };
-		F9F58DB01BA83BB1009B8782 /* BackendlessBeacon.h in Headers */ = {isa = PBXBuildFile; fileRef = F9F58DAC1BA83BB1009B8782 /* BackendlessBeacon.h */; };
+		F9F58DAE1BA83BB1009B8782 /* BackendlessBeacon.h in Headers */ = {isa = PBXBuildFile; fileRef = F9F58DAC1BA83BB1009B8782 /* BackendlessBeacon.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F9F58DAF1BA83BB1009B8782 /* BackendlessBeacon.h in Headers */ = {isa = PBXBuildFile; fileRef = F9F58DAC1BA83BB1009B8782 /* BackendlessBeacon.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F9F58DB01BA83BB1009B8782 /* BackendlessBeacon.h in Headers */ = {isa = PBXBuildFile; fileRef = F9F58DAC1BA83BB1009B8782 /* BackendlessBeacon.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F58DB11BA83BB1009B8782 /* BackendlessBeacon.m in Sources */ = {isa = PBXBuildFile; fileRef = F9F58DAD1BA83BB1009B8782 /* BackendlessBeacon.m */; };
 		F9F58DB21BA83BB1009B8782 /* BackendlessBeacon.m in Sources */ = {isa = PBXBuildFile; fileRef = F9F58DAD1BA83BB1009B8782 /* BackendlessBeacon.m */; };
 		F9F58DB31BA83BB1009B8782 /* BackendlessBeacon.m in Sources */ = {isa = PBXBuildFile; fileRef = F9F58DAD1BA83BB1009B8782 /* BackendlessBeacon.m */; };
@@ -1643,6 +1643,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9F58DAE1BA83BB1009B8782 /* BackendlessBeacon.h in Headers */,
+				F9CB13811BC53B0200F3CA1D /* IPresenceListener.h in Headers */,
 				1C7BB4C31A2E092900D3C2C1 /* RTMPClient.h in Headers */,
 				1C7BB4C41A2E092900D3C2C1 /* AtomicCounters.h in Headers */,
 				1C7BB4C51A2E092900D3C2C1 /* AtomicCountersFactory.h in Headers */,
@@ -1654,7 +1656,6 @@
 				1C7BB4CB1A2E092900D3C2C1 /* Responder.h in Headers */,
 				1C7BB4CC1A2E092900D3C2C1 /* UserService.h in Headers */,
 				1C7BB4CD1A2E092900D3C2C1 /* BackendlessUser.h in Headers */,
-				F9CB13861BC53CDD00F3CA1D /* Presence.h in Headers */,
 				1C7BB4CE1A2E092900D3C2C1 /* BinaryStream.h in Headers */,
 				1C7BB4CF1A2E092900D3C2C1 /* IClientSharedObjectDelegate.h in Headers */,
 				1C7BB4D01A2E092900D3C2C1 /* IServiceCall.h in Headers */,
@@ -1672,7 +1673,6 @@
 				1C7BB4D91A2E092900D3C2C1 /* BackendlessCollection.h in Headers */,
 				1C7BB4DA1A2E092900D3C2C1 /* BackendlessDataQuery.h in Headers */,
 				1C7BB4DB1A2E092900D3C2C1 /* IDataStore.h in Headers */,
-				F9F58DAE1BA83BB1009B8782 /* BackendlessBeacon.h in Headers */,
 				1C7BB4DC1A2E092900D3C2C1 /* ISDatabase.h in Headers */,
 				1C7BB4DD1A2E092900D3C2C1 /* DataStoreFactory.h in Headers */,
 				1C7BB4DE1A2E092900D3C2C1 /* GeoService.h in Headers */,
@@ -1699,6 +1699,7 @@
 				D3A064A71AFA6E4A00779BB1 /* LocationTracker.h in Headers */,
 				F9D5234D1B25CEF800F6A441 /* ClassCastException.h in Headers */,
 				1C7BB4EF1A2E092900D3C2C1 /* CustomService.h in Headers */,
+				F9CB13861BC53CDD00F3CA1D /* Presence.h in Headers */,
 				F9C7DE971B7CBFE600AFCD06 /* BackendlessSimpleQuery.h in Headers */,
 				D3A064C01AFCE64D00779BB1 /* GeoFence.h in Headers */,
 				F9CB138E1BC53D2300F3CA1D /* BeaconTracker.h in Headers */,
@@ -1715,7 +1716,6 @@
 				1C7BB4F21A2E092900D3C2C1 /* BESubscription.h in Headers */,
 				1C7BB4F31A2E092900D3C2C1 /* Message.h in Headers */,
 				1C7BB4F41A2E092900D3C2C1 /* FlashorbBinaryReader.h in Headers */,
-				F9CB13811BC53B0200F3CA1D /* IPresenceListener.h in Headers */,
 				1C7BB4F51A2E092900D3C2C1 /* MessageStatus.h in Headers */,
 				1C7BB4F61A2E092900D3C2C1 /* FileService.h in Headers */,
 				1C7BB4F71A2E092900D3C2C1 /* BackendlessFile.h in Headers */,
@@ -1747,9 +1747,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9CB13821BC53B0200F3CA1D /* IPresenceListener.h in Headers */,
+				F9CB13871BC53CDD00F3CA1D /* Presence.h in Headers */,
+				F9F58DAF1BA83BB1009B8782 /* BackendlessBeacon.h in Headers */,
 				91223DCB195AF6AB00F72F48 /* Events.h in Headers */,
 				91DF023A1821625B009DAE40 /* BEMapView.h in Headers */,
-				F9BBFD6C18783B750076BC6D /* ISharedObjectListener.h in Headers */,
 				F9BBFD5718783B750076BC6D /* IAttributeStore.h in Headers */,
 				F9796A06166CCBFE00595F5E /* Backendless.h in Headers */,
 				912D504C182102F0006A090A /* BETableView.h in Headers */,
@@ -1795,7 +1797,6 @@
 				D30A5D7519B9CA8200C0BA44 /* Backendless-Bridging-Header.h in Headers */,
 				F9D5234E1B25CEF800F6A441 /* ClassCastException.h in Headers */,
 				D3FB9B7C1986818F00A13FB6 /* IAtomicCounters.h in Headers */,
-				F9F58DAF1BA83BB1009B8782 /* BackendlessBeacon.h in Headers */,
 				D3FB9B6919867EA500A13FB6 /* AtomicCounters.h in Headers */,
 				D39A468219811D9B006CBD1B /* CacheService.h in Headers */,
 				D36CDDF119C99D5900C3FFE3 /* CustomService.h in Headers */,
@@ -1808,7 +1809,7 @@
 				D35DC3421AD7E19800EF2A68 /* Logger.h in Headers */,
 				D3A064A81AFA6E4A00779BB1 /* LocationTracker.h in Headers */,
 				F9C7DE981B7CBFE600AFCD06 /* BackendlessSimpleQuery.h in Headers */,
-				F9CB13871BC53CDD00F3CA1D /* Presence.h in Headers */,
+				F9BBFD6C18783B750076BC6D /* ISharedObjectListener.h in Headers */,
 				D3A064C91AFCE69D00779BB1 /* GeoFenceMonitoring.h in Headers */,
 				F9BBFD7518783B750076BC6D /* RTMPClient.h in Headers */,
 				D316BA381A83C649007215CA /* ProtectedBackendlessGeoQuery.h in Headers */,
@@ -1838,7 +1839,6 @@
 				91F139AE17D7240A00D1AC4C /* BackendlessCacheProtocol.h in Headers */,
 				91F139B217D724C700D1AC4C /* QueryOptions.h in Headers */,
 				F9796A07166CCBFE00595F5E /* Invoker.h in Headers */,
-				F9CB13821BC53B0200F3CA1D /* IPresenceListener.h in Headers */,
 				91F1399A17D7240A00D1AC4C /* BackendlessCache.h in Headers */,
 				91F1399F17D7240A00D1AC4C /* BackendlessCacheData.h in Headers */,
 				F9BBFD4518783B750076BC6D /* AMFSerializer.h in Headers */,
@@ -1855,6 +1855,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9CB13831BC53B0200F3CA1D /* IPresenceListener.h in Headers */,
+				F9F58DB01BA83BB1009B8782 /* BackendlessBeacon.h in Headers */,
+				F9CB13881BC53CDD00F3CA1D /* Presence.h in Headers */,
 				91223DCC195AF6AB00F72F48 /* Events.h in Headers */,
 				91DF023B1821625B009DAE40 /* BEMapView.h in Headers */,
 				F9BBFD6D18783B750076BC6D /* ISharedObjectListener.h in Headers */,
@@ -1897,7 +1900,6 @@
 				D3FB9B6A19867EA500A13FB6 /* AtomicCounters.h in Headers */,
 				F94487621B68EBA400EB12A5 /* Backendless-With-Media-Bridging-Header.h in Headers */,
 				F9796A68166CD42E00595F5E /* SubscriptionOptions.h in Headers */,
-				F9CB13881BC53CDD00F3CA1D /* Presence.h in Headers */,
 				D36CDDF219C99D5900C3FFE3 /* CustomService.h in Headers */,
 				D3A064DA1B0242B900779BB1 /* ClientCallback.h in Headers */,
 				F9796A69166CD42E00595F5E /* BESubscription.h in Headers */,
@@ -1929,9 +1931,7 @@
 				F9796A6E166CD42E00595F5E /* HashMap.h in Headers */,
 				F994A3F5168DC36B00C1A498 /* MediaPublishOptions.h in Headers */,
 				F994A3FF168DC39400C1A498 /* MediaPlaybackOptions.h in Headers */,
-				F9F58DB01BA83BB1009B8782 /* BackendlessBeacon.h in Headers */,
 				F994A408168DC3BA00C1A498 /* MediaService.h in Headers */,
-				F9CB13831BC53B0200F3CA1D /* IPresenceListener.h in Headers */,
 				F9512968168DCFE90041460C /* MediaPublisher.h in Headers */,
 				F9BBFD6118783B750076BC6D /* IPendingServiceCallback.h in Headers */,
 				F9512972168DCFFF0041460C /* MediaPlayer.h in Headers */,
