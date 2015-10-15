@@ -160,6 +160,10 @@
 #pragma mark -
 #pragma mark Public Methods
 
+-(NSSet<BackendlessBeacon*> *)getMonitoredBeacons {
+    return _monitoredBeacons;
+}
+
 /*
  
  public void sendBeacons( List<BackendlessBeacon> discoveredBeacons )

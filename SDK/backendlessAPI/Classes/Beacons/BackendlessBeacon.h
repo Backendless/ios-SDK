@@ -48,11 +48,13 @@ typedef enum {
     BEACON_UNKNOWN = -1
 } BeaconTypeEnum;
 
-@interface BackendlessBeacon : NSObject
+@interface BackendlessBeacon : NSObject <NSCopying>
 @property (strong, nonatomic, readonly) NSString *objectId;
 @property (strong, nonatomic, readonly) NSDictionary *iBeaconProps;
 @property (strong, nonatomic, readonly) NSDictionary *eddystoneProps;
 @property (readonly) BeaconTypeEnum type;
 
 -(id)initWithType:(BeaconTypeEnum)type beacon:(id)beacon;
+-(id)initWithClass:(id)beacon;
+-(id)initWithBackendlessBeacon:(BackendlessBeacon *)beacon;
 @end

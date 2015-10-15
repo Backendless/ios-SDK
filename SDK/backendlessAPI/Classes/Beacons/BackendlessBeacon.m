@@ -84,7 +84,7 @@
                     CLBeacon *_beacon = beacon;
                     _type = type;
                     _objectId = _beacon.proximityUUID.UUIDString;
-                    _iBeaconProps = @{IBEACON_UUID_STR:_objectId, IBEACON_MAJOR_STR:_beacon.major.stringValue, IBEACON_MINOR_STR:_beacon.minor.stringValue};
+                    _iBeaconProps = @{IBEACON_UUID_STR:_beacon.proximityUUID, IBEACON_MAJOR_STR:@((uint)_beacon.major), IBEACON_MINOR_STR:@((uint)_beacon.minor)};
                 }
                 break;
             }
@@ -103,6 +103,39 @@
     return self;
 }
 
+-(id)initWithClass:(id)beacon {
+    
+    if ( (self=[super init]) ) {
+        
+        _type = BEACON_UNKNOWN;
+        
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+        
+        if ([beacon isKindOfClass:CLBeacon.class]) {
+            CLBeacon *_beacon = beacon;
+            _type = BEACON_IBEACON;
+            _objectId = _beacon.proximityUUID.UUIDString;
+            _iBeaconProps = @{IBEACON_UUID_STR:_beacon.proximityUUID, IBEACON_MAJOR_STR:@((uint)_beacon.major), IBEACON_MINOR_STR:@((uint)_beacon.minor)};
+        }
+#endif
+    }
+    
+    return self;
+}
+
+-(id)initWithBackendlessBeacon:(BackendlessBeacon *)beacon {
+    
+    if ( (self=[super init]) ) {
+        
+        _type = beacon.type;
+        _objectId = beacon.objectId.copy;
+        _iBeaconProps = beacon.iBeaconProps.copy;
+        _eddystoneProps = beacon.eddystoneProps.copy;
+    }
+    
+    return self;
+}
+
 -(void)dealloc {
     
     [DebLog logN:@"DEALLOC BackendlessBeacon"];
@@ -112,6 +145,13 @@
     [_eddystoneProps release];
     
     [super dealloc];
+}
+
+#pragma mark -
+#pragma mark NSCopying Methods
+
+-(id)copyWithZone:(NSZone *)zone {
+    return [[BackendlessBeacon alloc] initWithBackendlessBeacon:self];
 }
 
 #pragma mark -
