@@ -22,6 +22,7 @@
 #import <Foundation/Foundation.h>
 #import "GeoPoint.h"
 #import "GeoCluster.h"
+#import "Presence.h"
 
 #define DEFAULT_CATEGORY_NAME @"Default"
 
@@ -34,6 +35,8 @@ typedef struct {
 @protocol IResponder, IGeofenceCallback;
 
 @interface GeoService : NSObject
+
+@property (strong, nonatomic, readonly) Presence *presence;
 
 // sync methods with fault return (as exception)
 -(GeoCategory *)addCategory:(NSString *)categoryName;

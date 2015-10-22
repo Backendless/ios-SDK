@@ -20,10 +20,11 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "Backendless.h"
 
 @class BackendlessBeacon;
 
-@interface BeaconMonitoring : NSObject 
+@interface BeaconMonitoring : NSObject <IPresenceListener>
 +(BeaconMonitoring *)beaconMonitoring:(BOOL)runDiscovery timeFrequency:(int)timeFrequency;
 +(BeaconMonitoring *)beaconMonitoring:(BOOL)runDiscovery timeFrequency:(int)timeFrequency monitoredBeacons:(NSSet<BackendlessBeacon*> *)monitoredBeacons;
 -(NSSet<BackendlessBeacon*> *)getMonitoredBeacons;

@@ -103,8 +103,10 @@ static NSString *METHOD_LISTING = @"listing";
 
 -(id)init {
 	if ( (self=[super init]) ) {
-        asyncResponses = [NSMutableArray new];
         
+        [[Types sharedInstance] addClientClassMapping:@"com.backendless.management.files.FileInfo" mapped:BEFileInfo.class];
+        
+        asyncResponses = [NSMutableArray new];
         _permissions = [FilePermission new];
 	}
 	

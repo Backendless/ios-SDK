@@ -25,7 +25,7 @@
 @class Fault;
 
 @interface Presence : NSObject
-
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 // async methods with responder
 -(void)startMonitoring:(id<IResponder>)responder;
 -(void)startMonitoring:(BOOL)runDiscovery responder:(id<IResponder>)responder;
@@ -42,5 +42,5 @@
 
 // sync methods
 -(void)stopMonitoring;
-
+#endif
 @end

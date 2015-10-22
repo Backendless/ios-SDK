@@ -116,8 +116,8 @@ static NSString *_DENY = @"DENY";
 
 -(id)init {
     if ( (self=[super init]) ) {
-        [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.file.permissions.FileUserPermission" mapped:[FileUserPermission class]];
-        [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.file.permissions.FileRolePermission" mapped:[FileRolePermission class]];
+        [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.file.permissions.FileUserPermission" mapped:FileUserPermission.class];
+        [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.file.permissions.FileRolePermission" mapped:FileRolePermission.class];
     }
     
     return self;

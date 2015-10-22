@@ -83,7 +83,10 @@ static NSString *METHOD_GET_FENCES = @"getFences";
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.model.SearchMatchesResult" mapped:[SearchMatchesResult class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.BackendlessCollection" mapped:[BackendlessCollection class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.geofence.model.GeoFenceAMF" mapped:[GeoFence class]];
-	}
+        
+        _presence = [Presence new];
+	
+    }
 	
 	return self;
 }
@@ -91,6 +94,8 @@ static NSString *METHOD_GET_FENCES = @"getFences";
 -(void)dealloc {
 	
 	[DebLog logN:@"DEALLOC GeoService"];
+    
+    [_presence release];
     	
 	[super dealloc];
 }

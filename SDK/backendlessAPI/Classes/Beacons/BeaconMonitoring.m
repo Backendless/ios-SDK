@@ -45,7 +45,7 @@
  }
  */
 
-@interface BeaconMonitoring() <IPresenceListener> {
+@interface BeaconMonitoring() {
     BOOL _set;
     BOOL _discovery;
     int _timeFrequency;
@@ -210,7 +210,7 @@
      method:@"getenabled"
      args:@[]
      response:^(BeaconsInfo *response) {
-         self.monitoredBeacons = response.beacons;
+         self.monitoredBeacons = [NSSet setWithSet:response.beacons];
          _discovery = response.discovery;
      }
      error:^(Fault *fault) {
@@ -220,7 +220,8 @@
 }
 
 -(void)sendEntered:(BackendlessBeacon *)beacon distance:(double)distance  {
-    [backendless.customService invoke:BEACON_SERVICE_NAME serviceVersion:BEACON_SERVICE_VERSION method:@"proximity" args:@[beacon.objectId, @(distance)] responder:nil];
+    NSArray *args = @[beacon.objectId?beacon.objectId:[NSNull null], @(distance)];
+    [backendless.customService invoke:BEACON_SERVICE_NAME serviceVersion:BEACON_SERVICE_VERSION method:@"proximity" args:args responder:nil];
 }
 
 #pragma mark -
@@ -252,15 +253,14 @@
 
 -(void)onDetectedBeacons:(NSDictionary<BackendlessBeacon*, NSNumber*> *)beaconToDistances {
     
+    NSLog(@"onDetectedBeacons: %@ [%@]", beaconToDistances, _discovery?@"YES":@"NO");
+    
     NSArray *keys = [beaconToDistances allKeys];
     for (BackendlessBeacon *beacon in keys) {
         
-        for (BackendlessBeacon *mB in _monitoredBeacons) {
-            if ([beacon isEqual:mB]) {
-                NSNumber *distance = beaconToDistances[beacon];
-                [self sendEntered:beacon distance:[distance doubleValue]];
-                break;
-            }
+        if ([_monitoredBeacons member:beacon]) {
+            NSLog(@"onDetectedBeacons: beacon.objectId = %@, distance = %@", beacon.objectId, beaconToDistances[beacon]);
+            [self sendEntered:beacon distance:beaconToDistances[beacon].doubleValue];
         }
         
         if (_discovery) {

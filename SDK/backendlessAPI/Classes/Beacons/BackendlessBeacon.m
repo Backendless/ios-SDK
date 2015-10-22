@@ -27,10 +27,18 @@
 -(id)init {
     
     if ( (self=[super init]) ) {
+#if !BEACON_DEBUGGING
         _objectId = nil;
         _iBeaconProps = nil;
         _eddystoneProps = nil;
         _type = BEACON_UNKNOWN;
+#else
+        _objectId = nil;
+        _iBeaconProps = @{IBEACON_UUID_STR:@"D77657C4-52A7-426F-B9D0-D71E10798C8A", IBEACON_MAJOR_STR:@"0", IBEACON_MINOR_STR:@"0"};
+        [_iBeaconProps retain];
+        _eddystoneProps = nil;
+        _type = BEACON_IBEACON;
+#endif
     }
     
     return self;
@@ -75,6 +83,8 @@
 -(id)initWithType:(BeaconTypeEnum)type beacon:(id)beacon {
     
     if ( (self=[super init]) ) {
+        
+        _type = BEACON_UNKNOWN;
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
         
@@ -83,8 +93,7 @@
                 if ([beacon isKindOfClass:CLBeacon.class]) {
                     CLBeacon *_beacon = beacon;
                     _type = type;
-                    _objectId = _beacon.proximityUUID.UUIDString;
-                    _iBeaconProps = @{IBEACON_UUID_STR:_beacon.proximityUUID, IBEACON_MAJOR_STR:@((uint)_beacon.major), IBEACON_MINOR_STR:@((uint)_beacon.minor)};
+                    _iBeaconProps = [@{IBEACON_UUID_STR:_beacon.proximityUUID.UUIDString, IBEACON_MAJOR_STR:_beacon.major.stringValue, IBEACON_MINOR_STR:_beacon.minor.stringValue} retain];
                 }
                 break;
             }
@@ -93,7 +102,6 @@
                 break;
             }
             default: {
-                _type = BEACON_UNKNOWN;
                 break;
             }
         }
@@ -114,8 +122,7 @@
         if ([beacon isKindOfClass:CLBeacon.class]) {
             CLBeacon *_beacon = beacon;
             _type = BEACON_IBEACON;
-            _objectId = _beacon.proximityUUID.UUIDString;
-            _iBeaconProps = @{IBEACON_UUID_STR:_beacon.proximityUUID, IBEACON_MAJOR_STR:@((uint)_beacon.major), IBEACON_MINOR_STR:@((uint)_beacon.minor)};
+            _iBeaconProps = [@{IBEACON_UUID_STR:_beacon.proximityUUID.UUIDString, IBEACON_MAJOR_STR:_beacon.major.stringValue, IBEACON_MINOR_STR:_beacon.minor.stringValue} retain];
         }
 #endif
     }
@@ -123,6 +130,22 @@
     return self;
 }
 
+#if 0
+-(id)initWithBackendlessBeacon:(BackendlessBeacon *)beacon {
+    
+    NSLog(@"Backendless->initWithBackendlessBeacon:(0) %@", beacon);
+    
+    if ( (self=[super init]) ) {
+        
+        _type = beacon.type;
+        _objectId = beacon.objectId?[[NSString alloc] initWithString:beacon.objectId]:nil;
+        _iBeaconProps = beacon.iBeaconProps?[[NSDictionary alloc] initWithDictionary:beacon.iBeaconProps copyItems:YES]:nil;
+        _eddystoneProps = beacon.eddystoneProps?[[NSDictionary alloc] initWithDictionary:beacon.eddystoneProps copyItems:YES]:nil;
+    }
+    
+    return self;
+}
+#else
 -(id)initWithBackendlessBeacon:(BackendlessBeacon *)beacon {
     
     if ( (self=[super init]) ) {
@@ -133,8 +156,11 @@
         _eddystoneProps = beacon.eddystoneProps.copy;
     }
     
+    //NSLog(@"Backendless->initWithBackendlessBeacon: (1) %@ from %@", self, beacon);
+    
     return self;
 }
+#endif
 
 -(void)dealloc {
     
@@ -148,6 +174,25 @@
 }
 
 #pragma mark -
+#pragma mark Public Methods
+
+-(NSString *)key {
+    
+    switch (_type) {
+        case BEACON_IBEACON: {
+            //NSLog(@"Backendless->key: %@", _iBeaconProps);
+            return [NSString stringWithFormat:@"%@,%@,%@", _iBeaconProps[IBEACON_UUID_STR], _iBeaconProps[IBEACON_MAJOR_STR], _iBeaconProps[IBEACON_MINOR_STR]];
+        }
+        case BEACON_EDDYSTONE: {
+            return @"BEACON_EDDYSTONE";
+        }
+        default: {
+            return @"BEACON_UNKNOWN";
+        }
+    }
+}
+
+#pragma mark -
 #pragma mark NSCopying Methods
 
 -(id)copyWithZone:(NSZone *)zone {
@@ -158,25 +203,12 @@
 #pragma mark overwrided NSObject Methods
 
 -(BOOL)isEqual:(id)object {
-    
-    if (!object || ![object isKindOfClass:self.class])
-        return NO;
-    
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-    BackendlessBeacon *beacon = (BackendlessBeacon *)object;
-    switch (_type) {
-        case BEACON_IBEACON: {
-            return [self.iBeaconProps isEqualToDictionary:beacon.iBeaconProps];
-            }
-        case BEACON_EDDYSTONE: {
-            return [self.eddystoneProps isEqualToDictionary:beacon.eddystoneProps];
-        }
-        default: {
-            return NO;
-        }
-    }
+#if 0
+    BOOL q = object && [object isKindOfClass:self.class] && [self.key isEqualToString:[(BackendlessBeacon *)object key]];
+    NSLog(@"<<<<<<<<<<<< isEqual:: %@ == %@ ? [ %@ ]", self.key, [(BackendlessBeacon *)object key], q?@"YES":@"NO");
+    return q;
 #else
-    return NO;
+    return object && [object isKindOfClass:self.class] && [self.key isEqualToString:[(BackendlessBeacon *)object key]];
 #endif
 }
 

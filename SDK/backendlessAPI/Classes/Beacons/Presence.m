@@ -24,6 +24,7 @@
 #import "BeaconTracker.h"
 
 @implementation Presence
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 
 // async methods with responder
 
@@ -74,5 +75,5 @@
 -(void)stopMonitoring  {
     [[BeaconTracker sharedInstance] stopMonitoring];
 }
-
+#endif
 @end
