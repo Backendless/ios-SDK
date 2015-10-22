@@ -840,8 +840,12 @@ id result = nil;
     if (![[url.scheme uppercaseString] isEqualToString:scheme]) {
         return nil;
     }
-    
+
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
     NSString *absoluteString = [[url.absoluteString stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@://", url.scheme] withString:@""] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+#else
+    NSString *absoluteString = [[url.absoluteString stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@://", url.scheme] withString:@""] stringByRemovingPercentEncoding];
+#endif
     id userData = [NSJSONSerialization JSONObjectWithData:[absoluteString dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
     return [self onLogin:userData];
 }

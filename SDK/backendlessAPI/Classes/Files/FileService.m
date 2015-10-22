@@ -40,6 +40,7 @@ static NSString *METHOD_RENAME_FILE = @"renameFile";
 static NSString *METHOD_COPY_FILE = @"copyFile";
 static NSString *METHOD_MOVE_FILE = @"moveFile";
 static NSString *METHOD_LISTING = @"listing";
+static NSString *METHOD_EXISTS = @"exists";
 
 
 #pragma mark -
@@ -239,6 +240,15 @@ static NSString *METHOD_LISTING = @"listing";
     BackendlessCollection *collection = [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_LISTING args:args];
     collection.query = [BackendlessSimpleQuery query:pagesize offset:offset];
     return collection;
+}
+
+-(NSNumber *)exists:(NSString *)path {
+    
+    if (!path || !path.length)
+        return [backendless throwFault:FAULT_NO_DIRECTORY_PATH];
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, path];
+    return [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_EXISTS args:args];
 }
 
 // sync methods with fault option
@@ -591,6 +601,17 @@ id result = nil;
     }
 }
 
+-(NSNumber *)exists:(NSString *)path error:(Fault **)fault {
+    
+    @try {
+        return [self exists:path];
+    }
+    @catch (Fault *_fault) {
+        (*fault) = _fault;
+        return nil;
+    }
+}
+
 #endif
 
 // async methods with responder
@@ -706,6 +727,15 @@ id result = nil;
     [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_LISTING args:args responder:_responder];
 }
 
+-(void)exists:(NSString *)path responder:(id <IResponder>)responder {
+    
+    if (!path || !path.length)
+        return [responder errorHandler:FAULT_NO_DIRECTORY_PATH];
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, path];
+    [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_EXISTS args:args responder:responder];
+}
+
 // async methods with block-base callbacks
 
 -(void)upload:(NSString *)path content:(NSData *)content response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -760,6 +790,10 @@ id result = nil;
     [self listing:path pattern:pattern recursive:recursive pagesize:pagesize offset:offset responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
+-(void)exists:(NSString *)path response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self exists:path responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+
 #pragma mark -
 #pragma mark Private Methods
 
@@ -804,7 +838,11 @@ id result = nil;
     if (backendless.headers) {
         NSArray *headers = [backendless.headers allKeys];
         for (NSString *header in headers) {
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
             [webReq addValue:[backendless.headers valueForKey:header] forHTTPHeaderField:[header stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+#else
+            [webReq addValue:[backendless.headers valueForKey:header] forHTTPHeaderField:[header stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet alphanumericCharacterSet]]];
+#endif
         }
     }
     
@@ -822,9 +860,12 @@ id result = nil;
 
 -(id)sendUploadRequest:(NSString *)path content:(NSData *)content overwrite:(NSNumber *)overwrite {
     
+    NSURLRequest *webReq = [self httpUploadRequest:path content:content overwrite:overwrite];
+
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+    
     NSHTTPURLResponse *responseUrl;
     NSError *error;
-    NSURLRequest *webReq = [self httpUploadRequest:path content:content overwrite:overwrite];
     NSData *receivedData = [NSURLConnection sendSynchronousRequest:webReq returningResponse:&responseUrl error:&error];
     
     NSInteger statusCode = [responseUrl statusCode];
@@ -840,11 +881,38 @@ id result = nil;
     }
     Fault *fault = [Fault fault:[NSString stringWithFormat:@"HTTP %@", @(statusCode)] detail:[NSHTTPURLResponse localizedStringForStatusCode:statusCode] faultCode:[NSString stringWithFormat:@"%@", @(statusCode)]];
     return [backendless throwFault:fault];
+#else
+    
+    // !!! TODO as async !!!
+    [[NSURLSession sharedSession]
+     dataTaskWithRequest:webReq
+     completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+         
+         NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
+         
+         [DebLog log:@"FileService -> sendUploadRequest: HTTP status code: %@", @(statusCode)];
+         
+         if (statusCode == 200 && data)
+         {
+             NSString *receiveUrl = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+             receiveUrl = [receiveUrl stringByReplacingOccurrencesOfString:@"{\"fileURL\":\"" withString:@""];
+             receiveUrl = [receiveUrl stringByReplacingOccurrencesOfString:@"\"}" withString:@""];
+             [BackendlessFile file:receiveUrl];
+         }
+         Fault *fault = [Fault fault:[NSString stringWithFormat:@"HTTP %@", @(statusCode)] detail:[NSHTTPURLResponse localizedStringForStatusCode:statusCode] faultCode:[NSString stringWithFormat:@"%@", @(statusCode)]];
+         [backendless throwFault:fault];
+    }];
+    
+    return nil;
+
+#endif
 }
 
 // async request
 
 -(void)sendUploadRequest:(NSString *)path content:(NSData *)content overwrite:(NSNumber *)overwrite responder:(id <IResponder>)responder {
+
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
     
     // create the connection with the request and start the data exchananging
     NSURLRequest *webReq = [self httpUploadRequest:path content:content overwrite:overwrite];
@@ -867,6 +935,9 @@ id result = nil;
     }
     
     [DebLog log:@"FileService -> sendUploadRequest: (ERROR) the connection with path: '%@' didn't create", path];
+#else
+    // !!! TODO !!!
+#endif
 }
 
 -(AsyncResponse *)asyncHttpResponse:(NSURLConnection *)connection {
