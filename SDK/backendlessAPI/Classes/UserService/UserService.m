@@ -60,7 +60,11 @@ static NSString *METHOD_USER_LOGIN_WITH_FACEBOOK_SDK = @"loginWithFacebook";
 static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
 static NSString *METHOD_IS_VALID_USER_TOKEN = @"isValidUserToken"; 
 //  BACKENDLESS HEADER KEYS
+#if 0
 static NSString *USER_TOKEN_KEY = @"user-token\0";
+#else
+static NSString *USER_TOKEN_KEY = @"user-token";
+#endif
 
 @interface UserService ()
 // sync
