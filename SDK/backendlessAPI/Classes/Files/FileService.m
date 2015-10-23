@@ -607,7 +607,7 @@ id result = nil;
         return [self exists:path];
     }
     @catch (Fault *_fault) {
-        (*fault) = _fault;
+        if (fault)(*fault) = _fault;
         return nil;
     }
 }

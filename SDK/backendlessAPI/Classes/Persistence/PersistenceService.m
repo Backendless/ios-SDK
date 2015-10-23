@@ -41,8 +41,9 @@
 #import "BackendlessCache.h"
 #import "OfflineModeManager.h"
 
-#define FAULT_NO_ENTITY [Fault fault:@"Entity is not valid"]
-#define FAULT_OBJECT_ID_IS_NOT_EXIST [Fault fault:@"Object ID is not exist"]
+#define FAULT_NO_ENTITY [Fault fault:@"Entity is not valid" faultCode:@"0000"]
+#define FAULT_OBJECT_ID_IS_NOT_EXIST [Fault fault:@"Object ID is not exist" faultCode:@"0000"]
+#define FAULT_NAME_IS_NULL [Fault fault:@"Name is NULL" faultCode:@"0000"]
 
 // SERVICE NAME
 static NSString *SERVER_PERSISTENCE_SERVICE_PATH = @"com.backendless.services.persistence.PersistenceService";
@@ -57,6 +58,8 @@ static NSString *METHOD_FIND = @"find";
 static NSString *METHOD_FIRST = @"first";
 static NSString *METHOD_LAST = @"last";
 static NSString *METHOD_LOAD = @"loadRelations";
+static NSString *METHOD_CALL_STORED_VIEW = @"callStoredView";
+static NSString *METHOD_CALL_STORED_PROCEDURE = @"callStoredProcedure";
 NSString *LOAD_ALL_RELATIONS = @"*";
 
 @interface PersistenceService()
@@ -1006,6 +1009,29 @@ id result = nil;
         return YES;
     }
 }
+
+-(BackendlessCollection *)getView:(NSString *)viewName dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault {
+    
+    @try {
+        return [self getView:viewName dataQuery:dataQuery];
+    }
+    @catch (Fault *_fault) {
+        if (fault)(*fault) = _fault;
+        return nil;
+    }
+}
+
+-(BackendlessCollection *)callStoredProcedure:(NSString *)spName arguments:(NSDictionary *)arguments error:(Fault **)fault {
+    
+    @try {
+        return [self callStoredProcedure:spName arguments:arguments];
+    }
+    @catch (Fault *_fault) {
+        if (fault)(*fault) = _fault;
+        return nil;
+    }
+}
+
 #endif
 
 // sync methods with fault return  (as exception)
@@ -1402,6 +1428,29 @@ id result = nil;
     return fault;
 }
 
+-(BackendlessCollection *)getView:(NSString *)viewName dataQuery:(BackendlessDataQuery *)dataQuery {
+    
+    if (!viewName)
+        return [backendless throwFault:FAULT_NAME_IS_NULL];
+    
+    if (!dataQuery) dataQuery = BACKENDLESS_DATA_QUERY;
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, viewName, dataQuery];
+    id result = [backendlessCache invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_CALL_STORED_VIEW args:args];
+    return [result isKindOfClass:[Fault class]]? result : [self getAsCollection:result query:dataQuery];
+}
+
+-(BackendlessCollection *)callStoredProcedure:(NSString *)spName arguments:(NSDictionary *)arguments {
+    
+    if (!spName)
+        return [backendless throwFault:FAULT_NAME_IS_NULL];
+    
+    if (!arguments) arguments = [NSDictionary dictionary];
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, spName, arguments];
+    return [backendlessCache invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_CALL_STORED_PROCEDURE args:args];
+}
+
 // async methods with responder
 
 -(void)describe:(NSString *)classCanonicalName responder:(id <IResponder>)responder {
@@ -1756,6 +1805,31 @@ id result = nil;
      ];
 }
 
+-(void)getView:(NSString *)viewName dataQuery:(BackendlessDataQuery *)dataQuery responder:(id <IResponder>)responder {
+    
+    if (!viewName)
+        return [responder errorHandler:FAULT_NAME_IS_NULL];
+    
+    if (!dataQuery) dataQuery = BACKENDLESS_DATA_QUERY;
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, viewName, dataQuery];
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(setCurrentPageSize:) selErrorHandler:nil];
+    _responder.context = dataQuery;
+    _responder.chained = responder;
+    [backendlessCache invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_CALL_STORED_VIEW args:args responder:_responder];
+}
+
+-(void)callStoredProcedure:(NSString *)spName arguments:(NSDictionary *)arguments responder:(id <IResponder>)responder {
+    
+    if (!spName)
+        return [responder errorHandler:FAULT_NAME_IS_NULL];
+    
+    if (!arguments) arguments = [NSDictionary dictionary];
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, spName, arguments];
+    [backendlessCache invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_CALL_STORED_PROCEDURE args:args responder:responder];
+}
+
 // async methods with block-base callbacks
 
 -(void)describe:(NSString *)classCanonicalName response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -1871,6 +1945,14 @@ id result = nil;
             [DebLog log:@"PersistenceService -> removeAll: FAULT: %@", fault];
             errorBlock(fault);
         }];
+}
+
+-(void)getView:(NSString *)viewName dataQuery:(BackendlessDataQuery *)dataQuery response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self getView:viewName dataQuery:dataQuery responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+
+-(void)callStoredProcedure:(NSString *)spName arguments:(NSDictionary *)arguments response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self callStoredProcedure:spName arguments:arguments responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 // IDataStore class factory
