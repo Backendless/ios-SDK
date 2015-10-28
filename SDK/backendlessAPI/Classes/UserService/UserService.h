@@ -49,6 +49,7 @@
 -(NSArray *)getUserRoles;
 -(id)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping;
 -(id)loginWithFacebookSDK:(FBSDKAccessToken *)accessToken fieldsMapping:(NSDictionary *)fieldsMapping;
+-(id)loginWithGooglePlusSDK:(NSString *)userId accessToken:(NSString *)accessToken permissions:(NSArray *)permissions fieldsMapping:(NSDictionary *)fieldsMapping;
 
 // sync methods with fault option
 -(BackendlessUser *)registering:(BackendlessUser *)user error:(Fault **)fault;
@@ -63,6 +64,7 @@
 -(NSArray *)getUserRolesError:(Fault **)fault;
 -(BackendlessUser *)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping error:(Fault **)fault;
 -(BackendlessUser *)loginWithFacebookSDK:(FBSDKAccessToken *)accessToken fieldsMapping:(NSDictionary *)fieldsMapping error:(Fault **)fault;
+-(BackendlessUser *)loginWithGooglePlusSDK:(NSString *)userId accessToken:(NSString *)accessToken permissions:(NSArray *)permissions fieldsMapping:(NSDictionary *)fieldsMapping error:(Fault **)fault;
 
 // async methods with responder
 -(void)registering:(BackendlessUser *)user responder:(id <IResponder>)responder;
@@ -77,6 +79,7 @@
 -(void)getUserRoles:(id <IResponder>)responder;
 -(void)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping responder:(id <IResponder>)responder;
 -(void)loginWithFacebookSDK:(FBSDKAccessToken *)accessToken fieldsMapping:(NSDictionary *)fieldsMapping responder:(id <IResponder>)responder;
+-(void)loginWithGooglePlusSDK:(NSString *)userId accessToken:(NSString *)accessToken permissions:(NSArray *)permissions fieldsMapping:(NSDictionary *)fieldsMapping responder:(id<IResponder>)responder;
 
 // async methods with block-based callbacks
 -(void)registering:(BackendlessUser *)user response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock;
@@ -91,14 +94,21 @@
 -(void)getUserRoles:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)loginWithFacebookSDK:(FBSDKAccessToken *)accessToken fieldsMapping:(NSDictionary *)fieldsMapping response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)loginWithGooglePlusSDK:(NSString *)userId accessToken:(NSString *)accessToken permissions:(NSArray *)permissions fieldsMapping:(NSDictionary *)fieldsMapping response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 
-// async methods of social easy logins
--(void)easyLoginWithFacebookFieldsMapping:(NSDictionary *)fieldsMapping permissions:(NSArray *)permissions response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)easyLoginWithTwitterFieldsMapping:(NSDictionary *)fieldsMapping response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)easyLoginWithFacebookFieldsMapping:(NSDictionary *)fieldsMapping permissions:(NSArray *)permissions responder:(id<IResponder>)responder;
--(void)easyLoginWithTwitterFieldsMapping:(NSDictionary *)fieldsMapping responder:(id<IResponder>)responder;
+// methods of social easy logins
+// Facebook
 -(void)easyLoginWithFacebookFieldsMapping:(NSDictionary *)fieldsMapping permissions:(NSArray *)permissions;
+-(void)easyLoginWithFacebookFieldsMapping:(NSDictionary *)fieldsMapping permissions:(NSArray *)permissions responder:(id<IResponder>)responder;
+-(void)easyLoginWithFacebookFieldsMapping:(NSDictionary *)fieldsMapping permissions:(NSArray *)permissions response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+// Twitter
 -(void)easyLoginWithTwitterFieldsMapping:(NSDictionary *)fieldsMapping;
+-(void)easyLoginWithTwitterFieldsMapping:(NSDictionary *)fieldsMapping responder:(id<IResponder>)responder;
+-(void)easyLoginWithTwitterFieldsMapping:(NSDictionary *)fieldsMapping response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+// GooglePlus
+-(void)easyLoginWithGooglePlusFieldsMapping:(NSDictionary *)fieldsMapping permissions:(NSArray *)permissions;
+-(void)easyLoginWithGooglePlusFieldsMapping:(NSDictionary *)fieldsMapping permissions:(NSArray *)permissions responder:(id<IResponder>)responder;
+-(void)easyLoginWithGooglePlusFieldsMapping:(NSDictionary *)fieldsMapping permissions:(NSArray *)permissions response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
 
 // utilites
 -(id)handleOpenURL:(NSURL *)url;

@@ -54,11 +54,14 @@ static NSString *METHOD_RESTORE_PASSWORD = @"restorePassword";
 static NSString *METHOD_DESCRIBE_USER_CLASS = @"describeUserClass";
 static NSString *METHOD_ASSIGN_ROLE = @"assignRole";
 static NSString *METHOD_UNASSIGN_ROLE = @"unassignRole";
+static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
+static NSString *METHOD_IS_VALID_USER_TOKEN = @"isValidUserToken";
 static NSString *METHOD_USER_LOGIN_WITH_FACEBOOK = @"getFacebookServiceAuthorizationUrlLink";
 static NSString *METHOD_USER_LOGIN_WITH_TWITTER = @"getTwitterServiceAuthorizationUrlLink";
+static NSString *METHOD_USER_LOGIN_WITH_GOOGLEPLUS = @"getGooglePlusServiceAuthorizationUrlLink";
 static NSString *METHOD_USER_LOGIN_WITH_FACEBOOK_SDK = @"loginWithFacebook";
-static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
-static NSString *METHOD_IS_VALID_USER_TOKEN = @"isValidUserToken"; 
+static NSString *METHOD_USER_LOGIN_WITH_GOOGLEPLUS_SDK = @"loginWithGooglePlus";
+
 //  BACKENDLESS HEADER KEYS
 #if 0
 static NSString *USER_TOKEN_KEY = @"user-token\0";
@@ -502,9 +505,27 @@ id result = nil;
     }
 }
 
+-(BackendlessUser *)loginWithGooglePlusSDK:(NSString *)userId accessToken:(NSString *)accessToken permissions:(NSArray *)permissions fieldsMapping:(NSDictionary *)fieldsMapping error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self loginWithGooglePlusSDK:userId accessToken:accessToken permissions:permissions fieldsMapping:fieldsMapping];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
 #endif
 
-// sync methods with fault return  (as exception)
+// sync methods with fault return (as exception)
 
 -(BackendlessUser *)registering:(BackendlessUser *)user {
     
@@ -635,6 +656,16 @@ id result = nil;
     return [self loginWithFacebookSocialUserId:[accessToken valueForKey:@"userID"] accessToken:[accessToken valueForKey:@"tokenString"] expirationDate:[accessToken valueForKey:@"expirationDate"] permissions:[accessToken valueForKey:@"permissions"] fieldsMapping:fieldsMapping];
 }
 
+-(id)loginWithGooglePlusSDK:(NSString *)userId accessToken:(NSString *)accessToken permissions:(NSArray *)permissions fieldsMapping:(NSDictionary *)fieldsMapping {
+    
+    if (!userId||!userId.length||!accessToken||!accessToken.length)
+        return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, userId, accessToken, permissions?permissions:@[], fieldsMapping?fieldsMapping:@{}];
+    id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_GOOGLEPLUS_SDK args:args];
+    return [result isKindOfClass:[Fault class]] ? result : [self onLogin:result];
+}
+
 // async methods with responder
 
 -(void)registering:(BackendlessUser *)user responder:(id <IResponder>)responder {
@@ -746,6 +777,17 @@ id result = nil;
     [self loginWithFacebookSocialUserId:[accessToken valueForKey:@"userID"] accessToken:[accessToken valueForKey:@"tokenString"] expirationDate:[accessToken valueForKey:@"expirationDate"] permissions:[NSSet setWithArray:[accessToken valueForKey:@"permissions"]] fieldsMapping:fieldsMapping responder:responder];
 }
 
+-(void)loginWithGooglePlusSDK:(NSString *)userId accessToken:(NSString *)accessToken permissions:(NSArray *)permissions fieldsMapping:(NSDictionary *)fieldsMapping responder:(id<IResponder>)responder {
+    
+    if (!userId||!userId.length||!accessToken||!accessToken.length)
+        return [responder errorHandler:FAULT_NO_USER_CREDENTIALS];
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, userId, accessToken, permissions?permissions:@[], fieldsMapping?fieldsMapping:@{}];
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onLogin:) selErrorHandler:nil];
+    _responder.chained = responder;
+    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_GOOGLEPLUS_SDK args:args responder:_responder];
+}
+
 // async methods with block-based callbacks
 
 -(void)registering:(BackendlessUser *)user response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -796,7 +838,17 @@ id result = nil;
     [self loginWithFacebookSDK:accessToken fieldsMapping:fieldsMapping responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
-// async social easy logins
+-(void)loginWithGooglePlusSDK:(NSString *)userId accessToken:(NSString *)accessToken permissions:(NSArray *)permissions fieldsMapping:(NSDictionary *)fieldsMapping response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self loginWithGooglePlusSDK:userId accessToken:accessToken permissions:permissions fieldsMapping:fieldsMapping responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+
+// methods of social easy logins
+
+// Facebook
+-(void)easyLoginWithFacebookFieldsMapping:(NSDictionary *)fieldsMapping permissions:(NSArray *)permissions
+{
+    [self easyLoginWithFacebookFieldsMapping:fieldsMapping permissions:permissions responder:nil];
+}
 
 -(void)easyLoginWithFacebookFieldsMapping:(NSDictionary *)fieldsMapping permissions:(NSArray *)permissions responder:(id<IResponder>)responder
 {
@@ -804,6 +856,17 @@ id result = nil;
     _responder.chained = responder;
     NSArray *args = @[backendless.appID, backendless.versionNum, backendless.applicationType, fieldsMapping?fieldsMapping:@{}, permissions?permissions:@{}];
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_FACEBOOK args:args responder:_responder];
+}
+
+-(void)easyLoginWithFacebookFieldsMapping:(NSDictionary *)fieldsMapping permissions:(NSArray *)permissions response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock
+{
+    [self easyLoginWithFacebookFieldsMapping:fieldsMapping permissions:permissions responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+
+// TWitter
+-(void)easyLoginWithTwitterFieldsMapping:(NSDictionary *)fieldsMapping
+{
+    [self easyLoginWithTwitterFieldsMapping:fieldsMapping responder:nil];
 }
 
 -(void)easyLoginWithTwitterFieldsMapping:(NSDictionary *)fieldsMapping responder:(id <IResponder>)responder
@@ -814,22 +877,26 @@ id result = nil;
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_TWITTER args:args responder:_responder];
 }
 
--(void)easyLoginWithFacebookFieldsMapping:(NSDictionary *)fieldsMapping permissions:(NSArray *)permissions
-{
-    [self easyLoginWithFacebookFieldsMapping:fieldsMapping permissions:permissions responder:nil];
-}
-
--(void)easyLoginWithTwitterFieldsMapping:(NSDictionary *)fieldsMapping
-{
-    [self easyLoginWithTwitterFieldsMapping:fieldsMapping responder:nil];
-}
-
 -(void)easyLoginWithTwitterFieldsMapping:(NSDictionary *)fieldsMapping response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock
 {
     [self easyLoginWithTwitterFieldsMapping:fieldsMapping responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)easyLoginWithFacebookFieldsMapping:(NSDictionary *)fieldsMapping permissions:(NSArray *)permissions response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock
+// GooglePlus
+-(void)easyLoginWithGooglePlusFieldsMapping:(NSDictionary *)fieldsMapping permissions:(NSArray *)permissions
+{
+    [self easyLoginWithFacebookFieldsMapping:fieldsMapping permissions:permissions responder:nil];
+}
+
+-(void)easyLoginWithGooglePlusFieldsMapping:(NSDictionary *)fieldsMapping permissions:(NSArray *)permissions responder:(id<IResponder>)responder
+{
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(easyLoginResponder:) selErrorHandler:@selector(easyLoginError:)];
+    _responder.chained = responder;
+    NSArray *args = @[backendless.appID, backendless.versionNum, backendless.applicationType, fieldsMapping?fieldsMapping:@{}, permissions?permissions:@{}];
+    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_GOOGLEPLUS args:args responder:_responder];
+}
+
+-(void)easyLoginWithGooglePlusFieldsMapping:(NSDictionary *)fieldsMapping permissions:(NSArray *)permissions response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock
 {
     [self easyLoginWithFacebookFieldsMapping:fieldsMapping permissions:permissions responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
