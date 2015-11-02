@@ -105,6 +105,7 @@ static NSString *METHOD_EXISTS = @"exists";
 -(id)init {
 	if ( (self=[super init]) ) {
         
+        [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.BackendlessCollection" mapped:[BackendlessCollection class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.management.files.FileInfo" mapped:BEFileInfo.class];
         
         asyncResponses = [NSMutableArray new];
