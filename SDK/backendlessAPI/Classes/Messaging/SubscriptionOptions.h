@@ -34,6 +34,7 @@ typedef enum {
 @property (strong, nonatomic, readonly) NSString *deliveryMethod;
 @property (strong, nonatomic) NSString *deviceId;
 
++(id)subscriptionOptionsWithDeliveryMethod:(DeliveryMethodEnum)deliveryMethod;
 -(DeliveryMethodEnum)valDeliveryMethod;
 -(void)deliveryMethod:(DeliveryMethodEnum)deliveryMethod;
 @end

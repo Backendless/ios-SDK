@@ -55,6 +55,12 @@
 #pragma mark -
 #pragma mark Public Methods
 
++(id)subscriptionOptionsWithDeliveryMethod:(DeliveryMethodEnum)deliveryMethod {
+    SubscriptionOptions *subscriptionOptions = [SubscriptionOptions new];
+    [subscriptionOptions deliveryMethod:deliveryMethod];
+    return [subscriptionOptions autorelease];
+}
+
 -(DeliveryMethodEnum)valDeliveryMethod {
     return _deliveryMethod?(DeliveryMethodEnum)[DELIVERY_METHOD indexOfObject:_deliveryMethod]:DELIVERY_POLL;
 }

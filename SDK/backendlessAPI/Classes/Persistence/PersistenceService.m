@@ -528,6 +528,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 
 id result = nil;
 @try {
+    result = [self <method with fault return>];
 }
 @catch (Fault *fault) {
     result = fault;
@@ -1012,23 +1013,37 @@ id result = nil;
 
 -(BackendlessCollection *)getView:(NSString *)viewName dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault {
     
+    id result = nil;
     @try {
-        return [self getView:viewName dataQuery:dataQuery];
+        result = [self getView:viewName dataQuery:dataQuery];
     }
-    @catch (Fault *_fault) {
-        if (fault)(*fault) = _fault;
-        return nil;
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
     }
 }
 
 -(BackendlessCollection *)callStoredProcedure:(NSString *)spName arguments:(NSDictionary *)arguments error:(Fault **)fault {
     
+    id result = nil;
     @try {
-        return [self callStoredProcedure:spName arguments:arguments];
+        result = [self callStoredProcedure:spName arguments:arguments];
     }
-    @catch (Fault *_fault) {
-        if (fault)(*fault) = _fault;
-        return nil;
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
     }
 }
 

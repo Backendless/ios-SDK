@@ -604,12 +604,19 @@ id result = nil;
 
 -(NSNumber *)exists:(NSString *)path error:(Fault **)fault {
     
+    id result = nil;
     @try {
-        return [self exists:path];
+        result = [self exists:path];
     }
-    @catch (Fault *_fault) {
-        if (fault)(*fault) = _fault;
-        return nil;
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
     }
 }
 

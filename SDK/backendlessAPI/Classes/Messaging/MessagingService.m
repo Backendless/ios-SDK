@@ -107,7 +107,7 @@ static NSString *METHOD_SEND_EMAIL = @"send";
     if ( (self=[super init]) ) {
         
         self.pollingFrequencyMs = POLLING_INTERVAL;
-        self.subscriptions = [HashMap new];
+        _subscriptions = [HashMap new];
         
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.management.DeviceRegistrationDto" mapped:[DeviceRegistration class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.messaging.Message" mapped:[Message class]];
@@ -1456,7 +1456,6 @@ id result = nil;
 }
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-// for pubsub using silent remote notification (SubscriptionOptions.deliveryMethod = DELIVERY_PUSH)
 
 -(void)registerForRemoteNotifications {
     
@@ -1476,10 +1475,19 @@ id result = nil;
 -(void)unregisterForRemoteNotifications {
     [[UIApplication sharedApplication] unregisterForRemoteNotifications];
 }
+// for pubsub using silent remote notification (SubscriptionOptions.deliveryMethod = DELIVERY_PUSH)
 
 -(void)didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     NSDictionary *remoteDict = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     if (remoteDict) [self didReceiveRemoteNotification:remoteDict];
+    [self registerForRemoteNotifications];
+}
+
+-(void)applicationWillTerminate {
+    [self unregisterForRemoteNotifications];
+    if ([self.pushReceiver respondsToSelector:@selector(applicationWillTerminate)]) {
+        [self.pushReceiver applicationWillTerminate];
+    }
 }
 
 -(void)didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken {
@@ -1490,17 +1498,26 @@ id result = nil;
     @try {
         NSString *deviceRegistrationId = [self registerDeviceToken:deviceTokenStr];
         [DebLog log:@"MessagingService -> application:didRegisterForRemoteNotificationsWithDeviceToken: -> registerDeviceToken: deviceRegistrationId = %@", deviceRegistrationId];
+        if ([self.pushReceiver respondsToSelector:@selector(didRegisterForRemoteNotificationsWithDeviceId:fault:)]) {
+            [self.pushReceiver didRegisterForRemoteNotificationsWithDeviceId:deviceRegistrationId fault:nil];
+        }
     }
     @catch (Fault *fault) {
-        [DebLog logY:@"MessagingService -> application:didRegisterForRemoteNotificationsWithDeviceToken: -> registerDeviceToken: %@", fault];
+        [DebLog log:@"MessagingService -> application:didRegisterForRemoteNotificationsWithDeviceToken: -> registerDeviceToken: %@", fault];
+        if ([self.pushReceiver respondsToSelector:@selector(didRegisterForRemoteNotificationsWithDeviceId:fault:)]) {
+            [self.pushReceiver didRegisterForRemoteNotificationsWithDeviceId:nil fault:fault];
+        }
     }
 }
 
 -(void)didFailToRegisterForRemoteNotificationsWithError:(NSError *)err {
-    [DebLog logY:@"MessagingService -> application:didFailToRegisterForRemoteNotificationsWithError: %@", err];
+    [DebLog log:@"MessagingService -> application:didFailToRegisterForRemoteNotificationsWithError: %@", err];
+    if ([self.pushReceiver respondsToSelector:@selector(didFailToRegisterForRemoteNotificationsWithError:)]) {
+        [self.pushReceiver didFailToRegisterForRemoteNotificationsWithError:err];
+    }
 }
 
--(NSString *)didReceiveRemoteNotification:(NSDictionary *)userInfo {
+-(void)didReceiveRemoteNotification:(NSDictionary *)userInfo {
     
     [DebLog log:@"MessagingService -> application:didReceiveRemoteNotification: %@", userInfo];
     
@@ -1527,8 +1544,13 @@ id result = nil;
             }
         }
     }
-   
-    return pushMessage;
+    else {
+        if ([self.pushReceiver respondsToSelector:@selector(didReceiveRemoteNotification:headers:)]) {
+            NSMutableDictionary *headers = [NSMutableDictionary dictionaryWithDictionary:userInfo];
+            [headers removeObjectForKey:@"aps"];
+            [self.pushReceiver didReceiveRemoteNotification:pushMessage headers:headers];
+        }
+    }
 }
 #endif
 

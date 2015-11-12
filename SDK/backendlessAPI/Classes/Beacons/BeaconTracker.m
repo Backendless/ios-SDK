@@ -185,14 +185,16 @@
 #pragma mark - CLLocationManagerDelegate
     
 -(void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
-    [DebLog log:@"Failed monitoring region: %@", error];
+    [DebLog log:@"locationManager:monitoringDidFailForRegion:withError: %@", error];
 }
     
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    [DebLog log:@"Location manager failed: %@", error];
+    [DebLog log:@"locationManager:didFailWithError: %@", error];
 }
 
 -(void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region {
+    
+    [DebLog log:@"locationManager:didRangeBeacons: %@ inRegion: %@", beacons, region];
     
     NSMutableDictionary<BackendlessBeacon*, NSNumber*> *notifiedBeacons = [NSMutableDictionary new];
     NSMutableDictionary<NSString*, NSNumber*> *currentBeacons = [NSMutableDictionary new];

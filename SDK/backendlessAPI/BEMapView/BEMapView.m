@@ -261,6 +261,8 @@
 }
 -(id)responseHandler:(BackendlessCollection *)response
 {
+    //NSLog(@"BEMapView -> responseHandler: %@", response);
+    
     if (_autoUpdate) {
 #if 1
         if (!_responseData.count) {
@@ -299,7 +301,7 @@
 {
     [self removeAllObjects];
     [_responseData removeAllObjects];
-    NSLog(@"BEMapView -> errorHandler:%@", fault.detail);
+    //NSLog(@"BEMapView -> errorHandler:%@", fault.detail);
     if ([_beMapViewDelegate respondsToSelector:@selector(mapView:didFinishWithFault:)]) {
         [_beMapViewDelegate mapView:self didFinishWithFault:fault];
     }
@@ -453,7 +455,11 @@
     circle.fillColor = [UIColor colorWithRed:0.1 green:0.8 blue:0.1 alpha:0.4];
     circle.lineWidth = 1;
     circle.strokeColor = [UIColor redColor];
+#if 0
     return circle;
+#else
+    return [circle autorelease];
+#endif
 }
 
 -(MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id<MKOverlay>)overlay
@@ -465,8 +471,11 @@
     MKCircleView *circleView = [[MKCircleView alloc] initWithCircle:overlay];
     
     circleView.fillColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.5];
-    
+#if 0
     return circleView;
+#else
+    return [circleView autorelease];
+#endif
 }
 
 -(void)mapViewDidFailLoadingMap:(MKMapView *)mapView withError:(NSError *)error
@@ -525,6 +534,7 @@
     }
 }
 
+#if 0
 -(void)getPoints:(BackendlessGeoQuery *)query
 {
     _autoUpdate = NO;
@@ -574,5 +584,5 @@
     _responder.chained = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     [backendless.geoService relativeFind:query responder:_responder];
 }
-
+#endif
 @end

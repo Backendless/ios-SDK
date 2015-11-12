@@ -48,9 +48,18 @@
 @class MessageStatus, PublishOptions, DeliveryOptions, SubscriptionOptions, BESubscription, BodyParts, Fault;
 @protocol IResponder;
 
+@protocol IBEPushReceiver <NSObject>
+@optional
+-(void)didReceiveRemoteNotification:(NSString *)notification headers:(NSDictionary *)headers;
+-(void)didRegisterForRemoteNotificationsWithDeviceId:(NSString *)deviceId fault:(Fault *)fault;
+-(void)didFailToRegisterForRemoteNotificationsWithError:(NSError *)err;
+-(void)applicationWillTerminate;
+@end
+
 @interface MessagingService : NSObject
 @property (nonatomic) uint pollingFrequencyMs;
-@property (strong, nonatomic) HashMap *subscriptions;
+@property (strong, nonatomic, readonly) HashMap *subscriptions;
+@property (assign, nonatomic) id <IBEPushReceiver> pushReceiver;
 
 // sync methods with fault return (as exception)
 -(NSString *)registerDeviceWithTokenData:(NSData *)deviceToken;
@@ -173,12 +182,11 @@
 -(NSString *)deviceTokenAsString:(NSData *)token;
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-// for pubsub using silent remote notification (SubscriptionOptions.deliveryMethod = DELIVERY_PUSH)
--(void)registerForRemoteNotifications;
-// invoke it in -(void)applicationWillTerminate:(UIApplication *)application
--(void)unregisterForRemoteNotifications;
+// the methods for AppDelegate using for push publish & push pub/sub (SubscriptionOptions.deliveryMethod = DELIVERY_PUSH)
 // invoke it in -(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 -(void)didFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
+// invoke it in -(void)applicationWillTerminate:(UIApplication *)application
+-(void)applicationWillTerminate;
 // invoke it in - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
 -(void)didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken;
 // invoke it in - (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err
@@ -186,7 +194,7 @@
 // invoke it in:
 // - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 // -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))handler
--(NSString *)didReceiveRemoteNotification:(NSDictionary *)userInfo;
+-(void)didReceiveRemoteNotification:(NSDictionary *)userInfo;
 #endif
 
 @end

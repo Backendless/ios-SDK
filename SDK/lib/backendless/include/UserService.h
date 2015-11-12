@@ -105,7 +105,7 @@
 -(void)easyLoginWithTwitterFieldsMapping:(NSDictionary *)fieldsMapping;
 -(void)easyLoginWithTwitterFieldsMapping:(NSDictionary *)fieldsMapping responder:(id<IResponder>)responder;
 -(void)easyLoginWithTwitterFieldsMapping:(NSDictionary *)fieldsMapping response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
-// GooglePlus
+// Google+
 -(void)easyLoginWithGooglePlusFieldsMapping:(NSDictionary *)fieldsMapping permissions:(NSArray *)permissions;
 -(void)easyLoginWithGooglePlusFieldsMapping:(NSDictionary *)fieldsMapping permissions:(NSArray *)permissions responder:(id<IResponder>)responder;
 -(void)easyLoginWithGooglePlusFieldsMapping:(NSDictionary *)fieldsMapping permissions:(NSArray *)permissions response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;

@@ -882,10 +882,10 @@ id result = nil;
     [self easyLoginWithTwitterFieldsMapping:fieldsMapping responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
-// GooglePlus
+// Google+
 -(void)easyLoginWithGooglePlusFieldsMapping:(NSDictionary *)fieldsMapping permissions:(NSArray *)permissions
 {
-    [self easyLoginWithFacebookFieldsMapping:fieldsMapping permissions:permissions responder:nil];
+    [self easyLoginWithGooglePlusFieldsMapping:fieldsMapping permissions:permissions responder:nil];
 }
 
 -(void)easyLoginWithGooglePlusFieldsMapping:(NSDictionary *)fieldsMapping permissions:(NSArray *)permissions responder:(id<IResponder>)responder
@@ -898,7 +898,7 @@ id result = nil;
 
 -(void)easyLoginWithGooglePlusFieldsMapping:(NSDictionary *)fieldsMapping permissions:(NSArray *)permissions response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock
 {
-    [self easyLoginWithFacebookFieldsMapping:fieldsMapping permissions:permissions responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    [self easyLoginWithGooglePlusFieldsMapping:fieldsMapping permissions:permissions responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 // utilites

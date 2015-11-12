@@ -51,6 +51,8 @@ typedef enum {
 @property (strong, nonatomic) NSNumber *repeatEvery;
 @property (strong, nonatomic) NSDate *repeatExpiresAt;
 
++(id)deliveryOptionsForNotification:(PushPolicyEnum)pushPolice;
+
 -(PushPolicyEnum)valPushPolicy;
 -(BOOL)pushPolicy:(PushPolicyEnum)pushPolicy;
 -(PushBroadcastEnum)valPushBroadcast;
@@ -58,6 +60,5 @@ typedef enum {
 -(long)valRepeatEvery;
 -(BOOL)repeatEvery:(long)repeatEvery;
 -(BOOL)addSinglecast:(NSString *)device;
-+(id)deliveryOptionsForNotification:(PushPolicyEnum)pushPolice;
 
 @end
