@@ -1472,19 +1472,26 @@ id result = nil;
     }
 }
 
--(void)unregisterForRemoteNotifications {
+-(void)unregisterFromRemoteNotifications {
     [[UIApplication sharedApplication] unregisterForRemoteNotifications];
 }
 // for pubsub using silent remote notification (SubscriptionOptions.deliveryMethod = DELIVERY_PUSH)
 
--(void)didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    NSDictionary *remoteDict = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-    if (remoteDict) [self didReceiveRemoteNotification:remoteDict];
+-(void)registerForPushPubSub {
     [self registerForRemoteNotifications];
 }
 
+-(void)unregisterFromPushPubSub {
+    [self unregisterFromRemoteNotifications];
+}
+
+-(void)didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    NSDictionary *remoteDict = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    if (remoteDict) [self didReceiveRemoteNotification:remoteDict];
+}
+
 -(void)applicationWillTerminate {
-    [self unregisterForRemoteNotifications];
+    [self unregisterFromRemoteNotifications];
     if ([self.pushReceiver respondsToSelector:@selector(applicationWillTerminate)]) {
         [self.pushReceiver applicationWillTerminate];
     }
@@ -1566,8 +1573,11 @@ id result = nil;
     
     if (!subscriptionOptions)
         subscriptionOptions = [SubscriptionOptions new];
-    
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, channelName, subscriptionOptions, nil];
+#if !BACKENDLESS_VERSION_2_1_0
+    NSArray *args = @[backendless.appID, backendless.versionNum, channelName, subscriptionOptions];
+#else
+    NSArray *args = @[backendless.appID, backendless.versionNum, channelName, subscriptionOptions, deviceRegistration];
+#endif
     return [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_POLLING_SUBSCRIBE args:args];
     
 }
@@ -1581,8 +1591,11 @@ id result = nil;
     
     if (!subscriptionOptions)
         subscriptionOptions = [SubscriptionOptions new];
-    
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, channelName, subscriptionOptions, nil];
+#if !BACKENDLESS_VERSION_2_1_0
+    NSArray *args = @[backendless.appID, backendless.versionNum, channelName, subscriptionOptions];
+#else
+    NSArray *args = @[backendless.appID, backendless.versionNum, channelName, subscriptionOptions, deviceRegistration];
+#endif
     [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_POLLING_SUBSCRIBE args:args responder:responder];
 }
 

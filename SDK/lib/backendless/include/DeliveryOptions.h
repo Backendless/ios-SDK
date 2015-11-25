@@ -26,7 +26,7 @@
 typedef enum {
     PUSH_ONLY,
     PUSH_ALSO,
-    PUSH_NONE
+    PUSH_PUBSUB
 } PushPolicyEnum;
 
 typedef enum {

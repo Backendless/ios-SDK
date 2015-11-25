@@ -182,7 +182,11 @@
 -(NSString *)deviceTokenAsString:(NSData *)token;
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+-(void)registerForRemoteNotifications;
+-(void)unregisterFromRemoteNotifications;
 // the methods for AppDelegate using for push publish & push pub/sub (SubscriptionOptions.deliveryMethod = DELIVERY_PUSH)
+-(void)registerForPushPubSub;
+-(void)unregisterFromPushPubSub;
 // invoke it in -(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 -(void)didFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
 // invoke it in -(void)applicationWillTerminate:(UIApplication *)application
