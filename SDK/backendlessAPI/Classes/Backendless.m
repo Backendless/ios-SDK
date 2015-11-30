@@ -34,9 +34,9 @@
 static NSString *BACKENDLESS_HOST_URL = @"https://api.backendless.com";
 // wowza hardcorded url
 #if !TEST_MEDIA_INSTANCE // work
-static NSString *BACKENDLESS_MEDIA_URL = @"rtmp://wowza.backendless.com:1935/mediaApp";
+static NSString *BACKENDLESS_MEDIA_URL = @"rtmp://media.backendless.com:1935/mediaApp";
 #else // test
-static NSString *BACKENDLESS_MEDIA_URL = @"rtmp://10.0.1.33:1935/live"; // Dima
+static NSString *BACKENDLESS_MEDIA_URL = @"rtmp://10.0.1.33:1935/live"; 
 #endif
 
 static NSString *VERSION_NUM = @"v1";
