@@ -514,33 +514,33 @@
 		F9C7DE9A1B7CBFE600AFCD06 /* BackendlessSimpleQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C7DE961B7CBFE600AFCD06 /* BackendlessSimpleQuery.m */; };
 		F9C7DE9B1B7CBFE600AFCD06 /* BackendlessSimpleQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C7DE961B7CBFE600AFCD06 /* BackendlessSimpleQuery.m */; };
 		F9C7DE9C1B7CBFE600AFCD06 /* BackendlessSimpleQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C7DE961B7CBFE600AFCD06 /* BackendlessSimpleQuery.m */; };
-		F9CB136B1BC284A900F3CA1D /* BeaconsInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13691BC284A900F3CA1D /* BeaconsInfo.h */; settings = {ASSET_TAGS = (); }; };
-		F9CB136C1BC284A900F3CA1D /* BeaconsInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13691BC284A900F3CA1D /* BeaconsInfo.h */; settings = {ASSET_TAGS = (); }; };
-		F9CB136D1BC284A900F3CA1D /* BeaconsInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13691BC284A900F3CA1D /* BeaconsInfo.h */; settings = {ASSET_TAGS = (); }; };
-		F9CB136E1BC284A900F3CA1D /* BeaconsInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB136A1BC284A900F3CA1D /* BeaconsInfo.m */; settings = {ASSET_TAGS = (); }; };
-		F9CB136F1BC284A900F3CA1D /* BeaconsInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB136A1BC284A900F3CA1D /* BeaconsInfo.m */; settings = {ASSET_TAGS = (); }; };
-		F9CB13701BC284A900F3CA1D /* BeaconsInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB136A1BC284A900F3CA1D /* BeaconsInfo.m */; settings = {ASSET_TAGS = (); }; };
+		F9CB136B1BC284A900F3CA1D /* BeaconsInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13691BC284A900F3CA1D /* BeaconsInfo.h */; };
+		F9CB136C1BC284A900F3CA1D /* BeaconsInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13691BC284A900F3CA1D /* BeaconsInfo.h */; };
+		F9CB136D1BC284A900F3CA1D /* BeaconsInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13691BC284A900F3CA1D /* BeaconsInfo.h */; };
+		F9CB136E1BC284A900F3CA1D /* BeaconsInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB136A1BC284A900F3CA1D /* BeaconsInfo.m */; };
+		F9CB136F1BC284A900F3CA1D /* BeaconsInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB136A1BC284A900F3CA1D /* BeaconsInfo.m */; };
+		F9CB13701BC284A900F3CA1D /* BeaconsInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB136A1BC284A900F3CA1D /* BeaconsInfo.m */; };
 		F9CB13811BC53B0200F3CA1D /* IPresenceListener.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13801BC53B0200F3CA1D /* IPresenceListener.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9CB13821BC53B0200F3CA1D /* IPresenceListener.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13801BC53B0200F3CA1D /* IPresenceListener.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9CB13831BC53B0200F3CA1D /* IPresenceListener.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13801BC53B0200F3CA1D /* IPresenceListener.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9CB13861BC53CDD00F3CA1D /* Presence.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13841BC53CDD00F3CA1D /* Presence.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9CB13871BC53CDD00F3CA1D /* Presence.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13841BC53CDD00F3CA1D /* Presence.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9CB13881BC53CDD00F3CA1D /* Presence.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13841BC53CDD00F3CA1D /* Presence.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F9CB13891BC53CDD00F3CA1D /* Presence.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB13851BC53CDD00F3CA1D /* Presence.m */; settings = {ASSET_TAGS = (); }; };
-		F9CB138A1BC53CDD00F3CA1D /* Presence.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB13851BC53CDD00F3CA1D /* Presence.m */; settings = {ASSET_TAGS = (); }; };
-		F9CB138B1BC53CDD00F3CA1D /* Presence.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB13851BC53CDD00F3CA1D /* Presence.m */; settings = {ASSET_TAGS = (); }; };
-		F9CB138E1BC53D2300F3CA1D /* BeaconTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB138C1BC53D2300F3CA1D /* BeaconTracker.h */; settings = {ASSET_TAGS = (); }; };
-		F9CB138F1BC53D2300F3CA1D /* BeaconTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB138C1BC53D2300F3CA1D /* BeaconTracker.h */; settings = {ASSET_TAGS = (); }; };
-		F9CB13901BC53D2300F3CA1D /* BeaconTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB138C1BC53D2300F3CA1D /* BeaconTracker.h */; settings = {ASSET_TAGS = (); }; };
-		F9CB13911BC53D2300F3CA1D /* BeaconTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB138D1BC53D2300F3CA1D /* BeaconTracker.m */; settings = {ASSET_TAGS = (); }; };
-		F9CB13921BC53D2300F3CA1D /* BeaconTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB138D1BC53D2300F3CA1D /* BeaconTracker.m */; settings = {ASSET_TAGS = (); }; };
-		F9CB13931BC53D2300F3CA1D /* BeaconTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB138D1BC53D2300F3CA1D /* BeaconTracker.m */; settings = {ASSET_TAGS = (); }; };
-		F9CB13961BC53D5100F3CA1D /* BeaconMonitoring.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13941BC53D5100F3CA1D /* BeaconMonitoring.h */; settings = {ASSET_TAGS = (); }; };
-		F9CB13971BC53D5100F3CA1D /* BeaconMonitoring.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13941BC53D5100F3CA1D /* BeaconMonitoring.h */; settings = {ASSET_TAGS = (); }; };
-		F9CB13981BC53D5100F3CA1D /* BeaconMonitoring.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13941BC53D5100F3CA1D /* BeaconMonitoring.h */; settings = {ASSET_TAGS = (); }; };
-		F9CB13991BC53D5100F3CA1D /* BeaconMonitoring.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB13951BC53D5100F3CA1D /* BeaconMonitoring.m */; settings = {ASSET_TAGS = (); }; };
-		F9CB139A1BC53D5100F3CA1D /* BeaconMonitoring.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB13951BC53D5100F3CA1D /* BeaconMonitoring.m */; settings = {ASSET_TAGS = (); }; };
-		F9CB139B1BC53D5100F3CA1D /* BeaconMonitoring.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB13951BC53D5100F3CA1D /* BeaconMonitoring.m */; settings = {ASSET_TAGS = (); }; };
+		F9CB13891BC53CDD00F3CA1D /* Presence.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB13851BC53CDD00F3CA1D /* Presence.m */; };
+		F9CB138A1BC53CDD00F3CA1D /* Presence.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB13851BC53CDD00F3CA1D /* Presence.m */; };
+		F9CB138B1BC53CDD00F3CA1D /* Presence.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB13851BC53CDD00F3CA1D /* Presence.m */; };
+		F9CB138E1BC53D2300F3CA1D /* BeaconTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB138C1BC53D2300F3CA1D /* BeaconTracker.h */; };
+		F9CB138F1BC53D2300F3CA1D /* BeaconTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB138C1BC53D2300F3CA1D /* BeaconTracker.h */; };
+		F9CB13901BC53D2300F3CA1D /* BeaconTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB138C1BC53D2300F3CA1D /* BeaconTracker.h */; };
+		F9CB13911BC53D2300F3CA1D /* BeaconTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB138D1BC53D2300F3CA1D /* BeaconTracker.m */; };
+		F9CB13921BC53D2300F3CA1D /* BeaconTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB138D1BC53D2300F3CA1D /* BeaconTracker.m */; };
+		F9CB13931BC53D2300F3CA1D /* BeaconTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB138D1BC53D2300F3CA1D /* BeaconTracker.m */; };
+		F9CB13961BC53D5100F3CA1D /* BeaconMonitoring.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13941BC53D5100F3CA1D /* BeaconMonitoring.h */; };
+		F9CB13971BC53D5100F3CA1D /* BeaconMonitoring.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13941BC53D5100F3CA1D /* BeaconMonitoring.h */; };
+		F9CB13981BC53D5100F3CA1D /* BeaconMonitoring.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13941BC53D5100F3CA1D /* BeaconMonitoring.h */; };
+		F9CB13991BC53D5100F3CA1D /* BeaconMonitoring.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB13951BC53D5100F3CA1D /* BeaconMonitoring.m */; };
+		F9CB139A1BC53D5100F3CA1D /* BeaconMonitoring.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB13951BC53D5100F3CA1D /* BeaconMonitoring.m */; };
+		F9CB139B1BC53D5100F3CA1D /* BeaconMonitoring.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB13951BC53D5100F3CA1D /* BeaconMonitoring.m */; };
 		F9D5234D1B25CEF800F6A441 /* ClassCastException.h in Headers */ = {isa = PBXBuildFile; fileRef = F9D5234B1B25CEF800F6A441 /* ClassCastException.h */; };
 		F9D5234E1B25CEF800F6A441 /* ClassCastException.h in Headers */ = {isa = PBXBuildFile; fileRef = F9D5234B1B25CEF800F6A441 /* ClassCastException.h */; };
 		F9D5234F1B25CEF800F6A441 /* ClassCastException.h in Headers */ = {isa = PBXBuildFile; fileRef = F9D5234B1B25CEF800F6A441 /* ClassCastException.h */; };
@@ -713,6 +713,8 @@
 		F9796A2C166CD3A400595F5E /* backendless-device-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "backendless-device-Prefix.pch"; sourceTree = "<group>"; };
 		F9796A2D166CD3A400595F5E /* backendless_device.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = backendless_device.h; sourceTree = "<group>"; };
 		F9796A2F166CD3A400595F5E /* backendless_device.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = backendless_device.m; sourceTree = "<group>"; };
+		F97CA14A1C0C8F1A00222256 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
+		F97CA14C1C0C8F1A00222256 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
 		F98A7EFC1B307017007635B6 /* libbackendless-mac.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libbackendless-mac.a"; sourceTree = "<group>"; };
 		F98A7EFF1B307017007635B6 /* AMFSerializer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AMFSerializer.h; sourceTree = "<group>"; };
 		F98A7F001B307017007635B6 /* BinaryCodec.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BinaryCodec.h; sourceTree = "<group>"; };
@@ -1054,6 +1056,8 @@
 		D3B2F352193511900084D5DD /* Backendless-ios-SDK */ = {
 			isa = PBXGroup;
 			children = (
+				F97CA14B1C0C8F1A00222256 /* 3.0.0 */,
+				F97CA1491C0C8F1A00222256 /* 2.0.16 */,
 				F92544F01BBD542300B17304 /* 2.0.15 */,
 				F92544C91BBC0C6000B17304 /* 2.0.14 */,
 				F92544C71BBC0C6000B17304 /* 2.0.13 */,
@@ -1510,6 +1514,22 @@
 				F9796A2C166CD3A400595F5E /* backendless-device-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F97CA1491C0C8F1A00222256 /* 2.0.16 */ = {
+			isa = PBXGroup;
+			children = (
+				F97CA14A1C0C8F1A00222256 /* Backendless-ios-SDK.podspec */,
+			);
+			path = 2.0.16;
+			sourceTree = "<group>";
+		};
+		F97CA14B1C0C8F1A00222256 /* 3.0.0 */ = {
+			isa = PBXGroup;
+			children = (
+				F97CA14C1C0C8F1A00222256 /* Backendless-ios-SDK.podspec */,
+			);
+			path = 3.0.0;
 			sourceTree = "<group>";
 		};
 		F98A7EBE1B307017007635B6 /* osx */ = {
