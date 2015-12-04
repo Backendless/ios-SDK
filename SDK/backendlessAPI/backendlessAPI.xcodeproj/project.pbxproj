@@ -752,6 +752,7 @@
 		F99D923A160B6A6800AFF3F6 /* GeoPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoPoint.m; sourceTree = "<group>"; };
 		F99D923C160B6A7F00AFF3F6 /* GeoService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeoService.h; sourceTree = "<group>"; };
 		F99D923D160B6A7F00AFF3F6 /* GeoService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoService.m; sourceTree = "<group>"; };
+		F9B448D41C10841500E3A89C /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
 		F9BBFD2918783B740076BC6D /* CommLibiOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = CommLibiOS.a; sourceTree = "<group>"; };
 		F9BBFD2E18783B740076BC6D /* AMFSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMFSerializer.h; sourceTree = "<group>"; };
 		F9BBFD2F18783B740076BC6D /* BinaryCodec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BinaryCodec.h; sourceTree = "<group>"; };
@@ -1056,6 +1057,7 @@
 		D3B2F352193511900084D5DD /* Backendless-ios-SDK */ = {
 			isa = PBXGroup;
 			children = (
+				F9B448D31C10841500E3A89C /* 3.0.1 */,
 				F97CA14B1C0C8F1A00222256 /* 3.0.0 */,
 				F97CA1491C0C8F1A00222256 /* 2.0.16 */,
 				F92544F01BBD542300B17304 /* 2.0.15 */,
@@ -1592,6 +1594,14 @@
 				F99D9234160B61AF00AFF3F6 /* AbstractProperty.m */,
 			);
 			path = Property;
+			sourceTree = "<group>";
+		};
+		F9B448D31C10841500E3A89C /* 3.0.1 */ = {
+			isa = PBXGroup;
+			children = (
+				F9B448D41C10841500E3A89C /* Backendless-ios-SDK.podspec */,
+			);
+			path = 3.0.1;
 			sourceTree = "<group>";
 		};
 		F9BBFD2818783B740076BC6D /* CommLibiOS */ = {
