@@ -63,10 +63,15 @@
 
 -(BOOL)add:(NSString *)key withObject:(id)it {
 	
-	if (!key || [_node valueForKey:key])
-		return NO;	
+	if (!key)
+		return NO;
     
     @synchronized (self) {
+        
+        id value = [_node valueForKey:key];
+        if (value && ![value isKindOfClass:NSNull.class])
+            return NO;
+        
         [_node setObject:it?it:[NSNull null] forKey:key];
     }
 	
@@ -74,15 +79,19 @@
 }
 
 -(id)get:(NSString *)key {
-	return key?[_node valueForKey:key]:nil;
+
+    @synchronized (self) {
+        return key?[_node valueForKey:key]:nil;
+    }
 }
 
 -(BOOL)pop:(NSString *)key withObject:(id)it {	
-
-    if (!key || !it || (it != [_node valueForKey:key]))
-        return NO;
-        
+    
     @synchronized (self) {
+        
+        if (!key || !it || (it != [_node valueForKey:key]))
+            return NO;
+        
 		[_node removeObjectForKey:key];
 	}
     

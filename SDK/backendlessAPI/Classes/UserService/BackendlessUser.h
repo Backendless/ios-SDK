@@ -45,6 +45,7 @@
 -(id)initWithProperties:(NSDictionary *)props;
 
 -(void)setProperties:(NSDictionary *)props;
+-(void)addProperties:(NSDictionary *)props;
 -(NSDictionary *)getProperties;
 -(void)updateProperties:(NSDictionary *)props;
 -(id)getProperty:(NSString *)key;
