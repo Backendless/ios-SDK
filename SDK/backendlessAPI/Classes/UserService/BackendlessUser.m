@@ -130,7 +130,7 @@
     }
 }
 
--(NSMutableDictionary *)getProperties {
+-(NSDictionary *)getProperties {
     return (properties) ? properties.node : nil;
 }
 
