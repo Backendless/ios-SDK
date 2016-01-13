@@ -26,7 +26,6 @@
 @interface BackendlessUser () {
     HashMap *properties;
 }
-
 @end
 
 
@@ -60,15 +59,6 @@
 #pragma mark -
 #pragma mark getters / setters
 
-#if _OBJECT_ID_WITHOUT_SETTER_GETTER_
--(void)setObjectId:(NSString *)objectId {
-    [self setProperty:PERSIST_OBJECT_ID object:objectId];
-}
-
--(NSString *)objectId {
-    return [self getProperty:PERSIST_OBJECT_ID];
-}
-#else
 -(NSString *)getObjectId {
     return [self getProperty:PERSIST_OBJECT_ID];
 }
@@ -76,7 +66,6 @@
 -(void)setObjectId:(NSString *)objectId {
     [self setProperty:PERSIST_OBJECT_ID object:objectId];
 }
-#endif
 
 -(NSString *)getEmail {
     return [self getProperty:BACKENDLESS_EMAIL_KEY];
@@ -102,20 +91,12 @@
     [self setProperty:BACKENDLESS_NAME_KEY object:name];
 }
 
--(NSString *)getUserId {
-#if 0
-    return [self getProperty:BACKENDLESS_ID_KEY];
-#else
-    return [self getProperty:PERSIST_OBJECT_ID];
-#endif
-}
+#pragma mark -
+#pragma mark Public Methods
 
 -(NSString *)getUserToken {
     return [self getProperty:BACKENDLESS_USER_TOKEN];
 }
-
-#pragma mark -
-#pragma mark Public Methods
 
 -(void)setProperties:(NSDictionary *)props {
     
@@ -167,24 +148,19 @@
     
     [properties push:key withObject:value];
     
-#if 1
     if (backendless.userService.isStayLoggedIn && backendless.userService.currentUser && [self.objectId isEqualToString:backendless.userService.currentUser.objectId]) {
         [backendless.userService setPersistentUser];
     }
-#endif
 }
 
 -(void)removeProperty:(NSString *)key {
     
     if (!properties)
         return;
-#if 0
-    [properties del:key];
-#else
+    
     if ([properties get:key]) {
         [properties push:key withObject:nil];
     }
-#endif
 }
 
 -(void)removeProperties:(NSArray *)keys {
@@ -203,7 +179,7 @@
 #pragma mark overwrided NSObject Methods
 
 -(NSString *)description {
-    return [NSString stringWithFormat:@"<BackendlessUser> email:'%@', password:'%@', name:'%@', userId:'%@', userToken:'%@', objectId:'%@', properties:%@", self.email, self.password, self.name, self.userId, self.userToken, self.objectId, properties.node];
+    return [NSString stringWithFormat:@"<BackendlessUser> %@", properties.node];
 }
 
 @end

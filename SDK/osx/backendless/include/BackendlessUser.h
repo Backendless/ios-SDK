@@ -21,29 +21,23 @@
 
 #import <Foundation/Foundation.h>
 
-#define _OBJECT_ID_WITHOUT_SETTER_GETTER_ 0
-
 #define BACKENDLESS_EMAIL_KEY @"email"
 #define BACKENDLESS_NAME_KEY @"name"
 #define BACKENDLESS_PASSWORD_KEY @"password"
 #define BACKENDLESS_ID_KEY @"id"
 #define BACKENDLESS_USER_TOKEN @"user-token"
+#define BACKENDLESS_USER_REGISTERED @"user-registered"
 
 @interface BackendlessUser : NSObject
 
-#if _OBJECT_ID_WITHOUT_SETTER_GETTER_
-@property (nonatomic, retain) NSString *objectId;
-#else
 @property (nonatomic, assign, getter = getObjectId, setter = seObjectId:) NSString *objectId;
-#endif
 @property (nonatomic, assign, getter = getEmail, setter = setEmail:) NSString *email;
 @property (nonatomic, assign, getter = getPassword, setter = setPassword:) NSString *password;
 @property (nonatomic, assign, getter = getName, setter = setName:) NSString *name;
-@property (nonatomic, assign, getter = getUserId) NSString *userId;
-@property (nonatomic, assign, getter = getUserToken) NSString *userToken;
 
 -(id)initWithProperties:(NSDictionary *)props;
 
+-(NSString *)getUserToken;
 -(void)setProperties:(NSDictionary *)props;
 -(void)addProperties:(NSDictionary *)props;
 -(NSDictionary *)getProperties;

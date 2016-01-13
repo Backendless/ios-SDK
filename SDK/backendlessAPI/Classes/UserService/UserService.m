@@ -62,12 +62,6 @@ static NSString *METHOD_USER_LOGIN_WITH_GOOGLEPLUS = @"getGooglePlusServiceAutho
 static NSString *METHOD_USER_LOGIN_WITH_FACEBOOK_SDK = @"loginWithFacebook";
 static NSString *METHOD_USER_LOGIN_WITH_GOOGLEPLUS_SDK = @"loginWithGooglePlus";
 
-//  BACKENDLESS HEADER KEYS
-#if 0
-static NSString *USER_TOKEN_KEY = @"user-token\0";
-#else
-static NSString *USER_TOKEN_KEY = @"user-token";
-#endif
 
 @interface UserService ()
 // sync
@@ -535,7 +529,9 @@ id result = nil;
     if (![user getProperties])
         return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
     
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [user getProperties], nil];
+    NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
+    [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
+    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, props, nil];
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_REGISTER args:args];
     if ([result isKindOfClass:[Fault class]]) {
         return result;
@@ -552,7 +548,7 @@ id result = nil;
         return [backendless throwFault:FAULT_NO_USER];
     
     NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
-    [props removeObjectForKey:BACKENDLESS_USER_TOKEN];
+    [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, props, nil];
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_UPDATE args:args];
     if ([result isKindOfClass:[Fault class]]) {
@@ -596,10 +592,10 @@ id result = nil;
 
 -(NSNumber *)isValidUserToken {
 
-    if (!_currentUser || !_currentUser.userToken)
+    if (!_currentUser || !_currentUser.getUserToken)
         return [backendless throwFault:FAULT_NO_USER];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, _currentUser.userToken];
+    NSArray *args = @[backendless.appID, backendless.versionNum, _currentUser.getUserToken];
     return [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_IS_VALID_USER_TOKEN args:args];
 }
 
@@ -672,10 +668,13 @@ id result = nil;
     
     if (!user) 
         return [responder errorHandler:FAULT_NO_USER];
+    
     if (![user getProperties])
         return [responder errorHandler:FAULT_NO_USER_CREDENTIALS];
     
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [user getProperties], nil];
+    NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
+    [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
+    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, props, nil];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(registerResponse:) selErrorHandler:@selector(registerError:)];
     _responder.chained = responder;
     _responder.context = user;
@@ -688,7 +687,7 @@ id result = nil;
         return [responder errorHandler:FAULT_NO_USER];
     
     NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
-    [props removeObjectForKey:BACKENDLESS_USER_TOKEN];
+    [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, props, nil];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onUpdate:) selErrorHandler:nil];
     _responder.chained = responder;
@@ -717,10 +716,10 @@ id result = nil;
 
 -(void)isValidUserToken:(id <IResponder>)responder {
     
-    if (!_currentUser || !_currentUser.userToken)
+    if (!_currentUser || !_currentUser.getUserToken)
         return [responder errorHandler:FAULT_NO_USER];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, _currentUser.userToken];
+    NSArray *args = @[backendless.appID, backendless.versionNum, _currentUser.getUserToken];
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_IS_VALID_USER_TOKEN args:args responder:responder];
 }
 
@@ -928,8 +927,8 @@ id result = nil;
     id obj = [AMFSerializer deserializeFromFile:PERSIST_USER_FILE_NAME];
     _currentUser = obj ? [[BackendlessUser alloc] initWithProperties:obj] : nil;
     _isStayLoggedIn = (BOOL)_currentUser;
-    if (_isStayLoggedIn && _currentUser.userToken) {
-        [backendless.headers setValue:_currentUser.userToken forKey:USER_TOKEN_KEY];
+    if (_isStayLoggedIn && _currentUser.getUserToken) {
+        [backendless.headers setValue:_currentUser.getUserToken forKey:BACKENDLESS_USER_TOKEN];
     }
     
     [DebLog log:@"UserService -> getPersistentUser: currentUser = %@", _currentUser];
@@ -1014,8 +1013,8 @@ id result = nil;
         (_currentUser) ? [_currentUser setProperties:props] : (_currentUser = [[BackendlessUser alloc] initWithProperties:props]);        
     }
     
-    if (_currentUser.userToken)
-        [backendless.headers setValue:_currentUser.userToken forKey:USER_TOKEN_KEY];
+    if (_currentUser.getUserToken)
+        [backendless.headers setValue:_currentUser.getUserToken forKey:BACKENDLESS_USER_TOKEN];
     
     [DebLog log:@"UserService -> onLogin: response = %@\n backendless.headers = %@", response, backendless.headers];
     
@@ -1043,7 +1042,7 @@ id result = nil;
     if (_currentUser) [_currentUser release];
     _currentUser = nil;
     
-    [backendless.headers removeObjectForKey:USER_TOKEN_KEY];
+    [backendless.headers removeObjectForKey:BACKENDLESS_USER_TOKEN];
     
     [self resetPersistentUser];
     

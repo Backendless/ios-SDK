@@ -165,7 +165,7 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
     return nil;
 #else
     
-    id identity = backendless.userService.currentUser ? backendless.userService.currentUser.userToken : nil;
+    id identity = backendless.userService.currentUser ? backendless.userService.currentUser.getUserToken : nil;
     if (!identity) identity = [NSNull null];
     
     id tube = _tubeName ? _tubeName : [NSNull null];

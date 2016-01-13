@@ -91,7 +91,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     
     Users *user = [Users new];
     NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:[self getProperties]];
-    [data removeObjectsForKeys:@[@"user-token", @"userToken"]];
+    [data removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
     [user setProperties:data];
     return user;
 }
@@ -2173,7 +2173,7 @@ id get_object_id(id self, SEL _cmd)
     
     if ([[object class] isSubclassOfClass:[BackendlessUser class]]) {
         NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:[(BackendlessUser *) object getProperties]];
-        [data removeObjectsForKeys:@[@"user-token", @"userToken"]];
+        [data removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
         
         return data;
     }
@@ -2192,7 +2192,7 @@ id get_object_id(id self, SEL _cmd)
     
     if ([[object class] isSubclassOfClass:[BackendlessUser class]]) {
         NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:[(BackendlessUser *) object getProperties]];
-        [data removeObjectsForKeys:@[@"user-token", @"userToken"]];
+        [data removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
         
         return data;
     }
