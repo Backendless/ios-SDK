@@ -30,7 +30,7 @@
 
 @interface BackendlessUser : NSObject
 
-@property (nonatomic, assign, getter = getObjectId, setter = seObjectId:) NSString *objectId;
+@property (nonatomic, assign, getter = getObjectId, setter = setObjectId:) NSString *objectId;
 @property (nonatomic, assign, getter = getEmail, setter = setEmail:) NSString *email;
 @property (nonatomic, assign, getter = getPassword, setter = setPassword:) NSString *password;
 @property (nonatomic, assign, getter = getName, setter = setName:) NSString *name;
