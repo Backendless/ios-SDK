@@ -198,7 +198,7 @@ static NSString *METHOD_EXISTS = @"exists";
     return [BackendlessFile file:receiveUrl];
 }
 
--(id)renameFile:(NSString *)oldPathName newName:(NSString *)newName {
+-(NSString *)renameFile:(NSString *)oldPathName newName:(NSString *)newName {
     
     if (!oldPathName || !oldPathName.length)
         return [backendless throwFault:FAULT_NO_DIRECTORY_PATH];
@@ -210,7 +210,7 @@ static NSString *METHOD_EXISTS = @"exists";
     return [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_RENAME_FILE args:args];
 }
 
--(id)copyFile:(NSString *)sourcePathName target:(NSString *)targetPathName {
+-(NSString *)copyFile:(NSString *)sourcePathName target:(NSString *)targetPathName {
     
     if (!sourcePathName || !sourcePathName.length || !targetPathName || !targetPathName.length)
         return [backendless throwFault:FAULT_NO_DIRECTORY_PATH];
@@ -219,7 +219,7 @@ static NSString *METHOD_EXISTS = @"exists";
     return [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_COPY_FILE args:args];
 }
 
--(id)moveFile:(NSString *)sourcePathName target:(NSString *)targetPathName {
+-(NSString *)moveFile:(NSString *)sourcePathName target:(NSString *)targetPathName {
     
     if (!sourcePathName || !sourcePathName.length || !targetPathName || !targetPathName.length)
         return [backendless throwFault:FAULT_NO_DIRECTORY_PATH];
@@ -512,7 +512,7 @@ id result = nil;
     }
 }
 
--(BOOL)renameFile:(NSString *)oldPathName newName:(NSString *)newName error:(Fault **)fault {
+-(NSString *)renameFile:(NSString *)oldPathName newName:(NSString *)newName error:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -524,13 +524,13 @@ id result = nil;
     @finally {
         if ([result isKindOfClass:Fault.class]) {
             if (fault)(*fault) = result;
-            return NO;
+            return nil;
         }
-        return YES;
+        return result;
     }
 }
 
--(BOOL)copyFile:(NSString *)sourcePathName target:(NSString *)targetPathName error:(Fault **)fault {
+-(NSString *)copyFile:(NSString *)sourcePathName target:(NSString *)targetPathName error:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -542,13 +542,13 @@ id result = nil;
     @finally {
         if ([result isKindOfClass:Fault.class]) {
             if (fault)(*fault) = result;
-            return NO;
+            return nil;
         }
-        return YES;
+        return result;
     }
 }
 
--(BOOL)moveFile:(NSString *)sourcePathName target:(NSString *)targetPathName error:(Fault **)fault {
+-(NSString *)moveFile:(NSString *)sourcePathName target:(NSString *)targetPathName error:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -560,9 +560,9 @@ id result = nil;
     @finally {
         if ([result isKindOfClass:Fault.class]) {
             if (fault)(*fault) = result;
-            return NO;
+            return nil;
         }
-        return YES;
+        return result;
     }
 }
 
@@ -778,15 +778,15 @@ id result = nil;
     [self saveFile:filePathName content:content overwriteIfExist:overwrite responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)renameFile:(NSString *)oldPathName newName:(NSString *)newName response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)renameFile:(NSString *)oldPathName newName:(NSString *)newName response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self renameFile:oldPathName newName:newName responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)copyFile:(NSString *)sourcePathName target:(NSString *)targetPathName response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)copyFile:(NSString *)sourcePathName target:(NSString *)targetPathName response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self copyFile:sourcePathName target:targetPathName responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)moveFile:(NSString *)sourcePathName target:(NSString *)targetPathName response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)moveFile:(NSString *)sourcePathName target:(NSString *)targetPathName response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self moveFile:sourcePathName target:targetPathName responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 

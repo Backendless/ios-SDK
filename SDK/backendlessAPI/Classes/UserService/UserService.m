@@ -916,6 +916,9 @@ id result = nil;
 #else
     NSString *absoluteString = [[url.absoluteString stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@://", url.scheme] withString:@""] stringByRemovingPercentEncoding];
 #endif
+    
+    [DebLog log:@"UserService -> handleOpenURL: JSONObject = '%@'", absoluteString];
+    
     id userData = [NSJSONSerialization JSONObjectWithData:[absoluteString dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
     return [self onLogin:userData];
 }
@@ -951,6 +954,10 @@ id result = nil;
 // sync
 -(id)loginWithFacebookSocialUserId:(NSString *)userId accessToken:(NSString *)accessToken expirationDate:(NSDate *)expirationDate permissions:(NSSet *)permissions fieldsMapping:(NSDictionary *)fieldsMapping {
     
+#if 0
+    permissions = [NSSet setWithArray:@[@"email"]];
+#endif
+    
     NSArray *args = @[backendless.appID, backendless.versionNum, userId, accessToken, expirationDate, permissions, fieldsMapping?fieldsMapping:@{}];
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_FACEBOOK_SDK args:args];
     return [result isKindOfClass:[Fault class]] ? result : [self onLogin:result];
@@ -958,6 +965,10 @@ id result = nil;
 
 //async
 -(void)loginWithFacebookSocialUserId:(NSString *)userId accessToken:(NSString *)accessToken expirationDate:(NSDate *)expirationDate permissions:(NSSet *)permissions fieldsMapping:(NSDictionary *)fieldsMapping responder:(id<IResponder>)responder {
+    
+#if 0
+    permissions = [NSSet setWithArray:@[@"email", @"contact_email", @"public_profile"]];
+#endif
     
     NSArray *args = @[backendless.appID, backendless.versionNum, userId, accessToken, expirationDate, permissions, fieldsMapping?fieldsMapping:@{}];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onLogin:) selErrorHandler:nil];
