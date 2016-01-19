@@ -10,8 +10,8 @@
 
 @interface BEFileInfo : NSObject
 @property (strong, nonatomic) NSString *name;
-@property (strong, nonatomic) NSNumber *createOn;
+@property (strong, nonatomic) NSNumber *createdOn;
 @property (strong, nonatomic) NSString *publicUrl;
-@property (strong, nonatomic) NSString *url;
-@property (strong, nonatomic) NSNumber *size;
+@property (strong, nonatomic) NSString *URL;
+@property (strong, nonatomic) id publisher;
 @end

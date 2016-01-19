@@ -22,7 +22,7 @@
 #import <Foundation/Foundation.h>
 #import "FilePermission.h"
 
-@class BackendlessFile, Fault, BackendlessCollection;
+@class BackendlessFile, Fault, BackendlessCollection, BEFileInfo;
 @protocol IResponder;
 
 @interface FileService : NSObject
@@ -43,6 +43,7 @@
 -(NSString *)renameFile:(NSString *)oldPathName newName:(NSString *)newName;
 -(NSString *)copyFile:(NSString *)sourcePathName target:(NSString *)targetPathName;
 -(NSString *)moveFile:(NSString *)sourcePathName target:(NSString *)targetPathName;
+// BackendlessCollection <BEFileInfo *>
 -(BackendlessCollection *)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive;
 -(BackendlessCollection *)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive pagesize:(int)pagesize offset:(int)offset;
 -(NSNumber *)exists:(NSString *)path;
@@ -61,6 +62,7 @@
 -(NSString *)renameFile:(NSString *)oldPathName newName:(NSString *)newName error:(Fault **)fault;
 -(NSString *)copyFile:(NSString *)sourcePathName target:(NSString *)targetPathName error:(Fault **)fault;
 -(NSString *)moveFile:(NSString *)sourcePathName target:(NSString *)targetPathName error:(Fault **)fault;
+// BackendlessCollection <BEFileInfo *>
 -(BackendlessCollection *)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive error:(Fault **)fault;
 -(BackendlessCollection *)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive pagesize:(int)pagesize offset:(int)offset error:(Fault **)fault;
 -(NSNumber *)exists:(NSString *)path error:(Fault **)fault;
@@ -97,6 +99,7 @@
 -(void)renameFile:(NSString *)oldPathName newName:(NSString *)newName response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)copyFile:(NSString *)sourcePathName target:(NSString *)targetPathName response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)moveFile:(NSString *)sourcePathName target:(NSString *)targetPathName response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
+// BackendlessCollection <BEFileInfo *>
 -(void)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive pagesize:(int)pagesize offset:(int)offset response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)exists:(NSString *)path response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;

@@ -530,7 +530,9 @@ id result = nil;
         return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
     
     NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
+#if FILTRATION_USER_TOKEN_ON
     [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
+#endif
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, props, nil];
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_REGISTER args:args];
     if ([result isKindOfClass:[Fault class]]) {
@@ -548,7 +550,9 @@ id result = nil;
         return [backendless throwFault:FAULT_NO_USER];
     
     NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
+#if FILTRATION_USER_TOKEN_ON
     [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
+#endif
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, props, nil];
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_UPDATE args:args];
     if ([result isKindOfClass:[Fault class]]) {
@@ -673,7 +677,9 @@ id result = nil;
         return [responder errorHandler:FAULT_NO_USER_CREDENTIALS];
     
     NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
+#if FILTRATION_USER_TOKEN_ON
     [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
+#endif
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, props, nil];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(registerResponse:) selErrorHandler:@selector(registerError:)];
     _responder.chained = responder;
@@ -687,7 +693,9 @@ id result = nil;
         return [responder errorHandler:FAULT_NO_USER];
     
     NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
+#if FILTRATION_USER_TOKEN_ON
     [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
+#endif
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, props, nil];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onUpdate:) selErrorHandler:nil];
     _responder.chained = responder;

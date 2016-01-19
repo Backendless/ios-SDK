@@ -21,6 +21,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define FILTRATION_USER_TOKEN_ON 0
+
 #define BACKENDLESS_EMAIL_KEY @"email"
 #define BACKENDLESS_NAME_KEY @"name"
 #define BACKENDLESS_PASSWORD_KEY @"password"

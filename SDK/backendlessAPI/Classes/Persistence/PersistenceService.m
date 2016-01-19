@@ -91,7 +91,9 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     
     Users *user = [Users new];
     NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:[self getProperties]];
+#if FILTRATION_USER_TOKEN_ON
     [data removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
+#endif
     [user setProperties:data];
     return user;
 }
@@ -2172,29 +2174,33 @@ id get_object_id(id self, SEL _cmd)
 -(NSDictionary *)propertyDictionary:(id)object {
     
     if ([[object class] isSubclassOfClass:[BackendlessUser class]]) {
-        NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:[(BackendlessUser *) object getProperties]];
+#if FILTRATION_USER_TOKEN_ON
+        NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:[(BackendlessUser *)object getProperties]];
         [data removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
-        
         return data;
+#else
+        return [(BackendlessUser *)object getProperties];
+#endif
     }
 #if !_REMOVE_META_
     return [Types propertyDictionary:object];
 #else
     NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:[Types propertyDictionary:object]];
     [data removeObjectsForKeys:@[@"__meta", @"___class"]];
-    
     return data;
-    
 #endif
 }
 
 -(id)propertyObject:(id)object {
     
     if ([[object class] isSubclassOfClass:[BackendlessUser class]]) {
+#if FILTRATION_USER_TOKEN_ON
         NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:[(BackendlessUser *) object getProperties]];
         [data removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
-        
         return data;
+#else
+        return [(BackendlessUser *)object getProperties];
+#endif
     }
     
     return object;

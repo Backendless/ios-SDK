@@ -10,4 +10,8 @@
 
 @implementation BEFileInfo
 
+-(NSString *)description {
+    return [NSString stringWithFormat:@"<BEFileInfo> -> URL: %@, name: %@, publicUrl: %@, publisher: %@, createdOn: %@ ", _URL, _name, _publicUrl, _publisher, _createdOn];
+}
+
 @end
