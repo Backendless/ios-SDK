@@ -813,6 +813,7 @@
 		F9F58DAD1BA83BB1009B8782 /* BackendlessBeacon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackendlessBeacon.m; sourceTree = "<group>"; };
 		F9FEEA8C1C4F97B900085DD8 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
 		F9FEEA8E1C4F97B900085DD8 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
+		F9FEEAEA1C4FC64900085DD8 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
 		F9FF0E8B160DA8F400AEB3B7 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1057,6 +1058,7 @@
 		D3B2F352193511900084D5DD /* Backendless-ios-SDK */ = {
 			isa = PBXGroup;
 			children = (
+				F9FEEAE91C4FC64900085DD8 /* 3.0.4 */,
 				F9FEEA8D1C4F97B900085DD8 /* 3.0.3 */,
 				F9FEEA8B1C4F97B900085DD8 /* 3.0.2 */,
 				F9B448D31C10841500E3A89C /* 3.0.1 */,
@@ -1682,6 +1684,14 @@
 				F9FEEA8E1C4F97B900085DD8 /* Backendless-ios-SDK.podspec */,
 			);
 			path = 3.0.3;
+			sourceTree = "<group>";
+		};
+		F9FEEAE91C4FC64900085DD8 /* 3.0.4 */ = {
+			isa = PBXGroup;
+			children = (
+				F9FEEAEA1C4FC64900085DD8 /* Backendless-ios-SDK.podspec */,
+			);
+			path = 3.0.4;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
