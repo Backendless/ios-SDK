@@ -639,7 +639,6 @@
 		D3B2F354193511900084D5DD /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
 		D3B2F356193511900084D5DD /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
 		D3B2F358193511900084D5DD /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
-		D3B2F359193511900084D5DD /* original.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = original.podspec; sourceTree = "<group>"; };
 		D3E5C13B1AEE4E7A0038D564 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
 		D3EA52FF1A3077C1009C5FE0 /* FilePermission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilePermission.h; sourceTree = "<group>"; };
 		D3EA53001A3077C1009C5FE0 /* FilePermission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilePermission.m; sourceTree = "<group>"; };
@@ -812,6 +811,8 @@
 		F9D5234C1B25CEF800F6A441 /* ClassCastException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassCastException.m; sourceTree = "<group>"; };
 		F9F58DAC1BA83BB1009B8782 /* BackendlessBeacon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackendlessBeacon.h; sourceTree = "<group>"; };
 		F9F58DAD1BA83BB1009B8782 /* BackendlessBeacon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackendlessBeacon.m; sourceTree = "<group>"; };
+		F9FEEA8C1C4F97B900085DD8 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
+		F9FEEA8E1C4F97B900085DD8 /* Backendless-ios-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Backendless-ios-SDK.podspec"; sourceTree = "<group>"; };
 		F9FF0E8B160DA8F400AEB3B7 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1048,7 +1049,6 @@
 			children = (
 				D3B2F3DC1936019E0084D5DD /* Guides */,
 				D3B2F352193511900084D5DD /* Backendless-ios-SDK */,
-				D3B2F359193511900084D5DD /* original.podspec */,
 			);
 			name = CocoaPods;
 			path = ../../CocoaPods;
@@ -1057,6 +1057,8 @@
 		D3B2F352193511900084D5DD /* Backendless-ios-SDK */ = {
 			isa = PBXGroup;
 			children = (
+				F9FEEA8D1C4F97B900085DD8 /* 3.0.3 */,
+				F9FEEA8B1C4F97B900085DD8 /* 3.0.2 */,
 				F9B448D31C10841500E3A89C /* 3.0.1 */,
 				F97CA14B1C0C8F1A00222256 /* 3.0.0 */,
 				F97CA1491C0C8F1A00222256 /* 2.0.16 */,
@@ -1664,6 +1666,22 @@
 				F9CB13951BC53D5100F3CA1D /* BeaconMonitoring.m */,
 			);
 			path = Beacons;
+			sourceTree = "<group>";
+		};
+		F9FEEA8B1C4F97B900085DD8 /* 3.0.2 */ = {
+			isa = PBXGroup;
+			children = (
+				F9FEEA8C1C4F97B900085DD8 /* Backendless-ios-SDK.podspec */,
+			);
+			path = 3.0.2;
+			sourceTree = "<group>";
+		};
+		F9FEEA8D1C4F97B900085DD8 /* 3.0.3 */ = {
+			isa = PBXGroup;
+			children = (
+				F9FEEA8E1C4F97B900085DD8 /* Backendless-ios-SDK.podspec */,
+			);
+			path = 3.0.3;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

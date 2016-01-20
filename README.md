@@ -12,6 +12,7 @@ To create a new project with CocoaPods, follow these simple steps:
 - Open your Podfile using your favorite text editor (or Xcode), and add a text that looks like this:
 
     platform :ios, '9.2'
+
     pod 'Backendless-ios-SDK', '~>3.0.0'
 
     The first line specifies the platform and supported version, the second line specifies the name of Backendless folder in CocoaPods Specs repository and SDK version which you need.

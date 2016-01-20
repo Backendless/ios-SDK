@@ -19,9 +19,9 @@ Pod::Spec.new do |s|
 		SDKs. The behavior of the services and the business logic behind them can be customized through 
 		the Development Console.
                    DESC
-  s.homepage    = "http://Backendless.com"
+  s.homepage    = "http://backendless.com"
   s.license		= { :type => 'Apache', :text => 'Copyright (c) 2012-2016 by Backendless.com' }
-  s.author      = { "Vyacheslav Vdovichenko" => "slavav@themidnightcoders.com" }
+  s.author      = { "Mark Piller" => "mark@backendless.com" }
 
   s.platform       = :ios, '9.2'
   s.requires_arc   = true
