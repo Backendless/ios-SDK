@@ -40,6 +40,7 @@
 -(BackendlessUser *)registering:(BackendlessUser *)user;
 -(BackendlessUser *)update:(BackendlessUser *)user;
 -(BackendlessUser *)login:(NSString *)login password:(NSString *)password;
+-(BackendlessUser *)findById:(NSString *)objectId;
 -(id)logout;
 -(NSNumber *)isValidUserToken;
 -(id)restorePassword:(NSString *)login;
@@ -55,6 +56,7 @@
 -(BackendlessUser *)registering:(BackendlessUser *)user error:(Fault **)fault;
 -(BackendlessUser *)update:(BackendlessUser *)user error:(Fault **)fault;
 -(BackendlessUser *)login:(NSString *)login password:(NSString *)password error:(Fault **)fault;
+-(BackendlessUser *)findById:(NSString *)objectId error:(Fault **)fault;
 -(BOOL)logoutError:(Fault **)fault;
 -(NSNumber *)isValidUserTokenError:(Fault **)fault;
 -(BOOL)restorePassword:(NSString *)login error:(Fault **)fault;
@@ -70,6 +72,7 @@
 -(void)registering:(BackendlessUser *)user responder:(id <IResponder>)responder;
 -(void)update:(BackendlessUser *)user responder:(id <IResponder>)responder;
 -(void)login:(NSString *)login password:(NSString *)password responder:(id <IResponder>)responder;
+-(void)findById:(NSString *)objectId responder:(id <IResponder>)responder;
 -(void)logout:(id <IResponder>)responder;
 -(void)isValidUserToken:(id <IResponder>)responder;
 -(void)restorePassword:(NSString *)login responder:(id <IResponder>)responder;
@@ -85,6 +88,7 @@
 -(void)registering:(BackendlessUser *)user response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)update:(BackendlessUser *)user response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)login:(NSString *)login password:(NSString *)password response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)findById:(NSString *)objectId response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)logout:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)isValidUserToken:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)restorePassword:(NSString *)login response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;

@@ -49,6 +49,7 @@ static NSString *SERVER_USER_SERVICE_PATH = @"com.backendless.services.users.Use
 static NSString *METHOD_REGISTER = @"register";
 static NSString *METHOD_UPDATE = @"update";
 static NSString *METHOD_LOGIN = @"login";
+static NSString *METHOD_FIND_BY_ID = @"findById";
 static NSString *METHOD_LOGOUT = @"logout";
 static NSString *METHOD_RESTORE_PASSWORD = @"restorePassword";
 static NSString *METHOD_DESCRIBE_USER_CLASS = @"describeUserClass";
@@ -337,6 +338,24 @@ id result = nil;
     }
 }
 
+-(BackendlessUser *)findById:(NSString *)objectId error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self findById:objectId];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
 -(BOOL)logoutError:(Fault **)fault {
     
     id result = nil;
@@ -575,6 +594,15 @@ id result = nil;
     return [result isKindOfClass:[Fault class]] ? result : [self onLogin:result];
 }
 
+-(BackendlessUser *)findById:(NSString *)objectId {
+    
+    if (!objectId || ![objectId length])
+        return [backendless throwFault:FAULT_NO_USER_ID];
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, objectId, @[]];
+    return [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_FIND_BY_ID args:args];
+}
+
 -(id)logout {
     
     BOOL throwException = invoker.throwException;
@@ -714,6 +742,15 @@ id result = nil;
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_LOGIN args:args responder:_responder];
 }
 
+-(void)findById:(NSString *)objectId responder:(id <IResponder>)responder {
+    
+    if (!objectId || ![objectId length])
+        return [responder errorHandler:FAULT_NO_USER_ID];
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, objectId, @[]];
+    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_FIND_BY_ID args:args responder:responder];
+}
+
 -(void)logout:(id <IResponder>)responder {
     
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, nil];
@@ -807,6 +844,10 @@ id result = nil;
 
 -(void)login:(NSString *)login password:(NSString *)password response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self login:login password:password responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+
+-(void)findById:(NSString *)objectId response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self findById:objectId responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 -(void)logout:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
