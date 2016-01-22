@@ -107,7 +107,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 
 #else
 
-@interface Users : BackendlessUser //NSObject
+@interface Users : BackendlessUser
 @end
 
 @implementation Users
@@ -121,7 +121,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     NSDictionary *properties = [self getProperties];
     [user resolveProperties:properties];
     
-    [DebLog log:@"BackendlessUser -> onAMFSerialize: %@", properties];
+    [DebLog log:@"BackendlessUser -> onAMFSerialize: Users.properties = %@", properties];
     
     return user;
 }
@@ -137,7 +137,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     BackendlessUser *user = [BackendlessUser new];
     NSMutableDictionary *properties = [NSMutableDictionary dictionaryWithDictionary:[Types propertyDictionary:self]];
     
-    [DebLog log:@"Users -> onAMFDeserialize: %@", properties];
+    [DebLog log:@"Users -> onAMFDeserialize: BackendlessUser.properties = %@", properties];
     
 #if _REMOVE_META_
     [properties removeObjectsForKeys:@[@"___class", @"__meta"]];
@@ -1219,23 +1219,7 @@ id result = nil;
     if ([result isKindOfClass:[Fault class]]) {
         return result;
     }
-    
-#if 1
     return [self setRelations:relations object:object response:result];
-#else
-    NSArray *keys = [result allKeys];
-    for(NSString *propertyName in keys) {
-        if ([[object class] isSubclassOfClass:[BackendlessUser class]]) {
-            [(BackendlessUser *) object setProperty:propertyName object:[result valueForKey:propertyName]];
-            continue;
-        }
-        if ([[object valueForKey:propertyName] isKindOfClass:[NSNull class]]) {
-            continue;
-        }
-        [object setValue:[result valueForKey:propertyName] forKey:propertyName];
-    }
-    return object;
-#endif
 }
 
 -(id)load:(id)object relations:(NSArray *)relations relationsDepth:(int)relationsDepth {
@@ -1246,23 +1230,7 @@ id result = nil;
     if ([result isKindOfClass:[Fault class]]) {
         return result;
     }
-#if 1
     return [self setRelations:relations object:object response:result];
-#else
-    NSArray *keys = [result allKeys];
-    for(NSString *propertyName in keys) {
-        if ([[object class] isSubclassOfClass:[BackendlessUser class]]) {
-            [(BackendlessUser *) object setProperty:propertyName object:[result valueForKey:propertyName]];
-            continue;
-        }
-        if ([[object valueForKey:propertyName] isKindOfClass:[NSNull class]]) {
-            continue;
-        }
-        [object setValue:[result valueForKey:propertyName] forKey:propertyName];
-    }
-    return object;
-#endif
-    
 }
 
 -(BackendlessCollection *)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery {
