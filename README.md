@@ -15,7 +15,7 @@ To create a new project with CocoaPods, follow these simple steps:
 
     pod 'Backendless-ios-SDK', '~>3.0.0'
 
-    The first line specifies the platform and its minimum supported version, the second line specifies the pod name and the minimum its version which you need.
+    The first line specifies the platform and its minimum supported version, the second line specifies the pod name and its minimum version you need.
 
 - Save Podfile, return to Terminal window and run $ pod install. Once all of the pod data is downloaded, Xcode project workspace file will be created. This should be the file you use everyday to create your app.
 - Open .xcworkspace file to launch your project, and build it.
