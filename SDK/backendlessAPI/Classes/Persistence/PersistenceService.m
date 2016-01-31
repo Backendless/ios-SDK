@@ -79,13 +79,32 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 -(id)failWithOfflineMode:(Fault *)error;
 @end
 
-#if 0
 
 @interface Users : BackendlessUser
 @end
 
 @implementation Users
 @end
+
+@implementation Users (AMF)
+
+-(id)onAMFDeserialize {
+    
+    BackendlessUser *user = [BackendlessUser new];
+    NSMutableDictionary *properties = [NSMutableDictionary dictionaryWithDictionary:[Types propertyDictionary:self]];
+    
+    [DebLog log:@"Users -> onAMFDeserialize: BackendlessUser.properties = %@", properties];
+    
+#if _REMOVE_META_
+    [properties removeObjectsForKeys:@[@"___class", @"__meta"]];
+#endif
+    [user setProperties:properties];
+    return user;
+}
+
+@end
+
+#if 0
 
 @implementation BackendlessUser (AMF)
 
@@ -107,15 +126,13 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 
 #else
 
-@interface Users : BackendlessUser
-@end
-
-@implementation Users
-@end
-
 @implementation BackendlessUser (AMF)
 
 -(id)onAMFSerialize {
+    
+#if 1
+    [self addProperties:@{@"userStatus":@"ENABLED"}];
+#endif
     
     Users *user = [Users new];
     NSDictionary *properties = [self getProperties];
@@ -129,24 +146,6 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 @end
 
 #endif
-
-@implementation Users (AMF)
-
--(id)onAMFDeserialize {
-    
-    BackendlessUser *user = [BackendlessUser new];
-    NSMutableDictionary *properties = [NSMutableDictionary dictionaryWithDictionary:[Types propertyDictionary:self]];
-    
-    [DebLog log:@"Users -> onAMFDeserialize: BackendlessUser.properties = %@", properties];
-    
-#if _REMOVE_META_
-    [properties removeObjectsForKeys:@[@"___class", @"__meta"]];
-#endif
-    [user setProperties:properties];
-    return user;
-}
-
-@end
 
 @implementation NSArray (AMF)
 
