@@ -104,7 +104,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 
 @end
 
-#if 0
+#if 1
 
 @implementation BackendlessUser (AMF)
 
