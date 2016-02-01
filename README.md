@@ -13,7 +13,7 @@ To create a new project with CocoaPods, follow these simple steps:
 
     platform :ios, '8.0'
 
-    pod 'Backendless-ios-SDK', '~>3.0.0'
+    pod 'Backendless-ios-SDK', '~>3.0.5'
 
     The first line specifies the platform and its minimum supported version, the second line specifies the pod name and its minimum version you need.
 
