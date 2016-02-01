@@ -104,8 +104,27 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 
 @end
 
-#if 1
+#if 0
+// as dictionary - need TODO
+@implementation BackendlessUser (AMF)
 
+-(id)onAMFSerialize {
+    
+    NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:[self getProperties]];
+    [data setObject:@"Users" forKey:@"___class"];
+#if FILTRATION_USER_TOKEN_ON
+    [data removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
+#endif
+    
+    [DebLog logY:@"BackendlessUser -> onAMFSerialize: %@", data];
+    
+    return data;
+}
+
+@end
+
+#else
+// as User object - old stabile implementation
 @implementation BackendlessUser (AMF)
 
 -(id)onAMFSerialize {
@@ -123,9 +142,9 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 }
 
 @end
+#endif
 
-#else
-
+#if 0 // UNSTABILE IMPLEMENTATION !!!
 @implementation BackendlessUser (AMF)
 
 -(id)onAMFSerialize {
@@ -144,7 +163,6 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 }
 
 @end
-
 #endif
 
 @implementation NSArray (AMF)
