@@ -104,19 +104,19 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 
 @end
 
-#if 0
-// as dictionary - need TODO
+#if 1
+// as dictionary with '___class' label (analog of Android implementation)
 @implementation BackendlessUser (AMF)
 
 -(id)onAMFSerialize {
     
     NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:[self getProperties]];
-    [data setObject:@"Users" forKey:@"___class"];
+    data[@"___class"] = @"Users";
 #if FILTRATION_USER_TOKEN_ON
     [data removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
 #endif
     
-    [DebLog logY:@"BackendlessUser -> onAMFSerialize: %@", data];
+    [DebLog log:@"BackendlessUser -> onAMFSerialize: %@", data];
     
     return data;
 }
@@ -144,7 +144,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 @end
 #endif
 
-#if 0 // UNSTABILE IMPLEMENTATION !!!
+#if 0 // as User object with resolved properties --- UNSTABILE IMPLEMENTATION !!!
 @implementation BackendlessUser (AMF)
 
 -(id)onAMFSerialize {
