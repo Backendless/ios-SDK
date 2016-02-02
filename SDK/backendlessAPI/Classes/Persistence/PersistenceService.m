@@ -112,9 +112,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     
     NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:[self getProperties]];
     data[@"___class"] = @"Users";
-#if FILTRATION_USER_TOKEN_ON
     [data removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
-#endif
     
     [DebLog log:@"BackendlessUser -> onAMFSerialize: %@", data];
     
