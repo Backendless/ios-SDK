@@ -837,10 +837,7 @@ id result = nil;
     [body appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
     
     // create the request
-    NSString *url = [NSString stringWithFormat:@"%@/%@/files/%@", backendless.hostURL, backendless.versionNum, path];
-    if (overwrite) {
-        [url stringByAppendingFormat:@"?overwrite=%@", [overwrite boolValue]?@"true":@"false"];
-    }
+    NSString *url = [NSString stringWithFormat:@"%@/%@/files/%@?overwrite=%@", backendless.hostURL, backendless.versionNum, path, [overwrite boolValue]?@"true":@"false"];
     NSMutableURLRequest *webReq = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
     
     if (backendless.headers) {
@@ -859,7 +856,7 @@ id result = nil;
     [webReq setHTTPMethod:@"POST"];
     [webReq setHTTPBody:body];
     
-    [DebLog log:@"FileService -> httpUploadRequest: path: '%@', boundary: '%@'\n headers: %@", fileName, boundary, [webReq allHTTPHeaderFields]];
+    [DebLog log:@"FileService -> httpUploadRequest: path: '%@', boundary: '%@'\nURL: %@\nheaders: %@", fileName, boundary, url, [webReq allHTTPHeaderFields]];
     
     return webReq;
 }
