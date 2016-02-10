@@ -22,6 +22,7 @@
 #import "DataStoreFactory.h"
 #include "Responder.h"
 #include "Backendless.h"
+#import "ObjectProperty.h"
 
 @interface DataStoreFactory () {
     Class _entityClass;
@@ -80,8 +81,8 @@
     return [backendless.persistenceService remove:_entityClass sid:objectID];
 }
 
--(void)removeAll:(BackendlessDataQuery *)dataQuery {
-    [backendless.persistenceService removeAll:_entityClass dataQuery:dataQuery];
+-(id)removeAll:(BackendlessDataQuery *)dataQuery {
+    return [backendless.persistenceService removeAll:_entityClass dataQuery:dataQuery];
 }
 
 -(BackendlessCollection *)find {
@@ -100,7 +101,7 @@
     return [backendless.persistenceService last:_entityClass];
 }
 
--(NSArray *)describe {
+-(NSArray<ObjectProperty*> *)describe {
     return [backendless.persistenceService describe:NSStringFromClass(_entityClass)];
 }
 
@@ -144,7 +145,7 @@
     return [backendless.persistenceService save:entity error:fault];
 }
 
--(BOOL)remove:(id)entity fault:(Fault **)fault {
+-(NSNumber *)remove:(id)entity fault:(Fault **)fault {
     NSString *objectId = [backendless.persistenceService getObjectId:entity];
     if ([objectId isKindOfClass:[NSString class]])
         return [backendless.persistenceService remove:[entity class] sid:objectId error:fault];
@@ -152,12 +153,12 @@
         return [backendless.persistenceService remove:entity error:fault];
 }
 
--(BOOL)removeID:(NSString *)objectID fault:(Fault **)fault {
+-(NSNumber *)removeID:(NSString *)objectID fault:(Fault **)fault {
     return [backendless.persistenceService remove:_entityClass sid:objectID error:fault];
 }
 
--(void)removeAll:(BackendlessDataQuery *)dataQuery fault:(Fault **)fault {
-    [backendless.persistenceService removeAll:_entityClass dataQuery:dataQuery error:fault];
+-(BackendlessCollection *)removeAll:(BackendlessDataQuery *)dataQuery fault:(Fault **)fault {
+    return [backendless.persistenceService removeAll:_entityClass dataQuery:dataQuery error:fault];
 }
 
 -(BackendlessCollection *)findFault:(Fault **)fault {
@@ -176,7 +177,7 @@
     return [backendless.persistenceService last:_entityClass error:fault];
 }
 
--(NSArray *)describe:(Fault **)fault {
+-(NSArray<ObjectProperty*> *)describe:(Fault **)fault {
     return [backendless.persistenceService describe:NSStringFromClass(_entityClass) error:fault];
 }
 
@@ -308,7 +309,7 @@
     [backendless.persistenceService remove:_entityClass sid:objectID response:responseBlock error:errorBlock];
 }
 
--(void)removeAll:(BackendlessDataQuery *)dataQuery responder:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)removeAll:(BackendlessDataQuery *)dataQuery response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.persistenceService removeAll:_entityClass dataQuery:dataQuery response:responseBlock error:errorBlock];
 }
 -(void)find:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -327,7 +328,7 @@
     [backendless.persistenceService last:_entityClass response:responseBlock error:errorBlock];
 }
 
--(void)describeResponse:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)describeResponse:(void (^)(NSArray<ObjectProperty*> *))responseBlock error:(void (^)(Fault *))errorBlock {
     [backendless.persistenceService describe:NSStringFromClass(_entityClass) response:responseBlock error:errorBlock];
 }
 

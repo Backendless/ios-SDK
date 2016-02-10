@@ -410,7 +410,7 @@ id result = nil;
     }
 }
 
--(NSArray *)describeUserClassError:(Fault **)fault {
+-(NSArray<UserProperty*> *)describeUserClassError:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -464,7 +464,7 @@ id result = nil;
     }
 }
 
--(NSArray *)getUserRolesError:(Fault **)fault {
+-(NSArray<NSString*> *)getUserRolesError:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -482,7 +482,7 @@ id result = nil;
     }
 }
 
--(BackendlessUser *)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping error:(Fault **)fault {
+-(BackendlessUser *)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping error:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -500,7 +500,7 @@ id result = nil;
     }
 }
 
--(BackendlessUser *)loginWithFacebookSDK:(FBSDKAccessToken *)accessToken fieldsMapping:(NSDictionary *)fieldsMapping error:(Fault **)fault {
+-(BackendlessUser *)loginWithFacebookSDK:(FBSDKAccessToken *)accessToken fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping error:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -518,7 +518,7 @@ id result = nil;
     }
 }
 
--(BackendlessUser *)loginWithGooglePlusSDK:(NSString *)userId accessToken:(NSString *)accessToken permissions:(NSArray *)permissions fieldsMapping:(NSDictionary *)fieldsMapping error:(Fault **)fault {
+-(BackendlessUser *)loginWithGooglePlusSDK:(NSString *)userId accessToken:(NSString *)accessToken permissions:(NSArray<NSString*> *)permissions fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping error:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -641,7 +641,7 @@ id result = nil;
     return [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_RESTORE_PASSWORD args:args];
 }
 
--(NSArray *)describeUserClass {
+-(NSArray<UserProperty*> *)describeUserClass {
     
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, nil];
     return [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_DESCRIBE_USER_CLASS args:args];
@@ -671,20 +671,20 @@ id result = nil;
     return result;
 }
 
--(NSArray *)getUserRoles {
+-(NSArray<NSString*> *)getUserRoles {
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, nil];
     return [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_GET_USER_ROLES args:args];
 }
 
--(id)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping {
+-(id)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping {
     return [self loginWithFacebookSocialUserId:[user valueForKey:@"objectID"] accessToken:[[session valueForKey:@"accessTokenData"] valueForKey:@"accessToken"] expirationDate:[[session valueForKey:@"accessTokenData"] valueForKey:@"expirationDate"] permissions:[NSSet setWithArray:[[session valueForKey:@"accessTokenData"] valueForKey:@"permissions"]] fieldsMapping:fieldsMapping];
 }
 
--(id)loginWithFacebookSDK:(FBSDKAccessToken *)accessToken fieldsMapping:(NSDictionary *)fieldsMapping {
+-(id)loginWithFacebookSDK:(FBSDKAccessToken *)accessToken fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping {
     return [self loginWithFacebookSocialUserId:[accessToken valueForKey:@"userID"] accessToken:[accessToken valueForKey:@"tokenString"] expirationDate:[accessToken valueForKey:@"expirationDate"] permissions:[accessToken valueForKey:@"permissions"] fieldsMapping:fieldsMapping];
 }
 
--(id)loginWithGooglePlusSDK:(NSString *)userId accessToken:(NSString *)accessToken permissions:(NSArray *)permissions fieldsMapping:(NSDictionary *)fieldsMapping {
+-(id)loginWithGooglePlusSDK:(NSString *)userId accessToken:(NSString *)accessToken permissions:(NSArray<NSString*> *)permissions fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping {
     
     if (!userId||!userId.length||!accessToken||!accessToken.length)
         return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
@@ -812,16 +812,16 @@ id result = nil;
     
 }
 
--(void)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary *)fieldsMapping responder:(id<IResponder>)responder
+-(void)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping responder:(id<IResponder>)responder
 {
     [self loginWithFacebookSocialUserId:[user valueForKey:@"objectID"] accessToken:[[session valueForKey:@"accessTokenData"] valueForKey:@"accessToken"] expirationDate:[[session valueForKey:@"accessTokenData"] valueForKey:@"expirationDate"] permissions:[[session valueForKey:@"accessTokenData"] valueForKey:@"permissions"] fieldsMapping:fieldsMapping responder:responder];
 }
 
--(void)loginWithFacebookSDK:(FBSDKAccessToken *)accessToken fieldsMapping:(NSDictionary *)fieldsMapping responder:(id <IResponder>)responder {
+-(void)loginWithFacebookSDK:(FBSDKAccessToken *)accessToken fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping responder:(id <IResponder>)responder {
     [self loginWithFacebookSocialUserId:[accessToken valueForKey:@"userID"] accessToken:[accessToken valueForKey:@"tokenString"] expirationDate:[accessToken valueForKey:@"expirationDate"] permissions:[accessToken valueForKey:@"permissions"] fieldsMapping:fieldsMapping responder:responder];
 }
 
--(void)loginWithGooglePlusSDK:(NSString *)userId accessToken:(NSString *)accessToken permissions:(NSArray *)permissions fieldsMapping:(NSDictionary *)fieldsMapping responder:(id<IResponder>)responder {
+-(void)loginWithGooglePlusSDK:(NSString *)userId accessToken:(NSString *)accessToken permissions:(NSArray<NSString*> *)permissions fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping responder:(id<IResponder>)responder {
     
     if (!userId||!userId.length||!accessToken||!accessToken.length)
         return [responder errorHandler:FAULT_NO_USER_CREDENTIALS];
@@ -862,7 +862,7 @@ id result = nil;
     [self restorePassword:login responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)describeUserClass:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)describeUserClass:(void(^)(NSArray<UserProperty*> *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self describeUserClass:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
@@ -874,31 +874,31 @@ id result = nil;
     [self user:user unassignRole:role responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)getUserRoles:(void (^)(NSArray *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)getUserRoles:(void (^)(NSArray<NSString*> *))responseBlock error:(void (^)(Fault *))errorBlock {
     [self getUserRoles:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary<FBGraphUser> *)fieldsMapping response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary<FBGraphUser> *)fieldsMapping response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self loginWithFacebookSDK:session user:user fieldsMapping:fieldsMapping responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)loginWithFacebookSDK:(FBSDKAccessToken *)accessToken fieldsMapping:(NSDictionary *)fieldsMapping response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)loginWithFacebookSDK:(FBSDKAccessToken *)accessToken fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self loginWithFacebookSDK:accessToken fieldsMapping:fieldsMapping responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)loginWithGooglePlusSDK:(NSString *)userId accessToken:(NSString *)accessToken permissions:(NSArray *)permissions fieldsMapping:(NSDictionary *)fieldsMapping response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)loginWithGooglePlusSDK:(NSString *)userId accessToken:(NSString *)accessToken permissions:(NSArray<NSString*> *)permissions fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self loginWithGooglePlusSDK:userId accessToken:accessToken permissions:permissions fieldsMapping:fieldsMapping responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 // methods of social easy logins
 
 // Facebook
--(void)easyLoginWithFacebookFieldsMapping:(NSDictionary *)fieldsMapping permissions:(NSArray *)permissions
+-(void)easyLoginWithFacebookFieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping permissions:(NSArray<NSString*> *)permissions
 {
     [self easyLoginWithFacebookFieldsMapping:fieldsMapping permissions:permissions responder:nil];
 }
 
--(void)easyLoginWithFacebookFieldsMapping:(NSDictionary *)fieldsMapping permissions:(NSArray *)permissions responder:(id<IResponder>)responder
+-(void)easyLoginWithFacebookFieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping permissions:(NSArray<NSString*> *)permissions responder:(id<IResponder>)responder
 {
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(easyLoginResponder:) selErrorHandler:@selector(easyLoginError:)];
     _responder.chained = responder;
@@ -906,18 +906,18 @@ id result = nil;
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_FACEBOOK args:args responder:_responder];
 }
 
--(void)easyLoginWithFacebookFieldsMapping:(NSDictionary *)fieldsMapping permissions:(NSArray *)permissions response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock
+-(void)easyLoginWithFacebookFieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping permissions:(NSArray<NSString*> *)permissions response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock
 {
     [self easyLoginWithFacebookFieldsMapping:fieldsMapping permissions:permissions responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 // TWitter
--(void)easyLoginWithTwitterFieldsMapping:(NSDictionary *)fieldsMapping
+-(void)easyLoginWithTwitterFieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping
 {
     [self easyLoginWithTwitterFieldsMapping:fieldsMapping responder:nil];
 }
 
--(void)easyLoginWithTwitterFieldsMapping:(NSDictionary *)fieldsMapping responder:(id <IResponder>)responder
+-(void)easyLoginWithTwitterFieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping responder:(id <IResponder>)responder
 {
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(easyLoginResponder:) selErrorHandler:@selector(easyLoginError:)];
     _responder.chained = responder;
@@ -925,18 +925,18 @@ id result = nil;
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_TWITTER args:args responder:_responder];
 }
 
--(void)easyLoginWithTwitterFieldsMapping:(NSDictionary *)fieldsMapping response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock
+-(void)easyLoginWithTwitterFieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock
 {
     [self easyLoginWithTwitterFieldsMapping:fieldsMapping responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 // Google+
--(void)easyLoginWithGooglePlusFieldsMapping:(NSDictionary *)fieldsMapping permissions:(NSArray *)permissions
+-(void)easyLoginWithGooglePlusFieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping permissions:(NSArray<NSString*> *)permissions
 {
     [self easyLoginWithGooglePlusFieldsMapping:fieldsMapping permissions:permissions responder:nil];
 }
 
--(void)easyLoginWithGooglePlusFieldsMapping:(NSDictionary *)fieldsMapping permissions:(NSArray *)permissions responder:(id<IResponder>)responder
+-(void)easyLoginWithGooglePlusFieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping permissions:(NSArray<NSString*> *)permissions responder:(id<IResponder>)responder
 {
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(easyLoginResponder:) selErrorHandler:@selector(easyLoginError:)];
     _responder.chained = responder;
@@ -944,7 +944,7 @@ id result = nil;
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_GOOGLEPLUS args:args responder:_responder];
 }
 
--(void)easyLoginWithGooglePlusFieldsMapping:(NSDictionary *)fieldsMapping permissions:(NSArray *)permissions response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock
+-(void)easyLoginWithGooglePlusFieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping permissions:(NSArray<NSString*> *)permissions response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock
 {
     [self easyLoginWithGooglePlusFieldsMapping:fieldsMapping permissions:permissions responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }

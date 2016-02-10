@@ -26,11 +26,14 @@
 #define OLD_ASYNC_WITH_FAULT 0
 #define OLD_MEDIA_APP 0
 #define TEST_MEDIA_INSTANCE 0
+#define AS_IDENTIFIER_MANAGER_ON 0
 
 #import <Foundation/Foundation.h>
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#if AS_IDENTIFIER_MANAGER_ON
 #import <AdSupport/AdSupport.h>
+#endif
 #endif
 
 // CommLibiOS
@@ -93,6 +96,7 @@
 #import "IPresenceListener.h"
 #import "BackendlessBeacon.h"
 #import "Presence.h"
+
 
 //Cache
 #import "BackendlessCachePolicy.h"

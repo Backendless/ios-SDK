@@ -40,6 +40,7 @@
 #import "DataStoreFactory.h"
 #import "BackendlessCache.h"
 #import "OfflineModeManager.h"
+#import "ObjectProperty.h"
 
 #define FAULT_NO_ENTITY [Fault fault:@"Entity is not valid" faultCode:@"0000"]
 #define FAULT_OBJECT_ID_IS_NOT_EXIST [Fault fault:@"Object ID is not exist" faultCode:@"0000"]
@@ -592,7 +593,7 @@ id result = nil;
 
 #endif
 
--(NSArray *)describe:(NSString *)classCanonicalName error:(Fault **)fault {
+-(NSArray<ObjectProperty*> *)describe:(NSString *)classCanonicalName error:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -1006,7 +1007,7 @@ id result = nil;
     }
 }
 
--(BOOL)remove:(id)entity error:(Fault **)fault {
+-(NSNumber *)remove:(id)entity error:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -1018,13 +1019,13 @@ id result = nil;
     @finally {
         if ([result isKindOfClass:Fault.class]) {
             if (fault)(*fault) = result;
-            return NO;
+            return nil;
         }
-        return YES;
+        return result;
     }
 }
 
--(BOOL)remove:(Class)entity sid:(NSString *)sid error:(Fault **)fault {
+-(NSNumber *)remove:(Class)entity sid:(NSString *)sid error:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -1036,13 +1037,13 @@ id result = nil;
     @finally {
         if ([result isKindOfClass:Fault.class]) {
             if (fault)(*fault) = result;
-            return NO;
+            return nil;
         }
-        return YES;
+        return result;
     }
 }
 
--(BOOL)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault {
+-(BackendlessCollection *)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -1054,9 +1055,9 @@ id result = nil;
     @finally {
         if ([result isKindOfClass:Fault.class]) {
             if (fault)(*fault) = result;
-            return NO;
+            return nil;
         }
-        return YES;
+        return result;
     }
 }
 
@@ -1100,7 +1101,7 @@ id result = nil;
 
 // sync methods with fault return  (as exception)
 
--(NSArray *)describe:(NSString *)classCanonicalName {
+-(NSArray<ObjectProperty*> *)describe:(NSString *)classCanonicalName {
     
     if (!classCanonicalName)
         return [backendless throwFault:FAULT_NO_ENTITY];
@@ -1313,12 +1314,18 @@ id result = nil;
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LAST args:args];
 }
 
+#define _FIND_BY_INSTANCE_ 0
+
 -(id)findByObject:(id)entity {
     
     if (!entity)
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
+#if _FIND_BY_INSTANCE_
     NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], entity];
+#else
+    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], [self propertyDictionary:entity]];
+#endif
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args];
 }
 
@@ -1327,7 +1334,11 @@ id result = nil;
     if (!entity)
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
+#if _FIND_BY_INSTANCE_
     NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], entity, relations];
+#else
+    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], [self propertyDictionary:entity], relations];
+#endif
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args];
 }
 
@@ -1336,7 +1347,11 @@ id result = nil;
     if (!entity)
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
+#if _FIND_BY_INSTANCE_
     NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], entity, relations, @(relationsDepth)];
+#else
+    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], [self propertyDictionary:entity], relations, @(relationsDepth)];
+#endif
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args];
 }
 
@@ -1457,7 +1472,7 @@ id result = nil;
     Fault *fault = nil;
     BackendlessCollection *bc = [backendless.persistenceService find:entity dataQuery:dataQuery error:&fault];
     [bc removeAll];
-    return fault;
+    return fault?fault:bc;
 }
 
 -(BackendlessCollection *)getView:(NSString *)viewName dataQuery:(BackendlessDataQuery *)dataQuery {
@@ -1864,7 +1879,7 @@ id result = nil;
 
 // async methods with block-base callbacks
 
--(void)describe:(NSString *)classCanonicalName response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)describe:(NSString *)classCanonicalName response:(void(^)(NSArray<ObjectProperty*> *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self describe:classCanonicalName responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 

@@ -79,6 +79,20 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 @synthesize pollingFrequencyMs;
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+- (NSString *)serialNumber
+{
+    static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUIDKey";
+    NSString *UUID = [[NSUserDefaults standardUserDefaults] objectForKey:kBackendlessApplicationUUIDKey];
+    if (!UUID) {
+        CFUUIDRef uuid = CFUUIDCreate(NULL);
+        UUID = (NSString *)CFUUIDCreateString(NULL, uuid);
+        CFRelease(uuid);
+        
+        [[NSUserDefaults standardUserDefaults] setObject:UUID forKey:kBackendlessApplicationUUIDKey];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    return UUID;
+}
 #else
 - (NSString *)serialNumber
 {
@@ -120,10 +134,14 @@ static NSString *METHOD_SEND_EMAIL = @"send";
         
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
         UIDevice *device = [UIDevice currentDevice];
-#if 0
-        NSString *deviceId = [device.identifierForVendor UUIDString];
-#else
+#if AS_IDENTIFIER_MANAGER_ON
         NSString *deviceId = [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
+#else
+#if 0
+        NSString *deviceId = [self serialNumber];
+#else
+        NSString *deviceId = [device.identifierForVendor UUIDString];
+#endif
 #endif
         deviceRegistration.deviceToken = device.name;
         deviceRegistration.deviceId = deviceId ? deviceId : [backendless GUIDString];
@@ -134,7 +152,7 @@ static NSString *METHOD_SEND_EMAIL = @"send";
         NSString *deviceId = [self serialNumber];
         deviceRegistration.deviceId = deviceId ? deviceId : [backendless GUIDString];
 #endif
-        [DebLog log:@"MessagingService -> init: deviceToken = %@, deviceId = %@, os = %@, osVersion = %@", deviceRegistration.deviceToken, deviceRegistration.deviceId, deviceRegistration.os, deviceRegistration.osVersion];
+        [DebLog logY:@"MessagingService -> init: deviceToken = %@, deviceId = %@, os = %@, osVersion = %@", deviceRegistration.deviceToken, deviceRegistration.deviceId, deviceRegistration.os, deviceRegistration.osVersion];
 	}
 	
 	return self;
