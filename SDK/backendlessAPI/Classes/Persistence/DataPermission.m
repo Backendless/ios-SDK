@@ -69,7 +69,7 @@ static NSString *_DENY = @"DENY";
     if (!sid)
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, NSStringFromClass([entity class]), userId, sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
+    NSArray *args = @[backendless.appID, backendless.versionNum, [backendless.data objectClassName:entity], userId, sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
     return [invoker invokeSync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_USER_PERMISSION args:args];
 }
 
@@ -82,7 +82,7 @@ static NSString *_DENY = @"DENY";
     if (!sid)
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, NSStringFromClass([entity class]), userId, sid, DATA_PERMISSION_OPERATION[operation], _DENY];
+    NSArray *args = @[backendless.appID, backendless.versionNum, [backendless.data objectClassName:entity], userId, sid, DATA_PERMISSION_OPERATION[operation], _DENY];
     return [invoker invokeSync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_USER_PERMISSION args:args];
 }
 
@@ -95,7 +95,7 @@ static NSString *_DENY = @"DENY";
     if (!sid)
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, NSStringFromClass([entity class]), roleName, sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
+    NSArray *args = @[backendless.appID, backendless.versionNum, [backendless.data objectClassName:entity], roleName, sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
     return [invoker invokeSync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ROLE_PERMISSION args:args];
 }
 
@@ -108,7 +108,7 @@ static NSString *_DENY = @"DENY";
     if (!sid)
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, NSStringFromClass([entity class]), roleName, sid, DATA_PERMISSION_OPERATION[operation], _DENY];
+    NSArray *args = @[backendless.appID, backendless.versionNum, [backendless.data objectClassName:entity], roleName, sid, DATA_PERMISSION_OPERATION[operation], _DENY];
     return [invoker invokeSync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ROLE_PERMISSION args:args];
 }
 
@@ -118,7 +118,7 @@ static NSString *_DENY = @"DENY";
     if (!sid)
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, NSStringFromClass([entity class]), sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
+    NSArray *args = @[backendless.appID, backendless.versionNum, [backendless.data objectClassName:entity], sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
     return [invoker invokeSync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_USER_PERMISSION args:args];
 }
 
@@ -128,7 +128,7 @@ static NSString *_DENY = @"DENY";
     if (!sid)
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, NSStringFromClass([entity class]), sid, DATA_PERMISSION_OPERATION[operation], _DENY];
+    NSArray *args = @[backendless.appID, backendless.versionNum, [backendless.data objectClassName:entity], sid, DATA_PERMISSION_OPERATION[operation], _DENY];
     return [invoker invokeSync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_USER_PERMISSION args:args];
 }
 
@@ -138,7 +138,7 @@ static NSString *_DENY = @"DENY";
     if (!sid)
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, NSStringFromClass([entity class]), sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
+    NSArray *args = @[backendless.appID, backendless.versionNum, [backendless.data objectClassName:entity], sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
     return [invoker invokeSync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_ROLE_PERMISSION args:args];
 }
 
@@ -148,11 +148,13 @@ static NSString *_DENY = @"DENY";
     if (!sid)
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, NSStringFromClass([entity class]), sid, DATA_PERMISSION_OPERATION[operation], _DENY];
+    NSArray *args = @[backendless.appID, backendless.versionNum, [backendless.data objectClassName:entity], sid, DATA_PERMISSION_OPERATION[operation], _DENY];
     return [invoker invokeSync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_ROLE_PERMISSION args:args];
 }
 
 // sync methods with fault option
+
+#if OLD_ASYNC_WITH_FAULT
 
 -(BOOL)grantForUser:(NSString *)userId entity:(id)entity operation:(DataPermissionOperation)operation error:(Fault **)fault {
     
@@ -233,6 +235,173 @@ static NSString *_DENY = @"DENY";
     (*fault) = result;
     return NO;
 }
+#else
+
+#if 0 // wrapper for work without exception
+
+id result = nil;
+@try {
+    result = [self <method with fault return>];
+}
+@catch (Fault *fault) {
+    result = fault;
+}
+@finally {
+    if ([result isKindOfClass:Fault.class]) {
+        if (fault)(*fault) = result;
+        return NO;
+    }
+    return YES;
+}
+
+#endif
+
+
+-(BOOL)grantForUser:(NSString *)userId entity:(id)entity operation:(DataPermissionOperation)operation error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self grantForUser:userId entity:entity operation:operation];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return NO;
+        }
+        return YES;
+    }
+}
+
+-(BOOL)denyForUser:(NSString *)userId entity:(id)entity operation:(DataPermissionOperation)operation error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self denyForUser:userId entity:entity operation:operation];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return NO;
+        }
+        return YES;
+    }
+}
+
+-(BOOL)grantForRole:(NSString *)roleName entity:(id)entity operation:(DataPermissionOperation)operation error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self grantForRole:roleName entity:entity operation:operation];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return NO;
+        }
+        return YES;
+    }
+}
+
+-(BOOL)denyForRole:(NSString *)roleName entity:(id)entity operation:(DataPermissionOperation)operation error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self denyForRole:roleName entity:entity operation:operation];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return NO;
+        }
+        return YES;
+    }
+}
+
+-(BOOL)grantForAllUsers:(id)entity operation:(DataPermissionOperation)operation error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self grantForAllUsers:entity operation:operation];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return NO;
+        }
+        return YES;
+    }
+}
+
+-(BOOL)denyForAllUsers:(id)entity operation:(DataPermissionOperation)operation error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self denyForAllUsers:entity operation:operation];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return NO;
+        }
+        return YES;
+    }
+}
+
+-(BOOL)grantForAllRoles:(id)entity operation:(DataPermissionOperation)operation error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self grantForAllRoles:entity operation:operation];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return NO;
+        }
+        return YES;
+    }
+}
+
+-(BOOL)denyForAllRoles:(id)entity operation:(DataPermissionOperation)operation error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self denyForAllRoles:entity operation:operation];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return NO;
+        }
+        return YES;
+    }
+}
+
+#endif
 
 // async methods with responder
 
@@ -245,7 +414,7 @@ static NSString *_DENY = @"DENY";
     if (!sid)
         return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, NSStringFromClass([entity class]), userId, sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
+    NSArray *args = @[backendless.appID, backendless.versionNum, [backendless.data objectClassName:entity], userId, sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
     return [invoker invokeAsync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_USER_PERMISSION args:args responder:responder];
 }
 
@@ -258,7 +427,7 @@ static NSString *_DENY = @"DENY";
     if (!sid)
         return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, NSStringFromClass([entity class]), userId, sid, DATA_PERMISSION_OPERATION[operation], _DENY];
+    NSArray *args = @[backendless.appID, backendless.versionNum, [backendless.data objectClassName:entity], userId, sid, DATA_PERMISSION_OPERATION[operation], _DENY];
     return [invoker invokeAsync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_USER_PERMISSION args:args responder:responder];
 }
 
@@ -271,7 +440,7 @@ static NSString *_DENY = @"DENY";
     if (!sid)
         return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, NSStringFromClass([entity class]), roleName, sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
+    NSArray *args = @[backendless.appID, backendless.versionNum, [backendless.data objectClassName:entity], roleName, sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
     return [invoker invokeAsync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ROLE_PERMISSION args:args responder:responder];
 }
 
@@ -284,7 +453,7 @@ static NSString *_DENY = @"DENY";
     if (!sid)
         return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, NSStringFromClass([entity class]), roleName, sid, DATA_PERMISSION_OPERATION[operation], _DENY];
+    NSArray *args = @[backendless.appID, backendless.versionNum, [backendless.data objectClassName:entity], roleName, sid, DATA_PERMISSION_OPERATION[operation], _DENY];
     return [invoker invokeAsync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ROLE_PERMISSION args:args responder:responder];
 }
 
@@ -294,7 +463,7 @@ static NSString *_DENY = @"DENY";
     if (!sid)
         return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, NSStringFromClass([entity class]), sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
+    NSArray *args = @[backendless.appID, backendless.versionNum, [backendless.data objectClassName:entity], sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
     return [invoker invokeAsync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_USER_PERMISSION args:args responder:responder];
 }
 
@@ -304,7 +473,7 @@ static NSString *_DENY = @"DENY";
     if (!sid)
         return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, NSStringFromClass([entity class]), sid, DATA_PERMISSION_OPERATION[operation], _DENY];
+    NSArray *args = @[backendless.appID, backendless.versionNum, [backendless.data objectClassName:entity], sid, DATA_PERMISSION_OPERATION[operation], _DENY];
     return [invoker invokeAsync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_USER_PERMISSION args:args responder:responder];
 }
 
@@ -314,7 +483,7 @@ static NSString *_DENY = @"DENY";
     if (!sid)
         return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, NSStringFromClass([entity class]), sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
+    NSArray *args = @[backendless.appID, backendless.versionNum, [backendless.data objectClassName:entity], sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
     return [invoker invokeAsync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_ROLE_PERMISSION args:args responder:responder];
 }
 
@@ -324,7 +493,7 @@ static NSString *_DENY = @"DENY";
     if (!sid)
         return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, NSStringFromClass([entity class]), sid, DATA_PERMISSION_OPERATION[operation], _DENY];
+    NSArray *args = @[backendless.appID, backendless.versionNum, [backendless.data objectClassName:entity], sid, DATA_PERMISSION_OPERATION[operation], _DENY];
     return [invoker invokeAsync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_ROLE_PERMISSION args:args responder:responder];
 }
 

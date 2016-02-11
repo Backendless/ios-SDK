@@ -152,7 +152,7 @@ static NSString *METHOD_SEND_EMAIL = @"send";
         NSString *deviceId = [self serialNumber];
         deviceRegistration.deviceId = deviceId ? deviceId : [backendless GUIDString];
 #endif
-        [DebLog logY:@"MessagingService -> init: deviceToken = %@, deviceId = %@, os = %@, osVersion = %@", deviceRegistration.deviceToken, deviceRegistration.deviceId, deviceRegistration.os, deviceRegistration.osVersion];
+        [DebLog log:@"MessagingService -> init: deviceToken = %@, deviceId = %@, os = %@, osVersion = %@", deviceRegistration.deviceToken, deviceRegistration.deviceId, deviceRegistration.os, deviceRegistration.osVersion];
 	}
 	
 	return self;
