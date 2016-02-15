@@ -273,7 +273,172 @@
     if (cachedData) [cachedData clear];
 }
 
-// sync
+// sync methods with fault option
+
+#if 0 // wrapper for work without exception
+
+id result = nil;
+@try {
+    result = [self <method with fault return>];
+}
+@catch (Fault *fault) {
+    result = fault;
+}
+@finally {
+    if ([result isKindOfClass:Fault.class]) {
+        if (fault)(*fault) = result;
+        return nil;
+    }
+    return result;
+}
+
+#endif
+
+-(BackendlessCollection *)nextPageFault:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self nextPage];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(BackendlessCollection *)nextPage:(BOOL)forceUpdate error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self nextPage:forceUpdate];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(BackendlessCollection *)previousPageFault:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self previousPage];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(BackendlessCollection *)previousPage:(BOOL)forceUpdate error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self previousPage:forceUpdate];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(BackendlessCollection *)getPage:(NSInteger)_offset error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self getPage:_offset];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(BackendlessCollection *)getPage:(NSInteger)_offset update:(BOOL)forceUpdate error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self getPage:_offset update:forceUpdate];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(BackendlessCollection *)getPage:(NSInteger)_offset pageSize:(NSInteger)_pageSize error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self getPage:_offset pageSize:_pageSize];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(BackendlessCollection *)getPage:(NSInteger)_offset pageSize:(NSInteger)_pageSize update:(BOOL)forceUpdate error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self getPage:_offset pageSize:_pageSize update:forceUpdate];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+// sync methods with fault return (as exception)
 
 -(BackendlessCollection *)nextPage {
     return [self nextPage:NO];

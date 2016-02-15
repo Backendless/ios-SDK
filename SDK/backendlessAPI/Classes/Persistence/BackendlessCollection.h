@@ -55,7 +55,7 @@
 -(NSArray *)getCurrentPage;
 -(void)cleanCache;
 
-// sync
+// sync methods with fault return (as exception)
 -(BackendlessCollection *)nextPage;
 -(BackendlessCollection *)nextPage:(BOOL)forceUpdate;
 -(BackendlessCollection *)previousPage;
@@ -65,6 +65,16 @@
 -(BackendlessCollection *)getPage:(NSInteger)_offset pageSize:(NSInteger)_pageSize;
 -(BackendlessCollection *)getPage:(NSInteger)_offset pageSize:(NSInteger)_pageSize update:(BOOL)forceUpdate;
 -(BackendlessCollection *)removeAll;
+
+// sync methods with fault option
+-(BackendlessCollection *)nextPageFault:(Fault **)fault;
+-(BackendlessCollection *)nextPage:(BOOL)forceUpdate error:(Fault **)fault;
+-(BackendlessCollection *)previousPageFault:(Fault **)fault;
+-(BackendlessCollection *)previousPage:(BOOL)forceUpdate error:(Fault **)fault;
+-(BackendlessCollection *)getPage:(NSInteger)_offset error:(Fault **)fault;
+-(BackendlessCollection *)getPage:(NSInteger)_offset update:(BOOL)forceUpdate error:(Fault **)fault;
+-(BackendlessCollection *)getPage:(NSInteger)_offset pageSize:(NSInteger)_pageSize error:(Fault **)fault;
+-(BackendlessCollection *)getPage:(NSInteger)_offset pageSize:(NSInteger)_pageSize update:(BOOL)forceUpdate error:(Fault **)fault;
 
 // async methods with responder
 -(void)nextPageAsync:(id <IResponder>)responder;
