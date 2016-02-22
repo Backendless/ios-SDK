@@ -87,7 +87,7 @@
 -(void)getPage:(NSInteger)_offset pageSize:(NSInteger)_pageSize update:(BOOL)forceUpdate responder:(id <IResponder>)responder;
 -(void)removeAll:(id <IResponder>)responder;
 
-// async methods with block-base callbacks
+// async methods with block-based callbacks
 -(void)nextPageAsync:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)nextPage:(BOOL)forceUpdate response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)previousPageAsync:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;

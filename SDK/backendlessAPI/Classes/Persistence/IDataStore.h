@@ -74,7 +74,7 @@
 -(void)findID:(id)objectID responder:(id <IResponder>)responder;
 -(void)findID:(id)objectID relationsDepth:(int)relationsDepth responder:(id <IResponder>)responder;
 
-// async methods with block-base callbacks
+// async methods with block-based callbacks
 -(void)save:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)remove:(id)entity response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)removeID:(NSString *)objectID response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;

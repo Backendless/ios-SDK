@@ -1050,6 +1050,7 @@
 			children = (
 				D3B2F3DC1936019E0084D5DD /* Guides */,
 				D3B2F352193511900084D5DD /* Backendless-ios-SDK */,
+				F9D5822F1C79E0FD0012BDC7 /* Backendless-Light */,
 			);
 			name = CocoaPods;
 			path = ../../CocoaPods;
@@ -1650,6 +1651,13 @@
 				F9BE41C31B2ED98200CD0A72 /* AuthorizationException.m */,
 			);
 			path = Exceptions;
+			sourceTree = "<group>";
+		};
+		F9D5822F1C79E0FD0012BDC7 /* Backendless-Light */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Backendless-Light";
 			sourceTree = "<group>";
 		};
 		F9F58DAB1BA83B34009B8782 /* Beacons */ = {

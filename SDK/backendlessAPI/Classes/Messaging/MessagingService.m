@@ -577,7 +577,7 @@ id result = nil;
     }
 }
 
--(NSString *)registerDevice:(NSArray *)channels error:(Fault **)fault {
+-(NSString *)registerDevice:(NSArray<NSString*> *)channels error:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -595,7 +595,7 @@ id result = nil;
     }
 }
 
--(NSString *)registerDevice:(NSArray *)channels expiration:(NSDate *)expiration error:(Fault **)fault {
+-(NSString *)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration error:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -613,7 +613,7 @@ id result = nil;
     }
 }
 
--(NSString *)registerDevice:(NSArray *)channels expiration:(NSDate *)expiration token:(NSString *)deviceToken error:(Fault **)fault {
+-(NSString *)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration token:(NSString *)deviceToken error:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -865,7 +865,7 @@ id result = nil;
     }
 }
 
--(BESubscription *)subscribe:(NSString *)channelName subscriptionResponse:(void(^)(NSArray *))subscriptionResponseBlock subscriptionError:(void(^)(Fault *))subscriptionErrorBlock error:(Fault **)fault {
+-(BESubscription *)subscribe:(NSString *)channelName subscriptionResponse:(void(^)(NSArray<Message*> *))subscriptionResponseBlock subscriptionError:(void(^)(Fault *))subscriptionErrorBlock error:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -883,7 +883,7 @@ id result = nil;
     }
 }
 
--(BESubscription *)subscribe:(NSString *)channelName subscriptionResponse:(void(^)(NSArray *))subscriptionResponseBlock subscriptionError:(void(^)(Fault *))subscriptionErrorBlock subscriptionOptions:(SubscriptionOptions *)subscriptionOptions error:(Fault **)fault {
+-(BESubscription *)subscribe:(NSString *)channelName subscriptionResponse:(void(^)(NSArray<Message*> *))subscriptionResponseBlock subscriptionError:(void(^)(Fault *))subscriptionErrorBlock subscriptionOptions:(SubscriptionOptions *)subscriptionOptions error:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -937,7 +937,7 @@ id result = nil;
     }
 }
 
--(BOOL)sendTextEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray *)recipients error:(Fault **)fault {
+-(BOOL)sendTextEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray<NSString*> *)recipients error:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -955,7 +955,7 @@ id result = nil;
     }
 }
 
--(BOOL)sendHTMLEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray *)recipients error:(Fault **)fault {
+-(BOOL)sendHTMLEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray<NSString*> *)recipients error:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -973,7 +973,7 @@ id result = nil;
     }
 }
 
--(BOOL)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray *)recipients error:(Fault **)fault {
+-(BOOL)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients error:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -991,7 +991,7 @@ id result = nil;
     }
 }
 
--(BOOL)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray *)recipients attachment:(NSArray *)attachments error:(Fault **)fault {
+-(BOOL)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients attachment:(NSArray *)attachments error:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -1013,7 +1013,7 @@ id result = nil;
 
 // sync methods with fault return (as exception)
 
-- (NSString *)registerDevice:(NSArray *)channels expiration:(NSDate *)expiration token:(NSString *)deviceToken {
+- (NSString *)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration token:(NSString *)deviceToken {
     deviceRegistration.deviceToken = deviceToken;
     deviceRegistration.channels = channels;
     deviceRegistration.expiration = expiration;
@@ -1035,13 +1035,13 @@ id result = nil;
     return [self registerDevice];
 }
 
--(NSString *)registerDevice:(NSArray *)channels {
+-(NSString *)registerDevice:(NSArray<NSString*> *)channels {
     
     deviceRegistration.channels = channels;
     return [self registerDevice];
 }
 
--(NSString *)registerDevice:(NSArray *)channels expiration:(NSDate *)expiration {
+-(NSString *)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration {
    
     deviceRegistration.channels = channels;
     deviceRegistration.expiration = expiration;
@@ -1139,11 +1139,11 @@ id result = nil;
     return [self subscribe:[BESubscription subscription:channelName responder:subscriptionResponder] subscriptionOptions:subscriptionOptions];
 }
 
--(BESubscription *)subscribe:(NSString *)channelName subscriptionResponse:(void(^)(NSArray *))subscriptionResponseBlock subscriptionError:(void(^)(Fault *))subscriptionErrorBlock {
+-(BESubscription *)subscribe:(NSString *)channelName subscriptionResponse:(void(^)(NSArray<Message*> *))subscriptionResponseBlock subscriptionError:(void(^)(Fault *))subscriptionErrorBlock {
     return [self subscribe:channelName subscriptionResponder:[ResponderBlocksContext responderBlocksContext:subscriptionResponseBlock error:subscriptionErrorBlock]];
 }
 
--(BESubscription *)subscribe:(NSString *)channelName subscriptionResponse:(void(^)(NSArray *))subscriptionResponseBlock subscriptionError:(void(^)(Fault *))subscriptionErrorBlock subscriptionOptions:(SubscriptionOptions *)subscriptionOptions {
+-(BESubscription *)subscribe:(NSString *)channelName subscriptionResponse:(void(^)(NSArray<Message*> *))subscriptionResponseBlock subscriptionError:(void(^)(Fault *))subscriptionErrorBlock subscriptionOptions:(SubscriptionOptions *)subscriptionOptions {
     return [self subscribe:channelName subscriptionResponder:[ResponderBlocksContext responderBlocksContext:subscriptionResponseBlock error:subscriptionErrorBlock] subscriptionOptions:subscriptionOptions];
 }
 
@@ -1175,19 +1175,19 @@ id result = nil;
     return [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_POLL_MESSAGES args:args];
 }
 
--(id)sendTextEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray *)recipients {
+-(id)sendTextEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray<NSString*> *)recipients {
     return [self sendEmail:subject body:[BodyParts bodyText:messageBody html:nil] to:recipients attachment:nil];
 }
 
--(id)sendHTMLEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray *)recipients {
+-(id)sendHTMLEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray<NSString*> *)recipients {
     return [self sendEmail:subject body:[BodyParts bodyText:nil html:messageBody] to:recipients attachment:nil];
 }
 
--(id)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray *)recipients {
+-(id)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients {
     return [self sendEmail:subject body:bodyParts to:recipients attachment:nil];
 }
 
--(id)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray *)recipients attachment:(NSArray *)attachments {
+-(id)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients attachment:(NSArray *)attachments {
     
     if (!bodyParts || ![bodyParts isBody])
         return [backendless throwFault:FAULT_NO_BODY];
@@ -1201,7 +1201,7 @@ id result = nil;
 
 // async methods with responder
 
-- (void)registerDevice:(NSArray *)channels expiration:(NSDate *)expiration token:(NSString *)deviceToken responder:(id<IResponder>)responder {
+- (void)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration token:(NSString *)deviceToken responder:(id<IResponder>)responder {
     deviceRegistration.deviceToken = deviceToken;
     deviceRegistration.channels = channels;
     deviceRegistration.expiration = expiration;
@@ -1223,13 +1223,13 @@ id result = nil;
     [self registerDeviceAsync:responder];
 }
 
--(void)registerDevice:(NSArray *)channels responder:(id <IResponder>)responder {
+-(void)registerDevice:(NSArray<NSString*> *)channels responder:(id <IResponder>)responder {
     
     deviceRegistration.channels = channels;
     [self registerDeviceAsync:responder];
 }
 
--(void)registerDevice:(NSArray *)channels expiration:(NSDate *)expiration responder:(id <IResponder>)responder {
+-(void)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration responder:(id <IResponder>)responder {
     
     deviceRegistration.channels = channels;
     deviceRegistration.expiration = expiration;
@@ -1347,19 +1347,19 @@ id result = nil;
     [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_POLL_MESSAGES args:args responder:responder];
 }
 
--(void)sendTextEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray *)recipients responder:(id <IResponder>)responder {
+-(void)sendTextEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray<NSString*> *)recipients responder:(id <IResponder>)responder {
     [self sendEmail:subject body:[BodyParts bodyText:messageBody html:nil] to:recipients attachment:nil responder:responder];
 }
 
--(void)sendHTMLEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray *)recipients responder:(id <IResponder>)responder {
+-(void)sendHTMLEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray<NSString*> *)recipients responder:(id <IResponder>)responder {
     [self sendEmail:subject body:[BodyParts bodyText:nil html:messageBody] to:recipients attachment:nil responder:responder];
 }
 
--(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray *)recipients responder:(id <IResponder>)responder {
+-(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients responder:(id <IResponder>)responder {
     [self sendEmail:subject body:bodyParts to:recipients attachment:nil responder:responder];
 }
 
--(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray *)recipients attachment:(NSArray *)attachments responder:(id <IResponder>)responder {
+-(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients attachment:(NSArray *)attachments responder:(id <IResponder>)responder {
     
     if (!bodyParts || ![bodyParts isBody])
         return [responder errorHandler:FAULT_NO_BODY];
@@ -1373,7 +1373,7 @@ id result = nil;
 
 // async methods with block-based callbacks
 
--(void)registerDevice:(NSArray *)channels expiration:(NSDate *)expiration token:(NSString *)deviceToken response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration token:(NSString *)deviceToken response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self registerDevice:channels expiration:expiration token:deviceToken responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 -(void)registerDeviceWithTokenData:(NSData *)deviceToken response:(void (^)(NSString *))responseBlock error:(void (^)(Fault *))errorBlock
@@ -1389,11 +1389,11 @@ id result = nil;
     [self registerDeviceExpiration:expiration responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)registerDevice:(NSArray *)channels response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)registerDevice:(NSArray<NSString*> *)channels response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self registerDevice:channels responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)registerDevice:(NSArray *)channels expiration:(NSDate *)expiration response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self registerDevice:channels expiration:expiration responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
@@ -1441,11 +1441,11 @@ id result = nil;
     [self subscribe:channelName responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)subscribe:(NSString *)channelName subscriptionResponse:(void(^)(NSArray *))subscriptionResponseBlock subscriptionError:(void(^)(Fault *))subscriptionErrorBlock response:(void(^)(BESubscription *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)subscribe:(NSString *)channelName subscriptionResponse:(void(^)(NSArray<Message*> *))subscriptionResponseBlock subscriptionError:(void(^)(Fault *))subscriptionErrorBlock response:(void(^)(BESubscription *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self subscribe:channelName subscriptionResponder:[ResponderBlocksContext responderBlocksContext:subscriptionResponseBlock error:subscriptionErrorBlock] responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)subscribe:(NSString *)channelName subscriptionResponse:(void(^)(NSArray *))subscriptionResponseBlock subscriptionError:(void(^)(Fault *))subscriptionErrorBlock subscriptionOptions:(SubscriptionOptions *)subscriptionOptions response:(void(^)(BESubscription *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)subscribe:(NSString *)channelName subscriptionResponse:(void(^)(NSArray<Message*> *))subscriptionResponseBlock subscriptionError:(void(^)(Fault *))subscriptionErrorBlock subscriptionOptions:(SubscriptionOptions *)subscriptionOptions response:(void(^)(BESubscription *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self subscribe:channelName subscriptionResponder:[ResponderBlocksContext responderBlocksContext:subscriptionResponseBlock error:subscriptionErrorBlock] subscriptionOptions:subscriptionOptions responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
@@ -1457,19 +1457,19 @@ id result = nil;
     [self pollMessages:channelName subscriptionId:subscriptionId responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)sendTextEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray *)recipients response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)sendTextEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray<NSString*> *)recipients response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [self sendTextEmail:subject body:messageBody to:recipients responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)sendHTMLEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray *)recipients response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)sendHTMLEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray<NSString*> *)recipients response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [self sendHTMLEmail:subject body:messageBody to:recipients responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray *)recipients response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [self sendEmail:subject body:bodyParts to:recipients responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray *)recipients attachment:(NSArray *)attachments response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients attachment:(NSArray *)attachments response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [self sendEmail:subject body:bodyParts to:recipients attachment:attachments responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 

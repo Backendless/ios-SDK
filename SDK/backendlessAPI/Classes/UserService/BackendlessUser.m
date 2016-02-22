@@ -39,7 +39,7 @@
 	return self;
 }
 
--(id)initWithProperties:(NSDictionary *)props {
+-(id)initWithProperties:(NSDictionary<NSString*, id> *)props {
 	if ( (self=[super init]) ) {
         properties = (props) ? [[HashMap alloc] initWithNode:props] : nil;
 	}
@@ -98,8 +98,9 @@
     return [self getProperty:BACKENDLESS_USER_TOKEN];
 }
 
--(void)setProperties:(NSDictionary *)props {
+-(void)setProperties:(NSDictionary<NSString*, id> *)props {
     
+#if 0
     if (properties) {
         NSArray *keys = [props allKeys];
         for (NSString *key in keys) {
@@ -110,9 +111,14 @@
     {
         properties = (props) ? [[HashMap alloc] initWithNode:props] : nil;
     }
+#else
+    [properties release];
+    properties = (props) ? [[HashMap alloc] initWithNode:props] : nil;
+
+#endif
 }
 
--(void)addProperties:(NSDictionary *)props {
+-(void)addProperties:(NSDictionary<NSString*, id> *)props {
     
     if (properties) {
         NSArray *keys = [props allKeys];
@@ -126,11 +132,11 @@
     }
 }
 
--(NSDictionary *)getProperties {
+-(NSDictionary<NSString*, id> *)getProperties {
     return (properties) ? properties.node : nil;
 }
 
--(void)updateProperties:(NSDictionary *)props {
+-(void)updateProperties:(NSDictionary<NSString*, id> *)props {
     
     NSArray *names = [props allKeys];
     for (NSString *name in names)
@@ -163,7 +169,7 @@
     }
 }
 
--(void)removeProperties:(NSArray *)keys {
+-(void)removeProperties:(NSArray<NSString*> *)keys {
     
     if (!properties)
         return;
