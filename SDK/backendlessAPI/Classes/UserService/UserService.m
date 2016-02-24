@@ -578,7 +578,9 @@ id result = nil;
         return result;
     }
 
+#if 0 // !!! BUG !!! - maybe should use only for currentUser
     [self onLogin:result];
+#endif
     [user setProperties:result];
     
     return user;
@@ -1079,7 +1081,9 @@ id result = nil;
     
     [DebLog log:@"UserService -> onUpdate: %@", response];
     
+#if 0 // !!! BUG !!! - maybe should use only for currentUser
     [self onLogin:response.response];
+#endif
     
     BackendlessUser *user = response.context;
     [user setProperties:response.response];

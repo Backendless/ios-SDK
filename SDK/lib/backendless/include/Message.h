@@ -24,7 +24,7 @@
 @interface Message : NSObject
 
 @property (strong, nonatomic) NSString *messageId;
-@property (strong, nonatomic) NSDictionary *headers;
+@property (strong, nonatomic) NSDictionary<NSString*,NSString*> *headers;
 @property (strong, nonatomic) id data;
 @property (strong, nonatomic) NSString *publisherId;
 @property (strong, nonatomic) NSNumber *timestamp;
