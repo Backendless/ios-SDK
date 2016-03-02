@@ -69,7 +69,7 @@
 -(NSString *)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration;
 -(NSString *)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration token:(NSString *)deviceToken;
 -(NSString *)registerDevice;
--(DeviceRegistration *)getRegistrations;
+-(DeviceRegistration *)getRegistrations /*NS_DEPRECATED_IOS(3_2, 4_0)*/;
 -(DeviceRegistration *)getRegistrations:(NSString *)deviceId;
 -(id)unregisterDevice;
 -(id)unregisterDevice:(NSString *)deviceId;

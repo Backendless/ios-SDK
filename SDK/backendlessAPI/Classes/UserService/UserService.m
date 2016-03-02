@@ -631,7 +631,24 @@ id result = nil;
         return [backendless throwFault:FAULT_NO_USER];
     
     NSArray *args = @[backendless.appID, backendless.versionNum, _currentUser.getUserToken];
+#if 0 // http://bugs.backendless.com/browse/BKNDLSS-11864
     return [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_IS_VALID_USER_TOKEN args:args];
+#else
+    BOOL throwException = invoker.throwException;
+    invoker.throwException = NO;
+    id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_IS_VALID_USER_TOKEN args:args];
+    invoker.throwException = throwException;
+    
+    if ([result isKindOfClass:[Fault class]]) {
+        Fault *fault = (Fault *)result;
+        if ([fault.faultCode isEqualToString:@"3048"]) {
+            [backendless.headers removeObjectForKey:BACKENDLESS_USER_TOKEN];
+        }
+        if (throwException)
+            @throw result;
+    }
+    return result;
+#endif
 }
 
 
@@ -768,7 +785,13 @@ id result = nil;
         return [responder errorHandler:FAULT_NO_USER];
     
     NSArray *args = @[backendless.appID, backendless.versionNum, _currentUser.getUserToken];
+#if 1 // http://bugs.backendless.com/browse/BKNDLSS-11864
+    Responder *_responder = [Responder responder:self selResponseHandler:nil) selErrorHandler:@selector(onValidUserTokenFault:)];
+    _responder.chained = responder;
+    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_IS_VALID_USER_TOKEN args:args responder:_responder];
+#else
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_IS_VALID_USER_TOKEN args:args responder:responder];
+#endif
 }
 
 -(void)restorePassword:(NSString *)login responder:(id <IResponder>)responder {
@@ -985,6 +1008,9 @@ id result = nil;
     if (_isStayLoggedIn && _currentUser.getUserToken) {
         [backendless.headers setValue:_currentUser.getUserToken forKey:BACKENDLESS_USER_TOKEN];
     }
+    else {
+        [backendless.headers removeObjectForKey:BACKENDLESS_USER_TOKEN];
+    }
     
     [DebLog log:@"UserService -> getPersistentUser: currentUser = %@", _currentUser];
     
@@ -1070,6 +1096,8 @@ id result = nil;
     
     if (_currentUser.getUserToken)
         [backendless.headers setValue:_currentUser.getUserToken forKey:BACKENDLESS_USER_TOKEN];
+    else
+        [backendless.headers removeObjectForKey:BACKENDLESS_USER_TOKEN];
     
     [DebLog log:@"UserService -> onLogin: response = %@\n backendless.headers = %@", response, backendless.headers];
     
@@ -1120,5 +1148,14 @@ id result = nil;
 
     return fault;
 }
+
+// fix BKNDLSS-11864
+-(id)onValidUserTokenFault:(Fault *)fault {
+    if ([fault.faultCode isEqualToString:@"3048"]) {
+        [backendless.headers removeObjectForKey:BACKENDLESS_USER_TOKEN];
+    }
+    return fault;
+}
+
 
 @end

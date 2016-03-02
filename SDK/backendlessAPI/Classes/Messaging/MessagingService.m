@@ -35,6 +35,8 @@
 #import "BESubscription.h"
 #import "BodyParts.h"
 
+#define FAULT_NO_DEVICE_ID [Fault fault:@"Device ID is not set"]
+#define FAULT_NO_DEVICE_TOKEN [Fault fault:@"Device token is not set"]
 #define FAULT_NO_CHANNEL [Fault fault:@"Channel is not set for publishing"]
 #define FAULT_NO_MESSAGE [Fault fault:@"Message is not set for publishing"]
 #define FAULT_NO_MESSAGE_ID [Fault fault:@"Message ID is not set"]
@@ -1052,7 +1054,7 @@ id result = nil;
 
     if (!deviceRegistration.deviceToken) {
         [DebLog logY:@"MessagingService -> registerDevice (ERROR): deviceToken is not exist"];
-        return nil;
+        return [backendless throwFault:FAULT_NO_DEVICE_TOKEN];
     }
 
     [DebLog log:@"MessagingService -> registerDevice (SYNC): %@", deviceRegistration];
@@ -1072,6 +1074,9 @@ id result = nil;
 
 -(DeviceRegistration *)getRegistrations:(NSString *)deviceId {
     
+    if (!deviceId)
+        return [backendless throwFault:FAULT_NO_DEVICE_ID];
+    
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, deviceId, nil];
     return [invoker invokeSync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_GET_REGISTRATIONS args:args];
 }
@@ -1081,6 +1086,9 @@ id result = nil;
 }
 
 -(id)unregisterDevice:(NSString *)deviceId {
+    
+    if (!deviceId)
+        return [backendless throwFault:FAULT_NO_DEVICE_ID];
     
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, deviceId, nil];
     id result = [invoker invokeSync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_UNREGISTER_DEVICE args:args];
@@ -1240,7 +1248,7 @@ id result = nil;
 
     if (!deviceRegistration.deviceToken) {
         [DebLog logY:@"MessagingService -> registerDeviceASync (ERROR): deviceToken is not exist"];
-        return;
+        return [responder errorHandler:FAULT_NO_DEVICE_TOKEN];
     }
 
     [DebLog log:@"MessagingService -> registerDeviceAsync (ASYNC): %@", deviceRegistration];
@@ -1257,6 +1265,9 @@ id result = nil;
 
 -(void)getRegistrationsAsync:(NSString *)deviceId responder:(id<IResponder>)responder {
     
+    if (!deviceId)
+        return [responder errorHandler:FAULT_NO_DEVICE_ID];
+    
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, deviceId, nil];
     [invoker invokeAsync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_GET_REGISTRATIONS args:args responder:responder];
 }
@@ -1266,6 +1277,9 @@ id result = nil;
 }
 
 -(void)unregisterDeviceAsync:(NSString *)deviceId responder:(id<IResponder>)responder {
+    
+    if (!deviceId)
+        return [responder errorHandler:FAULT_NO_DEVICE_ID];
     
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, deviceId, nil];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onUnregistering:) selErrorHandler:nil];
@@ -1477,9 +1491,22 @@ id result = nil;
 
 -(void)registerForRemoteNotifications {
     
+    /*
+     typedef NS_OPTIONS(NSUInteger, UIUserNotificationType) {
+     UIUserNotificationTypeNone    = 0,      // the application may not present any UI upon a notification being received
+     UIUserNotificationTypeBadge   = 1 << 0, // the application may badge its icon upon a notification being received
+     UIUserNotificationTypeSound   = 1 << 1, // the application may play a sound upon a notification being received
+     UIUserNotificationTypeAlert   = 1 << 2, // the application may display an alert upon a notification being received
+     } NS_ENUM_AVAILABLE_IOS(8_0) __TVOS_PROHIBITED;
+     */
+    
     // check if iOS8
     if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+#if 0
         UIUserNotificationType types = UIUserNotificationTypeNone;
+#else
+        UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+#endif
         UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
         [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
         [[UIApplication sharedApplication] registerForRemoteNotifications];
