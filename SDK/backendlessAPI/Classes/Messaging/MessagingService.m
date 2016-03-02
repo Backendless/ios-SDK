@@ -651,11 +651,11 @@ id result = nil;
     }
 }
 
--(DeviceRegistration *)getRegistrationsError:(Fault **)fault {
+-(DeviceRegistration *)getRegistrationError:(Fault **)fault {
     
     id result = nil;
     @try {
-        result = [self getRegistrations];
+        result = [self getRegistration];
     }
     @catch (Fault *fault) {
         result = fault;
@@ -669,11 +669,11 @@ id result = nil;
     }
 }
 
--(DeviceRegistration *)getRegistrations:(NSString *)deviceId error:(Fault **)fault {
+-(DeviceRegistration *)getRegistration:(NSString *)deviceId error:(Fault **)fault {
     
     id result = nil;
     @try {
-        result = [self getRegistrations:deviceId];
+        result = [self getRegistration:deviceId];
     }
     @catch (Fault *fault) {
         result = fault;
@@ -1068,11 +1068,11 @@ id result = nil;
     return (deviceRegistration.id = [NSString stringWithFormat:@"%@", result]);
 }
 
--(DeviceRegistration *)getRegistrations {
-    return [self getRegistrations:deviceRegistration.deviceId];
+-(DeviceRegistration *)getRegistration {
+    return [self getRegistration:deviceRegistration.deviceId];
 }
 
--(DeviceRegistration *)getRegistrations:(NSString *)deviceId {
+-(DeviceRegistration *)getRegistration:(NSString *)deviceId {
     
     if (!deviceId)
         return [backendless throwFault:FAULT_NO_DEVICE_ID];
@@ -1259,11 +1259,11 @@ id result = nil;
     [invoker invokeAsync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_REGISTER_DEVICE args:args responder:_responder];
 }
 
--(void)getRegistrationsAsync:(id<IResponder>)responder {
-    return [self getRegistrationsAsync:deviceRegistration.deviceId responder:responder];
+-(void)getRegistrationAsync:(id<IResponder>)responder {
+    return [self getRegistrationAsync:deviceRegistration.deviceId responder:responder];
 }
 
--(void)getRegistrationsAsync:(NSString *)deviceId responder:(id<IResponder>)responder {
+-(void)getRegistrationAsync:(NSString *)deviceId responder:(id<IResponder>)responder {
     
     if (!deviceId)
         return [responder errorHandler:FAULT_NO_DEVICE_ID];
@@ -1415,12 +1415,12 @@ id result = nil;
     [self registerDeviceAsync:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)getRegistrationsAsync:(void(^)(DeviceRegistration *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self getRegistrationsAsync:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+-(void)getRegistrationAsync:(void(^)(DeviceRegistration *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self getRegistrationAsync:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)getRegistrationsAsync:(NSString *)deviceId response:(void(^)(DeviceRegistration *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self getRegistrationsAsync:deviceId responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+-(void)getRegistrationAsync:(NSString *)deviceId response:(void(^)(DeviceRegistration *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self getRegistrationAsync:deviceId responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 -(void)unregisterDeviceAsync:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {

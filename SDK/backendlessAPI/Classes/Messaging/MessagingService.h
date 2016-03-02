@@ -69,8 +69,8 @@
 -(NSString *)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration;
 -(NSString *)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration token:(NSString *)deviceToken;
 -(NSString *)registerDevice;
--(DeviceRegistration *)getRegistrations /*NS_DEPRECATED_IOS(3_2, 4_0)*/;
--(DeviceRegistration *)getRegistrations:(NSString *)deviceId;
+-(DeviceRegistration *)getRegistration;
+-(DeviceRegistration *)getRegistration:(NSString *)deviceId;
 -(id)unregisterDevice;
 -(id)unregisterDevice:(NSString *)deviceId;
 -(MessageStatus *)publish:(NSString *)channelName message:(id)message;
@@ -99,8 +99,8 @@
 -(NSString *)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration error:(Fault **)fault;
 -(NSString *)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration token:(NSString *)deviceToken error:(Fault **)fault;
 -(NSString *)registerDeviceError:(Fault **)fault;
--(DeviceRegistration *)getRegistrationsError:(Fault **)fault;
--(DeviceRegistration *)getRegistrations:(NSString *)deviceId error:(Fault **)fault;
+-(DeviceRegistration *)getRegistrationError:(Fault **)fault;
+-(DeviceRegistration *)getRegistration:(NSString *)deviceId error:(Fault **)fault;
 -(BOOL)unregisterDeviceError:(Fault **)fault;
 -(BOOL)unregisterDevice:(NSString *)deviceId error:(Fault **)fault;
 -(MessageStatus *)publish:(NSString *)channelName message:(id)message error:(Fault **)fault;
@@ -129,8 +129,8 @@
 -(void)registerDevice:(NSArray<NSString*> *)channels responder:(id <IResponder>)responder;
 -(void)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration responder:(id <IResponder>)responder;
 -(void)registerDeviceAsync:(id <IResponder>)responder;
--(void)getRegistrationsAsync:(id<IResponder>)responder;
--(void)getRegistrationsAsync:(NSString *)deviceId responder:(id<IResponder>)responder;
+-(void)getRegistrationAsync:(id<IResponder>)responder;
+-(void)getRegistrationAsync:(NSString *)deviceId responder:(id<IResponder>)responder;
 -(void)unregisterDeviceAsync:(id<IResponder>)responder;
 -(void)unregisterDeviceAsync:(NSString *)deviceId responder:(id<IResponder>)responder;
 -(void)publish:(NSString *)channelName message:(id)message responder:(id <IResponder>)responder;
@@ -157,8 +157,8 @@
 -(void)registerDevice:(NSArray<NSString*> *)channels response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)registerDeviceAsync:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)getRegistrationsAsync:(void(^)(DeviceRegistration *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)getRegistrationsAsync:(NSString *)deviceId response:(void(^)(DeviceRegistration *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)getRegistrationAsync:(void(^)(DeviceRegistration *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)getRegistrationAsync:(NSString *)deviceId response:(void(^)(DeviceRegistration *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)unregisterDeviceAsync:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)unregisterDeviceAsync:(NSString *)deviceId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)publish:(NSString *)channelName message:(id)message response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;

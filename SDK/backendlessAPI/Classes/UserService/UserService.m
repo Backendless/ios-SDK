@@ -786,7 +786,7 @@ id result = nil;
     
     NSArray *args = @[backendless.appID, backendless.versionNum, _currentUser.getUserToken];
 #if 1 // http://bugs.backendless.com/browse/BKNDLSS-11864
-    Responder *_responder = [Responder responder:self selResponseHandler:nil) selErrorHandler:@selector(onValidUserTokenFault:)];
+    Responder *_responder = [Responder responder:self selResponseHandler:nil selErrorHandler:@selector(onValidUserTokenFault:)];
     _responder.chained = responder;
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_IS_VALID_USER_TOKEN args:args responder:_responder];
 #else
