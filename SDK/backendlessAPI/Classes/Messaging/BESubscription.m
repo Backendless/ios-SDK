@@ -25,6 +25,12 @@
 #import "HashMap.h"
 #import "Backendless.h"
 
+@interface BESubscription () {
+    uint pollingInterval;
+}
+
+@end
+
 
 @implementation BESubscription
 
@@ -35,6 +41,8 @@
         _channelName = nil;
         _responder = nil;
         _deliveryMethod = DELIVERY_POLL;
+        
+        pollingInterval = backendless.messagingService.pollingFrequencyMs;
 	}
 	
 	return self;
@@ -96,12 +104,12 @@
     
     [backendless.messagingService pollMessages:_channelName subscriptionId:_subscriptionId responder:_responder];
 #if _BY_DISPATCH_TIME_
-    dispatch_time_t interval = dispatch_time(DISPATCH_TIME_NOW, 1ull*NSEC_PER_MSEC*backendless.messagingService.pollingFrequencyMs);
+    dispatch_time_t interval = dispatch_time(DISPATCH_TIME_NOW, 1ull*NSEC_PER_MSEC*pollingInterval);
     dispatch_after(interval, dispatch_get_main_queue(), ^{
         [self pollingMessages];
     });
 #else
-    [self performSelector:@selector(pollingMessages) withObject:nil afterDelay:(double)backendless.messagingService.pollingFrequencyMs/1000];
+    [self performSelector:@selector(pollingMessages) withObject:nil afterDelay:(double)pollingInterval/1000];
 #endif
 }
 
@@ -150,6 +158,15 @@
 
 #pragma mark -
 #pragma mark Public Methods
+
+-(uint)getPollingInterval {
+    return pollingInterval;
+}
+
+-(void)setPollingInterval:(uint)pollingIntervalMs {
+    pollingInterval = pollingIntervalMs;
+}
+
 
 -(void)cancel {
     

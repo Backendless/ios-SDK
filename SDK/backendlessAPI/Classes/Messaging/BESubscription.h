@@ -37,5 +37,7 @@
 +(id)subscription:(NSString *)channelName responder:(id <IResponder>)subscriptionResponder;
 +(id)subscription:(NSString *)channelName response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 
+-(uint)getPollingInterval;
+-(void)setPollingInterval:(uint)pollingIntervalMs;
 -(void)cancel;
 @end
