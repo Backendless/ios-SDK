@@ -62,6 +62,7 @@
 @property (nonatomic) uint pollingFrequencyMs;
 @property (strong, nonatomic, readonly) HashMap *subscriptions;
 @property (assign, nonatomic) id <IBEPushReceiver> pushReceiver;
+@property NSUInteger notificationTypes;
 
 // sync methods with fault return (as exception)
 #if DEVICE_TOKEN_AS_STRING

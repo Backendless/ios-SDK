@@ -62,6 +62,7 @@
 @property (nonatomic) uint pollingFrequencyMs;
 @property (strong, nonatomic, readonly) HashMap *subscriptions;
 @property (assign, nonatomic) id <IBEPushReceiver> pushReceiver;
+@property NSUInteger notificationTypes;
 
 // sync methods with fault return (as exception)
 #if DEVICE_TOKEN_AS_STRING
@@ -221,6 +222,7 @@
 // - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 // -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))handler
 -(void)didReceiveRemoteNotification:(NSDictionary *)userInfo;
+
 // start up register device methods
 -(void)startupRegisterDeviceWithExpiration:(NSDate *)expiration;
 -(void)startupRegisterDeviceWithChannels:(NSArray<NSString*> *)channels;
