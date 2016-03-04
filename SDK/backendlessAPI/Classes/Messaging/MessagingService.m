@@ -525,11 +525,12 @@ id result = nil;
 
 #endif
 
--(NSString *)registerDeviceWithTokenData:(NSData *)deviceToken error:(Fault **)fault {
+#if DEVICE_TOKEN_AS_STRING
+-(NSString *)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration token:(NSString *)deviceToken error:(Fault **)fault {
     
     id result = nil;
     @try {
-        result = [self registerDeviceWithTokenData:deviceToken];
+        result = [self registerDevice:channels expiration:expiration token:deviceToken];
     }
     @catch (Fault *fault) {
         result = fault;
@@ -560,6 +561,62 @@ id result = nil;
         return result;
     }
 }
+
+-(NSString *)registerDeviceWithTokenData:(NSData *)deviceToken error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self registerDeviceWithTokenData:deviceToken];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+#else
+-(NSString *)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration token:(NSData *)deviceToken error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self registerDevice:channels expiration:expiration token:deviceToken];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(NSString *)registerDeviceToken:(NSData *)deviceToken error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self registerDeviceToken:deviceToken];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }    
+}
+#endif
 
 -(NSString *)registerDeviceExpiration:(NSDate *)expiration error:(Fault **)fault {
     
@@ -602,24 +659,6 @@ id result = nil;
     id result = nil;
     @try {
         result = [self registerDevice:channels expiration:expiration];
-    }
-    @catch (Fault *fault) {
-        result = fault;
-    }
-    @finally {
-        if ([result isKindOfClass:Fault.class]) {
-            if (fault)(*fault) = result;
-            return nil;
-        }
-        return result;
-    }
-}
-
--(NSString *)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration token:(NSString *)deviceToken error:(Fault **)fault {
-    
-    id result = nil;
-    @try {
-        result = [self registerDevice:channels expiration:expiration token:deviceToken];
     }
     @catch (Fault *fault) {
         result = fault;
@@ -1015,21 +1054,36 @@ id result = nil;
 
 // sync methods with fault return (as exception)
 
+#if DEVICE_TOKEN_AS_STRING
 - (NSString *)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration token:(NSString *)deviceToken {
     deviceRegistration.deviceToken = deviceToken;
     deviceRegistration.channels = channels;
     deviceRegistration.expiration = expiration;
     return [self registerDevice];
 }
--(NSString *)registerDeviceWithTokenData:(NSData *)deviceToken
-{
-    NSString *token = [self deviceTokenAsString:deviceToken];
-    return [self registerDeviceToken:token];
-}
+
 -(NSString *)registerDeviceToken:(NSString *)deviceToken {
     deviceRegistration.deviceToken = deviceToken;
     return [self registerDevice];
 }
+
+-(NSString *)registerDeviceWithTokenData:(NSData *)deviceToken {
+    NSString *token = [self deviceTokenAsString:deviceToken];
+    return [self registerDeviceToken:token];
+}
+#else
+-(NSString *)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration token:(NSData *)deviceToken {
+    deviceRegistration.deviceToken = [self deviceTokenAsString:deviceToken];
+    deviceRegistration.channels = channels;
+    deviceRegistration.expiration = expiration;
+    return [self registerDevice];
+}
+
+-(NSString *)registerDeviceToken:(NSData *)deviceToken {
+    deviceRegistration.deviceToken = [self deviceTokenAsString:deviceToken];
+    return [self registerDevice];
+}
+#endif
 
 -(NSString *)registerDeviceExpiration:(NSDate *)expiration {
     
@@ -1209,21 +1263,37 @@ id result = nil;
 
 // async methods with responder
 
+#if DEVICE_TOKEN_AS_STRING
 - (void)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration token:(NSString *)deviceToken responder:(id<IResponder>)responder {
     deviceRegistration.deviceToken = deviceToken;
     deviceRegistration.channels = channels;
     deviceRegistration.expiration = expiration;
     [self registerDeviceAsync:responder];
 }
--(void)registerDeviceWithTokenData:(NSData *)deviceToken responder:(id<IResponder>)responder
-{
-    NSString *token = [self deviceTokenAsString:deviceToken];
-    [self registerDeviceToken:token responder:responder];
-}
+
 -(void)registerDeviceToken:(NSString *)deviceToken responder:(id<IResponder>)responder {
     deviceRegistration.deviceToken = deviceToken;
     [self registerDeviceAsync:responder];
 }
+
+-(void)registerDeviceWithTokenData:(NSData *)deviceToken responder:(id<IResponder>)responder {
+    NSString *token = [self deviceTokenAsString:deviceToken];
+    [self registerDeviceToken:token responder:responder];
+}
+#else
+-(void)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration token:(NSData *)deviceToken responder:(id <IResponder>)responder {
+    deviceRegistration.deviceToken = [self deviceTokenAsString:deviceToken];
+    deviceRegistration.channels = channels;
+    deviceRegistration.expiration = expiration;
+    [self registerDeviceAsync:responder];
+}
+
+-(void)registerDeviceToken:(NSData *)deviceToken responder:(id <IResponder>)responder {
+    deviceRegistration.deviceToken = [self deviceTokenAsString:deviceToken];
+    [self registerDeviceAsync:responder];
+}
+#endif
+
 
 -(void)registerDeviceExpiration:(NSDate *)expiration responder:(id <IResponder>)responder {
     
@@ -1386,18 +1456,28 @@ id result = nil;
 }
 
 // async methods with block-based callbacks
-
+#if DEVICE_TOKEN_AS_STRING
 -(void)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration token:(NSString *)deviceToken response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self registerDevice:channels expiration:expiration token:deviceToken responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
--(void)registerDeviceWithTokenData:(NSData *)deviceToken response:(void (^)(NSString *))responseBlock error:(void (^)(Fault *))errorBlock
-{
-    NSString *token = [self deviceTokenAsString:deviceToken];
-    [self registerDeviceToken:token responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
-}
+
 -(void)registerDeviceToken:(NSString *)deviceToken response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self registerDeviceToken:deviceToken responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
+
+-(void)registerDeviceWithTokenData:(NSData *)deviceToken response:(void (^)(NSString *))responseBlock error:(void (^)(Fault *))errorBlock {
+    NSString *token = [self deviceTokenAsString:deviceToken];
+    [self registerDeviceToken:token responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+#else
+-(void)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration token:(NSData *)deviceToken response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self registerDevice:channels expiration:expiration token:deviceToken responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+
+-(void)registerDeviceToken:(NSData *)deviceToken response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self registerDeviceToken:deviceToken responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];    
+}
+#endif
 
 -(void)registerDeviceExpiration:(NSDate *)expiration response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self registerDeviceExpiration:expiration responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
@@ -1548,7 +1628,11 @@ id result = nil;
     [DebLog log:@"MessagingService -> didRegisterForRemoteNotificationsWithDeviceToken: ->  deviceToken = %@", deviceTokenStr];
     
     @try {
+#if DEVICE_TOKEN_AS_STRING
         NSString *deviceRegistrationId = [self registerDeviceToken:deviceTokenStr];
+#else
+        NSString *deviceRegistrationId = [self registerDeviceToken:deviceToken];
+#endif
         [DebLog log:@"MessagingService -> application:didRegisterForRemoteNotificationsWithDeviceToken: -> registerDeviceToken: deviceRegistrationId = %@", deviceRegistrationId];
         if ([self.pushReceiver respondsToSelector:@selector(didRegisterForRemoteNotificationsWithDeviceId:fault:)]) {
             [self.pushReceiver didRegisterForRemoteNotificationsWithDeviceId:deviceRegistrationId fault:nil];
