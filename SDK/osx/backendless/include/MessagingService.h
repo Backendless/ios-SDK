@@ -221,6 +221,10 @@
 // - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 // -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))handler
 -(void)didReceiveRemoteNotification:(NSDictionary *)userInfo;
+// start up register device methods
+-(void)startupRegisterDeviceWithExpiration:(NSDate *)expiration;
+-(void)startupRegisterDeviceWithChannels:(NSArray<NSString*> *)channels;
+-(void)startupRegisterDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration;
 #endif
 
 @end

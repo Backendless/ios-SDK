@@ -185,6 +185,7 @@ static NSString *METHOD_SEND_EMAIL = @"send";
     return [[[str stringByReplacingOccurrencesOfString:@" " withString:@""] stringByReplacingOccurrencesOfString:@"<" withString:@""] stringByReplacingOccurrencesOfString:@">" withString:@""];
 }
 
+
 // sync methods with fault option
 
 #if OLD_ASYNC_WITH_FAULT
@@ -1688,6 +1689,25 @@ id result = nil;
         }
     }
 }
+
+// start up register device methods
+
+-(void)startupRegisterDeviceWithExpiration:(NSDate *)expiration {
+    deviceRegistration.expiration = expiration;
+    [self registerForRemoteNotifications];
+}
+
+-(void)startupRegisterDeviceWithChannels:(NSArray<NSString*> *)channels {
+    deviceRegistration.channels = channels;
+    [self registerForRemoteNotifications];
+}
+
+-(void)startupRegisterDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration {
+    deviceRegistration.channels = channels;
+    deviceRegistration.expiration = expiration;
+    [self registerForRemoteNotifications];
+}
+
 #endif
 
 #pragma mark -
