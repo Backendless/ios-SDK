@@ -29,7 +29,7 @@
 	
     if ( (self=[super init]) ) {
         _publisherId = nil;
-#if 0
+#if _MUTABLE_HEADERS_
         _headers = nil;
 #else
         self.headers = @{@"ios-content-available":@"1"};
@@ -54,6 +54,21 @@
 #pragma mark -
 #pragma mark Public Methods
 
+#if _MUTABLE_HEADERS_
+-(BOOL)addHeader:(NSString *)key value:(NSString *)value {
+    
+    if (!key || !value) {
+        return NO;
+    }
+    
+    if (!_headers) {
+        _headers = [NSMutableDictionary new];
+    }
+    [_headers setValue:value forKey:key];
+    
+    return YES;
+}
+#else
 -(BOOL)addHeader:(NSString *)key value:(NSString *)value {
     
     if (!key || !value) {
@@ -67,7 +82,7 @@
     
     return YES;
 }
-
+#endif
 -(NSString *)description {
     return [NSString stringWithFormat:@"<PublishOptions> publisherId: %@, headers: %@, subtopic = %@", _publisherId, _headers, _subtopic];
 }

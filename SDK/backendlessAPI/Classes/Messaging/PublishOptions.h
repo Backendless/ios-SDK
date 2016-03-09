@@ -21,10 +21,16 @@
 
 #import <Foundation/Foundation.h>
 
+#define _MUTABLE_HEADERS_ 1
+
 @interface PublishOptions : NSObject
 
 @property (strong, nonatomic) NSString *publisherId;
+#if _MUTABLE_HEADERS_
+@property (strong, nonatomic) NSMutableDictionary *headers;
+#else
 @property (strong, nonatomic) NSDictionary *headers;
+#endif
 @property (strong, nonatomic) NSString *subtopic;
 
 -(BOOL)addHeader:(NSString *)key value:(NSString *)value;
