@@ -24,16 +24,19 @@
 
 #define PUSH_POLICY @[@"ONLY", @"ALSO", @"NONE"]
 
+@interface DeliveryOptions ()
+@property (strong, nonatomic) NSString *pushPolicy;
+@property (strong, nonatomic) NSNumber *pushBroadcast;
+@property (strong, nonatomic) NSNumber *repeatEvery;
+@end
+
 @implementation DeliveryOptions
 
 -(id)init {
 	
     if ( (self=[super init]) ) {
-#if _OLD_POLICY_IMPL
-        [self pushPolicy:PUSH_ONLY];
-#else
+        
         [self pushPolicy:PUSH_ALSO];
-#endif
         [self pushBroadcast:FOR_ALL];
         _pushSinglecast = nil;
         _publishAt = nil;
@@ -61,8 +64,8 @@
 #pragma mark -
 #pragma mark Public Methods
 
-+ (id)deliveryOptionsForNotification:(PushPolicyEnum)pushPolice
-{
++(id)deliveryOptionsForNotification:(PushPolicyEnum)pushPolice {
+    
     DeliveryOptions *deliveryOption = [[[DeliveryOptions alloc] init] autorelease];
     [deliveryOption pushPolicy:pushPolice];
     [deliveryOption pushBroadcast:FOR_ALL];
@@ -70,30 +73,19 @@
 }
 
 -(PushPolicyEnum)valPushPolicy {
-#if _OLD_POLICY_IMPL
-    return (PushPolicyEnum)(_pushPolicy?[_pushPolicy unsignedIntValue]:0);
-#else
     return (PushPolicyEnum)(_pushPolicy?[(NSArray *)PUSH_POLICY indexOfObject:_pushPolicy]:0);
-#endif
 }
 
--(BOOL)pushPolicy:(PushPolicyEnum)pushPolicy {
-#if _OLD_POLICY_IMPL
-    _pushPolicy = [[NSNumber alloc] initWithUnsignedInt:(unsigned int)pushPolicy];
-#else
-    _pushPolicy = PUSH_POLICY[pushPolicy];
-#endif
-    return YES;
+-(void)pushPolicy:(PushPolicyEnum)pushPolicy {
+    self.pushPolicy = PUSH_POLICY[pushPolicy];
 }
 
--(PushBroadcastEnum)valPushBroadcast {
-    return (PushBroadcastEnum)(_pushBroadcast?[_pushBroadcast unsignedIntValue]:0);
+-(UInt32)valPushBroadcast {
+    return _pushBroadcast?[_pushBroadcast unsignedIntValue]:0;
 }
 
--(BOOL)pushBroadcast:(PushBroadcastEnum)pushBroadcast {
-    [_pushBroadcast release];
-    _pushBroadcast = [[NSNumber alloc] initWithUnsignedInt:(unsigned int)pushBroadcast];
-    return YES;
+-(void)pushBroadcast:(UInt32)pushBroadcast {
+    self.pushBroadcast = [[NSNumber alloc] initWithUnsignedInt:pushBroadcast];
 }
 
 -(long)valRepeatEvery {
@@ -106,21 +98,24 @@
         return NO;
     }
     
-    [_repeatEvery release];
-    _repeatEvery = [[NSNumber alloc] initWithLong:repeatEvery];
+    self.repeatEvery = [[NSNumber alloc] initWithLong:repeatEvery];
     return YES;    
+}
+
+-(void)addSinglecast:(NSString *)device {
+    
+    if (!_pushSinglecast) {
+        self.pushSinglecast = [NSMutableArray new];
+    }
+    [_pushSinglecast addObject:device];
+}
+
+-(void)delSinglecast:(NSString *)device {    
+    [_pushSinglecast removeObject:device];
 }
 
 -(NSString *)description {
     return [NSString stringWithFormat:@"<DeliveryOptions>  pushBroadcast: %d, pushSinglecast: %@, publishAt: %@, repeatEvery: %@, repeatExpiresAt: %@",  [_pushBroadcast intValue], _pushSinglecast, _publishAt, _repeatEvery, _repeatExpiresAt];
 }
 
--(BOOL)addSinglecast:(NSString *)device
-{
-    if (!_pushSinglecast) {
-        _pushSinglecast = [[NSMutableArray alloc] init];
-    }
-    [_pushSinglecast addObject:device];
-    return YES;
-}
 @end

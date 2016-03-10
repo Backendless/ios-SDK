@@ -21,8 +21,6 @@
 
 #import <Foundation/Foundation.h>
 
-#define _OLD_POLICY_IMPL 0
-
 typedef enum {
     PUSH_ONLY,
     PUSH_ALSO,
@@ -40,25 +38,18 @@ typedef enum {
 
 
 @interface DeliveryOptions : NSObject
-#if _OLD_POLICY_IMPL
-@property (strong, nonatomic) NSNumber *pushPolicy;
-#else
-@property (strong, nonatomic) NSString *pushPolicy;
-#endif
-@property (strong, nonatomic) NSNumber *pushBroadcast;
 @property (strong, nonatomic) NSMutableArray *pushSinglecast;
 @property (strong, nonatomic) NSDate *publishAt;
-@property (strong, nonatomic) NSNumber *repeatEvery;
 @property (strong, nonatomic) NSDate *repeatExpiresAt;
 
 +(id)deliveryOptionsForNotification:(PushPolicyEnum)pushPolice;
 
 -(PushPolicyEnum)valPushPolicy;
--(BOOL)pushPolicy:(PushPolicyEnum)pushPolicy;
--(PushBroadcastEnum)valPushBroadcast;
--(BOOL)pushBroadcast:(PushBroadcastEnum)pushBroadcast;
+-(void)pushPolicy:(PushPolicyEnum)pushPolicy;
+-(UInt32)valPushBroadcast;
+-(void)pushBroadcast:(UInt32)pushBroadcast;
 -(long)valRepeatEvery;
 -(BOOL)repeatEvery:(long)repeatEvery;
--(BOOL)addSinglecast:(NSString *)device;
-
+-(void)addSinglecast:(NSString *)device;
+-(void)delSinglecast:(NSString *)device;
 @end

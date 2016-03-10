@@ -24,6 +24,10 @@
 
 #define DELIVERY_METHOD @[@"POLL", @"PUSH"]
 
+@interface SubscriptionOptions ()
+@property (strong, nonatomic) NSString *deliveryMethod;
+@end
+
 @implementation SubscriptionOptions
 
 -(id)init {
@@ -66,7 +70,7 @@
 }
 
 -(void)deliveryMethod:(DeliveryMethodEnum)deliveryMethod {
-    _deliveryMethod = DELIVERY_METHOD[deliveryMethod];
+    self.deliveryMethod = DELIVERY_METHOD[deliveryMethod];
 }
 
 -(NSString *)description {
