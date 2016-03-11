@@ -30,7 +30,11 @@
     if ( (self=[super init]) ) {
         _publisherId = nil;
 #if _MUTABLE_HEADERS_
+#if 0
         _headers = nil;
+#else
+        self.headers = [NSMutableDictionary dictionaryWithDictionary:@{@"ios-content-available":@"1"}];
+#endif
 #else
         self.headers = @{@"ios-content-available":@"1"};
 #endif
