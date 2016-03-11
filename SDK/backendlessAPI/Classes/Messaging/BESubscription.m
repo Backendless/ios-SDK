@@ -41,7 +41,6 @@
         _channelName = nil;
         _responder = nil;
         _deliveryMethod = DELIVERY_POLL;
-        
         pollingInterval = backendless.messagingService.pollingFrequencyMs;
 	}
 	
@@ -55,6 +54,7 @@
         self.channelName = channelName;
         self.responder = subscriptionResponder;
         _deliveryMethod = DELIVERY_POLL;
+        pollingInterval = backendless.messagingService.pollingFrequencyMs;
 	}
 	
 	return self;    
@@ -67,6 +67,7 @@
         self.channelName = channelName;
         self.responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
         _deliveryMethod = DELIVERY_POLL;
+        pollingInterval = backendless.messagingService.pollingFrequencyMs;
 	}
 	
 	return self;
@@ -102,6 +103,8 @@
     
     //printf("\n############################################### NEW POLLING #################################################\n\n");
     
+    //[DebLog logN:@"BESubscription -> (POLLING) pollingInterval: %d", pollingInterval];
+    
     [backendless.messagingService pollMessages:_channelName subscriptionId:_subscriptionId responder:_responder];
 #if _BY_DISPATCH_TIME_
     dispatch_time_t interval = dispatch_time(DISPATCH_TIME_NOW, 1ull*NSEC_PER_MSEC*pollingInterval);
@@ -132,7 +135,7 @@
         
         case DELIVERY_POLL: {
             
-            [DebLog log:@"BESubscription -> (DELIVERY_POLL) pollingFrequency: %d", (double)backendless.messagingService.pollingFrequencyMs/1000];
+            [DebLog log:@"BESubscription -> (DELIVERY_POLL) pollingInterval: %d", pollingInterval];
             
 #if _BY_DISPATCH_TIME_
             dispatch_time_t interval = dispatch_time(DISPATCH_TIME_NOW, 100ull*NSEC_PER_MSEC);

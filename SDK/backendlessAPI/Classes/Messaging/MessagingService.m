@@ -19,7 +19,7 @@
  *  ********************************************************************************************************************
  */
 
-#define POLLING_INTERVAL 1000
+#define POLLING_INTERVAL 5000
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 #else
