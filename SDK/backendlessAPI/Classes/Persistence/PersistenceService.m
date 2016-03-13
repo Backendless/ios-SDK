@@ -22,6 +22,7 @@
 #define OLD_SAVE_METHOD_ON 0
 #define _REMOVE_META_ 0
 #define _SAVE_OBJECT_AS_DICTIONARY_ 0
+#define _DIRECTLY_SAVE_METHOD 0
 
 #import "PersistenceService.h"
 #import <objc/runtime.h>
@@ -1155,17 +1156,31 @@ id result = nil;
 #if OLD_SAVE_METHOD_ON
     id objectId = [self getObjectId:entity];
     [DebLog log:@">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> PersistenceService -> save: objectId = %@", [objectId isKindOfClass:[NSNumber class]]?@"NO":objectId];
-    if (![objectId isKindOfClass:[NSNumber class]])
+    if (![objectId isKindOfClass:[NSNumber class]]) {
         return (objectId && [objectId isKindOfClass:[NSString class]]) ? [backendless.persistenceService update:entity] : [backendless.persistenceService create:entity];
+    }
+    else {
+        return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
+    }
 #endif
     
     [DebLog log:@"PersistenceService -> save: class = %@, entity = %@", [self objectClassName:entity], [self propertyDictionary:entity]];
+    
+#if _DIRECTLY_SAVE_METHOD
+    NSString *method = METHOD_SAVE;
+#else // 'save' = 'create' | 'update'
+    id objectId = [self getObjectId:entity];
+    BOOL isObjectId = objectId && [objectId isKindOfClass:NSString.class] && ([(NSString *)objectId length] == 36);
+    NSString *method = isObjectId?METHOD_UPDATE:METHOD_CREATE;
+    [DebLog log:@"PersistenceService -> save: method = %@, objectId = %@", method, objectId];
+#endif
+    
 #if _SAVE_OBJECT_AS_DICTIONARY_
     NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], [self propertyDictionary:entity]];
 #else
     NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], [self propertyObject:entity]];
 #endif
-    id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_SAVE args:args];
+    id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:method args:args];
     if ([result isKindOfClass:[Fault class]]) {
         if ([OfflineModeManager sharedInstance].isOfflineMode) {
             return [[OfflineModeManager sharedInstance] saveObject:entity];
@@ -1555,12 +1570,25 @@ id result = nil;
 
 #if OLD_SAVE_METHOD_ON
     id objectId = [self getObjectId:entity];
-    if (![objectId isKindOfClass:[NSNumber class]])
+    if (![objectId isKindOfClass:[NSNumber class]]) {
         return (objectId && [objectId isKindOfClass:[NSString class]]) ?
             [backendless.persistenceService update:entity responder:responder] : [backendless.persistenceService create:entity responder:responder];
+    }
+    else {
+        return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
+    }
 #endif
     
     [DebLog log:@"PersistenceService -> save: class = %@, entity = %@", [self objectClassName:entity], [self propertyDictionary:entity]];
+    
+#if _DIRECTLY_SAVE_METHOD
+    NSString *method = METHOD_SAVE;
+#else // 'save' = 'create' | 'update'
+    id objectId = [self getObjectId:entity];
+    BOOL isObjectId = objectId && [objectId isKindOfClass:NSString.class] && ([(NSString *)objectId length] == 36);
+    NSString *method = isObjectId?METHOD_UPDATE:METHOD_CREATE;
+    [DebLog log:@"PersistenceService -> save: method = %@, objectId = %@", method, objectId];
+#endif
 
 #if _SAVE_OBJECT_AS_DICTIONARY_
     NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], [self propertyDictionary:entity]];
@@ -1575,10 +1603,10 @@ id result = nil;
         Responder *offlineModeResponder = [Responder responder:self selResponseHandler:nil selErrorHandler:@selector(failWithOfflineMode:)];
         offlineModeResponder.chained = _responder;
         offlineModeResponder.context = entity;
-        [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_SAVE args:args responder:offlineModeResponder];
+        [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:method args:args responder:offlineModeResponder];
     }
     else
-        [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_SAVE args:args responder:_responder];
+        [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:method args:args responder:_responder];
 }
 
 -(void)create:(id)entity responder:(id <IResponder>)responder {

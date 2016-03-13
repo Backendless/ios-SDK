@@ -72,7 +72,7 @@
     
     return YES;
 }
-#else
+#else // !!! CREASHES !!!
 -(BOOL)addHeader:(NSString *)key value:(NSString *)value {
     
     if (!key || !value) {
