@@ -2195,7 +2195,7 @@ id get_object_id(id self, SEL _cmd)
 }
 #else
 -(BOOL)prepareClass:(Class)className {
-    id object = [Types classInstance:className];
+    id object = [__types classInstance:className];
     BOOL result = [object resolveProperty:PERSIST_OBJECT_ID];
     [object resolveProperty:@"__meta"];
     if ([[object class] isSubclassOfClass:[NSManagedObject class]]) {

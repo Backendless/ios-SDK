@@ -128,7 +128,7 @@
 }
 
 -(void)setEntityName:(NSString *)className {
-    type = [Types classByName:className];
+    type = [__types classByName:className];
 }
 
 -(NSNumber *)getTotalObjects {

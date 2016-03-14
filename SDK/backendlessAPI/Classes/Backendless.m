@@ -382,6 +382,23 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
  */
 
 -(void)initApp:(NSString *)applicationID secret:(NSString *)secret version:(NSString *)version {
+
+#if 1 // get swift class prefix from caller class (usually AppDelegate)
+    NSString *sourceString = [NSThread callStackSymbols][1];
+    NSCharacterSet *separatorSet = [NSCharacterSet characterSetWithCharactersInString:@" -[]+?.,"];
+    NSMutableArray *items = [NSMutableArray arrayWithArray:[sourceString  componentsSeparatedByCharactersInSet:separatorSet]];
+    [items removeObject:@""];
+    //NSLog(@"ITEMS = %@", items);
+    for (NSString *item in items) {
+        if ([item hasPrefix:@"_TFC"]) {
+            NSMutableArray *parts = [NSMutableArray arrayWithArray:[item componentsSeparatedByCharactersInSet:[NSCharacterSet decimalDigitCharacterSet]]];
+            [parts removeObject:@""];
+            //NSLog(@"TARGET NAME = %@\n%@", parts[1], parts);
+            __types.swiftClassPrefix = parts[1];
+            break;
+        }
+    }
+#endif
     
     [_headers setValue:applicationID forKey:APP_ID_HEADER_KEY];
     [_headers setValue:secret forKey:SECRET_KEY_HEADER_KEY];
