@@ -29,7 +29,7 @@
 #define FAULT_NO_ENTITY [Fault fault:@"Entity is not valid"]
 #define FAULT_NO_USER_ID [Fault fault:@"UserId is not valid"]
 #define FAULT_NO_ROLE_NAME [Fault fault:@"RoleName is not valid"]
-#define FAULT_OBJECT_ID_IS_NOT_EXIST [Fault fault:@"Object ID is not exist"]
+#define FAULT_OBJECT_ID_IS_NOT_EXIST [Fault fault:@"Object ID does not exist"]
 
 #define DATA_PERMISSION_OPERATION @[@"UPDATE", @"FIND", @"REMOVE"]
 

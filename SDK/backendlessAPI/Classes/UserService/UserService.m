@@ -37,9 +37,9 @@
 #import "AMFSerializer.h"
 #import "AuthorizationException.h"
 
-#define FAULT_NO_USER [Fault fault:@"user is not exist" detail:@"backendless user is not exist" faultCode:@"3100"]
-#define FAULT_NO_USER_ID [Fault fault:@"user ID is not exist" detail:@"backendless user ID is not exist" faultCode:@"3101"]
-#define FAULT_NO_USER_CREDENTIALS [Fault fault:@"user credentials is not valid" detail:@"backendless user credentials is not valid" faultCode:@"3102"]
+#define FAULT_NO_USER [Fault fault:@"User does not exist" detail:@"User does not exist" faultCode:@"3100"]
+#define FAULT_NO_USER_ID [Fault fault:@"Object ID does not exist" detail:@"Object ID does not exist" faultCode:@"3101"]
+#define FAULT_NO_USER_CREDENTIALS [Fault fault:@"User credentials does not valid" detail:@"User credentials does not valid" faultCode:@"3102"]
 #define FAULT_NO_USER_ROLE [Fault fault:@"user role is not valid" detail:@"user role is not valid" faultCode:@"3103"]
 // PERSISTENT USER
 static NSString *PERSIST_USER_FILE_NAME = @"user.bin";
@@ -626,10 +626,13 @@ id result = nil;
 }
 
 -(NSNumber *)isValidUserToken {
-
-    if (!_currentUser || !_currentUser.getUserToken)
-        return [backendless throwFault:FAULT_NO_USER];
     
+    if (!_currentUser || !_currentUser.getUserToken)
+#if 1 // http://bugs.backendless.com/browse/BKNDLSS-11896
+        return @(NO);
+#else
+        return [backendless throwFault:FAULT_NO_USER];
+#endif
     NSArray *args = @[backendless.appID, backendless.versionNum, _currentUser.getUserToken];
 #if 0 // http://bugs.backendless.com/browse/BKNDLSS-11864
     return [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_IS_VALID_USER_TOKEN args:args];
@@ -781,9 +784,14 @@ id result = nil;
 
 -(void)isValidUserToken:(id <IResponder>)responder {
     
-    if (!_currentUser || !_currentUser.getUserToken)
+    if (!_currentUser || !_currentUser.getUserToken) {
+#if 1 // http://bugs.backendless.com/browse/BKNDLSS-11896
+        [responder responseHandler:@(NO)];
+        return;
+#else
         return [responder errorHandler:FAULT_NO_USER];
-    
+#endif
+    }
     NSArray *args = @[backendless.appID, backendless.versionNum, _currentUser.getUserToken];
 #if 1 // http://bugs.backendless.com/browse/BKNDLSS-11864
     Responder *_responder = [Responder responder:self selResponseHandler:nil selErrorHandler:@selector(onValidUserTokenFault:)];
