@@ -519,11 +519,11 @@ id result = nil;
     }
 }
 
--(BackendlessUser *)loginWithGooglePlusSDK:(NSString *)userId accessToken:(NSString *)accessToken permissions:(NSArray<NSString*> *)permissions fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping error:(Fault **)fault {
+-(BackendlessUser *)loginWithGoogleSignInSDK:(NSString *)idToken accessToken:(NSString *)accessToken permissions:(NSArray<NSString*> *)permissions fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping error:(Fault **)fault {
     
     id result = nil;
     @try {
-        result = [self loginWithGooglePlusSDK:userId accessToken:accessToken permissions:permissions fieldsMapping:fieldsMapping];
+        result = [self loginWithGoogleSignInSDK:idToken accessToken:accessToken permissions:permissions fieldsMapping:fieldsMapping];
     }
     @catch (Fault *fault) {
         result = fault;
@@ -707,12 +707,12 @@ id result = nil;
     return [self loginWithFacebookSocialUserId:[accessToken valueForKey:@"userID"] accessToken:[accessToken valueForKey:@"tokenString"] expirationDate:[accessToken valueForKey:@"expirationDate"] permissions:[accessToken valueForKey:@"permissions"] fieldsMapping:fieldsMapping];
 }
 
--(id)loginWithGooglePlusSDK:(NSString *)userId accessToken:(NSString *)accessToken permissions:(NSArray<NSString*> *)permissions fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping {
+-(id)loginWithGoogleSignInSDK:(NSString *)idToken accessToken:(NSString *)accessToken permissions:(NSArray<NSString*> *)permissions fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping {
     
-    if (!userId||!userId.length||!accessToken||!accessToken.length)
+    if (!idToken||!idToken.length||!accessToken||!accessToken.length)
         return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, userId, accessToken, permissions?permissions:@[], fieldsMapping?fieldsMapping:@{}];
+    NSArray *args = @[backendless.appID, backendless.versionNum, idToken, accessToken, permissions?permissions:@[], fieldsMapping?fieldsMapping:@{}];
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_GOOGLEPLUS_SDK args:args];
     return [result isKindOfClass:[Fault class]] ? result : [self onLogin:result];
 }
@@ -855,12 +855,12 @@ id result = nil;
     [self loginWithFacebookSocialUserId:[accessToken valueForKey:@"userID"] accessToken:[accessToken valueForKey:@"tokenString"] expirationDate:[accessToken valueForKey:@"expirationDate"] permissions:[accessToken valueForKey:@"permissions"] fieldsMapping:fieldsMapping responder:responder];
 }
 
--(void)loginWithGooglePlusSDK:(NSString *)userId accessToken:(NSString *)accessToken permissions:(NSArray<NSString*> *)permissions fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping responder:(id<IResponder>)responder {
+-(void)loginWithGoogleSignInSDK:(NSString *)idToken accessToken:(NSString *)accessToken permissions:(NSArray<NSString*> *)permissions fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping responder:(id<IResponder>)responder {
     
-    if (!userId||!userId.length||!accessToken||!accessToken.length)
+    if (!idToken||!idToken.length||!accessToken||!accessToken.length)
         return [responder errorHandler:FAULT_NO_USER_CREDENTIALS];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, userId, accessToken, permissions?permissions:@[], fieldsMapping?fieldsMapping:@{}];
+    NSArray *args = @[backendless.appID, backendless.versionNum, idToken, accessToken, permissions?permissions:@[], fieldsMapping?fieldsMapping:@{}];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onLogin:) selErrorHandler:nil];
     _responder.chained = responder;
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_GOOGLEPLUS_SDK args:args responder:_responder];
@@ -920,8 +920,8 @@ id result = nil;
     [self loginWithFacebookSDK:accessToken fieldsMapping:fieldsMapping responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)loginWithGooglePlusSDK:(NSString *)userId accessToken:(NSString *)accessToken permissions:(NSArray<NSString*> *)permissions fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self loginWithGooglePlusSDK:userId accessToken:accessToken permissions:permissions fieldsMapping:fieldsMapping responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+-(void)loginWithGoogleSignInSDK:(NSString *)idToken accessToken:(NSString *)accessToken permissions:(NSArray<NSString*> *)permissions fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self loginWithGoogleSignInSDK:idToken accessToken:accessToken permissions:permissions fieldsMapping:fieldsMapping responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 // methods of social easy logins
