@@ -30,10 +30,8 @@
 @property (strong, nonatomic, readonly) FilePermission *permissions;
 
 // sync methods with fault return (as exception)
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 -(BackendlessFile *)upload:(NSString *)path content:(NSData *)content;
 -(BackendlessFile *)upload:(NSString *)path content:(NSData *)content overwrite:(BOOL)overwrite;
-#endif
 -(id)remove:(NSString *)fileURL;
 -(id)removeDirectory:(NSString *)path;
 -(BackendlessFile *)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content;
@@ -49,10 +47,8 @@
 -(NSNumber *)exists:(NSString *)path;
 
 // sync methods with fault option
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 -(BackendlessFile *)upload:(NSString *)path content:(NSData *)content error:(Fault **)fault;
 -(BackendlessFile *)upload:(NSString *)path content:(NSData *)content overwrite:(BOOL)overwrite error:(Fault **)fault;
-#endif
 -(BOOL)remove:(NSString *)fileURL error:(Fault **)fault;
 -(BOOL)removeDirectory:(NSString *)path error:(Fault **)fault;
 -(BackendlessFile *)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content error:(Fault **)fault;
@@ -68,10 +64,8 @@
 -(NSNumber *)exists:(NSString *)path error:(Fault **)fault;
 
 // async methods with responder
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 -(void)upload:(NSString *)path content:(NSData *)content responder:(id <IResponder>)responder;
 -(void)upload:(NSString *)path content:(NSData *)content overwrite:(BOOL)overwrite responder:(id <IResponder>)responder;
-#endif
 -(void)remove:(NSString *)fileURL responder:(id <IResponder>)responder;
 -(void)removeDirectory:(NSString *)path responder:(id <IResponder>)responder;
 -(void)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content responder:(id <IResponder>)responder;
@@ -86,10 +80,8 @@
 -(void)exists:(NSString *)path responder:(id <IResponder>)responder;
 
 // async methods with block-based callbacks
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 -(void)upload:(NSString *)path content:(NSData *)content response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)upload:(NSString *)path content:(NSData *)content overwrite:(BOOL)overwrite response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock;
-#endif
 -(void)remove:(NSString *)fileURL response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)removeDirectory:(NSString *)path response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock;

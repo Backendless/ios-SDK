@@ -866,9 +866,9 @@ id result = nil;
 
 -(id)sendUploadRequest:(NSString *)path content:(NSData *)content overwrite:(NSNumber *)overwrite {
     
-    NSURLRequest *webReq = [self httpUploadRequest:path content:content overwrite:overwrite];
-
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+    
+    NSURLRequest *webReq = [self httpUploadRequest:path content:content overwrite:overwrite];
     
     NSHTTPURLResponse *responseUrl;
     NSError *error;
@@ -888,29 +888,7 @@ id result = nil;
     Fault *fault = [Fault fault:[NSString stringWithFormat:@"HTTP %@", @(statusCode)] detail:[NSHTTPURLResponse localizedStringForStatusCode:statusCode] faultCode:[NSString stringWithFormat:@"%@", @(statusCode)]];
     return [backendless throwFault:fault];
 #else
-    
-    // !!! TODO as async !!!
-    [[NSURLSession sharedSession]
-     dataTaskWithRequest:webReq
-     completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-         
-         NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
-         
-         [DebLog log:@"FileService -> sendUploadRequest: HTTP status code: %@", @(statusCode)];
-         
-         if (statusCode == 200 && data)
-         {
-             NSString *receiveUrl = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-             receiveUrl = [receiveUrl stringByReplacingOccurrencesOfString:@"{\"fileURL\":\"" withString:@""];
-             receiveUrl = [receiveUrl stringByReplacingOccurrencesOfString:@"\"}" withString:@""];
-             [BackendlessFile file:receiveUrl];
-         }
-         Fault *fault = [Fault fault:[NSString stringWithFormat:@"HTTP %@", @(statusCode)] detail:[NSHTTPURLResponse localizedStringForStatusCode:statusCode] faultCode:[NSString stringWithFormat:@"%@", @(statusCode)]];
-         [backendless throwFault:fault];
-    }];
-    
-    return nil;
-
+    return [self saveFile:path content:content overwriteIfExist:(overwrite!=nil)&&overwrite.boolValue];
 #endif
 }
 
@@ -942,7 +920,7 @@ id result = nil;
     
     [DebLog log:@"FileService -> sendUploadRequest: (ERROR) the connection with path: '%@' didn't create", path];
 #else
-    // !!! TODO !!!
+    [self saveFile:path content:content overwriteIfExist:(overwrite!=nil)&&overwrite.boolValue responder:responder];
 #endif
 }
 
