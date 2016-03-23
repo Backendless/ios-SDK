@@ -48,6 +48,7 @@
 +(NSArray *)propertyAttributes:(id)obj;
 +(NSDictionary *)propertyKeysWithAttributes:(id)obj;
 +(NSDictionary *)propertyDictionary:(id)obj;
+-(void)makeSwiftClassPrefix:(NSString *)prefix item:(NSString *)item;
 // target/plist options
 +(NSString *)targetName;
 +(NSDictionary *)getInfoPlist;

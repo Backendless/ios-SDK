@@ -370,6 +370,23 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 }
 
 #pragma mark -
+#pragma mark Private Methods
+
+-(NSString *)getSwiftClassPrefix:(NSString *)prefix item:(NSString *)item {
+    
+    NSUInteger lenPrefix = prefix.length;
+    for (NSUInteger i = lenPrefix; i < item.length; i++) {
+        if ([@"0123456789" containsString:[item substringWithRange:NSMakeRange(i, 1)]]) {
+            continue;
+        }
+        NSString *lenStr = [item substringWithRange:NSMakeRange(lenPrefix, i-lenPrefix)];
+        int len = lenStr.length?lenStr.intValue:0;
+        return [item substringWithRange:NSMakeRange(i, len)];
+    }
+    return @"";
+}
+
+#pragma mark -
 #pragma mark Public Methods
 
 /**
@@ -391,10 +408,8 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     //NSLog(@"ITEMS = %@", items);
     for (NSString *item in items) {
         if ([item hasPrefix:@"_TFC"]) {
-            NSMutableArray *parts = [NSMutableArray arrayWithArray:[item componentsSeparatedByCharactersInSet:[NSCharacterSet decimalDigitCharacterSet]]];
-            [parts removeObject:@""];
-            //NSLog(@"TARGET NAME = %@\n%@", parts[1], parts);
-            __types.swiftClassPrefix = parts[1];
+            __types.swiftClassPrefix = [self getSwiftClassPrefix:@"_TFC" item:item];
+            //NSLog(@"Types.swiftClassPrefix = '%@'", __types.swiftClassPrefix);
             break;
         }
     }
