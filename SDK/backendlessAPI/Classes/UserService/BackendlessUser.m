@@ -133,7 +133,11 @@
 }
 
 -(NSDictionary<NSString*, id> *)getProperties {
+#if 1
+    return (properties) ? [NSDictionary dictionaryWithDictionary:properties.node] : nil;
+#else
     return (properties) ? properties.node : nil;
+#endif
 }
 
 -(void)updateProperties:(NSDictionary<NSString*, id> *)props {
