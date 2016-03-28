@@ -134,7 +134,7 @@
 
 -(NSDictionary<NSString*, id> *)getProperties {
 #if 1
-    return (properties) ? [NSDictionary dictionaryWithDictionary:properties.node] : nil;
+    return (properties) ? [NSDictionary dictionaryWithDictionary:properties.node] : [NSDictionary dictionary];
 #else
     return (properties) ? properties.node : nil;
 #endif
