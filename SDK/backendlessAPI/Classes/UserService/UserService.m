@@ -546,10 +546,10 @@ id result = nil;
     if (!user) 
         return [backendless throwFault:FAULT_NO_USER];
     
-    if (![user getProperties])
+    if (![user retrieveProperties])
         return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
     
-    NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
+    NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user retrieveProperties]];
 #if FILTRATION_USER_TOKEN_ON
     [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
 #endif
@@ -559,7 +559,7 @@ id result = nil;
         return result;
     }
     
-    [user setProperties:result];
+    [user assignProperties:result];
     
     return user;
 }
@@ -569,7 +569,7 @@ id result = nil;
     if (!user) 
         return [backendless throwFault:FAULT_NO_USER];
     
-    NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
+    NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user retrieveProperties]];
 #if FILTRATION_USER_TOKEN_ON
     [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
 #endif
@@ -582,7 +582,7 @@ id result = nil;
 #if 0 // !!! BUG !!! - maybe should use only for currentUser
     [self onLogin:result];
 #endif
-    [user setProperties:result];
+    [user assignProperties:result];
     
     return user;
 }
@@ -724,10 +724,10 @@ id result = nil;
     if (!user) 
         return [responder errorHandler:FAULT_NO_USER];
     
-    if (![user getProperties])
+    if (![user retrieveProperties])
         return [responder errorHandler:FAULT_NO_USER_CREDENTIALS];
     
-    NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
+    NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user retrieveProperties]];
 #if FILTRATION_USER_TOKEN_ON
     [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
 #endif
@@ -743,7 +743,7 @@ id result = nil;
     if (!user) 
         return [responder errorHandler:FAULT_NO_USER];
     
-    NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
+    NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user retrieveProperties]];
 #if FILTRATION_USER_TOKEN_ON
     [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
 #endif
@@ -1026,7 +1026,7 @@ id result = nil;
 }
 
 -(BOOL)setPersistentUser {
-    return (_currentUser && _isStayLoggedIn) ? [AMFSerializer serializeToFile:[_currentUser getProperties] fileName:PERSIST_USER_FILE_NAME] : NO;
+    return (_currentUser && _isStayLoggedIn) ? [AMFSerializer serializeToFile:[_currentUser retrieveProperties] fileName:PERSIST_USER_FILE_NAME] : NO;
     
 }
 
@@ -1067,7 +1067,7 @@ id result = nil;
     [DebLog log:@"UserService -> registerResponse: %@", response];
     
     BackendlessUser *user = response.context;
-    [user setProperties:response.response];
+    [user assignProperties:response.response];
     return user;
 }
 
@@ -1099,7 +1099,7 @@ id result = nil;
     }
     else {
         NSDictionary *props = (NSDictionary *)response;
-        (_currentUser) ? [_currentUser setProperties:props] : (_currentUser = [[BackendlessUser alloc] initWithProperties:props]);        
+        (_currentUser) ? [_currentUser assignProperties:props] : (_currentUser = [[BackendlessUser alloc] initWithProperties:props]);
     }
     
     if (_currentUser.getUserToken)
@@ -1123,7 +1123,7 @@ id result = nil;
 #endif
     
     BackendlessUser *user = response.context;
-    [user setProperties:response.response];
+    [user assignProperties:response.response];
     
     return user;
 }

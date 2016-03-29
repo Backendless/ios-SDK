@@ -100,7 +100,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 #if _REMOVE_META_
     [properties removeObjectsForKeys:@[@"___class", @"__meta"]];
 #endif
-    [user setProperties:properties];
+    [user assignProperties:properties];
     return user;
 }
 
@@ -112,7 +112,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 
 -(id)onAMFSerialize {
     
-    NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:[self getProperties]];
+    NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:[self retrieveProperties]];
     data[@"___class"] = @"Users";
     [data removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
     
@@ -130,11 +130,11 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 -(id)onAMFSerialize {
     
     Users *user = [Users new];
-    NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:[self getProperties]];
+    NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:[self retrieveProperties]];
 #if FILTRATION_USER_TOKEN_ON
     [data removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
 #endif
-    [user setProperties:data];
+    [user assignProperties:data];
     
     [DebLog log:@"BackendlessUser -> onAMFSerialize: %@", user];
     
@@ -154,7 +154,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 #endif
     
     Users *user = [Users new];
-    NSDictionary *properties = [self getProperties];
+    NSDictionary *properties = [self retrieveProperties];
     [user resolveProperties:properties];
     
     [DebLog log:@"BackendlessUser -> onAMFSerialize: Users.properties = %@", properties];
@@ -2233,11 +2233,11 @@ id get_object_id(id self, SEL _cmd)
     
     if ([[object class] isSubclassOfClass:[BackendlessUser class]]) {
 #if FILTRATION_USER_TOKEN_ON
-        NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:[(BackendlessUser *)object getProperties]];
+        NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:[(BackendlessUser *)object retrieveProperties]];
         [data removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
         return data;
 #else
-        return [(BackendlessUser *)object getProperties];
+        return [(BackendlessUser *)object retrieveProperties];
 #endif
     }
 #if !_REMOVE_META_
@@ -2253,11 +2253,11 @@ id get_object_id(id self, SEL _cmd)
     
     if ([[object class] isSubclassOfClass:[BackendlessUser class]]) {
 #if FILTRATION_USER_TOKEN_ON
-        NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:[(BackendlessUser *) object getProperties]];
+        NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:[(BackendlessUser *) object retrieveProperties]];
         [data removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
         return data;
 #else
-        return [(BackendlessUser *)object getProperties];
+        return [(BackendlessUser *)object retrieveProperties];
 #endif
     }
     

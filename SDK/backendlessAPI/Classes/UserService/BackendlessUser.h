@@ -40,9 +40,9 @@
 -(id)initWithProperties:(NSDictionary<NSString*, id> *)props;
 
 -(NSString *)getUserToken;
--(void)setProperties:(NSDictionary<NSString*, id> *)props;
+-(void)assignProperties:(NSDictionary<NSString*, id> *)props;
 -(void)addProperties:(NSDictionary<NSString*, id> *)props;
--(NSDictionary<NSString*, id> *)getProperties;
+-(NSDictionary<NSString*, id> *)retrieveProperties;
 -(void)updateProperties:(NSDictionary<NSString*, id> *)props;
 -(id)getProperty:(NSString *)key;
 -(void)setProperty:(NSString *)key object:(id)value;

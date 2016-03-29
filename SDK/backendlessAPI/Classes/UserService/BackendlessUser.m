@@ -98,7 +98,7 @@
     return [self getProperty:BACKENDLESS_USER_TOKEN];
 }
 
--(void)setProperties:(NSDictionary<NSString*, id> *)props {
+-(void)assignProperties:(NSDictionary<NSString*, id> *)props {
     
 #if 0
     if (properties) {
@@ -132,12 +132,8 @@
     }
 }
 
--(NSDictionary<NSString*, id> *)getProperties {
-#if 1
+-(NSDictionary<NSString*, id> *)retrieveProperties {
     return (__properties) ? [NSDictionary dictionaryWithDictionary:__properties.node] : [NSDictionary dictionary];
-#else
-    return (__properties) ? __properties.node : nil;
-#endif
 }
 
 -(void)updateProperties:(NSDictionary<NSString*, id> *)props {
