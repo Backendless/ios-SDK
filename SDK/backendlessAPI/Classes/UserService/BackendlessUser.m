@@ -24,7 +24,7 @@
 #import "HashMap.h"
 
 @interface BackendlessUser () {
-    HashMap *properties;
+    HashMap *__properties;
 }
 @end
 
@@ -33,7 +33,7 @@
 
 -(id)init {
 	if ( (self=[super init]) ) {
-        properties = nil;
+        __properties = nil;
 	}
 	
 	return self;
@@ -41,7 +41,7 @@
 
 -(id)initWithProperties:(NSDictionary<NSString*, id> *)props {
 	if ( (self=[super init]) ) {
-        properties = (props) ? [[HashMap alloc] initWithNode:props] : nil;
+        __properties = (props) ? [[HashMap alloc] initWithNode:props] : nil;
 	}
 	
 	return self;
@@ -51,7 +51,7 @@
 	
 	[DebLog logN:@"DEALLOC BackendlessUser "];
     
-    [properties release];
+    [__properties release];
 	
 	[super dealloc];
 }
@@ -104,39 +104,39 @@
     if (properties) {
         NSArray *keys = [props allKeys];
         for (NSString *key in keys) {
-            [properties push:key withObject:props[key]];
+            [__properties push:key withObject:props[key]];
         }
     }
     else
     {
-        properties = (props) ? [[HashMap alloc] initWithNode:props] : nil;
+        __properties = (props) ? [[HashMap alloc] initWithNode:props] : nil;
     }
 #else
-    [properties release];
-    properties = (props) ? [[HashMap alloc] initWithNode:props] : nil;
+    [__properties release];
+    __properties = (props) ? [[HashMap alloc] initWithNode:props] : nil;
 
 #endif
 }
 
 -(void)addProperties:(NSDictionary<NSString*, id> *)props {
     
-    if (properties) {
+    if (__properties) {
         NSArray *keys = [props allKeys];
         for (NSString *key in keys) {
-            [properties add:key withObject:props[key]];
+            [__properties add:key withObject:props[key]];
         }
     }
     else
     {
-        properties = (props) ? [[HashMap alloc] initWithNode:props] : nil;
+        __properties = (props) ? [[HashMap alloc] initWithNode:props] : nil;
     }
 }
 
 -(NSDictionary<NSString*, id> *)getProperties {
 #if 1
-    return (properties) ? [NSDictionary dictionaryWithDictionary:properties.node] : [NSDictionary dictionary];
+    return (__properties) ? [NSDictionary dictionaryWithDictionary:__properties.node] : [NSDictionary dictionary];
 #else
-    return (properties) ? properties.node : nil;
+    return (__properties) ? __properties.node : nil;
 #endif
 }
 
@@ -148,15 +148,15 @@
 }
 
 -(id)getProperty:(NSString *)key {
-    return (properties) ? [properties get:key] : nil;
+    return (__properties) ? [__properties get:key] : nil;
 }
 
 -(void)setProperty:(NSString *)key object:(id)value {
     
-    if (!properties)
-        properties = [HashMap new];
+    if (!__properties)
+        __properties = [HashMap new];
     
-    [properties push:key withObject:value];
+    [__properties push:key withObject:value];
     
     if (backendless.userService.isStayLoggedIn && backendless.userService.currentUser && [self.objectId isEqualToString:backendless.userService.currentUser.objectId]) {
         [backendless.userService setPersistentUser];
@@ -165,22 +165,22 @@
 
 -(void)removeProperty:(NSString *)key {
     
-    if (!properties)
+    if (!__properties)
         return;
     
-    if ([properties get:key]) {
-        [properties push:key withObject:nil];
+    if ([__properties get:key]) {
+        [__properties push:key withObject:nil];
     }
 }
 
 -(void)removeProperties:(NSArray<NSString*> *)keys {
     
-    if (!properties)
+    if (!__properties)
         return;
     
     for (NSString *key in keys) {
-        if ([properties get:key]) {
-            [properties push:key withObject:nil];
+        if ([__properties get:key]) {
+            [__properties push:key withObject:nil];
         }
     }
 }
@@ -189,7 +189,7 @@
 #pragma mark overwrided NSObject Methods
 
 -(NSString *)description {
-    return [NSString stringWithFormat:@"<BackendlessUser> %@", properties.node];
+    return [NSString stringWithFormat:@"<BackendlessUser> %@", __properties.node];
 }
 
 @end
