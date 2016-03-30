@@ -107,7 +107,7 @@
     if (offset) [dict setValue:offset forKey:@"offset"];
     if (sortBy) [dict setValue:sortBy forKey:@"sortBy"];
     if (related) [dict setValue:related forKey:@"related"];
-    if (relationsDepth) [dict setValue:related forKey:@"relationsDepth"];
+    if (relationsDepth) [dict setValue:relationsDepth forKey:@"relationsDepth"];
     
     return dict;
 }
