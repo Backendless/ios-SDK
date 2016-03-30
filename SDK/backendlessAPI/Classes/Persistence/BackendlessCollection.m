@@ -124,11 +124,22 @@
 #pragma mark getters / setters
 
 -(NSString *)getEntityName {
+#if 1
+    return [__types typeMappedClassName:type];
+#else
     return [Types typeClassName:type];
+#endif
 }
 
 -(void)setEntityName:(NSString *)className {
+#if 1
+    type = [__types getServerTypeForClientClass:className];
+    if (!type) {
+        type = [__types classByName:className];        
+    }
+#else
     type = [__types classByName:className];
+#endif
 }
 
 -(NSNumber *)getTotalObjects {
