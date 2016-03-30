@@ -1001,9 +1001,21 @@ id result = nil;
 #endif
     
     [DebLog log:@"UserService -> handleOpenURL: JSONObject = '%@'", absoluteString];
-    
+#if 0
     id userData = [NSJSONSerialization JSONObjectWithData:[absoluteString dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
     return [self onLogin:userData];
+#else
+    @try {
+        //id userData = [NSJSONSerialization JSONObjectWithData:[absoluteString dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
+        id userData = [NSJSONSerialization JSONObjectWithData:[absoluteString dataUsingEncoding:NSUTF16StringEncoding] options:0 error:nil];
+        return [self onLogin:userData];
+    }
+    
+    @catch (NSException *exception) {
+        [DebLog logY:@"UserService -> handleOpenURL: EXCEPTION = %@", exception];
+        return nil;
+    }
+#endif
 }
 
 // persistent user

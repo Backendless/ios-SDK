@@ -124,7 +124,7 @@
 #pragma mark getters / setters
 
 -(NSString *)getEntityName {
-#if 1
+#if 0
     return [__types typeMappedClassName:type];
 #else
     return [Types typeClassName:type];
