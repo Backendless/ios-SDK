@@ -1001,6 +1001,8 @@ id result = nil;
 #endif
     
     [DebLog log:@"UserService -> handleOpenURL: JSONObject = '%@'", absoluteString];
+
+    // http://bugs.backendless.com/browse/BKNDLSS-11936
 #if 0
     id userData = [NSJSONSerialization JSONObjectWithData:[absoluteString dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
     return [self onLogin:userData];

@@ -331,7 +331,7 @@ static NSString *GEOFENCES_MONITORING = @"Cannot start geofence monitoring for a
 
     @synchronized(self) {
         
-        [DebLog logN:@"GeoFenceMonitoring -> checkOnStay:"];
+        [DebLog log:@"GeoFenceMonitoring -> checkOnStay:"];
         
         if ([self.onStaySet containsObject:geoFence]) {
             
@@ -345,7 +345,7 @@ static NSString *GEOFENCES_MONITORING = @"Cannot start geofence monitoring for a
     
     [self.onStaySet addObject:geoFence];
     
-    [DebLog logN:@"GeoFenceMonitoring -> addOnStay: geofence = %@, onStayDuration = %dsec", geoFence.geofenceName, geoFence.valOnStayDuration];
+    [DebLog log:@"GeoFenceMonitoring -> addOnStay: geofence = %@, onStayDuration = %dsec", geoFence.geofenceName, geoFence.valOnStayDuration];
     
     dispatch_time_t interval = dispatch_time(DISPATCH_TIME_NOW, 1ull*NSEC_PER_SEC*geoFence.valOnStayDuration);
     dispatch_after(interval, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
