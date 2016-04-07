@@ -406,6 +406,20 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     NSMutableArray *items = [NSMutableArray arrayWithArray:[sourceString  componentsSeparatedByCharactersInSet:separatorSet]];
     [items removeObject:@""];
     //NSLog(@"ITEMS = %@", items);
+#if 1
+    NSMutableString *prefix = [NSMutableString string];
+    NSUInteger count = items.count;
+    for (NSUInteger i = 1; i < count-3; i++) {
+        if (i > 1) {
+            [prefix appendString:@"_"];
+        }
+        [prefix appendString:items[i]];
+    }
+    __types.swiftClassPrefix = prefix;
+    //NSLog(@"Types.swiftClassPrefix = '%@'", __types.swiftClassPrefix);
+#else 
+    // Don't work for Release mode:
+    //"_TTSf4dg_dg_n___TFC15Save_Data_Table11AppDelegate11applicationfTCSo13UIApplication29didFinishLaunchingWithOptionsGSqGVs10DictionaryCSo8NSObjectPs9AnyObject____Sb"
     for (NSString *item in items) {
         if ([item hasPrefix:@"_TFC"]) {
             __types.swiftClassPrefix = [self getSwiftClassPrefix:@"_TFC" item:item];
@@ -413,6 +427,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
             break;
         }
     }
+#endif
 #endif
     
     [_headers setValue:applicationID forKey:APP_ID_HEADER_KEY];
