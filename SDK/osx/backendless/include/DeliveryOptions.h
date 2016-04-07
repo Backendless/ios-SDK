@@ -38,7 +38,7 @@ typedef enum {
 
 
 @interface DeliveryOptions : NSObject
-@property (strong, nonatomic) NSMutableArray *pushSinglecast;
+@property (strong, nonatomic) NSMutableArray<NSString *> *pushSinglecast;
 @property (strong, nonatomic) NSDate *publishAt;
 @property (strong, nonatomic) NSDate *repeatExpiresAt;
 
@@ -52,4 +52,5 @@ typedef enum {
 -(BOOL)repeatEvery:(long)repeatEvery;
 -(void)addSinglecast:(NSString *)device;
 -(void)delSinglecast:(NSString *)device;
+-(void)assignSinglecast:(NSArray<NSString *> *)devices;
 @end

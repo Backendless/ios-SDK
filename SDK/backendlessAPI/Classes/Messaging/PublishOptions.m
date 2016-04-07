@@ -22,6 +22,9 @@
 #import "PublishOptions.h"
 #import "DEBUG.h"
 
+@interface PublishOptions()
+@property (strong, nonatomic) NSMutableDictionary *headers;
+@end
 
 @implementation PublishOptions
 
@@ -29,16 +32,8 @@
 	
     if ( (self=[super init]) ) {
         _publisherId = nil;
-#if _MUTABLE_HEADERS_
-#if 0
-        _headers = nil;
-#else
-        self.headers = [NSMutableDictionary dictionaryWithDictionary:@{@"ios-content-available":@"1"}];
-#endif
-#else
-        self.headers = @{@"ios-content-available":@"1"};
-#endif
         _subtopic = nil;
+        [self defaultHeaders];
 	}
 	
 	return self;
@@ -55,38 +50,48 @@
 	[super dealloc];
 }
 
+
+#pragma mark -
+#pragma mark Private Methods
+
+-(void)defaultHeaders {
+    self.headers = [NSMutableDictionary dictionaryWithDictionary:@{@"ios-content-available":@"1"}];
+}
+
+
 #pragma mark -
 #pragma mark Public Methods
 
-#if _MUTABLE_HEADERS_
 -(BOOL)addHeader:(NSString *)key value:(NSString *)value {
     
     if (!key || !value) {
         return NO;
     }
     
-    if (!_headers) {
-        _headers = [NSMutableDictionary new];
-    }
     [_headers setValue:value forKey:key];
-    
     return YES;
 }
-#else // !!! CREASHES !!!
--(BOOL)addHeader:(NSString *)key value:(NSString *)value {
+
+-(BOOL)removeHeader:(NSString *)key {
     
-    if (!key || !value) {
+    if (!key) {
         return NO;
     }
     
-    NSMutableDictionary *dict = _headers ? [[NSMutableDictionary alloc] initWithDictionary:_headers] : [NSMutableDictionary new];
-    [dict setValue:value forKey:key];
-    [_headers release];
-    self.headers = dict;
-    
+    [_headers removeObjectForKey:key];
     return YES;
 }
-#endif
+
+-(void)assignHeaders:(NSDictionary *)headers {
+    
+    if (headers) {
+        self.headers = [NSMutableDictionary dictionaryWithDictionary:headers];
+    }
+    else {
+        [self defaultHeaders];        
+    }
+}
+
 -(NSString *)description {
     return [NSString stringWithFormat:@"<PublishOptions> publisherId: %@, headers: %@, subtopic = %@", _publisherId, _headers, _subtopic];
 }

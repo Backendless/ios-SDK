@@ -114,6 +114,10 @@
     [_pushSinglecast removeObject:device];
 }
 
+-(void)assignSinglecast:(NSArray<NSString *> *)devices {
+    self.pushSinglecast = [NSMutableArray arrayWithArray:devices];
+}
+
 -(NSString *)description {
     return [NSString stringWithFormat:@"<DeliveryOptions>  pushBroadcast: %d, pushSinglecast: %@, publishAt: %@, repeatEvery: %@, repeatExpiresAt: %@",  [_pushBroadcast intValue], _pushSinglecast, _publishAt, _repeatEvery, _repeatExpiresAt];
 }

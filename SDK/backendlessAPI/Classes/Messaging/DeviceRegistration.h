@@ -29,7 +29,7 @@
 @property (strong, nonatomic) NSString *os;
 @property (strong, nonatomic) NSString *osVersion;
 @property (strong, nonatomic) NSDate *expiration;
-@property (strong, nonatomic) NSArray *channels;
+@property (strong, nonatomic) NSArray<NSString *> *channels;
 
 -(BOOL)addChannel:(NSString *)channel;
 @end
