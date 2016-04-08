@@ -370,23 +370,6 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 }
 
 #pragma mark -
-#pragma mark Private Methods
-
--(NSString *)getSwiftClassPrefix:(NSString *)prefix item:(NSString *)item {
-    
-    NSUInteger lenPrefix = prefix.length;
-    for (NSUInteger i = lenPrefix; i < item.length; i++) {
-        if ([@"0123456789" containsString:[item substringWithRange:NSMakeRange(i, 1)]]) {
-            continue;
-        }
-        NSString *lenStr = [item substringWithRange:NSMakeRange(lenPrefix, i-lenPrefix)];
-        int len = lenStr.length?lenStr.intValue:0;
-        return [item substringWithRange:NSMakeRange(i, len)];
-    }
-    return @"";
-}
-
-#pragma mark -
 #pragma mark Public Methods
 
 /**
@@ -399,42 +382,9 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
  */
 
 -(void)initApp:(NSString *)applicationID secret:(NSString *)secret version:(NSString *)version {
-
-#if 1 // get swift class prefix from caller class (usually AppDelegate)
-    NSString *sourceString = [NSThread callStackSymbols][1];
-    NSCharacterSet *separatorSet = [NSCharacterSet characterSetWithCharactersInString:@" -[]+?.,"];
-    NSMutableArray *items = [NSMutableArray arrayWithArray:[sourceString  componentsSeparatedByCharactersInSet:separatorSet]];
-    [items removeObject:@""];
-    //NSLog(@"ITEMS = %@", items);
-#if 1
-    NSMutableString *prefix = [NSMutableString string];
-    NSUInteger count = items.count;
-    for (NSUInteger i = 1; i < count-3; i++) {
-        if (i > 1) {
-            [prefix appendString:@"_"];
-        }
-        [prefix appendString:items[i]];
-    }
-#if 1
-    // https://developer.apple.com/library/ios/documentation/Swift/Conceptual/BuildingCocoaApps/MixandMatch.html#//apple_ref/doc/uid/TP40014216-CH10-ID138
-    if ([@"0123456789" containsString:[prefix substringWithRange:NSMakeRange(0, 1)]]) {
-        [prefix replaceCharactersInRange:NSMakeRange(0, 1) withString:@"_"];
-    }
-#endif
-    __types.swiftClassPrefix = prefix;
-    //NSLog(@"Types.swiftClassPrefix = '%@'", __types.swiftClassPrefix);
-#else 
-    // Don't work for Release mode:
-    //"_TTSf4dg_dg_n___TFC15Save_Data_Table11AppDelegate11applicationfTCSo13UIApplication29didFinishLaunchingWithOptionsGSqGVs10DictionaryCSo8NSObjectPs9AnyObject____Sb"
-    for (NSString *item in items) {
-        if ([item hasPrefix:@"_TFC"]) {
-            __types.swiftClassPrefix = [self getSwiftClassPrefix:@"_TFC" item:item];
-            //NSLog(@"Types.swiftClassPrefix = '%@'", __types.swiftClassPrefix);
-            break;
-        }
-    }
-#endif
-#endif
+    
+    // get swift class prefix from caller class (usually AppDelegate)
+    [__types makeSwiftClassPrefix:[NSThread callStackSymbols][1]];
     
     [_headers setValue:applicationID forKey:APP_ID_HEADER_KEY];
     [_headers setValue:secret forKey:SECRET_KEY_HEADER_KEY];
