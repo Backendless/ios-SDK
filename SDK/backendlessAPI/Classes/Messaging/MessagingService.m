@@ -1672,7 +1672,7 @@ id result = nil;
             
             if (pushMessage && pushMessage.length) {
                 
-                NSData *data = [Base64 decode:pushMessage];
+                NSData *data = [BEBase64 decode:pushMessage];
                 BinaryStream *bytes = [BinaryStream streamWithStream:(char*)data.bytes andSize:(size_t)data.length];
                 id message = [AMFSerializer deserializeFromBytes:bytes];
                 if (message && [message isKindOfClass:Message.class]) {
