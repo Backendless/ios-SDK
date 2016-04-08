@@ -415,6 +415,12 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
         }
         [prefix appendString:items[i]];
     }
+#if 1
+    // https://developer.apple.com/library/ios/documentation/Swift/Conceptual/BuildingCocoaApps/MixandMatch.html#//apple_ref/doc/uid/TP40014216-CH10-ID138
+    if ([@"0123456789" containsString:[prefix substringWithRange:NSMakeRange(0, 1)]]) {
+        [prefix replaceCharactersInRange:NSMakeRange(0, 1) withString:@"_"];
+    }
+#endif
     __types.swiftClassPrefix = prefix;
     //NSLog(@"Types.swiftClassPrefix = '%@'", __types.swiftClassPrefix);
 #else 
