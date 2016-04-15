@@ -20,7 +20,6 @@
  */
 
 #define OLD_SAVE_METHOD_ON 0
-#define _REMOVE_META_ 0
 #define _SAVE_OBJECT_AS_DICTIONARY_ 0
 #define _DIRECTLY_SAVE_METHOD 0
 
@@ -90,28 +89,44 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 
 @implementation Users (AMF)
 
+// overrided method MUST return 'self' to avoid a deserialization breaking
 -(id)onAMFDeserialize {
     
+#if 1 // http://bugs.backendless.com/browse/BKNDLSS-11933
+    
+#if 1 // avoid to update self to self (self relation) - app crash appears in this case
+    NSDictionary *data = [Types propertyDictionary:self];
+    NSArray *props = [data allKeys];
+    for (NSString *prop in props) {
+        id value = data[prop];
+        if (value != self) {
+            [self setProperty:prop object:value];
+        }
+    }
+    return self;
+#else
+    [self assignProperties:[Types propertyDictionary:self]];
+    return self;
+#endif
+    
+#else
     BackendlessUser *user = [BackendlessUser new];
     NSMutableDictionary *properties = [NSMutableDictionary dictionaryWithDictionary:[Types propertyDictionary:self]];
     
     [DebLog log:@"Users -> onAMFDeserialize: BackendlessUser.properties = %@", properties];
     
-#if _REMOVE_META_
-    [properties removeObjectsForKeys:@[@"___class", @"__meta"]];
-#endif
     [user assignProperties:properties];
     return user;
+#endif
 }
 
 @end
 
-#if 1
-// as dictionary with '___class' label (analog of Android implementation)
 @implementation BackendlessUser (AMF)
 
 -(id)onAMFSerialize {
     
+    // as dictionary with '___class' label (analog of Android implementation)
     NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:[self retrieveProperties]];
     data[@"___class"] = @"Users";
     [data removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
@@ -123,47 +138,6 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 
 @end
 
-#else
-// as User object - old stabile implementation
-@implementation BackendlessUser (AMF)
-
--(id)onAMFSerialize {
-    
-    Users *user = [Users new];
-    NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:[self retrieveProperties]];
-#if FILTRATION_USER_TOKEN_ON
-    [data removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
-#endif
-    [user assignProperties:data];
-    
-    [DebLog log:@"BackendlessUser -> onAMFSerialize: %@", user];
-    
-    return user;
-}
-
-@end
-#endif
-
-#if 0 // as User object with resolved properties --- UNSTABILE IMPLEMENTATION !!!
-@implementation BackendlessUser (AMF)
-
--(id)onAMFSerialize {
-    
-#if 1
-    [self addProperties:@{@"userStatus":@"ENABLED"}];
-#endif
-    
-    Users *user = [Users new];
-    NSDictionary *properties = [self retrieveProperties];
-    [user resolveProperties:properties];
-    
-    [DebLog log:@"BackendlessUser -> onAMFSerialize: Users.properties = %@", properties];
-    
-    return user;
-}
-
-@end
-#endif
 
 @implementation NSArray (AMF)
 
@@ -2123,13 +2097,7 @@ id result = nil;
 #pragma mark Private Methods
 
 -(NSDictionary *)filteringProperty:(id)object {
-#if _REMOVE_META_
-    NSMutableDictionary *properties= [NSMutableDictionary dictionaryWithDictionary:[self propertyDictionary:object]];
-    [properties removeObjectForKey:@"__meta"];
-    return properties;
-#else
     return [self propertyDictionary:object];
-#endif
 }
 
 #if 0
@@ -2240,13 +2208,7 @@ id get_object_id(id self, SEL _cmd)
         return [(BackendlessUser *)object retrieveProperties];
 #endif
     }
-#if !_REMOVE_META_
     return [Types propertyDictionary:object];
-#else
-    NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:[Types propertyDictionary:object]];
-    [data removeObjectsForKeys:@[@"__meta", @"___class"]];
-    return data;
-#endif
 }
 
 -(id)propertyObject:(id)object {

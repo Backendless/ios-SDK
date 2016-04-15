@@ -48,7 +48,7 @@
 +(NSArray *)propertyAttributes:(id)obj;
 +(NSDictionary *)propertyKeysWithAttributes:(id)obj;
 +(NSDictionary *)propertyDictionary:(id)obj;
-// item = [NSThread callStackSymbols][1];
+// get swift class prefix from the caller class (usually AppDelegate), item = [NSThread callStackSymbols][1];
 -(void)makeSwiftClassPrefix:(NSString *)item;
 // target/plist options
 +(NSString *)targetName;

@@ -23,8 +23,6 @@
 #import "HashMap.h"
 #import "DeviceRegistration.h"
 
-#define DEVICE_TOKEN_AS_STRING 0
-
 #define MESSAGE_TAG @"message"
 
 #define IOS_ALERT_TAG @"ios-alert"
@@ -65,14 +63,8 @@
 @property NSUInteger notificationTypes;
 
 // sync methods with fault return (as exception)
-#if DEVICE_TOKEN_AS_STRING
--(NSString *)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration token:(NSString *)deviceToken;
--(NSString *)registerDeviceToken:(NSString *)deviceToken;
--(NSString *)registerDeviceWithTokenData:(NSData *)deviceToken;
-#else
 -(NSString *)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration token:(NSData *)deviceToken;
 -(NSString *)registerDeviceToken:(NSData *)deviceToken;
-#endif
 -(NSString *)registerDeviceExpiration:(NSDate *)expiration;
 -(NSString *)registerDevice:(NSArray<NSString*> *)channels;
 -(NSString *)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration;
@@ -100,14 +92,8 @@
 -(id)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients attachment:(NSArray *)attachments;
 
 // sync methods with fault option
-#if DEVICE_TOKEN_AS_STRING
--(NSString *)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration token:(NSString *)deviceToken error:(Fault **)fault;
--(NSString *)registerDeviceToken:(NSString *)deviceToken error:(Fault **)fault;
--(NSString *)registerDeviceWithTokenData:(NSData *)deviceToken error:(Fault **)fault;
-#else
 -(NSString *)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration token:(NSData *)deviceToken error:(Fault **)fault;
 -(NSString *)registerDeviceToken:(NSData *)deviceToken error:(Fault **)fault;
-#endif
 -(NSString *)registerDeviceExpiration:(NSDate *)expiration error:(Fault **)fault;
 -(NSString *)registerDevice:(NSArray<NSString*> *)channels error:(Fault **)fault;
 -(NSString *)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration error:(Fault **)fault;
@@ -135,14 +121,8 @@
 -(BOOL)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients attachment:(NSArray *)attachments error:(Fault **)fault;
 
 // async methods with responder
-#if DEVICE_TOKEN_AS_STRING
--(void)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration token:(NSString *)deviceToken responder:(id <IResponder>)responder;
--(void)registerDeviceToken:(NSString *)deviceToken responder:(id <IResponder>)responder;
--(void)registerDeviceWithTokenData:(NSData *)deviceToken responder:(id <IResponder>)responder;
-#else
 -(void)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration token:(NSData *)deviceToken responder:(id <IResponder>)responder;
 -(void)registerDeviceToken:(NSData *)deviceToken responder:(id <IResponder>)responder;
-#endif
 -(void)registerDeviceExpiration:(NSDate *)expiration responder:(id <IResponder>)responder;
 -(void)registerDevice:(NSArray<NSString*> *)channels responder:(id <IResponder>)responder;
 -(void)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration responder:(id <IResponder>)responder;
@@ -168,14 +148,8 @@
 -(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients attachment:(NSArray *)attachments responder:(id <IResponder>)responder;
 
 // async methods with block-based callbacks
-#if DEVICE_TOKEN_AS_STRING
--(void)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration token:(NSString *)deviceToken response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)registerDeviceToken:(NSString *)deviceToken response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)registerDeviceWithTokenData:(NSData *)deviceToken response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
-#else
 -(void)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration token:(NSData *)deviceToken response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)registerDeviceToken:(NSData *)deviceToken response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
-#endif
 -(void)registerDeviceExpiration:(NSDate *)expiration response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)registerDevice:(NSArray<NSString*> *)channels response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
@@ -224,9 +198,9 @@
 -(void)didReceiveRemoteNotification:(NSDictionary *)userInfo;
 
 // start up register device methods
--(void)startupRegisterDeviceWithExpiration:(NSDate *)expiration;
--(void)startupRegisterDeviceWithChannels:(NSArray<NSString*> *)channels;
--(void)startupRegisterDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration;
+-(void)registerDeviceWithExpiration:(NSDate *)expiration;
+-(void)registerDeviceWithChannels:(NSArray<NSString*> *)channels;
+-(void)registerDeviceWithChannels:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration;
 #endif
 
 @end

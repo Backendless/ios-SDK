@@ -185,7 +185,7 @@
 #pragma mark overwrided NSObject Methods
 
 -(NSString *)description {
-    return [NSString stringWithFormat:@"<BackendlessUser> %@", __properties.node];
+    return [NSString stringWithFormat:@"<BackendlessUser [%@]> %@", [super description], __properties.node];
 }
 
 @end
