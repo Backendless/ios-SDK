@@ -82,7 +82,6 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 @end
 
 #if _IS_USERS_CLASS_
-
 @interface Users : BackendlessUser
 @end
 
