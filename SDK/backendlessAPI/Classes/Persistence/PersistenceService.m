@@ -22,6 +22,7 @@
 #define OLD_SAVE_METHOD_ON 0
 #define _SAVE_OBJECT_AS_DICTIONARY_ 0
 #define _DIRECTLY_SAVE_METHOD 0
+#define _IS_USERS_CLASS_ 0
 
 #import "PersistenceService.h"
 #import <objc/runtime.h>
@@ -80,6 +81,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 -(id)failWithOfflineMode:(Fault *)error;
 @end
 
+#if _IS_USERS_CLASS_
 
 @interface Users : BackendlessUser
 @end
@@ -119,8 +121,38 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     return user;
 #endif
 }
-
 @end
+#endif
+
+#if TYPES_AMF_DESERIALIZE_POSTPROCESSOR_ON
+@implementation Types (AMF)
+
++(id)pastAMFDeserialize:(id)obj {
+    
+    if (![obj isKindOfClass:[BackendlessUser class]])
+        return obj;
+    
+    BackendlessUser *user = (BackendlessUser *)obj;
+    
+#if 0 // avoid to update self to self (self relation) - app crash appears in this case ( http://bugs.backendless.com/browse/BKNDLSS-11933 )
+    NSDictionary *data = [Types propertyDictionary:user];
+    NSArray *props = [data allKeys];
+    for (NSString *prop in props) {
+        id value = data[prop];
+        if (value != user) {
+            [user setProperty:prop object:value];
+        }
+    }
+    return user;
+#else
+    NSDictionary *props = [Types propertyDictionary:user];
+    [user replaceAllProperties];
+    [user assignProperties:props];
+    return user;
+#endif
+}
+@end
+#endif
 
 @implementation BackendlessUser (AMF)
 
@@ -134,6 +166,14 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     [DebLog log:@"BackendlessUser -> onAMFSerialize: %@", data];
     
     return data;
+}
+
+// overrided method MUST return 'self' to avoid a deserialization breaking
+-(id)onAMFDeserialize {
+    NSDictionary *props = [Types propertyDictionary:self];
+    [self replaceAllProperties];
+    [self assignProperties:props];
+    return self;
 }
 
 @end
@@ -187,6 +227,9 @@ NSString *LOAD_ALL_RELATIONS = @"*";
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.ObjectProperty" mapped:[ObjectProperty class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.model.GeoPoint" mapped:[GeoPoint class]];
         [[Types sharedInstance] addClientClassMapping:@"java.lang.ClassCastException" mapped:[ClassCastException class]];
+#if !_IS_USERS_CLASS_
+        [[Types sharedInstance] addClientClassMapping:@"Users" mapped:[BackendlessUser class]];
+#endif
 	
         _permissions = [DataPermission new];
     }
