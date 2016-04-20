@@ -87,8 +87,6 @@ static NSString *METHOD_USER_LOGIN_WITH_GOOGLEPLUS_SDK = @"loginWithGooglePlus";
         
         _currentUser = nil;
         _isStayLoggedIn = NO;
-        
-        [self getPersistentUser];
 
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.users.property.UserProperty" mapped:[UserProperty class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.users.property.AbstractProperty" mapped:[AbstractProperty class]];
@@ -1034,7 +1032,7 @@ id result = nil;
         [backendless.headers removeObjectForKey:BACKENDLESS_USER_TOKEN];
     }
     
-    [DebLog log:@"UserService -> getPersistentUser: currentUser = %@", _currentUser];
+    [DebLog log:@"UserService -> getPersistentUser: currentUser = %@", [_currentUser getObjectId]];
     
     return _isStayLoggedIn;
 }

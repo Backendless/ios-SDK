@@ -141,6 +141,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     
     if (!_userService) {
         _userService = [UserService new];
+        [_userService getPersistentUser];
     }
     return _userService;
 }
