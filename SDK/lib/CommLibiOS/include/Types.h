@@ -14,8 +14,6 @@
  *******************************************************************************************************/
 #define __types [Types sharedInstance]
 
-#define TYPES_AMF_DESERIALIZE_POSTPROCESSOR_ON 0
-
 @interface Types : NSObject {
 	NSMutableDictionary	*abstractMappings;
 	NSMutableDictionary	*clientMappings;
@@ -50,7 +48,7 @@
 +(NSArray *)propertyAttributes:(id)obj;
 +(NSDictionary *)propertyKeysWithAttributes:(id)obj;
 +(NSDictionary *)propertyDictionary:(id)obj;
-// get swift class prefix from the caller class (usually AppDelegate), item = [NSThread callStackSymbols][1];
+// item = [NSThread callStackSymbols][1];
 -(void)makeSwiftClassPrefix:(NSString *)item;
 // target/plist options
 +(NSString *)targetName;
@@ -75,7 +73,6 @@
 @interface NSObject (AMF)
 -(id)onAMFSerialize;
 -(id)onAMFDeserialize;
-+(id)pastAMFDeserialize:(id)obj;
 @end
 
 @interface NSString (Chars)
@@ -91,8 +88,5 @@
 -(BOOL)resolveProperty:(NSString *)name;
 -(BOOL)resolveProperty:(NSString *)name value:(id)value;
 -(BOOL)resolveProperties:(NSDictionary *)properties;
--(BOOL)replaceProperty:(NSString *)name;
--(BOOL)replaceProperties:(NSArray *)names;
--(BOOL)replaceAllProperties;
 @end
 
