@@ -22,6 +22,7 @@
 #define OLD_SAVE_METHOD_ON 0
 #define _SAVE_OBJECT_AS_DICTIONARY_ 0
 #define _DIRECTLY_SAVE_METHOD 0
+
 #define _IS_USERS_CLASS_ 0
 
 #import "PersistenceService.h"

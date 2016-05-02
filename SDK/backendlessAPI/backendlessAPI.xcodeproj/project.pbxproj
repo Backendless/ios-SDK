@@ -146,7 +146,7 @@
 		1C7BB5011A2E092900D3C2C1 /* IAttributeStore.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFD3418783B740076BC6D /* IAttributeStore.h */; };
 		1C7BB5021A2E092900D3C2C1 /* BackendlessCachePolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1399217D7240A00D1AC4C /* BackendlessCachePolicy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C7BB5031A2E092900D3C2C1 /* FlashorbBinaryWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFD3318783B740076BC6D /* FlashorbBinaryWriter.h */; };
-		1C7BB5041A2E092900D3C2C1 /* BodyParts.h in Headers */ = {isa = PBXBuildFile; fileRef = 910117D2180C0CCF008102A7 /* BodyParts.h */; };
+		1C7BB5041A2E092900D3C2C1 /* BodyParts.h in Headers */ = {isa = PBXBuildFile; fileRef = 910117D2180C0CCF008102A7 /* BodyParts.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C7BB5051A2E092900D3C2C1 /* BackendlessCacheProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1399417D7240A00D1AC4C /* BackendlessCacheProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C7BB5061A2E092900D3C2C1 /* QueryOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F139B017D724C600D1AC4C /* QueryOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C7BB5071A2E092900D3C2C1 /* Invoker.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B480115FF5AA900012DFC /* Invoker.h */; settings = {ATTRIBUTES = (); }; };
@@ -154,8 +154,8 @@
 		1C7BB5091A2E092900D3C2C1 /* BackendlessCacheData.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1398E17D7240A00D1AC4C /* BackendlessCacheData.h */; };
 		1C7BB50A1A2E092900D3C2C1 /* BackendlessCacheKey.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1399017D7240A00D1AC4C /* BackendlessCacheKey.h */; };
 		1C7BB50B1A2E092900D3C2C1 /* DEBUG.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFD3118783B740076BC6D /* DEBUG.h */; };
-		910117D4180C0CCF008102A7 /* BodyParts.h in Headers */ = {isa = PBXBuildFile; fileRef = 910117D2180C0CCF008102A7 /* BodyParts.h */; };
-		910117D5180C0CCF008102A7 /* BodyParts.h in Headers */ = {isa = PBXBuildFile; fileRef = 910117D2180C0CCF008102A7 /* BodyParts.h */; };
+		910117D4180C0CCF008102A7 /* BodyParts.h in Headers */ = {isa = PBXBuildFile; fileRef = 910117D2180C0CCF008102A7 /* BodyParts.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		910117D5180C0CCF008102A7 /* BodyParts.h in Headers */ = {isa = PBXBuildFile; fileRef = 910117D2180C0CCF008102A7 /* BodyParts.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		910117D7180C0CCF008102A7 /* BodyParts.m in Sources */ = {isa = PBXBuildFile; fileRef = 910117D3180C0CCF008102A7 /* BodyParts.m */; };
 		910117D8180C0CCF008102A7 /* BodyParts.m in Sources */ = {isa = PBXBuildFile; fileRef = 910117D3180C0CCF008102A7 /* BodyParts.m */; };
 		91223DCB195AF6AB00F72F48 /* Events.h in Headers */ = {isa = PBXBuildFile; fileRef = 91223DC8195AF6AB00F72F48 /* Events.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -547,6 +547,7 @@
 		F9D523501B25CEF800F6A441 /* ClassCastException.m in Sources */ = {isa = PBXBuildFile; fileRef = F9D5234C1B25CEF800F6A441 /* ClassCastException.m */; };
 		F9D523511B25CEF800F6A441 /* ClassCastException.m in Sources */ = {isa = PBXBuildFile; fileRef = F9D5234C1B25CEF800F6A441 /* ClassCastException.m */; };
 		F9D523521B25CEF800F6A441 /* ClassCastException.m in Sources */ = {isa = PBXBuildFile; fileRef = F9D5234C1B25CEF800F6A441 /* ClassCastException.m */; };
+		F9F0ADE71CD80FF800035C62 /* Backendless-With-Media-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = F94487611B68EBA400EB12A5 /* Backendless-With-Media-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F58DAE1BA83BB1009B8782 /* BackendlessBeacon.h in Headers */ = {isa = PBXBuildFile; fileRef = F9F58DAC1BA83BB1009B8782 /* BackendlessBeacon.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F58DAF1BA83BB1009B8782 /* BackendlessBeacon.h in Headers */ = {isa = PBXBuildFile; fileRef = F9F58DAC1BA83BB1009B8782 /* BackendlessBeacon.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F58DB01BA83BB1009B8782 /* BackendlessBeacon.h in Headers */ = {isa = PBXBuildFile; fileRef = F9F58DAC1BA83BB1009B8782 /* BackendlessBeacon.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1414,6 +1415,7 @@
 				F9CB13961BC53D5100F3CA1D /* BeaconMonitoring.h in Headers */,
 				D3A064DF1B0243ED00779BB1 /* ICallback.h in Headers */,
 				1C7BB4ED1A2E092900D3C2C1 /* WeborbClient.h in Headers */,
+				1C7BB5041A2E092900D3C2C1 /* BodyParts.h in Headers */,
 				1C7BB4EE1A2E092900D3C2C1 /* Backendless-Bridging-Header.h in Headers */,
 				D3A064A71AFA6E4A00779BB1 /* LocationTracker.h in Headers */,
 				F9D5234D1B25CEF800F6A441 /* ClassCastException.h in Headers */,
@@ -1451,7 +1453,6 @@
 				1C7BB5011A2E092900D3C2C1 /* IAttributeStore.h in Headers */,
 				1C7BB5021A2E092900D3C2C1 /* BackendlessCachePolicy.h in Headers */,
 				1C7BB5031A2E092900D3C2C1 /* FlashorbBinaryWriter.h in Headers */,
-				1C7BB5041A2E092900D3C2C1 /* BodyParts.h in Headers */,
 				1C7BB5051A2E092900D3C2C1 /* BackendlessCacheProtocol.h in Headers */,
 				1C7BB5061A2E092900D3C2C1 /* QueryOptions.h in Headers */,
 				1C7BB5071A2E092900D3C2C1 /* Invoker.h in Headers */,
@@ -1526,7 +1527,9 @@
 				F9796A20166CCBFE00595F5E /* FileService.h in Headers */,
 				F9C7DE901B7CBF0300AFCD06 /* BEFileInfo.h in Headers */,
 				D35DC3421AD7E19800EF2A68 /* Logger.h in Headers */,
+				910117D4180C0CCF008102A7 /* BodyParts.h in Headers */,
 				D3A064A81AFA6E4A00779BB1 /* LocationTracker.h in Headers */,
+				F9F0ADE71CD80FF800035C62 /* Backendless-With-Media-Bridging-Header.h in Headers */,
 				F9C7DE981B7CBFE600AFCD06 /* BackendlessSimpleQuery.h in Headers */,
 				F9BBFD6C18783B750076BC6D /* ISharedObjectListener.h in Headers */,
 				D3A064C91AFCE69D00779BB1 /* GeoFenceMonitoring.h in Headers */,
@@ -1554,7 +1557,6 @@
 				91F1399517D7240A00D1AC4C /* AbstractQuery.h in Headers */,
 				91F139A917D7240A00D1AC4C /* BackendlessCachePolicy.h in Headers */,
 				F9BBFD5A18783B750076BC6D /* IClientSharedObject.h in Headers */,
-				910117D4180C0CCF008102A7 /* BodyParts.h in Headers */,
 				91F139AE17D7240A00D1AC4C /* BackendlessCacheProtocol.h in Headers */,
 				91F139B217D724C700D1AC4C /* QueryOptions.h in Headers */,
 				F9796A07166CCBFE00595F5E /* Invoker.h in Headers */,
@@ -1632,6 +1634,7 @@
 				D39A468319811D9B006CBD1B /* CacheService.h in Headers */,
 				F9BBFD5518783B750076BC6D /* FlashorbBinaryWriter.h in Headers */,
 				F9C7DE911B7CBF0300AFCD06 /* BEFileInfo.h in Headers */,
+				910117D5180C0CCF008102A7 /* BodyParts.h in Headers */,
 				D35DC3431AD7E19800EF2A68 /* Logger.h in Headers */,
 				D30A5D7619B9CA8200C0BA44 /* Backendless-Bridging-Header.h in Headers */,
 				F9796A6C166CD42E00595F5E /* FileService.h in Headers */,
@@ -1664,7 +1667,6 @@
 				91F1399617D7240A00D1AC4C /* AbstractQuery.h in Headers */,
 				91F139AA17D7240A00D1AC4C /* BackendlessCachePolicy.h in Headers */,
 				F9BBFD5B18783B750076BC6D /* IClientSharedObject.h in Headers */,
-				910117D5180C0CCF008102A7 /* BodyParts.h in Headers */,
 				91F139AF17D7240A00D1AC4C /* BackendlessCacheProtocol.h in Headers */,
 				91F139B317D724C700D1AC4C /* QueryOptions.h in Headers */,
 				F9796A53166CD42E00595F5E /* Invoker.h in Headers */,
