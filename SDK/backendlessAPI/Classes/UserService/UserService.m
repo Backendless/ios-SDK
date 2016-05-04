@@ -985,6 +985,7 @@ id result = nil;
 
 -(id)handleOpenURL:(NSURL *)url {
     
+    //[DebLog logY:@"UserService -> handleOpenURL: url = '%@'", url];
     [DebLog log:@"UserService -> handleOpenURL: url.scheme = '%@'", url.scheme];
     
     NSString *scheme = [[NSString stringWithFormat:@"backendless%@", backendless.appID] uppercaseString];
@@ -993,7 +994,11 @@ id result = nil;
     }
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#if 0
     NSString *absoluteString = [[url.absoluteString stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@://", url.scheme] withString:@""] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+#else
+    NSString *absoluteString = [[url.absoluteString stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@://", url.scheme] withString:@""] stringByReplacingPercentEscapesUsingEncoding:NSUTF16StringEncoding];
+#endif
 #else
     NSString *absoluteString = [[url.absoluteString stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@://", url.scheme] withString:@""] stringByRemovingPercentEncoding];
 #endif
@@ -1006,8 +1011,14 @@ id result = nil;
     return [self onLogin:userData];
 #else
     @try {
+        NSError *error = nil;
         //id userData = [NSJSONSerialization JSONObjectWithData:[absoluteString dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
-        id userData = [NSJSONSerialization JSONObjectWithData:[absoluteString dataUsingEncoding:NSUTF16StringEncoding] options:0 error:nil];
+        id userData = [NSJSONSerialization JSONObjectWithData:[absoluteString dataUsingEncoding:NSUTF16StringEncoding] options:0 error:&error];
+        if (error) {
+            [DebLog logY:@"UserService -> handleOpenURL: ERROR = %@", error];
+            return nil;
+        }
+        [DebLog log:@"UserService -> handleOpenURL: userData = '%@'", userData];
         return [self onLogin:userData];
     }
     

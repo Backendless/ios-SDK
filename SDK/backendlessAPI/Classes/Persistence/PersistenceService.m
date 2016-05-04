@@ -1602,7 +1602,7 @@ id result = nil;
     NSString *method = METHOD_SAVE;
 #else // 'save' = 'create' | 'update'
     id objectId = [self getObjectId:entity];
-    BOOL isObjectId = objectId && [objectId isKindOfClass:NSString.class] && ([(NSString *)objectId length] == 36);
+    BOOL isObjectId = objectId && [objectId isKindOfClass:NSString.class];
     NSString *method = isObjectId?METHOD_UPDATE:METHOD_CREATE;
     [DebLog log:@"PersistenceService -> save: method = %@, objectId = %@", method, objectId];
 #endif
