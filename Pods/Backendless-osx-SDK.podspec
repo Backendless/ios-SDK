@@ -1,11 +1,11 @@
 Pod::Spec.new do |s|
-  s.name         = "Backendless-Light"
-  s.version      = "3.0.19"
+  s.name         = "Backendless-osx-SDK"
+  s.version      = "3.0.20"
   s.summary      = "Backendless provides an instant backend to help developers build better apps faster."
   s.description  = <<-DESC
 	Backendless is a development and a run-time platform. It helps software developers to create 
 	mobile and desktop applications while removing the need for server-side coding. The platform 
-	consists of six core backend services which developers typically spend time implementing for 
+	consists of five core backend services which developers typically spend time implementing for
 	each new applications. These services include:
 
 		User Service – facilitates user registrations, login, logout, session management.
@@ -22,29 +22,18 @@ Pod::Spec.new do |s|
   s.license		= { :type => 'Apache', :text => 'Copyright (c) 2012-2016 by Backendless.com' }
   s.author      = { "Mark Piller" => "mark@backendless.com" }
 
-  s.platform       = :ios, '7.1'
+  s.platform       = :osx, '10.8'
   s.requires_arc   = true
   s.source         = { 
 	:git => "https://github.com/Backendless/ios-SDK.git",
-	:tag => '3.0.19'
+	:tag => '3.0.20'
   }
 
-  s.preserve_paths = "SDK/ios/**/*.a"
-  s.source_files = "SDK/ios/**/*.h"
+  s.preserve_paths = "SDK/osx/**/*.a"
+  s.source_files = "SDK/osx/**/*.h"
 
-  s.frameworks     = 'CFNetwork', 'CoreData', 'CoreGraphics', 'CoreLocation', 'Foundation', 'MapKit', 'Security', 'SystemConfiguration', 'UIKit'
-  s.libraries 	   = 'z', 'sqlite3', 'backendless', 'CommLibiOS'
-  s.xcconfig       =  { 'LIBRARY_SEARCH_PATHS' => '"$(SRCROOT)/Pods/Backendless-Light/SDK/ios/backendless" "$(SRCROOT)/Pods/Backendless-Light/SDK/ios/CommLibiOS"', 'SWIFT_OBJC_BRIDGING_HEADER' => '${PODS_ROOT}/Headers/Public/Backendless-Light/Backendless-Bridging-Header.h' }
+  s.frameworks     = 'SystemConfiguration'
+  s.libraries 	   = 'sqlite3', 'backendless-mac', 'CommLib-osx'
+  s.xcconfig       =  { 'LIBRARY_SEARCH_PATHS' => '"$(SRCROOT)/Pods/Backendless-osx-SDK/SDK/osx/backendless" "$(SRCROOT)/Pods/Backendless-osx-SDK/SDK/osx/CommLib"', 'SWIFT_OBJC_BRIDGING_HEADER' => '${PODS_ROOT}/Headers/Public/Backendless-osx-SDK/Backendless-Bridging-Header.h' }
 
-  s.prepare_command = <<-CMD
-
-    pushd SDK/ios/backendless/
-	  ln -s backendless.a libbackendless.a
-	popd
-	
-	pushd SDK/ios/CommLibiOS/
-	  ln -s CommLibiOS.a libCommLibiOS.a
-	popd
-	
-    CMD
 end

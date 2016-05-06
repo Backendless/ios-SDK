@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "Backendless-ios-SDK"
-  s.version      = "3.0.1"
+  s.version      = "3.0.20"
   s.summary      = "Backendless provides an instant backend to help developers build better apps faster."
   s.description  = <<-DESC
 	Backendless is a development and a run-time platform. It helps software developers to create 
@@ -19,22 +19,21 @@ Pod::Spec.new do |s|
 		SDKs. The behavior of the services and the business logic behind them can be customized through 
 		the Development Console.
                    DESC
-  s.homepage    = "http://Backendless.com"
-  s.license		= { :type => 'Apache', :text => 'Copyright (c) 2012-2015 by Backendless.com' }
-  s.author      = { "Vyacheslav Vdovichenko" => "slavav@themidnightcoders.com" }
+  s.homepage    = "http://backendless.com"
+  s.license		= { :type => 'Apache', :text => 'Copyright (c) 2012-2016 by Backendless.com' }
+  s.author      = { "Mark Piller" => "mark@backendless.com" }
 
-  s.platform       = :ios, '9.1'
+  s.platform       = :ios, '7.1'
   s.requires_arc   = true
   s.source         = { 
 	:git => "https://github.com/Backendless/ios-SDK.git",
-    :commit => "448e2dc0e5567a14f393173114ab70742f095307",
-	:tag => '3.0.1'
+	:tag => '3.0.20'
   }
 
   s.preserve_paths = "SDK/lib/**/*.a"
   s.source_files = "SDK/lib/**/*.h"
 
-  s.frameworks     = 'AdSupport', 'AVFoundation', 'AudioToolbox', 'CFNetwork', 'CoreData', 'CoreGraphics', 'CoreLocation', 'CoreMedia', 'CoreVideo', 'Foundation', 'MapKit', 'Security', 'SystemConfiguration', 'UIKit'
+  s.frameworks     = 'AVFoundation', 'AudioToolbox', 'CFNetwork', 'CoreData', 'CoreGraphics', 'CoreLocation', 'CoreMedia', 'CoreVideo', 'Foundation', 'MapKit', 'Security', 'SystemConfiguration', 'UIKit'
   s.libraries 	   = 'z', 'sqlite3', 'backendless', 'CommLibiOS', 'MediaLibiOS', 'avformat', 'avdevice', 'swscale', 'avfilter', 'avutil', 'avcodec', 'speex', 'x264'
   s.xcconfig       =  { 'LIBRARY_SEARCH_PATHS' => '"$(SRCROOT)/Pods/Backendless-ios-SDK/SDK/lib/backendless" "$(SRCROOT)/Pods/Backendless-ios-SDK/SDK/lib/CommLibiOS" "$(SRCROOT)/Pods/Backendless-ios-SDK/SDK/lib/MediaLibiOS3x" "$(SRCROOT)/Pods/Backendless-ios-SDK/SDK/lib/libav-11.4/lib" "$(SRCROOT)/Pods/Backendless-ios-SDK/SDK/lib/speex-1.2rc2/lib" "$(SRCROOT)/Pods/Backendless-ios-SDK/SDK/lib/x264/lib"', 'SWIFT_OBJC_BRIDGING_HEADER' => '${PODS_ROOT}/Headers/Public/Backendless-ios-SDK/Backendless-With-Media-Bridging-Header.h' }
 
