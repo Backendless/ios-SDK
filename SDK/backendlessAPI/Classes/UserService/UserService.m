@@ -983,6 +983,8 @@ id result = nil;
 
 // utilites
 
+#define IS_UTF8_ON 0
+
 -(id)handleOpenURL:(NSURL *)url {
     
     //[DebLog logY:@"UserService -> handleOpenURL: url = '%@'", url];
@@ -994,11 +996,7 @@ id result = nil;
     }
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-#if 0
     NSString *absoluteString = [[url.absoluteString stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@://", url.scheme] withString:@""] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-#else
-    NSString *absoluteString = [[url.absoluteString stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@://", url.scheme] withString:@""] stringByReplacingPercentEscapesUsingEncoding:NSUTF16StringEncoding];
-#endif
 #else
     NSString *absoluteString = [[url.absoluteString stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@://", url.scheme] withString:@""] stringByRemovingPercentEncoding];
 #endif
@@ -1006,14 +1004,13 @@ id result = nil;
     [DebLog log:@"UserService -> handleOpenURL: JSONObject = '%@'", absoluteString];
 
     // http://bugs.backendless.com/browse/BKNDLSS-11936
-#if 0
-    id userData = [NSJSONSerialization JSONObjectWithData:[absoluteString dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
-    return [self onLogin:userData];
-#else
     @try {
         NSError *error = nil;
-        //id userData = [NSJSONSerialization JSONObjectWithData:[absoluteString dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
+#if IS_UTF8_ON
+        id userData = [NSJSONSerialization JSONObjectWithData:[absoluteString dataUsingEncoding:NSUTF8StringEncoding] options:0 error:&error];
+#else
         id userData = [NSJSONSerialization JSONObjectWithData:[absoluteString dataUsingEncoding:NSUTF16StringEncoding] options:0 error:&error];
+#endif
         if (error) {
             [DebLog logY:@"UserService -> handleOpenURL: ERROR = %@", error];
             return nil;
@@ -1026,7 +1023,6 @@ id result = nil;
         [DebLog logY:@"UserService -> handleOpenURL: EXCEPTION = %@", exception];
         return nil;
     }
-#endif
 }
 
 // persistent user
