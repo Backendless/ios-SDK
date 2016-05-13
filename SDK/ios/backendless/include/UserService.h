@@ -30,7 +30,7 @@
 
 @interface UserService : NSObject
 
-@property (strong, nonatomic, readonly) BackendlessUser *currentUser;
+@property (strong, nonatomic) BackendlessUser *currentUser;
 @property (readonly) BOOL isStayLoggedIn;
 
 // switch on/off the persistent user mode

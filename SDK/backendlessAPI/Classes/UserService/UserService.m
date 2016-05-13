@@ -19,6 +19,8 @@
  *  ********************************************************************************************************************
  */
 
+#define PERSIST_CURRENTUSER_OFF 0
+
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 #import <UIKit/UIKit.h>
 #else
@@ -92,6 +94,10 @@ static NSString *METHOD_USER_LOGIN_WITH_GOOGLEPLUS_SDK = @"loginWithGooglePlus";
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.users.property.AbstractProperty" mapped:[AbstractProperty class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.exceptions.security.AuthorizationException" mapped:[AuthorizationException class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.exceptions.user.UserServiceException" mapped:[AuthorizationException class]];
+        [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.model.GeoPoint" mapped:[GeoPoint class]];
+#if !_IS_USERS_CLASS_
+        [[Types sharedInstance] addClientClassMapping:@"Users" mapped:[BackendlessUser class]];
+#endif
 	}
 	
 	return self;
@@ -576,11 +582,21 @@ id result = nil;
     if ([result isKindOfClass:[Fault class]]) {
         return result;
     }
-
-#if 0 // !!! BUG !!! - maybe should use only for currentUser
-    [self onLogin:result];
-#endif
+    
+#if PERSIST_CURRENTUSER_OFF
     [user assignProperties:result];
+#else
+    if ([result isKindOfClass:[BackendlessUser class]]) {
+        user = result;
+    }
+    else {
+        [user assignProperties:result];
+    }
+
+    if (_isStayLoggedIn && _currentUser && [user.objectId isEqualToString:_currentUser.objectId]) {
+        [self onLogin:result];
+    }
+#endif
     
     return user;
 }
@@ -1044,12 +1060,13 @@ id result = nil;
         [backendless.headers removeObjectForKey:BACKENDLESS_USER_TOKEN];
     }
     
-    [DebLog log:@"UserService -> getPersistentUser: currentUser = %@", [_currentUser getObjectId]];
+    //[DebLog logY:@"UserService -> getPersistentUser: currentUser = %@ [%@]", [_currentUser getObjectId], _isStayLoggedIn?@"ON":@"OFF"];
     
     return _isStayLoggedIn;
 }
 
 -(BOOL)setPersistentUser {
+    //[DebLog logY:@"UserService -> setPersistentUser: currentUser = %@ [%@]", [_currentUser getObjectId], _isStayLoggedIn?@"ON":@"OFF"];
     return (_currentUser && _isStayLoggedIn) ? [AMFSerializer serializeToFile:[_currentUser retrieveProperties] fileName:PERSIST_USER_FILE_NAME] : NO;
     
 }
@@ -1142,12 +1159,22 @@ id result = nil;
     
     [DebLog log:@"UserService -> onUpdate: %@", response];
     
-#if 0 // !!! BUG !!! - maybe should use only for currentUser
-    [self onLogin:response.response];
-#endif
-    
     BackendlessUser *user = response.context;
+#if PERSIST_CURRENTUSER_OFF
     [user assignProperties:response.response];
+#else
+    id result = response.response;
+    if ([result isKindOfClass:[BackendlessUser class]]) {
+        user = result;
+    }
+    else {
+        [user assignProperties:result];
+    }
+    
+    if (_isStayLoggedIn && _currentUser && [user.objectId isEqualToString:_currentUser.objectId]) {
+        [self onLogin:result];
+    }
+#endif
     
     return user;
 }

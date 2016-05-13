@@ -21,6 +21,7 @@
 
 #import <Foundation/Foundation.h>
 
+#define CURRENTUSER_PERSISTENCE_ON 0
 #define FILTRATION_USER_TOKEN_ON 1
 
 #define BACKENDLESS_EMAIL_KEY @"email"
@@ -48,4 +49,5 @@
 -(void)setProperty:(NSString *)key object:(id)value;
 -(void)removeProperty:(NSString *)key;
 -(void)removeProperties:(NSArray<NSString*> *)keys;
+-(void)persistCurrentUser;
 @end

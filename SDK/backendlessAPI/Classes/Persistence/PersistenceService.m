@@ -23,7 +23,8 @@
 #define _SAVE_OBJECT_AS_DICTIONARY_ 0
 #define _DIRECTLY_SAVE_METHOD 0
 
-#define _IS_USERS_CLASS_ 0
+#define _PERSISTENCE_UDPATE_CURRENTUSER_ON_ 1
+
 
 #import "PersistenceService.h"
 #import <objc/runtime.h>
@@ -1204,6 +1205,11 @@ id result = nil;
         }
         return result;
     }
+    
+#if _PERSISTENCE_UDPATE_CURRENTUSER_ON_
+    [self onCurrentUserUpdate:result];
+#endif
+    
     return result;
 }
 
@@ -1233,6 +1239,10 @@ id result = nil;
         [__types.managedObjectContext deleteObject:entity];
     }
     
+#if _PERSISTENCE_UDPATE_CURRENTUSER_ON_
+    [self onCurrentUserUpdate:result];
+#endif
+    
     return result;
 }
 
@@ -1256,6 +1266,11 @@ id result = nil;
         }
         return result;
     }
+    
+#if _PERSISTENCE_UDPATE_CURRENTUSER_ON_
+    [self onCurrentUserUpdate:result];
+#endif
+
     return result;
 }
 
@@ -1612,18 +1627,18 @@ id result = nil;
 #else
     NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity],  [self propertyObject:entity]];
 #endif
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(createResponse:) selErrorHandler:nil];
-    _responder.chained = responder;
-    _responder.context = entity;
     if ([OfflineModeManager sharedInstance].isOfflineMode) {
-        
-        Responder *offlineModeResponder = [Responder responder:self selResponseHandler:nil selErrorHandler:@selector(failWithOfflineMode:)];
-        offlineModeResponder.chained = _responder;
-        offlineModeResponder.context = entity;
-        [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:method args:args responder:offlineModeResponder];
-    }
-    else
+        Responder *_responder = [Responder responder:self selResponseHandler:@selector(createResponse:) selErrorHandler:@selector(failWithOfflineMode:)];
+        _responder.chained = responder;
+        _responder.context = entity;
         [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:method args:args responder:_responder];
+    }
+    else {
+        Responder *_responder = [Responder responder:self selResponseHandler:@selector(createResponse:) selErrorHandler:nil];
+        _responder.chained = responder;
+        _responder.context = entity;
+        [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:method args:args responder:_responder];
+    }
 }
 
 -(void)create:(id)entity responder:(id <IResponder>)responder {
@@ -1638,18 +1653,18 @@ id result = nil;
 #else
     NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity],  [self propertyObject:entity]];
 #endif
-    Responder *createResponder = [Responder responder:self selResponseHandler:@selector(createResponse:) selErrorHandler:nil];
-    createResponder.chained = responder;
-    createResponder.context = entity;
-    if ([OfflineModeManager sharedInstance].isOfflineMode)
-    {
-        Responder *offlineModeResponder = [Responder responder:self selResponseHandler:nil selErrorHandler:@selector(failWithOfflineMode:)];
-        offlineModeResponder.chained = createResponder;
-        offlineModeResponder.context = entity;
-        [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_CREATE args:args responder:offlineModeResponder];
+    if ([OfflineModeManager sharedInstance].isOfflineMode) {
+        Responder *_responder = [Responder responder:self selResponseHandler:@selector(createResponse:) selErrorHandler:@selector(failWithOfflineMode:)];
+        _responder.chained = responder;
+        _responder.context = entity;
+        [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_CREATE args:args responder:_responder];
     }
-    else
-        [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_CREATE args:args responder:createResponder];
+    else {
+        Responder *_responder = [Responder responder:self selResponseHandler:@selector(createResponse:) selErrorHandler:nil];
+        _responder.chained = responder;
+        _responder.context = entity;
+        [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_CREATE args:args responder:_responder];
+    }
 }
 
 -(void)update:(id)entity responder:(id <IResponder>)responder {
@@ -1663,15 +1678,22 @@ id result = nil;
 #else
     NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity],  [self propertyObject:entity]];
 #endif
-    if ([OfflineModeManager sharedInstance].isOfflineMode)
-    {
-        Responder *offlineModeResponder = [Responder responder:self selResponseHandler:nil selErrorHandler:@selector(failWithOfflineMode:)];
-        offlineModeResponder.chained = responder;
-        offlineModeResponder.context = entity;
-        [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_UPDATE args:args responder:offlineModeResponder];
+    if ([OfflineModeManager sharedInstance].isOfflineMode) {
+        Responder *_responder = [Responder responder:self selResponseHandler:@selector(createResponse:) selErrorHandler:@selector(failWithOfflineMode:)];
+        _responder.chained = responder;
+        _responder.context = entity;
+        [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_UPDATE args:args responder:_responder];
     }
-    else
+    else {
+#if _PERSISTENCE_UDPATE_CURRENTUSER_ON_
+        Responder *_responder = [Responder responder:self selResponseHandler:@selector(createResponse:) selErrorHandler:nil];
+        _responder.chained = responder;
+        _responder.context = entity;
+        [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_UPDATE args:args responder:_responder];
+#else
         [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_UPDATE args:args responder:responder];
+#endif
+    }
 }
 
 -(void)load:(id)object relations:(NSArray *)relations responder:(id<IResponder>)responder {
@@ -2340,6 +2362,11 @@ id get_object_id(id self, SEL _cmd)
     if ([[object class] isSubclassOfClass:[NSManagedObject class]]) {
         [__types.managedObjectContext deleteObject:object];
     }
+    
+#if _PERSISTENCE_UDPATE_CURRENTUSER_ON_
+    [self onCurrentUserUpdate:response.response];
+#endif
+
     response.context = nil;
     return response.response;
 }
@@ -2352,5 +2379,25 @@ id get_object_id(id self, SEL _cmd)
     responder.chained = nil;
     return nil;
 }
+    
+#if _PERSISTENCE_UDPATE_CURRENTUSER_ON_
+-(id)onCurrentUserUpdate:(id)result {
+        
+    //[DebLog logY:@"PersistenceService -> onUpdate: (1) result = %@\ncurrentUser = %@", result, backendless.userService.currentUser];
+        
+    if (![result isKindOfClass:[BackendlessUser class]]) {
+        return result;
+    }
+    
+    BackendlessUser *user = (BackendlessUser *)result;
+    if (backendless.userService.isStayLoggedIn && backendless.userService.currentUser && [user.objectId isEqualToString:backendless.userService.currentUser.objectId]) {
+        backendless.userService.currentUser = user;
+        [backendless.userService setPersistentUser];
+        //[DebLog logY:@"PersistenceService -> onUpdate: (2) currentUser = %@", backendless.userService.currentUser];
+    }
+    
+    return user;
+}
+#endif
 
 @end

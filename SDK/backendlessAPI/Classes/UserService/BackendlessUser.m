@@ -100,21 +100,11 @@
 
 -(void)assignProperties:(NSDictionary<NSString*, id> *)props {
     
-#if 0
-    if (properties) {
-        NSArray *keys = [props allKeys];
-        for (NSString *key in keys) {
-            [__properties push:key withObject:props[key]];
-        }
-    }
-    else
-    {
-        __properties = (props) ? [[HashMap alloc] initWithNode:props] : nil;
-    }
-#else
     [__properties release];
     __properties = (props) ? [[HashMap alloc] initWithNode:props] : nil;
-
+    
+#if CURRENTUSER_PERSISTENCE_ON
+    [self persistCurrentUser];
 #endif
 }
 
@@ -130,6 +120,10 @@
     {
         __properties = (props) ? [[HashMap alloc] initWithNode:props] : nil;
     }
+    
+#if CURRENTUSER_PERSISTENCE_ON
+    [self persistCurrentUser];
+#endif
 }
 
 -(NSDictionary<NSString*, id> *)retrieveProperties {
@@ -154,9 +148,9 @@
     
     [__properties push:key withObject:value];
     
-    if (backendless.userService.isStayLoggedIn && backendless.userService.currentUser && [self.objectId isEqualToString:backendless.userService.currentUser.objectId]) {
-        [backendless.userService setPersistentUser];
-    }
+#if CURRENTUSER_PERSISTENCE_ON
+    [self persistCurrentUser];
+#endif
 }
 
 -(void)removeProperty:(NSString *)key {
@@ -167,6 +161,8 @@
     if ([__properties get:key]) {
         [__properties push:key withObject:nil];
     }
+    
+    [self persistCurrentUser];
 }
 
 -(void)removeProperties:(NSArray<NSString*> *)keys {
@@ -178,6 +174,17 @@
         if ([__properties get:key]) {
             [__properties push:key withObject:nil];
         }
+    }
+    
+#if CURRENTUSER_PERSISTENCE_ON
+    [self persistCurrentUser];
+#endif
+}
+
+-(void)persistCurrentUser {
+    
+    if (backendless.userService.isStayLoggedIn && backendless.userService.currentUser && [self.objectId isEqualToString:backendless.userService.currentUser.objectId]) {
+        [backendless.userService setPersistentUser];
     }
 }
 

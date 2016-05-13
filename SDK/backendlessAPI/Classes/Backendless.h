@@ -28,6 +28,9 @@
 #define TEST_MEDIA_INSTANCE 0
 #define AS_IDENTIFIER_MANAGER_ON 0
 
+// implementation options
+#define _IS_USERS_CLASS_ 0
+
 #import <Foundation/Foundation.h>
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
