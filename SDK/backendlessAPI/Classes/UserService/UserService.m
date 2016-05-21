@@ -1135,8 +1135,7 @@ id result = nil;
 -(id)onLogin:(id)response {
     
     if ([response isKindOfClass:[BackendlessUser class]]) {
-        [_currentUser release];
-        _currentUser = response;
+        self.currentUser = response;
     }
     else {
         NSDictionary *props = (NSDictionary *)response;
