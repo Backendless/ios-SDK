@@ -141,7 +141,7 @@ static NSString *METHOD_GET_FENCES = @"getFences";
     return result;
 }
 
--(NSArray *)getCategoriesError:(Fault **)fault {
+-(NSArray<NSString *> *)getCategoriesError:(Fault **)fault {
     
     id result = [self getCategories];
     if ([result isKindOfClass:[Fault class]]) {
@@ -348,7 +348,7 @@ id result = nil;
     }
 }
 
--(NSArray *)getCategoriesError:(Fault **)fault {
+-(NSArray<NSString *> *)getCategoriesError:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -620,7 +620,7 @@ id result = nil;
     return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:geoPoint.objectId?METHOD_UPDATE_POINT:METHOD_ADD_POINT args:args];
 }
 
--(NSArray *)getCategories {
+-(NSArray<NSString *> *)getCategories {
     
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, nil];
     return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_CATEGORIES args:args];
@@ -972,7 +972,7 @@ id result = nil;
     [self savePoint:geoPoint responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)getCategories:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)getCategories:(void(^)(NSArray<NSString *> *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self getCategories:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 

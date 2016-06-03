@@ -20,6 +20,7 @@
  */
 
 #define PERSIST_CURRENTUSER_OFF 0
+#define REPEAT_EASYLOGIN_ON 1
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 #import <UIKit/UIKit.h>
@@ -39,6 +40,7 @@
 #import "AMFSerializer.h"
 #import "AuthorizationException.h"
 
+#define FAULT_WAIT_RESPONSE [Fault fault:@"Wait for response ..." detail:@"Wait for response ..." faultCode:@"3199"]
 #define FAULT_NO_USER [Fault fault:@"User does not exist" detail:@"User does not exist" faultCode:@"3100"]
 #define FAULT_NO_USER_ID [Fault fault:@"Object ID does not exist" detail:@"Object ID does not exist" faultCode:@"3101"]
 #define FAULT_NO_USER_CREDENTIALS [Fault fault:@"User credentials does not valid" detail:@"User credentials does not valid" faultCode:@"3102"]
@@ -67,6 +69,9 @@ static NSString *METHOD_USER_LOGIN_WITH_GOOGLEPLUS_SDK = @"loginWithGooglePlus";
 
 
 @interface UserService ()
+#if REPEAT_EASYLOGIN_ON
+@property (strong, nonatomic) NSString *easyLoginUrl;
+#endif
 // sync
 -(id)loginWithFacebookSocialUserId:(NSString *)userId accessToken:(NSString *)accessToken expirationDate:(NSDate *)expirationDate permissions:(NSSet *)permissions fieldsMapping:(NSDictionary *)fieldsMapping;
 // async
@@ -86,7 +91,10 @@ static NSString *METHOD_USER_LOGIN_WITH_GOOGLEPLUS_SDK = @"loginWithGooglePlus";
 
 -(id)init {
 	if ( (self=[super init]) ) {
-        
+
+#if REPEAT_EASYLOGIN_ON
+        _easyLoginUrl = nil;
+#endif
         _currentUser = nil;
         _isStayLoggedIn = NO;
 
@@ -106,6 +114,9 @@ static NSString *METHOD_USER_LOGIN_WITH_GOOGLEPLUS_SDK = @"loginWithGooglePlus";
 -(void)dealloc {
 	
 	[DebLog logN:@"DEALLOC UserService"];
+#if REPEAT_EASYLOGIN_ON
+    [_easyLoginUrl release];
+#endif
     
     [_currentUser release];
 	
@@ -1034,6 +1045,12 @@ id result = nil;
         id userData = [NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding: NSUTF16StringEncoding] options:0 error:&error];
         if (error) {
             [DebLog logY:@"UserService -> handleOpenURL: ERROR = %@", error];
+#if REPEAT_EASYLOGIN_ON
+            if (_easyLoginUrl) {
+                [self easyLoginResponder:_easyLoginUrl];
+                _easyLoginUrl = nil;
+            }
+#endif
             return nil;
         }
         [DebLog log:@"UserService -> handleOpenURL: userData = '%@'", userData];
@@ -1113,6 +1130,10 @@ id result = nil;
 }
 
 -(id)easyLoginError:(Fault *)fault {
+    
+#if REPEAT_EASYLOGIN_ON
+    _easyLoginUrl = nil;
+#endif
 
     [DebLog log:@"UserService -> easyLoginError: %@", fault.detail];
     return fault;
@@ -1120,9 +1141,13 @@ id result = nil;
 
 -(id)easyLoginResponder:(id)response {
     
+#if REPEAT_EASYLOGIN_ON
+    self.easyLoginUrl = (NSString *)response;
+#endif
+    
     NSURL *url = [NSURL URLWithString:response];
     
-    [DebLog log:@"UserService -> easyLoginResponder: %@ [%@]", response, url.scheme];
+    [DebLog log:@"UserService -> easyLoginResponder: '%@' -> '%@'", response, url];
     
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
     [[UIApplication sharedApplication] openURL:url];

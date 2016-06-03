@@ -162,7 +162,9 @@
         [__properties push:key withObject:nil];
     }
     
+#if CURRENTUSER_PERSISTENCE_ON
     [self persistCurrentUser];
+#endif
 }
 
 -(void)removeProperties:(NSArray<NSString*> *)keys {
@@ -192,7 +194,7 @@
 #pragma mark overwrided NSObject Methods
 
 -(NSString *)description {
-    return [NSString stringWithFormat:@"<BackendlessUser [%@]> %@", [super description], __properties.node];
+    return [NSString stringWithFormat:@"<BackendlessUser [%@]> %@", [super description], __properties?__properties.node:nil];
 }
 
 @end

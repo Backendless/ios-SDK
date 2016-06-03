@@ -42,7 +42,7 @@ typedef struct {
 -(GeoCategory *)addCategory:(NSString *)categoryName;
 -(id)deleteCategory:(NSString *)categoryName;
 -(GeoPoint *)savePoint:(GeoPoint *)geoPoint;
--(NSArray *)getCategories;
+-(NSArray<NSString *> *)getCategories;
 -(BackendlessCollection *)getPoints:(BackendlessGeoQuery *)query;
 -(BackendlessCollection *)getClusterPoints:(GeoCluster *)geoCluster;
 -(BackendlessCollection *)getFencePoints:(NSString *)geoFenceName;
@@ -61,7 +61,7 @@ typedef struct {
 -(GeoCategory *)addCategory:(NSString *)categoryName error:(Fault **)fault;
 -(BOOL)deleteCategory:(NSString *)categoryName error:(Fault **)fault;
 -(GeoPoint *)savePoint:(GeoPoint *)geoPoint error:(Fault **)fault;
--(NSArray *)getCategoriesError:(Fault **)fault;
+-(NSArray<NSString *> *)getCategoriesError:(Fault **)fault;
 -(BackendlessCollection *)getPoints:(BackendlessGeoQuery *)query error:(Fault **)fault;
 -(BackendlessCollection *)getClusterPoints:(GeoCluster *)geoCluster error:(Fault **)fault;
 -(BackendlessCollection *)getFencePoints:(NSString *)geoFenceName error:(Fault **)fault;
@@ -99,7 +99,7 @@ typedef struct {
 -(void)addCategory:(NSString *)categoryName response:(void(^)(GeoCategory *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)deleteCategory:(NSString *)categoryName response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)savePoint:(GeoPoint *)geoPoint response:(void(^)(GeoPoint *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)getCategories:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)getCategories:(void(^)(NSArray<NSString *> *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getPoints:(BackendlessGeoQuery *)query response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getClusterPoints:(GeoCluster *)geoCluster response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getFencePoints:(NSString *)geoFenceName response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
