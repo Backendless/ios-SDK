@@ -605,7 +605,7 @@ id result = nil;
     }
 
     if (_isStayLoggedIn && _currentUser && [user.objectId isEqualToString:_currentUser.objectId]) {
-        [self onLogin:result];
+        [self updateCurrentUser:result];
     }
 #endif
     
@@ -652,13 +652,15 @@ id result = nil;
 
 -(NSNumber *)isValidUserToken {
     
-    if (!_currentUser || !_currentUser.getUserToken)
+    NSString *userToken = [backendless.headers valueForKey:BACKENDLESS_USER_TOKEN];
+    
+    if (!_currentUser || !userToken)
 #if 1 // http://bugs.backendless.com/browse/BKNDLSS-11896
         return @(NO);
 #else
         return [backendless throwFault:FAULT_NO_USER];
 #endif
-    NSArray *args = @[backendless.appID, backendless.versionNum, _currentUser.getUserToken];
+    NSArray *args = @[backendless.appID, backendless.versionNum, userToken];
 #if 0 // http://bugs.backendless.com/browse/BKNDLSS-11864
     return [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_IS_VALID_USER_TOKEN args:args];
 #else
@@ -809,7 +811,9 @@ id result = nil;
 
 -(void)isValidUserToken:(id <IResponder>)responder {
     
-    if (!_currentUser || !_currentUser.getUserToken) {
+    NSString *userToken = [backendless.headers valueForKey:BACKENDLESS_USER_TOKEN];
+    
+    if (!_currentUser || !userToken) {
 #if 1 // http://bugs.backendless.com/browse/BKNDLSS-11896
         [responder responseHandler:@(NO)];
         return;
@@ -817,7 +821,7 @@ id result = nil;
         return [responder errorHandler:FAULT_NO_USER];
 #endif
     }
-    NSArray *args = @[backendless.appID, backendless.versionNum, _currentUser.getUserToken];
+    NSArray *args = @[backendless.appID, backendless.versionNum, userToken];
 #if 1 // http://bugs.backendless.com/browse/BKNDLSS-11864
     Responder *_responder = [Responder responder:self selResponseHandler:nil selErrorHandler:@selector(onValidUserTokenFault:)];
     _responder.chained = responder;
@@ -1179,6 +1183,19 @@ id result = nil;
     return _currentUser;
 }
 
+-(void)updateCurrentUser:(id)response {
+    
+    if ([response isKindOfClass:[BackendlessUser class]]) {
+        self.currentUser = response;
+    }
+    else {
+        NSDictionary *props = (NSDictionary *)response;
+        (_currentUser) ? [_currentUser assignProperties:props] : (_currentUser = [[BackendlessUser alloc] initWithProperties:props]);
+    }
+    
+    [self setPersistentUser];
+}
+
 -(id)onUpdate:(ResponseContext *)response {
     
     [DebLog log:@"UserService -> onUpdate: %@", response];
@@ -1196,7 +1213,7 @@ id result = nil;
     }
     
     if (_isStayLoggedIn && _currentUser && [user.objectId isEqualToString:_currentUser.objectId]) {
-        [self onLogin:result];
+        [self updateCurrentUser:result];
     }
 #endif
     
