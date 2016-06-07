@@ -1087,9 +1087,21 @@ id result = nil;
 }
 
 -(BOOL)setPersistentUser {
-    //[DebLog logY:@"UserService -> setPersistentUser: currentUser = %@ [%@]", [_currentUser getObjectId], _isStayLoggedIn?@"ON":@"OFF"];
+#if 0
     return (_currentUser && _isStayLoggedIn) ? [AMFSerializer serializeToFile:[_currentUser retrieveProperties] fileName:PERSIST_USER_FILE_NAME] : NO;
-    
+#else
+    if (_currentUser && _isStayLoggedIn) {
+        
+        NSMutableDictionary *properties = [NSMutableDictionary dictionaryWithDictionary:[_currentUser retrieveProperties]];
+        NSString *userToken = [backendless.headers valueForKey:BACKENDLESS_USER_TOKEN];
+        if (userToken) {
+            [properties setValue:userToken forKey:BACKENDLESS_USER_TOKEN];
+        }
+        return [AMFSerializer serializeToFile:properties fileName:PERSIST_USER_FILE_NAME];
+    }
+    return NO;
+
+#endif
 }
 
 -(BOOL)resetPersistentUser {
