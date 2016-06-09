@@ -26,10 +26,10 @@
 #import "Backendless.h"
 #import "Invoker.h"
 
-#define FAULT_NO_FILE_URL [Fault fault:@"File URL is not set"]
-#define FAULT_NO_FILE_NAME [Fault fault:@"File name is not set"]
-#define FAULT_NO_DIRECTORY_PATH [Fault fault:@"Directory path is not set"]
-#define FAULT_NO_FILE_DATA [Fault fault:@"File data is not set"]
+#define FAULT_NO_FILE_URL [Fault fault:@"File URL is not set" faultCode:@"6900"]
+#define FAULT_NO_FILE_NAME [Fault fault:@"File name is not set" faultCode:@"6901"]
+#define FAULT_NO_DIRECTORY_PATH [Fault fault:@"Directory path is not set" faultCode:@"6902"]
+#define FAULT_NO_FILE_DATA [Fault fault:@"File data is not set" faultCode:@"6903"]
 
 // SERVICE NAME
 static NSString *SERVER_FILE_SERVICE_PATH = @"com.backendless.services.file.FileService";

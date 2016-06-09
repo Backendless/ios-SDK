@@ -24,9 +24,9 @@
 #import "Invoker.h"
 #import "CacheFactory.h"
 
-#define FAULT_NO_RESULT [Fault fault:@"Result is not valid" faultCode:@"0000"]
-#define FAULT_NO_ENTITY [Fault fault:@"Entity is not valid" faultCode:@"0000"]
-#define FAULT_NO_KEY [Fault fault:@"Key is not valid" faultCode:@"0000"]
+#define FAULT_NO_RESULT [Fault fault:@"Result is not valid" faultCode:@"7910"]
+#define FAULT_NO_ENTITY [Fault fault:@"Entity is not valid" faultCode:@"7911"]
+#define FAULT_NO_KEY [Fault fault:@"Key is not valid" faultCode:@"7912"]
 
 // SERVICE NAME
 static NSString *SERVER_CACHE_SERVICE_PATH = @"com.backendless.services.redis.CacheService";

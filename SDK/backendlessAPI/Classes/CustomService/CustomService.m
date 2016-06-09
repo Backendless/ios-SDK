@@ -23,7 +23,7 @@
 #import "Backendless.h"
 #import "Invoker.h"
 
-#define FAULT_NO_SERVICE_OPTIONS [Fault fault:@"Service options is not valid" faultCode:@"0000"]
+#define FAULT_NO_SERVICE_OPTIONS [Fault fault:@"Service options is not valid" faultCode:@"7900"]
 
 // SERVICE NAME
 static NSString *SERVER_CUSTOM_SERVICE_PATH = @"com.backendless.services.servercode.CustomServiceHandler";

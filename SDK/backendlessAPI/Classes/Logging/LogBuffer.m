@@ -23,7 +23,7 @@
 #import "Backendless.h"
 #import "Invoker.h"
 
-#define FAULT_WRONG_POLICY [Fault fault:@"The messages number argument or the time frequency argument must be greater than zero"]
+#define FAULT_WRONG_POLICY [Fault fault:@"The messages number argument or the time frequency argument must be greater than zero" faultCode:@"7930"]
 
 // SERVICE NAME
 static NSString *SERVER_LOG_SERVICE_PATH = @"com.backendless.services.logging.LogService";

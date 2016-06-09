@@ -45,9 +45,9 @@
 #import "OfflineModeManager.h"
 #import "ObjectProperty.h"
 
-#define FAULT_NO_ENTITY [Fault fault:@"Entity is not valid" faultCode:@"0000"]
-#define FAULT_OBJECT_ID_IS_NOT_EXIST [Fault fault:@"Object ID does not exist" faultCode:@"0000"]
-#define FAULT_NAME_IS_NULL [Fault fault:@"Name is NULL" faultCode:@"0000"]
+#define FAULT_NO_ENTITY [Fault fault:@"Entity is not valid" faultCode:@"1900"]
+#define FAULT_OBJECT_ID_IS_NOT_EXIST [Fault fault:@"Object ID does not exist" faultCode:@"1901"]
+#define FAULT_NAME_IS_NULL [Fault fault:@"Name is NULL" faultCode:@"1902"]
 
 // SERVICE NAME
 static NSString *SERVER_PERSISTENCE_SERVICE_PATH = @"com.backendless.services.persistence.PersistenceService";

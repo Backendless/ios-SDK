@@ -40,11 +40,11 @@
 #import "AMFSerializer.h"
 #import "AuthorizationException.h"
 
-#define FAULT_WAIT_RESPONSE [Fault fault:@"Wait for response ..." detail:@"Wait for response ..." faultCode:@"3199"]
-#define FAULT_NO_USER [Fault fault:@"User does not exist" detail:@"User does not exist" faultCode:@"3100"]
-#define FAULT_NO_USER_ID [Fault fault:@"Object ID does not exist" detail:@"Object ID does not exist" faultCode:@"3101"]
-#define FAULT_NO_USER_CREDENTIALS [Fault fault:@"User credentials does not valid" detail:@"User credentials does not valid" faultCode:@"3102"]
-#define FAULT_NO_USER_ROLE [Fault fault:@"user role is not valid" detail:@"user role is not valid" faultCode:@"3103"]
+#define FAULT_NO_USER [Fault fault:@"User does not exist" detail:@"User does not exist" faultCode:@"3900"]
+#define FAULT_NO_USER_ID [Fault fault:@"Object ID does not exist" detail:@"Object ID does not exist" faultCode:@"3901"]
+#define FAULT_NO_USER_CREDENTIALS [Fault fault:@"User credentials does not valid" detail:@"User credentials does not valid" faultCode:@"3902"]
+#define FAULT_NO_USER_ROLE [Fault fault:@"user role is not valid" detail:@"user role is not valid" faultCode:@"3903"]
+#define FAULT_NO_USER_EMAIL [Fault fault:@"user email is not valid" detail:@"user email is not valid" faultCode:@"3904"]
 // PERSISTENT USER
 static NSString *PERSIST_USER_FILE_NAME = @"user.bin";
 // SERVICE NAME
@@ -66,6 +66,7 @@ static NSString *METHOD_USER_LOGIN_WITH_TWITTER = @"getTwitterServiceAuthorizati
 static NSString *METHOD_USER_LOGIN_WITH_GOOGLEPLUS = @"getGooglePlusServiceAuthorizationUrlLink";
 static NSString *METHOD_USER_LOGIN_WITH_FACEBOOK_SDK = @"loginWithFacebook";
 static NSString *METHOD_USER_LOGIN_WITH_GOOGLEPLUS_SDK = @"loginWithGooglePlus";
+static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 
 
 @interface UserService ()
@@ -552,6 +553,25 @@ id result = nil;
     }
 }
 
+-(BOOL)resendEmailConfirmation:(NSString *)email error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self resendEmailConfirmation:email];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return NO;
+        }
+        return YES;
+    }
+}
+
+
 #endif
 
 // sync methods with fault return (as exception)
@@ -681,10 +701,9 @@ id result = nil;
 #endif
 }
 
-
 -(id)restorePassword:(NSString *)login {
     
-    if (!login)
+    if (!login||!login.length)
         return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
     
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, login, nil];
@@ -743,6 +762,16 @@ id result = nil;
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_GOOGLEPLUS_SDK args:args];
     return [result isKindOfClass:[Fault class]] ? result : [self onLogin:result];
 }
+
+-(id)resendEmailConfirmation:(NSString *)email {
+    
+    if (!email||!email.length)
+        return [backendless throwFault:FAULT_NO_USER_EMAIL];
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, email];
+    return [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_RESEND_EMAIL_CONFIRMATION args:args];
+}
+
 
 // async methods with responder
 
@@ -833,7 +862,7 @@ id result = nil;
 
 -(void)restorePassword:(NSString *)login responder:(id <IResponder>)responder {
     
-    if (!login)
+    if (!login||!login.length)
         return [responder errorHandler:FAULT_NO_USER_CREDENTIALS];
     
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, login, nil];
@@ -895,6 +924,16 @@ id result = nil;
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_GOOGLEPLUS_SDK args:args responder:_responder];
 }
 
+-(void)resendEmailConfirmation:(NSString *)email responder:(id <IResponder>)responder {
+    
+    if (!email||!email.length)
+        return [responder errorHandler:FAULT_NO_USER_EMAIL];
+    
+    NSArray *args = @[backendless.appID, backendless.versionNum, email];
+    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_RESEND_EMAIL_CONFIRMATION args:args responder:responder];
+    
+}
+
 // async methods with block-based callbacks
 
 -(void)registering:(BackendlessUser *)user response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -951,6 +990,10 @@ id result = nil;
 
 -(void)loginWithGoogleSignInSDK:(NSString *)idToken accessToken:(NSString *)accessToken permissions:(NSArray<NSString*> *)permissions fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self loginWithGoogleSignInSDK:idToken accessToken:accessToken permissions:permissions fieldsMapping:fieldsMapping responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+
+-(void)resendEmailConfirmation:(NSString *)email response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self resendEmailConfirmation:email responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 // methods of social easy logins

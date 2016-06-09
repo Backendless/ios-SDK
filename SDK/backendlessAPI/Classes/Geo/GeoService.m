@@ -34,13 +34,13 @@
 #import "ServerCallback.h"
 #import "ClientCallback.h"
 
-#define FAULT_CATEGORY_NAME_IS_NULL [Fault fault:@"Category name is NULL" faultCode:@"4005"]
-#define FAULT_CATEGORY_NAME_IS_EMPTY [Fault fault:@"Category name is empty" faultCode:@"4006"]
-#define FAULT_CATEGORY_NAME_IS_DEFAULT [Fault fault:@"Category name is 'Default'" faultCode:@"4007"]
-#define FAULT_GEO_POINT_IS_NULL [Fault fault:@"Geo point is NULL" faultCode:@"4000"]
-#define FAULT_GEO_POINT_ID_IS_NULL [Fault fault:@"Geo point ID is NULL" faultCode:@"4000"]
-#define FAULT_GEO_FENCE_NAME_IS_NULL [Fault fault:@"Geo fence name is NULL" faultCode:@"4000"]
-#define FAULT_CALLBACK_IS_INVALID [Fault fault:@"Callback is invalid" faultCode:@"4000"]
+#define FAULT_CATEGORY_NAME_IS_NULL [Fault fault:@"Category name is NULL" faultCode:@"4900"]
+#define FAULT_CATEGORY_NAME_IS_EMPTY [Fault fault:@"Category name is empty" faultCode:@"4901"]
+#define FAULT_CATEGORY_NAME_IS_DEFAULT [Fault fault:@"Category name is 'Default'" faultCode:@"4902"]
+#define FAULT_GEO_POINT_IS_NULL [Fault fault:@"Geo point is NULL" faultCode:@"4903"]
+#define FAULT_GEO_POINT_ID_IS_NULL [Fault fault:@"Geo point ID is NULL" faultCode:@"4904"]
+#define FAULT_GEO_FENCE_NAME_IS_NULL [Fault fault:@"Geo fence name is NULL" faultCode:@"4905"]
+#define FAULT_CALLBACK_IS_INVALID [Fault fault:@"Callback is invalid" faultCode:@"4906"]
 
 // SERVICE NAME
 static NSString *SERVER_GEO_SERVICE_PATH = @"com.backendless.services.geo.GeoService";
