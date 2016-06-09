@@ -72,6 +72,9 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 @interface UserService ()
 #if REPEAT_EASYLOGIN_ON
 @property (strong, nonatomic) NSString *easyLoginUrl;
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+@property BOOL iOS9above;
+#endif
 #endif
 // sync
 -(id)loginWithFacebookSocialUserId:(NSString *)userId accessToken:(NSString *)accessToken expirationDate:(NSDate *)expirationDate permissions:(NSSet *)permissions fieldsMapping:(NSDictionary *)fieldsMapping;
@@ -87,6 +90,14 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 -(id)onLogout:(id)response;
 -(id)onLogoutError:(Fault *)fault;
 @end
+
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#if _USE_SAFARI_VC_
+@interface UserService (SafariVC) <SFSafariViewControllerDelegate>
+-(UIViewController *)getCurrentViewController;
+@end
+#endif
+#endif
 
 @implementation UserService
 
@@ -106,6 +117,10 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.model.GeoPoint" mapped:[GeoPoint class]];
 #if !_IS_USERS_CLASS_
         [[Types sharedInstance] addClientClassMapping:@"Users" mapped:[BackendlessUser class]];
+#endif
+        
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+        self.iOS9above = [[[UIApplication sharedApplication] delegate] respondsToSelector:@selector(application:openURL:options:)];
 #endif
 	}
 	
@@ -1017,6 +1032,17 @@ id result = nil;
     [self easyLoginWithFacebookFieldsMapping:fieldsMapping permissions:permissions responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
+#if 1
+-(void)easyLoginWithFacebookUrlFieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping permissions:(NSArray<NSString*> *)permissions responder:(id<IResponder>)responder {
+    NSArray *args = @[backendless.appID, backendless.versionNum, backendless.applicationType, fieldsMapping?fieldsMapping:@{}, permissions?permissions:@{}];
+    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_FACEBOOK args:args responder:responder];
+}
+
+-(void)easyLoginWithFacebookUrlFieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping permissions:(NSArray<NSString*> *)permissions response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self easyLoginWithFacebookUrlFieldsMapping:fieldsMapping permissions:permissions responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+#endif
+
 // TWitter
 -(void)easyLoginWithTwitterFieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping
 {
@@ -1092,7 +1118,7 @@ id result = nil;
         id userData = [NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding: NSUTF16StringEncoding] options:0 error:&error];
         if (error) {
             [DebLog logY:@"UserService -> handleOpenURL: ERROR = %@", error];
-#if REPEAT_EASYLOGIN_ON
+#if REPEAT_EASYLOGIN_ON && !_USE_SAFARI_VC_
             if (_easyLoginUrl) {
                 [self easyLoginResponder:_easyLoginUrl];
                 _easyLoginUrl = nil;
@@ -1107,6 +1133,35 @@ id result = nil;
     @catch (NSException *exception) {
         [DebLog logY:@"UserService -> handleOpenURL: EXCEPTION = %@", exception];
         return nil;
+    }
+}
+
+-(void)handleOpenURL:(NSURL *)url completion:(void(^)(BackendlessUser *))completion {
+    
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#if _USE_SAFARI_VC_
+    if (self.iOS9above) {
+
+        __block BackendlessUser *user = [self handleOpenURL:url];
+       [backendless.safariVC
+         dismissViewControllerAnimated:true
+         completion:^(void) {
+             if (!user && _easyLoginUrl) {
+                 [self easyLoginResponder:_easyLoginUrl];
+                 _easyLoginUrl = nil;
+             }
+             else {
+                 if (completion) {
+                     completion(user);
+                 }
+             }
+         }];
+        return;
+    }
+#endif
+#endif
+    if (completion) {
+        completion([self handleOpenURL:url]);
     }
 }
 
@@ -1209,7 +1264,20 @@ id result = nil;
     [DebLog log:@"UserService -> easyLoginResponder: '%@' -> '%@'", response, url];
     
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#if _USE_SAFARI_VC_
+    if (self.iOS9above) {
+        [DebLog log:@"UserService -> easyLoginResponder: (**************** SAFARI VC *************************)"];
+        backendless.safariVC = [[SFSafariViewController alloc] initWithURL:url];
+        backendless.safariVC.delegate = self;
+        UIViewController *vc = [self getCurrentViewController];
+        [vc showViewController:backendless.safariVC sender:nil];
+    }
+    else {
+        [[UIApplication sharedApplication] openURL:url];
+    }
+#else
     [[UIApplication sharedApplication] openURL:url];
+#endif
 #else
     [[NSWorkspace sharedWorkspace] openURL:url];
 #endif
@@ -1312,5 +1380,50 @@ id result = nil;
     return fault;
 }
 
+@end
+
+
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#if _USE_SAFARI_VC_
+@implementation UserService (SafariVC)
+
+-(UIViewController *)getCurrentViewController {
+    
+    UIViewController *WindowRootVC = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+    UIViewController *currentViewController = [self findTopViewController:WindowRootVC];
+    
+    return currentViewController;
+}
+
+-(UIViewController *)findTopViewController:(UIViewController *)inController {
+    /* if ur using any Customs classes, do like this.
+     * Here SlideNavigationController is a subclass of UINavigationController.
+     * And ensure you check the custom classes before native controllers , if u have any in your hierarchy.
+     if ([inController isKindOfClass:[SlideNavigationController class]])
+     {
+     return [self findTopViewController:[inController visibleViewController]];
+     }
+     else */
+    if ([inController isKindOfClass:[UITabBarController class]]) {
+        return [self findTopViewController:[(UITabBarController *)inController selectedViewController]];
+    }
+    else if ([inController isKindOfClass:[UINavigationController class]]) {
+        return [self findTopViewController:[(UINavigationController *)inController visibleViewController]];
+    }
+    else if ([inController isKindOfClass:[UIViewController class]]) {
+        return inController;
+    }
+    else {
+        [DebLog log:@"UserService -> findTopViewController: Unhandled ViewController class : %@", inController.class];
+        return nil;
+    }
+}
+
+-(void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
+    [controller dismissViewControllerAnimated:true completion: nil];
+}
 
 @end
+#endif
+#endif
+

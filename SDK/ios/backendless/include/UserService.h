@@ -120,10 +120,16 @@
 
 // utilites
 -(id)handleOpenURL:(NSURL *)url;
-
+-(void)handleOpenURL:(NSURL *)url completion:(void(^)(BackendlessUser *))completion;
+    
 // persistent user
 -(BOOL)getPersistentUser;
 -(BOOL)setPersistentUser;
 -(BOOL)resetPersistentUser;
+
+// test
+-(void)easyLoginWithFacebookUrlFieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping permissions:(NSArray<NSString*> *)permissions responder:(id<IResponder>)responder;
+-(void)easyLoginWithFacebookUrlFieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping permissions:(NSArray<NSString*> *)permissions response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
+
 
 @end
