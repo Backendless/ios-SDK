@@ -23,7 +23,9 @@
 #import "Backendless.h"
 #import "Invoker.h"
 
-#define FAULT_NO_SERVICE_OPTIONS [Fault fault:@"Service options is not valid" faultCode:@"7900"]
+#define FAULT_NO_SERVICE [Fault  fault:@"Service not found" detail:@"SService not found" faultCode:@"14001"]
+#define FAULT_NO_SERVICE_METHOD [Fault fault:@"Service method not found" detail:@"Service method not found" faultCode:@"14002"]
+#define FAULT_NO_SERVICE_VERSION [Fault fault:@"Service Version not found" detail:@"Service Version not found" faultCode:@"14019"]
 
 // SERVICE NAME
 static NSString *SERVER_CUSTOM_SERVICE_PATH = @"com.backendless.services.servercode.CustomServiceHandler";
@@ -35,8 +37,12 @@ static NSString *METHOD_DISPATCH_SERVICE = @"dispatchService";
 // sync methods with fault return (as exception)
 -(id)invoke:(NSString *)serviceName serviceVersion:(NSString *)serviceVersion method:(NSString *)method args:(NSArray *)args {
     
-    if (!serviceName || !serviceVersion || !method)
-        return [backendless throwFault:FAULT_NO_SERVICE_OPTIONS];
+    if (!serviceName)
+        return [backendless throwFault:FAULT_NO_SERVICE];
+    if (!method)
+        return [backendless throwFault:FAULT_NO_SERVICE_METHOD];
+    if (!!serviceVersion)
+        return [backendless throwFault:FAULT_NO_SERVICE_VERSION];
     
     NSArray *_args = @[backendless.appID, backendless.versionNum, serviceName, serviceVersion, method, args?args:@[]];
     return [invoker invokeSync:SERVER_CUSTOM_SERVICE_PATH method:METHOD_DISPATCH_SERVICE args:_args];
@@ -97,8 +103,12 @@ id result = nil;
 // async methods with responder
 -(void)invoke:(NSString *)serviceName serviceVersion:(NSString *)serviceVersion method:(NSString *)method args:(NSArray *)args responder:(id <IResponder>)responder {
     
-    if (!serviceName || !serviceVersion || !method)
-        return [responder errorHandler:FAULT_NO_SERVICE_OPTIONS];
+    if (!serviceName)
+        return [responder errorHandler:FAULT_NO_SERVICE];
+    if (!method)
+        return [responder errorHandler:FAULT_NO_SERVICE_METHOD];
+    if (!serviceVersion)
+        return [responder errorHandler:FAULT_NO_SERVICE_VERSION];
     
     NSArray *_args = @[backendless.appID, backendless.versionNum, serviceName, serviceVersion, method, args?args:@[]];
     [invoker invokeAsync:SERVER_CUSTOM_SERVICE_PATH method:METHOD_DISPATCH_SERVICE args:_args responder:responder];

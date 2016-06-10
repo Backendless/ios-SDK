@@ -24,7 +24,7 @@
 #import "Invoker.h"
 #import "AtomicCountersFactory.h"
 
-#define FAULT_NO_NAME [Fault fault:@"Name is not valid" faultCode:@"7920"]
+#define FAULT_NO_NAME [Fault fault:@"Name is NULL" detail:@"Name is NULL" faultCode:@"8900"]
 
 // SERVICE NAME
 static NSString *SERVER_ATOMIC_OPERATION_SERVICE_PATH = @"com.backendless.services.redis.AtomicOperationService";

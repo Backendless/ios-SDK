@@ -35,14 +35,14 @@
 #import "BESubscription.h"
 #import "BodyParts.h"
 
-#define FAULT_NO_DEVICE_ID [Fault fault:@"Device ID is not set" faultCode:@"5900"]
-#define FAULT_NO_DEVICE_TOKEN [Fault fault:@"Device token is not set" faultCode:@"5901"]
-#define FAULT_NO_CHANNEL [Fault fault:@"Channel is not set for publishing" faultCode:@"5902"]
-#define FAULT_NO_MESSAGE [Fault fault:@"Message is not set for publishing" faultCode:@"5903"]
-#define FAULT_NO_MESSAGE_ID [Fault fault:@"Message ID is not set" faultCode:@"5904"]
-#define FAULT_NO_SUBSCRIPTION_ID [Fault fault:@"Subscription ID is not set" faultCode:@"5905"]
-#define FAULT_NO_BODY [Fault fault:@"Message body is not set for email" faultCode:@"5906"]
-#define FAULT_NO_RECIPIENT [Fault fault:@"No recipient is set for email" faultCode:@"5907"]
+#define FAULT_NO_DEVICE_ID [Fault fault:@"Device ID is not set" detail:@"Device ID is not set" faultCode:@"5900"]
+#define FAULT_NO_DEVICE_TOKEN [Fault fault:@"Device token is not set" detail:@"Device token is not set" faultCode:@"5901"]
+#define FAULT_NO_CHANNEL [Fault fault:@"Channel is not set for publishing" detail:@"Channel is not set for publishing" faultCode:@"5902"]
+#define FAULT_NO_MESSAGE [Fault fault:@"Message is not set for publishing" detail:@"Message is not set for publishing" faultCode:@"5903"]
+#define FAULT_NO_MESSAGE_ID [Fault fault:@"Message ID is not set" detail:@"Message ID is not set" faultCode:@"5904"]
+#define FAULT_NO_SUBSCRIPTION_ID [Fault fault:@"Subscription ID is not set" detail:@"Subscription ID is not set" faultCode:@"5905"]
+#define FAULT_NO_BODY [Fault fault:@"Message body is not set for email" detail:@"Message body is not set for email" faultCode:@"5906"]
+#define FAULT_NO_RECIPIENT [Fault fault:@"No recipient is set for email" detail:@"No recipient is set for email" faultCode:@"5907"]
 
 // SERVICE NAME
 static NSString *SERVER_DEVICE_REGISTRATION_PATH = @"com.backendless.services.messaging.DeviceRegistrationService";

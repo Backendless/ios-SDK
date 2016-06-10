@@ -34,13 +34,17 @@
 #import "ServerCallback.h"
 #import "ClientCallback.h"
 
-#define FAULT_CATEGORY_NAME_IS_NULL [Fault fault:@"Category name is NULL" faultCode:@"4900"]
-#define FAULT_CATEGORY_NAME_IS_EMPTY [Fault fault:@"Category name is empty" faultCode:@"4901"]
-#define FAULT_CATEGORY_NAME_IS_DEFAULT [Fault fault:@"Category name is 'Default'" faultCode:@"4902"]
-#define FAULT_GEO_POINT_IS_NULL [Fault fault:@"Geo point is NULL" faultCode:@"4903"]
-#define FAULT_GEO_POINT_ID_IS_NULL [Fault fault:@"Geo point ID is NULL" faultCode:@"4904"]
-#define FAULT_GEO_FENCE_NAME_IS_NULL [Fault fault:@"Geo fence name is NULL" faultCode:@"4905"]
-#define FAULT_CALLBACK_IS_INVALID [Fault fault:@"Callback is invalid" faultCode:@"4906"]
+#define FAULT_GEO_POINT_IS_NULL [Fault fault:@"Geo point is NULL" detail:@"Unable to operate with geo point. GeoPoint is NULL" faultCode:@"4000"]
+#define FAULT_CATEGORY_NAME_IS_NULL [Fault fault:@"Category name is NULL" detail:@"Cannot add category. Category name is NULL" faultCode:@"4005"]
+#define FAULT_CATEGORY_NAME_IS_EMPTY [Fault fault:@"Category name is empty" detail:@"Cannot add category. Category name is empty" faultCode:@"4006"]
+#define FAULT_CATEGORY_NAME_IS_DEFAULT [Fault fault:@"Category name is 'Default'" detail:@"Cannot add category. Category name is 'Default'" faultCode:@"4007"]
+#define FAULT_REMOVE_CATEGORY_NAME_IS_NULL [Fault fault:@"Category name is NULL" detail:@"Cannot remove category. Category name is NULL" faultCode:@"4015"]
+#define FAULT_REMOVE_CATEGORY_NAME_IS_EMPTY [Fault fault:@"Category name is empty" detail:@"Cannot remove category. Category name is empty" faultCode:@"4016"]
+#define FAULT_REMOVE_CATEGORY_NAME_IS_DEFAULT [Fault fault:@"Category name is 'Default'" detail:@"Cannot remove category. Category name is 'Default'" faultCode:@"4017"]
+//
+#define FAULT_GEO_POINT_ID_IS_NULL [Fault fault:@"Geo point ID is NULL" detail:@"Unable to operate with geo point. GeoPoint ID is NULL" faultCode:@"4900"]
+#define FAULT_GEO_FENCE_NAME_IS_NULL [Fault fault:@"Geo fence name is NULL"  detail:@"Unable to operate with geo fence. GeoFence is NULL" faultCode:@"4901"]
+#define FAULT_CALLBACK_IS_INVALID [Fault fault:@"Callback instance is not valid" detail:@"Callback instance is not valid" faultCode:@"4902"]
 
 // SERVICE NAME
 static NSString *SERVER_GEO_SERVICE_PATH = @"com.backendless.services.geo.GeoService";
@@ -62,7 +66,8 @@ static NSString *METHOD_GET_FENCE = @"getFence";
 static NSString *METHOD_GET_FENCES = @"getFences";
 
 @interface GeoService ()
--(Fault *)isFaultCategoryName:(NSString *)categoryName responder:(id <IResponder>)responder;
+-(Fault *)isFaultAddCategoryName:(NSString *)categoryName responder:(id <IResponder>)responder;
+-(Fault *)isFaultRemoveCategoryName:(NSString *)categoryName responder:(id <IResponder>)responder;
 -(Fault *)isFaultGeoPoint:(GeoPoint *)geoPoint responder:(id <IResponder>)responder;
 -(Fault *)isFaultGeoPointId:(NSString *)pointId responder:(id <IResponder>)responder;
 -(Fault *)isFaultGeoFenceName:(NSString *)geoFenceName responder:(id <IResponder>)responder;
@@ -592,7 +597,7 @@ id result = nil;
 
 -(GeoCategory *)addCategory:(NSString *)categoryName {
     
-    id fault = [self isFaultCategoryName:categoryName responder:nil];
+    id fault = [self isFaultAddCategoryName:categoryName responder:nil];
     if (fault)
         return fault;
     
@@ -602,7 +607,7 @@ id result = nil;
 
 -(id)deleteCategory:(NSString *)categoryName {
     
-    id fault = [self isFaultCategoryName:categoryName responder:nil];
+    id fault = [self isFaultRemoveCategoryName:categoryName responder:nil];
     if (fault)
         return fault;
     
@@ -806,7 +811,7 @@ id result = nil;
 
 -(void)addCategory:(NSString *)categoryName responder:(id <IResponder>)responder {
     
-    if ([self isFaultCategoryName:categoryName responder:responder])
+    if ([self isFaultAddCategoryName:categoryName responder:responder])
         return;
     
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, categoryName, nil];
@@ -815,7 +820,7 @@ id result = nil;
 
 -(void)deleteCategory:(NSString *)categoryName responder:(id <IResponder>)responder {
     
-    if ([self isFaultCategoryName:categoryName responder:responder])
+    if ([self isFaultRemoveCategoryName:categoryName responder:responder])
         return;
     
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, categoryName, nil];
@@ -1314,10 +1319,21 @@ id result = nil;
     }
 }
 
--(Fault *)isFaultCategoryName:(NSString *)categoryName responder:(id <IResponder>)responder {
+-(Fault *)isFaultAddCategoryName:(NSString *)categoryName responder:(id <IResponder>)responder {
     
     Fault *fault = (!categoryName) ? FAULT_CATEGORY_NAME_IS_NULL : (!categoryName.length) ? FAULT_CATEGORY_NAME_IS_EMPTY :
-                    ([categoryName isEqualToString:DEFAULT_CATEGORY_NAME]) ? FAULT_CATEGORY_NAME_IS_DEFAULT : nil;
+    ([categoryName isEqualToString:DEFAULT_CATEGORY_NAME]) ? FAULT_CATEGORY_NAME_IS_DEFAULT : nil;
+    
+    if (fault)
+        responder ? [responder errorHandler:fault] : [backendless throwFault:fault];
+    
+    return fault;
+}
+
+-(Fault *)isFaultRemoveCategoryName:(NSString *)categoryName responder:(id <IResponder>)responder {
+    
+    Fault *fault = (!categoryName) ? FAULT_REMOVE_CATEGORY_NAME_IS_NULL : (!categoryName.length) ? FAULT_REMOVE_CATEGORY_NAME_IS_EMPTY :
+    ([categoryName isEqualToString:DEFAULT_CATEGORY_NAME]) ? FAULT_REMOVE_CATEGORY_NAME_IS_DEFAULT : nil;
     
     if (fault)
         responder ? [responder errorHandler:fault] : [backendless throwFault:fault];

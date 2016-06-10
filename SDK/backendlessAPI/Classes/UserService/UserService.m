@@ -40,11 +40,11 @@
 #import "AMFSerializer.h"
 #import "AuthorizationException.h"
 
-#define FAULT_NO_USER [Fault fault:@"User does not exist" detail:@"User does not exist" faultCode:@"3900"]
-#define FAULT_NO_USER_ID [Fault fault:@"Object ID does not exist" detail:@"Object ID does not exist" faultCode:@"3901"]
-#define FAULT_NO_USER_CREDENTIALS [Fault fault:@"User credentials does not valid" detail:@"User credentials does not valid" faultCode:@"3902"]
-#define FAULT_NO_USER_ROLE [Fault fault:@"user role is not valid" detail:@"user role is not valid" faultCode:@"3903"]
-#define FAULT_NO_USER_EMAIL [Fault fault:@"user email is not valid" detail:@"user email is not valid" faultCode:@"3904"]
+#define FAULT_NO_USER_CREDENTIALS [Fault fault:@"Login or password is missing or null" detail:@"Login or password is missing or null" faultCode:@"3006"]
+#define FAULT_NO_USER [Fault fault:@"User is missing or null" detail:@"User is missing or null" faultCode:@"3900"]
+#define FAULT_NO_USER_ID [Fault fault:@"objectId is missing or null" detail:@"objectId is missing or null" faultCode:@"3901"]
+#define FAULT_NO_USER_ROLE [Fault fault:@"user role is missing or null" detail:@"user role is missing or null" faultCode:@"3902"]
+#define FAULT_NO_USER_EMAIL [Fault fault:@"user email is missing or null" detail:@"user email is missing or null" faultCode:@"3903"]
 // PERSISTENT USER
 static NSString *PERSIST_USER_FILE_NAME = @"user.bin";
 // SERVICE NAME
