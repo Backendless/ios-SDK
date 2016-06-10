@@ -23,7 +23,7 @@
 #import "Backendless.h"
 #import "Invoker.h"
 
-#define FAULT_NO_SERVICE [Fault  fault:@"Service not found" detail:@"SService not found" faultCode:@"14001"]
+#define FAULT_NO_SERVICE [Fault  fault:@"Service not found" detail:@"Service not found" faultCode:@"14001"]
 #define FAULT_NO_SERVICE_METHOD [Fault fault:@"Service method not found" detail:@"Service method not found" faultCode:@"14002"]
 #define FAULT_NO_SERVICE_VERSION [Fault fault:@"Service Version not found" detail:@"Service Version not found" faultCode:@"14019"]
 
