@@ -197,4 +197,11 @@
     return [NSString stringWithFormat:@"<BackendlessUser [%@]> %@", [super description], __properties?__properties.node:nil];
 }
 
+#pragma mark -
+#pragma mark NSCopying Methods
+
+-(id)copyWithZone:(NSZone *)zone {
+    return [[BackendlessUser alloc] initWithProperties:[self retrieveProperties]];
+}
+
 @end
