@@ -434,6 +434,10 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     return [NSString stringWithFormat:@"%@", BACKENDLESS_MEDIA_URL];
 }
 
+-(void)networkActivityIndicatorOn:(BOOL)value {
+    [invoker setNetworkActivityIndicatorOn:value];
+}
+
 -(void)setThrowException:(BOOL)needThrow {
     invoker.throwException = needThrow;
 }

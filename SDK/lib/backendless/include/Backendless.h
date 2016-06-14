@@ -183,6 +183,7 @@
 -(void)initApp;
 -(void)initAppFault;
 -(NSString *)mediaServerUrl;
+-(void)networkActivityIndicatorOn:(BOOL)value;
 #pragma mark - exceptions management
 -(void)setThrowException:(BOOL)needThrow;
 -(id)throwFault:(Fault *)fault;

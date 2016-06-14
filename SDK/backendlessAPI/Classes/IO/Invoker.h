@@ -38,6 +38,7 @@
 -(void)setup;
 -(void)setRequestHeader:(NSString *)header value:(id)value;
 -(void)removeRequestHeader:(NSString *)header;
+-(void)setNetworkActivityIndicatorOn:(BOOL)value;
 -(id)invokeSync:(NSString *)className method:(NSString *)methodName args:(NSArray *)args;
 -(void)invokeAsync:(NSString *)className method:(NSString *)methodName args:(NSArray *)args responder:(id <IResponder>)responder;
 @end

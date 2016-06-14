@@ -107,6 +107,10 @@ static NSString *URL_DESTINATION = @"GenericDestination";
     [DebLog log:@"Invoker -> removeRequestHeader: client.requestHeaders = \n%@", client.requestHeaders];
 }
 
+-(void)setNetworkActivityIndicatorOn:(BOOL)value {
+    [client setNetworkActivityIndicatorOn:value];
+}
+
 -(id)invokeSync:(NSString *)className method:(NSString *)methodName args:(NSArray *)args {
     
     id result = [client invoke:className method:methodName args:args];
