@@ -124,6 +124,7 @@ static NSString *METHOD_SEND_EMAIL = @"send";
         
         self.pollingFrequencyMs = POLLING_INTERVAL;
         _subscriptions = [HashMap new];
+        self.categories = nil;
         
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.management.DeviceRegistrationDto" mapped:[DeviceRegistration class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.messaging.Message" mapped:[Message class]];
@@ -175,6 +176,7 @@ static NSString *METHOD_SEND_EMAIL = @"send";
     
     [deviceRegistration release];
     [self.subscriptions release];
+    [self.categories release];
 	
 	[super dealloc];
 }
@@ -1483,7 +1485,7 @@ id result = nil;
     // check if iOS8
     if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
         //UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:self.notificationTypes categories:nil];
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:self.notificationTypes categories:self.categories];
         [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
         [[UIApplication sharedApplication] registerForRemoteNotifications];
     }

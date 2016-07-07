@@ -45,6 +45,7 @@
 #define WP_TILE_BACK_CONTENT @"wp-backContent"
 #define WP_RAW_DATA @"wp-raw"
 
+@class UIUserNotificationCategory;
 @class MessageStatus, PublishOptions, DeliveryOptions, SubscriptionOptions, BESubscription, BodyParts, Message, Fault;
 @protocol IResponder;
 
@@ -61,6 +62,7 @@
 @property (strong, nonatomic, readonly) HashMap *subscriptions;
 @property (assign, nonatomic) id <IBEPushReceiver> pushReceiver;
 @property NSUInteger notificationTypes;
+@property (strong, nonatomic) NSSet<UIUserNotificationCategory*> *categories;
 
 // sync methods with fault return (as exception)
 -(NSString *)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration token:(NSData *)deviceToken;
