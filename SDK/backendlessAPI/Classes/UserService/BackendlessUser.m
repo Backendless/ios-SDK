@@ -192,11 +192,11 @@
 
 #pragma mark -
 #pragma mark overwrided NSObject Methods
-
+#if 0
 -(NSString *)description {
     return [NSString stringWithFormat:@"<BackendlessUser [%@]> %@", [super description], __properties?__properties.node:nil];
 }
-
+#endif
 #pragma mark -
 #pragma mark NSCopying Methods
 
