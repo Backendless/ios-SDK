@@ -105,6 +105,12 @@
     
     //[DebLog logN:@"BESubscription -> (POLLING) pollingInterval: %d", pollingInterval];
     
+#if 1
+    Responder *responder = [Responder responder:self selResponseHandler:@selector(onPollingResponse:) selErrorHandler:@selector(onPollingResponse:)];
+    responder.chained = _responder;
+    [backendless.messagingService pollMessages:_channelName subscriptionId:_subscriptionId responder:responder];
+#else
+    
     [backendless.messagingService pollMessages:_channelName subscriptionId:_subscriptionId responder:_responder];
 #if _BY_DISPATCH_TIME_
     dispatch_time_t interval = dispatch_time(DISPATCH_TIME_NOW, 1ull*NSEC_PER_MSEC*pollingInterval);
@@ -114,6 +120,17 @@
 #else
     [self performSelector:@selector(pollingMessages) withObject:nil afterDelay:(double)pollingInterval/1000];
 #endif
+#endif
+}
+
+-(id)onPollingResponse:(id)response {
+    
+    dispatch_time_t interval = dispatch_time(DISPATCH_TIME_NOW, 1ull*NSEC_PER_MSEC*pollingInterval);
+    dispatch_after(interval, dispatch_get_main_queue(), ^{
+        [self pollingMessages];
+    });
+    
+    return response;
 }
 
 #pragma mark -

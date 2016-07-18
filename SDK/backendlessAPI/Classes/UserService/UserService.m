@@ -45,6 +45,8 @@
 #define FAULT_NO_USER_ID [Fault fault:@"objectId is missing or null" detail:@"objectId is missing or null" faultCode:@"3901"]
 #define FAULT_NO_USER_ROLE [Fault fault:@"user role is missing or null" detail:@"user role is missing or null" faultCode:@"3902"]
 #define FAULT_NO_USER_EMAIL [Fault fault:@"user email is missing or null" detail:@"user email is missing or null" faultCode:@"3903"]
+#define FAULT_USER_IS_NOT_LOGGED_IN [Fault fault:@"user is not logged in" detail:@"user is not logged in" faultCode:@"3904"]
+
 // PERSISTENT USER
 static NSString *PERSIST_USER_FILE_NAME = @"user.bin";
 // SERVICE NAME
@@ -689,12 +691,10 @@ id result = nil;
     
     NSString *userToken = [backendless.headers valueForKey:BACKENDLESS_USER_TOKEN];
     
+    // http://bugs.backendless.com/browse/BKNDLSS-12841
     if (!_currentUser || !userToken)
-#if 1 // http://bugs.backendless.com/browse/BKNDLSS-11896
-        return @(NO);
-#else
-        return [backendless throwFault:FAULT_NO_USER];
-#endif
+        return [backendless throwFault:FAULT_USER_IS_NOT_LOGGED_IN];
+    
     NSArray *args = @[backendless.appID, backendless.versionNum, userToken];
 #if 0 // http://bugs.backendless.com/browse/BKNDLSS-11864
     return [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_IS_VALID_USER_TOKEN args:args];
@@ -857,13 +857,9 @@ id result = nil;
     
     NSString *userToken = [backendless.headers valueForKey:BACKENDLESS_USER_TOKEN];
     
+    // http://bugs.backendless.com/browse/BKNDLSS-12841
     if (!_currentUser || !userToken) {
-#if 1 // http://bugs.backendless.com/browse/BKNDLSS-11896
-        [responder responseHandler:@(NO)];
-        return;
-#else
-        return [responder errorHandler:FAULT_NO_USER];
-#endif
+        return [responder errorHandler:FAULT_USER_IS_NOT_LOGGED_IN];
     }
     NSArray *args = @[backendless.appID, backendless.versionNum, userToken];
 #if 1 // http://bugs.backendless.com/browse/BKNDLSS-11864
@@ -1095,17 +1091,14 @@ id result = nil;
 
     NSStringEncoding encoding = NSUTF8StringEncoding;
     NSString *absoluteString = [url.absoluteString stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@://", url.scheme] withString:@""];
-
-#if 0 // test with turkish 'last_name': %D6 -> Ö (http://support.backendless.com/topic/facebook-login-error-exception-of-handleopenurl)
-    absoluteString = @"%7B%22lastLogin%22:%22Tue%20May%2010%2016:56:12%20UTC%202016%22,%22gender%22:%22male%22,%22city%22:null,%22created%22:%22Tue%20May%2010%2016:56:11%20UTC%202016%22,%22birth_date%22:null,%22last_name%22:%22%D6zs1rma%22,%22ownerId%22:%2266383879-240B-629B-FF2D-5BD3FBF0D500%22,%22__meta%22:%22%7B%5C%22relationRemovalIds%5C%22:%7B%7D,%5C%22selectedProperties%5C%22:%5B%5C%22gender%5C%22,%5C%22city%5C%22,%5C%22created%5C%22,%5C%22birth_date%5C%22,%5C%22last_name%5C%22,%5C%22ownerId%5C%22,%5C%22__meta%5C%22,%5C%22__updated__meta%5C%22,%5C%22phone%5C%22,%5C%22name%5C%22,%5C%22___class%5C%22,%5C%22job%5C%22,%5C%22updated%5C%22,%5C%22first_name%5C%22,%5C%22objectId%5C%22,%5C%22email%5C%22%5D,%5C%22relatedObjects%5C%22:%7B%7D%7D%22,%22user-registered%22:true,%22phone%22:null,%22name%22:null,%22___class%22:%22Users%22,%22user-token%22:%22E2C52CAE-D2D6-889B-FFCD-0586EDD9C300%22,%22job%22:null,%22updated%22:null,%22first_name%22:%22Alican%22,%22objectId%22:%2266383879-240B-629B-FF2D-5BD3FBF0D500%22,%22email%22:%22ozsirma@icloud.com%22%7D";
-#endif
-    
+#if 0
+    NSString *json = [absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF32StringEncoding];
+#else
     NSString *json = [absoluteString stringByRemovingPercentEncoding];
     if (!json) {
-        //encoding = NSISOLatin1StringEncoding;
         json = [absoluteString stringByReplacingPercentEscapesUsingEncoding:NSISOLatin1StringEncoding];
     }
-    
+#endif
     if (!json) {
         [DebLog logY:@"UserService -> handleOpenURL: JSON IS BROKEN"];
         return nil;
@@ -1115,7 +1108,11 @@ id result = nil;
 
     @try {
         NSError *error = nil;
+#if 0
         id userData = [NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding: NSUTF16StringEncoding] options:0 error:&error];
+#else
+        id userData = [NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding: NSUTF8StringEncoding] options:0 error:&error];
+#endif
         if (error) {
             [DebLog logY:@"UserService -> handleOpenURL: ERROR = %@", error];
 #if REPEAT_EASYLOGIN_ON && !_USE_SAFARI_VC_
