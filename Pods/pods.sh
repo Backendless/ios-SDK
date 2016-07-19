@@ -1,6 +1,6 @@
 #!/bin/sh
 
-git tag '3.0.30'
+git tag '3.0.31'
 git push --tags
 pod trunk push Backendless.podspec
 pod trunk push Backendless-ios-SDK.podspec

@@ -693,7 +693,11 @@ id result = nil;
     
     // http://bugs.backendless.com/browse/BKNDLSS-12841
     if (!_currentUser || !userToken)
+#if 1
+        return @(NO);
+#else
         return [backendless throwFault:FAULT_USER_IS_NOT_LOGGED_IN];
+#endif
     
     NSArray *args = @[backendless.appID, backendless.versionNum, userToken];
 #if 0 // http://bugs.backendless.com/browse/BKNDLSS-11864
@@ -859,7 +863,12 @@ id result = nil;
     
     // http://bugs.backendless.com/browse/BKNDLSS-12841
     if (!_currentUser || !userToken) {
+#if 1
+        [responder responseHandler:@(NO)];
+        return;
+#else
         return [responder errorHandler:FAULT_USER_IS_NOT_LOGGED_IN];
+#endif
     }
     NSArray *args = @[backendless.appID, backendless.versionNum, userToken];
 #if 1 // http://bugs.backendless.com/browse/BKNDLSS-11864
@@ -1089,16 +1098,11 @@ id result = nil;
         return nil;
     }
 
-    NSStringEncoding encoding = NSUTF8StringEncoding;
     NSString *absoluteString = [url.absoluteString stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@://", url.scheme] withString:@""];
-#if 0
-    NSString *json = [absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF32StringEncoding];
-#else
     NSString *json = [absoluteString stringByRemovingPercentEncoding];
     if (!json) {
         json = [absoluteString stringByReplacingPercentEscapesUsingEncoding:NSISOLatin1StringEncoding];
     }
-#endif
     if (!json) {
         [DebLog logY:@"UserService -> handleOpenURL: JSON IS BROKEN"];
         return nil;
@@ -1108,11 +1112,7 @@ id result = nil;
 
     @try {
         NSError *error = nil;
-#if 0
-        id userData = [NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding: NSUTF16StringEncoding] options:0 error:&error];
-#else
         id userData = [NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding: NSUTF8StringEncoding] options:0 error:&error];
-#endif
         if (error) {
             [DebLog logY:@"UserService -> handleOpenURL: ERROR = %@", error];
 #if REPEAT_EASYLOGIN_ON && !_USE_SAFARI_VC_
