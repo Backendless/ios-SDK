@@ -95,7 +95,17 @@
 #pragma mark Public Methods
 
 -(NSString *)getUserToken {
+#if 0
     return [self getProperty:BACKENDLESS_USER_TOKEN];
+#else
+    NSString *token = [self getProperty:BACKENDLESS_USER_TOKEN];
+    if (token)
+        return token;
+    
+    BackendlessUser *currentUser = backendless.userService.currentUser;
+    return (currentUser && (self.objectId == currentUser.objectId))?[backendless.headers valueForKey:BACKENDLESS_USER_TOKEN]:nil;
+    
+#endif
 }
 
 -(void)assignProperties:(NSDictionary<NSString*, id> *)props {
