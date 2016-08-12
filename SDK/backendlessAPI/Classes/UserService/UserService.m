@@ -20,7 +20,7 @@
  */
 
 #define PERSIST_CURRENTUSER_OFF 0
-#define REPEAT_EASYLOGIN_ON 1
+#define REPEAT_EASYLOGIN_ON 0
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 #import <UIKit/UIKit.h>
@@ -74,9 +74,9 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 @interface UserService ()
 #if REPEAT_EASYLOGIN_ON
 @property (strong, nonatomic) NSString *easyLoginUrl;
+#endif
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 @property BOOL iOS9above;
-#endif
 #endif
 // sync
 -(id)loginWithFacebookSocialUserId:(NSString *)userId accessToken:(NSString *)accessToken expirationDate:(NSDate *)expirationDate permissions:(NSSet *)permissions fieldsMapping:(NSDictionary *)fieldsMapping;
@@ -1143,6 +1143,7 @@ id result = nil;
        [backendless.safariVC
          dismissViewControllerAnimated:true
          completion:^(void) {
+#if REPEAT_EASYLOGIN_ON
              if (!user && _easyLoginUrl) {
                  [self easyLoginResponder:_easyLoginUrl];
                  _easyLoginUrl = nil;
@@ -1152,6 +1153,11 @@ id result = nil;
                      completion(user);
                  }
              }
+#else
+             if (completion) {
+                 completion(user);
+             }
+#endif
          }];
         return;
     }

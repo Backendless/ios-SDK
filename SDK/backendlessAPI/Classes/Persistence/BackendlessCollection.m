@@ -86,7 +86,7 @@
 @end
 
 @implementation BackendlessCollection
-@synthesize data, query;
+@synthesize data, query, tableName;
 
 -(id)init {
 	if ( (self=[super init]) ) {
@@ -110,6 +110,7 @@
 	[DebLog logN:@"DEALLOC BackendlessCollection: %@", self];
     
     [query release];
+    [tableName release];
     [data release];
     [cachedData release];
     

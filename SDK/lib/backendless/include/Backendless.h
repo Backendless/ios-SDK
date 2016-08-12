@@ -106,6 +106,7 @@
 #import "IPresenceListener.h"
 #import "BackendlessBeacon.h"
 #import "Presence.h"
+#import "MapDrivenDataStore.h"
 
 //Cache
 #import "BackendlessCachePolicy.h"

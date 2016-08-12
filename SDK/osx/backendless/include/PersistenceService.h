@@ -21,6 +21,7 @@
 
 #import <Foundation/Foundation.h>
 #import "DataPermission.h"
+#import "MapDrivenDataStore.h"
 
 #define PERSIST_OBJECT_ID @"objectId"
 #define PERSIST_CLASS(CLASS) [backendless.persistenceService of:[CLASS class]]
@@ -157,6 +158,8 @@ extern NSString *LOAD_ALL_RELATIONS;
 
 // IDataStore class factory
 -(id <IDataStore>)of:(Class)entityClass;
+// MapDrivenDataStore factory
+-(MapDrivenDataStore *)ofTable:(NSString *)tableName;
 
 // utilites
 -(id)getObjectId:(id)object;

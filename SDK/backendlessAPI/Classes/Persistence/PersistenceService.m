@@ -2075,6 +2075,12 @@ id result = nil;
     return [DataStoreFactory createDataStore:entityClass];
 }
 
+// MapDrivenDataStore factory
+-(MapDrivenDataStore *)ofTable:(NSString *)tableName {
+    return [MapDrivenDataStore createDataStore:tableName];
+}
+
+
 // utilites
 -(id)getObjectId:(id)object {
     id objectId = nil;

@@ -29,7 +29,11 @@
 	if ( (self=[super init]) ) {
         pageSize = [[NSNumber alloc] initWithInt:100];
         offset = [[NSNumber alloc] initWithInt:0];
+#if 0 // http://bugs.backendless.com/browse/BKNDLSS-13002
         sortBy = nil;
+#else
+        self.sortBy = @[@"objectId"];
+#endif
         related = [[NSMutableArray alloc] init];
 	}
 	
@@ -40,7 +44,11 @@
 	if ( (self=[super init]) ) {
         pageSize = [[NSNumber alloc] initWithInt:_pageSize];
         offset = [[NSNumber alloc] initWithInt:_offset];
+#if 0 // http://bugs.backendless.com/browse/BKNDLSS-13002
         sortBy = nil;
+#else
+        self.sortBy = @[@"objectId"];
+#endif
         related = [[NSMutableArray alloc] init];
 	}
 	
@@ -151,9 +159,10 @@
     QueryOptions *query = [QueryOptions query];
     query.pageSize = pageSize.copy;
     query.offset = offset.copy;
+    query.relationsDepth = relationsDepth.copy;
     query.sortBy = sortBy.copy;
     query.related = related.copy;
-    query.relationsDepth = relationsDepth.copy;
+    
     return query;
 }
 
