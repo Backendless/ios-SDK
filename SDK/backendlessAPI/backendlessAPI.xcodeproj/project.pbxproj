@@ -468,6 +468,22 @@
 		F994A408168DC3BA00C1A498 /* MediaService.h in Headers */ = {isa = PBXBuildFile; fileRef = F994A405168DC3BA00C1A498 /* MediaService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F994A409168DC3BA00C1A498 /* MediaService.m in Sources */ = {isa = PBXBuildFile; fileRef = F994A406168DC3BA00C1A498 /* MediaService.m */; };
 		F994A40A168DC3BA00C1A498 /* MediaService.m in Sources */ = {isa = PBXBuildFile; fileRef = F994A406168DC3BA00C1A498 /* MediaService.m */; };
+		F9B360C31D65A78C00818EEF /* UICKeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F9B360C21D65A70E00818EEF /* UICKeyChainStore.m */; };
+		F9B360C41D65A7AA00818EEF /* UICKeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F9B360C21D65A70E00818EEF /* UICKeyChainStore.m */; };
+		F9B360C51D65A7BD00818EEF /* UICKeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F9B360C21D65A70E00818EEF /* UICKeyChainStore.m */; };
+		F9B360C61D65A7D000818EEF /* UICKeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F9B360C21D65A70E00818EEF /* UICKeyChainStore.m */; };
+		F9B360C71D65A7E400818EEF /* UICKeyChainStore.h in Headers */ = {isa = PBXBuildFile; fileRef = F9B360C11D65A70E00818EEF /* UICKeyChainStore.h */; };
+		F9B360C81D65A81600818EEF /* UICKeyChainStore.h in Headers */ = {isa = PBXBuildFile; fileRef = F9B360C11D65A70E00818EEF /* UICKeyChainStore.h */; };
+		F9B360C91D65A82500818EEF /* UICKeyChainStore.h in Headers */ = {isa = PBXBuildFile; fileRef = F9B360C11D65A70E00818EEF /* UICKeyChainStore.h */; };
+		F9B360CA1D65A83200818EEF /* UICKeyChainStore.h in Headers */ = {isa = PBXBuildFile; fileRef = F9B360C11D65A70E00818EEF /* UICKeyChainStore.h */; };
+		F9B361041D663FF500818EEF /* KeychainDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = F9B361021D663FF500818EEF /* KeychainDataStore.h */; };
+		F9B361051D663FF500818EEF /* KeychainDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = F9B361021D663FF500818EEF /* KeychainDataStore.h */; };
+		F9B361061D663FF500818EEF /* KeychainDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = F9B361021D663FF500818EEF /* KeychainDataStore.h */; };
+		F9B361071D663FF500818EEF /* KeychainDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = F9B361021D663FF500818EEF /* KeychainDataStore.h */; };
+		F9B361081D663FF500818EEF /* KeychainDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F9B361031D663FF500818EEF /* KeychainDataStore.m */; };
+		F9B361091D663FF500818EEF /* KeychainDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F9B361031D663FF500818EEF /* KeychainDataStore.m */; };
+		F9B3610A1D663FF500818EEF /* KeychainDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F9B361031D663FF500818EEF /* KeychainDataStore.m */; };
+		F9B3610B1D663FF500818EEF /* KeychainDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F9B361031D663FF500818EEF /* KeychainDataStore.m */; };
 		F9BBFD4518783B750076BC6D /* AMFSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFD2E18783B740076BC6D /* AMFSerializer.h */; };
 		F9BBFD4618783B750076BC6D /* AMFSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFD2E18783B740076BC6D /* AMFSerializer.h */; };
 		F9BBFD4818783B750076BC6D /* BinaryCodec.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BBFD2F18783B740076BC6D /* BinaryCodec.h */; };
@@ -1060,6 +1076,10 @@
 		F99D923A160B6A6800AFF3F6 /* GeoPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoPoint.m; sourceTree = "<group>"; };
 		F99D923C160B6A7F00AFF3F6 /* GeoService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeoService.h; sourceTree = "<group>"; };
 		F99D923D160B6A7F00AFF3F6 /* GeoService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoService.m; sourceTree = "<group>"; };
+		F9B360C11D65A70E00818EEF /* UICKeyChainStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICKeyChainStore.h; sourceTree = "<group>"; };
+		F9B360C21D65A70E00818EEF /* UICKeyChainStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICKeyChainStore.m; sourceTree = "<group>"; };
+		F9B361021D663FF500818EEF /* KeychainDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainDataStore.h; sourceTree = "<group>"; };
+		F9B361031D663FF500818EEF /* KeychainDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainDataStore.m; sourceTree = "<group>"; };
 		F9BBFD2918783B740076BC6D /* CommLibiOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = CommLibiOS.a; sourceTree = "<group>"; };
 		F9BBFD2E18783B740076BC6D /* AMFSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMFSerializer.h; sourceTree = "<group>"; };
 		F9BBFD2F18783B740076BC6D /* BinaryCodec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BinaryCodec.h; sourceTree = "<group>"; };
@@ -1518,10 +1538,14 @@
 		F91B47E815FF448F00012DFC /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				F9B360C11D65A70E00818EEF /* UICKeyChainStore.h */,
+				F9B360C21D65A70E00818EEF /* UICKeyChainStore.m */,
 				F91B47E915FF448F00012DFC /* HashMap.h */,
 				F91B47EA15FF448F00012DFC /* HashMap.m */,
 				F9D5234B1B25CEF800F6A441 /* ClassCastException.h */,
 				F9D5234C1B25CEF800F6A441 /* ClassCastException.m */,
+				F9B361021D663FF500818EEF /* KeychainDataStore.h */,
+				F9B361031D663FF500818EEF /* KeychainDataStore.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1887,6 +1911,7 @@
 				D36CDDF119C99D5900C3FFE3 /* CustomService.h in Headers */,
 				F9BBFD5418783B750076BC6D /* FlashorbBinaryWriter.h in Headers */,
 				F9CB138F1BC53D2300F3CA1D /* BeaconTracker.h in Headers */,
+				F9B361041D663FF500818EEF /* KeychainDataStore.h in Headers */,
 				D3A064E01B0243ED00779BB1 /* ICallback.h in Headers */,
 				D3A064C11AFCE64D00779BB1 /* GeoFence.h in Headers */,
 				F9796A20166CCBFE00595F5E /* FileService.h in Headers */,
@@ -1899,6 +1924,7 @@
 				F9BBFD6C18783B750076BC6D /* ISharedObjectListener.h in Headers */,
 				F91AC57B1D58CFF700511EA5 /* MapDrivenDataStore.h in Headers */,
 				D3A064C91AFCE69D00779BB1 /* GeoFenceMonitoring.h in Headers */,
+				F9B360C71D65A7E400818EEF /* UICKeyChainStore.h in Headers */,
 				F9BBFD7518783B750076BC6D /* RTMPClient.h in Headers */,
 				D316BA381A83C649007215CA /* ProtectedBackendlessGeoQuery.h in Headers */,
 				D35DC33A1AD6CE1500EF2A68 /* Logging.h in Headers */,
@@ -1997,6 +2023,7 @@
 				F9D5234F1B25CEF800F6A441 /* ClassCastException.h in Headers */,
 				D3F8BDA019825CF80009DB40 /* CacheFactory.h in Headers */,
 				D3F8BD9B198256AF0009DB40 /* ICacheService.h in Headers */,
+				F9B361051D663FF500818EEF /* KeychainDataStore.h in Headers */,
 				D39A468319811D9B006CBD1B /* CacheService.h in Headers */,
 				F9BBFD5518783B750076BC6D /* FlashorbBinaryWriter.h in Headers */,
 				F9C7DE911B7CBF0300AFCD06 /* BEFileInfo.h in Headers */,
@@ -2009,6 +2036,7 @@
 				D3A064CA1AFCE69D00779BB1 /* GeoFenceMonitoring.h in Headers */,
 				F91AC57D1D58D07F00511EA5 /* MapDrivenDataStore.h in Headers */,
 				D35DC33B1AD6CE1500EF2A68 /* Logging.h in Headers */,
+				F9B360C81D65A81600818EEF /* UICKeyChainStore.h in Headers */,
 				D3A064A91AFA6E4B00779BB1 /* LocationTracker.h in Headers */,
 				D316BA391A83C649007215CA /* ProtectedBackendlessGeoQuery.h in Headers */,
 				D3A064C21AFCE64D00779BB1 /* GeoFence.h in Headers */,
@@ -2065,6 +2093,7 @@
 				F9F0AED91CDBCA3900035C62 /* BECollectionView.h in Headers */,
 				F9F0AEDA1CDBCA3900035C62 /* BEAnnotation.h in Headers */,
 				F9F0AEDB1CDBCA3900035C62 /* AbstractProperty.h in Headers */,
+				F9B361061D663FF500818EEF /* KeychainDataStore.h in Headers */,
 				F9F0AEDC1CDBCA3900035C62 /* UserService.h in Headers */,
 				F9F0AEDD1CDBCA3900035C62 /* GeoMath.h in Headers */,
 				F9F0AEDE1CDBCA3900035C62 /* BackendlessUser.h in Headers */,
@@ -2113,6 +2142,7 @@
 				F9F0AF091CDBCA3900035C62 /* BEFileInfo.h in Headers */,
 				F9F0AF0A1CDBCA3900035C62 /* Logger.h in Headers */,
 				F91AC5771D58C68000511EA5 /* MapDrivenDataStore.h in Headers */,
+				F9B360C91D65A82500818EEF /* UICKeyChainStore.h in Headers */,
 				F9F0AF0B1CDBCA3900035C62 /* BodyParts.h in Headers */,
 				F9F0AF0C1CDBCA3900035C62 /* LocationTracker.h in Headers */,
 				F9F0AF0D1CDBCA3900035C62 /* Backendless-With-Media-Bridging-Header.h in Headers */,
@@ -2169,6 +2199,7 @@
 				F9F0AF931CDBCAB500035C62 /* FlashorbBinaryReader.h in Headers */,
 				F9F0AF941CDBCAB500035C62 /* BinaryCodec.h in Headers */,
 				F9F0AF951CDBCAB500035C62 /* BECollectionView.h in Headers */,
+				F9B361071D663FF500818EEF /* KeychainDataStore.h in Headers */,
 				F9F0AF961CDBCAB500035C62 /* BEAnnotation.h in Headers */,
 				F9F0AF971CDBCAB500035C62 /* BeaconsInfo.h in Headers */,
 				F9F0AF981CDBCAB500035C62 /* AbstractProperty.h in Headers */,
@@ -2217,6 +2248,7 @@
 				F9F0AFC31CDBCAB500035C62 /* BodyParts.h in Headers */,
 				F91AC57F1D58D0C900511EA5 /* MapDrivenDataStore.h in Headers */,
 				F9F0AFC41CDBCAB500035C62 /* Logger.h in Headers */,
+				F9B360CA1D65A83200818EEF /* UICKeyChainStore.h in Headers */,
 				F9F0AFC51CDBCAB500035C62 /* Backendless-Bridging-Header.h in Headers */,
 				F9F0AFC61CDBCAB500035C62 /* FileService.h in Headers */,
 				F9F0AFC71CDBCAB500035C62 /* BackendlessSimpleQuery.h in Headers */,
@@ -2560,6 +2592,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9B360C31D65A78C00818EEF /* UICKeyChainStore.m in Sources */,
 				F91AC57A1D58CFE800511EA5 /* MapDrivenDataStore.m in Sources */,
 				912D504F182102F0006A090A /* BETableView.m in Sources */,
 				F97969EA166CCB8200595F5E /* Backendless.m in Sources */,
@@ -2578,6 +2611,7 @@
 				F9D523511B25CEF800F6A441 /* ClassCastException.m in Sources */,
 				F97969F2166CCB8200595F5E /* BackendlessEntity.m in Sources */,
 				F9C7DE931B7CBF0300AFCD06 /* BEFileInfo.m in Sources */,
+				F9B361081D663FF500818EEF /* KeychainDataStore.m in Sources */,
 				F97969F3166CCB8200595F5E /* BackendlessCollection.m in Sources */,
 				F97969F4166CCB8200595F5E /* BackendlessDataQuery.m in Sources */,
 				D3FB9B6C19867EA500A13FB6 /* AtomicCounters.m in Sources */,
@@ -2643,6 +2677,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9B360C41D65A7AA00818EEF /* UICKeyChainStore.m in Sources */,
 				F91AC57C1D58D06B00511EA5 /* MapDrivenDataStore.m in Sources */,
 				912D5050182102F0006A090A /* BETableView.m in Sources */,
 				F9796A34166CD3DA00595F5E /* Backendless.m in Sources */,
@@ -2661,6 +2696,7 @@
 				F9D523521B25CEF800F6A441 /* ClassCastException.m in Sources */,
 				F9796A3C166CD3DA00595F5E /* BackendlessEntity.m in Sources */,
 				F9C7DE941B7CBF0300AFCD06 /* BEFileInfo.m in Sources */,
+				F9B361091D663FF500818EEF /* KeychainDataStore.m in Sources */,
 				F9796A3D166CD3DA00595F5E /* BackendlessCollection.m in Sources */,
 				F9796A3E166CD3DA00595F5E /* BackendlessDataQuery.m in Sources */,
 				D3FB9B6D19867EA500A13FB6 /* AtomicCounters.m in Sources */,
@@ -2726,6 +2762,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9B360C51D65A7BD00818EEF /* UICKeyChainStore.m in Sources */,
 				F91AC5761D58C60500511EA5 /* MapDrivenDataStore.m in Sources */,
 				F9F0AE821CDBCA3900035C62 /* BETableView.m in Sources */,
 				F9F0AE831CDBCA3900035C62 /* Backendless.m in Sources */,
@@ -2769,6 +2806,7 @@
 				F9F0AEA91CDBCA3900035C62 /* ClientCallback.m in Sources */,
 				F9F0AEAA1CDBCA3900035C62 /* Events.m in Sources */,
 				F9F0AEAB1CDBCA3900035C62 /* BESubscription.m in Sources */,
+				F9B3610A1D663FF500818EEF /* KeychainDataStore.m in Sources */,
 				F9F0AEAC1CDBCA3900035C62 /* Message.m in Sources */,
 				F9F0AEAD1CDBCA3900035C62 /* DataPermission.m in Sources */,
 				F9F0AEAE1CDBCA3900035C62 /* MessageStatus.m in Sources */,
@@ -2804,6 +2842,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9B360C61D65A7D000818EEF /* UICKeyChainStore.m in Sources */,
 				F91AC57E1D58D0B300511EA5 /* MapDrivenDataStore.m in Sources */,
 				F9F0AF3C1CDBCAB500035C62 /* BETableView.m in Sources */,
 				F9F0AF3D1CDBCAB500035C62 /* Backendless.m in Sources */,
@@ -2847,6 +2886,7 @@
 				F9F0AF631CDBCAB500035C62 /* ClientCallback.m in Sources */,
 				F9F0AF641CDBCAB500035C62 /* Events.m in Sources */,
 				F9F0AF651CDBCAB500035C62 /* BESubscription.m in Sources */,
+				F9B3610B1D663FF500818EEF /* KeychainDataStore.m in Sources */,
 				F9F0AF661CDBCAB500035C62 /* Message.m in Sources */,
 				F9F0AF671CDBCAB500035C62 /* DataPermission.m in Sources */,
 				F9F0AF681CDBCAB500035C62 /* MessageStatus.m in Sources */,

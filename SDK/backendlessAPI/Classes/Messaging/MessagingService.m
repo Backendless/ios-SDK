@@ -34,6 +34,8 @@
 #import "Invoker.h"
 #import "BESubscription.h"
 #import "BodyParts.h"
+#import "UICKeyChainStore.h"
+#import "KeychainDataStore.h"
 
 #define FAULT_NO_DEVICE_ID [Fault fault:@"Device ID is not set" detail:@"Device ID is not set" faultCode:@"5900"]
 #define FAULT_NO_DEVICE_TOKEN [Fault fault:@"Device token is not set" detail:@"Device token is not set" faultCode:@"5901"]
@@ -57,6 +59,8 @@ static NSString *METHOD_CANCEL = @"cancel";
 static NSString *METHOD_POLLING_SUBSCRIBE = @"subscribeForPollingAccess";
 static NSString *METHOD_POLL_MESSAGES = @"pollMessages";
 static NSString *METHOD_SEND_EMAIL = @"send";
+// UICKeyChainStore service name
+static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUIDKeychain";
 
 @interface MessagingService() {
     DeviceRegistration  *deviceRegistration;
@@ -70,10 +74,7 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 -(id)onRegistering:(id)response;
 -(id)onUnregistering:(id)response;
 -(id)onSubscribe:(id)response;
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-#else
-- (NSString *)serialNumber;
-#endif
+-(NSString *)serialNumber;
 @end
 
 
@@ -83,7 +84,44 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 - (NSString *)serialNumber
 {
-    static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUIDKey";
+#if 1 // store in keychain
+#if 1 // use KeychainDataStore
+    KeychainDataStore *keychainStore = [[KeychainDataStore alloc] initWithService:kBackendlessApplicationUUIDKey withGroup:nil];
+    NSString *bundleId = [[NSBundle mainBundle] bundleIdentifier];
+    NSData *data = [keychainStore get:bundleId];
+    NSString *UUID = data?[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]:nil;
+    if (!UUID) {
+        
+        CFUUIDRef uuid = CFUUIDCreate(NULL);
+        UUID = (NSString *)CFUUIDCreateString(NULL, uuid);
+        CFRelease(uuid);
+        
+        [keychainStore save:bundleId data:[UUID dataUsingEncoding:NSUTF8StringEncoding]];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self unregisterDevice:[[UIDevice currentDevice].identifierForVendor UUIDString] error:nil];
+        });
+    }
+    return UUID;
+#else // use UICKeyChainStore 
+    UICKeyChainStore *keychainStore = [UICKeyChainStore keyChainStore];
+    NSString *bundleId = [[NSBundle mainBundle] bundleIdentifier];
+    NSString *UUID = [UICKeyChainStore stringForKey:bundleId service:kBackendlessApplicationUUIDKey];
+    if (!UUID) {
+        
+        CFUUIDRef uuid = CFUUIDCreate(NULL);
+        UUID = (NSString *)CFUUIDCreateString(NULL, uuid);
+        CFRelease(uuid);
+        
+        [UICKeyChainStore setString:UUID forKey:bundleId service:kBackendlessApplicationUUIDKey];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self unregisterDevice:[[UIDevice currentDevice].identifierForVendor UUIDString] error:nil];
+        });
+    }
+    return UUID;
+#endif
+#else // store in NSUserDefaults (NOT USEFUL: changes after app was removed)
     NSString *UUID = [[NSUserDefaults standardUserDefaults] objectForKey:kBackendlessApplicationUUIDKey];
     if (!UUID) {
         CFUUIDRef uuid = CFUUIDCreate(NULL);
@@ -94,10 +132,11 @@ static NSString *METHOD_SEND_EMAIL = @"send";
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     return UUID;
+#endif
 }
-#else
-- (NSString *)serialNumber
-{
+#else // OSX
+-(NSString *)serialNumber {
+    
     io_service_t    platformExpert = IOServiceGetMatchingService(kIOMasterPortDefault, IOServiceMatching("IOPlatformExpertDevice"));
     CFStringRef serialNumberAsCFString = NULL;
     
@@ -149,7 +188,7 @@ static NSString *METHOD_SEND_EMAIL = @"send";
 #if AS_IDENTIFIER_MANAGER_ON
         NSString *deviceId = [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
 #else
-#if 0
+#if 1
         NSString *deviceId = [self serialNumber];
 #else
         NSString *deviceId = [device.identifierForVendor UUIDString];
@@ -1521,7 +1560,6 @@ id result = nil;
 }
 
 -(void)didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken {
-    
     
 #if 1  // async
     deviceRegistration.deviceToken = [self deviceTokenAsString:deviceToken];
