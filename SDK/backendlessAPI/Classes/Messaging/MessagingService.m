@@ -74,6 +74,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 -(id)onRegistering:(id)response;
 -(id)onUnregistering:(id)response;
 -(id)onSubscribe:(id)response;
+// utils
 -(NSString *)serialNumber;
 @end
 
@@ -99,7 +100,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
         [keychainStore save:bundleId data:[UUID dataUsingEncoding:NSUTF8StringEncoding]];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self unregisterDevice:[[UIDevice currentDevice].identifierForVendor UUIDString] error:nil];
+            [self unregisterDeviceAsync:[[UIDevice currentDevice].identifierForVendor UUIDString] responder:nil];
         });
     }
     return UUID;
@@ -116,7 +117,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
         [UICKeyChainStore setString:UUID forKey:bundleId service:kBackendlessApplicationUUIDKey];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self unregisterDevice:[[UIDevice currentDevice].identifierForVendor UUIDString] error:nil];
+            [self unregisterDeviceAsync:[[UIDevice currentDevice].identifierForVendor UUIDString] responder:nil];
         });
     }
     return UUID;
@@ -124,6 +125,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 #else // store in NSUserDefaults (NOT USEFUL: changes after app was removed)
     NSString *UUID = [[NSUserDefaults standardUserDefaults] objectForKey:kBackendlessApplicationUUIDKey];
     if (!UUID) {
+        
         CFUUIDRef uuid = CFUUIDCreate(NULL);
         UUID = (NSString *)CFUUIDCreateString(NULL, uuid);
         CFRelease(uuid);
@@ -185,24 +187,22 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
         }
 
         UIDevice *device = [UIDevice currentDevice];
-#if AS_IDENTIFIER_MANAGER_ON
-        NSString *deviceId = [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
-#else
-#if 1
+#if 1   // use generated UUID which is saved in keychain with bundleId as key
         NSString *deviceId = [self serialNumber];
-#else
+#else   // use device.identifierForVendor as UUID ( !!! NOT USEFUL: cause of additional registration after app was removed !!! )
         NSString *deviceId = [device.identifierForVendor UUIDString];
-#endif
 #endif
         deviceRegistration.deviceToken = device.name;
         deviceRegistration.deviceId = deviceId ? deviceId : [backendless GUIDString];
         deviceRegistration.os = @"IOS";
         deviceRegistration.osVersion = device.systemVersion;
-#else
+
+#else   // OSX
         deviceRegistration.os = @"OSX";
         NSString *deviceId = [self serialNumber];
         deviceRegistration.deviceId = deviceId ? deviceId : [backendless GUIDString];
 #endif
+        
         [DebLog log:@"MessagingService -> init: deviceToken = %@, deviceId = %@, os = %@, osVersion = %@", deviceRegistration.deviceToken, deviceRegistration.deviceId, deviceRegistration.os, deviceRegistration.osVersion];
 	}
 	

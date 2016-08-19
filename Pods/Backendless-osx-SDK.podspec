@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "Backendless-osx-SDK"
-  s.version      = "3.0.33"
+  s.version      = "3.0.34"
   s.summary      = "Backendless provides an instant backend to help developers build better apps faster."
   s.description  = <<-DESC
 	Backendless is a development and a run-time platform. It helps software developers to create 
@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
   s.requires_arc   = true
   s.source         = { 
 	:git => "https://github.com/Backendless/ios-SDK.git",
-	:tag => '3.0.33'
+	:tag => '3.0.34'
   }
 
   s.preserve_paths = "SDK/osx/**/*.a"
@@ -34,6 +34,6 @@ Pod::Spec.new do |s|
 
   s.frameworks     = 'SystemConfiguration'
   s.libraries 	   = 'sqlite3', 'backendless-mac', 'CommLib-osx'
-  s.xcconfig       =  { 'LIBRARY_SEARCH_PATHS' => '"$(SRCROOT)/Pods/Backendless-osx-SDK/SDK/osx/backendless" "$(SRCROOT)/Pods/Backendless-osx-SDK/SDK/osx/CommLib"', 'SWIFT_OBJC_BRIDGING_HEADER' => '${PODS_ROOT}/Headers/Public/Backendless-osx-SDK/Backendless-Bridging-Header.h' }
+  s.xcconfig       =  { 'LIBRARY_SEARCH_PATHS' => '"$(SRCROOT)/Pods/Backendless-osx-SDK/SDK/osx/backendless" "$(SRCROOT)/Pods/Backendless-osx-SDK/SDK/osx/CommLib"' }
 
 end
