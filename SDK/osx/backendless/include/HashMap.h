@@ -23,7 +23,7 @@
 
 
 @interface HashMap : NSObject
-@property (nonatomic, assign, readonly) NSMutableDictionary	*node;
+@property (nonatomic, strong, readonly) NSMutableDictionary	*node;
 
 -(id)initWithNode:(NSDictionary *)dict;
 

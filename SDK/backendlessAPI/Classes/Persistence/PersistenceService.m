@@ -147,7 +147,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     return user;
 #else
     NSDictionary *props = [Types propertyDictionary:user];
-    [user replaceAllProperties];
+    //[user replaceAllProperties]; // http://bugs.backendless.com/browse/BKNDLSS-12973
     [user assignProperties:props];
     return user;
 #endif
@@ -172,8 +172,11 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 // overrided method MUST return 'self' to avoid a deserialization breaking
 -(id)onAMFDeserialize {
     NSDictionary *props = [Types propertyDictionary:self];
-    [self replaceAllProperties];
+    //[self replaceAllProperties]; // http://bugs.backendless.com/browse/BKNDLSS-12973
     [self assignProperties:props];
+    
+    [DebLog log:@"BackendlessUser -> onAMFDeserialize: %@", props];
+    
     return self;
 }
 

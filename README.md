@@ -32,7 +32,7 @@ a. for 'Backendless-ios-SDK':
 b. for other pods:
     #import "Backendless.h"
 
-If you don't have your briging header file, set "Build Setting -> Swift Compiler ... -> Objective-C Bridgeing Header" (SWIFT_OBJC_BRIDGING_HEADER) option
+If you don't have your briging header file, set "Build Settings -> Swift Compiler ... -> Objective-C Bridgeing Header" (SWIFT_OBJC_BRIDGING_HEADER) option
 
 a. for 'Backendless-ios-SDK':
     ${PODS_ROOT}/Headers/Public/Backendless-ios-SDK/Backendless-With-Media-Bridging-Header.h
