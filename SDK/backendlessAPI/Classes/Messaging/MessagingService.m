@@ -46,6 +46,8 @@
 #define FAULT_NO_BODY [Fault fault:@"Message body is not set for email" detail:@"Message body is not set for email" faultCode:@"5906"]
 #define FAULT_NO_RECIPIENT [Fault fault:@"No recipient is set for email" detail:@"No recipient is set for email" faultCode:@"5907"]
 
+// Default channel name
+static  NSString *DEFAULT_CHANNEL_NAME = @"default";
 // SERVICE NAME
 static NSString *SERVER_DEVICE_REGISTRATION_PATH = @"com.backendless.services.messaging.DeviceRegistrationService";
 static NSString *SERVER_MESSAGING_SERVICE_PATH = @"com.backendless.services.messaging.MessagingService";
@@ -756,6 +758,78 @@ id result = nil;
     }
 }
 
+-(MessageStatus *)publish:(id)message error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self publish:message];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(MessageStatus *)publish:(id)message publishOptions:(PublishOptions *)publishOptions error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self publish:message publishOptions:publishOptions];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(MessageStatus *)publish:(id)message deliveryOptions:(DeliveryOptions *)deliveryOptions error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self publish:message deliveryOptions:deliveryOptions];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(MessageStatus *)publish:(id)message publishOptions:(PublishOptions *)publishOptions deliveryOptions:(DeliveryOptions *)deliveryOptions error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self publish:message publishOptions:publishOptions deliveryOptions:deliveryOptions];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
 -(MessageStatus *)publish:(NSString *)channelName message:(id)message error:(Fault **)fault {
     
     id result = nil;
@@ -1128,6 +1202,22 @@ id result = nil;
     return result;
 }
 
+-(MessageStatus *)publish:(id)message {
+    return [self publish:DEFAULT_CHANNEL_NAME message:message];
+}
+
+-(MessageStatus *)publish:(id)message publishOptions:(PublishOptions *)publishOptions {
+    return [self publish:DEFAULT_CHANNEL_NAME message:message publishOptions:publishOptions];
+}
+
+-(MessageStatus *)publish:(id)message deliveryOptions:(DeliveryOptions *)deliveryOptions {
+    return [self publish:DEFAULT_CHANNEL_NAME message:message deliveryOptions:deliveryOptions];
+}
+
+-(MessageStatus *)publish:(id)message publishOptions:(PublishOptions *)publishOptions deliveryOptions:(DeliveryOptions *)deliveryOptions {
+    return [self publish:DEFAULT_CHANNEL_NAME message:message publishOptions:publishOptions deliveryOptions:deliveryOptions];
+}
+
 -(MessageStatus *)publish:(NSString *)channelName message:(id)message {
     return [self publish:channelName message:message publishOptions:nil deliveryOptions:nil];
 }
@@ -1313,6 +1403,22 @@ id result = nil;
     [invoker invokeAsync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_UNREGISTER_DEVICE args:args responder:_responder];
 }
 
+-(void)publish:(id)message responder:(id <IResponder>)responder {
+    [self publish:DEFAULT_CHANNEL_NAME message:message responder:responder];
+}
+
+-(void)publish:(id)message publishOptions:(PublishOptions *)publishOptions responder:(id <IResponder>)responder {
+    [self publish:DEFAULT_CHANNEL_NAME message:message publishOptions:publishOptions responder:responder];
+}
+
+-(void)publish:(id)message deliveryOptions:(DeliveryOptions *)deliveryOptions responder:(id <IResponder>)responder {
+    [self publish:DEFAULT_CHANNEL_NAME message:message deliveryOptions:deliveryOptions responder:responder];
+}
+
+-(void)publish:(id)message publishOptions:(PublishOptions *)publishOptions deliveryOptions:(DeliveryOptions *)deliveryOptions responder:(id <IResponder>)responder {
+    [self publish:DEFAULT_CHANNEL_NAME message:message publishOptions:publishOptions deliveryOptions:deliveryOptions responder:responder];
+}
+
 -(void)publish:(NSString *)channelName message:(id)message responder:(id <IResponder>)responder {
     [self publish:channelName message:message publishOptions:nil deliveryOptions:nil responder:responder];
 }
@@ -1450,6 +1556,22 @@ id result = nil;
 
 -(void)unregisterDeviceAsync:(NSString *)deviceId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [self unregisterDeviceAsync:deviceId responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+
+-(void)publish:(id)message response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self publish:message responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+
+-(void)publish:(id)message publishOptions:(PublishOptions *)publishOptions response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self publish:message publishOptions:publishOptions responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+
+-(void)publish:(id)message deliveryOptions:(DeliveryOptions *)deliveryOptions response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self  publish:message deliveryOptions:deliveryOptions responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+
+-(void)publish:(id)message publishOptions:(PublishOptions *)publishOptions deliveryOptions:(DeliveryOptions *)deliveryOptions response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self publish:message publishOptions:publishOptions deliveryOptions:deliveryOptions responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];    
 }
 
 -(void)publish:(NSString *)channelName message:(id)message response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -1603,6 +1725,16 @@ id result = nil;
 -(void)didReceiveRemoteNotification:(NSDictionary *)userInfo {
     
     [DebLog log:@"MessagingService -> application:didReceiveRemoteNotification: %@", userInfo];
+    
+#if 1 // -(void)didReceiveRemoteNotificationWithObject:(id)object headers:(NSDictionary *)headers;
+    id object = [[userInfo objectForKey:@"aps"] objectForKey:@"alert"];
+    if (![object isKindOfClass:NSString.class]) {
+        if ([self.pushReceiver respondsToSelector:@selector(didReceiveRemoteNotificationWithObject:headers:)]) {
+            [self.pushReceiver didReceiveRemoteNotificationWithObject:object headers:userInfo];
+        }
+        return;
+    }
+#endif
     
     NSString *pushMessage = [[userInfo objectForKey:@"aps"] objectForKey:@"alert"];
     NSString *channelName = [userInfo objectForKey:@"{n}"];

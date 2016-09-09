@@ -40,6 +40,7 @@
 
 -(id)initWithProperties:(NSDictionary<NSString*, id> *)props;
 
+-(BOOL)isUserRegistered;
 -(NSString *)getUserToken;
 -(void)assignProperties:(NSDictionary<NSString*, id> *)props;
 -(void)addProperties:(NSDictionary<NSString*, id> *)props;

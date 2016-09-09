@@ -1002,7 +1002,7 @@ id result = nil;
     [self logout:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)isValidUserToken:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)isValidUserToken:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self isValidUserToken:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 

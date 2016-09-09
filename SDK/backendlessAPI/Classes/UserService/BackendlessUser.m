@@ -94,6 +94,10 @@
 #pragma mark -
 #pragma mark Public Methods
 
+-(BOOL)isUserRegistered {
+    return [[self getProperty:BACKENDLESS_USER_REGISTERED] isKindOfClass:NSNumber.class];
+}
+
 -(NSString *)getUserToken {
 #if 0
     return [self getProperty:BACKENDLESS_USER_TOKEN];

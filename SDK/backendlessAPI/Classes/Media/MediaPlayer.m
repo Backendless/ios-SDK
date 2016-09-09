@@ -256,7 +256,7 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
 }
 
 #pragma mark -
-#pragma mark IMediaStreamEvent Methods
+#pragma mark MPIMediaStreamEvent Methods
 
 -(void)stateChanged:(id)sender state:(MPMediaStreamState)state description:(NSString *)description {
     

@@ -52,6 +52,7 @@
 @protocol IBEPushReceiver <NSObject>
 @optional
 -(void)didReceiveRemoteNotification:(NSString *)notification headers:(NSDictionary *)headers;
+-(void)didReceiveRemoteNotificationWithObject:(id)object headers:(NSDictionary *)headers;
 -(void)didRegisterForRemoteNotificationsWithDeviceId:(NSString *)deviceId fault:(Fault *)fault;
 -(void)didFailToRegisterForRemoteNotificationsWithError:(NSError *)err;
 -(void)applicationWillTerminate;
@@ -75,6 +76,10 @@
 -(DeviceRegistration *)getRegistration:(NSString *)deviceId;
 -(id)unregisterDevice;
 -(id)unregisterDevice:(NSString *)deviceId;
+-(MessageStatus *)publish:(id)message;
+-(MessageStatus *)publish:(id)message publishOptions:(PublishOptions *)publishOptions;
+-(MessageStatus *)publish:(id)message deliveryOptions:(DeliveryOptions *)deliveryOptions;
+-(MessageStatus *)publish:(id)message publishOptions:(PublishOptions *)publishOptions deliveryOptions:(DeliveryOptions *)deliveryOptions;
 -(MessageStatus *)publish:(NSString *)channelName message:(id)message;
 -(MessageStatus *)publish:(NSString *)channelName message:(id)message publishOptions:(PublishOptions *)publishOptions;
 -(MessageStatus *)publish:(NSString *)channelName message:(id)message deliveryOptions:(DeliveryOptions *)deliveryOptions;
@@ -104,6 +109,10 @@
 -(DeviceRegistration *)getRegistration:(NSString *)deviceId error:(Fault **)fault;
 -(BOOL)unregisterDeviceError:(Fault **)fault;
 -(BOOL)unregisterDevice:(NSString *)deviceId error:(Fault **)fault;
+-(MessageStatus *)publish:(id)message error:(Fault **)fault;
+-(MessageStatus *)publish:(id)message publishOptions:(PublishOptions *)publishOptions error:(Fault **)fault;
+-(MessageStatus *)publish:(id)message deliveryOptions:(DeliveryOptions *)deliveryOptions error:(Fault **)fault;
+-(MessageStatus *)publish:(id)message publishOptions:(PublishOptions *)publishOptions deliveryOptions:(DeliveryOptions *)deliveryOptions error:(Fault **)fault;
 -(MessageStatus *)publish:(NSString *)channelName message:(id)message error:(Fault **)fault;
 -(MessageStatus *)publish:(NSString *)channelName message:(id)message publishOptions:(PublishOptions *)publishOptions error:(Fault **)fault;
 -(MessageStatus *)publish:(NSString *)channelName message:(id)message deliveryOptions:(DeliveryOptions *)deliveryOptions error:(Fault **)fault;
@@ -133,6 +142,10 @@
 -(void)getRegistrationAsync:(NSString *)deviceId responder:(id<IResponder>)responder;
 -(void)unregisterDeviceAsync:(id<IResponder>)responder;
 -(void)unregisterDeviceAsync:(NSString *)deviceId responder:(id<IResponder>)responder;
+-(void)publish:(id)message responder:(id <IResponder>)responder;
+-(void)publish:(id)message publishOptions:(PublishOptions *)publishOptions responder:(id <IResponder>)responder;
+-(void)publish:(id)message deliveryOptions:(DeliveryOptions *)deliveryOptions responder:(id <IResponder>)responder;
+-(void)publish:(id)message publishOptions:(PublishOptions *)publishOptions deliveryOptions:(DeliveryOptions *)deliveryOptions responder:(id <IResponder>)responder;
 -(void)publish:(NSString *)channelName message:(id)message responder:(id <IResponder>)responder;
 -(void)publish:(NSString *)channelName message:(id)message publishOptions:(PublishOptions *)publishOptions responder:(id <IResponder>)responder;
 -(void)publish:(NSString *)channelName message:(id)message deliveryOptions:(DeliveryOptions *)deliveryOptions responder:(id <IResponder>)responder;
@@ -160,6 +173,10 @@
 -(void)getRegistrationAsync:(NSString *)deviceId response:(void(^)(DeviceRegistration *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)unregisterDeviceAsync:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)unregisterDeviceAsync:(NSString *)deviceId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)publish:(id)message response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)publish:(id)message publishOptions:(PublishOptions *)publishOptions response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)publish:(id)message deliveryOptions:(DeliveryOptions *)deliveryOptions response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)publish:(id)message publishOptions:(PublishOptions *)publishOptions deliveryOptions:(DeliveryOptions *)deliveryOptions response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)publish:(NSString *)channelName message:(id)message response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)publish:(NSString *)channelName message:(id)message publishOptions:(PublishOptions *)publishOptions response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)publish:(NSString *)channelName message:(id)message deliveryOptions:(DeliveryOptions *)deliveryOptions response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
