@@ -114,7 +114,7 @@
 
     @synchronized(self) {
         
-        //[DebLog log:@">>>>>>>>>>>>>>>>>>> GeoFenceMonitoring -> onLocationChanged: START >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"];
+        [DebLog log:@">>>>>>>>>>>>>>>>>>> GeoFenceMonitoring -> onLocationChanged: START >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"];
         
         self.location = location;
         
@@ -128,7 +128,7 @@
         [newFences removeObjectsInArray:oldFences];
         [oldFences removeObjectsInArray:currFence];
         
-        //[DebLog log:@"GeoFenceMonitoring -> onLocationChanged: %@\nnewFences: %@\noldFences: %@\ncurrFence: %@", location, newFences, oldFences, currFence];
+        [DebLog log:@"GeoFenceMonitoring -> onLocationChanged: %@\nnewFences: %@\noldFences: %@\ncurrFence: %@", location, newFences, oldFences, currFence];
         
         [self callOnEnter:newFences];
         [self callOnStay:newFences];
@@ -137,7 +137,7 @@
         
         self.pointFences = currFence;
         
-        //[DebLog log:@"<<<<<<<<<<<<<<<<<<<<<<<< GeoFenceMonitoring -> onLocationChanged: FINISH <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"];
+        [DebLog log:@"<<<<<<<<<<<<<<<<<<<<<<<< GeoFenceMonitoring -> onLocationChanged: FINISH <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"];
         
 #if _TEST_EXIT_ON_
         [self testExit];
@@ -179,6 +179,8 @@ static NSString *GEOFENCES_MONITORING = @"Cannot start geofence monitoring for a
 }
 
 -(Fault *)addGeoFence:(GeoFence *)geoFence callback:(id <ICallback>)callback {
+    
+    //[DebLog log:@"GeoFenceMonitoring -> addGeoFence:\n%@", geoFence];
     
     if (!geoFence || !callback) {
         return [backendless throwFault:[Fault fault:[NSString stringWithFormat:GEOFENCE_OR_CALLBACK_IS_NOT_VALUED, geoFence, callback] faultCode:@"0000"]];
@@ -269,26 +271,44 @@ static NSString *GEOFENCES_MONITORING = @"Cannot start geofence monitoring for a
 
 -(BOOL)isPointInFence:(GeoPoint *)geoPoint geoFence:(GeoFence *)geoFence {
     
+#if 1
+    if (![self isDefiniteRect:geoFence.nwPoint se:geoFence.sePoint]) {
+        [self definiteRect:geoFence];
+    }
+#endif
+    
+    [DebLog log:@"GeoFenceMonitoring -> isPointInFence: %@\n%@", geoPoint, geoFence];
+    
     if ( ![GeoMath isPointInRectangular:geoPoint nw:geoFence.nwPoint se:geoFence.sePoint] ) {
+        [DebLog log:@"isPointInRectangular = NO"];
         return NO;
     }
     
     switch (geoFence.valType) {
         
         case CIRCLE_FENCE: {
+            /*
+             if( geoFence.getType() == FenceType.CIRCLE && !GeoMath.isPointInCircle( geoPoint, geoFence.getNodes().get( 0 ), GeoMath.distance( geoFence.getNodes().get( 0 ).getLatitude(), geoFence.getNodes().get( 0 ).getLongitude(), geoFence.getNodes().get( 1 ).getLatitude(), geoFence.getNodes().get( 1 ).getLongitude() ) ) )
+             */
             
             GeoPoint *gp0 = geoFence.nodes[0];
             GeoPoint *gp1 = geoFence.nodes[1];
             double distance = [GeoMath distance:[gp0 valLatitude] lon1:[gp0 valLongitude] lat2:[gp1 valLatitude] lon2:[gp1 valLongitude]];
-            return [GeoMath isPointInCircle:geoPoint center:gp0 radius:distance];
+            BOOL result = [GeoMath isPointInCircle:geoPoint center:gp0 radius:distance];
+            [DebLog log:@"isPointInCircle = %@", result?@"YES":@"NO"];
+            return result;
         }
             
         case SHAPE_FENCE: {
-            return [GeoMath isPointInShape:geoPoint shape:geoFence.nodes];
+            BOOL result = [GeoMath isPointInShape:geoPoint shape:geoFence.nodes];
+            [DebLog log:@"isPointInShape = %@", result?@"YES":@"NO"];
+            return result;
         }
            
-        default:
+        default: {
+            [DebLog log:@"isPointInRectangular = YES"];
             return YES;
+        }
     }
 }
 
