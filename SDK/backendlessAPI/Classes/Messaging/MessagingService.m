@@ -184,10 +184,11 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
         if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
             self.notificationTypes = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
         }
+#if 0
         else {
             self.notificationTypes = UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound;
         }
-
+#endif
         UIDevice *device = [UIDevice currentDevice];
 #if 1   // use generated UUID which is saved in keychain with bundleId as key
         NSString *deviceId = [self serialNumber];
@@ -1650,10 +1651,12 @@ id result = nil;
         [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
         [[UIApplication sharedApplication] registerForRemoteNotifications];
     }
+#if 0
     else {
         //UIRemoteNotificationType types = UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound;
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:self.notificationTypes];
     }
+#endif
 }
 
 -(void)unregisterFromRemoteNotifications {
