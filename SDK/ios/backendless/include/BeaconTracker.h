@@ -1,5 +1,5 @@
 //
-//  Backendless-With-Media-Bridging-Header.h
+//  BeaconTracker.h
 //  backendlessAPI
 /*
  * *********************************************************************************************************************
@@ -19,6 +19,15 @@
  *  ********************************************************************************************************************
  */
 
-#import "Backendless.h"
-#import "MediaService.h"
+#import <Foundation/Foundation.h>
 
+@protocol IResponder, IPresenceListener;
+
+@interface BeaconTracker : NSObject
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+// Singleton accessor:  this is how you should ALWAYS get a reference to the class instance.  Never init your own.
++(BeaconTracker *)sharedInstance;
+-(void)startMonitoring:(BOOL)runDiscovery frequency:(int)frequency listener:(id<IPresenceListener>)listener distanceChange:(double)distanceChange responder:(id<IResponder>)responder;
+-(void)stopMonitoring;
+#endif
+@end
