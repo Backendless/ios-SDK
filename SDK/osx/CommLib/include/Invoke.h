@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Notify.h"
+#import "NotifyEvent.h"
 
-@interface Invoke : Notify {
+@interface Invoke : NotifyEvent {
 
 }
 

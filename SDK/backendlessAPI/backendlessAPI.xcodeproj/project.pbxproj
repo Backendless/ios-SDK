@@ -940,6 +940,9 @@
 		F9796A2C166CD3A400595F5E /* backendless-device-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "backendless-device-Prefix.pch"; sourceTree = "<group>"; };
 		F9796A2D166CD3A400595F5E /* backendless_device.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = backendless_device.h; sourceTree = "<group>"; };
 		F9796A2F166CD3A400595F5E /* backendless_device.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = backendless_device.m; sourceTree = "<group>"; };
+		F97BE6321D918F08006BB2D4 /* NotifyEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotifyEvent.h; sourceTree = "<group>"; };
+		F97BE6331D918F58006BB2D4 /* NotifyEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotifyEvent.h; sourceTree = "<group>"; };
+		F97BE6341D918F96006BB2D4 /* NotifyEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotifyEvent.h; sourceTree = "<group>"; };
 		F98A7EFC1B307017007635B6 /* libbackendless-mac.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libbackendless-mac.a"; sourceTree = "<group>"; };
 		F98A7EFF1B307017007635B6 /* AMFSerializer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AMFSerializer.h; sourceTree = "<group>"; };
 		F98A7F001B307017007635B6 /* BinaryCodec.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BinaryCodec.h; sourceTree = "<group>"; };
@@ -1123,7 +1126,6 @@
 		F9F26A4D1D8C395A00B9EA82 /* NamedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NamedObject.h; sourceTree = "<group>"; };
 		F9F26A4E1D8C395A00B9EA82 /* NamedObjectReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NamedObjectReader.h; sourceTree = "<group>"; };
 		F9F26A4F1D8C395A00B9EA82 /* NotAReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotAReader.h; sourceTree = "<group>"; };
-		F9F26A501D8C395A00B9EA82 /* Notify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Notify.h; sourceTree = "<group>"; };
 		F9F26A511D8C395A00B9EA82 /* NullReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NullReader.h; sourceTree = "<group>"; };
 		F9F26A521D8C395A00B9EA82 /* NullType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NullType.h; sourceTree = "<group>"; };
 		F9F26A531D8C395A00B9EA82 /* NullWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NullWriter.h; sourceTree = "<group>"; };
@@ -1253,7 +1255,6 @@
 		F9F26B1F1D8C39E000B9EA82 /* NamedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NamedObject.h; sourceTree = "<group>"; };
 		F9F26B201D8C39E000B9EA82 /* NamedObjectReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NamedObjectReader.h; sourceTree = "<group>"; };
 		F9F26B211D8C39E000B9EA82 /* NotAReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotAReader.h; sourceTree = "<group>"; };
-		F9F26B221D8C39E000B9EA82 /* Notify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Notify.h; sourceTree = "<group>"; };
 		F9F26B231D8C39E000B9EA82 /* NullReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NullReader.h; sourceTree = "<group>"; };
 		F9F26B241D8C39E000B9EA82 /* NullType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NullType.h; sourceTree = "<group>"; };
 		F9F26B251D8C39E000B9EA82 /* NullWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NullWriter.h; sourceTree = "<group>"; };
@@ -1402,7 +1403,6 @@
 		F9F26C081D8C3A1E00B9EA82 /* NamedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NamedObject.h; sourceTree = "<group>"; };
 		F9F26C091D8C3A1E00B9EA82 /* NamedObjectReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NamedObjectReader.h; sourceTree = "<group>"; };
 		F9F26C0A1D8C3A1E00B9EA82 /* NotAReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotAReader.h; sourceTree = "<group>"; };
-		F9F26C0B1D8C3A1E00B9EA82 /* Notify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Notify.h; sourceTree = "<group>"; };
 		F9F26C0C1D8C3A1E00B9EA82 /* NullReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NullReader.h; sourceTree = "<group>"; };
 		F9F26C0D1D8C3A1E00B9EA82 /* NullType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NullType.h; sourceTree = "<group>"; };
 		F9F26C0E1D8C3A1E00B9EA82 /* NullWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NullWriter.h; sourceTree = "<group>"; };
@@ -1991,6 +1991,7 @@
 		F98A7EFE1B307017007635B6 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				F97BE6341D918F96006BB2D4 /* NotifyEvent.h */,
 				F9F26C421D8C3C1200B9EA82 /* AbstractReferenceableTypeWriter.h */,
 				F9F26C431D8C3C1200B9EA82 /* AbstractUnreferenceableTypeWriter.h */,
 				F9F26AD31D8C39DF00B9EA82 /* AckMessage.h */,
@@ -2072,7 +2073,6 @@
 				F9F26B1F1D8C39E000B9EA82 /* NamedObject.h */,
 				F9F26B201D8C39E000B9EA82 /* NamedObjectReader.h */,
 				F9F26B211D8C39E000B9EA82 /* NotAReader.h */,
-				F9F26B221D8C39E000B9EA82 /* Notify.h */,
 				F9F26B231D8C39E000B9EA82 /* NullReader.h */,
 				F9F26B241D8C39E000B9EA82 /* NullType.h */,
 				F9F26B251D8C39E000B9EA82 /* NullWriter.h */,
@@ -2167,6 +2167,7 @@
 		F9BBFD2D18783B740076BC6D /* include */ = {
 			isa = PBXGroup;
 			children = (
+				F97BE6331D918F58006BB2D4 /* NotifyEvent.h */,
 				F9F269FF1D8C395A00B9EA82 /* AbstractReferenceableTypeWriter.h */,
 				F9F26A001D8C395A00B9EA82 /* AbstractUnreferenceableTypeWriter.h */,
 				F9F26A011D8C395A00B9EA82 /* AckMessage.h */,
@@ -2248,7 +2249,6 @@
 				F9F26A4D1D8C395A00B9EA82 /* NamedObject.h */,
 				F9F26A4E1D8C395A00B9EA82 /* NamedObjectReader.h */,
 				F9F26A4F1D8C395A00B9EA82 /* NotAReader.h */,
-				F9F26A501D8C395A00B9EA82 /* Notify.h */,
 				F9F26A511D8C395A00B9EA82 /* NullReader.h */,
 				F9F26A521D8C395A00B9EA82 /* NullType.h */,
 				F9F26A531D8C395A00B9EA82 /* NullWriter.h */,
@@ -2361,6 +2361,7 @@
 		F9F26BAA1D8C3A1E00B9EA82 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				F97BE6321D918F08006BB2D4 /* NotifyEvent.h */,
 				F9F26BAB1D8C3A1E00B9EA82 /* AbstractReferenceableTypeWriter.h */,
 				F9F26BAC1D8C3A1E00B9EA82 /* AbstractUnreferenceableTypeWriter.h */,
 				F9F26BAD1D8C3A1E00B9EA82 /* AckMessage.h */,
@@ -2457,7 +2458,6 @@
 				F9F26C081D8C3A1E00B9EA82 /* NamedObject.h */,
 				F9F26C091D8C3A1E00B9EA82 /* NamedObjectReader.h */,
 				F9F26C0A1D8C3A1E00B9EA82 /* NotAReader.h */,
-				F9F26C0B1D8C3A1E00B9EA82 /* Notify.h */,
 				F9F26C0C1D8C3A1E00B9EA82 /* NullReader.h */,
 				F9F26C0D1D8C3A1E00B9EA82 /* NullType.h */,
 				F9F26C0E1D8C3A1E00B9EA82 /* NullWriter.h */,

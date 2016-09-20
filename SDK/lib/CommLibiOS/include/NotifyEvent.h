@@ -11,7 +11,7 @@
 #import "BaseEvent.h"
 #import "BinaryStream.h"
 
-@interface Notify : BaseEvent {
+@interface NotifyEvent : BaseEvent {
 	id <IServiceCall>	call;
 	BinaryStream		*data;
 	int					invokeId;
@@ -27,6 +27,6 @@
 
 -(BOOL)equals:(id)event;
 -(NSString *)toString;
--(Notify *)duplicate;
+-(NotifyEvent *)duplicate;
 
 @end

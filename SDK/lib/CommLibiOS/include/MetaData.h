@@ -6,13 +6,13 @@
 //  Copyright (c) 2013 The Midnight Coders, Inc. All rights reserved.
 //
 
-#import "Notify.h"
+#import "NotifyEvent.h"
 
 #define SET_DATA_FRAME @"@setDataFrame"
 #define SET_DATA_EVENT @"__setDataEvent"
 #define ON_METADATA @"onMetaData"
 
-@interface MetaData : Notify
+@interface MetaData : NotifyEvent
 @property (nonatomic, retain) NSString      *dataSet;
 @property (nonatomic, retain) NSString      *eventName;
 @property (nonatomic, retain) NSDictionary  *metadata;
