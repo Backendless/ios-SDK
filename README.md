@@ -1,5 +1,5 @@
 
-Backendless iOS SDK (http://backendless.com)
+Backendless iOS SDK 4.0 (http://backendless.com)
 _____________________________________________
 
 ============== USING WITH COCOAPODS:
