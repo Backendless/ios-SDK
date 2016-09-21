@@ -69,7 +69,7 @@ static NSString *_DENY = @"DENY";
     if (!sid)
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, [backendless.data objectClassName:entity], userId, sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
+    NSArray *args = @[[backendless.data objectClassName:entity], userId, sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
     return [invoker invokeSync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_USER_PERMISSION args:args];
 }
 
@@ -82,7 +82,7 @@ static NSString *_DENY = @"DENY";
     if (!sid)
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, [backendless.data objectClassName:entity], userId, sid, DATA_PERMISSION_OPERATION[operation], _DENY];
+    NSArray *args = @[[backendless.data objectClassName:entity], userId, sid, DATA_PERMISSION_OPERATION[operation], _DENY];
     return [invoker invokeSync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_USER_PERMISSION args:args];
 }
 
@@ -95,7 +95,7 @@ static NSString *_DENY = @"DENY";
     if (!sid)
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, [backendless.data objectClassName:entity], roleName, sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
+    NSArray *args = @[[backendless.data objectClassName:entity], roleName, sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
     return [invoker invokeSync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ROLE_PERMISSION args:args];
 }
 
@@ -108,7 +108,7 @@ static NSString *_DENY = @"DENY";
     if (!sid)
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, [backendless.data objectClassName:entity], roleName, sid, DATA_PERMISSION_OPERATION[operation], _DENY];
+    NSArray *args = @[[backendless.data objectClassName:entity], roleName, sid, DATA_PERMISSION_OPERATION[operation], _DENY];
     return [invoker invokeSync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ROLE_PERMISSION args:args];
 }
 
@@ -118,7 +118,7 @@ static NSString *_DENY = @"DENY";
     if (!sid)
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, [backendless.data objectClassName:entity], sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
+    NSArray *args = @[[backendless.data objectClassName:entity], sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
     return [invoker invokeSync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_USER_PERMISSION args:args];
 }
 
@@ -128,7 +128,7 @@ static NSString *_DENY = @"DENY";
     if (!sid)
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, [backendless.data objectClassName:entity], sid, DATA_PERMISSION_OPERATION[operation], _DENY];
+    NSArray *args = @[[backendless.data objectClassName:entity], sid, DATA_PERMISSION_OPERATION[operation], _DENY];
     return [invoker invokeSync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_USER_PERMISSION args:args];
 }
 
@@ -138,7 +138,7 @@ static NSString *_DENY = @"DENY";
     if (!sid)
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, [backendless.data objectClassName:entity], sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
+    NSArray *args = @[[backendless.data objectClassName:entity], sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
     return [invoker invokeSync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_ROLE_PERMISSION args:args];
 }
 
@@ -148,7 +148,7 @@ static NSString *_DENY = @"DENY";
     if (!sid)
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, [backendless.data objectClassName:entity], sid, DATA_PERMISSION_OPERATION[operation], _DENY];
+    NSArray *args = @[[backendless.data objectClassName:entity], sid, DATA_PERMISSION_OPERATION[operation], _DENY];
     return [invoker invokeSync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_ROLE_PERMISSION args:args];
 }
 
@@ -414,7 +414,7 @@ id result = nil;
     if (!sid)
         return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, [backendless.data objectClassName:entity], userId, sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
+    NSArray *args = @[[backendless.data objectClassName:entity], userId, sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
     return [invoker invokeAsync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_USER_PERMISSION args:args responder:responder];
 }
 
@@ -427,7 +427,7 @@ id result = nil;
     if (!sid)
         return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, [backendless.data objectClassName:entity], userId, sid, DATA_PERMISSION_OPERATION[operation], _DENY];
+    NSArray *args = @[[backendless.data objectClassName:entity], userId, sid, DATA_PERMISSION_OPERATION[operation], _DENY];
     return [invoker invokeAsync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_USER_PERMISSION args:args responder:responder];
 }
 
@@ -440,7 +440,7 @@ id result = nil;
     if (!sid)
         return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, [backendless.data objectClassName:entity], roleName, sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
+    NSArray *args = @[[backendless.data objectClassName:entity], roleName, sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
     return [invoker invokeAsync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ROLE_PERMISSION args:args responder:responder];
 }
 
@@ -453,7 +453,7 @@ id result = nil;
     if (!sid)
         return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, [backendless.data objectClassName:entity], roleName, sid, DATA_PERMISSION_OPERATION[operation], _DENY];
+    NSArray *args = @[[backendless.data objectClassName:entity], roleName, sid, DATA_PERMISSION_OPERATION[operation], _DENY];
     return [invoker invokeAsync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ROLE_PERMISSION args:args responder:responder];
 }
 
@@ -463,7 +463,7 @@ id result = nil;
     if (!sid)
         return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, [backendless.data objectClassName:entity], sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
+    NSArray *args = @[[backendless.data objectClassName:entity], sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
     return [invoker invokeAsync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_USER_PERMISSION args:args responder:responder];
 }
 
@@ -473,7 +473,7 @@ id result = nil;
     if (!sid)
         return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, [backendless.data objectClassName:entity], sid, DATA_PERMISSION_OPERATION[operation], _DENY];
+    NSArray *args = @[[backendless.data objectClassName:entity], sid, DATA_PERMISSION_OPERATION[operation], _DENY];
     return [invoker invokeAsync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_USER_PERMISSION args:args responder:responder];
 }
 
@@ -483,7 +483,7 @@ id result = nil;
     if (!sid)
         return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, [backendless.data objectClassName:entity], sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
+    NSArray *args = @[[backendless.data objectClassName:entity], sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
     return [invoker invokeAsync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_ROLE_PERMISSION args:args responder:responder];
 }
 
@@ -493,7 +493,7 @@ id result = nil;
     if (!sid)
         return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, [backendless.data objectClassName:entity], sid, DATA_PERMISSION_OPERATION[operation], _DENY];
+    NSArray *args = @[[backendless.data objectClassName:entity], sid, DATA_PERMISSION_OPERATION[operation], _DENY];
     return [invoker invokeAsync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_ROLE_PERMISSION args:args responder:responder];
 }
 

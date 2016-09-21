@@ -44,7 +44,7 @@ static NSString *METHOD_DISPATCH_SERVICE = @"dispatchService";
     if (!!serviceVersion)
         return [backendless throwFault:FAULT_NO_SERVICE_VERSION];
     
-    NSArray *_args = @[backendless.appID, backendless.versionNum, serviceName, serviceVersion, method, args?args:@[]];
+    NSArray *_args = @[serviceName, serviceVersion, method, args?args:@[]];
     return [invoker invokeSync:SERVER_CUSTOM_SERVICE_PATH method:METHOD_DISPATCH_SERVICE args:_args];
 }
 
@@ -110,7 +110,7 @@ id result = nil;
     if (!serviceVersion)
         return [responder errorHandler:FAULT_NO_SERVICE_VERSION];
     
-    NSArray *_args = @[backendless.appID, backendless.versionNum, serviceName, serviceVersion, method, args?args:@[]];
+    NSArray *_args = @[serviceName, serviceVersion, method, args?args:@[]];
     [invoker invokeAsync:SERVER_CUSTOM_SERVICE_PATH method:METHOD_DISPATCH_SERVICE args:_args responder:responder];
 }
 

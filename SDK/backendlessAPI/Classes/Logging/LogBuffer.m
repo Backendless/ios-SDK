@@ -153,7 +153,7 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
     
     [DebLog log:@"LogBuffer -> reportSingleLogMessage: _numOfMessages = %d, logger = '%@', level = '%@', message = '%@', exeption = '%@'", _numOfMessages, logger, level, message, exception];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, level, logger, message, exception?exception:[NSNull null]];
+    NSArray *args = @[level, logger, message, exception?exception:[NSNull null]];
 #if _SYNC_INVOKER_
     [invoker invokeSync:SERVER_LOG_SERVICE_PATH method:METHOD_LOG args:args];
 #else
@@ -168,7 +168,7 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
     
     [DebLog log:@"LogBuffer -> reportBatch: %@", batch];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, batch];
+    NSArray *args = @[batch];
 #if _SYNC_INVOKER_
     [invoker invokeSync:SERVER_LOG_SERVICE_PATH method:METHOD_BATCHLOG args:args];
 #else

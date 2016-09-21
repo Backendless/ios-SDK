@@ -126,7 +126,7 @@ static NSString *STREAM_IS_ABSENT = @"Stream is absent. You should invoke 'conne
     id tube = _tubeName;
     if (!tube) tube = [NSNull null];
     
-    NSArray *param = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, identity, tube, [self operationType], [self streamType], nil];
+    NSArray *param = [NSArray arrayWithObjects:identity, tube, [self operationType], [self streamType], nil];
     
     [DebLog log:@"MediaPlayer -> parameters:%@", param];
     

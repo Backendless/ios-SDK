@@ -54,7 +54,7 @@ static NSString *METHOD_DISPATCH_EVENT = @"dispatchEvent";
 
 -(NSDictionary *)dispatch:(NSString *)name args:(NSDictionary *)eventArgs fault:(Fault **)fault {
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, name, eventArgs];
+    NSArray *args = @[name, eventArgs];
     id result = [invoker invokeSync:SERVER_EVENTS_PATH method:METHOD_DISPATCH_EVENT args:args];
     if ([result isKindOfClass:[Fault class]]) {
         if (fault) {
@@ -109,14 +109,14 @@ id result = nil;
 
 -(NSDictionary *)dispatch:(NSString *)name args:(NSDictionary *)eventArgs {
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, name, eventArgs];
+    NSArray *args = @[name, eventArgs];
     return [invoker invokeSync:SERVER_EVENTS_PATH method:METHOD_DISPATCH_EVENT args:args];
 }
 
 // async methods with responder
 
 -(void)dispatch:(NSString *)name args:(NSDictionary *)eventArgs responder:(id<IResponder>)responder {
-    NSArray *args = @[backendless.appID, backendless.versionNum, name, eventArgs];
+    NSArray *args = @[name, eventArgs];
     [invoker invokeAsync:SERVER_EVENTS_PATH method:METHOD_DISPATCH_EVENT args:args responder:responder];
 }
 

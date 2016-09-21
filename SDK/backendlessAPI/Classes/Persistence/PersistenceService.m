@@ -1129,7 +1129,7 @@ id result = nil;
         return [backendless throwFault:FAULT_NO_ENTITY];
     
     [self prepareClass:NSClassFromString(classCanonicalName)];
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, classCanonicalName, nil];
+    NSArray *args = [NSArray arrayWithObjects:classCanonicalName, nil];
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_DESCRIBE args:args];
 }
 
@@ -1139,7 +1139,7 @@ id result = nil;
         return [backendless throwFault:FAULT_NO_ENTITY];
     
     [self prepareClass:NSClassFromString(entityName)];
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, entityName, entity, nil];
+    NSArray *args = [NSArray arrayWithObjects:entityName, entity, nil];
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_CREATE args:args];
     if ([result isKindOfClass:[Fault class]]) {
         if ([OfflineModeManager sharedInstance].isOfflineMode) {
@@ -1158,7 +1158,7 @@ id result = nil;
     if (!sid)
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, entityName, entity, nil];
+    NSArray *args = [NSArray arrayWithObjects:entityName, entity, nil];
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_UPDATE args:args];
     if ([result isKindOfClass:[Fault class]]) {
         if ([OfflineModeManager sharedInstance].isOfflineMode) {
@@ -1197,9 +1197,9 @@ id result = nil;
 #endif
     
 #if _SAVE_OBJECT_AS_DICTIONARY_
-    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], [self propertyDictionary:entity]];
+    NSArray *args = @[[self objectClassName:entity], [self propertyDictionary:entity]];
 #else
-    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], [self propertyObject:entity]];
+    NSArray *args = @[[self objectClassName:entity], [self propertyObject:entity]];
 #endif
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:method args:args];
     if ([result isKindOfClass:[Fault class]]) {
@@ -1226,9 +1226,9 @@ id result = nil;
 #if _SAVE_OBJECT_AS_DICTIONARY_
     [self prepareObject:entity];
     NSDictionary *props = [self filteringProperty:entity];
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self objectClassName:entity], props, nil];
+    NSArray *args = [NSArray arrayWithObjects:[self objectClassName:entity], props, nil];
 #else
-    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity],  [self propertyObject:entity]];
+    NSArray *args = @[[self objectClassName:entity],  [self propertyObject:entity]];
 #endif
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_CREATE args:args];
     if ([result isKindOfClass:[Fault class]]) {
@@ -1258,9 +1258,9 @@ id result = nil;
     
 #if _SAVE_OBJECT_AS_DICTIONARY_
     NSDictionary *props = [self filteringProperty:entity];
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self objectClassName:entity], props, nil];
+    NSArray *args = [NSArray arrayWithObjects:[self objectClassName:entity], props, nil];
 #else
-    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity],  [self propertyObject:entity]];
+    NSArray *args = @[[self objectClassName:entity],  [self propertyObject:entity]];
 #endif
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_UPDATE args:args];
     if ([result isKindOfClass:[Fault class]]) {
@@ -1280,7 +1280,7 @@ id result = nil;
 -(id)load:(id)object relations:(NSArray *)relations {
     
     NSString *objectId = [self getObjectId:object];
-    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:object], [objectId isKindOfClass:[NSString class]]?objectId:object, relations];
+    NSArray *args = @[[self objectClassName:object], [objectId isKindOfClass:[NSString class]]?objectId:object, relations];
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LOAD args:args];
     if ([result isKindOfClass:[Fault class]]) {
         return result;
@@ -1291,7 +1291,7 @@ id result = nil;
 -(id)load:(id)object relations:(NSArray *)relations relationsDepth:(int)relationsDepth {
     
     NSString *objectId = [self getObjectId:object];
-    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:object], [objectId isKindOfClass:[NSString class]]?objectId:object, relations, @(relationsDepth)];
+    NSArray *args = @[[self objectClassName:object], [objectId isKindOfClass:[NSString class]]?objectId:object, relations, @(relationsDepth)];
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LOAD args:args];
     if ([result isKindOfClass:[Fault class]]) {
         return result;
@@ -1307,7 +1307,7 @@ id result = nil;
     [self prepareClass:entity];
     if (!dataQuery) dataQuery = BACKENDLESS_DATA_QUERY;
     
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self typeClassName:entity], dataQuery, nil];
+    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], dataQuery, nil];
     id result = [backendlessCache invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args];
 #if 1
     return [result isKindOfClass:[Fault class]]? result : [self getAsCollection:result query:dataQuery];
@@ -1330,7 +1330,7 @@ id result = nil;
         return [backendless throwFault:FAULT_NO_ENTITY];
     
     [self prepareClass:entity];
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self typeClassName:entity], nil];
+    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], nil];
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIRST args:args];
 }
 
@@ -1340,7 +1340,7 @@ id result = nil;
         return [backendless throwFault:FAULT_NO_ENTITY];
     
     [self prepareClass:entity];
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self typeClassName:entity], nil];
+    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], nil];
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LAST args:args];
 }
 
@@ -1350,7 +1350,7 @@ id result = nil;
         return [backendless throwFault:FAULT_NO_ENTITY];
     
     [self prepareClass:entity];
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self typeClassName:entity], relations, @(relationsDepth), nil];
+    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], relations, @(relationsDepth), nil];
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIRST args:args];
 }
 
@@ -1360,7 +1360,7 @@ id result = nil;
         return [backendless throwFault:FAULT_NO_ENTITY];
     
     [self prepareClass:entity];
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self typeClassName:entity], relations, @(relationsDepth), nil];
+    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], relations, @(relationsDepth), nil];
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LAST args:args];
 }
 
@@ -1372,9 +1372,9 @@ id result = nil;
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
 #if _FIND_BY_INSTANCE_
-    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], entity];
+    NSArray *args = @[[self objectClassName:entity], entity];
 #else
-    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], [self propertyDictionary:entity]];
+    NSArray *args = @[[self objectClassName:entity], [self propertyDictionary:entity]];
 #endif
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args];
 }
@@ -1385,9 +1385,9 @@ id result = nil;
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
 #if _FIND_BY_INSTANCE_
-    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], entity, relations];
+    NSArray *args = @[[self objectClassName:entity], entity, relations];
 #else
-    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], [self propertyDictionary:entity], relations];
+    NSArray *args = @[[self objectClassName:entity], [self propertyDictionary:entity], relations];
 #endif
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args];
 }
@@ -1398,9 +1398,9 @@ id result = nil;
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
 #if _FIND_BY_INSTANCE_
-    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], entity, relations, @(relationsDepth)];
+    NSArray *args = @[[self objectClassName:entity], entity, relations, @(relationsDepth)];
 #else
-    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], [self propertyDictionary:entity], relations, @(relationsDepth)];
+    NSArray *args = @[[self objectClassName:entity], [self propertyDictionary:entity], relations, @(relationsDepth)];
 #endif
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args];
 }
@@ -1413,7 +1413,7 @@ id result = nil;
     if (!props)
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, className, props];
+    NSArray *args = @[className, props];
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args];
 }
 
@@ -1425,7 +1425,7 @@ id result = nil;
     if (!props)
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, className, props, relations];
+    NSArray *args = @[className, props, relations];
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args];
 }
 
@@ -1437,7 +1437,7 @@ id result = nil;
     if (!props)
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, className, props, relations, @(relationsDepth)];
+    NSArray *args = @[className, props, relations, @(relationsDepth)];
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args];
 }
 
@@ -1450,7 +1450,7 @@ id result = nil;
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
     [self prepareClass:NSClassFromString(entityName)];
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, entityName, sid, nil];
+    NSArray *args = [NSArray arrayWithObjects:entityName, sid, nil];
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args];
 }
 
@@ -1463,7 +1463,7 @@ id result = nil;
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
     [self prepareClass:NSClassFromString(entityName)];
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, entityName, sid, relations, nil];
+    NSArray *args = [NSArray arrayWithObjects:entityName, sid, relations, nil];
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args];
 }
 
@@ -1476,7 +1476,7 @@ id result = nil;
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
     [self prepareClass:NSClassFromString(entityName)];
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, entityName, sid, relations, @(relationsDepth), nil];
+    NSArray *args = [NSArray arrayWithObjects:entityName, sid, relations, @(relationsDepth), nil];
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args];
 }
 
@@ -1489,7 +1489,7 @@ id result = nil;
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
     [self prepareClass:entity];
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self typeClassName:entity], sid, nil];
+    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], sid, nil];
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args];
 }
 
@@ -1498,7 +1498,7 @@ id result = nil;
     if (!entity)
         return [backendless throwFault:FAULT_NO_ENTITY];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], entity];
+    NSArray *args = @[[self objectClassName:entity], entity];
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_REMOVE args:args];
 }
 
@@ -1510,7 +1510,7 @@ id result = nil;
     if (!sid)
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self typeClassName:entity], sid, nil];
+    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], sid, nil];
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_REMOVE args:args];
 }
 
@@ -1532,7 +1532,7 @@ id result = nil;
     
     if (!dataQuery) dataQuery = BACKENDLESS_DATA_QUERY;
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, viewName, dataQuery];
+    NSArray *args = @[viewName, dataQuery];
     id result = [backendlessCache invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_CALL_STORED_VIEW args:args];
     return [result isKindOfClass:[Fault class]]? result : [self getAsCollection:result query:dataQuery];
 }
@@ -1544,7 +1544,7 @@ id result = nil;
     
     if (!arguments) arguments = [NSDictionary dictionary];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, spName, arguments];
+    NSArray *args = @[spName, arguments];
     return [backendlessCache invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_CALL_STORED_PROCEDURE args:args];
 }
 
@@ -1556,7 +1556,7 @@ id result = nil;
     return [responder errorHandler:FAULT_NO_ENTITY];
     
     [self prepareClass:NSClassFromString(classCanonicalName)];
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, classCanonicalName, nil];
+    NSArray *args = [NSArray arrayWithObjects:classCanonicalName, nil];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_DESCRIBE args:args responder:responder];
 }
 
@@ -1566,7 +1566,7 @@ id result = nil;
         return [responder errorHandler:FAULT_NO_ENTITY];
     
     [self prepareClass:NSClassFromString(entityName)];
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, entityName, entity, nil];
+    NSArray *args = [NSArray arrayWithObjects:entityName, entity, nil];
     if ([OfflineModeManager sharedInstance].isOfflineMode) {
         
         Responder *offlineModeResponder = [Responder responder:self selResponseHandler:nil selErrorHandler:@selector(failWithOfflineMode:)];
@@ -1586,7 +1586,7 @@ id result = nil;
     if (!sid) 
         return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, entityName, entity, nil];
+    NSArray *args = [NSArray arrayWithObjects:entityName, entity, nil];
     if ([OfflineModeManager sharedInstance].isOfflineMode) {
         
         Responder *offlineModeResponder = [Responder responder:self selResponseHandler:nil selErrorHandler:@selector(failWithOfflineMode:)];
@@ -1626,9 +1626,9 @@ id result = nil;
 #endif
 
 #if _SAVE_OBJECT_AS_DICTIONARY_
-    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], [self propertyDictionary:entity]];
+    NSArray *args = @[[self objectClassName:entity], [self propertyDictionary:entity]];
 #else
-    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity],  [self propertyObject:entity]];
+    NSArray *args = @[[self objectClassName:entity],  [self propertyObject:entity]];
 #endif
     if ([OfflineModeManager sharedInstance].isOfflineMode) {
         Responder *_responder = [Responder responder:self selResponseHandler:@selector(createResponse:) selErrorHandler:@selector(failWithOfflineMode:)];
@@ -1652,9 +1652,9 @@ id result = nil;
 #if _SAVE_OBJECT_AS_DICTIONARY_
     [self prepareObject:entity];
     NSDictionary *props = [self filteringProperty:entity];
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self objectClassName:entity], props, nil];
+    NSArray *args = [NSArray arrayWithObjects:[self objectClassName:entity], props, nil];
 #else
-    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity],  [self propertyObject:entity]];
+    NSArray *args = @[[self objectClassName:entity],  [self propertyObject:entity]];
 #endif
     if ([OfflineModeManager sharedInstance].isOfflineMode) {
         Responder *_responder = [Responder responder:self selResponseHandler:@selector(createResponse:) selErrorHandler:@selector(failWithOfflineMode:)];
@@ -1677,9 +1677,9 @@ id result = nil;
     
 #if _SAVE_OBJECT_AS_DICTIONARY_
     NSDictionary *props = [self filteringProperty:entity];
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self objectClassName:entity], props, nil];
+    NSArray *args = [NSArray arrayWithObjects:[self objectClassName:entity], props, nil];
 #else
-    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity],  [self propertyObject:entity]];
+    NSArray *args = @[[self objectClassName:entity],  [self propertyObject:entity]];
 #endif
     if ([OfflineModeManager sharedInstance].isOfflineMode) {
         Responder *_responder = [Responder responder:self selResponseHandler:@selector(createResponse:) selErrorHandler:@selector(failWithOfflineMode:)];
@@ -1702,7 +1702,7 @@ id result = nil;
 -(void)load:(id)object relations:(NSArray *)relations responder:(id<IResponder>)responder {
     
     NSString *objectId = [self getObjectId:object];
-    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:object], [objectId isKindOfClass:[NSString class]]?objectId:object, relations];
+    NSArray *args = @[[self objectClassName:object], [objectId isKindOfClass:[NSString class]]?objectId:object, relations];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(loadRelations:) selErrorHandler:nil];
     _responder.chained = responder;
     _responder.context = @{@"object":object, @"relations":relations};
@@ -1712,7 +1712,7 @@ id result = nil;
 -(void)load:(id)object relations:(NSArray *)relations relationsDepth:(int)relationsDepth responder:(id<IResponder>)responder {
     
     NSString *objectId = [self getObjectId:object];
-    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:object], [objectId isKindOfClass:[NSString class]]?objectId:object, relations, @(relationsDepth)];
+    NSArray *args = @[[self objectClassName:object], [objectId isKindOfClass:[NSString class]]?objectId:object, relations, @(relationsDepth)];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(loadRelations:) selErrorHandler:nil];
     _responder.chained = responder;
     _responder.context = @{@"object":object, @"relations":relations};
@@ -1726,7 +1726,7 @@ id result = nil;
     
     [self prepareClass:entity];
     if (!dataQuery) dataQuery = BACKENDLESS_DATA_QUERY;
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self typeClassName:entity], dataQuery, nil];
+    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], dataQuery, nil];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(setCurrentPageSize:) selErrorHandler:nil];
     _responder.context = dataQuery;
     _responder.chained = responder;
@@ -1739,7 +1739,7 @@ id result = nil;
         return [responder errorHandler:FAULT_NO_ENTITY];
     
     [self prepareClass:entity];
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self typeClassName:entity], nil];
+    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], nil];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIRST args:args responder:responder];
 }
 
@@ -1749,7 +1749,7 @@ id result = nil;
         return [responder errorHandler:FAULT_NO_ENTITY];
     
     [self prepareClass:entity];
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self typeClassName:entity], nil];
+    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], nil];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LAST args:args responder:responder];
 }
 
@@ -1759,7 +1759,7 @@ id result = nil;
     return [responder errorHandler:FAULT_NO_ENTITY];
     
     [self prepareClass:entity];
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self typeClassName:entity], relations, @(relationsDepth), nil];
+    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], relations, @(relationsDepth), nil];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIRST args:args responder:responder];
 }
 
@@ -1769,7 +1769,7 @@ id result = nil;
     return [responder errorHandler:FAULT_NO_ENTITY];
     
     [self prepareClass:entity];
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self typeClassName:entity], relations, @(relationsDepth), nil];
+    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], relations, @(relationsDepth), nil];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LAST args:args responder:responder];
 }
 
@@ -1778,7 +1778,7 @@ id result = nil;
     if (!entity)
         return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], entity];
+    NSArray *args = @[[self objectClassName:entity], entity];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:responder];
 }
 
@@ -1787,7 +1787,7 @@ id result = nil;
     if (!entity)
         return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], entity, relations, @(relationsDepth)];
+    NSArray *args = @[[self objectClassName:entity], entity, relations, @(relationsDepth)];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:responder];
 }
 
@@ -1796,7 +1796,7 @@ id result = nil;
     if (!entity)
         return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity],entity, relations];
+    NSArray *args = @[[self objectClassName:entity],entity, relations];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:responder];
 }
 
@@ -1808,7 +1808,7 @@ id result = nil;
     if (!props)
         return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, className, props, nil];
+    NSArray *args = [NSArray arrayWithObjects:className, props, nil];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:responder];
 }
 
@@ -1820,7 +1820,7 @@ id result = nil;
     if (!props)
         return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, className, props, relations, @(relationsDepth), nil];
+    NSArray *args = [NSArray arrayWithObjects:className, props, relations, @(relationsDepth), nil];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:responder];
 }
 
@@ -1832,7 +1832,7 @@ id result = nil;
     if (!props)
         return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, className, props, relations, nil];
+    NSArray *args = [NSArray arrayWithObjects:className, props, relations, nil];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:responder];
 }
 
@@ -1845,7 +1845,7 @@ id result = nil;
         return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
     [self prepareClass:NSClassFromString(entityName)];
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, entityName, sid, nil];
+    NSArray *args = [NSArray arrayWithObjects:entityName, sid, nil];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:responder];
 }
 
@@ -1858,7 +1858,7 @@ id result = nil;
         return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
     [self prepareClass:NSClassFromString(entityName)];
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, entityName, sid, relations, @(relationsDepth), nil];
+    NSArray *args = [NSArray arrayWithObjects:entityName, sid, relations, @(relationsDepth), nil];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:responder];
 }
 
@@ -1871,7 +1871,7 @@ id result = nil;
         return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
     [self prepareClass:NSClassFromString(entityName)];
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, entityName, sid, relations, nil];
+    NSArray *args = [NSArray arrayWithObjects:entityName, sid, relations, nil];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:responder];
 }
 
@@ -1884,7 +1884,7 @@ id result = nil;
     return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
     [self prepareClass:entity];
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self typeClassName:entity], sid, nil];
+    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], sid, nil];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:responder];
 }
 
@@ -1893,7 +1893,7 @@ id result = nil;
     if (!entity)
     return [responder errorHandler:FAULT_NO_ENTITY];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, [self objectClassName:entity], entity];
+    NSArray *args = @[[self objectClassName:entity], entity];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_REMOVE args:args responder:responder];
 }
 
@@ -1906,7 +1906,7 @@ id result = nil;
         return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
     [self prepareClass:entity];
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, [self typeClassName:entity], sid, nil];
+    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], sid, nil];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_REMOVE args:args responder:responder];
 }
 
@@ -1929,7 +1929,7 @@ id result = nil;
     
     if (!dataQuery) dataQuery = BACKENDLESS_DATA_QUERY;
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, viewName, dataQuery];
+    NSArray *args = @[viewName, dataQuery];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(setCurrentPageSize:) selErrorHandler:nil];
     _responder.context = dataQuery;
     _responder.chained = responder;
@@ -1943,7 +1943,7 @@ id result = nil;
     
     if (!arguments) arguments = [NSDictionary dictionary];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, spName, arguments];
+    NSArray *args = @[spName, arguments];
     [backendlessCache invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_CALL_STORED_PROCEDURE args:args responder:responder];
 }
 

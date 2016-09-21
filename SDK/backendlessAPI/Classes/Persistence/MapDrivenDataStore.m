@@ -118,7 +118,7 @@ static NSString *_METHOD_LOAD = @"loadRelations";
     if (!entity)
         return [backendless throwFault:FAULT_NO_ENTITY];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, _tableName, entity];
+    NSArray *args = @[_tableName, entity];
     id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_SAVE args:args];
     return [result isKindOfClass:NSDictionary.class]?result:[Types propertyDictionary:result];
 }
@@ -128,7 +128,7 @@ static NSString *_METHOD_LOAD = @"loadRelations";
     if (!entity)
         return [backendless throwFault:FAULT_NO_ENTITY];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, _tableName, entity];
+    NSArray *args = @[_tableName, entity];
     id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_REMOVE args:args];
     return [result isKindOfClass:NSDictionary.class]?result:[Types propertyDictionary:result];
 }
@@ -139,7 +139,7 @@ static NSString *_METHOD_LOAD = @"loadRelations";
 
 -(BackendlessCollection *)find:(BackendlessDataQuery *)dataQuery {
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, _tableName, dataQuery?dataQuery:BACKENDLESS_DATA_QUERY];
+    NSArray *args = @[_tableName, dataQuery?dataQuery:BACKENDLESS_DATA_QUERY];
     id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_FIND args:args];
     if ([result isKindOfClass:[Fault class]])
         return result;
@@ -153,7 +153,7 @@ static NSString *_METHOD_LOAD = @"loadRelations";
 
 -(NSDictionary<NSString*,id> *)findFirst {
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, _tableName];
+    NSArray *args = @[_tableName];
     id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_FIRST args:args];
     return [result isKindOfClass:NSDictionary.class]?result:[Types propertyDictionary:result];
 }
@@ -168,14 +168,14 @@ static NSString *_METHOD_LOAD = @"loadRelations";
 
 -(NSDictionary<NSString*,id> *)findFirst:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth {
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, _tableName, relations?relations:@[], @(relationsDepth)];
+    NSArray *args = @[_tableName, relations?relations:@[], @(relationsDepth)];
     id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_FIRST args:args];
     return [result isKindOfClass:NSDictionary.class]?result:[Types propertyDictionary:result];
 }
 
 -(NSDictionary<NSString*,id> *)findLast {
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, _tableName];
+    NSArray *args = @[_tableName];
     id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_LAST args:args];
     return [result isKindOfClass:NSDictionary.class]?result:[Types propertyDictionary:result];
 }
@@ -190,7 +190,7 @@ static NSString *_METHOD_LOAD = @"loadRelations";
 
 -(NSDictionary<NSString*,id> *)findLast:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth {
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, _tableName, relations?relations:@[], @(relationsDepth)];
+    NSArray *args = @[_tableName, relations?relations:@[], @(relationsDepth)];
     id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_LAST args:args];
     return [result isKindOfClass:NSDictionary.class]?result:[Types propertyDictionary:result];
 }
@@ -208,7 +208,7 @@ static NSString *_METHOD_LOAD = @"loadRelations";
     if (!objectId)
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, _tableName, objectId, relations?relations:@[]];
+    NSArray *args = @[_tableName, objectId, relations?relations:@[]];
     id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_FINDBYID args:args];
     return [result isKindOfClass:NSDictionary.class]?result:[Types propertyDictionary:result];
 }
@@ -218,7 +218,7 @@ static NSString *_METHOD_LOAD = @"loadRelations";
     if (!objectId)
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, _tableName, objectId, relations?relations:@[], @(relationsDepth)];
+    NSArray *args = @[_tableName, objectId, relations?relations:@[], @(relationsDepth)];
     id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_FINDBYID args:args];
     return [result isKindOfClass:NSDictionary.class]?result:[Types propertyDictionary:result];
 }
@@ -240,7 +240,7 @@ static NSString *_METHOD_LOAD = @"loadRelations";
     if (!entity)
         return [backendless throwFault:FAULT_NO_ENTITY];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, _tableName, entity, relations?relations:@[], @(relationsDepth)];
+    NSArray *args = @[_tableName, entity, relations?relations:@[], @(relationsDepth)];
     id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_FINDBYID args:args];
     return [result isKindOfClass:NSDictionary.class]?result:[Types propertyDictionary:result];
 }
@@ -250,7 +250,7 @@ static NSString *_METHOD_LOAD = @"loadRelations";
     if (!entity)
         return [backendless throwFault:FAULT_NO_ENTITY];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, _tableName, entity, relations?relations:@[]];
+    NSArray *args = @[_tableName, entity, relations?relations:@[]];
     id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_LOAD args:args];
     if ([result isKindOfClass:[Fault class]]) {
         return result;
@@ -674,7 +674,7 @@ id result = nil;
     if (!entity)
         return [responder errorHandler:FAULT_NO_ENTITY];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, _tableName, entity];
+    NSArray *args = @[_tableName, entity];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onResponse:) selErrorHandler:nil];
     _responder.chained = responder;
     [invoker invokeAsync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_SAVE args:args responder:_responder];
@@ -685,7 +685,7 @@ id result = nil;
     if (!entity)
         return [responder errorHandler:FAULT_NO_ENTITY];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, _tableName, entity];
+    NSArray *args = @[_tableName, entity];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onResponse:) selErrorHandler:nil];
     _responder.chained = responder;
     [invoker invokeAsync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_REMOVE args:args responder:_responder];
@@ -707,7 +707,7 @@ id result = nil;
 
 -(void)find:(BackendlessDataQuery *)dataQuery responder:(id <IResponder>)responder {
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, _tableName, dataQuery?dataQuery:BACKENDLESS_DATA_QUERY];
+    NSArray *args = @[_tableName, dataQuery?dataQuery:BACKENDLESS_DATA_QUERY];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(setCollectionFields:) selErrorHandler:nil];
     _responder.context = dataQuery;
     _responder.chained = responder;
@@ -716,7 +716,7 @@ id result = nil;
 
 -(void)findFirstResponder:(id <IResponder>)responder {
    
-    NSArray *args = @[backendless.appID, backendless.versionNum, _tableName];
+    NSArray *args = @[_tableName];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onResponse:) selErrorHandler:nil];
     _responder.chained = responder;
     [invoker invokeAsync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_FIRST args:args responder:_responder];
@@ -732,7 +732,7 @@ id result = nil;
 
 -(void)findFirst:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth responder:(id <IResponder>)responder {
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, _tableName, relations?relations:@[], @(relationsDepth)];
+    NSArray *args = @[_tableName, relations?relations:@[], @(relationsDepth)];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onResponse:) selErrorHandler:nil];
     _responder.chained = responder;
     [invoker invokeAsync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_FIRST args:args responder:_responder];
@@ -740,7 +740,7 @@ id result = nil;
 
 -(void)findLastResponder:(id <IResponder>)responder {
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, _tableName];
+    NSArray *args = @[_tableName];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onResponse:) selErrorHandler:nil];
     _responder.chained = responder;
     [invoker invokeAsync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_LAST args:args responder:_responder];
@@ -756,7 +756,7 @@ id result = nil;
 
 -(void)findLast:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth responder:(id <IResponder>)responder {
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, _tableName, relations?relations:@[], @(relationsDepth)];
+    NSArray *args = @[_tableName, relations?relations:@[], @(relationsDepth)];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onResponse:) selErrorHandler:nil];
     _responder.chained = responder;
     [invoker invokeAsync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_LAST args:args responder:_responder];
@@ -775,7 +775,7 @@ id result = nil;
     if (!objectId)
         return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, _tableName, objectId, relations?relations:@[]];
+    NSArray *args = @[_tableName, objectId, relations?relations:@[]];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onResponse:) selErrorHandler:nil];
     _responder.chained = responder;
     [invoker invokeAsync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_FINDBYID args:args responder:_responder];
@@ -786,7 +786,7 @@ id result = nil;
     if (!objectId)
         return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, _tableName, objectId, relations?relations:@[], @(relationsDepth)];
+    NSArray *args = @[_tableName, objectId, relations?relations:@[], @(relationsDepth)];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onResponse:) selErrorHandler:nil];
     _responder.chained = responder;
     [invoker invokeAsync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_FINDBYID args:args responder:_responder];
@@ -809,7 +809,7 @@ id result = nil;
     if (!entity)
         return [responder errorHandler:FAULT_NO_ENTITY];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, _tableName, entity, relations?relations:@[], @(relationsDepth)];
+    NSArray *args = @[_tableName, entity, relations?relations:@[], @(relationsDepth)];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onResponse:) selErrorHandler:nil];
     _responder.chained = responder;
     [invoker invokeAsync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_FINDBYID args:args responder:_responder];
@@ -829,7 +829,7 @@ id result = nil;
     if (!entity)
         return [responder errorHandler:FAULT_NO_ENTITY];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, _tableName, entity, relations?relations:@[]];
+    NSArray *args = @[_tableName, entity, relations?relations:@[]];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(addLodedRelations:) selErrorHandler:nil];
     _responder.context = entity;
     _responder.chained = responder;

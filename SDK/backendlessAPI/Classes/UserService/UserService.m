@@ -623,7 +623,7 @@ id result = nil;
 #if FILTRATION_USER_TOKEN_ON
     [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
 #endif
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, props, nil];
+    NSArray *args = [NSArray arrayWithObjects:props, nil];
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_REGISTER args:args];
     if ([result isKindOfClass:[Fault class]]) {
         return result;
@@ -643,7 +643,7 @@ id result = nil;
 #if FILTRATION_USER_TOKEN_ON
     [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
 #endif
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, props, nil];
+    NSArray *args = [NSArray arrayWithObjects:props, nil];
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_UPDATE args:args];
     if ([result isKindOfClass:[Fault class]]) {
         return result;
@@ -672,7 +672,7 @@ id result = nil;
     if (!login || !password || ![login length] || ![password length])
         return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
     
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, login, password, nil];
+    NSArray *args = [NSArray arrayWithObjects:login, password, nil];
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_LOGIN args:args];
     return [result isKindOfClass:[Fault class]] ? result : [self onLogin:result];
 }
@@ -682,7 +682,7 @@ id result = nil;
     if (!objectId || ![objectId length])
         return [backendless throwFault:FAULT_NO_USER_ID];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, objectId, @[]];
+    NSArray *args = @[objectId, @[]];
     return [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_FIND_BY_ID args:args];
 }
 
@@ -690,8 +690,7 @@ id result = nil;
     
     BOOL throwException = invoker.throwException;
     invoker.throwException = NO;
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, nil];
-    id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_LOGOUT args:args];
+    id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_LOGOUT args:@[]];
     invoker.throwException = throwException;
     
     if ([result isKindOfClass:[Fault class]]) {
@@ -717,7 +716,7 @@ id result = nil;
         return [backendless throwFault:FAULT_USER_IS_NOT_LOGGED_IN];
 #endif
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, userToken];
+    NSArray *args = @[userToken];
 #if 0 // http://bugs.backendless.com/browse/BKNDLSS-11864
     return [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_IS_VALID_USER_TOKEN args:args];
 #else
@@ -743,14 +742,12 @@ id result = nil;
     if (!login||!login.length)
         return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
     
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, login, nil];
+    NSArray *args = [NSArray arrayWithObjects:login, nil];
     return [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_RESTORE_PASSWORD args:args];
 }
 
 -(NSArray<UserProperty*> *)describeUserClass {
-    
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, nil];
-    return [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_DESCRIBE_USER_CLASS args:args];
+    return [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_DESCRIBE_USER_CLASS args:@[]];
 }
 
 -(id)user:(NSString *)user assignRole:(NSString *)role {
@@ -760,7 +757,7 @@ id result = nil;
     if (!role||![role length]) {
         return [backendless throwFault:FAULT_NO_USER_ROLE];
     }
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, user, role, nil];
+    NSArray *args = [NSArray arrayWithObjects:user, role, nil];
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_ASSIGN_ROLE args:args];
     return result;
 }
@@ -772,14 +769,13 @@ id result = nil;
     if (!role||![role length]) {
         return [backendless throwFault:FAULT_NO_USER_ROLE];
     }
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, user, role, nil];
+    NSArray *args = [NSArray arrayWithObjects:user, role, nil];
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_UNASSIGN_ROLE args:args];
     return result;
 }
 
 -(NSArray<NSString*> *)getUserRoles {
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, nil];
-    return [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_GET_USER_ROLES args:args];
+    return [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_GET_USER_ROLES args:@[]];
 }
 
 -(BackendlessUser *)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping {
@@ -799,7 +795,7 @@ id result = nil;
     if (!idToken||!idToken.length||!accessToken||!accessToken.length)
         return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, idToken, accessToken, permissions?permissions:@[], fieldsMapping?fieldsMapping:@{}];
+    NSArray *args = @[idToken, accessToken, permissions?permissions:@[], fieldsMapping?fieldsMapping:@{}];
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_GOOGLEPLUS_SDK args:args];
     return [result isKindOfClass:[Fault class]] ? result : [self onLogin:result];
 }
@@ -809,7 +805,7 @@ id result = nil;
     if (!email||!email.length)
         return [backendless throwFault:FAULT_NO_USER_EMAIL];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, email];
+    NSArray *args = @[email];
     return [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_RESEND_EMAIL_CONFIRMATION args:args];
 }
 
@@ -828,7 +824,7 @@ id result = nil;
 #if FILTRATION_USER_TOKEN_ON
     [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
 #endif
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, props, nil];
+    NSArray *args = [NSArray arrayWithObjects:props, nil];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(registerResponse:) selErrorHandler:@selector(registerError:)];
     _responder.chained = responder;
     _responder.context = user;
@@ -844,7 +840,7 @@ id result = nil;
 #if FILTRATION_USER_TOKEN_ON
     [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
 #endif
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, props, nil];
+    NSArray *args = [NSArray arrayWithObjects:props, nil];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onUpdate:) selErrorHandler:nil];
     _responder.chained = responder;
     _responder.context = user;
@@ -856,7 +852,7 @@ id result = nil;
     if (!login || !password || ![login length] || ![password length])
         return [responder errorHandler:FAULT_NO_USER_CREDENTIALS];
     
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, login, password, nil];
+    NSArray *args = [NSArray arrayWithObjects:login, password, nil];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onLogin:) selErrorHandler:nil];
     _responder.chained = responder;
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_LOGIN args:args responder:_responder];
@@ -867,16 +863,15 @@ id result = nil;
     if (!objectId || ![objectId length])
         return [responder errorHandler:FAULT_NO_USER_ID];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, objectId, @[]];
+    NSArray *args = @[objectId, @[]];
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_FIND_BY_ID args:args responder:responder];
 }
 
 -(void)logout:(id <IResponder>)responder {
     
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, nil];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onLogout:) selErrorHandler:@selector(onLogoutError:)];
     _responder.chained = responder;
-    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_LOGOUT args:args responder:_responder];
+    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_LOGOUT args:@[] responder:_responder];
 }
 
 -(void)isValidUserToken:(id <IResponder>)responder {
@@ -892,7 +887,7 @@ id result = nil;
         return [responder errorHandler:FAULT_USER_IS_NOT_LOGGED_IN];
 #endif
     }
-    NSArray *args = @[backendless.appID, backendless.versionNum, userToken];
+    NSArray *args = @[userToken];
 #if 1 // http://bugs.backendless.com/browse/BKNDLSS-11864
     Responder *_responder = [Responder responder:self selResponseHandler:nil selErrorHandler:@selector(onValidUserTokenFault:)];
     _responder.chained = responder;
@@ -907,47 +902,41 @@ id result = nil;
     if (!login||!login.length)
         return [responder errorHandler:FAULT_NO_USER_CREDENTIALS];
     
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, login, nil];
+    NSArray *args = [NSArray arrayWithObjects:login, nil];
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_RESTORE_PASSWORD args:args responder:responder];
 }
 
 -(void)describeUserClass:(id <IResponder>)responder {
-    
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, nil];
-    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_DESCRIBE_USER_CLASS args:args responder:responder];
+    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_DESCRIBE_USER_CLASS args:@[] responder:responder];
 }
 
--(void)user:(NSString *)user assignRole:(NSString *)role responder:(id <IResponder>)responder
-{
+-(void)user:(NSString *)user assignRole:(NSString *)role responder:(id <IResponder>)responder {
+    
     if (!user||![user length])
         return [responder errorHandler:FAULT_NO_USER_CREDENTIALS];
     if (!role||![role length]) {
         return [responder errorHandler:FAULT_NO_USER_ROLE];
     }
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, user, role, nil];
+    NSArray *args = [NSArray arrayWithObjects:user, role, nil];
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_ASSIGN_ROLE args:args responder:responder];
 }
 
--(void)user:(NSString *)user unassignRole:(NSString *)role responder:(id <IResponder>)responder
-{
+-(void)user:(NSString *)user unassignRole:(NSString *)role responder:(id <IResponder>)responder {
+    
     if (!user||![user length])
         return [responder errorHandler:FAULT_NO_USER_CREDENTIALS];
     if (!role||![role length]) {
         return [responder errorHandler:FAULT_NO_USER_ROLE];
     }
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, user, role, nil];
+    NSArray *args = [NSArray arrayWithObjects:user, role, nil];
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_UNASSIGN_ROLE args:args responder:responder];
 }
 
--(void)getUserRoles:(id<IResponder>)responder
-{
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, nil];
-    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_GET_USER_ROLES args:args responder:responder];
-    
+-(void)getUserRoles:(id<IResponder>)responder {
+    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_GET_USER_ROLES args:@[] responder:responder];
 }
 
--(void)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping responder:(id<IResponder>)responder
-{
+-(void)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping responder:(id<IResponder>)responder {
     [self loginWithFacebookSocialUserId:[user valueForKey:@"objectID"] accessToken:[[session valueForKey:@"accessTokenData"] valueForKey:@"accessToken"] expirationDate:[[session valueForKey:@"accessTokenData"] valueForKey:@"expirationDate"] permissions:[[session valueForKey:@"accessTokenData"] valueForKey:@"permissions"] fieldsMapping:fieldsMapping responder:responder];
 }
 
@@ -964,7 +953,7 @@ id result = nil;
     if (!idToken||!idToken.length||!accessToken||!accessToken.length)
         return [responder errorHandler:FAULT_NO_USER_CREDENTIALS];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, idToken, accessToken, permissions?permissions:@[], fieldsMapping?fieldsMapping:@{}];
+    NSArray *args = @[idToken, accessToken, permissions?permissions:@[], fieldsMapping?fieldsMapping:@{}];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onLogin:) selErrorHandler:nil];
     _responder.chained = responder;
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_GOOGLEPLUS_SDK args:args responder:_responder];
@@ -975,7 +964,7 @@ id result = nil;
     if (!email||!email.length)
         return [responder errorHandler:FAULT_NO_USER_EMAIL];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, email];
+    NSArray *args = @[email];
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_RESEND_EMAIL_CONFIRMATION args:args responder:responder];
     
 }
@@ -1058,7 +1047,7 @@ id result = nil;
 {
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(easyLoginResponder:) selErrorHandler:@selector(easyLoginError:)];
     _responder.chained = responder;
-    NSArray *args = @[backendless.appID, backendless.versionNum, backendless.applicationType, fieldsMapping?fieldsMapping:@{}, permissions?permissions:@{}];
+    NSArray *args = @[backendless.applicationType, fieldsMapping?fieldsMapping:@{}, permissions?permissions:@{}];
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_FACEBOOK args:args responder:_responder];
 }
 
@@ -1069,7 +1058,7 @@ id result = nil;
 
 #if 1
 -(void)easyLoginWithFacebookUrlFieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping permissions:(NSArray<NSString*> *)permissions responder:(id<IResponder>)responder {
-    NSArray *args = @[backendless.appID, backendless.versionNum, backendless.applicationType, fieldsMapping?fieldsMapping:@{}, permissions?permissions:@{}];
+    NSArray *args = @[backendless.applicationType, fieldsMapping?fieldsMapping:@{}, permissions?permissions:@{}];
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_FACEBOOK args:args responder:responder];
 }
 
@@ -1088,7 +1077,7 @@ id result = nil;
 {
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(easyLoginResponder:) selErrorHandler:@selector(easyLoginError:)];
     _responder.chained = responder;
-    NSArray *args = @[backendless.appID, backendless.versionNum, backendless.applicationType, fieldsMapping?fieldsMapping:@{}];
+    NSArray *args = @[backendless.applicationType, fieldsMapping?fieldsMapping:@{}];
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_TWITTER args:args responder:_responder];
 }
 
@@ -1107,7 +1096,7 @@ id result = nil;
 {
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(easyLoginResponder:) selErrorHandler:@selector(easyLoginError:)];
     _responder.chained = responder;
-    NSArray *args = @[backendless.appID, backendless.versionNum, backendless.applicationType, fieldsMapping?fieldsMapping:@{}, permissions?permissions:@{}];
+    NSArray *args = @[backendless.applicationType, fieldsMapping?fieldsMapping:@{}, permissions?permissions:@{}];
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_GOOGLEPLUS args:args responder:_responder];
 }
 
@@ -1245,7 +1234,7 @@ id result = nil;
 // sync
 -(BackendlessUser *)loginWithFacebookSocialUserId:(NSString *)userId accessToken:(NSString *)accessToken expirationDate:(NSDate *)expirationDate  permissions:(NSArray<NSString*> *)permissions fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping {
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, userId, accessToken, expirationDate, permissions, fieldsMapping?fieldsMapping:@{}];
+    NSArray *args = @[userId, accessToken, expirationDate, permissions, fieldsMapping?fieldsMapping:@{}];
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_FACEBOOK_SDK args:args];
     return [result isKindOfClass:[Fault class]] ? result : [self onLogin:result];
 }
@@ -1253,7 +1242,7 @@ id result = nil;
 //async
 -(void)loginWithFacebookSocialUserId:(NSString *)userId accessToken:(NSString *)accessToken expirationDate:(NSDate *)expirationDate permissions:(NSArray<NSString*> *)permissions fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping responder:(id<IResponder>)responder {
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, userId, accessToken, expirationDate, permissions, fieldsMapping?fieldsMapping:@{}];
+    NSArray *args = @[userId, accessToken, expirationDate, permissions, fieldsMapping?fieldsMapping:@{}];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onLogin:) selErrorHandler:nil];
     _responder.chained = responder;
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_FACEBOOK_SDK args:args responder:_responder];

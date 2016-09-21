@@ -28,7 +28,6 @@
 #define MISSING_SERVER_URL @"Missing server URL. You should set hostURL property"
 #define MISSING_APP_ID @"Missing application ID argument. Login to Backendless Console, select your app and get the ID and key from the Manage > App Settings screen. Copy/paste the values into the [backendless initApp:secret:version:]"
 #define MISSING_SECRET_KEY @"Missing secret key argument. Login to Backendless Console, select your app and get the ID and key from the Manage > App Settings screen. Copy/paste the values into the [backendless initApp:secret:version:]"
-#define MISSING_VERSION_NUMBER @"Missing version number is argument. You should set versionNum  property"
 
 // backendless default url
 static NSString *BACKENDLESS_HOST_URL = @"https://api.backendless.com";
@@ -39,15 +38,14 @@ static NSString *BACKENDLESS_MEDIA_URL = @"rtmp://media.backendless.com:1935/med
 static NSString *BACKENDLESS_MEDIA_URL = @"rtmp://10.0.1.33:1935/live"; 
 #endif
 
-static NSString *VERSION_NUM = @"v1";
 static NSString *APP_TYPE = @"IOS";
-static NSString *API_VERSION = @"1.0";
-//
 static NSString *APP_ID_HEADER_KEY = @"application-id";
 static NSString *SECRET_KEY_HEADER_KEY = @"secret-key";
+#if 0
 static NSString *APP_TYPE_HEADER_KEY = @"application-type";
 static NSString *API_VERSION_HEADER_KEY = @"api-version";
 static NSString *UISTATE_HEADER_KEY = @"uiState";
+#endif
 
 @interface Backendless () {
 }
@@ -56,7 +54,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 @end
 
 @implementation Backendless
-@synthesize hostURL = _hostURL, versionNum = _versionNum, reachabilityDelegate = _reachabilityDelegate;
+@synthesize hostURL = _hostURL, appID = _appID, secretKey = _secretKey, reachabilityDelegate = _reachabilityDelegate;
 @synthesize userService = _userService, persistenceService = _persistenceService, messagingService = _messagingService;
 @synthesize geoService = _geoService, fileService = _fileService, mediaService = _mediaService;
 @synthesize customService = _customService, events = _events, cache = _cache, counters = _counters, logging = _logging;
@@ -86,11 +84,12 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 #endif
         
         _hostURL = [BACKENDLESS_HOST_URL retain];
-        _versionNum = [VERSION_NUM retain];
         
         _headers = [NSMutableDictionary new];
+#if 0
         [_headers setValue:APP_TYPE forKey:APP_TYPE_HEADER_KEY];
         [_headers setValue:API_VERSION forKey:API_VERSION_HEADER_KEY];
+#endif
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kBEReachabilityChangedNotification object:nil];
         
@@ -112,7 +111,6 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     [_hostReachability release];
     
     [_hostURL release];
-    [_versionNum release];
     
     [_headers removeAllObjects];
     [_headers release];
@@ -295,30 +293,21 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 #pragma mark -
 #pragma mark getters / setters
 
--(void)setUIState:(NSString *)uiState
-{
-    [_headers setValue:uiState forKey:UISTATE_HEADER_KEY];
-}
--(NSString *)getUIState
-{
-    return [_headers valueForKey:UISTATE_HEADER_KEY];
-}
 -(NSString *)getHostUrl {
     return _hostURL;
 }
 
 -(void)setHostUrl:(NSString *)hostURL {
     
-    if ([_hostURL isEqualToString:hostURL])
+    if ([self.hostURL isEqualToString:hostURL])
         return;
     
-    [_hostURL release];
-    _hostURL = [hostURL retain];
+    self.hostURL = hostURL;
     [invoker setup];
 }
 
 -(NSString *)getAppId {
-    return [_headers valueForKey:APP_ID_HEADER_KEY];
+    return _appID;
 }
 
 -(void)setAppId:(NSString *)appID {
@@ -326,12 +315,12 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     if ([self.appID isEqualToString:appID])
         return;
     
-    [_headers setValue:appID forKey:APP_ID_HEADER_KEY];
+    self.appId = appID;
     [invoker setup];
 }
 
 -(NSString *)getSecretKey {
-    return [_headers valueForKey:SECRET_KEY_HEADER_KEY];
+    return _secretKey;
 }
 
 -(void)setSecretKey:(NSString *)secretKey {
@@ -339,34 +328,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     if ([self.secretKey isEqualToString:secretKey])
         return;
     
-    [_headers setValue:secretKey forKey:SECRET_KEY_HEADER_KEY];
-    [invoker setup];
-}
-
--(NSString *)getVersionNum {
-    return _versionNum;
-}
-
--(void)setVersionNum:(NSString *)versionNum {
-    
-    if ([_versionNum isEqualToString:versionNum])
-        return;
-    
-    [_versionNum release];
-    _versionNum = [versionNum retain];
-    [invoker setup];
-}
-
--(NSString *)getApiVersion {
-    return [_headers valueForKey:API_VERSION_HEADER_KEY];
-}
-
--(void)setApiVersion:(NSString *)apiVersion {
-    
-    if ([self.apiVersion isEqualToString:apiVersion])
-        return;
-    
-    [_headers setValue:apiVersion  forKey:API_VERSION_HEADER_KEY];
+    self.secretKey = secretKey;
     [invoker setup];
 }
 
@@ -379,23 +341,21 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
  *
  * @param appId      a Backendless application ID, which could be retrieved at the Backendless console
  * @param secretKey  a Backendless application secret key, which could be retrieved at the Backendless console
- * @param versionNum identifies the version of the application. A version represents a snapshot of the configuration settings, set of schemas, user properties, etc.
  */
 
--(void)initApp:(NSString *)applicationID secret:(NSString *)secret version:(NSString *)version {
+-(void)initApp:(NSString *)applicationID secret:(NSString *)secret {
     
     // get swift class prefix from caller class (usually AppDelegate)
     [__types makeSwiftClassPrefix:[NSThread callStackSymbols][1]];
     
+#if 0
     [_headers setValue:applicationID forKey:APP_ID_HEADER_KEY];
     [_headers setValue:secret forKey:SECRET_KEY_HEADER_KEY];
-    
-    [_versionNum release];
-    _versionNum = [version retain];
+#endif
     
     BOOL isStayLoggedIn = backendless.userService.isStayLoggedIn;
     
-    [DebLog log:@"Backendless -> initApp: versionNum = %@, isStayLoggedIn = %@\ncurrentUser = %@\nheaders = \n%@", _versionNum, isStayLoggedIn?@"YES":@"NO", backendless.userService.currentUser, _headers];
+    [DebLog log:@"Backendless -> initApp: isStayLoggedIn = %@\ncurrentUser = %@\nheaders = \n%@", isStayLoggedIn?@"YES":@"NO", backendless.userService.currentUser, _headers];
     
     [invoker setup];    
 }
@@ -410,7 +370,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     }
     
     [DebLog setIsActive:[_appConf[BACKENDLESS_DEBLOG_ON] boolValue]];
-    [backendless initApp:_appConf[BACKENDLESS_APP_ID] secret:_appConf[BACKENDLESS_SECRET_KEY] version:_appConf[BACKENDLESS_VERSION_NUM]];
+    [backendless initApp:_appConf[BACKENDLESS_APP_ID] secret:_appConf[BACKENDLESS_SECRET_KEY]];
 }
 
 -(void)initApp {
@@ -426,8 +386,6 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
         [self throwFault:[Fault fault:MISSING_APP_ID faultCode:@"0002"]];
     else if (!(value = [self getSecretKey]) || !value.length)
         [self throwFault:[Fault fault:MISSING_SECRET_KEY faultCode:@"0003"]];
-    else if (!(value = [self getVersionNum]) || !value.length)
-        [self throwFault:[Fault fault:MISSING_VERSION_NUMBER faultCode:@"0004"]];
 }
 
 -(NSString *)mediaServerUrl {

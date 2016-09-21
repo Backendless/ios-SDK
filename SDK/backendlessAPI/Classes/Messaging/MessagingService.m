@@ -1163,7 +1163,7 @@ id result = nil;
 
     [DebLog log:@"MessagingService -> registerDevice (SYNC): %@", deviceRegistration];
     
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, deviceRegistration, nil];
+    NSArray *args = [NSArray arrayWithObjects:deviceRegistration, nil];
     id result = [invoker invokeSync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_REGISTER_DEVICE args:args];
     if ([result isKindOfClass:[Fault class]]) {
         return result;
@@ -1181,7 +1181,7 @@ id result = nil;
     if (!deviceId)
         return [backendless throwFault:FAULT_NO_DEVICE_ID];
     
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, deviceId, nil];
+    NSArray *args = [NSArray arrayWithObjects:deviceId, nil];
     return [invoker invokeSync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_GET_REGISTRATIONS args:args];
 }
 
@@ -1194,7 +1194,7 @@ id result = nil;
     if (!deviceId)
         return [backendless throwFault:FAULT_NO_DEVICE_ID];
     
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, deviceId, nil];
+    NSArray *args = [NSArray arrayWithObjects:deviceId, nil];
     id result = [invoker invokeSync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_UNREGISTER_DEVICE args:args];
     if (result && ![result isKindOfClass:[Fault class]]) {
         if ([result boolValue]) deviceRegistration.id = nil;
@@ -1239,7 +1239,7 @@ id result = nil;
     if (!message)
         return [backendless throwFault:FAULT_NO_MESSAGE];
     
-    NSMutableArray *args = [NSMutableArray arrayWithObjects:backendless.appID, backendless.versionNum, channelName, message, publishOptions?publishOptions:[NSNull null], nil];
+    NSMutableArray *args = [NSMutableArray arrayWithObjects:channelName, message, publishOptions?publishOptions:[NSNull null], nil];
     if (deliveryOptions)
         [args addObject:deliveryOptions];
     
@@ -1251,7 +1251,7 @@ id result = nil;
     if (!messageId)
         return [backendless throwFault:FAULT_NO_MESSAGE_ID];
     
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, messageId, nil];
+    NSArray *args = [NSArray arrayWithObjects:messageId, nil];
     return [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_CANCEL args:args];
 }
 
@@ -1299,7 +1299,7 @@ id result = nil;
     if (!subscriptionId)
         return [backendless throwFault:FAULT_NO_SUBSCRIPTION_ID];
     
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, channelName, subscriptionId, nil];
+    NSArray *args = [NSArray arrayWithObjects:channelName, subscriptionId, nil];
     return [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_POLL_MESSAGES args:args];
 }
 
@@ -1323,7 +1323,7 @@ id result = nil;
     if (!recipients || !recipients.count)
         return [backendless throwFault:FAULT_NO_RECIPIENT];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, (subject)?subject:@"", bodyParts, recipients, (attachments)?attachments:@[]];
+    NSArray *args = @[(subject)?subject:@"", bodyParts, recipients, (attachments)?attachments:@[]];
     return [invoker invokeSync:SERVER_MAIL_SERVICE_PATH method:METHOD_SEND_EMAIL args:args];
 }
 
@@ -1370,7 +1370,7 @@ id result = nil;
 
     [DebLog log:@"MessagingService -> registerDeviceAsync (ASYNC): %@", deviceRegistration];
     
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, deviceRegistration, nil];
+    NSArray *args = [NSArray arrayWithObjects:deviceRegistration, nil];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onRegistering:) selErrorHandler:nil];
     _responder.chained = responder;
     [invoker invokeAsync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_REGISTER_DEVICE args:args responder:_responder];
@@ -1385,7 +1385,7 @@ id result = nil;
     if (!deviceId)
         return [responder errorHandler:FAULT_NO_DEVICE_ID];
     
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, deviceId, nil];
+    NSArray *args = [NSArray arrayWithObjects:deviceId, nil];
     [invoker invokeAsync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_GET_REGISTRATIONS args:args responder:responder];
 }
 
@@ -1398,7 +1398,7 @@ id result = nil;
     if (!deviceId)
         return [responder errorHandler:FAULT_NO_DEVICE_ID];
     
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, deviceId, nil];
+    NSArray *args = [NSArray arrayWithObjects:deviceId, nil];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onUnregistering:) selErrorHandler:nil];
     _responder.chained = responder;
     [invoker invokeAsync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_UNREGISTER_DEVICE args:args responder:_responder];
@@ -1440,7 +1440,7 @@ id result = nil;
     if (!message) 
         return [responder errorHandler:FAULT_NO_MESSAGE];
     
-    NSMutableArray *args = [NSMutableArray arrayWithObjects:backendless.appID, backendless.versionNum, channelName, message, publishOptions?publishOptions:[NSNull null], nil];
+    NSMutableArray *args = [NSMutableArray arrayWithObjects:channelName, message, publishOptions?publishOptions:[NSNull null], nil];
     if (deliveryOptions)
         [args addObject:deliveryOptions];
     [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_PUBLISH args:args responder:responder];
@@ -1451,7 +1451,7 @@ id result = nil;
     if (!messageId) 
         return [responder errorHandler:FAULT_NO_MESSAGE_ID];
     
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, messageId, nil];
+    NSArray *args = [NSArray arrayWithObjects:messageId, nil];
     [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_CANCEL args:args responder:responder];
 }
 
@@ -1490,7 +1490,7 @@ id result = nil;
     if (!subscriptionId) 
         return [responder errorHandler:FAULT_NO_SUBSCRIPTION_ID];
     
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, channelName, subscriptionId, nil];
+    NSArray *args = [NSArray arrayWithObjects:channelName, subscriptionId, nil];
     [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_POLL_MESSAGES args:args responder:responder];
 }
 
@@ -1514,7 +1514,7 @@ id result = nil;
     if (!recipients || !recipients.count)
         return [responder errorHandler:FAULT_NO_RECIPIENT];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, (subject)?subject:@"", bodyParts, recipients, (attachments)?attachments:@[]];
+    NSArray *args = @[(subject)?subject:@"", bodyParts, recipients, (attachments)?attachments:@[]];
     [invoker invokeAsync:SERVER_MAIL_SERVICE_PATH method:METHOD_SEND_EMAIL args:args responder:responder];
 }
 
@@ -1804,9 +1804,9 @@ id result = nil;
     if (!subscriptionOptions)
         subscriptionOptions = [SubscriptionOptions new];
 #if !BACKENDLESS_VERSION_2_1_0
-    NSArray *args = @[backendless.appID, backendless.versionNum, channelName, subscriptionOptions];
+    NSArray *args = @[channelName, subscriptionOptions];
 #else
-    NSArray *args = @[backendless.appID, backendless.versionNum, channelName, subscriptionOptions, deviceRegistration];
+    NSArray *args = @[channelName, subscriptionOptions, deviceRegistration];
 #endif
     return [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_POLLING_SUBSCRIBE args:args];
     
@@ -1822,9 +1822,9 @@ id result = nil;
     if (!subscriptionOptions)
         subscriptionOptions = [SubscriptionOptions new];
 #if !BACKENDLESS_VERSION_2_1_0
-    NSArray *args = @[backendless.appID, backendless.versionNum, channelName, subscriptionOptions];
+    NSArray *args = @[channelName, subscriptionOptions];
 #else
-    NSArray *args = @[backendless.appID, backendless.versionNum, channelName, subscriptionOptions, deviceRegistration];
+    NSArray *args = @[channelName, subscriptionOptions, deviceRegistration];
 #endif
     [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_POLLING_SUBSCRIBE args:args responder:responder];
 }

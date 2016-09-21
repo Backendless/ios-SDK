@@ -83,7 +83,7 @@ static NSString *METHOD_DELETE = @"delete";
     BinaryStream *stream = [AMFSerializer serializeToBytes:entity];
     NSData *data = [NSData dataWithBytes:stream.buffer length:stream.size];
     NSNumber *time = [NSNumber numberWithInt:((seconds > 0) && (seconds <= 7200))?seconds:0];
-    NSArray *args = @[backendless.appID, backendless.versionNum, key, data, time];
+    NSArray *args = @[key, data, time];
     id result = [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_PUT_BYTES args:args];
     if ([result isKindOfClass:[Fault class]]) {
         if (fault) {
@@ -104,7 +104,7 @@ static NSString *METHOD_DELETE = @"delete";
         return nil;
     }
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, key];
+    NSArray *args = @[key];
     id result = [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_GET_BYTES args:args];
     if ([result isKindOfClass:[Fault class]]) {
         if (fault) {
@@ -131,7 +131,7 @@ static NSString *METHOD_DELETE = @"delete";
         return nil;
     }
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, key];
+    NSArray *args = @[key];
     id result = [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_CONTAINS_KEY args:args];
     if ([result isKindOfClass:[Fault class]]) {
         if (fault) {
@@ -160,7 +160,7 @@ static NSString *METHOD_DELETE = @"delete";
     }
     
     NSNumber *time = [NSNumber numberWithInt:((seconds > 0) && (seconds <= 7200))?seconds:0];
-    NSArray *args = @[backendless.appID, backendless.versionNum, key, time];
+    NSArray *args = @[key, time];
     id result = [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_EXPIRE_IN args:args];
     if ([result isKindOfClass:[Fault class]]) {
         if (fault) {
@@ -181,7 +181,7 @@ static NSString *METHOD_DELETE = @"delete";
         return NO;
     }
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, key, timestamp];
+    NSArray *args = @[key, timestamp];
     id result = [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_EXPIRE_AT args:args];
     if ([result isKindOfClass:[Fault class]]) {
         if (fault) {
@@ -202,7 +202,7 @@ static NSString *METHOD_DELETE = @"delete";
         return NO;
     }
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, key];
+    NSArray *args = @[key];
     id result = [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_DELETE args:args];
     if ([result isKindOfClass:[Fault class]]) {
         if (fault) {
@@ -378,7 +378,7 @@ id result = nil;
     BinaryStream *stream = [AMFSerializer serializeToBytes:entity];
     NSData *data = [NSData dataWithBytes:stream.buffer length:stream.size];
     NSNumber *time = [NSNumber numberWithInt:((seconds > 0) && (seconds <= 7200))?seconds:0];
-    NSArray *args = @[backendless.appID, backendless.versionNum, key, data, time];
+    NSArray *args = @[key, data, time];
     return [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_PUT_BYTES args:args];
 }
 
@@ -387,7 +387,7 @@ id result = nil;
     if (!key)
         return [backendless throwFault:FAULT_NO_KEY];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, key];
+    NSArray *args = @[key];
     id result = [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_GET_BYTES args:args];
     if ([result isKindOfClass:Fault.class])
         return result;
@@ -402,7 +402,7 @@ id result = nil;
     if (!key)
         return [backendless throwFault:FAULT_NO_KEY];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, key];
+    NSArray *args = @[key];
     return [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_CONTAINS_KEY args:args];
 }
 
@@ -412,7 +412,7 @@ id result = nil;
         return [backendless throwFault:FAULT_NO_KEY];
     
     NSNumber *time = [NSNumber numberWithInt:((seconds > 0) && (seconds <= 7200))?seconds:0];
-    NSArray *args = @[backendless.appID, backendless.versionNum, key, time];
+    NSArray *args = @[key, time];
     return [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_EXPIRE_IN args:args];
 }
 
@@ -421,7 +421,7 @@ id result = nil;
     if (!key)
         return [backendless throwFault:FAULT_NO_KEY];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, key, timestamp];
+    NSArray *args = @[key, timestamp];
     return [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_EXPIRE_AT args:args];
 }
 
@@ -430,7 +430,7 @@ id result = nil;
     if (!key)
         return [backendless throwFault:FAULT_NO_KEY];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, key];
+    NSArray *args = @[key];
     return [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_DELETE args:args];
 }
 
@@ -450,7 +450,7 @@ id result = nil;
     BinaryStream *stream = [AMFSerializer serializeToBytes:entity];
     NSData *data = [NSData dataWithBytes:stream.buffer length:stream.size];
     NSNumber *time = [NSNumber numberWithInt:((seconds > 0) && (seconds <= 7200))?seconds:0];
-    NSArray *args = @[backendless.appID, backendless.versionNum, key, data, time];
+    NSArray *args = @[key, data, time];
     [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_PUT_BYTES args:args responder:responder];
 }
 
@@ -459,7 +459,7 @@ id result = nil;
     if (!key)
         return [responder errorHandler:FAULT_NO_KEY];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, key];
+    NSArray *args = @[key];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onGet:) selErrorHandler:nil];
     _responder.chained = responder;
     [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_GET_BYTES args:args responder:_responder];
@@ -470,7 +470,7 @@ id result = nil;
     if (!key)
         return [responder errorHandler:FAULT_NO_KEY];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, key];
+    NSArray *args = @[key];
     [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_CONTAINS_KEY args:args responder:responder];
 }
 
@@ -480,7 +480,7 @@ id result = nil;
         return [responder errorHandler:FAULT_NO_KEY];
     
     NSNumber *time = [NSNumber numberWithInt:((seconds > 0) && (seconds <= 7200))?seconds:0];
-    NSArray *args = @[backendless.appID, backendless.versionNum, key, time];
+    NSArray *args = @[key, time];
     [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_EXPIRE_IN args:args responder:responder];
 }
 
@@ -489,7 +489,7 @@ id result = nil;
     if (!key)
         return [responder errorHandler:FAULT_NO_KEY];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, key, timestamp];
+    NSArray *args = @[key, timestamp];
     [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_EXPIRE_AT args:args responder:responder];
 }
 
@@ -498,7 +498,7 @@ id result = nil;
     if (!key)
         return [responder errorHandler:FAULT_NO_KEY];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, key];
+    NSArray *args = @[key];
     [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_DELETE args:args responder:responder];
 }
 

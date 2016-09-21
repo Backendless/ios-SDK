@@ -601,7 +601,7 @@ id result = nil;
     if (fault)
         return fault;
     
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, categoryName, nil];
+    NSArray *args = [NSArray arrayWithObjects:categoryName, nil];
     return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_ADD_CATEGORY args:args];
 }
 
@@ -611,7 +611,7 @@ id result = nil;
     if (fault)
         return fault;
     
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, categoryName, nil];
+    NSArray *args = [NSArray arrayWithObjects:categoryName, nil];
     return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_DELETE_CATEGORY args:args];
 }
 
@@ -621,19 +621,17 @@ id result = nil;
     if (fault)
         return fault;
     
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, geoPoint, nil];
+    NSArray *args = [NSArray arrayWithObjects:geoPoint, nil];
     return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:geoPoint.objectId?METHOD_UPDATE_POINT:METHOD_ADD_POINT args:args];
 }
 
 -(NSArray<NSString *> *)getCategories {
-    
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, nil];
-    return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_CATEGORIES args:args];
+    return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_CATEGORIES args:@[]];
 }
 
 -(BackendlessCollection *)getPoints:(BackendlessGeoQuery *)query {
     
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, query, nil];
+    NSArray *args = [NSArray arrayWithObjects:query, nil];
     id result = [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_POINTS args:args];
     if ([result isKindOfClass:[Fault class]]) {
         return result;
@@ -656,7 +654,7 @@ id result = nil;
 
 -(BackendlessCollection *)getClusterPoints:(GeoCluster *)geoCluster {
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, geoCluster.objectId, geoCluster.geoQuery];
+    NSArray *args = @[geoCluster.objectId, geoCluster.geoQuery];
     id result = [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_LOAD_GEOPOINTS args:args];
     if ([result isKindOfClass:[Fault class]]) {
         return result;
@@ -686,7 +684,7 @@ id result = nil;
         return fault;
     
     BackendlessGeoQuery *geoQuery = query?query:[BackendlessGeoQuery query];
-    NSArray *args = @[backendless.appID, backendless.versionNum, geoFenceName, geoQuery];
+    NSArray *args = @[geoFenceName, geoQuery];
     id result = [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_POINTS args:args];
     if ([result isKindOfClass:[Fault class]]) {
         return result;
@@ -710,7 +708,7 @@ id result = nil;
 -(BackendlessCollection *)relativeFind:(BackendlessGeoQuery *)query {
     
     BackendlessGeoQuery *geoQuery = query?query:[BackendlessGeoQuery query];
-    NSArray *args = @[backendless.appID, backendless.versionNum, geoQuery];
+    NSArray *args = @[geoQuery];
     id result = [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_POINTS_WITH_MATCHES args:args];
     if ([result isKindOfClass:[Fault class]]) {
         return result;
@@ -731,7 +729,7 @@ id result = nil;
     if ((fault = [self isFaultGeoPoint:geoPoint responder:nil]) || (fault = [self isFaultGeoPointId:geoPoint.objectId responder:nil]))
         return fault;
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, geoPoint.objectId];
+    NSArray *args = @[geoPoint.objectId];
     return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_DELETE_GEOPOINT args:args];
 }
 
@@ -742,7 +740,7 @@ id result = nil;
         return fault;
 
     id query = [geoPoint isKindOfClass:[GeoCluster class]]? [(GeoCluster *)geoPoint geoQuery] : [NSNull null];
-    NSArray *args = @[backendless.appID, backendless.versionNum, geoPoint.objectId, query];
+    NSArray *args = @[geoPoint.objectId, query];
     [geoPoint metadata:[invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_LOAD_METADATA args:args]];
     return geoPoint;
 }
@@ -753,7 +751,7 @@ id result = nil;
     if ((fault = [self isFaultGeoFenceName:geoFenceName responder:nil]))
         return fault;
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, geoFenceName];
+    NSArray *args = @[geoFenceName];
     return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_RUN_ON_ENTER_ACTION args:args];
 }
 
@@ -763,7 +761,7 @@ id result = nil;
     if ((fault = [self isFaultGeoFenceName:geoFenceName responder:nil]) || (fault = [self isFaultGeoPoint:geoPoint responder:nil]))
         return fault;
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, geoFenceName, geoPoint];
+    NSArray *args = @[geoFenceName, geoPoint];
     return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_RUN_ON_ENTER_ACTION args:args];
 }
 
@@ -773,7 +771,7 @@ id result = nil;
     if ((fault = [self isFaultGeoFenceName:geoFenceName responder:nil]))
         return fault;
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, geoFenceName];
+    NSArray *args = @[geoFenceName];
     return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_RUN_ON_STAY_ACTION args:args];
 }
 
@@ -783,7 +781,7 @@ id result = nil;
     if ((fault = [self isFaultGeoFenceName:geoFenceName responder:nil]) || (fault = [self isFaultGeoPoint:geoPoint responder:nil]))
         return fault;
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, geoFenceName, geoPoint];
+    NSArray *args = @[geoFenceName, geoPoint];
     return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_RUN_ON_STAY_ACTION args:args];
 }
 
@@ -793,7 +791,7 @@ id result = nil;
     if ((fault = [self isFaultGeoFenceName:geoFenceName responder:nil]))
         return fault;
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, geoFenceName];
+    NSArray *args = @[geoFenceName];
     return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_RUN_ON_EXIT_ACTION args:args];
 }
 
@@ -803,7 +801,7 @@ id result = nil;
     if ((fault = [self isFaultGeoFenceName:geoFenceName responder:nil]) || (fault = [self isFaultGeoPoint:geoPoint responder:nil]))
         return fault;
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, geoFenceName, geoPoint];
+    NSArray *args = @[geoFenceName, geoPoint];
     return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_RUN_ON_EXIT_ACTION args:args];
 }
 
@@ -814,7 +812,7 @@ id result = nil;
     if ([self isFaultAddCategoryName:categoryName responder:responder])
         return;
     
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, categoryName, nil];
+    NSArray *args = [NSArray arrayWithObjects:categoryName, nil];
     [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_ADD_CATEGORY args:args responder:responder];
 }
 
@@ -823,7 +821,7 @@ id result = nil;
     if ([self isFaultRemoveCategoryName:categoryName responder:responder])
         return;
     
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, categoryName, nil];
+    NSArray *args = [NSArray arrayWithObjects:categoryName, nil];
     [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_DELETE_CATEGORY args:args responder:responder];
 }
 
@@ -832,19 +830,17 @@ id result = nil;
     if ([self isFaultGeoPoint:geoPoint responder:responder])
         return;
     
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, geoPoint, nil];
+    NSArray *args = [NSArray arrayWithObjects:geoPoint, nil];
     [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:geoPoint.objectId?METHOD_UPDATE_POINT:METHOD_ADD_POINT args:args responder:responder];
 }
 
 -(void)getCategories:(id <IResponder>)responder {
-
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, nil];
-    [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_CATEGORIES args:args responder:responder];
+    [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_CATEGORIES args:@[] responder:responder];
 }
 
 -(void)getPoints:(BackendlessGeoQuery *)query responder:(id <IResponder>)responder {
     
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, query, nil];
+    NSArray *args = [NSArray arrayWithObjects:query, nil];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(getResponse:) selErrorHandler:@selector(getError:)];
     _responder.chained = responder;
     _responder.context = query;
@@ -853,7 +849,7 @@ id result = nil;
 
 -(void)getClusterPoints:(GeoCluster *)geoCluster responder:(id <IResponder>)responder {
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, geoCluster.objectId, geoCluster.geoQuery];
+    NSArray *args = @[geoCluster.objectId, geoCluster.geoQuery];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(getResponse:) selErrorHandler:@selector(getError:)];
     _responder.chained = responder;
     _responder.context = geoCluster.geoQuery;
@@ -870,7 +866,7 @@ id result = nil;
         return;
     
     BackendlessGeoQuery *geoQuery = query?query:[BackendlessGeoQuery query];
-    NSArray *args = @[backendless.appID, backendless.versionNum, geoFenceName, geoQuery];
+    NSArray *args = @[geoFenceName, geoQuery];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(getResponse:) selErrorHandler:@selector(getError:)];
     _responder.chained = responder;
     _responder.context = geoQuery;
@@ -880,7 +876,7 @@ id result = nil;
 -(void)relativeFind:(BackendlessGeoQuery *)query responder:(id<IResponder>)responder {
     
     BackendlessGeoQuery *geoQuery = query?query:[BackendlessGeoQuery query];
-    NSArray *args = @[backendless.appID, backendless.versionNum, geoQuery];
+    NSArray *args = @[geoQuery];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(getResponse:) selErrorHandler:@selector(getError:)];
     _responder.chained = responder;
     _responder.context = query;
@@ -892,7 +888,7 @@ id result = nil;
     if ([self isFaultGeoPoint:geoPoint responder:responder] || [self isFaultGeoPointId:geoPoint.objectId responder:responder])
         return;
 
-    NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, geoPoint.objectId, nil];
+    NSArray *args = [NSArray arrayWithObjects:geoPoint.objectId, nil];
     [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_DELETE_GEOPOINT args:args responder:responder];
 }
 
@@ -902,7 +898,7 @@ id result = nil;
         return;
     
     id query = [geoPoint isKindOfClass:[GeoCluster class]]? [(GeoCluster *)geoPoint geoQuery] : [NSNull null];
-    NSArray *args = @[backendless.appID, backendless.versionNum, geoPoint.objectId, query];
+    NSArray *args = @[geoPoint.objectId, query];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(getMetadata:) selErrorHandler:@selector(getError:)];
     _responder.chained = responder;
     _responder.context = geoPoint;
@@ -914,7 +910,7 @@ id result = nil;
     if ([self isFaultGeoFenceName:geoFenceName responder:responder])
         return;
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, geoFenceName];
+    NSArray *args = @[geoFenceName];
     [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_RUN_ON_ENTER_ACTION args:args responder:responder];
 }
 
@@ -923,7 +919,7 @@ id result = nil;
     if ([self isFaultGeoFenceName:geoFenceName responder:responder] || [self isFaultGeoPoint:geoPoint responder:responder])
         return;
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, geoFenceName, geoPoint];
+    NSArray *args = @[geoFenceName, geoPoint];
     [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_RUN_ON_ENTER_ACTION args:args responder:responder];
 }
 
@@ -932,7 +928,7 @@ id result = nil;
     if ([self isFaultGeoFenceName:geoFenceName responder:responder])
         return;
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, geoFenceName];
+    NSArray *args = @[geoFenceName];
     [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_RUN_ON_STAY_ACTION args:args responder:responder];
 }
 
@@ -941,7 +937,7 @@ id result = nil;
     if ([self isFaultGeoFenceName:geoFenceName responder:responder] || [self isFaultGeoPoint:geoPoint responder:responder])
         return;
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, geoFenceName, geoPoint];
+    NSArray *args = @[geoFenceName, geoPoint];
     [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_RUN_ON_STAY_ACTION args:args responder:responder];
 }
 
@@ -950,7 +946,7 @@ id result = nil;
     if ([self isFaultGeoFenceName:geoFenceName responder:responder])
         return;
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, geoFenceName];
+    NSArray *args = @[geoFenceName];
     [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_RUN_ON_EXIT_ACTION args:args responder:responder];
 }
 
@@ -959,7 +955,7 @@ id result = nil;
     if ([self isFaultGeoFenceName:geoFenceName responder:responder] || [self isFaultGeoPoint:geoPoint responder:responder])
         return;
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, geoFenceName, geoPoint];
+    NSArray *args = @[geoFenceName, geoPoint];
     [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_RUN_ON_EXIT_ACTION args:args responder:responder];
 }
 
@@ -1203,11 +1199,10 @@ id result = nil;
     if ([self isFaultCallbackIsInvalid:callback responder:responder])
         return;
     
-    NSArray *args = @[backendless.appID, backendless.versionNum];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(getGeoFences:) selErrorHandler:@selector(getError:)];
     _responder.chained = responder;
     _responder.context = callback;
-    [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_FENCES args:args responder:_responder];
+    [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_FENCES args:@[] responder:_responder];
 }
 
 /*
@@ -1248,7 +1243,7 @@ id result = nil;
     if ([self isFaultGeoFenceName:geofenceName responder:responder] || [self isFaultCallbackIsInvalid:callback responder:responder])
         return;
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, geofenceName];
+    NSArray *args = @[geofenceName];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(getGeoFences:) selErrorHandler:@selector(getError:)];
     _responder.chained = responder;
     _responder.context = callback;

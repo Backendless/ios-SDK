@@ -34,7 +34,7 @@
     stream.streamPath = [options getServerURL];
     stream.tubeName = tube;
 #if TEST_MEDIA_INSTANCE
-    stream.streamName = [NSString stringWithFormat:@"%@/%@/%@/%@", backendless.appID, backendless.versionNum, tube, name];
+    stream.streamName = [NSString stringWithFormat:@"%@/%@/%@/%@", tube, name];
 #else
     stream.streamName = name;
 #endif
@@ -57,7 +57,7 @@
     stream.streamPath = [options getServerURL];
     stream.tubeName = tube;
 #if TEST_MEDIA_INSTANCE
-    stream.streamName = [NSString stringWithFormat:@"%@/%@/%@/%@", backendless.appID, backendless.versionNum, tube, name];
+    stream.streamName = [NSString stringWithFormat:@"%@/%@/%@/%@", tube, name];
 #else
     stream.streamName = name;
 #endif

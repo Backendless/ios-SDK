@@ -72,7 +72,7 @@ static NSString *METHOD_RESET = @"reset";
         return nil;
     }
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, counterName];
+    NSArray *args = @[counterName];
     id result = [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET args:args];
     if ([result isKindOfClass:[Fault class]]) {
         if (fault) {
@@ -93,7 +93,7 @@ static NSString *METHOD_RESET = @"reset";
         return nil;
     }
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, counterName];
+    NSArray *args = @[counterName];
     id result = [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET_AND_INCREMENT args:args];
     if ([result isKindOfClass:[Fault class]]) {
         if (fault) {
@@ -114,7 +114,7 @@ static NSString *METHOD_RESET = @"reset";
         return nil;
     }
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, counterName];
+    NSArray *args = @[counterName];
     id result = [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_INCREMENT_AND_GET args:args];
     if ([result isKindOfClass:[Fault class]]) {
         if (fault) {
@@ -135,7 +135,7 @@ static NSString *METHOD_RESET = @"reset";
         return nil;
     }
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, counterName];
+    NSArray *args = @[counterName];
     id result = [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET_AND_DECREMENT args:args];
     if ([result isKindOfClass:[Fault class]]) {
         if (fault) {
@@ -156,7 +156,7 @@ static NSString *METHOD_RESET = @"reset";
         return nil;
     }
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, counterName];
+    NSArray *args = @[counterName];
     id result = [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_DECREMENT_AND_GET args:args];
     if ([result isKindOfClass:[Fault class]]) {
         if (fault) {
@@ -177,7 +177,7 @@ static NSString *METHOD_RESET = @"reset";
         return nil;
     }
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, counterName, [NSNumber numberWithLong:value]];
+    NSArray *args = @[counterName, [NSNumber numberWithLong:value]];
     id result = [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_ADD_AND_GET args:args];
     if ([result isKindOfClass:[Fault class]]) {
         if (fault) {
@@ -198,7 +198,7 @@ static NSString *METHOD_RESET = @"reset";
         return nil;
     }
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, counterName, [NSNumber numberWithLong:value]];
+    NSArray *args = @[counterName, [NSNumber numberWithLong:value]];
     id result = [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET_AND_ADD args:args];
     if ([result isKindOfClass:[Fault class]]) {
         if (fault) {
@@ -219,7 +219,7 @@ static NSString *METHOD_RESET = @"reset";
         return nil;
     }
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, counterName, [NSNumber numberWithLong:expected], [NSNumber numberWithLong:updated]];
+    NSArray *args = @[counterName, [NSNumber numberWithLong:expected], [NSNumber numberWithLong:updated]];
     id result = [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_COMPARE_AND_SET args:args];
     if ([result isKindOfClass:[Fault class]]) {
         if (fault) {
@@ -240,7 +240,7 @@ static NSString *METHOD_RESET = @"reset";
         return;
     }
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, counterName];
+    NSArray *args = @[counterName];
     id result = [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_RESET args:args];
     if ([result isKindOfClass:[Fault class]]) {
         if (fault) {
@@ -439,7 +439,7 @@ id result = nil;
     if (!counterName)
         return [backendless throwFault:FAULT_NO_NAME];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, counterName];
+    NSArray *args = @[counterName];
     return [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET args:args];
 }
 
@@ -448,7 +448,7 @@ id result = nil;
     if (!counterName)
         return [backendless throwFault:FAULT_NO_NAME];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, counterName];
+    NSArray *args = @[counterName];
     return [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET_AND_INCREMENT args:args];
 }
 
@@ -457,7 +457,7 @@ id result = nil;
     if (!counterName)
         return [backendless throwFault:FAULT_NO_NAME];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, counterName];
+    NSArray *args = @[counterName];
     return [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_INCREMENT_AND_GET args:args];
 }
 
@@ -466,7 +466,7 @@ id result = nil;
     if (!counterName)
         return [backendless throwFault:FAULT_NO_NAME];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, counterName];
+    NSArray *args = @[counterName];
     return [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET_AND_DECREMENT args:args];
 }
 
@@ -475,7 +475,7 @@ id result = nil;
     if (!counterName)
         return [backendless throwFault:FAULT_NO_NAME];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, counterName];
+    NSArray *args = @[counterName];
     return [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_DECREMENT_AND_GET args:args];
 }
 
@@ -484,7 +484,7 @@ id result = nil;
     if (!counterName)
         return [backendless throwFault:FAULT_NO_NAME];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, counterName, [NSNumber numberWithLong:value]];
+    NSArray *args = @[counterName, [NSNumber numberWithLong:value]];
     return [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_ADD_AND_GET args:args];
 }
 
@@ -493,7 +493,7 @@ id result = nil;
     if (!counterName)
         return [backendless throwFault:FAULT_NO_NAME];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, counterName, [NSNumber numberWithLong:value]];
+    NSArray *args = @[counterName, [NSNumber numberWithLong:value]];
     return [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET_AND_ADD args:args];
 }
 
@@ -502,7 +502,7 @@ id result = nil;
     if (!counterName)
         return [backendless throwFault:FAULT_NO_NAME];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, counterName, [NSNumber numberWithLong:expected], [NSNumber numberWithLong:updated]];
+    NSArray *args = @[counterName, [NSNumber numberWithLong:expected], [NSNumber numberWithLong:updated]];
     return [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_COMPARE_AND_SET args:args];
 }
 
@@ -511,7 +511,7 @@ id result = nil;
     if (!counterName)
         return [backendless throwFault:FAULT_NO_NAME];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, counterName];
+    NSArray *args = @[counterName];
     return [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_RESET args:args];
 }
 
@@ -522,7 +522,7 @@ id result = nil;
     if (!counterName)
         return [responder errorHandler:FAULT_NO_NAME];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, counterName];
+    NSArray *args = @[counterName];
     [invoker invokeAsync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET args:args responder:responder];
 }
 
@@ -531,7 +531,7 @@ id result = nil;
     if (!counterName)
         return [responder errorHandler:FAULT_NO_NAME];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, counterName];
+    NSArray *args = @[counterName];
     [invoker invokeAsync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET_AND_INCREMENT args:args responder:responder];
 }
 
@@ -540,7 +540,7 @@ id result = nil;
     if (!counterName)
         return [responder errorHandler:FAULT_NO_NAME];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, counterName];
+    NSArray *args = @[counterName];
     [invoker invokeAsync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_INCREMENT_AND_GET args:args responder:responder];
 }
 
@@ -549,7 +549,7 @@ id result = nil;
     if (!counterName)
         return [responder errorHandler:FAULT_NO_NAME];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, counterName];
+    NSArray *args = @[counterName];
     [invoker invokeAsync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET_AND_DECREMENT args:args responder:responder];
 }
 
@@ -558,7 +558,7 @@ id result = nil;
     if (!counterName)
         return [responder errorHandler:FAULT_NO_NAME];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, counterName];
+    NSArray *args = @[counterName];
     [invoker invokeAsync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_DECREMENT_AND_GET args:args responder:responder];
 }
 
@@ -567,7 +567,7 @@ id result = nil;
     if (!counterName)
         return [responder errorHandler:FAULT_NO_NAME];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, counterName, [NSNumber numberWithLong:value]];
+    NSArray *args = @[counterName, [NSNumber numberWithLong:value]];
     [invoker invokeAsync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_ADD_AND_GET args:args responder:responder];
 }
 
@@ -576,7 +576,7 @@ id result = nil;
     if (!counterName)
         return [responder errorHandler:FAULT_NO_NAME];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, counterName, [NSNumber numberWithLong:value]];
+    NSArray *args = @[counterName, [NSNumber numberWithLong:value]];
     [invoker invokeAsync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET_AND_ADD args:args responder:responder];
 }
 
@@ -585,7 +585,7 @@ id result = nil;
     if (!counterName)
         return [responder errorHandler:FAULT_NO_NAME];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, counterName, [NSNumber numberWithLong:expected], [NSNumber numberWithLong:updated]];
+    NSArray *args = @[counterName, [NSNumber numberWithLong:expected], [NSNumber numberWithLong:updated]];
     [invoker invokeAsync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_COMPARE_AND_SET args:args responder:responder];
 }
 
@@ -594,7 +594,7 @@ id result = nil;
     if (!counterName)
         return [responder errorHandler:FAULT_NO_NAME];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, counterName];
+    NSArray *args = @[counterName];
     [invoker invokeAsync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_RESET args:args responder:responder];
 }
 

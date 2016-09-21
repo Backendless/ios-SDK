@@ -115,7 +115,6 @@
 #define BACKENDLESS_APP_CONF @"BackendlessAppConf"
 #define BACKENDLESS_APP_ID @"AppId"
 #define BACKENDLESS_SECRET_KEY @"SecretKey"
-#define BACKENDLESS_VERSION_NUM @"VersionNum"
 #define BACKENDLESS_DEBLOG_ON @"DebLogOn"
 
 @class MediaService;
@@ -129,8 +128,6 @@
 @property (strong, nonatomic, getter = getHostUrl, setter = setHostUrl:) NSString *hostURL;
 @property (strong, nonatomic, getter = getAppId, setter = setAppId:) NSString *appID;
 @property (strong, nonatomic, getter = getSecretKey, setter = setSecretKey:) NSString *secretKey;
-@property (strong, nonatomic, getter = getVersionNum, setter = setVersionNum:) NSString *versionNum;
-@property (strong, nonatomic, getter = getApiVersion, setter = setApiVersion:) NSString *apiVersion;
 // options
 @property (strong, nonatomic) NSMutableDictionary *headers;
 @property (strong, nonatomic, readonly) NSDictionary *appConf;
@@ -170,9 +167,8 @@
  *
  * @param appId      a Backendless application ID, which could be retrieved at the Backendless console
  * @param secretKey  a Backendless application secret key, which could be retrieved at the Backendless console
- * @param versionNum identifies the version of the application. A version represents a snapshot of the configuration settings, set of schemas, user properties, etc.
  */
--(void)initApp:(NSString *)applicationID secret:(NSString *)secret version:(NSString *)version;
+-(void)initApp:(NSString *)applicationID secret:(NSString *)secret;
 -(void)initApp:(NSString *)plist;
 -(void)initApp;
 -(void)initAppFault;
@@ -185,8 +181,6 @@
 -(NSString *)GUIDString;
 -(NSString *)randomString:(int)numCharacters;
 -(NSString *)applicationType;
--(void)setUIState:(NSString *)uiState;
--(NSString *)getUIState;
 #pragma mark - cache methods
 -(void)clearAllCache;
 -(void)clearCacheForClassName:(NSString *)className query:(id) query;

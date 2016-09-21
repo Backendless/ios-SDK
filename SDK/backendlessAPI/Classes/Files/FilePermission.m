@@ -150,7 +150,7 @@ static NSString *_DENY = @"DENY";
     if (![self isUrlValid:url])
         return [backendless throwFault:FAULT_NO_URL];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, userId, [FileUserPermission grant:url operation:operation]];
+    NSArray *args = @[userId, [FileUserPermission grant:url operation:operation]];
     return [invoker invokeSync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_USER_PERMISSION args:args];
 }
 
@@ -162,7 +162,7 @@ static NSString *_DENY = @"DENY";
     if (![self isUrlValid:url])
         return [backendless throwFault:FAULT_NO_URL];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, userId, [FileUserPermission deny:url operation:operation]];
+    NSArray *args = @[userId, [FileUserPermission deny:url operation:operation]];
     return [invoker invokeSync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_USER_PERMISSION args:args];
 }
 
@@ -174,7 +174,7 @@ static NSString *_DENY = @"DENY";
     if (![self isUrlValid:url])
         return [backendless throwFault:FAULT_NO_URL];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, roleName, [FileRolePermission grant:url operation:operation]];
+    NSArray *args = @[roleName, [FileRolePermission grant:url operation:operation]];
     return [invoker invokeSync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ROLE_PERMISSION args:args];
 }
 
@@ -186,7 +186,7 @@ static NSString *_DENY = @"DENY";
     if (![self isUrlValid:url])
         return [backendless throwFault:FAULT_NO_URL];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, roleName, [FileRolePermission deny:url operation:operation]];
+    NSArray *args = @[roleName, [FileRolePermission deny:url operation:operation]];
     return [invoker invokeSync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ROLE_PERMISSION args:args];
 }
 
@@ -195,7 +195,7 @@ static NSString *_DENY = @"DENY";
     if (![self isUrlValid:url])
         return [backendless throwFault:FAULT_NO_URL];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, [FileUserPermission grant:url operation:operation]];
+    NSArray *args = @[[FileUserPermission grant:url operation:operation]];
     return [invoker invokeSync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_USER_PERMISSION args:args];
 }
 
@@ -204,7 +204,7 @@ static NSString *_DENY = @"DENY";
     if (![self isUrlValid:url])
         return [backendless throwFault:FAULT_NO_URL];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, [FileUserPermission deny:url operation:operation]];
+    NSArray *args = @[[FileUserPermission deny:url operation:operation]];
     return [invoker invokeSync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_USER_PERMISSION args:args];
 }
 
@@ -213,7 +213,7 @@ static NSString *_DENY = @"DENY";
     if (![self isUrlValid:url])
         return [backendless throwFault:FAULT_NO_URL];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, [FileRolePermission grant:url operation:operation]];
+    NSArray *args = @[[FileRolePermission grant:url operation:operation]];
     return [invoker invokeSync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_ROLE_PERMISSION args:args];
 }
 
@@ -222,7 +222,7 @@ static NSString *_DENY = @"DENY";
     if (![self isUrlValid:url])
         return [backendless throwFault:FAULT_NO_URL];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, [FileRolePermission deny:url operation:operation]];
+    NSArray *args = @[[FileRolePermission deny:url operation:operation]];
     return [invoker invokeSync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_ROLE_PERMISSION args:args];
 }
 
@@ -318,7 +318,7 @@ static NSString *_DENY = @"DENY";
     if (![self isUrlValid:url])
         return [responder errorHandler:FAULT_NO_URL];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, userId, [FileUserPermission grant:url operation:operation]];
+    NSArray *args = @[userId, [FileUserPermission grant:url operation:operation]];
     return [invoker invokeAsync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_USER_PERMISSION args:args responder:responder];
 }
 
@@ -330,7 +330,7 @@ static NSString *_DENY = @"DENY";
     if (![self isUrlValid:url])
         return [responder errorHandler:FAULT_NO_URL];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, userId, [FileUserPermission deny:url operation:operation]];
+    NSArray *args = @[userId, [FileUserPermission deny:url operation:operation]];
     return [invoker invokeAsync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_USER_PERMISSION args:args responder:responder];
 }
 
@@ -342,7 +342,7 @@ static NSString *_DENY = @"DENY";
     if (![self isUrlValid:url])
         return [responder errorHandler:FAULT_NO_URL];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, roleName, [FileRolePermission grant:url operation:operation]];
+    NSArray *args = @[roleName, [FileRolePermission grant:url operation:operation]];
     return [invoker invokeAsync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ROLE_PERMISSION args:args responder:responder];
 }
 
@@ -354,7 +354,7 @@ static NSString *_DENY = @"DENY";
     if (![self isUrlValid:url])
         return [responder errorHandler:FAULT_NO_URL];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, roleName, [FileRolePermission deny:url operation:operation]];
+    NSArray *args = @[roleName, [FileRolePermission deny:url operation:operation]];
     return [invoker invokeAsync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ROLE_PERMISSION args:args responder:responder];
 }
 
@@ -363,7 +363,7 @@ static NSString *_DENY = @"DENY";
     if (![self isUrlValid:url])
         return [responder errorHandler:FAULT_NO_URL];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, [FileUserPermission grant:url operation:operation]];
+    NSArray *args = @[[FileUserPermission grant:url operation:operation]];
     return [invoker invokeAsync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_USER_PERMISSION args:args responder:responder];
 }
 
@@ -372,7 +372,7 @@ static NSString *_DENY = @"DENY";
     if (![self isUrlValid:url])
         return [responder errorHandler:FAULT_NO_URL];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum,[FileUserPermission deny:url operation:operation]];
+    NSArray *args = @[[FileUserPermission deny:url operation:operation]];
     return [invoker invokeAsync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_USER_PERMISSION args:args responder:responder];
 }
 
@@ -381,7 +381,7 @@ static NSString *_DENY = @"DENY";
     if (![self isUrlValid:url])
         return [responder errorHandler:FAULT_NO_URL];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, [FileRolePermission grant:url operation:operation]];
+    NSArray *args = @[[FileRolePermission grant:url operation:operation]];
     return [invoker invokeAsync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_ROLE_PERMISSION args:args responder:responder];
 }
 
@@ -390,7 +390,7 @@ static NSString *_DENY = @"DENY";
     if (![self isUrlValid:url])
         return [responder errorHandler:FAULT_NO_URL];
     
-    NSArray *args = @[backendless.appID, backendless.versionNum, [FileRolePermission deny:url operation:operation]];
+    NSArray *args = @[[FileRolePermission deny:url operation:operation]];
     return [invoker invokeAsync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_ROLE_PERMISSION args:args responder:responder];
 }
 
