@@ -64,6 +64,8 @@ static NSString *METHOD_LAST = @"last";
 static NSString *METHOD_LOAD = @"loadRelations";
 static NSString *METHOD_CALL_STORED_VIEW = @"callStoredView";
 static NSString *METHOD_CALL_STORED_PROCEDURE = @"callStoredProcedure";
+static NSString *METHOD_COUNT = @"count";
+//
 NSString *LOAD_ALL_RELATIONS = @"*";
 
 @interface PersistenceService()
@@ -1119,6 +1121,42 @@ id result = nil;
     }
 }
 
+-(NSNumber *)getObjectCount:(Class)entity error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self getObjectCount:entity];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(NSNumber *)getObjectCount:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self getObjectCount:entity dataQuery:dataQuery];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
 #endif
 
 // sync methods with fault return  (as exception)
@@ -1548,6 +1586,24 @@ id result = nil;
     return [backendlessCache invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_CALL_STORED_PROCEDURE args:args];
 }
 
+-(NSNumber *)getObjectCount:(Class)entity {
+    
+    if (!entity)
+        return [backendless throwFault:FAULT_NO_ENTITY];
+    
+    NSArray *args = @[[self typeClassName:entity]];
+    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_COUNT args:args];
+}
+
+-(NSNumber *)getObjectCount:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery {
+    
+    if (!entity)
+        return [backendless throwFault:FAULT_NO_ENTITY];
+    
+    NSArray *args = @[[self typeClassName:entity], dataQuery?dataQuery:BACKENDLESS_DATA_QUERY];
+    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_COUNT args:args];
+}
+
 // async methods with responder
 
 -(void)describe:(NSString *)classCanonicalName responder:(id <IResponder>)responder {
@@ -1947,6 +2003,24 @@ id result = nil;
     [backendlessCache invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_CALL_STORED_PROCEDURE args:args responder:responder];
 }
 
+-(void)getObjectCount:(Class)entity responder:(id <IResponder>)responder {
+    
+    if (!entity)
+        return [responder errorHandler:FAULT_NO_ENTITY];
+    
+    NSArray *args = @[[self typeClassName:entity]];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_COUNT args:args responder:responder];
+}
+
+-(void)getObjectCount:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery responder:(id <IResponder>)responder {
+    
+    if (!entity)
+        return [responder errorHandler:FAULT_NO_ENTITY];
+    
+    NSArray *args = @[[self typeClassName:entity], dataQuery?dataQuery:BACKENDLESS_DATA_QUERY];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_COUNT args:args responder:responder];
+}
+
 // async methods with block-base callbacks
 
 -(void)describe:(NSString *)classCanonicalName response:(void(^)(NSArray<ObjectProperty*> *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -2070,6 +2144,14 @@ id result = nil;
 
 -(void)callStoredProcedure:(NSString *)spName arguments:(NSDictionary *)arguments response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self callStoredProcedure:spName arguments:arguments responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+
+-(void)getObjectCount:(Class)entity response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self getObjectCount:entity responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+
+-(void)getObjectCount:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self getObjectCount:entity dataQuery:dataQuery responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 // IDataStore class factory

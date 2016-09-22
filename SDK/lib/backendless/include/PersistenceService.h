@@ -65,6 +65,8 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(id)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery;
 -(BackendlessCollection *)getView:(NSString *)viewName dataQuery:(BackendlessDataQuery *)dataQuery;
 -(BackendlessCollection *)callStoredProcedure:(NSString *)spName arguments:(NSDictionary *)arguments;
+-(NSNumber *)getObjectCount:(Class)entity;
+-(NSNumber *)getObjectCount:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery;
 
 // sync methods with fault option
 -(NSArray<ObjectProperty*> *)describe:(NSString *)classCanonicalName error:(Fault **)fault;
@@ -95,6 +97,8 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(BackendlessCollection *)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault;
 -(BackendlessCollection *)getView:(NSString *)viewName dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault;
 -(BackendlessCollection *)callStoredProcedure:(NSString *)spName arguments:(NSDictionary *)arguments error:(Fault **)fault;
+-(NSNumber *)getObjectCount:(Class)entity error:(Fault **)fault;
+-(NSNumber *)getObjectCount:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault;
 
 // async methods with responder
 -(void)describe:(NSString *)classCanonicalName responder:(id <IResponder>)responder;
@@ -125,6 +129,8 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(void)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery responder:(id <IResponder>)responder;
 -(void)getView:(NSString *)viewName dataQuery:(BackendlessDataQuery *)dataQuery responder:(id <IResponder>)responder;
 -(void)callStoredProcedure:(NSString *)spName arguments:(NSDictionary *)arguments responder:(id <IResponder>)responder;
+-(void)getObjectCount:(Class)entity responder:(id <IResponder>)responder;
+-(void)getObjectCount:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery responder:(id <IResponder>)responder;
 
 // async methods with block-based callbacks
 -(void)describe:(NSString *)classCanonicalName response:(void(^)(NSArray<ObjectProperty*> *))responseBlock error:(void(^)(Fault *))errorBlock;
@@ -155,6 +161,8 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(void)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getView:(NSString *)viewName dataQuery:(BackendlessDataQuery *)dataQuery response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)callStoredProcedure:(NSString *)spName arguments:(NSDictionary *)arguments response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)getObjectCount:(Class)entity response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)getObjectCount:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 
 // IDataStore class factory
 -(id <IDataStore>)of:(Class)entityClass;
