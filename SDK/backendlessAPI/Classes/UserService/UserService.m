@@ -1133,6 +1133,18 @@ id result = nil;
     if (!json) {
         json = [absoluteString stringByReplacingPercentEscapesUsingEncoding:NSISOLatin1StringEncoding];
     }
+    
+#if 1 // http://bugs.backendless.com/browse/BKNDLSS-13234
+    NSString *substr;
+    NSUInteger index = json?json.length:0;
+    while (index) {
+        substr = [json substringFromIndex:--index];
+        if ([substr isEqualToString:@"}"])
+            break;
+        json = [json substringToIndex:index];
+    };
+#endif
+    
     if (!json) {
         [DebLog logY:@"UserService -> handleOpenURL: JSON IS BROKEN"];
         return nil;
