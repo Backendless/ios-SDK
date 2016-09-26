@@ -84,12 +84,9 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 #endif
         
         _hostURL = [BACKENDLESS_HOST_URL retain];
-        
+        _appID = nil;
+        _secretKey = nil;
         _headers = [NSMutableDictionary new];
-#if 0
-        [_headers setValue:APP_TYPE forKey:APP_TYPE_HEADER_KEY];
-        [_headers setValue:API_VERSION forKey:API_VERSION_HEADER_KEY];
-#endif
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kBEReachabilityChangedNotification object:nil];
         
@@ -299,10 +296,11 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 
 -(void)setHostUrl:(NSString *)hostURL {
     
-    if ([self.hostURL isEqualToString:hostURL])
+    if ([_hostURL isEqualToString:hostURL])
         return;
     
-    self.hostURL = hostURL;
+    [_hostURL release];
+    _hostURL = [hostURL retain];
     [invoker setup];
 }
 
@@ -312,10 +310,11 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 
 -(void)setAppId:(NSString *)appID {
     
-    if ([self.appID isEqualToString:appID])
+    if ([_appID isEqualToString:appID])
         return;
     
-    self.appId = appID;
+    [_appID release];
+    _appID = [appID retain];
     [invoker setup];
 }
 
@@ -325,10 +324,11 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 
 -(void)setSecretKey:(NSString *)secretKey {
     
-    if ([self.secretKey isEqualToString:secretKey])
+    if ([_secretKey isEqualToString:secretKey])
         return;
     
-    self.secretKey = secretKey;
+    [_secretKey release];
+    _secretKey = [secretKey retain];
     [invoker setup];
 }
 
@@ -348,10 +348,10 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     // get swift class prefix from caller class (usually AppDelegate)
     [__types makeSwiftClassPrefix:[NSThread callStackSymbols][1]];
     
-#if 0
-    [_headers setValue:applicationID forKey:APP_ID_HEADER_KEY];
-    [_headers setValue:secret forKey:SECRET_KEY_HEADER_KEY];
-#endif
+    [_appID release];
+    _appID = [applicationID retain];
+    [_secretKey release];
+    _secretKey = [secret retain];
     
     BOOL isStayLoggedIn = backendless.userService.isStayLoggedIn;
     
