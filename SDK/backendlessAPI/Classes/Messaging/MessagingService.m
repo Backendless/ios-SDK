@@ -167,7 +167,9 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
         
         self.pollingFrequencyMs = POLLING_INTERVAL;
         _subscriptions = [HashMap new];
+#if _OLD_NOTIFICATION_
         self.categories = nil;
+#endif
         
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.management.DeviceRegistrationDto" mapped:[DeviceRegistration class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.messaging.Message" mapped:[Message class]];
@@ -179,16 +181,17 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
         deviceRegistration = [DeviceRegistration new];
         
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-        
+
+#if _OLD_NOTIFICATION_
         // if >= iOS8
         if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
             self.notificationTypes = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
         }
-#if 0
         else {
             self.notificationTypes = UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound;
         }
 #endif
+        
         UIDevice *device = [UIDevice currentDevice];
 #if 1   // use generated UUID which is saved in keychain with bundleId as key
         NSString *deviceId = [self serialNumber];
@@ -218,7 +221,9 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     
     [deviceRegistration release];
     [self.subscriptions release];
+#if _OLD_NOTIFICATION_
     [self.categories release];
+#endif
 	
 	[super dealloc];
 }
@@ -1647,8 +1652,10 @@ id result = nil;
     // check if iOS8
     if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
         //UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+#if _OLD_NOTIFICATION_
         UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:self.notificationTypes categories:self.categories];
         [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+#endif
         [[UIApplication sharedApplication] registerForRemoteNotifications];
     }
 #if 0
