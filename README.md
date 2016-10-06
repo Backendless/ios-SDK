@@ -46,3 +46,9 @@ b. for other pods:
 To create a new project, follow the guide: 'getting-started'
 
 If you need to update your existing project to iOS 9.x, follow the guide: 'Update Project with Backendless SDK for iOS9'
+
+============= WHAT'S NEW? ============================================
+
+3.0.43:
+1. Support for emoji is added in PersisitenceSevrice (Data).
+
