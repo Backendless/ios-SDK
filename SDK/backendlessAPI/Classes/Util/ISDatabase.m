@@ -58,7 +58,8 @@
 
 - (id)initWithFileName: (NSString *)fileName 
 { 
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); 
+    // NSLibraryDirectory - http://support.backendless.com/topic/ios-setstayloggedin
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0]; 
 	
 	//NSLog(@"pathDB -> %@", documentsDirectory);
