@@ -625,13 +625,19 @@ id result = nil;
 #endif
     NSArray *args = [NSArray arrayWithObjects:props, nil];
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_REGISTER args:args];
+#if 1
+    return result;
+#else
     if ([result isKindOfClass:[Fault class]]) {
         return result;
     }
     
+    NSLog(@"$$$registering: result = %@", result);
+    
     [user assignProperties:result];
     
     return user;
+#endif
 }
 
 -(BackendlessUser *)update:(BackendlessUser *)user {
