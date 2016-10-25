@@ -187,9 +187,11 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
         if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
             self.notificationTypes = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
         }
+#if 0
         else {
             self.notificationTypes = UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound;
         }
+#endif
 #endif
         
         UIDevice *device = [UIDevice currentDevice];
