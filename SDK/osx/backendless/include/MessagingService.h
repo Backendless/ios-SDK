@@ -23,7 +23,7 @@
 #import "HashMap.h"
 #import "DeviceRegistration.h"
 
-#define _OLD_NOTIFICATION_ 1
+#define _OLD_NOTIFICATION_ 0
 
 #define MESSAGE_TAG @"message"
 
