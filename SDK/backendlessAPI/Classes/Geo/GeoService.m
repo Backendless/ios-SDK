@@ -45,6 +45,7 @@
 #define FAULT_GEO_POINT_ID_IS_NULL [Fault fault:@"Geo point ID is NULL" detail:@"Unable to operate with geo point. GeoPoint ID is NULL" faultCode:@"4900"]
 #define FAULT_GEO_FENCE_NAME_IS_NULL [Fault fault:@"Geo fence name is NULL"  detail:@"Unable to operate with geo fence. GeoFence is NULL" faultCode:@"4901"]
 #define FAULT_CALLBACK_IS_INVALID [Fault fault:@"Callback instance is not valid" detail:@"Callback instance is not valid" faultCode:@"4902"]
+#define FAULT_GEO_QUERY_IS_NULL [Fault fault:@"Geo query is NULL" detail:@"Unable to operate with geo query. GeoQuery is NULL" faultCode:@"4903"]
 
 // SERVICE NAME
 static NSString *SERVER_GEO_SERVICE_PATH = @"com.backendless.services.geo.GeoService";
@@ -64,6 +65,7 @@ static NSString *METHOD_RUN_ON_STAY_ACTION = @"runOnStayAction";
 static NSString *METHOD_RUN_ON_EXIT_ACTION = @"runOnExitAction";
 static NSString *METHOD_GET_FENCE = @"getFence";
 static NSString *METHOD_GET_FENCES = @"getFences";
+static NSString *METHOD_COUNT = @"count";
 
 @interface GeoService ()
 -(Fault *)isFaultAddCategoryName:(NSString *)categoryName responder:(id <IResponder>)responder;
@@ -591,6 +593,44 @@ id result = nil;
     }
 }
 
+
+-(NSNumber *)getGeopointCount:(BackendlessGeoQuery *)query error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self getGeopointCount:query];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+-(NSNumber *)getGeopointCount:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query error:(Fault **)fault {
+    
+    id result = nil;
+    @try {
+        result = [self getGeopointCount:geoFenceName query:query];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
+
 #endif
 
 // sync methods with fault return (as exception)
@@ -805,6 +845,28 @@ id result = nil;
     return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_RUN_ON_EXIT_ACTION args:args];
 }
 
+-(NSNumber *)getGeopointCount:(BackendlessGeoQuery *)query {
+    
+    if (!query)
+        return [backendless throwFault:FAULT_GEO_QUERY_IS_NULL];
+    
+    NSArray *args = @[query];
+    return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_COUNT args:args];
+
+}
+
+-(NSNumber *)getGeopointCount:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query {
+    
+    if (!geoFenceName || !geoFenceName.length)
+        return [backendless throwFault:FAULT_GEO_FENCE_NAME_IS_NULL];
+    if (!query)
+        return [backendless throwFault:FAULT_GEO_QUERY_IS_NULL];
+    
+    NSArray *args = @[geoFenceName, query];
+    return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_COUNT args:args];
+    
+}
+
 // async methods with responder
 
 -(void)addCategory:(NSString *)categoryName responder:(id <IResponder>)responder {
@@ -959,6 +1021,27 @@ id result = nil;
     [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_RUN_ON_EXIT_ACTION args:args responder:responder];
 }
 
+-(void)getGeopointCount:(BackendlessGeoQuery *)query responder:(id <IResponder>)responder {
+    
+    if (!query)
+        return [responder errorHandler:FAULT_GEO_QUERY_IS_NULL];
+    
+    NSArray *args = @[query];
+    [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_COUNT args:args responder:responder];
+}
+
+-(void)getGeopointCount:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query responder:(id <IResponder>)responder {
+    
+    if (!geoFenceName || !geoFenceName.length)
+        return [responder errorHandler:FAULT_GEO_FENCE_NAME_IS_NULL];
+    
+    if (!query)
+        return [responder errorHandler:FAULT_GEO_QUERY_IS_NULL];
+    
+    NSArray *args = @[geoFenceName, query];
+    [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_COUNT args:args responder:responder];
+}
+
 // async methods with block-based callbacks
 
 -(void)addCategory:(NSString *)categoryName response:(void(^)(GeoCategory *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -1027,6 +1110,14 @@ id result = nil;
 
 -(void)runOnExitAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self runOnExitAction:geoFenceName geoPoint:geoPoint responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+
+-(void)getGeopointCount:(BackendlessGeoQuery *)query response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self getGeopointCount:query responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+
+-(void)getGeopointCount:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self getGeopointCount:geoFenceName query:query responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 // utilites

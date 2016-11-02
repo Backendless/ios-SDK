@@ -56,6 +56,8 @@ typedef struct {
 -(id)runOnStayAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint;
 -(id)runOnExitAction:(NSString *)geoFenceName;
 -(id)runOnExitAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint;
+-(NSNumber *)getGeopointCount:(BackendlessGeoQuery *)query;
+-(NSNumber *)getGeopointCount:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query;
 
 // sync methods with fault option
 -(GeoCategory *)addCategory:(NSString *)categoryName error:(Fault **)fault;
@@ -75,6 +77,8 @@ typedef struct {
 -(BOOL)runOnStayAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint error:(Fault **)fault;
 -(BOOL)runOnExitAction:(NSString *)geoFenceName error:(Fault **)fault;
 -(BOOL)runOnExitAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint error:(Fault **)fault;
+-(NSNumber *)getGeopointCount:(BackendlessGeoQuery *)query error:(Fault **)fault;
+-(NSNumber *)getGeopointCount:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query error:(Fault **)fault;
 
 // async methods with responder
 -(void)addCategory:(NSString *)categoryName responder:(id <IResponder>)responder;
@@ -94,6 +98,8 @@ typedef struct {
 -(void)runOnStayAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint responder:(id<IResponder>)responder;
 -(void)runOnExitAction:(NSString *)geoFenceName responder:(id<IResponder>)responder;
 -(void)runOnExitAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint responder:(id<IResponder>)responder;
+-(void)getGeopointCount:(BackendlessGeoQuery *)query responder:(id <IResponder>)responder;
+-(void)getGeopointCount:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query responder:(id <IResponder>)responder;
 
 // async methods with block-based callbacks
 -(void)addCategory:(NSString *)categoryName response:(void(^)(GeoCategory *))responseBlock error:(void(^)(Fault *))errorBlock;
@@ -113,7 +119,8 @@ typedef struct {
 -(void)runOnStayAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)runOnExitAction:(NSString *)geoFenceName response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)runOnExitAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
-
+-(void)getGeopointCount:(BackendlessGeoQuery *)query response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)getGeopointCount:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 // utilites
 -(GEO_RECT)geoRectangle:(GEO_POINT)center length:(double)length widht:(double)widht;
 
