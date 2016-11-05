@@ -24,15 +24,19 @@
 #import "QueryOptions.h"
 #import "BackendlessCachePolicy.h"
 
+#define DEFAULT_PAGE_SIZE 10
+#define DEFAULT_OFFSET 0
+
 @implementation BackendlessDataQuery
 
 -(id)init {
 	if ( (self=[super init]) ) {
         
+        self.pageSize = @(DEFAULT_PAGE_SIZE);
+        self.offset = @(DEFAULT_OFFSET);
         self.properties = nil;
         self.whereClause = nil;
         self.queryOptions = [QueryOptions query];
-        self.cachePolicy = nil;
 	}
 	
 	return self;
@@ -42,10 +46,11 @@
 	
     if ( (self=[super init]) ) {
         
+        self.pageSize = @(DEFAULT_PAGE_SIZE);
+        self.offset = @(DEFAULT_OFFSET);
         self.properties = properties;
         self.whereClause = whereClause;
         self.queryOptions = queryOptions;
-        self.cachePolicy = nil;
 	}
 	
 	return self;
@@ -63,10 +68,11 @@
 	
 	[DebLog logN:@"DEALLOC BackendlessDataQuery: %@", self];
     
+    [self.pageSize release];
+    [self.offset release];
     [self.properties release];
     [self.whereClause release];
     [self.queryOptions release];
-	[self.cachePolicy release];
 	
     [super dealloc];
 }
@@ -75,26 +81,7 @@
 #pragma mark Public Methods
 
 -(NSString *)description {
-    return [NSString stringWithFormat:@"<BackendlessDataQuery> -> properties: %@, whereClause: %@, queryOptions: %@", self.properties, self.whereClause, self.queryOptions];
-}
-
--(BOOL)isEqualToQuery:(BackendlessDataQuery *)query {
-    
-    if (self.queryOptions && query.queryOptions) {
-        if (![self.queryOptions isEqualToQuery:query.queryOptions]) {
-            return NO;
-        }
-    }
-
-    if (![[NSSet setWithArray:self.properties] isEqualToSet:[NSSet setWithArray:query.properties]]) {
-        return NO;
-    }
-    if (![self.whereClause isEqualToString:query.whereClause]) {
-        if ((self.whereClause.length != 0) || (query.whereClause.length != 0)) {
-            return NO;
-        }
-    }
-    return YES;
+    return [NSString stringWithFormat:@"<BackendlessDataQuery> -> pageSize: %@, offset: %@ properties: %@, whereClause: %@, queryOptions: %@", self.pageSize, self.offset, self.properties, self.whereClause, self.queryOptions];
 }
 
 #pragma mark -
@@ -103,10 +90,11 @@
 -(id)copyWithZone:(NSZone *)zone {
     
     BackendlessDataQuery *query = [BackendlessDataQuery query];
+    query.pageSize = _pageSize.copy;
+    query.offset = _offset.copy;
     query.properties = _properties.copy;
     query.whereClause = _whereClause.copy;
     query.queryOptions = _queryOptions.copy;
-    query.cachePolicy = _cachePolicy.copy;
     return query;
 }
 

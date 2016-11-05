@@ -21,46 +21,25 @@
 
 #import "QueryOptions.h"
 #import "DEBUG.h"
+#import "Types.h"
 
 @implementation QueryOptions
-@synthesize pageSize, offset, sortBy, related, relationsDepth;
 
 -(id)init {
 	if ( (self=[super init]) ) {
-        pageSize = [[NSNumber alloc] initWithInt:100];
-        offset = [[NSNumber alloc] initWithInt:0];
 #if 0 // http://bugs.backendless.com/browse/BKNDLSS-13002
-        sortBy = nil;
+        self.sortBy = nil;
 #else
-        self.sortBy = @[@"objectId"];
+        self.sortBy = [[NSMutableArray alloc] initWithArray:@[@"objectId"]];
 #endif
-        related = [[NSMutableArray alloc] init];
+        self.related = nil;
 	}
 	
 	return self;
 }
 
--(id)initWithPageSize:(int)_pageSize offset:(int)_offset {
-	if ( (self=[super init]) ) {
-        pageSize = [[NSNumber alloc] initWithInt:_pageSize];
-        offset = [[NSNumber alloc] initWithInt:_offset];
-#if 0 // http://bugs.backendless.com/browse/BKNDLSS-13002
-        sortBy = nil;
-#else
-        self.sortBy = @[@"objectId"];
-#endif
-        related = [[NSMutableArray alloc] init];
-	}
-	
-	return self;
-}
-
-+(id)query {
++(instancetype)query {
     return [[QueryOptions new] autorelease];
-}
-
-+(id)query:(int)_pageSize offset:(int)_offset {
-    return [[[QueryOptions alloc] initWithPageSize:_pageSize offset:_offset] autorelease];
 }
 
 
@@ -68,10 +47,8 @@
 	
 	[DebLog logN:@"DEALLOC QueryOptions"];
     
-    [pageSize release];
-    [offset release];
-    [sortBy release];
-    [related release];
+    [self.sortBy release];
+    [self.related release];
 	
 	[super dealloc];
 }
@@ -79,76 +56,38 @@
 #pragma mark -
 #pragma mark Public Methods
 
--(QueryOptions *)pageSize:(int)_pageSize {
-    if (pageSize) [pageSize release];
-    pageSize = [[NSNumber alloc] initWithInt:_pageSize];
-    return self;
-}
-
--(QueryOptions *)offset:(int)_offset {
-    if (offset) [offset release];
-    offset = [[NSNumber alloc] initWithInt:_offset];
-    return self;
-}
-
--(QueryOptions *)sortBy:(NSArray *)_sortBy {
-    if (sortBy) [sortBy release];
-    sortBy = [_sortBy retain];
-    return self;
-}
-
--(QueryOptions *)related:(NSArray *)_related {
-    if (related) [related release];
-    related = [[NSMutableArray alloc] initWithArray:_related];
-    return self;
-}
-
--(BOOL)addRelated:(NSString *)_related {
-    [related addObject:_related];
+-(BOOL)addSortByOption:(NSString *)sortBy {
+    
+    if (!sortBy || !sortBy.length)
+        return NO;
+    
+    if (!self.sortBy) self.sortBy = [NSMutableArray new];
+    [self.sortBy addObject:sortBy];
     return YES;
 }
 
--(NSDictionary *)getQuery {
+-(BOOL)addRelated:(NSString *)related {
     
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    if (pageSize) [dict setValue:pageSize forKey:@"pageSize"];
-    if (offset) [dict setValue:offset forKey:@"offset"];
-    if (sortBy) [dict setValue:sortBy forKey:@"sortBy"];
-    if (related) [dict setValue:related forKey:@"related"];
-    if (relationsDepth) [dict setValue:relationsDepth forKey:@"relationsDepth"];
+    if (!related || !related.length)
+        return NO;
     
-    return dict;
+    if (!self.related) self.related = [NSMutableArray new];
+    [self.related addObject:related];
+    return YES;
 }
 
--(BOOL)isEqualToQuery:(QueryOptions *)query {
+-(QueryOptions *)newInstanse {
     
-    if (![self.pageSize isEqualToNumber:query.pageSize]) {
-        return NO;
-    }
+    QueryOptions *query = [QueryOptions query];
+    query.relationsDepth = self.relationsDepth.copy;
+    query.sortBy = self.sortBy.copy;
+    query.related = self.related.copy;
     
-    if (![self.offset isEqualToNumber:query.offset]) {
-        return NO;
-    }
-    
-    if (![self.related isEqualToArray:query.related]) {
-        return NO;
-    }
-    
-    if (![self.sortBy isEqualToArray:query.sortBy]) {
-        if ((self.sortBy.count !=0) || (query.sortBy.count != 0)) {
-            return NO;
-        }
-    }
-    
-    if (![self.relationsDepth isEqualToNumber:query.relationsDepth]) {
-        return NO;
-    }
-
-    return YES;
+    return query;    
 }
 
 -(NSString *)description {
-    return [NSString stringWithFormat:@"<QueryOptions> -> %@", [self getQuery]];
+    return [NSString stringWithFormat:@"<QueryOptions> -> %@", [Types propertyDictionary:self]];
 }
 
 #pragma mark -
@@ -157,11 +96,9 @@
 -(id)copyWithZone:(NSZone *)zone {
     
     QueryOptions *query = [QueryOptions query];
-    query.pageSize = pageSize.copy;
-    query.offset = offset.copy;
-    query.relationsDepth = relationsDepth.copy;
-    query.sortBy = sortBy.copy;
-    query.related = related.copy;
+    query.relationsDepth = self.relationsDepth.copy;
+    query.sortBy = self.sortBy.copy;
+    query.related = self.related.copy;
     
     return query;
 }

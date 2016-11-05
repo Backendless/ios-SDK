@@ -28,10 +28,11 @@
 
 @interface BackendlessDataQuery : NSObject <NSCopying>
 
+@property (strong, nonatomic) NSNumber *pageSize;
+@property (strong, nonatomic) NSNumber *offset;
 @property (strong, nonatomic) NSArray *properties;
 @property (strong, nonatomic) NSString *whereClause;
 @property (strong, nonatomic) QueryOptions *queryOptions;
-@property (strong, nonatomic) BackendlessCachePolicy *cachePolicy;
 
 -(id)init:(NSArray *)properties where:(NSString *)whereClause query:(QueryOptions *)queryOptions;
 +(id)query;
