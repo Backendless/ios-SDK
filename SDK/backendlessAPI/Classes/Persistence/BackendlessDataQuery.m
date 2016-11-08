@@ -29,11 +29,11 @@
 
 @implementation BackendlessDataQuery
 
--(id)init {
+-(instancetype)init {
 	if ( (self=[super init]) ) {
         
-        self.pageSize = @(DEFAULT_PAGE_SIZE);
-        self.offset = @(DEFAULT_OFFSET);
+        pageSize = DEFAULT_PAGE_SIZE;
+        offset = DEFAULT_OFFSET;
         self.properties = nil;
         self.whereClause = nil;
         self.queryOptions = [QueryOptions query];
@@ -42,13 +42,14 @@
 	return self;
 }
 
--(id)init:(NSArray *)properties where:(NSString *)whereClause query:(QueryOptions *)queryOptions {
+-(instancetype)init:(NSArray *)properties where:(NSString *)whereClause query:(QueryOptions *)queryOptions {
 	
     if ( (self=[super init]) ) {
         
-        self.pageSize = @(DEFAULT_PAGE_SIZE);
-        self.offset = @(DEFAULT_OFFSET);
-        self.properties = properties;
+        pageSize = DEFAULT_PAGE_SIZE;
+        offset = DEFAULT_OFFSET;
+        //self.properties = properties;
+        self.properties = [[NSMutableArray alloc] initWithArray:properties];
         self.whereClause = whereClause;
         self.queryOptions = queryOptions;
 	}
@@ -56,11 +57,11 @@
 	return self;
 }
 
-+(id)query {
++(instancetype)query {
     return [[BackendlessDataQuery new] autorelease];
 }
 
-+(id)query:(NSArray *)properties where:(NSString *)whereClause query:(QueryOptions *)queryOptions {
++(instancetype)query:(NSArray *)properties where:(NSString *)whereClause query:(QueryOptions *)queryOptions {
     return [[[BackendlessDataQuery alloc] init:properties where:whereClause query:queryOptions] autorelease];
 }
 
@@ -68,8 +69,6 @@
 	
 	[DebLog logN:@"DEALLOC BackendlessDataQuery: %@", self];
     
-    [self.pageSize release];
-    [self.offset release];
     [self.properties release];
     [self.whereClause release];
     [self.queryOptions release];
@@ -78,7 +77,50 @@
 }
 
 #pragma mark -
+#pragma mark getters / setters
+
+-(NSNumber *)pageSize {
+    //[DebLog logY:@" ------ pageSize"];
+    return @(pageSize);
+}
+
+-(void)setPageSize:(NSNumber *)_pageSize {
+    //[DebLog logY:@" ------ setPageSize"];
+    pageSize = [_pageSize intValue];
+}
+
+-(NSNumber *)offset {
+    //[DebLog logY:@" ------ offset"];
+    return @(offset);
+}
+
+-(void)setOffset:(NSNumber *)_offset {
+    //[DebLog logY:@" ------ setOffset"];
+    offset = [_offset intValue];
+}
+
+#pragma mark -
 #pragma mark Public Methods
+
+-(BOOL)addProperty:(NSString *)property {
+    
+    if (!property || !property.length)
+        return NO;
+    
+    if (!self.properties) self.properties = [NSMutableArray new];
+    [self.properties addObject:property];
+    return YES;
+}
+
+
+-(void)prepareForNextPage {
+    offset += pageSize;
+}
+
+-(void)prepareForPreviousPage {
+    offset -= pageSize;
+}
+
 
 -(NSString *)description {
     return [NSString stringWithFormat:@"<BackendlessDataQuery> -> pageSize: %@, offset: %@ properties: %@, whereClause: %@, queryOptions: %@", self.pageSize, self.offset, self.properties, self.whereClause, self.queryOptions];
@@ -90,11 +132,11 @@
 -(id)copyWithZone:(NSZone *)zone {
     
     BackendlessDataQuery *query = [BackendlessDataQuery query];
-    query.pageSize = _pageSize.copy;
-    query.offset = _offset.copy;
-    query.properties = _properties.copy;
-    query.whereClause = _whereClause.copy;
-    query.queryOptions = _queryOptions.copy;
+    query.pageSize = self.pageSize.copy;
+    query.offset = self.offset.copy;
+    query.properties = self.properties.copy;
+    query.whereClause = self.whereClause.copy;
+    query.queryOptions = self.queryOptions.copy;
     return query;
 }
 

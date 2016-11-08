@@ -2615,7 +2615,7 @@ id get_object_id(id self, SEL _cmd)
     
     if (collection) {
         collection.query = query;
-        [collection pageSize:query.queryOptions.pageSize.integerValue];
+        //*[collection pageSize:query.queryOptions.pageSize.integerValue];
     }
     
     [DebLog logN:@"PersistenceService -> getAsCollection: %@ -> \n%@", data, collection];

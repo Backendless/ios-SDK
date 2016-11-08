@@ -185,6 +185,7 @@
 #if 0
             dataQuery.queryOptions = [QueryOptions query:(int)_pageSize offset:(int)_offset];
 #else
+            /*_____________
             if (dataQuery.queryOptions) {
                 dataQuery.queryOptions.pageSize = @(_pageSize);
                 dataQuery.queryOptions.offset = @(_offset);
@@ -193,6 +194,7 @@
             else {
                 dataQuery.queryOptions = [QueryOptions query:(int)_pageSize offset:(int)_offset];
             }
+             */
 #endif
             id response = [backendless.persistenceService find:type dataQuery:dataQuery];
             return [response isKindOfClass:[Fault class]] ? response : ((BackendlessCollection *)response).data;
@@ -225,6 +227,7 @@
 #if 0
             dataQuery.queryOptions = [QueryOptions query:(int)_pageSize offset:(int)_offset];
 #else
+            /*_____________________
             if (dataQuery.queryOptions) {
                 dataQuery.queryOptions.pageSize = @(_pageSize);
                 dataQuery.queryOptions.offset = @(_offset);
@@ -233,6 +236,7 @@
             else {
                 dataQuery.queryOptions = [QueryOptions query:(int)_pageSize offset:(int)_offset];
             }
+             */
 #endif
             [backendless.persistenceService find:type dataQuery:dataQuery responder:responder];
             return;

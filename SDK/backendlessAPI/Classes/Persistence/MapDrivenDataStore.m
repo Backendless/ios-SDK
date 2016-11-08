@@ -129,8 +129,7 @@ static NSString *_METHOD_LOAD = @"loadRelations";
         return [backendless throwFault:FAULT_NO_ENTITY];
     
     NSArray *args = @[_tableName, entity];
-    id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_REMOVE args:args];
-    return [result isKindOfClass:NSDictionary.class]?result:[Types propertyDictionary:result];
+    return [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_REMOVE args:args];
 }
 
 -(BackendlessCollection *)find {
@@ -145,7 +144,7 @@ static NSString *_METHOD_LOAD = @"loadRelations";
         return result;
     
     BackendlessCollection *bc = (BackendlessCollection *)result;
-    [bc pageSize:dataQuery.queryOptions.pageSize.integerValue];
+    //*[bc pageSize:dataQuery.queryOptions.pageSize.integerValue];
     bc.query = dataQuery;
     bc.tableName = _tableName;
     return [self fixClassCollection:bc];
@@ -699,7 +698,7 @@ id result = nil;
     
     BackendlessCollection *bc = response.response;
     BackendlessDataQuery *dataQuery = response.context;
-    [bc pageSize:dataQuery.queryOptions.pageSize.integerValue];
+    //*[bc pageSize:dataQuery.queryOptions.pageSize.integerValue];
     bc.query = dataQuery;
     bc.tableName = _tableName;
     return [self fixClassCollection:bc];

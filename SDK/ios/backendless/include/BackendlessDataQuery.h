@@ -26,15 +26,22 @@
 
 @class QueryOptions;
 
-@interface BackendlessDataQuery : NSObject <NSCopying>
+@interface BackendlessDataQuery : NSObject <NSCopying> {
+    int offset;
+    int pageSize;
+}
 
-@property (strong, nonatomic) NSArray *properties;
+@property (strong, nonatomic) NSNumber *pageSize;
+@property (strong, nonatomic) NSNumber *offset;
+@property (strong, nonatomic) NSMutableArray<NSString*> *properties;
 @property (strong, nonatomic) NSString *whereClause;
 @property (strong, nonatomic) QueryOptions *queryOptions;
-@property (strong, nonatomic) BackendlessCachePolicy *cachePolicy;
 
--(id)init:(NSArray *)properties where:(NSString *)whereClause query:(QueryOptions *)queryOptions;
-+(id)query;
-+(id)query:(NSArray *)properties where:(NSString *)whereClause query:(QueryOptions *)queryOptions;
+-(instancetype)init:(NSArray *)properties where:(NSString *)whereClause query:(QueryOptions *)queryOptions;
++(instancetype)query;
++(instancetype)query:(NSArray *)properties where:(NSString *)whereClause query:(QueryOptions *)queryOptions;
+
+-(void)prepareForNextPage;
+-(void)prepareForPreviousPage;
 
 @end
