@@ -134,7 +134,7 @@
     BackendlessDataQuery *query = [BackendlessDataQuery query];
     query.pageSize = self.pageSize.copy;
     query.offset = self.offset.copy;
-    query.properties = self.properties.copy;
+    query.properties = self.properties.mutableCopy;
     query.whereClause = self.whereClause.copy;
     query.queryOptions = self.queryOptions.copy;
     return query;

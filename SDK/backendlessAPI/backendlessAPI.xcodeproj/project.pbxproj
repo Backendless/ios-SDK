@@ -325,6 +325,36 @@
 		F9512974168DCFFF0041460C /* MediaPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F9512970168DCFFF0041460C /* MediaPlayer.m */; };
 		F9512979168DEA210041460C /* IMediaStreamer.h in Headers */ = {isa = PBXBuildFile; fileRef = F9512978168DEA210041460C /* IMediaStreamer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F951297A168DEA210041460C /* IMediaStreamer.h in Headers */ = {isa = PBXBuildFile; fileRef = F9512978168DEA210041460C /* IMediaStreamer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F96B1C601DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C5E1DD3A23C00A4B362 /* PagedQueryBuilder.h */; };
+		F96B1C611DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C5E1DD3A23C00A4B362 /* PagedQueryBuilder.h */; };
+		F96B1C621DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C5E1DD3A23C00A4B362 /* PagedQueryBuilder.h */; };
+		F96B1C631DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C5E1DD3A23C00A4B362 /* PagedQueryBuilder.h */; };
+		F96B1C641DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C5E1DD3A23C00A4B362 /* PagedQueryBuilder.h */; };
+		F96B1C651DD3A23C00A4B362 /* PagedQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C5F1DD3A23C00A4B362 /* PagedQueryBuilder.m */; };
+		F96B1C661DD3A23C00A4B362 /* PagedQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C5F1DD3A23C00A4B362 /* PagedQueryBuilder.m */; };
+		F96B1C671DD3A23C00A4B362 /* PagedQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C5F1DD3A23C00A4B362 /* PagedQueryBuilder.m */; };
+		F96B1C681DD3A23C00A4B362 /* PagedQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C5F1DD3A23C00A4B362 /* PagedQueryBuilder.m */; };
+		F96B1C691DD3A23D00A4B362 /* PagedQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C5F1DD3A23C00A4B362 /* PagedQueryBuilder.m */; };
+		F96B1C6C1DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C6A1DD3B6CA00A4B362 /* QueryOptionsBuilder.h */; };
+		F96B1C6D1DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C6A1DD3B6CA00A4B362 /* QueryOptionsBuilder.h */; };
+		F96B1C6E1DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C6A1DD3B6CA00A4B362 /* QueryOptionsBuilder.h */; };
+		F96B1C6F1DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C6A1DD3B6CA00A4B362 /* QueryOptionsBuilder.h */; };
+		F96B1C701DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C6A1DD3B6CA00A4B362 /* QueryOptionsBuilder.h */; };
+		F96B1C711DD3B6CA00A4B362 /* QueryOptionsBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C6B1DD3B6CA00A4B362 /* QueryOptionsBuilder.m */; };
+		F96B1C721DD3B6CA00A4B362 /* QueryOptionsBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C6B1DD3B6CA00A4B362 /* QueryOptionsBuilder.m */; };
+		F96B1C731DD3B6CA00A4B362 /* QueryOptionsBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C6B1DD3B6CA00A4B362 /* QueryOptionsBuilder.m */; };
+		F96B1C741DD3B6CA00A4B362 /* QueryOptionsBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C6B1DD3B6CA00A4B362 /* QueryOptionsBuilder.m */; };
+		F96B1C751DD3B6CA00A4B362 /* QueryOptionsBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C6B1DD3B6CA00A4B362 /* QueryOptionsBuilder.m */; };
+		F96B1C7A1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C781DD4BF5F00A4B362 /* DataQueryBuilder.h */; };
+		F96B1C7B1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C781DD4BF5F00A4B362 /* DataQueryBuilder.h */; };
+		F96B1C7C1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C781DD4BF5F00A4B362 /* DataQueryBuilder.h */; };
+		F96B1C7D1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C781DD4BF5F00A4B362 /* DataQueryBuilder.h */; };
+		F96B1C7E1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C781DD4BF5F00A4B362 /* DataQueryBuilder.h */; };
+		F96B1C7F1DD4BF5F00A4B362 /* DataQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C791DD4BF5F00A4B362 /* DataQueryBuilder.m */; };
+		F96B1C801DD4BF5F00A4B362 /* DataQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C791DD4BF5F00A4B362 /* DataQueryBuilder.m */; };
+		F96B1C811DD4BF5F00A4B362 /* DataQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C791DD4BF5F00A4B362 /* DataQueryBuilder.m */; };
+		F96B1C821DD4BF5F00A4B362 /* DataQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C791DD4BF5F00A4B362 /* DataQueryBuilder.m */; };
+		F96B1C831DD4BF5F00A4B362 /* DataQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C791DD4BF5F00A4B362 /* DataQueryBuilder.m */; };
 		F97969E4166CC8C300595F5E /* backendless_simulator.m in Sources */ = {isa = PBXBuildFile; fileRef = F97969E3166CC8C300595F5E /* backendless_simulator.m */; };
 		F97969EA166CCB8200595F5E /* Backendless.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B47FF15FF569400012DFC /* Backendless.m */; };
 		F97969EB166CCB8200595F5E /* Invoker.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480215FF5AA900012DFC /* Invoker.m */; };
@@ -932,6 +962,12 @@
 		F951296F168DCFFF0041460C /* MediaPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaPlayer.h; sourceTree = "<group>"; };
 		F9512970168DCFFF0041460C /* MediaPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaPlayer.m; sourceTree = "<group>"; };
 		F9512978168DEA210041460C /* IMediaStreamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMediaStreamer.h; sourceTree = "<group>"; };
+		F96B1C5E1DD3A23C00A4B362 /* PagedQueryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagedQueryBuilder.h; sourceTree = "<group>"; };
+		F96B1C5F1DD3A23C00A4B362 /* PagedQueryBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PagedQueryBuilder.m; sourceTree = "<group>"; };
+		F96B1C6A1DD3B6CA00A4B362 /* QueryOptionsBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryOptionsBuilder.h; sourceTree = "<group>"; };
+		F96B1C6B1DD3B6CA00A4B362 /* QueryOptionsBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryOptionsBuilder.m; sourceTree = "<group>"; };
+		F96B1C781DD4BF5F00A4B362 /* DataQueryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataQueryBuilder.h; sourceTree = "<group>"; };
+		F96B1C791DD4BF5F00A4B362 /* DataQueryBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataQueryBuilder.m; sourceTree = "<group>"; };
 		F97969DC166CC8C300595F5E /* libbackendless-simulator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libbackendless-simulator.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F97969E0166CC8C300595F5E /* backendless-simulator-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "backendless-simulator-Prefix.pch"; sourceTree = "<group>"; };
 		F97969E1166CC8C300595F5E /* backendless_simulator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = backendless_simulator.h; sourceTree = "<group>"; };
@@ -1849,6 +1885,12 @@
 				F99D92241607240C00AFF3F6 /* DataStoreFactory.m */,
 				F99A74951D4A0CAB001AF91F /* MapDrivenDataStore.h */,
 				F99A74961D4A0CAB001AF91F /* MapDrivenDataStore.m */,
+				F96B1C5E1DD3A23C00A4B362 /* PagedQueryBuilder.h */,
+				F96B1C5F1DD3A23C00A4B362 /* PagedQueryBuilder.m */,
+				F96B1C6A1DD3B6CA00A4B362 /* QueryOptionsBuilder.h */,
+				F96B1C6B1DD3B6CA00A4B362 /* QueryOptionsBuilder.m */,
+				F96B1C781DD4BF5F00A4B362 /* DataQueryBuilder.h */,
+				F96B1C791DD4BF5F00A4B362 /* DataQueryBuilder.m */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
@@ -2589,6 +2631,7 @@
 				D35CA5311A668AC600F500B0 /* FilePermission.h in Headers */,
 				1C7BB4F21A2E092900D3C2C1 /* BESubscription.h in Headers */,
 				1C7BB4F31A2E092900D3C2C1 /* Message.h in Headers */,
+				F96B1C6C1DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */,
 				1C7BB4F51A2E092900D3C2C1 /* MessageStatus.h in Headers */,
 				1C7BB4C91A2E092900D3C2C1 /* OfflineModeManager.h in Headers */,
 				D3A064C81AFCE69D00779BB1 /* GeoFenceMonitoring.h in Headers */,
@@ -2605,6 +2648,7 @@
 				D30FC9B11AE132C2007C9A83 /* LogBuffer.h in Headers */,
 				1C7BB5071A2E092900D3C2C1 /* Invoker.h in Headers */,
 				1C7BB5081A2E092900D3C2C1 /* BackendlessCache.h in Headers */,
+				F96B1C7A1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */,
 				1C7BB5091A2E092900D3C2C1 /* BackendlessCacheData.h in Headers */,
 				1C7BB50A1A2E092900D3C2C1 /* BackendlessCacheKey.h in Headers */,
 				1C7BB4F61A2E092900D3C2C1 /* FileService.h in Headers */,
@@ -2612,6 +2656,7 @@
 				1C7BB4F81A2E092900D3C2C1 /* HashMap.h in Headers */,
 				1C7BB4F91A2E092900D3C2C1 /* MediaPublishOptions.h in Headers */,
 				1C7BB4FA1A2E092900D3C2C1 /* MediaPlaybackOptions.h in Headers */,
+				F96B1C601DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */,
 				1C7BB4FC1A2E092900D3C2C1 /* MediaService.h in Headers */,
 				1C7BB4FD1A2E092900D3C2C1 /* MediaPublisher.h in Headers */,
 				1C7BB4FE1A2E092900D3C2C1 /* MediaPlayer.h in Headers */,
@@ -2639,6 +2684,7 @@
 				F9796A08166CCBFE00595F5E /* AbstractProperty.h in Headers */,
 				F9796A09166CCBFE00595F5E /* UserService.h in Headers */,
 				F9796A0A166CCBFE00595F5E /* BackendlessUser.h in Headers */,
+				F96B1C6D1DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */,
 				F9796A0B166CCBFE00595F5E /* UserProperty.h in Headers */,
 				F9796A0C166CCBFE00595F5E /* PersistenceService.h in Headers */,
 				F9796A0D166CCBFE00595F5E /* ObjectProperty.h in Headers */,
@@ -2672,6 +2718,7 @@
 				F9796A20166CCBFE00595F5E /* FileService.h in Headers */,
 				F9C7DE901B7CBF0300AFCD06 /* BEFileInfo.h in Headers */,
 				D35DC3421AD7E19800EF2A68 /* Logger.h in Headers */,
+				F96B1C7B1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */,
 				910117D4180C0CCF008102A7 /* BodyParts.h in Headers */,
 				D3A064A81AFA6E4A00779BB1 /* LocationTracker.h in Headers */,
 				F9F0ADE71CD80FF800035C62 /* Backendless-With-Media-Bridging-Header.h in Headers */,
@@ -2687,6 +2734,7 @@
 				D3A064B91AFCE61700779BB1 /* GeoMath.h in Headers */,
 				D30FC9B21AE132C2007C9A83 /* LogBuffer.h in Headers */,
 				D3A064D91B0242B900779BB1 /* ClientCallback.h in Headers */,
+				F96B1C611DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */,
 				F9D5234E1B25CEF800F6A441 /* ClassCastException.h in Headers */,
 				F9CB138F1BC53D2300F3CA1D /* BeaconTracker.h in Headers */,
 				F9B361041D663FF500818EEF /* KeychainDataStore.h in Headers */,
@@ -2732,6 +2780,7 @@
 				F9796A54166CD42E00595F5E /* AbstractProperty.h in Headers */,
 				F9796A55166CD42E00595F5E /* UserService.h in Headers */,
 				F9796A56166CD42E00595F5E /* BackendlessUser.h in Headers */,
+				F96B1C6E1DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */,
 				F9796A57166CD42E00595F5E /* UserProperty.h in Headers */,
 				F9796A58166CD42E00595F5E /* PersistenceService.h in Headers */,
 				F9796A59166CD42E00595F5E /* ObjectProperty.h in Headers */,
@@ -2765,6 +2814,7 @@
 				D35DC3431AD7E19800EF2A68 /* Logger.h in Headers */,
 				D30A5D7619B9CA8200C0BA44 /* Backendless-Bridging-Header.h in Headers */,
 				F9796A6C166CD42E00595F5E /* FileService.h in Headers */,
+				F96B1C7C1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */,
 				F9C7DE991B7CBFE600AFCD06 /* BackendlessSimpleQuery.h in Headers */,
 				D3A064E11B0243ED00779BB1 /* ICallback.h in Headers */,
 				F91AC57D1D58D07F00511EA5 /* MapDrivenDataStore.h in Headers */,
@@ -2780,6 +2830,7 @@
 				F9CB13901BC53D2300F3CA1D /* BeaconTracker.h in Headers */,
 				F9CB136D1BC284A900F3CA1D /* BeaconsInfo.h in Headers */,
 				D3A064BA1AFCE61700779BB1 /* GeoMath.h in Headers */,
+				F96B1C621DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */,
 				D30FC9B31AE132C2007C9A83 /* LogBuffer.h in Headers */,
 				D3A064DA1B0242B900779BB1 /* ClientCallback.h in Headers */,
 				F9D5234F1B25CEF800F6A441 /* ClassCastException.h in Headers */,
@@ -2861,6 +2912,7 @@
 				F91AC5771D58C68000511EA5 /* MapDrivenDataStore.h in Headers */,
 				F9F0AF0B1CDBCA3900035C62 /* BodyParts.h in Headers */,
 				F9F0AF0C1CDBCA3900035C62 /* LocationTracker.h in Headers */,
+				F96B1C6F1DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */,
 				F9F0AF0E1CDBCA3900035C62 /* BackendlessSimpleQuery.h in Headers */,
 				F9F0AF121CDBCA3900035C62 /* ProtectedBackendlessGeoQuery.h in Headers */,
 				F9F0AF131CDBCA3900035C62 /* Logging.h in Headers */,
@@ -2877,6 +2929,7 @@
 				F9F0AF211CDBCA3900035C62 /* ServerCallback.h in Headers */,
 				F9F0AF231CDBCA3900035C62 /* BEReachability.h in Headers */,
 				F9F0AF241CDBCA3900035C62 /* AuthorizationException.h in Headers */,
+				F96B1C7D1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */,
 				F9F0AF2B1CDBCA3900035C62 /* Invoker.h in Headers */,
 				F9F0AF2C1CDBCA3900035C62 /* BackendlessCache.h in Headers */,
 				F9F0AF2D1CDBCA3900035C62 /* BackendlessCacheData.h in Headers */,
@@ -2884,6 +2937,7 @@
 				F9F0AF321CDBCA3900035C62 /* OfflineModeManager.h in Headers */,
 				F9F0AF331CDBCA3900035C62 /* BeaconMonitoring.h in Headers */,
 				F9F0AF151CDBCA3900035C62 /* GeoCluster.h in Headers */,
+				F96B1C631DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */,
 				F9F0AF161CDBCA3900035C62 /* FilePermission.h in Headers */,
 				F9F0AF171CDBCA3900035C62 /* DataPermission.h in Headers */,
 				F9F0AF181CDBCA3900035C62 /* BackendlessFile.h in Headers */,
@@ -2947,6 +3001,7 @@
 				F9F0AFC71CDBCAB500035C62 /* BackendlessSimpleQuery.h in Headers */,
 				F9F0AFC81CDBCAB500035C62 /* ICallback.h in Headers */,
 				F9F0AFCA1CDBCAB500035C62 /* Logging.h in Headers */,
+				F96B1C701DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */,
 				F9F0AFCB1CDBCAB500035C62 /* LocationTracker.h in Headers */,
 				F9F0AFCC1CDBCAB500035C62 /* ProtectedBackendlessGeoQuery.h in Headers */,
 				F9F0AF921CDBCAB500035C62 /* BeaconTracker.h in Headers */,
@@ -2963,6 +3018,7 @@
 				F9F0AFDD1CDBCAB500035C62 /* BEReachability.h in Headers */,
 				F9F0AFDE1CDBCAB500035C62 /* AuthorizationException.h in Headers */,
 				F9F0AFE01CDBCAB500035C62 /* BeaconMonitoring.h in Headers */,
+				F96B1C7E1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */,
 				F9F0AFE61CDBCAB500035C62 /* Invoker.h in Headers */,
 				F9F0AFE71CDBCAB500035C62 /* BackendlessCache.h in Headers */,
 				F9F0AFE81CDBCAB500035C62 /* BackendlessCacheData.h in Headers */,
@@ -2970,6 +3026,7 @@
 				F9F0AFED1CDBCAB500035C62 /* OfflineModeManager.h in Headers */,
 				F9F0AFCD1CDBCAB500035C62 /* GeoFence.h in Headers */,
 				F9F0AFCE1CDBCAB500035C62 /* GeoCluster.h in Headers */,
+				F96B1C641DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */,
 				F9F0AFD01CDBCAB500035C62 /* DataPermission.h in Headers */,
 				F9F0AFD11CDBCAB500035C62 /* FilePermission.h in Headers */,
 				F9F0AFD21CDBCAB500035C62 /* BackendlessFile.h in Headers */,
@@ -3207,6 +3264,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F91AC5781D58CFA500511EA5 /* MapDrivenDataStore.m in Sources */,
+				F96B1C711DD3B6CA00A4B362 /* QueryOptionsBuilder.m in Sources */,
 				D35CA5321A668E1400F500B0 /* DataPermission.m in Sources */,
 				D35CA5331A668E1400F500B0 /* FilePermission.m in Sources */,
 				1C7BB4901A2E092900D3C2C1 /* Backendless.m in Sources */,
@@ -3231,6 +3289,7 @@
 				F9BE41C71B2ED98200CD0A72 /* AuthorizationException.m in Sources */,
 				1C7BB4A01A2E092900D3C2C1 /* GeoCategory.m in Sources */,
 				1C7BB4A11A2E092900D3C2C1 /* Events.m in Sources */,
+				F96B1C651DD3A23C00A4B362 /* PagedQueryBuilder.m in Sources */,
 				1C7BB4A21A2E092900D3C2C1 /* AtomicCounters.m in Sources */,
 				1C7BB4A31A2E092900D3C2C1 /* GeoPoint.m in Sources */,
 				1C7BB4A41A2E092900D3C2C1 /* BackendlessGeoQuery.m in Sources */,
@@ -3275,6 +3334,7 @@
 				1C7BB4BB1A2E092900D3C2C1 /* BackendlessCache.m in Sources */,
 				1C7BB4BC1A2E092900D3C2C1 /* BackendlessCacheData.m in Sources */,
 				1C7BB4BD1A2E092900D3C2C1 /* BackendlessCacheKey.m in Sources */,
+				F96B1C7F1DD4BF5F00A4B362 /* DataQueryBuilder.m in Sources */,
 				1C7BB4BE1A2E092900D3C2C1 /* CacheFactory.m in Sources */,
 				1C7BB4BF1A2E092900D3C2C1 /* BackendlessCachePolicy.m in Sources */,
 				1C7BB4C01A2E092900D3C2C1 /* QueryOptions.m in Sources */,
@@ -3311,6 +3371,7 @@
 				D3A064CC1AFCE69D00779BB1 /* GeoFenceMonitoring.m in Sources */,
 				D3A064AB1AFA6E4B00779BB1 /* LocationTracker.m in Sources */,
 				D3A064BC1AFCE61700779BB1 /* GeoMath.m in Sources */,
+				F96B1C801DD4BF5F00A4B362 /* DataQueryBuilder.m in Sources */,
 				F97969F6166CCB8200595F5E /* DataStoreFactory.m in Sources */,
 				D36CDDF419C99D5900C3FFE3 /* CustomService.m in Sources */,
 				F97969F7166CCB8200595F5E /* GeoService.m in Sources */,
@@ -3328,6 +3389,7 @@
 				F97969FF166CCB8200595F5E /* SubscriptionOptions.m in Sources */,
 				D316BA3B1A83C649007215CA /* ProtectedBackendlessGeoQuery.m in Sources */,
 				D3A064DC1B0242B900779BB1 /* ClientCallback.m in Sources */,
+				F96B1C661DD3A23C00A4B362 /* PagedQueryBuilder.m in Sources */,
 				91223DCE195AF6AB00F72F48 /* Events.m in Sources */,
 				F9796A00166CCB8200595F5E /* BESubscription.m in Sources */,
 				F9796A01166CCB8200595F5E /* Message.m in Sources */,
@@ -3357,6 +3419,7 @@
 				91F1399717D7240A00D1AC4C /* AbstractQuery.m in Sources */,
 				91F1399C17D7240A00D1AC4C /* BackendlessCache.m in Sources */,
 				F9CB138A1BC53CDD00F3CA1D /* Presence.m in Sources */,
+				F96B1C721DD3B6CA00A4B362 /* QueryOptionsBuilder.m in Sources */,
 				91F139A117D7240A00D1AC4C /* BackendlessCacheData.m in Sources */,
 				91F139A617D7240A00D1AC4C /* BackendlessCacheKey.m in Sources */,
 				91F139AB17D7240A00D1AC4C /* BackendlessCachePolicy.m in Sources */,
@@ -3396,6 +3459,7 @@
 				D3A064CD1AFCE69D00779BB1 /* GeoFenceMonitoring.m in Sources */,
 				D3A064AC1AFA6E4B00779BB1 /* LocationTracker.m in Sources */,
 				D3A064BD1AFCE61700779BB1 /* GeoMath.m in Sources */,
+				F96B1C811DD4BF5F00A4B362 /* DataQueryBuilder.m in Sources */,
 				F9796A40166CD3DA00595F5E /* DataStoreFactory.m in Sources */,
 				D36CDDF519C99D5900C3FFE3 /* CustomService.m in Sources */,
 				F9796A41166CD3DA00595F5E /* GeoService.m in Sources */,
@@ -3413,6 +3477,7 @@
 				F9796A49166CD3DB00595F5E /* SubscriptionOptions.m in Sources */,
 				D316BA3C1A83C649007215CA /* ProtectedBackendlessGeoQuery.m in Sources */,
 				D3A064DD1B0242B900779BB1 /* ClientCallback.m in Sources */,
+				F96B1C671DD3A23C00A4B362 /* PagedQueryBuilder.m in Sources */,
 				91223DCF195AF6AB00F72F48 /* Events.m in Sources */,
 				F9796A4A166CD3DB00595F5E /* BESubscription.m in Sources */,
 				F9796A4B166CD3DB00595F5E /* Message.m in Sources */,
@@ -3442,6 +3507,7 @@
 				91F1399817D7240A00D1AC4C /* AbstractQuery.m in Sources */,
 				91F1399D17D7240A00D1AC4C /* BackendlessCache.m in Sources */,
 				F9CB138B1BC53CDD00F3CA1D /* Presence.m in Sources */,
+				F96B1C731DD3B6CA00A4B362 /* QueryOptionsBuilder.m in Sources */,
 				91F139A217D7240A00D1AC4C /* BackendlessCacheData.m in Sources */,
 				91F139A717D7240A00D1AC4C /* BackendlessCacheKey.m in Sources */,
 				91F139AC17D7240A00D1AC4C /* BackendlessCachePolicy.m in Sources */,
@@ -3473,6 +3539,7 @@
 				F9F0AE8F1CDBCA3900035C62 /* ObjectProperty.m in Sources */,
 				F9F0AE901CDBCA3900035C62 /* ClassCastException.m in Sources */,
 				F9F0AE911CDBCA3900035C62 /* BackendlessEntity.m in Sources */,
+				F96B1C741DD3B6CA00A4B362 /* QueryOptionsBuilder.m in Sources */,
 				F9F0AE921CDBCA3900035C62 /* BEFileInfo.m in Sources */,
 				F9F0AE931CDBCA3900035C62 /* BackendlessCollection.m in Sources */,
 				F9F0AE941CDBCA3900035C62 /* BackendlessDataQuery.m in Sources */,
@@ -3487,6 +3554,7 @@
 				F9F0AE9D1CDBCA3900035C62 /* BackendlessSimpleQuery.m in Sources */,
 				F9F0AE9E1CDBCA3900035C62 /* GeoPoint.m in Sources */,
 				F9F0AE9F1CDBCA3900035C62 /* BackendlessGeoQuery.m in Sources */,
+				F96B1C681DD3A23C00A4B362 /* PagedQueryBuilder.m in Sources */,
 				F9F0AEA01CDBCA3900035C62 /* ServerCallback.m in Sources */,
 				F9F0AEA11CDBCA3900035C62 /* MessagingService.m in Sources */,
 				F9F0AEA21CDBCA3900035C62 /* Logger.m in Sources */,
@@ -3525,6 +3593,7 @@
 				F9F0AEC71CDBCA3900035C62 /* BackendlessCacheData.m in Sources */,
 				F9F0AEC81CDBCA3900035C62 /* BackendlessCacheKey.m in Sources */,
 				F9F0AEC91CDBCA3900035C62 /* BackendlessCachePolicy.m in Sources */,
+				F96B1C821DD4BF5F00A4B362 /* DataQueryBuilder.m in Sources */,
 				F9F0AECA1CDBCA3900035C62 /* FilePermission.m in Sources */,
 				F9F0AECB1CDBCA3900035C62 /* GeoCluster.m in Sources */,
 				F9F0AECC1CDBCA3900035C62 /* QueryOptions.m in Sources */,
@@ -3553,6 +3622,7 @@
 				F9F0AF491CDBCAB500035C62 /* ObjectProperty.m in Sources */,
 				F9F0AF4A1CDBCAB500035C62 /* ClassCastException.m in Sources */,
 				F9F0AF4B1CDBCAB500035C62 /* BackendlessEntity.m in Sources */,
+				F96B1C751DD3B6CA00A4B362 /* QueryOptionsBuilder.m in Sources */,
 				F9F0AF4C1CDBCAB500035C62 /* BEFileInfo.m in Sources */,
 				F9F0AF4D1CDBCAB500035C62 /* BackendlessCollection.m in Sources */,
 				F9F0AF4E1CDBCAB500035C62 /* BackendlessDataQuery.m in Sources */,
@@ -3567,6 +3637,7 @@
 				F9F0AF571CDBCAB500035C62 /* BackendlessSimpleQuery.m in Sources */,
 				F9F0AF581CDBCAB500035C62 /* GeoPoint.m in Sources */,
 				F9F0AF591CDBCAB500035C62 /* BackendlessGeoQuery.m in Sources */,
+				F96B1C691DD3A23D00A4B362 /* PagedQueryBuilder.m in Sources */,
 				F9F0AF5A1CDBCAB500035C62 /* ServerCallback.m in Sources */,
 				F9F0AF5B1CDBCAB500035C62 /* MessagingService.m in Sources */,
 				F9F0AF5C1CDBCAB500035C62 /* Logger.m in Sources */,
@@ -3605,6 +3676,7 @@
 				F9F0AF811CDBCAB500035C62 /* BackendlessCacheData.m in Sources */,
 				F9F0AF821CDBCAB500035C62 /* BackendlessCacheKey.m in Sources */,
 				F9F0AF831CDBCAB500035C62 /* BackendlessCachePolicy.m in Sources */,
+				F96B1C831DD4BF5F00A4B362 /* DataQueryBuilder.m in Sources */,
 				F9F0AF841CDBCAB500035C62 /* FilePermission.m in Sources */,
 				F9F0AF851CDBCAB500035C62 /* GeoCluster.m in Sources */,
 				F9F0AF861CDBCAB500035C62 /* QueryOptions.m in Sources */,

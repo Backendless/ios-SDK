@@ -41,6 +41,7 @@
 +(instancetype)query;
 +(instancetype)query:(NSArray *)properties where:(NSString *)whereClause query:(QueryOptions *)queryOptions;
 
+-(BOOL)addProperty:(NSString *)property;
 -(void)prepareForNextPage;
 -(void)prepareForPreviousPage;
 

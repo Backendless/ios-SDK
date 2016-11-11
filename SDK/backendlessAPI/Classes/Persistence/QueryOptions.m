@@ -97,8 +97,8 @@
     
     QueryOptions *query = [QueryOptions query];
     query.relationsDepth = self.relationsDepth.copy;
-    query.sortBy = self.sortBy.copy;
-    query.related = self.related.copy;
+    query.sortBy = self.sortBy.mutableCopy;
+    query.related = self.related.mutableCopy;
     
     return query;
 }
