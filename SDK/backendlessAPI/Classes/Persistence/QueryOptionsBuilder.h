@@ -9,11 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @protocol IQueryOptionsBuilder <NSObject>
--(NSArray<NSString *> *)getSortBy;
+-(NSMutableArray<NSString *> *)getSortBy;
 -(id)setSortBy:(NSArray<NSString *> *)sortBy;
 -(id)addSortBy:(NSString *)sortBy;
 -(id)addListSortBy:(NSArray<NSString *> *)sortBy;
--(NSArray<NSString *> *)getRelated;
+-(NSMutableArray<NSString *> *)getRelated;
 -(id)setRelated:(NSArray<NSString *> *)related;
 -(id)addRelated:(NSString *)related;
 -(id)addListRelated:(NSArray<NSString *> *)related;

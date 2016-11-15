@@ -1429,6 +1429,17 @@ id result = nil;
 
 -(UIViewController *)getCurrentViewController {
     
+    
+    /*
+     // source: Parse -> PFAlertView.m
+     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+     UIViewController *viewController = keyWindow.rootViewController;
+     while (viewController.presentedViewController) {
+     viewController = viewController.presentedViewController;
+     }
+     return viewController;
+     */
+    
     UIViewController *WindowRootVC = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     UIViewController *currentViewController = [self findTopViewController:WindowRootVC];
     

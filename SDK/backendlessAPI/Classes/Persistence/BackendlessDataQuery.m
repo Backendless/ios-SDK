@@ -48,10 +48,9 @@
         
         pageSize = DEFAULT_PAGE_SIZE;
         offset = DEFAULT_OFFSET;
-        //self.properties = properties;
-        self.properties = [[NSMutableArray alloc] initWithArray:properties];
-        self.whereClause = whereClause;
-        self.queryOptions = queryOptions;
+        self.properties = properties?[[[NSMutableArray alloc] initWithArray:properties] autorelease]:nil;
+        self.whereClause = [whereClause autorelease];
+        self.queryOptions = [queryOptions autorelease];
 	}
 	
 	return self;
@@ -107,7 +106,7 @@
     if (!property || !property.length)
         return NO;
     
-    if (!self.properties) self.properties = [NSMutableArray new];
+    if (!self.properties) self.properties = [[NSMutableArray new] autorelease];
     [self.properties addObject:property];
     return YES;
 }
@@ -134,7 +133,7 @@
     BackendlessDataQuery *query = [BackendlessDataQuery query];
     query.pageSize = self.pageSize.copy;
     query.offset = self.offset.copy;
-    query.properties = self.properties.mutableCopy;
+    query.properties = self.properties ? [[[NSMutableArray alloc] initWithArray:self.properties] autorelease]: nil;
     query.whereClause = self.whereClause.copy;
     query.queryOptions = self.queryOptions.copy;
     return query;

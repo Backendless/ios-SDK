@@ -30,7 +30,7 @@
 #if 0 // http://bugs.backendless.com/browse/BKNDLSS-13002
         self.sortBy = nil;
 #else
-        self.sortBy = [[NSMutableArray alloc] initWithArray:@[@"objectId"]];
+        self.sortBy = [[[NSMutableArray alloc] initWithArray:@[@"objectId"]] autorelease];
 #endif
         self.related = nil;
 	}
@@ -61,7 +61,7 @@
     if (!sortBy || !sortBy.length)
         return NO;
     
-    if (!self.sortBy) self.sortBy = [NSMutableArray new];
+    if (!self.sortBy) self.sortBy = [[NSMutableArray new] autorelease];
     [self.sortBy addObject:sortBy];
     return YES;
 }
@@ -71,7 +71,7 @@
     if (!related || !related.length)
         return NO;
     
-    if (!self.related) self.related = [NSMutableArray new];
+    if (!self.related) self.related = [[NSMutableArray new] autorelease];
     [self.related addObject:related];
     return YES;
 }
@@ -80,8 +80,8 @@
     
     QueryOptions *query = [QueryOptions query];
     query.relationsDepth = self.relationsDepth.copy;
-    query.sortBy = self.sortBy.mutableCopy;
-    query.related = self.related.mutableCopy;
+    query.sortBy = self.sortBy ? [[[NSMutableArray alloc] initWithArray:self.sortBy] autorelease] : nil;
+    query.related = self.related ? [[[NSMutableArray alloc] initWithArray:self.related] autorelease] : nil;
     
     return query;    
 }
@@ -97,8 +97,8 @@
     
     QueryOptions *query = [QueryOptions query];
     query.relationsDepth = self.relationsDepth.copy;
-    query.sortBy = self.sortBy.mutableCopy;
-    query.related = self.related.mutableCopy;
+    query.sortBy = self.sortBy ? [[[NSMutableArray alloc] initWithArray:self.sortBy] autorelease] : nil;
+    query.related = self.related ? [[[NSMutableArray alloc] initWithArray:self.related] autorelease] : nil;
     
     return query;
 }

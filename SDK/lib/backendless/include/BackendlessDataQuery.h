@@ -31,8 +31,8 @@
     int pageSize;
 }
 
-@property (strong, nonatomic) NSNumber *pageSize;
-@property (strong, nonatomic) NSNumber *offset;
+@property (assign, nonatomic) NSNumber *pageSize;
+@property (assign, nonatomic) NSNumber *offset;
 @property (strong, nonatomic) NSMutableArray<NSString*> *properties;
 @property (strong, nonatomic) NSString *whereClause;
 @property (strong, nonatomic) QueryOptions *queryOptions;

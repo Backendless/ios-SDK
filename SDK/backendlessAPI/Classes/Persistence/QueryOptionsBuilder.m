@@ -69,7 +69,7 @@
 #pragma mark -
 #pragma mark IQueryOptionsBuilder Methods
 
--(NSArray<NSString *> *)getSortBy {
+-(NSMutableArray<NSString *> *)getSortBy {
     return _sortBy;
 }
 
@@ -97,7 +97,7 @@
     return _builder;
 }
 
--(NSArray<NSString *> *)getRelated {
+-(NSMutableArray<NSString *> *)getRelated {
     return _related;
 }
 
