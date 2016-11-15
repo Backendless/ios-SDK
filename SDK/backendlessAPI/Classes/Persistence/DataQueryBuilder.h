@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PagedQueryBuilder.h"
+#import "QueryOptionsBuilder.h"
 
-@interface DataQueryBuilder : NSObject
+@interface DataQueryBuilder : NSObject //<IPagedQueryBuilder, IQueryOptionsBuilder>
 
 @end

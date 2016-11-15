@@ -8,24 +8,23 @@
 
 #import "DataQueryBuilder.h"
 #import "DEBUG.h"
-#import "PagedQueryBuilder.h"
-#import "QueryOptionsBuilder.h"
 
-@interface DataQueryBuilder ()
-@property (strong, nonatomic) PagedQueryBuilder *pagedQueryBuilder;
-@property (strong, nonatomic) QueryOptionsBuilder *queryOptionsBuilder;
-@property (strong, nonatomic) NSMutableArray<NSString *> *properties;
-@property (strong, nonatomic) NSString *whereClause;
+@interface DataQueryBuilder () {
+    PagedQueryBuilder *_pagedQueryBuilder;
+    QueryOptionsBuilder *_queryOptionsBuilder;
+    NSMutableArray<NSString *> *_properties;
+    NSString *_whereClause;
+}
 @end
 
 @implementation DataQueryBuilder
 
 -(instancetype)init {
     if ( (self=[super init]) ) {
-        self.pagedQueryBuilder = [[PagedQueryBuilder alloc] init:self];
-        self.queryOptionsBuilder = [[QueryOptionsBuilder alloc] init:self];
-        self.properties = [NSMutableArray new];
-        self.whereClause = nil;
+        _pagedQueryBuilder = [[PagedQueryBuilder alloc] init:self];
+        _queryOptionsBuilder = [[QueryOptionsBuilder alloc] init:self];
+        _properties = [NSMutableArray new];
+        _whereClause = nil;
     }
     
     return self;
@@ -35,11 +34,11 @@
     
     [DebLog logN:@"DEALLOC DataQueryBuilder"];
     
-    [self.pagedQueryBuilder release];
-    [self.queryOptionsBuilder release];
-    [self.properties removeAllObjects];
-    [self.properties release];
-    [self.whereClause release];
+    [_pagedQueryBuilder release];
+    [_queryOptionsBuilder release];
+    [_properties removeAllObjects];
+    [_properties release];
+    [_whereClause release];
     
     [super dealloc];
 }

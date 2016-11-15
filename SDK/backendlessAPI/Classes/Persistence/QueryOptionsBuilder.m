@@ -59,8 +59,8 @@
 -(QueryOptions *)build {
     
     QueryOptions *queryOptions =  [QueryOptions new];
-    queryOptions.sortBy = _sortBy.copy;
-    queryOptions.related = _related.copy;
+    queryOptions.sortBy = [[NSMutableArray alloc] initWithArray:_sortBy];
+    queryOptions.related = [[NSMutableArray alloc] initWithArray:_related];
     queryOptions.relationsDepth = @(_relationsDepth);
     return queryOptions;
 }
