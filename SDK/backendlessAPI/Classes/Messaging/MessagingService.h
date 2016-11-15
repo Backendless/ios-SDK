@@ -23,6 +23,8 @@
 #import "HashMap.h"
 #import "DeviceRegistration.h"
 
+#define _OLD_NOTIFICATION_ 0
+
 #define MESSAGE_TAG @"message"
 
 #define IOS_ALERT_TAG @"ios-alert"
@@ -62,8 +64,11 @@
 @property (nonatomic) uint pollingFrequencyMs;
 @property (strong, nonatomic, readonly) HashMap *subscriptions;
 @property (assign, nonatomic) id <IBEPushReceiver> pushReceiver;
+#if _OLD_NOTIFICATION_ 
+// USE UNUserNotificationCenter requestAuthorizationWithOptions: (iOS10) OR UIApplication registerUserNotificationSettings: (iOS9<) instead
 @property NSUInteger notificationTypes;
 @property (strong, nonatomic) NSSet<UIUserNotificationCategory*> *categories;
+#endif
 
 // sync methods with fault return (as exception)
 -(NSString *)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration token:(NSData *)deviceToken;
