@@ -1433,11 +1433,22 @@ id result = nil;
 @implementation UserService (SafariVC)
 
 -(UIViewController *)getCurrentViewController {
-    
+
+#if 1
+    [DebLog log:@"UserService -> getCurrentViewController: (NEW)"];
+    // source: Parse -> PFAlertView.m
+    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+    UIViewController *viewController = keyWindow.rootViewController;
+    while (viewController.presentedViewController) {
+        viewController = viewController.presentedViewController;
+    }
+    return viewController;
+#else
     UIViewController *WindowRootVC = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     UIViewController *currentViewController = [self findTopViewController:WindowRootVC];
     
     return currentViewController;
+#endif
 }
 
 -(UIViewController *)findTopViewController:(UIViewController *)inController {
