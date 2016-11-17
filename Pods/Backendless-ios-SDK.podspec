@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "Backendless-ios-SDK"
-  s.version      = "3.0.43"
+  s.version      = "3.0.44"
   s.summary      = "Backendless provides an instant backend to help developers build better apps faster."
   s.description  = <<-DESC
 	Backendless is a development and a run-time platform. It helps software developers to create 
@@ -27,13 +27,13 @@ Pod::Spec.new do |s|
   s.requires_arc   = true
   s.source         = { 
 	:git => "https://github.com/Backendless/ios-SDK.git",
-	:tag => '3.0.43'
+	:tag => '3.0.44'
   }
 
   s.preserve_paths = "SDK/lib/**/*.a"
   s.source_files = "SDK/lib/**/*.h"
 
-  s.frameworks     = 'AVFoundation', 'AudioToolbox', 'CFNetwork', 'CoreData', 'CoreGraphics', 'CoreLocation', 'CoreMedia', 'CoreVideo', 'Foundation', 'MapKit', 'Security', 'SystemConfiguration', 'UIKit'
+  s.frameworks     = 'AVFoundation', 'AudioToolbox', 'CFNetwork', 'CoreData', 'CoreGraphics', 'CoreLocation', 'CoreMedia', 'CoreVideo', 'Foundation', 'MapKit', 'Security', 'SystemConfiguration', 'UIKit', 'SafariServices'
   s.libraries 	   = 'z', 'sqlite3', 'backendless', 'CommLibiOS', 'MediaLibiOS', 'avformat', 'avdevice', 'swscale', 'avfilter', 'avutil', 'avcodec', 'speex', 'x264'
   s.xcconfig       =  { 'LIBRARY_SEARCH_PATHS' => '"$(SRCROOT)/Pods/Backendless-ios-SDK/SDK/lib/backendless" "$(SRCROOT)/Pods/Backendless-ios-SDK/SDK/lib/CommLibiOS" "$(SRCROOT)/Pods/Backendless-ios-SDK/SDK/lib/MediaLibiOS3x" "$(SRCROOT)/Pods/Backendless-ios-SDK/SDK/lib/libav-11.4/lib" "$(SRCROOT)/Pods/Backendless-ios-SDK/SDK/lib/speex-1.2rc2/lib" "$(SRCROOT)/Pods/Backendless-ios-SDK/SDK/lib/x264/lib"' }
 
