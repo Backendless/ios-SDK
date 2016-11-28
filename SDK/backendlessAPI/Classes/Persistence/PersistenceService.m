@@ -1474,6 +1474,20 @@ id result = nil;
     return [self setRelations:relations object:object response:result];
 }
 
+/*
+ 
+ public <E> List<E> find( Class<E> entity, DataQueryBuilder queryBuilder ) throws BackendlessException
+ {
+ if( entity == null )
+ throw new IllegalArgumentException( ExceptionMessage.NULL_ENTITY );
+ Objects.requireNonNull( queryBuilder, ExceptionMessage.NULL_FIELD( "queryBuilder" ) );
+ 
+ Object[] args = new Object[] { BackendlessSerializer.getSimpleName( entity ), queryBuilder.build() };
+ 
+ return Invoker.invokeSync( PERSISTENCE_MANAGER_SERVER_ALIAS, "find", args, ResponderHelper.getCollectionAdaptingResponder( entity ) );
+ }
+ */
+
 -(BackendlessCollection *)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery {
     
     if (!entity)
