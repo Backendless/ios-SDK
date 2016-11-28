@@ -366,4 +366,8 @@
             [backendless.persistenceService findByObject:objectID relations:@[] relationsDepth:relationsDepth response:responseBlock error:errorBlock];
 }
 
+-(void)getObjectCount:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [backendless.persistenceService getObjectCount:_entityClass response:responseBlock error:errorBlock];
+}
+
 @end
