@@ -139,6 +139,14 @@
     return [backendless.persistenceService findByObject:objectID relations:@[] relationsDepth:relationsDepth];
 }
 
+-(NSNumber *)getObjectCount {
+    return [backendless.persistenceService getObjectCount:_entityClass];
+}
+
+-(NSNumber *)getObjectCount:(BackendlessDataQuery *)dataQuery{
+    return [backendless.persistenceService getObjectCount:_entityClass dataQuery:dataQuery];
+}
+
 // sync methods with fault option
 
 -(id)save:(id)entity fault:(Fault **)fault {
@@ -368,6 +376,10 @@
 
 -(void)getObjectCount:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.persistenceService getObjectCount:_entityClass response:responseBlock error:errorBlock];
+}
+
+-(void)getObjectCount:(BackendlessDataQuery *)dataQuery response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [backendless.persistenceService getObjectCount:_entityClass dataQuery:dataQuery response:responseBlock error:errorBlock];
 }
 
 @end

@@ -41,6 +41,8 @@
 -(id)findLast:(int)relationsDepth;
 -(id)findID:(id)objectID;
 -(id)findID:(id)objectID relationsDepth:(int)relationsDepth;
+-(NSNumber *)getObjectCount;
+-(NSNumber *)getObjectCount:(BackendlessDataQuery *)dataQuery;
 
 // sync methods with fault option
 -(id)save:(id)entity fault:(Fault **)fault;
@@ -90,5 +92,6 @@
 -(void)findID:(id)objectID response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)findID:(id)objectID relationsDepth:(int)relationsDepth response:(void(^)(id result))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getObjectCount:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)getObjectCount:(BackendlessDataQuery *)dataQuery response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 
 @end
