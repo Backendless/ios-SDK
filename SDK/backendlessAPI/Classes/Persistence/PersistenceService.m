@@ -2250,16 +2250,16 @@ id result = nil;
 
 -(void)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock {
    
-    Responder *responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
-    if (!entity)
-        return [responder errorHandler:FAULT_NO_ENTITY];
-    
+    Responder *respond = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!entity) {
+        return [respond errorHandler:FAULT_NO_ENTITY];
+    }
     [self prepareClass:entity];
-    if (!dataQuery) dataQuery = BACKENDLESS_DATA_QUERY;
+    if (!dataQuery) { dataQuery = BACKENDLESS_DATA_QUERY;}
     NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], dataQuery, nil];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(setCurrentPageSize:) selErrorHandler:nil];
+    Responder *_responder = [Responder responder:respond selResponseHandler:@selector(setCurrentPageSize:) selErrorHandler:nil];
     _responder.context = dataQuery;
-    _responder.chained = responder;
+    _responder.chained = respond;
     [backendlessCache invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args responder:_responder];
 }
 
