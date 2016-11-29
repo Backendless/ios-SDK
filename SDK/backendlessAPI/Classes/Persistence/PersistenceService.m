@@ -1945,19 +1945,19 @@ id result = nil;
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LOAD args:args responder:_responder];
 }
 
--(void)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery responder:(id <IResponder>)responder {
-    
-    if (!entity) 
-        return [responder errorHandler:FAULT_NO_ENTITY];
-    
-    [self prepareClass:entity];
-    if (!dataQuery) dataQuery = BACKENDLESS_DATA_QUERY;
-    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], dataQuery, nil];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(setCurrentPageSize:) selErrorHandler:nil];
-    _responder.context = dataQuery;
-    _responder.chained = responder;
-    [backendlessCache invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args responder:_responder];
-}
+//-(void)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery responder:(id <IResponder>)responder {
+//    
+//    if (!entity) 
+//        return [responder errorHandler:FAULT_NO_ENTITY];
+//    
+//    [self prepareClass:entity];
+//    if (!dataQuery) dataQuery = BACKENDLESS_DATA_QUERY;
+//    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], dataQuery, nil];
+//    Responder *_responder = [Responder responder:self selResponseHandler:@selector(setCurrentPageSize:) selErrorHandler:nil];
+//    _responder.context = dataQuery;
+//    _responder.chained = responder;
+//    [backendlessCache invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args responder:_responder];
+//}
 
 -(void)first:(Class)entity responder:(id <IResponder>)responder {
     
@@ -2250,6 +2250,18 @@ id result = nil;
 
 -(void)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self find:entity dataQuery:dataQuery responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    
+    Responder *responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!entity)
+        return [responder errorHandler:FAULT_NO_ENTITY];
+    
+    [self prepareClass:entity];
+    if (!dataQuery) dataQuery = BACKENDLESS_DATA_QUERY;
+    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], dataQuery, nil];
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(setCurrentPageSize:) selErrorHandler:nil];
+    _responder.context = dataQuery;
+    _responder.chained = responder;
+    [backendlessCache invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args responder:_responder];
 }
 
 -(void)first:(Class)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {

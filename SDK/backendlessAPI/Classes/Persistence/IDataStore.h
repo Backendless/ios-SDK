@@ -61,20 +61,20 @@
 -(id)findID:(id)objectID relationsDepth:(int)relationsDepth fault:(Fault **)fault;
 
 // async methods with responder
--(void)save:(id)entity responder:(id <IResponder>)responder;
--(void)remove:(id)entity responder:(id <IResponder>)responder;
--(void)removeID:(NSString *)objectID responder:(id <IResponder>)responder;
--(void)removeAll:(BackendlessDataQuery *)dataQuery responder:(id <IResponder>)responder;
--(void)findResponder:(id <IResponder>)responder;
--(void)find:(BackendlessDataQuery *)dataQuery responder:(id <IResponder>)responder;
--(void)findFirstResponder:(id <IResponder>)responder;
--(void)findLastResponder:(id <IResponder>)responder;
--(void)describeResponder:(id <IResponder>)responder;
--(void)load:(id)object relations:(NSArray *)relations responder:(id <IResponder>)responder;
--(void)findFirst:(int)relationsDepth responder:(id <IResponder>)responder;
--(void)findLast:(int)relationsDepth responder:(id <IResponder>)responder;
--(void)findID:(id)objectID responder:(id <IResponder>)responder;
--(void)findID:(id)objectID relationsDepth:(int)relationsDepth responder:(id <IResponder>)responder;
+//-(void)save:(id)entity responder:(id <IResponder>)responder;
+//-(void)remove:(id)entity responder:(id <IResponder>)responder;
+//-(void)removeID:(NSString *)objectID responder:(id <IResponder>)responder;
+//-(void)removeAll:(BackendlessDataQuery *)dataQuery responder:(id <IResponder>)responder;
+//-(void)findResponder:(id <IResponder>)responder;
+//-(void)find:(BackendlessDataQuery *)dataQuery responder:(id <IResponder>)responder;
+//-(void)findFirstResponder:(id <IResponder>)responder;
+//-(void)findLastResponder:(id <IResponder>)responder;
+//-(void)describeResponder:(id <IResponder>)responder;
+//-(void)load:(id)object relations:(NSArray *)relations responder:(id <IResponder>)responder;
+//-(void)findFirst:(int)relationsDepth responder:(id <IResponder>)responder;
+//-(void)findLast:(int)relationsDepth responder:(id <IResponder>)responder;
+//-(void)findID:(id)objectID responder:(id <IResponder>)responder;
+//-(void)findID:(id)objectID relationsDepth:(int)relationsDepth responder:(id <IResponder>)responder;
 
 // async methods with block-based callbacks
 -(void)save:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
