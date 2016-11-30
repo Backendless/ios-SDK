@@ -352,8 +352,8 @@
 {
     Responder *cacheResponder = [Responder responder:self selResponseHandler:@selector(responseHandler:) selErrorHandler:@selector(responseError:)];
     cacheResponder.chained = responder;
-    AbstractQuery *query = [args objectAtIndex:3];
-    NSString *className = [args objectAtIndex:2];
+    AbstractQuery *query = [args objectAtIndex:1];
+    NSString *className = [args objectAtIndex:0];
     BackendlessCacheKey *key = [BackendlessCacheKey cacheKeyWithClassName:className query:query];
     BackendlessCachePolicy *policy = (query.cachePolicy)?query.cachePolicy:_cachePolicy;
     cacheResponder.context = key;

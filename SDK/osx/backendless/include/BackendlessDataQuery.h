@@ -36,6 +36,7 @@
 @property (strong, nonatomic) NSMutableArray<NSString*> *properties;
 @property (strong, nonatomic) NSString *whereClause;
 @property (strong, nonatomic) QueryOptions *queryOptions;
+@property (strong, nonatomic) BackendlessCachePolicy *cachePolicy;
 
 -(instancetype)init:(NSArray *)properties where:(NSString *)whereClause query:(QueryOptions *)queryOptions;
 +(instancetype)query;
