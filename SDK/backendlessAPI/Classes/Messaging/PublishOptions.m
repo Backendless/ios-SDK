@@ -55,7 +55,8 @@
 #pragma mark Private Methods
 
 -(void)defaultHeaders {
-    self.headers = [NSMutableDictionary dictionaryWithDictionary:@{@"ios-content-available":@"1"}];
+    //self.headers = [NSMutableDictionary dictionaryWithDictionary:@{@"ios-content-available":@"1"}];
+    self.headers = [NSMutableDictionary dictionary];
 }
 
 
