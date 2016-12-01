@@ -2125,22 +2125,6 @@ id result = nil;
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_REMOVE args:args responder:chainedResponder];
 }
 
-//-(void)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
-//    
-//    if (!entity)
-//        [backendless throwFault:FAULT_NO_ENTITY];
-//    
-//    [backendless.persistenceService find:entity dataQuery:dataQuery
-//        response:^(NSArray *bc) {
-//            [DebLog log:@"PersistenceService -> removeAll: totalObjects = %@", bc.totalObjects];
-//            [bc removeAll:responseBlock error:errorBlock];
-//        }
-//        error:^(Fault *fault) {
-//            [DebLog log:@"PersistenceService -> removeAll: FAULT: %@", fault];
-//            errorBlock(fault);
-//        }];
-//}
-
 -(void)getView:(NSString *)viewName dataQuery:(BackendlessDataQuery *)dataQuery response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!viewName)
