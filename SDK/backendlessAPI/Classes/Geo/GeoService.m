@@ -1139,53 +1139,6 @@ id result = nil;
     return rect;
 }
 
-//-(void)setReferenceToCluster:(NSArray *)points {
-//    
-//    BackendlessGeoQuery *geoQuery = points.query;
-//    for (id geoPoint in points.data) {
-//        if ([geoPoint isKindOfClass:[GeoCluster class]]) {
-//            GeoCluster *geoCluster = geoPoint;
-//            geoCluster.geoQuery = geoQuery;
-//        }
-//    }
-//}
-
-// geo fence monitoring
-/*
- 
- public void startGeofenceMonitoring( GeoPoint geoPoint,
- final AsyncCallback<Void> responder ) throws BackendlessException
- {
- ICallback bCallback = new ServerCallback( geoPoint );
- 
- startGeofenceMonitoring( bCallback, responder );
- }
- 
- public void startGeofenceMonitoring( IGeofenceCallback callback,
- final AsyncCallback<Void> responder ) throws BackendlessException
- {
- ICallback bCallback = new ClientCallback( callback );
- 
- startGeofenceMonitoring( bCallback, responder );
- }
- 
- public void startGeofenceMonitoring( String geofenceName, GeoPoint geoPoint,
- final AsyncCallback<Void> responder ) throws BackendlessException
- {
- ICallback bCallback = new ServerCallback( geoPoint );
- 
- startGeofenceMonitoring( bCallback, geofenceName, responder );
- }
- 
- public void startGeofenceMonitoring( String geofenceName, IGeofenceCallback callback,
- final AsyncCallback<Void> responder ) throws BackendlessException
- {
- ICallback bCallback = new ClientCallback( callback );
- 
- startGeofenceMonitoring( bCallback, geofenceName, responder );
- }
- */
-
 -(void)startGeofenceMonitoringGeoPoint:(GeoPoint *)geoPoint responder:(id <IResponder>)responder {
     [self startGeofenceMonitoringCallback:[ServerCallback callback:geoPoint] responder:responder];
 }
@@ -1218,24 +1171,6 @@ id result = nil;
     [self startGeofenceMonitoring:geofenceName callback:callback responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
-/*
- 
- public void stopGeofenceMonitoring()
- {
- GeoFenceMonitoring.getInstance().removeGeoFences();
- LocationTracker.getInstance().removeListener( GeoFenceMonitoring.NAME );
- }
- 
- public void stopGeofenceMonitoring( String geofenceName )
- {
- GeoFenceMonitoring.getInstance().removeGeoFence( geofenceName );
- if( !GeoFenceMonitoring.getInstance().isMonitoring() )
- {
- LocationTracker.getInstance().removeListener( GeoFenceMonitoring.NAME );
- }
- }
- */
-
 -(void)stopGeofenceMonitoring {
     GeoFenceMonitoring *monitoring = [GeoFenceMonitoring sharedInstance];
     [monitoring removeGeoFences];
@@ -1253,38 +1188,6 @@ id result = nil;
 #pragma mark -
 #pragma mark Private Methods
 
-/*
- 
- private void startGeofenceMonitoring( final ICallback callback, final AsyncCallback<Void> responder )
- {
- Invoker.invokeAsync( GEO_MANAGER_SERVER_ALIAS, "getFences", new Object[] { Backendless.getApplicationId(), Backendless.getVersion() }, new AsyncCallback<GeoFence[]>()
- {
- @Override
- public void handleResponse( GeoFence[] geoFences )
- {
- try
- {
- addFenceMonitoring( callback, geoFences );
- 
- if( responder != null )
- responder.handleResponse( null );
- }
- catch( Exception ex )
- {
- if( responder != null )
- responder.handleFault( new BackendlessFault( ex ) );
- }
- }
- 
- @Override
- public void handleFault( BackendlessFault fault )
- {
- responder.handleFault( fault );
- }
- } );
- }
- */
-
 -(void)startGeofenceMonitoringCallback:(id <ICallback>)callback responder:(id <IResponder>)responder {
     
     if ([self isFaultCallbackIsInvalid:callback responder:responder])
@@ -1295,39 +1198,6 @@ id result = nil;
     _responder.context = callback;
     [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_FENCES args:@[] responder:_responder];
 }
-
-/*
- 
- private void startGeofenceMonitoring( final ICallback callback, String geofenceName,
- final AsyncCallback<Void> responder )
- {
- Invoker.invokeAsync( GEO_MANAGER_SERVER_ALIAS, "getFence", new Object[] { Backendless.getApplicationId(), Backendless.getVersion(), geofenceName }, new AsyncCallback<GeoFence>()
- {
- @Override
- public void handleResponse( GeoFence geoFences )
- {
- try
- {
- addFenceMonitoring( callback, geoFences );
- 
- if( responder != null )
- responder.handleResponse( null );
- }
- catch( Exception ex )
- {
- if( responder != null )
- responder.handleFault( new BackendlessFault( ex ) );
- }
- }
- 
- @Override
- public void handleFault( BackendlessFault fault )
- {
- responder.handleFault( fault );
- }
- } );
- }
- */
 
 -(void)startGeofenceMonitoringCallback:(id <ICallback>)callback name:(NSString *)geofenceName responder:(id <IResponder>)responder {
     
@@ -1340,40 +1210,6 @@ id result = nil;
     _responder.context = callback;
     [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_FENCE args:args responder:_responder];
 }
-
- /*
- 
- private void addFenceMonitoring( ICallback callback, GeoFence... geoFences )
- {
- 
- if( geoFences.length == 0 )
- {
- return;
- }
- 
- if( geoFences.length == 1 )
- {
- GeoFenceMonitoring.getInstance().addGeoFence( geoFences[ 0 ], callback );
- }
- else
- {
- GeoFenceMonitoring.getInstance().addGeoFences( new HashSet<GeoFence>( Arrays.asList( geoFences ) ), callback );
- }
- 
- if( !LocationTracker.getInstance().isContainListener( GeoFenceMonitoring.NAME ) )
- {
- try
- {
- LocationTracker.getInstance().addListeners( GeoFenceMonitoring.NAME, GeoFenceMonitoring.getInstance() );
- }
- catch( RuntimeException e )
- {
- GeoFenceMonitoring.getInstance().removeGeoFences();
- throw e;
- }
- }
- }
- */
 
 -(void)addFenceMonitoring:(id <ICallback>)callback geoFences:(id)geoFences {
     
