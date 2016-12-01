@@ -585,18 +585,6 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     return YES;
 }
 
--(BOOL)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault {
-    
-    id result = [self removeAll:entity dataQuery:dataQuery];
-    if ([result isKindOfClass:[Fault class]]) {
-        if (!fault) {
-            return NO;
-        }
-        (*fault) = result;
-        return NO;
-    }
-    return YES;
-}
 #else
 
 #if 0 // wrapper for work without exception
