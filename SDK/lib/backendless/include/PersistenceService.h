@@ -140,44 +140,6 @@ extern NSString *LOAD_ALL_RELATIONS;
 
 
 // async methods with responder
--(void)describe:(NSString *)classCanonicalName responder:(id <IResponder>)responder;
--(void)save:(NSString *)entityName entity:(NSDictionary *)entity responder:(id <IResponder>)responder;
--(void)update:(NSString *)entityName entity:(NSDictionary *)entity sid:(NSString *)sid responder:(id <IResponder>)responder;
--(void)save:(id)entity responder:(id <IResponder>)responder;
--(void)create:(id)entity responder:(id <IResponder>)responder;
--(void)update:(id)entity responder:(id <IResponder>)responder; 
--(void)load:(id)object relations:(NSArray *)relations responder:(id <IResponder>)responder;
--(void)load:(id)object relations:(NSArray *)relations relationsDepth:(int)relationsDepth responder:(id <IResponder>)responder;
--(void)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery responder:(id <IResponder>)responder;
--(void)first:(Class)entity responder:(id <IResponder>)responder;
--(void)first:(Class)entity relations:(NSArray *)relations relationsDepth:(int)relationsDepth responder:(id <IResponder>)responder;
--(void)last:(Class)entity responder:(id <IResponder>)responder;
--(void)last:(Class)entity relations:(NSArray *)relations relationsDepth:(int)relationsDepth responder:(id <IResponder>)responder;
--(void)findByObject:(id)entity responder:(id <IResponder>)responder;
--(void)findByObject:(id)entity relations:(NSArray *)relations responder:(id <IResponder>)responder;
--(void)findByObject:(id)entity relations:(NSArray *)relations relationsDepth:(int)relationsDepth responder:(id <IResponder>)responder;
--(void)findByObject:(NSString *)className keys:(NSDictionary *)props responder:(id <IResponder>)responder;
--(void)findByObject:(NSString *)className keys:(NSDictionary *)props relations:(NSArray *)relations responder:(id <IResponder>)responder;
--(void)findByObject:(NSString *)className keys:(NSDictionary *)props relations:(NSArray *)relations relationsDepth:(int)relationsDepth responder:(id <IResponder>)responder;
--(void)findById:(NSString *)entityName sid:(NSString *)sid responder:(id <IResponder>)responder;
--(void)findById:(NSString *)entityName sid:(NSString *)sid relations:(NSArray *)relations responder:(id <IResponder>)responder;
--(void)findById:(NSString *)entityName sid:(NSString *)sid relations:(NSArray *)relations relationsDepth:(int)relationsDepth responder:(id <IResponder>)responder;
--(void)findByClassId:(Class)entity sid:(NSString *)sid responder:(id <IResponder>)responder;
--(void)remove:(id)entity responder:(id <IResponder>)responder;
--(void)remove:(Class)entity sid:(NSString *)sid responder:(id <IResponder>)responder;
--(void)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery responder:(id <IResponder>)responder;
--(void)getView:(NSString *)viewName dataQuery:(BackendlessDataQuery *)dataQuery responder:(id <IResponder>)responder;
--(void)callStoredProcedure:(NSString *)spName arguments:(NSDictionary *)arguments responder:(id <IResponder>)responder;
--(void)getObjectCount:(Class)entity responder:(id <IResponder>)responder;
--(void)getObjectCount:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery responder:(id <IResponder>)responder;
-//
--(void)createRelation:(id)parentObject columnName: (NSString *)columnName childObjects:(NSArray *)childObjects responder:(id <IResponder>)responder;
--(void)createRelationForId:(NSString *)parentObjectId columnName:(NSString *)columnName childObjectsIds:(NSArray<NSString*> *)childObjectsIds responder:(id <IResponder>)responder;
--(void)createRelation:(id)parentObject columnName: (NSString *)columnName whereClause:(NSString *)whereClause responder:(id <IResponder>)responder;
--(void)createRelationForId:(NSString *)parentObjectId columnName:(NSString *)columnName whereClause:(NSString *)whereClause responder:(id <IResponder>)responder;
--(void)deleteRelation:(id)parentObject columnName: (NSString *)columnName childObjectsIds:(NSArray<NSString*> *)childObjectsIds responder:(id <IResponder>)responder;
--(void)deleteRelationForId:(NSString *)parentObjectId columnName:(NSString *)columnName childObjectsIds:(NSArray<NSString*> *)childObjectsIds responder:(id <IResponder>)responder;
--(void)deleteRelation:(id)parentObject columnName: (NSString *)columnName whereClause:(NSString *)whereClause responder:(id <IResponder>)responder;
 /*
 -(void)bulkCreate:(NSArray *)objects responder:(id <IResponder>)responder;
 -(void)bulkDelete:(NSArray *)objects responder:(id <IResponder>)responder;

@@ -241,9 +241,6 @@
     [backendless.persistenceService remove:_entityClass sid:objectID response:responseBlock error:errorBlock];
 }
 
-//-(void)removeAll:(BackendlessDataQuery *)dataQuery response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
-//    [backendless.persistenceService removeAll:_entityClass dataQuery:dataQuery response:responseBlock error:errorBlock];
-//}
 -(void)find:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self find:[BackendlessDataQuery query] response:responseBlock error:errorBlock];
 }

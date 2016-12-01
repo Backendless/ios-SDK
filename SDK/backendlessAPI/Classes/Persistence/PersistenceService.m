@@ -35,7 +35,6 @@
 #import "ClassCastException.h"
 #import "Backendless.h"
 #import "Invoker.h"
-//#import "NSArray.h"
 #import "ObjectProperty.h"
 #import "QueryOptions.h"
 #import "BackendlessDataQuery.h"

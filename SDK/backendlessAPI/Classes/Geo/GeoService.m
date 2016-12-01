@@ -26,7 +26,6 @@
 #import "Backendless.h"
 #import "Invoker.h"
 #import "BackendlessGeoQuery.h"
-//#import "NSArray.h"
 #import "LocationTracker.h"
 #import "GeoFence.h"
 #import "GeoFenceMonitoring.h"
@@ -41,7 +40,7 @@
 #define FAULT_REMOVE_CATEGORY_NAME_IS_NULL [Fault fault:@"Category name is NULL" detail:@"Cannot remove category. Category name is NULL" faultCode:@"4015"]
 #define FAULT_REMOVE_CATEGORY_NAME_IS_EMPTY [Fault fault:@"Category name is empty" detail:@"Cannot remove category. Category name is empty" faultCode:@"4016"]
 #define FAULT_REMOVE_CATEGORY_NAME_IS_DEFAULT [Fault fault:@"Category name is 'Default'" detail:@"Cannot remove category. Category name is 'Default'" faultCode:@"4017"]
-//
+
 #define FAULT_GEO_POINT_ID_IS_NULL [Fault fault:@"Geo point ID is NULL" detail:@"Unable to operate with geo point. GeoPoint ID is NULL" faultCode:@"4900"]
 #define FAULT_GEO_FENCE_NAME_IS_NULL [Fault fault:@"Geo fence name is NULL"  detail:@"Unable to operate with geo fence. GeoFence is NULL" faultCode:@"4901"]
 #define FAULT_CALLBACK_IS_INVALID [Fault fault:@"Callback instance is not valid" detail:@"Callback instance is not valid" faultCode:@"4902"]
@@ -684,7 +683,6 @@ id result = nil;
     }
     
     NSArray *collection = result;
-    //collection.query = query;
     [collection type:[GeoPoint class]];
     
     [self setReferenceToCluster:collection];
@@ -705,9 +703,7 @@ id result = nil;
         NSLog(@"GeoService->getCluster: (ERROR) [%@]\n%@", [result class], result);
         return nil;
     }
-    
     NSArray *collection = result;
-    //collection.query = geoCluster.geoQuery;
     [collection type:[GeoPoint class]];
     
     return collection;
@@ -737,7 +733,6 @@ id result = nil;
     }
     
     NSArray *collection = result;
-    //collection.query = geoQuery;
     [collection type:[GeoPoint class]];
     
     [self setReferenceToCluster:collection];
@@ -755,7 +750,6 @@ id result = nil;
     }
     
     NSArray *collection = result;
-    //collection.query = query;
     [collection type:[GeoPoint class]];
     
     [self setReferenceToCluster:collection];
@@ -1311,7 +1305,7 @@ id result = nil;
     NSArray *collection = response.response;
     BackendlessGeoQuery *geoQuery = response.context;
 //    collection.query = geoQuery;
-//    [collection type:[GeoPoint class]];
+    [collection type:[GeoPoint class]];
     
     [self setReferenceToCluster:collection];
 
