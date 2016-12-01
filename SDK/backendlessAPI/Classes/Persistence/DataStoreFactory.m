@@ -85,11 +85,11 @@
     return [backendless.persistenceService removeAll:_entityClass dataQuery:dataQuery];
 }
 
--(BackendlessCollection *)find {
+-(NSArray *)find {
     return [self find:[BackendlessDataQuery query]];
 }
 
--(BackendlessCollection *)find:(BackendlessDataQuery *)dataQuery {
+-(NSArray *)find:(BackendlessDataQuery *)dataQuery {
     return [backendless.persistenceService find:_entityClass dataQuery:dataQuery];
 }
 
@@ -165,15 +165,15 @@
     return [backendless.persistenceService remove:_entityClass sid:objectID error:fault];
 }
 
--(BackendlessCollection *)removeAll:(BackendlessDataQuery *)dataQuery fault:(Fault **)fault {
+-(NSArray *)removeAll:(BackendlessDataQuery *)dataQuery fault:(Fault **)fault {
     return [backendless.persistenceService removeAll:_entityClass dataQuery:dataQuery error:fault];
 }
 
--(BackendlessCollection *)findFault:(Fault **)fault {
+-(NSArray *)findFault:(Fault **)fault {
     return [self find:[BackendlessDataQuery query] fault:fault];
 }
 
--(BackendlessCollection *)find:(BackendlessDataQuery *)dataQuery fault:(Fault **)fault {
+-(NSArray *)find:(BackendlessDataQuery *)dataQuery fault:(Fault **)fault {
     return [backendless.persistenceService find:_entityClass dataQuery:dataQuery error:fault];
 }
 
@@ -241,14 +241,14 @@
     [backendless.persistenceService remove:_entityClass sid:objectID response:responseBlock error:errorBlock];
 }
 
--(void)removeAll:(BackendlessDataQuery *)dataQuery response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [backendless.persistenceService removeAll:_entityClass dataQuery:dataQuery response:responseBlock error:errorBlock];
-}
--(void)find:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock {
+//-(void)removeAll:(BackendlessDataQuery *)dataQuery response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
+//    [backendless.persistenceService removeAll:_entityClass dataQuery:dataQuery response:responseBlock error:errorBlock];
+//}
+-(void)find:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self find:[BackendlessDataQuery query] response:responseBlock error:errorBlock];
 }
 
--(void)find:(BackendlessDataQuery *)dataQuery response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)find:(BackendlessDataQuery *)dataQuery response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.persistenceService find:_entityClass dataQuery:dataQuery response:responseBlock error:errorBlock];
 }
 

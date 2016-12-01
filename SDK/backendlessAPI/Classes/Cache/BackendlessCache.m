@@ -58,7 +58,7 @@
         _cacheData = [NSMutableDictionary new];
         _cachePolicy = [[BackendlessCachePolicy alloc] init];
         _storedType = [[NSNumber alloc] initWithInt:BackendlessCacheStoredMemory];
-        [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.BackendlessCollection" mapped:[BackendlessCollection class]];
+        [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.NSArray" mapped:[NSArray class]];
     }
     return self;
 }

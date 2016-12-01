@@ -28,7 +28,7 @@
 
 extern NSString *LOAD_ALL_RELATIONS;
 
-@class BackendlessCollection, QueryOptions, BackendlessDataQuery, Fault, ObjectProperty;
+@class QueryOptions, BackendlessDataQuery, Fault, ObjectProperty;
 @protocol IResponder, IDataStore;
 
 
@@ -45,7 +45,7 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(id)update:(id)entity;
 -(id)load:(id)object relations:(NSArray *)relations;
 -(id)load:(id)object relations:(NSArray *)relations relationsDepth:(int)relationsDepth;
--(BackendlessCollection *)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery;
+-(NSArray *)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery;
 -(id)first:(Class)entity;
 -(id)first:(Class)entity relations:(NSArray *)relations relationsDepth:(int)relationsDepth;
 -(id)last:(Class)entity;
@@ -63,8 +63,8 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(NSNumber *)remove:(id)entity;
 -(NSNumber *)remove:(Class)entity sid:(NSString *)sid;
 -(id)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery;
--(BackendlessCollection *)getView:(NSString *)viewName dataQuery:(BackendlessDataQuery *)dataQuery;
--(BackendlessCollection *)callStoredProcedure:(NSString *)spName arguments:(NSDictionary *)arguments;
+-(NSArray *)getView:(NSString *)viewName dataQuery:(BackendlessDataQuery *)dataQuery;
+-(NSArray *)callStoredProcedure:(NSString *)spName arguments:(NSDictionary *)arguments;
 -(NSNumber *)getObjectCount:(Class)entity;
 -(NSNumber *)getObjectCount:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery;
 //
@@ -100,7 +100,7 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(id)update:(id)entity error:(Fault **)fault;
 -(id)load:(id)object relations:(NSArray *)relations error:(Fault **)fault;
 -(id)load:(id)object relations:(NSArray *)relations relationsDepth:(int)relationsDepth error:(Fault **)fault;
--(BackendlessCollection *)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault;
+-(NSArray *)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault;
 -(id)first:(Class)entity error:(Fault **)fault;
 -(id)first:(Class)entity relations:(NSArray *)relations relationsDepth:(int)relationsDepth error:(Fault **)fault;
 -(id)last:(Class)entity error:(Fault **)fault;
@@ -117,9 +117,9 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(id)findByClassId:(Class)entity sid:(NSString *)sid error:(Fault **)fault;
 -(NSNumber *)remove:(id)entity error:(Fault **)fault;
 -(NSNumber *)remove:(Class)entity sid:(NSString *)sid error:(Fault **)fault;
--(BackendlessCollection *)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault;
--(BackendlessCollection *)getView:(NSString *)viewName dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault;
--(BackendlessCollection *)callStoredProcedure:(NSString *)spName arguments:(NSDictionary *)arguments error:(Fault **)fault;
+-(NSArray *)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault;
+-(NSArray *)getView:(NSString *)viewName dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault;
+-(NSArray *)callStoredProcedure:(NSString *)spName arguments:(NSDictionary *)arguments error:(Fault **)fault;
 -(NSNumber *)getObjectCount:(Class)entity error:(Fault **)fault;
 -(NSNumber *)getObjectCount:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault;
 //
@@ -195,7 +195,7 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(void)update:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)load:(id)object relations:(NSArray *)relations response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)load:(id)object relations:(NSArray *)relations relationsDepth:(int)relationsDepth response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)first:(Class)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)first:(Class)entity relations:(NSArray *)relations relationsDepth:(int)relationsDepth response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)last:(Class)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
@@ -212,9 +212,9 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(void)findByClassId:(Class)entity sid:(NSString *)sid response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)remove:(id)entity response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)remove:(Class)entity sid:(NSString *)sid response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)getView:(NSString *)viewName dataQuery:(BackendlessDataQuery *)dataQuery response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)callStoredProcedure:(NSString *)spName arguments:(NSDictionary *)arguments response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
+//-(void)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)getView:(NSString *)viewName dataQuery:(BackendlessDataQuery *)dataQuery response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)callStoredProcedure:(NSString *)spName arguments:(NSDictionary *)arguments response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getObjectCount:(Class)entity response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getObjectCount:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 //

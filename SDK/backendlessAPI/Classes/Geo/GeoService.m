@@ -26,7 +26,7 @@
 #import "Backendless.h"
 #import "Invoker.h"
 #import "BackendlessGeoQuery.h"
-#import "BackendlessCollection.h"
+//#import "NSArray.h"
 #import "LocationTracker.h"
 #import "GeoFence.h"
 #import "GeoFenceMonitoring.h"
@@ -88,7 +88,7 @@ static NSString *METHOD_COUNT = @"count";
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.model.GeoCluster" mapped:[GeoCluster class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.BackendlesGeoQuery" mapped:[BackendlessGeoQuery class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.model.SearchMatchesResult" mapped:[SearchMatchesResult class]];
-        [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.BackendlessCollection" mapped:[BackendlessCollection class]];
+        [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.NSArray" mapped:[NSArray class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.geofence.model.GeoFenceAMF" mapped:[GeoFence class]];
 #if !_IS_USERS_CLASS_
         [[Types sharedInstance] addClientClassMapping:@"Users" mapped:[BackendlessUser class]];
@@ -158,7 +158,7 @@ static NSString *METHOD_COUNT = @"count";
     return result;
 }
 
--(BackendlessCollection *)getPoints:(BackendlessGeoQuery *)query error:(Fault **)fault {
+-(NSArray *)getPoints:(BackendlessGeoQuery *)query error:(Fault **)fault {
     
     id result = [self getPoints:query];
     if ([result isKindOfClass:[Fault class]]) {
@@ -168,7 +168,7 @@ static NSString *METHOD_COUNT = @"count";
     return result;
 }
 
--(BackendlessCollection *)getClusterPoints:(GeoCluster *)geoCluster error:(Fault **)fault {
+-(NSArray *)getClusterPoints:(GeoCluster *)geoCluster error:(Fault **)fault {
     
     id result = [self getClusterPoints:geoCluster];
     if ([result isKindOfClass:[Fault class]]) {
@@ -178,11 +178,11 @@ static NSString *METHOD_COUNT = @"count";
     return result;
 }
 
--(BackendlessCollection *)getFencePoints:(NSString *)geoFenceName error:(Fault **)fault {
+-(NSArray *)getFencePoints:(NSString *)geoFenceName error:(Fault **)fault {
     return [self getFencePoints:geoFenceName query:nil error:fault];
 }
 
--(BackendlessCollection *)getFencePoints:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query error:(Fault **)fault {
+-(NSArray *)getFencePoints:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query error:(Fault **)fault {
     
     id result = [self getFencePoints:geoFenceName query:query];
     if ([result isKindOfClass:[Fault class]]) {
@@ -192,7 +192,7 @@ static NSString *METHOD_COUNT = @"count";
     return result;
 }
 
--(BackendlessCollection *)relativeFind:(BackendlessGeoQuery *)query error:(Fault **)fault {
+-(NSArray *)relativeFind:(BackendlessGeoQuery *)query error:(Fault **)fault {
     
     id result = [self relativeFind:query];
     if ([result isKindOfClass:[Fault class]]) {
@@ -373,7 +373,7 @@ id result = nil;
     }
 }
 
--(BackendlessCollection *)getPoints:(BackendlessGeoQuery *)query error:(Fault **)fault {
+-(NSArray *)getPoints:(BackendlessGeoQuery *)query error:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -391,7 +391,7 @@ id result = nil;
     }
 }
 
--(BackendlessCollection *)getClusterPoints:(GeoCluster *)geoCluster error:(Fault **)fault {
+-(NSArray *)getClusterPoints:(GeoCluster *)geoCluster error:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -409,11 +409,11 @@ id result = nil;
     }
 }
 
--(BackendlessCollection *)getFencePoints:(NSString *)geoFenceName error:(Fault **)fault {
+-(NSArray *)getFencePoints:(NSString *)geoFenceName error:(Fault **)fault {
     return [self getFencePoints:geoFenceName query:nil error:fault];
 }
 
--(BackendlessCollection *)getFencePoints:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query error:(Fault **)fault {
+-(NSArray *)getFencePoints:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query error:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -431,7 +431,7 @@ id result = nil;
     }
 }
 
--(BackendlessCollection *)relativeFind:(BackendlessGeoQuery *)query error:(Fault **)fault {
+-(NSArray *)relativeFind:(BackendlessGeoQuery *)query error:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -669,7 +669,7 @@ id result = nil;
     return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_CATEGORIES args:@[]];
 }
 
--(BackendlessCollection *)getPoints:(BackendlessGeoQuery *)query {
+-(NSArray *)getPoints:(BackendlessGeoQuery *)query {
     
     NSArray *args = [NSArray arrayWithObjects:query, nil];
     id result = [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_POINTS args:args];
@@ -677,14 +677,14 @@ id result = nil;
         return result;
     }
 
-    if (![result isKindOfClass:[BackendlessCollection class]]) {
+    if (![result isKindOfClass:[NSArray class]]) {
         
         NSLog(@"GeoService->getPoints: (ERROR) [%@]\n%@", [result class], result);
         return nil;
     }
     
-    BackendlessCollection *collection = result;
-    collection.query = query;
+    NSArray *collection = result;
+    //collection.query = query;
     [collection type:[GeoPoint class]];
     
     [self setReferenceToCluster:collection];
@@ -692,7 +692,7 @@ id result = nil;
     return collection;
 }
 
--(BackendlessCollection *)getClusterPoints:(GeoCluster *)geoCluster {
+-(NSArray *)getClusterPoints:(GeoCluster *)geoCluster {
     
     NSArray *args = @[geoCluster.objectId, geoCluster.geoQuery];
     id result = [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_LOAD_GEOPOINTS args:args];
@@ -700,24 +700,24 @@ id result = nil;
         return result;
     }
     
-    if (![result isKindOfClass:[BackendlessCollection class]]) {
+    if (![result isKindOfClass:[NSArray class]]) {
         
         NSLog(@"GeoService->getCluster: (ERROR) [%@]\n%@", [result class], result);
         return nil;
     }
     
-    BackendlessCollection *collection = result;
-    collection.query = geoCluster.geoQuery;
+    NSArray *collection = result;
+    //collection.query = geoCluster.geoQuery;
     [collection type:[GeoPoint class]];
     
     return collection;
 }
 
--(BackendlessCollection *)getFencePoints:(NSString *)geoFenceName {
+-(NSArray *)getFencePoints:(NSString *)geoFenceName {
     return [self getFencePoints:geoFenceName query:nil];
 }
 
--(BackendlessCollection *)getFencePoints:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query {
+-(NSArray *)getFencePoints:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query {
     
     id fault = nil;
     if ((fault = [self isFaultGeoFenceName:geoFenceName responder:nil]))
@@ -730,14 +730,14 @@ id result = nil;
         return result;
     }
     
-    if (![result isKindOfClass:[BackendlessCollection class]]) {
+    if (![result isKindOfClass:[NSArray class]]) {
         
         NSLog(@"GeoService->getPoints: (ERROR) [%@]\n%@", [result class], result);
         return nil;
     }
     
-    BackendlessCollection *collection = result;
-    collection.query = geoQuery;
+    NSArray *collection = result;
+    //collection.query = geoQuery;
     [collection type:[GeoPoint class]];
     
     [self setReferenceToCluster:collection];
@@ -745,7 +745,7 @@ id result = nil;
     return collection;
 }
 
--(BackendlessCollection *)relativeFind:(BackendlessGeoQuery *)query {
+-(NSArray *)relativeFind:(BackendlessGeoQuery *)query {
     
     BackendlessGeoQuery *geoQuery = query?query:[BackendlessGeoQuery query];
     NSArray *args = @[geoQuery];
@@ -754,8 +754,8 @@ id result = nil;
         return result;
     }
     
-    BackendlessCollection *collection = result;
-    collection.query = query;
+    NSArray *collection = result;
+    //collection.query = query;
     [collection type:[GeoPoint class]];
     
     [self setReferenceToCluster:collection];
@@ -1060,23 +1060,23 @@ id result = nil;
     [self getCategories:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)getPoints:(BackendlessGeoQuery *)query response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)getPoints:(BackendlessGeoQuery *)query response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self getPoints:query responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)getClusterPoints:(GeoCluster *)geoCluster response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)getClusterPoints:(GeoCluster *)geoCluster response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self getClusterPoints:geoCluster responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)getFencePoints:(NSString *)geoFenceName response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)getFencePoints:(NSString *)geoFenceName response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self getFencePoints:geoFenceName responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)getFencePoints:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)getFencePoints:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self getFencePoints:geoFenceName query:query responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)relativeFind:(BackendlessGeoQuery *)query response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)relativeFind:(BackendlessGeoQuery *)query response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self relativeFind:query responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
@@ -1139,16 +1139,16 @@ id result = nil;
     return rect;
 }
 
--(void)setReferenceToCluster:(BackendlessCollection *)points {
-    
-    BackendlessGeoQuery *geoQuery = points.query;
-    for (id geoPoint in points.data) {
-        if ([geoPoint isKindOfClass:[GeoCluster class]]) {
-            GeoCluster *geoCluster = geoPoint;
-            geoCluster.geoQuery = geoQuery;
-        }
-    }
-}
+//-(void)setReferenceToCluster:(NSArray *)points {
+//    
+//    BackendlessGeoQuery *geoQuery = points.query;
+//    for (id geoPoint in points.data) {
+//        if ([geoPoint isKindOfClass:[GeoCluster class]]) {
+//            GeoCluster *geoCluster = geoPoint;
+//            geoCluster.geoQuery = geoQuery;
+//        }
+//    }
+//}
 
 // geo fence monitoring
 /*
@@ -1472,10 +1472,10 @@ id result = nil;
 
 -(id)getResponse:(ResponseContext *)response {
     
-    BackendlessCollection *collection = response.response;
+    NSArray *collection = response.response;
     BackendlessGeoQuery *geoQuery = response.context;
-    collection.query = geoQuery;
-    [collection type:[GeoPoint class]];
+//    collection.query = geoQuery;
+//    [collection type:[GeoPoint class]];
     
     [self setReferenceToCluster:collection];
 
