@@ -138,16 +138,6 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(NSNumber *)bulkUpdate:(NSArray *)objects error:(Fault **)fault;
  */
 
-
-// async methods with responder
-/*
--(void)bulkCreate:(NSArray *)objects responder:(id <IResponder>)responder;
--(void)bulkDelete:(NSArray *)objects responder:(id <IResponder>)responder;
--(void)bulkDeleteByIds:(NSArray<NSString*> *)objectIDs responder:(id <IResponder>)responder;
--(void)bulkDeleteByWhereClause:(NSString *)whereClause responder:(id <IResponder>)responder;
--(void)bulkUpdate:(NSArray *)objects responder:(id <IResponder>)responder;
-*/
-
 // async methods with block-based callbacks
 -(void)describe:(NSString *)classCanonicalName response:(void(^)(NSArray<ObjectProperty*> *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)save:(NSString *)entityName entity:(NSDictionary *)entity response:(void(^)(NSDictionary *))responseBlock error:(void(^)(Fault *))errorBlock;

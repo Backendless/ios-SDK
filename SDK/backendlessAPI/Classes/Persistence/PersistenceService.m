@@ -1279,8 +1279,6 @@ id result = nil;
     }
 
 }
- //
-
 #endif
 
 // sync methods with fault return  (as exception)
@@ -1742,16 +1740,7 @@ id result = nil;
     return nil;
 }
 
--(NSNumber *)createRelationForId:(NSString *)parentObjectId columnName:(NSString *)columnName whereClause:(NSString *)whereClause {
-    
-    return nil;
-}
-
 -(id)deleteRelation:(id)parentObject columnName: (NSString *)columnName childObjects:(NSArray *)childObjects {
-    return nil;
-}
-
--(id)deleteRelationForId:(NSString *)parentObjectId columnName:(NSString *)columnName childObjectsIds:(NSArray<NSString*> *)childObjectsIds {
     return nil;
 }
 
@@ -1760,32 +1749,6 @@ id result = nil;
     return nil;
 }
 
-
-// async methods with responder
-
--(void)createRelation:(id)parentObject columnName: (NSString *)columnName childObjects:(NSArray *)childObjects responder:(id <IResponder>)responder {
-    
-}
--(void)createRelationForId:(NSString *)parentObjectId columnName:(NSString *)columnName childObjectsIds:(NSArray<NSString*> *)childObjectsIds responder:(id <IResponder>)responder {
-    
-}
--(void)createRelation:(id)parentObject columnName: (NSString *)columnName whereClause:(NSString *)whereClause responder:(id <IResponder>)responder {
-    
-}
--(void)createRelationForId:(NSString *)parentObjectId columnName:(NSString *)columnName whereClause:(NSString *)whereClause responder:(id <IResponder>)responder {
-    
-}
--(void)deleteRelation:(id)parentObject columnName: (NSString *)columnName childObjectsIds:(NSArray<NSString*> *)childObjectsIds responder:(id <IResponder>)responder {
-    
-}
--(void)deleteRelationForId:(NSString *)parentObjectId columnName:(NSString *)columnName childObjectsIds:(NSArray<NSString*> *)childObjectsIds responder:(id <IResponder>)responder {
-    
-}
--(void)deleteRelation:(id)parentObject columnName: (NSString *)columnName whereClause:(NSString *)whereClause responder:(id <IResponder>)responder {
-    
-}
-
-                                                                 
 // async methods with block-base callbacks
 
 -(void)describe:(NSString *)classCanonicalName response:(void(^)(NSArray<ObjectProperty*> *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -2181,11 +2144,9 @@ id result = nil;
     
 }
 -(void)deleteRelation:(id)parentObject columnName: (NSString *)columnName childObjects:(NSArray *)childObjects response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    
+
 }
--(void)deleteRelationForId:(NSString *)parentObjectId columnName:(NSString *)columnName childObjectsIds:(NSArray<NSString*> *)childObjectsIds response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    
-}
+
 -(void)deleteRelation:(id)parentObject columnName: (NSString *)columnName whereClause:(NSString *)whereClause response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     
 }
@@ -2428,25 +2389,17 @@ id get_object_id(id self, SEL _cmd)
     if ([data isKindOfClass:[NSArray class]]) {
         collection = data;
     }
-    else
-        if ([data isKindOfClass:[NSDictionary class]]) {
-            collection = [[NSArray new] autorelease];
-            [collection resolveProperties:data];
-        }
-    
-    if (collection) {
-        //collection.query = query;
-        //*[collection pageSize:query.queryOptions.pageSize.integerValue];
+    else if ([data isKindOfClass:[NSDictionary class]]) {
+        collection = [[NSArray new] autorelease];
+        [collection resolveProperties:data];
     }
-    
+
     [DebLog logN:@"PersistenceService -> getAsCollection: %@ -> \n%@", data, collection];
     
     return collection;
 }
 
 -(id)setRelations:(NSArray *)relations object:(id)object response:(id)response {
-    
-    //[DebLog logY:@"PersistenceService -> setRelations: %@ -> \n%@", relations, response];
 #if 0
     for (NSString *propertyName in relations) {
 #else
@@ -2511,9 +2464,7 @@ id get_object_id(id self, SEL _cmd)
     
 #if _PERSISTENCE_UDPATE_CURRENTUSER_ON_
 -(id)onCurrentUserUpdate:(id)result {
-        
-    //[DebLog logY:@"PersistenceService -> onUpdate: (1) result = %@\ncurrentUser = %@", result, backendless.userService.currentUser];
-        
+    
     if (![result isKindOfClass:[BackendlessUser class]]) {
         return result;
     }
@@ -2522,7 +2473,6 @@ id get_object_id(id self, SEL _cmd)
     if (backendless.userService.isStayLoggedIn && backendless.userService.currentUser && [user.objectId isEqualToString:backendless.userService.currentUser.objectId]) {
         backendless.userService.currentUser = user;
         [backendless.userService setPersistentUser];
-        //[DebLog logY:@"PersistenceService -> onUpdate: (2) currentUser = %@", backendless.userService.currentUser];
     }
     
     return user;
