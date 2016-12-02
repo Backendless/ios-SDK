@@ -62,7 +62,6 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(id)findByClassId:(Class)entity sid:(NSString *)sid;
 -(NSNumber *)remove:(id)entity;
 -(NSNumber *)remove:(Class)entity sid:(NSString *)sid;
--(id)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery;
 -(NSArray *)getView:(NSString *)viewName dataQuery:(BackendlessDataQuery *)dataQuery;
 -(NSArray *)callStoredProcedure:(NSString *)spName arguments:(NSDictionary *)arguments;
 -(NSNumber *)getObjectCount:(Class)entity;
@@ -73,7 +72,6 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(NSNumber *)createRelation:(id)parentObject columnName:(NSString *)columnName whereClause:(NSString *)whereClause;
 -(NSNumber *)createRelationForId:(NSString *)parentObjectId columnName:(NSString *)columnName whereClause:(NSString *)whereClause;
 -(id)deleteRelation:(id)parentObject columnName:(NSString *)columnName childObjects:(NSArray *)childObjects;
--(id)deleteRelationForId:(NSString *)parentObjectId columnName:(NSString *)columnName childObjectsIds:(NSArray<NSString*> *)childObjectsIds;
 -(NSNumber *)deleteRelation:(id)parentObject columnName:(NSString *)columnName whereClause:(NSString *)whereClause;
 /*
  Backendless.Data.of( T ).bulkCreate( List<T> objects );
@@ -117,7 +115,6 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(id)findByClassId:(Class)entity sid:(NSString *)sid error:(Fault **)fault;
 -(NSNumber *)remove:(id)entity error:(Fault **)fault;
 -(NSNumber *)remove:(Class)entity sid:(NSString *)sid error:(Fault **)fault;
--(NSArray *)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault;
 -(NSArray *)getView:(NSString *)viewName dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault;
 -(NSArray *)callStoredProcedure:(NSString *)spName arguments:(NSDictionary *)arguments error:(Fault **)fault;
 -(NSNumber *)getObjectCount:(Class)entity error:(Fault **)fault;
@@ -127,9 +124,8 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(id)createRelationForId:(NSString *)parentObjectId columnName:(NSString *)columnName childObjectsIds:(NSArray<NSString*> *)childObjectsIds error:(Fault **)fault;
 -(NSNumber *)createRelation:(id)parentObject columnName: (NSString *)columnName whereClause:(NSString *)whereClause error:(Fault **)fault;
 -(NSNumber *)createRelationForId:(NSString *)parentObjectId columnName:(NSString *)columnName whereClause:(NSString *)whereClause error:(Fault **)fault;
--(id)deleteRelation:(id)parentObject columnName: (NSString *)columnName childObjects:(NSArray *)childObjects error:(Fault **)fault;
--(id)deleteRelationForId:(NSString *)parentObjectId columnName:(NSString *)columnName childObjectsIds:(NSArray<NSString*> *)childObjectsIds error:(Fault **)fault;
--(NSNumber *)deleteRelation:(id)parentObject columnName: (NSString *)columnName whereClause:(NSString *)whereClause error:(Fault **)fault;
+-(id)ddeleteRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects error:(Fault **)fault;
+-(NSNumber *)ddeleteRelation:(NSString *)parentObject columnName: (NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause error:(Fault **)fault;
 /*
 -(id)bulkCreate:(NSArray *)objects error:(Fault **)fault;
 -(id)bulkDelete:(NSArray *)objects error:(Fault **)fault;
@@ -137,16 +133,6 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(NSNumber *)bulkDeleteByWhereClause:(NSString *)whereClause error:(Fault **)fault;
 -(NSNumber *)bulkUpdate:(NSArray *)objects error:(Fault **)fault;
  */
-
-
-// async methods with responder
-/*
--(void)bulkCreate:(NSArray *)objects responder:(id <IResponder>)responder;
--(void)bulkDelete:(NSArray *)objects responder:(id <IResponder>)responder;
--(void)bulkDeleteByIds:(NSArray<NSString*> *)objectIDs responder:(id <IResponder>)responder;
--(void)bulkDeleteByWhereClause:(NSString *)whereClause responder:(id <IResponder>)responder;
--(void)bulkUpdate:(NSArray *)objects responder:(id <IResponder>)responder;
-*/
 
 // async methods with block-based callbacks
 -(void)describe:(NSString *)classCanonicalName response:(void(^)(NSArray<ObjectProperty*> *))responseBlock error:(void(^)(Fault *))errorBlock;
@@ -174,7 +160,6 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(void)findByClassId:(Class)entity sid:(NSString *)sid response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)remove:(id)entity response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)remove:(Class)entity sid:(NSString *)sid response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
-//-(void)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getView:(NSString *)viewName dataQuery:(BackendlessDataQuery *)dataQuery response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)callStoredProcedure:(NSString *)spName arguments:(NSDictionary *)arguments response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getObjectCount:(Class)entity response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
@@ -184,9 +169,8 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(void)createRelationForId:(NSString *)parentObjectId columnName:(NSString *)columnName childObjectsIds:(NSArray<NSString*> *)childObjectsIds response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)createRelation:(id)parentObject columnName: (NSString *)columnName whereClause:(NSString *)whereClause response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)createRelationForId:(NSString *)parentObjectId columnName:(NSString *)columnName whereClause:(NSString *)whereClause response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)deleteRelation:(id)parentObject columnName: (NSString *)columnName childObjects:(NSArray *)childObjects response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)deleteRelationForId:(NSString *)parentObjectId columnName:(NSString *)columnName childObjectsIds:(NSArray<NSString*> *)childObjectsIds response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)deleteRelation:(id)parentObject columnName: (NSString *)columnName whereClause:(NSString *)whereClause response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)deleteRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)deleteRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 /*
 -(void)bulkCreate:(NSArray *)objects response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)bulkDelete:(NSArray *)objects response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
