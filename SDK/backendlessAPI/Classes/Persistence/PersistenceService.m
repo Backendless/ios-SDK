@@ -65,6 +65,7 @@ static NSString *METHOD_CALL_STORED_VIEW = @"callStoredView";
 static NSString *METHOD_CALL_STORED_PROCEDURE = @"callStoredProcedure";
 static NSString *METHOD_COUNT = @"count";
 static NSString *DELETE_RELATION = @"deleteRelation";
+static NSString *CREATE_RELATION = @"setRelation";
 //
 NSString *LOAD_ALL_RELATIONS = @"*";
 
@@ -1130,11 +1131,11 @@ id result = nil;
 }
 
 //
--(id)createRelation:(id)parentObject columnName: (NSString *)columnName childObjects:(NSArray *)childObjects error:(Fault **)fault {
+-(id)createRelation:(id)parentObject columnName: (NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects error:(Fault **)fault {
     
     id result = nil;
     @try {
-        result = [self createRelation:parentObject columnName:columnName childObjects:childObjects];
+        result = [self createRelation:parentObject columnName:columnName parentObjectId:parentObjectId childObjects:childObjects];
     }
     @catch (Fault *fault) {
         result = fault;
@@ -1149,26 +1150,26 @@ id result = nil;
 
 }
 
--(id)createRelationForId:(NSString *)parentObjectId columnName:(NSString *)columnName childObjectsIds:(NSArray<NSString*> *)childObjectsIds error:(Fault **)fault {
-    
-    id result = nil;
-    @try {
-        result = [self createRelationForId:parentObjectId columnName:columnName childObjectsIds:childObjectsIds];
-    }
-    @catch (Fault *fault) {
-        result = fault;
-    }
-    @finally {
-        if ([result isKindOfClass:Fault.class]) {
-            if (fault)(*fault) = result;
-            return nil;
-        }
-        return result;
-    }
+//-(id)createRelationForId:(NSString *)parentObjectId columnName:(NSString *)columnName childObjectsIds:(NSArray<NSString*> *)childObjectsIds error:(Fault **)fault {
+//    
+//    id result = nil;
+//    @try {
+//        result = [self createRelationForId:parentObjectId columnName:columnName parentObjectId:parentObjectId childObjectsIds:childObjectsIds];
+//    }
+//    @catch (Fault *fault) {
+//        result = fault;
+//    }
+//    @finally {
+//        if ([result isKindOfClass:Fault.class]) {
+//            if (fault)(*fault) = result;
+//            return nil;
+//        }
+//        return result;
+//    }
+//
+//}
 
-}
-
--(NSNumber *)createRelation:(id)parentObject columnName: (NSString *)columnName whereClause:(NSString *)whereClause error:(Fault **)fault {
+-(NSNumber *)createRelation:(id)parentObject columnName: (NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause error:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -1205,12 +1206,12 @@ id result = nil;
     }
 
 }
-//
--(id)deleteRelation:(id)parentObject columnName: (NSString *)columnName childObjects:(NSArray *)childObjects error:(Fault **)fault {
+
+-(id)deleteRelation:(id)parentObject columnName: (NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects error:(Fault **)fault {
     
     id result = nil;
     @try {
-        result = [self deleteRelation:parentObject columnName:columnName childObjects:childObjects];
+        result = [self ddeleteRelation:parentObject columnName:columnName parentObjectId:parentObjectId childObjects:childObjects];
     }
     @catch (Fault *fault) {
         result = fault;
@@ -1225,11 +1226,11 @@ id result = nil;
 
 }
 
--(NSNumber *)deleteRelation:(id)parentObject columnName: (NSString *)columnName whereClause:(NSString *)whereClause error:(Fault **)fault {
+-(NSNumber *)deleteRelation:(id)parentObject columnName: (NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause error:(Fault **)fault {
     
     id result = nil;
     @try {
-        result = [self deleteRelation:parentObject columnName:columnName whereClause:whereClause];
+        result = [self deleteRelation:parentObject columnName:columnName parentObjectId:parentObjectId whereClause:whereClause];
     }
     @catch (Fault *fault) {
         result = fault;
@@ -1679,21 +1680,28 @@ id result = nil;
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_COUNT args:args];
 }
 
--(id)createRelation:(id)parentObject columnName: (NSString *)columnName childObjects:(NSArray *)childObjects {
-    return nil;
+-(id)createRelation:(id)parentObject columnName: (NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects {
+    if (!parentObject)
+        return [backendless throwFault:FAULT_NO_ENTITY];
     
+    NSArray *args = @[parentObject, columnName, parentObjectId, childObjects];
+    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:CREATE_RELATION args:args];
+   
 }
 
--(id)createRelationForId:(NSString *)parentObjectId columnName:(NSString *)columnName childObjectsIds:(NSArray<NSString*> *)childObjectsIds {
-    return nil;
-}
+//-(id)createRelationForId:(NSString *)parentObjectId columnName:(NSString *)columnName childObjectsIds:(NSArray<NSString*> *)childObjectsIds {
+//    return nil;
+//}
 
--(NSNumber *)createRelation:(id)parentObject columnName: (NSString *)columnName whereClause:(NSString *)whereClause {
+-(NSNumber *)createRelation:(id)parentObject columnName: (NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause {
+    if (!parentObject)
+        return [backendless throwFault:FAULT_NO_ENTITY];
     
-    return nil;
+    NSArray *args = @[parentObject, columnName, parentObjectId, whereClause];
+    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:CREATE_RELATION args:args];
 }
 
--(id)ddeleteRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects {
+-(id)deleteRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects {
     if (!parentObject)
         return [backendless throwFault:FAULT_NO_ENTITY];
     
@@ -1701,12 +1709,12 @@ id result = nil;
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:DELETE_RELATION args:args];
 }
 
--(NSNumber *)ddeleteRelation:(NSString *)parentObject columnName: (NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause {
+-(NSNumber *)deleteRelation:(NSString *)parentObject columnName: (NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause {
     if (!parentObject)
         return [backendless throwFault:FAULT_NO_ENTITY];
     
     NSArray *args = @[parentObject, columnName, parentObjectId, whereClause];
-    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:DELETE_RELATION args:args];;
+    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:DELETE_RELATION args:args];
 }
 
 // async methods with block-base callbacks

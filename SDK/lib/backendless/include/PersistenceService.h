@@ -120,12 +120,10 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(NSNumber *)getObjectCount:(Class)entity error:(Fault **)fault;
 -(NSNumber *)getObjectCount:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault;
 //
--(id)createRelation:(id)parentObject columnName: (NSString *)columnName childObjects:(NSArray *)childObjects error:(Fault **)fault;
--(id)createRelationForId:(NSString *)parentObjectId columnName:(NSString *)columnName childObjectsIds:(NSArray<NSString*> *)childObjectsIds error:(Fault **)fault;
--(NSNumber *)createRelation:(id)parentObject columnName: (NSString *)columnName whereClause:(NSString *)whereClause error:(Fault **)fault;
--(NSNumber *)createRelationForId:(NSString *)parentObjectId columnName:(NSString *)columnName whereClause:(NSString *)whereClause error:(Fault **)fault;
--(id)ddeleteRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects error:(Fault **)fault;
--(NSNumber *)ddeleteRelation:(NSString *)parentObject columnName: (NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause error:(Fault **)fault;
+-(id)createRelation:(id)parentObject columnName: (NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects error:(Fault **)fault;
+-(NSNumber *)createRelation:(id)parentObject columnName: (NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause error:(Fault **)fault;
+-(id)deleteRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects error:(Fault **)fault;
+-(NSNumber *)deleteRelation:(NSString *)parentObject columnName: (NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause error:(Fault **)fault;
 /*
 -(id)bulkCreate:(NSArray *)objects error:(Fault **)fault;
 -(id)bulkDelete:(NSArray *)objects error:(Fault **)fault;
