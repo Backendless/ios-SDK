@@ -64,7 +64,7 @@
 #import "QueryOptions.h"
 #import "BackendlessDataQuery.h"
 #import "ProtectedBackendlessGeoQuery.h"
-#import "BackendlessCollection.h"
+//#import "BackendlessCollection.h"
 #import "IDataStore.h"
 #import "DataStoreFactory.h"
 #import "PersistenceService.h"

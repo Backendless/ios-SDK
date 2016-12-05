@@ -100,21 +100,21 @@
     }
     return result;
 }
--(id)responseHandler:(BackendlessCollection *)response
+-(id)responseHandler:(NSArray *)response
 {
     if (!_data) {
         _data = [NSMutableArray new];
     }
     if (_needReloadData) {
         [_data removeAllObjects];
-        [_data addObjectsFromArray:response.data];
+        [_data addObjectsFromArray:response];
         [self reloadData];
     }
     else
     {
         NSInteger offset = _data.count;
-        NSInteger count = response.data.count;
-        [_data addObjectsFromArray:response.data];
+        NSInteger count = response.count;
+        [_data addObjectsFromArray:response];
         [self insertItemsAtIndexPaths:[self getIndexPathsForOffset:offset Count:count]];
     }
     
@@ -143,7 +143,7 @@
     //_className = [className copy];
     //_dataQuery = [dataQuery retain];
     _responder.chained = nil;
-    BackendlessCollection *collection = [backendless.persistenceService find:className dataQuery:dataQuery];
+    NSArray *collection = [backendless.persistenceService find:className dataQuery:dataQuery];
     [self responseHandler:collection];
 }
 -(void)find:(Class)className dataQuery:(BackendlessDataQuery *)dataQuery responder:(id)responder
@@ -153,7 +153,7 @@
     _responder.chained = responder;
     [backendless.persistenceService find:className dataQuery:dataQuery responder:_responder];
 }
--(void)find:(Class)className dataQuery:(BackendlessDataQuery *)dataQuery response:(void (^)(BackendlessCollection *))responseBlock error:(void (^)(Fault *))errorBlock
+-(void)find:(Class)className dataQuery:(BackendlessDataQuery *)dataQuery response:(void (^)(NSArray *))responseBlock error:(void (^)(Fault *))errorBlock
 {
     //_className = [className copy];
     //_dataQuery = [dataQuery retain];
@@ -166,14 +166,14 @@
 {
     //_geoQuery = [query retain];
     _responder.chained = nil;
-    BackendlessCollection *c = [backendless.geoService getPoints:query];
+    NSArray *c = [backendless.geoService getPoints:query];
     [self responseHandler:c];
 }
 -(void)relativeFind:(BackendlessGeoQuery *)query
 {
     //_geoQuery = [query retain];
     _responder.chained = nil;
-    BackendlessCollection *c = [backendless.geoService relativeFind:query];
+    NSArray *c = [backendless.geoService relativeFind:query];
     [self responseHandler:c];
 }
 -(void)getPoints:(BackendlessGeoQuery *)query responder:(id)responder
@@ -188,13 +188,13 @@
     _responder.chained = responder;
     [backendless.geoService relativeFind:query responder:_responder];
 }
--(void)getPoints:(BackendlessGeoQuery *)query response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock
+-(void)getPoints:(BackendlessGeoQuery *)query response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock
 {
     //_geoQuery = [query retain];
     _responder.chained = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     [backendless.geoService getPoints:query responder:_responder];
 }
--(void)relativeFind:(BackendlessGeoQuery *)query response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock
+-(void)relativeFind:(BackendlessGeoQuery *)query response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock
 {
     //_geoQuery = [query retain];
     _responder.chained = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];

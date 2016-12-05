@@ -259,7 +259,7 @@
     [self removeAllObjects];
     [self mapView:self regionDidChangeAnimated:NO];
 }
--(id)responseHandler:(BackendlessCollection *)response
+-(id)responseHandler:(NSArray *)response
 {
     //NSLog(@"BEMapView -> responseHandler: %@", response);
     
@@ -270,28 +270,28 @@
             //NSLog(@"BEMapView -> responseHandler: (CLEAN)");
         }
 #endif
-        [_responseData addObjectsFromArray:response.data];
-        if (response.valPageSize + response.valOffset < response.valTotalObjects) {
-            [response nextPage:NO responder:_responder];
-        }
-        else
+//        [_responseData addObjectsFromArray:response];
+//        if (response.valPageSize + response.valOffset < response.valTotalObjects) {
+//            [response nextPage:NO responder:_responder];
+//        }
+//        else
         {
             if ([_beMapViewDelegate respondsToSelector:@selector(mapView:didFinishLoadData:)]) {
                 [_beMapViewDelegate mapView:self didFinishLoadData:_responseData];
             }
         }
-        for (GeoPoint *point in response.data) {
+        for (GeoPoint *point in response) {
             [self addGeopointIfNeed:point];
         }
     }
     else {
         [self removeAllObjects];
         [_responseData removeAllObjects];
-        [_responseData addObjectsFromArray:response.data];
+        [_responseData addObjectsFromArray:response];
         if ([_beMapViewDelegate respondsToSelector:@selector(mapView:didFinishLoadData:)]) {
             [_beMapViewDelegate mapView:self didFinishLoadData:_responseData];
         }
-        for (GeoPoint *point in response.data) {
+        for (GeoPoint *point in response) {
             [self addGeopointIfNeed:point];
         }
     }
@@ -540,7 +540,7 @@
     _autoUpdate = NO;
     //_geoQuery = [query retain];
     _responder.chained = nil;
-    BackendlessCollection *c = [backendless.geoService getPoints:query];
+    NSArray *c = [backendless.geoService getPoints:query];
     [self responseHandler:c];
 }
 
@@ -549,7 +549,7 @@
     _autoUpdate = NO;
     //_geoQuery = [query retain];
     _responder.chained = nil;
-    BackendlessCollection *c = [backendless.geoService relativeFind:query];
+    NSArray *c = [backendless.geoService relativeFind:query];
     [self responseHandler:c];
 }
 
@@ -569,7 +569,7 @@
     [backendless.geoService relativeFind:query responder:_responder];
 }
 
--(void)getPoints:(BackendlessGeoQuery *)query response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock
+-(void)getPoints:(BackendlessGeoQuery *)query response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock
 {
     _autoUpdate = NO;
     //_geoQuery = [query retain];
@@ -577,7 +577,7 @@
     [backendless.geoService getPoints:query responder:_responder];
 }
 
--(void)relativeFind:(BackendlessGeoQuery *)query response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock
+-(void)relativeFind:(BackendlessGeoQuery *)query response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock
 {
     _autoUpdate = NO;
     //_geoQuery = [query retain];

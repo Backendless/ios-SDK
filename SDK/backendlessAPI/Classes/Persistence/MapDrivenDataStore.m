@@ -85,7 +85,7 @@ static NSString *_METHOD_LOAD = @"loadRelations";
     if (backendless.data)
         return;
     
-    [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.BackendlessCollection" mapped:[BackendlessCollection class]];
+    [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.NSArray" mapped:[NSArray class]];
     [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.ObjectProperty" mapped:[ObjectProperty class]];
     [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.model.GeoPoint" mapped:[GeoPoint class]];
     [[Types sharedInstance] addClientClassMapping:@"java.lang.ClassCastException" mapped:[ClassCastException class]];
@@ -95,15 +95,15 @@ static NSString *_METHOD_LOAD = @"loadRelations";
     
 }
 
--(BackendlessCollection *)fixClassCollection:(BackendlessCollection *)bc {
+-(NSArray *)fixClassCollection:(NSArray *)bc {
     
-    if (bc.data.count && ![bc.data[0] isKindOfClass:NSDictionary.class]) {
+    if (bc.count && ![bc[0] isKindOfClass:NSDictionary.class]) {
         
         NSMutableArray *data = [NSMutableArray array];
-        for (id item in bc.data) {
+        for (id item in bc) {
             [data addObject:[Types propertyDictionary:item]];
         }
-        bc.data = [NSArray arrayWithArray:data];
+        bc = [NSArray arrayWithArray:data];
     }
     return bc;
 }
@@ -132,21 +132,21 @@ static NSString *_METHOD_LOAD = @"loadRelations";
     return [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_REMOVE args:args];
 }
 
--(BackendlessCollection *)find {
+-(NSArray *)find {
     return [self find:BACKENDLESS_DATA_QUERY];
 }
 
--(BackendlessCollection *)find:(BackendlessDataQuery *)dataQuery {
+-(NSArray *)find:(BackendlessDataQuery *)dataQuery {
     
     NSArray *args = @[_tableName, dataQuery?dataQuery:BACKENDLESS_DATA_QUERY];
     id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_FIND args:args];
     if ([result isKindOfClass:[Fault class]])
         return result;
     
-    BackendlessCollection *bc = (BackendlessCollection *)result;
+    NSArray *bc = (NSArray *)result;
     //*[bc pageSize:dataQuery.queryOptions.pageSize.integerValue];
-    bc.query = dataQuery;
-    bc.tableName = _tableName;
+//    bc.query = dataQuery;
+//    bc.tableName = _tableName;
     return [self fixClassCollection:bc];
 }
 
@@ -318,7 +318,7 @@ id result = nil;
     }
 }
 
--(BackendlessCollection *)findFault:(Fault **)fault {
+-(NSArray *)findFault:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -336,7 +336,7 @@ id result = nil;
     }
 }
 
--(BackendlessCollection *)find:(BackendlessDataQuery *)dataQuery fault:(Fault **)fault {
+-(NSArray *)find:(BackendlessDataQuery *)dataQuery fault:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -694,15 +694,15 @@ id result = nil;
     [self find:BACKENDLESS_DATA_QUERY responder:responder];
 }
 
--(id)setCollectionFields:(ResponseContext *)response {
-    
-    BackendlessCollection *bc = response.response;
-    BackendlessDataQuery *dataQuery = response.context;
-    //*[bc pageSize:dataQuery.queryOptions.pageSize.integerValue];
-    bc.query = dataQuery;
-    bc.tableName = _tableName;
-    return [self fixClassCollection:bc];
-}
+//-(id)setCollectionFields:(ResponseContext *)response {
+//    
+//    NSArray *bc = response.response;
+//    BackendlessDataQuery *dataQuery = response.context;
+//    //*[bc pageSize:dataQuery.queryOptions.pageSize.integerValue];
+//    bc.query = dataQuery;
+//    bc.tableName = _tableName;
+//    return [self fixClassCollection:bc];
+//}
 
 -(void)find:(BackendlessDataQuery *)dataQuery responder:(id <IResponder>)responder {
     
@@ -845,11 +845,11 @@ id result = nil;
     [self save:entity responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)find:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)find:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self findResponder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)find:(BackendlessDataQuery *)dataQuery response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)find:(BackendlessDataQuery *)dataQuery response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self find:dataQuery responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 

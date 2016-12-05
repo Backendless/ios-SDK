@@ -35,7 +35,7 @@
 #import "ClassCastException.h"
 #import "Backendless.h"
 #import "Invoker.h"
-#import "BackendlessCollection.h"
+//#import "NSArray.h"
 #import "ObjectProperty.h"
 #import "QueryOptions.h"
 #import "BackendlessDataQuery.h"
@@ -76,7 +76,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 -(NSString *)objectClassName:(id)object;
 -(NSDictionary *)propertyDictionary:(id)object;
 -(id)propertyObject:(id)object;
--(BackendlessCollection *)getAsCollection:(id)data query:(BackendlessDataQuery *)query;
+-(NSArray *)getAsCollection:(id)data query:(BackendlessDataQuery *)query;
 -(id)setRelations:(NSArray *)relations object:(id)object response:(id)response;
 // callbacks
 -(id)setCurrentPageSize:(ResponseContext *)collection;
@@ -229,7 +229,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 
 -(id)init {
 	if ( (self=[super init]) ) {
-        [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.BackendlessCollection" mapped:[BackendlessCollection class]];
+        [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.NSArray" mapped:[NSArray class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.ObjectProperty" mapped:[ObjectProperty class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.QueryOptions" mapped:[QueryOptions class]];
 
@@ -365,7 +365,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     return result;
 }
 
--(BackendlessCollection *)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault {
+-(NSArray *)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault {
     
     id result = [self find:entity dataQuery:dataQuery];
     if ([result isKindOfClass:[Fault class]]) {
@@ -763,7 +763,7 @@ id result = nil;
     }
 }
 
--(BackendlessCollection *)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault {
+-(NSArray *)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -1069,7 +1069,7 @@ id result = nil;
     }
 }
 
--(BackendlessCollection *)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault {
+-(NSArray *)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -1087,7 +1087,7 @@ id result = nil;
     }
 }
 
--(BackendlessCollection *)getView:(NSString *)viewName dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault {
+-(NSArray *)getView:(NSString *)viewName dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -1105,7 +1105,7 @@ id result = nil;
     }
 }
 
--(BackendlessCollection *)callStoredProcedure:(NSString *)spName arguments:(NSDictionary *)arguments error:(Fault **)fault {
+-(NSArray *)callStoredProcedure:(NSString *)spName arguments:(NSDictionary *)arguments error:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -1474,21 +1474,7 @@ id result = nil;
     return [self setRelations:relations object:object response:result];
 }
 
-/*
- 
- public <E> List<E> find( Class<E> entity, DataQueryBuilder queryBuilder ) throws BackendlessException
- {
- if( entity == null )
- throw new IllegalArgumentException( ExceptionMessage.NULL_ENTITY );
- Objects.requireNonNull( queryBuilder, ExceptionMessage.NULL_FIELD( "queryBuilder" ) );
- 
- Object[] args = new Object[] { BackendlessSerializer.getSimpleName( entity ), queryBuilder.build() };
- 
- return Invoker.invokeSync( PERSISTENCE_MANAGER_SERVER_ALIAS, "find", args, ResponderHelper.getCollectionAdaptingResponder( entity ) );
- }
- */
-
--(BackendlessCollection *)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery {
+-(NSArray *)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery {
     
     if (!entity)
         return [backendless throwFault:FAULT_NO_ENTITY];
@@ -1503,7 +1489,7 @@ id result = nil;
 #else
     if (![result isKindOfClass:[Fault class]])
     {
-        BackendlessCollection *bc = result;
+        NSArray *bc = result;
         [bc pageSize:dataQuery.queryOptions.pageSize.integerValue];
         bc.query = dataQuery;
         return bc;
@@ -1709,12 +1695,12 @@ id result = nil;
         return [backendless throwFault:FAULT_NO_ENTITY];
     
     Fault *fault = nil;
-    BackendlessCollection *bc = [backendless.persistenceService find:entity dataQuery:dataQuery error:&fault];
+    NSArray *bc = [backendless.persistenceService find:entity dataQuery:dataQuery error:&fault];
     [bc removeAll];
     return fault?fault:bc;
 }
 
--(BackendlessCollection *)getView:(NSString *)viewName dataQuery:(BackendlessDataQuery *)dataQuery {
+-(NSArray *)getView:(NSString *)viewName dataQuery:(BackendlessDataQuery *)dataQuery {
     
     if (!viewName)
         return [backendless throwFault:FAULT_NAME_IS_NULL];
@@ -1726,7 +1712,7 @@ id result = nil;
     return [result isKindOfClass:[Fault class]]? result : [self getAsCollection:result query:dataQuery];
 }
 
--(BackendlessCollection *)callStoredProcedure:(NSString *)spName arguments:(NSDictionary *)arguments {
+-(NSArray *)callStoredProcedure:(NSString *)spName arguments:(NSDictionary *)arguments {
     
     if (!spName)
         return [backendless throwFault:FAULT_NAME_IS_NULL];
@@ -1981,7 +1967,7 @@ id result = nil;
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LOAD args:args responder:_responder];
 }
 
--(void)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!entity) { return [chainedResponder errorHandler:FAULT_NO_ENTITY]; }
     [self prepareClass:entity];
@@ -2152,23 +2138,23 @@ id result = nil;
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_REMOVE args:args responder:chainedResponder];
 }
 
--(void)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock {
-    
-    if (!entity)
-        [backendless throwFault:FAULT_NO_ENTITY];
-    
-    [backendless.persistenceService find:entity dataQuery:dataQuery
-        response:^(BackendlessCollection *bc) {
-            [DebLog log:@"PersistenceService -> removeAll: totalObjects = %@", bc.totalObjects];
-            [bc removeAll:responseBlock error:errorBlock];
-        }
-        error:^(Fault *fault) {
-            [DebLog log:@"PersistenceService -> removeAll: FAULT: %@", fault];
-            errorBlock(fault);
-        }];
-}
+//-(void)removeAll:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
+//    
+//    if (!entity)
+//        [backendless throwFault:FAULT_NO_ENTITY];
+//    
+//    [backendless.persistenceService find:entity dataQuery:dataQuery
+//        response:^(NSArray *bc) {
+//            [DebLog log:@"PersistenceService -> removeAll: totalObjects = %@", bc.totalObjects];
+//            [bc removeAll:responseBlock error:errorBlock];
+//        }
+//        error:^(Fault *fault) {
+//            [DebLog log:@"PersistenceService -> removeAll: FAULT: %@", fault];
+//            errorBlock(fault);
+//        }];
+//}
 
--(void)getView:(NSString *)viewName dataQuery:(BackendlessDataQuery *)dataQuery response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)getView:(NSString *)viewName dataQuery:(BackendlessDataQuery *)dataQuery response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!viewName)
         return [chainedResponder errorHandler:FAULT_NAME_IS_NULL];
@@ -2182,7 +2168,7 @@ id result = nil;
     [backendlessCache invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_CALL_STORED_VIEW args:args responder:_responder];
 }
 
--(void)callStoredProcedure:(NSString *)spName arguments:(NSDictionary *)arguments response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)callStoredProcedure:(NSString *)spName arguments:(NSDictionary *)arguments response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!spName)
         return [chainedResponder errorHandler:FAULT_NAME_IS_NULL];
@@ -2284,7 +2270,7 @@ id result = nil;
     if (!entity)
         [backendless throwFault:FAULT_NO_ENTITY];
     
-    BackendlessCollection *bc = [backendless.persistenceService find:entity dataQuery:nil];
+    NSArray *bc = [backendless.persistenceService find:entity dataQuery:nil];
     
     [DebLog log:@"PersistenceService -> removeAllSync: totalObjects = %@", bc.totalObjects];
     
@@ -2305,7 +2291,7 @@ id result = nil;
     }    
 }
 
--(void)removeAllPagesAsync:(BackendlessCollection *)bc {
+-(void)removeAllPagesAsync:(NSArray *)bc {
     
     for (id obj in bc.data) {
         [backendless.persistenceService
@@ -2319,7 +2305,7 @@ id result = nil;
     }
     
     if (([bc valOffset] + bc.data.count) < bc.valTotalObjects) {
-        [bc nextPageAsync:^(BackendlessCollection *bc) {
+        [bc nextPageAsync:^(NSArray *bc) {
                      [self removeAllPagesAsync:bc];
                  }
                     error:^(Fault *fault) {
@@ -2464,21 +2450,21 @@ id get_object_id(id self, SEL _cmd)
 }
 
 
--(BackendlessCollection *)getAsCollection:(id)data query:(BackendlessDataQuery *)query {
+-(NSArray *)getAsCollection:(id)data query:(BackendlessDataQuery *)query {
     
-    BackendlessCollection *collection = nil;
+    NSArray *collection = nil;
     
-    if ([data isKindOfClass:[BackendlessCollection class]]) {
+    if ([data isKindOfClass:[NSArray class]]) {
         collection = data;
     }
     else
         if ([data isKindOfClass:[NSDictionary class]]) {
-            collection = [[BackendlessCollection new] autorelease];
+            collection = [[NSArray new] autorelease];
             [collection resolveProperties:data];
         }
     
     if (collection) {
-        collection.query = query;
+        //collection.query = query;
         //*[collection pageSize:query.queryOptions.pageSize.integerValue];
     }
     

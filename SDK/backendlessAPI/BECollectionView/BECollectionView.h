@@ -20,20 +20,20 @@
  */
 
 #import <UIKit/UIKit.h>
-@class BackendlessDataQuery, BackendlessCollection, Fault, BackendlessGeoQuery;
+@class BackendlessDataQuery, Fault, BackendlessGeoQuery;
 @interface BECollectionView : UICollectionView
 
 -(id)getDataForIndexPath:(NSIndexPath *)indexPath;
 
 -(void)find:(Class)className dataQuery:(BackendlessDataQuery *)dataQuery;
 -(void)find:(Class)className dataQuery:(BackendlessDataQuery *)dataQuery responder:(id)responder;
--(void)find:(Class)className dataQuery:(BackendlessDataQuery *)dataQuery response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)find:(Class)className dataQuery:(BackendlessDataQuery *)dataQuery response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 
 -(void)getPoints:(BackendlessGeoQuery *)query;
 -(void)relativeFind:(BackendlessGeoQuery *)query;
 -(void)getPoints:(BackendlessGeoQuery *)query responder:(id)responder;
 -(void)relativeFind:(BackendlessGeoQuery *)query responder:(id)responder;
--(void)getPoints:(BackendlessGeoQuery *)query response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)relativeFind:(BackendlessGeoQuery *)query response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)getPoints:(BackendlessGeoQuery *)query response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)relativeFind:(BackendlessGeoQuery *)query response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 
 @end

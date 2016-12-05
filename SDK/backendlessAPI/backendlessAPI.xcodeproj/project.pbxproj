@@ -44,7 +44,6 @@
 		1C7BB4991A2E092900D3C2C1 /* PersistenceService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B48141602254900012DFC /* PersistenceService.m */; };
 		1C7BB49A1A2E092900D3C2C1 /* ObjectProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B481716032EA900012DFC /* ObjectProperty.m */; };
 		1C7BB49B1A2E092900D3C2C1 /* BackendlessEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B481A1603340A00012DFC /* BackendlessEntity.m */; };
-		1C7BB49C1A2E092900D3C2C1 /* BackendlessCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B481D1603378200012DFC /* BackendlessCollection.m */; };
 		1C7BB49D1A2E092900D3C2C1 /* BackendlessDataQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3BF721613175600409FF2 /* BackendlessDataQuery.m */; };
 		1C7BB49E1A2E092900D3C2C1 /* DataStoreFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D92241607240C00AFF3F6 /* DataStoreFactory.m */; };
 		1C7BB49F1A2E092900D3C2C1 /* GeoService.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D923D160B6A7F00AFF3F6 /* GeoService.m */; };
@@ -93,7 +92,6 @@
 		1C7BB4D51A2E092900D3C2C1 /* PersistenceService.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B48131602254900012DFC /* PersistenceService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C7BB4D61A2E092900D3C2C1 /* ObjectProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B481616032EA900012DFC /* ObjectProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C7BB4D71A2E092900D3C2C1 /* BackendlessEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B48191603340A00012DFC /* BackendlessEntity.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1C7BB4D91A2E092900D3C2C1 /* BackendlessCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B481C1603378200012DFC /* BackendlessCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C7BB4DA1A2E092900D3C2C1 /* BackendlessDataQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = F9C3BF711613175600409FF2 /* BackendlessDataQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C7BB4DB1A2E092900D3C2C1 /* IDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B48291603649C00012DFC /* IDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C7BB4DC1A2E092900D3C2C1 /* ISDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = 91A427F9184E23D5005F91DE /* ISDatabase.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -365,7 +363,6 @@
 		F97969F0166CCB8200595F5E /* PersistenceService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B48141602254900012DFC /* PersistenceService.m */; };
 		F97969F1166CCB8200595F5E /* ObjectProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B481716032EA900012DFC /* ObjectProperty.m */; };
 		F97969F2166CCB8200595F5E /* BackendlessEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B481A1603340A00012DFC /* BackendlessEntity.m */; };
-		F97969F3166CCB8200595F5E /* BackendlessCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B481D1603378200012DFC /* BackendlessCollection.m */; };
 		F97969F4166CCB8200595F5E /* BackendlessDataQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3BF721613175600409FF2 /* BackendlessDataQuery.m */; };
 		F97969F6166CCB8200595F5E /* DataStoreFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D92241607240C00AFF3F6 /* DataStoreFactory.m */; };
 		F97969F7166CCB8200595F5E /* GeoService.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D923D160B6A7F00AFF3F6 /* GeoService.m */; };
@@ -392,7 +389,6 @@
 		F9796A0C166CCBFE00595F5E /* PersistenceService.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B48131602254900012DFC /* PersistenceService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9796A0D166CCBFE00595F5E /* ObjectProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B481616032EA900012DFC /* ObjectProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9796A0E166CCBFE00595F5E /* BackendlessEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B48191603340A00012DFC /* BackendlessEntity.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F9796A0F166CCBFE00595F5E /* BackendlessCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B481C1603378200012DFC /* BackendlessCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9796A10166CCBFE00595F5E /* BackendlessDataQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = F9C3BF711613175600409FF2 /* BackendlessDataQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9796A12166CCBFE00595F5E /* IDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B48291603649C00012DFC /* IDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9796A13166CCBFE00595F5E /* DataStoreFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = F99D92231607240B00AFF3F6 /* DataStoreFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -421,7 +417,6 @@
 		F9796A3A166CD3DA00595F5E /* PersistenceService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B48141602254900012DFC /* PersistenceService.m */; };
 		F9796A3B166CD3DA00595F5E /* ObjectProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B481716032EA900012DFC /* ObjectProperty.m */; };
 		F9796A3C166CD3DA00595F5E /* BackendlessEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B481A1603340A00012DFC /* BackendlessEntity.m */; };
-		F9796A3D166CD3DA00595F5E /* BackendlessCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B481D1603378200012DFC /* BackendlessCollection.m */; };
 		F9796A3E166CD3DA00595F5E /* BackendlessDataQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3BF721613175600409FF2 /* BackendlessDataQuery.m */; };
 		F9796A40166CD3DA00595F5E /* DataStoreFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D92241607240C00AFF3F6 /* DataStoreFactory.m */; };
 		F9796A41166CD3DA00595F5E /* GeoService.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D923D160B6A7F00AFF3F6 /* GeoService.m */; };
@@ -448,7 +443,6 @@
 		F9796A58166CD42E00595F5E /* PersistenceService.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B48131602254900012DFC /* PersistenceService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9796A59166CD42E00595F5E /* ObjectProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B481616032EA900012DFC /* ObjectProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9796A5A166CD42E00595F5E /* BackendlessEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B48191603340A00012DFC /* BackendlessEntity.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F9796A5B166CD42E00595F5E /* BackendlessCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B481C1603378200012DFC /* BackendlessCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9796A5C166CD42E00595F5E /* BackendlessDataQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = F9C3BF711613175600409FF2 /* BackendlessDataQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9796A5E166CD42E00595F5E /* IDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B48291603649C00012DFC /* IDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9796A5F166CD42E00595F5E /* DataStoreFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = F99D92231607240B00AFF3F6 /* DataStoreFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -564,7 +558,6 @@
 		F9F0AE901CDBCA3900035C62 /* ClassCastException.m in Sources */ = {isa = PBXBuildFile; fileRef = F9D5234C1B25CEF800F6A441 /* ClassCastException.m */; };
 		F9F0AE911CDBCA3900035C62 /* BackendlessEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B481A1603340A00012DFC /* BackendlessEntity.m */; };
 		F9F0AE921CDBCA3900035C62 /* BEFileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C7DE8E1B7CBF0300AFCD06 /* BEFileInfo.m */; };
-		F9F0AE931CDBCA3900035C62 /* BackendlessCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B481D1603378200012DFC /* BackendlessCollection.m */; };
 		F9F0AE941CDBCA3900035C62 /* BackendlessDataQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3BF721613175600409FF2 /* BackendlessDataQuery.m */; };
 		F9F0AE951CDBCA3900035C62 /* AtomicCounters.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FB9B6719867EA500A13FB6 /* AtomicCounters.m */; };
 		F9F0AE961CDBCA3900035C62 /* GeoFenceMonitoring.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064C71AFCE69D00779BB1 /* GeoFenceMonitoring.m */; };
@@ -634,7 +627,6 @@
 		F9F0AEE11CDBCA3900035C62 /* PersistenceService.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B48131602254900012DFC /* PersistenceService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AEE21CDBCA3900035C62 /* ObjectProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B481616032EA900012DFC /* ObjectProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AEE31CDBCA3900035C62 /* BackendlessEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B48191603340A00012DFC /* BackendlessEntity.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F9F0AEE41CDBCA3900035C62 /* BackendlessCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B481C1603378200012DFC /* BackendlessCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AEE51CDBCA3900035C62 /* BackendlessDataQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = F9C3BF711613175600409FF2 /* BackendlessDataQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AEE61CDBCA3900035C62 /* IDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B48291603649C00012DFC /* IDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AEE71CDBCA3900035C62 /* DataStoreFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = F99D92231607240B00AFF3F6 /* DataStoreFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -710,7 +702,6 @@
 		F9F0AF4A1CDBCAB500035C62 /* ClassCastException.m in Sources */ = {isa = PBXBuildFile; fileRef = F9D5234C1B25CEF800F6A441 /* ClassCastException.m */; };
 		F9F0AF4B1CDBCAB500035C62 /* BackendlessEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B481A1603340A00012DFC /* BackendlessEntity.m */; };
 		F9F0AF4C1CDBCAB500035C62 /* BEFileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C7DE8E1B7CBF0300AFCD06 /* BEFileInfo.m */; };
-		F9F0AF4D1CDBCAB500035C62 /* BackendlessCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B481D1603378200012DFC /* BackendlessCollection.m */; };
 		F9F0AF4E1CDBCAB500035C62 /* BackendlessDataQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3BF721613175600409FF2 /* BackendlessDataQuery.m */; };
 		F9F0AF4F1CDBCAB500035C62 /* AtomicCounters.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FB9B6719867EA500A13FB6 /* AtomicCounters.m */; };
 		F9F0AF501CDBCAB500035C62 /* GeoFenceMonitoring.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064C71AFCE69D00779BB1 /* GeoFenceMonitoring.m */; };
@@ -782,7 +773,6 @@
 		F9F0AF9E1CDBCAB500035C62 /* PersistenceService.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B48131602254900012DFC /* PersistenceService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AF9F1CDBCAB500035C62 /* ObjectProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B481616032EA900012DFC /* ObjectProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AFA01CDBCAB500035C62 /* BackendlessEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B48191603340A00012DFC /* BackendlessEntity.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F9F0AFA11CDBCAB500035C62 /* BackendlessCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B481C1603378200012DFC /* BackendlessCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AFA21CDBCAB500035C62 /* BackendlessDataQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = F9C3BF711613175600409FF2 /* BackendlessDataQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AFA31CDBCAB500035C62 /* IDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B48291603649C00012DFC /* IDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AFA41CDBCAB500035C62 /* DataStoreFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = F99D92231607240B00AFF3F6 /* DataStoreFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -952,8 +942,6 @@
 		F91B481716032EA900012DFC /* ObjectProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjectProperty.m; sourceTree = "<group>"; };
 		F91B48191603340A00012DFC /* BackendlessEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackendlessEntity.h; sourceTree = "<group>"; };
 		F91B481A1603340A00012DFC /* BackendlessEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackendlessEntity.m; sourceTree = "<group>"; };
-		F91B481C1603378200012DFC /* BackendlessCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackendlessCollection.h; sourceTree = "<group>"; };
-		F91B481D1603378200012DFC /* BackendlessCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackendlessCollection.m; sourceTree = "<group>"; };
 		F91B48291603649C00012DFC /* IDataStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDataStore.h; sourceTree = "<group>"; };
 		F9356C701B6FA479009A01D9 /* getting-started.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = "getting-started.pdf"; path = "../getting-started.pdf"; sourceTree = "<group>"; };
 		F94487611B68EBA400EB12A5 /* Backendless-With-Media-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Backendless-With-Media-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -1872,8 +1860,6 @@
 				F91B481716032EA900012DFC /* ObjectProperty.m */,
 				F91B48191603340A00012DFC /* BackendlessEntity.h */,
 				F91B481A1603340A00012DFC /* BackendlessEntity.m */,
-				F91B481C1603378200012DFC /* BackendlessCollection.h */,
-				F91B481D1603378200012DFC /* BackendlessCollection.m */,
 				F9C3BF711613175600409FF2 /* BackendlessDataQuery.h */,
 				F9C3BF721613175600409FF2 /* BackendlessDataQuery.m */,
 				F9C7DE951B7CBFE600AFCD06 /* BackendlessSimpleQuery.h */,
@@ -2596,7 +2582,6 @@
 				1C7BB4D51A2E092900D3C2C1 /* PersistenceService.h in Headers */,
 				1C7BB4D61A2E092900D3C2C1 /* ObjectProperty.h in Headers */,
 				1C7BB4D71A2E092900D3C2C1 /* BackendlessEntity.h in Headers */,
-				1C7BB4D91A2E092900D3C2C1 /* BackendlessCollection.h in Headers */,
 				1C7BB4DA1A2E092900D3C2C1 /* BackendlessDataQuery.h in Headers */,
 				1C7BB4DB1A2E092900D3C2C1 /* IDataStore.h in Headers */,
 				1C7BB4DD1A2E092900D3C2C1 /* DataStoreFactory.h in Headers */,
@@ -2689,7 +2674,6 @@
 				F9796A0C166CCBFE00595F5E /* PersistenceService.h in Headers */,
 				F9796A0D166CCBFE00595F5E /* ObjectProperty.h in Headers */,
 				F9796A0E166CCBFE00595F5E /* BackendlessEntity.h in Headers */,
-				F9796A0F166CCBFE00595F5E /* BackendlessCollection.h in Headers */,
 				F9796A10166CCBFE00595F5E /* BackendlessDataQuery.h in Headers */,
 				F9796A12166CCBFE00595F5E /* IDataStore.h in Headers */,
 				F9796A13166CCBFE00595F5E /* DataStoreFactory.h in Headers */,
@@ -2785,7 +2769,6 @@
 				F9796A58166CD42E00595F5E /* PersistenceService.h in Headers */,
 				F9796A59166CD42E00595F5E /* ObjectProperty.h in Headers */,
 				F9796A5A166CD42E00595F5E /* BackendlessEntity.h in Headers */,
-				F9796A5B166CD42E00595F5E /* BackendlessCollection.h in Headers */,
 				F9796A5C166CD42E00595F5E /* BackendlessDataQuery.h in Headers */,
 				F9796A5E166CD42E00595F5E /* IDataStore.h in Headers */,
 				F9796A5F166CD42E00595F5E /* DataStoreFactory.h in Headers */,
@@ -2880,7 +2863,6 @@
 				F9F0AEE11CDBCA3900035C62 /* PersistenceService.h in Headers */,
 				F9F0AEE21CDBCA3900035C62 /* ObjectProperty.h in Headers */,
 				F9F0AEE31CDBCA3900035C62 /* BackendlessEntity.h in Headers */,
-				F9F0AEE41CDBCA3900035C62 /* BackendlessCollection.h in Headers */,
 				F9F0AEE51CDBCA3900035C62 /* BackendlessDataQuery.h in Headers */,
 				F9F0AEE61CDBCA3900035C62 /* IDataStore.h in Headers */,
 				F9F0AEE71CDBCA3900035C62 /* DataStoreFactory.h in Headers */,
@@ -2969,7 +2951,6 @@
 				F9F0AF9E1CDBCAB500035C62 /* PersistenceService.h in Headers */,
 				F9F0AF9F1CDBCAB500035C62 /* ObjectProperty.h in Headers */,
 				F9F0AFA01CDBCAB500035C62 /* BackendlessEntity.h in Headers */,
-				F9F0AFA11CDBCAB500035C62 /* BackendlessCollection.h in Headers */,
 				F9F0AFA21CDBCAB500035C62 /* BackendlessDataQuery.h in Headers */,
 				F9F0AFA31CDBCAB500035C62 /* IDataStore.h in Headers */,
 				F9F0AFA41CDBCAB500035C62 /* DataStoreFactory.h in Headers */,
@@ -3282,7 +3263,6 @@
 				1C7BB4991A2E092900D3C2C1 /* PersistenceService.m in Sources */,
 				1C7BB49A1A2E092900D3C2C1 /* ObjectProperty.m in Sources */,
 				1C7BB49B1A2E092900D3C2C1 /* BackendlessEntity.m in Sources */,
-				1C7BB49C1A2E092900D3C2C1 /* BackendlessCollection.m in Sources */,
 				1C7BB49D1A2E092900D3C2C1 /* BackendlessDataQuery.m in Sources */,
 				1C7BB49E1A2E092900D3C2C1 /* DataStoreFactory.m in Sources */,
 				1C7BB49F1A2E092900D3C2C1 /* GeoService.m in Sources */,
@@ -3365,7 +3345,6 @@
 				F97969F2166CCB8200595F5E /* BackendlessEntity.m in Sources */,
 				F9C7DE931B7CBF0300AFCD06 /* BEFileInfo.m in Sources */,
 				F9B361081D663FF500818EEF /* KeychainDataStore.m in Sources */,
-				F97969F3166CCB8200595F5E /* BackendlessCollection.m in Sources */,
 				F97969F4166CCB8200595F5E /* BackendlessDataQuery.m in Sources */,
 				D3FB9B6C19867EA500A13FB6 /* AtomicCounters.m in Sources */,
 				D3A064CC1AFCE69D00779BB1 /* GeoFenceMonitoring.m in Sources */,
@@ -3453,7 +3432,6 @@
 				F9796A3C166CD3DA00595F5E /* BackendlessEntity.m in Sources */,
 				F9C7DE941B7CBF0300AFCD06 /* BEFileInfo.m in Sources */,
 				F9B361091D663FF500818EEF /* KeychainDataStore.m in Sources */,
-				F9796A3D166CD3DA00595F5E /* BackendlessCollection.m in Sources */,
 				F9796A3E166CD3DA00595F5E /* BackendlessDataQuery.m in Sources */,
 				D3FB9B6D19867EA500A13FB6 /* AtomicCounters.m in Sources */,
 				D3A064CD1AFCE69D00779BB1 /* GeoFenceMonitoring.m in Sources */,
@@ -3541,7 +3519,6 @@
 				F9F0AE911CDBCA3900035C62 /* BackendlessEntity.m in Sources */,
 				F96B1C741DD3B6CA00A4B362 /* QueryOptionsBuilder.m in Sources */,
 				F9F0AE921CDBCA3900035C62 /* BEFileInfo.m in Sources */,
-				F9F0AE931CDBCA3900035C62 /* BackendlessCollection.m in Sources */,
 				F9F0AE941CDBCA3900035C62 /* BackendlessDataQuery.m in Sources */,
 				F9F0AE951CDBCA3900035C62 /* AtomicCounters.m in Sources */,
 				F9F0AE961CDBCA3900035C62 /* GeoFenceMonitoring.m in Sources */,
@@ -3624,7 +3601,6 @@
 				F9F0AF4B1CDBCAB500035C62 /* BackendlessEntity.m in Sources */,
 				F96B1C751DD3B6CA00A4B362 /* QueryOptionsBuilder.m in Sources */,
 				F9F0AF4C1CDBCAB500035C62 /* BEFileInfo.m in Sources */,
-				F9F0AF4D1CDBCAB500035C62 /* BackendlessCollection.m in Sources */,
 				F9F0AF4E1CDBCAB500035C62 /* BackendlessDataQuery.m in Sources */,
 				F9F0AF4F1CDBCAB500035C62 /* AtomicCounters.m in Sources */,
 				F9F0AF501CDBCAB500035C62 /* GeoFenceMonitoring.m in Sources */,

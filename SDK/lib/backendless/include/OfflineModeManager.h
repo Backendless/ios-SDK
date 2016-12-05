@@ -22,7 +22,7 @@
 #import <Foundation/Foundation.h>
 
 @class ISDatabase;
-@class BackendlessCollection, BackendlessDataQuery;
+@class BackendlessDataQuery;
 @interface OfflineModeManager : NSObject
 @property (nonatomic, retain) ISDatabase *dataBase;
 @property (nonatomic) BOOL isOfflineMode;

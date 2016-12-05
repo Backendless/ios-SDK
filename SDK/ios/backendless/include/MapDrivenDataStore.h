@@ -21,7 +21,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class BackendlessCollection, BackendlessDataQuery, Fault;
+@class BackendlessDataQuery, Fault;
 @protocol IResponder;
 
 @interface MapDrivenDataStore : NSObject
@@ -32,8 +32,8 @@
 // sync methods with fault return (as exception)
 -(NSDictionary<NSString*,id> *)save:(NSDictionary<NSString*,id> *)entity;
 -(NSNumber *)remove:(NSDictionary<NSString*,id> *)entity;
--(BackendlessCollection *)find;
--(BackendlessCollection *)find:(BackendlessDataQuery *)dataQuery;
+-(NSArray *)find;
+-(NSArray *)find:(BackendlessDataQuery *)dataQuery;
 -(NSDictionary<NSString*,id> *)findFirst;
 -(NSDictionary<NSString*,id> *)findFirst:(int)relationsDepth;
 -(NSDictionary<NSString*,id> *)findFirstWithRelations:(NSArray<NSString*> *)relations;
@@ -55,8 +55,8 @@
 // sync methods with fault option
 -(NSDictionary<NSString*,id> *)save:(NSDictionary<NSString*,id> *)entity fault:(Fault **)fault;
 -(NSNumber *)remove:(NSDictionary<NSString*,id> *)entity fault:(Fault **)fault;
--(BackendlessCollection *)findFault:(Fault **)fault;
--(BackendlessCollection *)find:(BackendlessDataQuery *)dataQuery fault:(Fault **)fault;
+-(NSArray *)findFault:(Fault **)fault;
+-(NSArray *)find:(BackendlessDataQuery *)dataQuery fault:(Fault **)fault;
 -(NSDictionary<NSString*,id> *)findFirstFault:(Fault **)fault;
 -(NSDictionary<NSString*,id> *)findFirst:(int)relationsDepth fault:(Fault **)fault;
 -(NSDictionary<NSString*,id> *)findFirstWithRelations:(NSArray<NSString*> *)relations fault:(Fault **)fault;
@@ -101,8 +101,8 @@
 // async methods with block-based callbacks
 -(void)save:(NSDictionary<NSString*,id> *)entity response:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)remove:(NSDictionary<NSString*,id> *)entity response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)find:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)find:(BackendlessDataQuery *)dataQuery response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)find:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)find:(BackendlessDataQuery *)dataQuery response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)findFirst:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)findFirst:(int)relationsDepth response:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)findFirstWithRelations:(NSArray<NSString*> *)relations response:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock;

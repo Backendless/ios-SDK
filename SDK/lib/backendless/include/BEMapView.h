@@ -21,7 +21,7 @@
 
 #import <MapKit/MapKit.h>
 
-@class BackendlessCollection, Fault, BackendlessGeoQuery, GeoPoint, BEMapView;
+@class Fault, BackendlessGeoQuery, GeoPoint, BEMapView;
 
 @protocol BEMapViewDelegate <NSObject>
 -(void)mapView:(BEMapView *)mapView didFinishLoadData:(NSArray *)data;
