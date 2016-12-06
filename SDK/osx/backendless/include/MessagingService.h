@@ -102,6 +102,7 @@
 -(id)sendHTMLEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray<NSString*> *)recipients;
 -(id)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients;
 -(id)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients attachment:(NSArray *)attachments;
+-(MessageStatus*)getMessageStatus:(NSString*)messageId;
 
 // sync methods with fault option
 -(NSString *)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration token:(NSData *)deviceToken error:(Fault **)fault;
@@ -135,6 +136,7 @@
 -(BOOL)sendHTMLEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray<NSString*> *)recipients error:(Fault **)fault;
 -(BOOL)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients error:(Fault **)fault;
 -(BOOL)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients attachment:(NSArray *)attachments error:(Fault **)fault;
+-(MessageStatus*)getMessageStatus:(NSString*)messageId error:(Fault **)fault;
 
 // async methods with responder
 -(void)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration token:(NSData *)deviceToken responder:(id <IResponder>)responder;
@@ -197,6 +199,7 @@
 -(void)sendHTMLEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray<NSString*> *)recipients response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients attachment:(NSArray *)attachments response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)getMessageStatus:(NSString*)messageId response:(void(^)(MessageStatus*))responseBlock error:(void(^)(Fault *))errorBlock;
 
 // utilites
 -(DeviceRegistration *)currentDevice;
