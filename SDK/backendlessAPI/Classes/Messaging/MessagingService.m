@@ -61,6 +61,7 @@ static NSString *METHOD_CANCEL = @"cancel";
 static NSString *METHOD_POLLING_SUBSCRIBE = @"subscribeForPollingAccess";
 static NSString *METHOD_POLL_MESSAGES = @"pollMessages";
 static NSString *METHOD_SEND_EMAIL = @"send";
+static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
 // UICKeyChainStore service name
 static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUIDKeychain";
 
@@ -173,9 +174,9 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
         
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.management.DeviceRegistrationDto" mapped:[DeviceRegistration class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.messaging.Message" mapped:[Message class]];
-        [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.messaging.MessageStatus" mapped:[MessageStatus class]];
+        [[Types sharedInstance] addClientClassMapping:@"com.backendless.messaging.MessageStatus" mapped:[MessageStatus class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.messaging.PublishOptions" mapped:[PublishOptions class]];
-        [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.messaging.DeliveryOptions" mapped:[DeliveryOptions class]];
+        [[Types sharedInstance] addClientClassMapping:@"com.backendless.messaging.DeliveryOptions" mapped:[DeliveryOptions class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.mail.BodyParts" mapped:[BodyParts class]];
         
         deviceRegistration = [DeviceRegistration new];
@@ -1126,6 +1127,23 @@ id result = nil;
     }
 }
 
+-(MessageStatus*)getMessageStatus:(NSString*)messageId error:(Fault **)fault {
+    id result = nil;
+    @try {
+        result = [self getMessageStatus:messageId];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
 #endif
 
 // sync methods with fault return (as exception)
@@ -1332,6 +1350,14 @@ id result = nil;
     
     NSArray *args = @[(subject)?subject:@"", bodyParts, recipients, (attachments)?attachments:@[]];
     return [invoker invokeSync:SERVER_MAIL_SERVICE_PATH method:METHOD_SEND_EMAIL args:args];
+}
+
+-(MessageStatus*)getMessageStatus:(NSString*)messageId {
+    if (!messageId)
+        return [backendless throwFault:FAULT_NO_MESSAGE_ID];
+
+    NSArray *args = [NSMutableArray arrayWithObjects:messageId, nil];
+    return [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_MESSAGE_STATUS args:args];
 }
 
 // async methods with responder
@@ -1583,7 +1609,16 @@ id result = nil;
 }
 
 -(void)publish:(NSString *)channelName message:(id)message response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self publish:channelName message:message responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    PublishOptions *publishOptions = [NSNull null];
+    Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!channelName)
+        return [chainedResponder errorHandler:FAULT_NO_CHANNEL];
+
+    if (!message)
+        return [chainedResponder errorHandler:FAULT_NO_MESSAGE];
+
+    NSMutableArray *args = [NSMutableArray arrayWithObjects:channelName, message, publishOptions, nil];
+    [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_PUBLISH args:args responder:chainedResponder];
 }
 
 -(void)publish:(NSString *)channelName message:(id)message publishOptions:(PublishOptions *)publishOptions response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -1636,6 +1671,15 @@ id result = nil;
 
 -(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients attachment:(NSArray *)attachments response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [self sendEmail:subject body:bodyParts to:recipients attachment:attachments responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+
+-(void)getMessageStatus:(NSString*)messageId response:(void(^)(MessageStatus*))responseBlock error:(void(^)(Fault *))errorBlock {
+    Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!messageId)
+        return [chainedResponder errorHandler:FAULT_NO_MESSAGE_ID];
+
+    NSMutableArray *args = [NSMutableArray arrayWithObjects:messageId, nil];
+    [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_MESSAGE_STATUS args:args responder:chainedResponder];
 }
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR

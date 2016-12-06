@@ -67,12 +67,12 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(NSNumber *)getObjectCount:(Class)entity;
 -(NSNumber *)getObjectCount:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery;
 //
--(id)createRelation:(id)parentObject columnName: (NSString *)columnName childObjects:(NSArray *)childObjects;
--(id)createRelationForId:(NSString *)parentObjectId columnName:(NSString *)columnName childObjectsIds:(NSArray<NSString*> *)childObjectsIds;
--(NSNumber *)createRelation:(id)parentObject columnName:(NSString *)columnName whereClause:(NSString *)whereClause;
--(NSNumber *)createRelationForId:(NSString *)parentObjectId columnName:(NSString *)columnName whereClause:(NSString *)whereClause;
--(id)deleteRelation:(id)parentObject columnName:(NSString *)columnName childObjects:(NSArray *)childObjects;
--(NSNumber *)deleteRelation:(id)parentObject columnName:(NSString *)columnName whereClause:(NSString *)whereClause;
+-(id)setRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects;
+-(NSNumber *)setRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause;
+-(id)addRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects;
+-(NSNumber *)addRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause;
+-(id)deleteRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects;
+-(NSNumber *)deleteRelation:(NSString *)parentObject columnName: (NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause;
 /*
  Backendless.Data.of( T ).bulkCreate( List<T> objects );
  Backendless.Data.of( T ).bulkDelete( List<T> objects );
