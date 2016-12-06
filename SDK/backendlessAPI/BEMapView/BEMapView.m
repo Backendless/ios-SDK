@@ -270,15 +270,8 @@
             //NSLog(@"BEMapView -> responseHandler: (CLEAN)");
         }
 #endif
-//        [_responseData addObjectsFromArray:response];
-//        if (response.valPageSize + response.valOffset < response.valTotalObjects) {
-//            [response nextPage:NO responder:_responder];
-//        }
-//        else
-        {
-            if ([_beMapViewDelegate respondsToSelector:@selector(mapView:didFinishLoadData:)]) {
-                [_beMapViewDelegate mapView:self didFinishLoadData:_responseData];
-            }
+        if ([_beMapViewDelegate respondsToSelector:@selector(mapView:didFinishLoadData:)]) {
+            [_beMapViewDelegate mapView:self didFinishLoadData:_responseData];
         }
         for (GeoPoint *point in response) {
             [self addGeopointIfNeed:point];
