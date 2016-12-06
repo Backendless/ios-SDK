@@ -144,9 +144,6 @@ static NSString *_METHOD_LOAD = @"loadRelations";
         return result;
     
     NSArray *bc = (NSArray *)result;
-    //*[bc pageSize:dataQuery.queryOptions.pageSize.integerValue];
-//    bc.query = dataQuery;
-//    bc.tableName = _tableName;
     return [self fixClassCollection:bc];
 }
 
@@ -693,16 +690,6 @@ id result = nil;
 -(void)findResponder:(id <IResponder>)responder {
     [self find:BACKENDLESS_DATA_QUERY responder:responder];
 }
-
-//-(id)setCollectionFields:(ResponseContext *)response {
-//    
-//    NSArray *bc = response.response;
-//    BackendlessDataQuery *dataQuery = response.context;
-//    //*[bc pageSize:dataQuery.queryOptions.pageSize.integerValue];
-//    bc.query = dataQuery;
-//    bc.tableName = _tableName;
-//    return [self fixClassCollection:bc];
-//}
 
 -(void)find:(BackendlessDataQuery *)dataQuery responder:(id <IResponder>)responder {
     
