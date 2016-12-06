@@ -27,7 +27,7 @@
     //Class _className;
     //BackendlessDataQuery *_dataQuery;
     //BackendlessGeoQuery *_geoQuery;
-    BackendlessCollection *_collection;
+    NSArray *_collection;
     Responder *_responder;
     BOOL _needReloadData;
 }
@@ -101,7 +101,7 @@
     }
     return result;
 }
--(id)responseHandler:(BackendlessCollection *)response
+-(id)responseHandler:(NSArray *)response
 {
     [_collection release];
     _collection = [response retain];
@@ -111,14 +111,14 @@
     }
     if (_needReloadData) {
         [_data removeAllObjects];
-        [_data addObjectsFromArray:response.data];
+        [_data addObjectsFromArray:response];
         [self reloadData];
     }
     else
     {
         NSInteger offset = _data.count;
-        NSInteger count = response.data.count;
-        [_data addObjectsFromArray:response.data];
+        NSInteger count = response.count;
+        [_data addObjectsFromArray:response];
         [self insertRowsAtIndexPaths:[self getIndexPathsForOffset:offset Count:count] withRowAnimation:UITableViewRowAnimationFade];
     }
     
@@ -148,7 +148,7 @@
     //_className = [className copy];
     //_dataQuery = [dataQuery retain];
     _responder.chained = nil;
-    BackendlessCollection *collection = [backendless.persistenceService find:className dataQuery:dataQuery];
+    NSArray *collection = [backendless.persistenceService find:className dataQuery:dataQuery];
     [self responseHandler:collection];
 }
 -(void)find:(Class)className dataQuery:(BackendlessDataQuery *)dataQuery responder:(id)responder
@@ -159,7 +159,7 @@
     _responder.chained = responder;
     [backendless.persistenceService find:className dataQuery:dataQuery responder:_responder];
 }
--(void)find:(Class)className dataQuery:(BackendlessDataQuery *)dataQuery response:(void (^)(BackendlessCollection *))responseBlock error:(void (^)(Fault *))errorBlock
+-(void)find:(Class)className dataQuery:(BackendlessDataQuery *)dataQuery response:(void (^)(NSArray *))responseBlock error:(void (^)(Fault *))errorBlock
 {
     _needReloadData = YES;
     //_className = [className copy];
@@ -174,7 +174,7 @@
     _needReloadData = YES;
     //_geoQuery = [query retain];
     _responder.chained = nil;
-    BackendlessCollection *c = [backendless.geoService getPoints:query];
+    NSArray *c = [backendless.geoService getPoints:query];
     [self responseHandler:c];
 }
 -(void)relativeFind:(BackendlessGeoQuery *)query
@@ -182,7 +182,7 @@
     _needReloadData = YES;
     //_geoQuery = [query retain];
     _responder.chained = nil;
-    BackendlessCollection *c = [backendless.geoService relativeFind:query];
+    NSArray *c = [backendless.geoService relativeFind:query];
     [self responseHandler:c];
 }
 -(void)getPoints:(BackendlessGeoQuery *)query responder:(id)responder
@@ -199,14 +199,14 @@
     _responder.chained = responder;
     [backendless.geoService relativeFind:query responder:_responder];
 }
--(void)getPoints:(BackendlessGeoQuery *)query response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock
+-(void)getPoints:(BackendlessGeoQuery *)query response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock
 {
     _needReloadData = YES;
     //_geoQuery = [query retain];
     _responder.chained = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     [backendless.geoService getPoints:query responder:_responder];
 }
--(void)relativeFind:(BackendlessGeoQuery *)query response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock
+-(void)relativeFind:(BackendlessGeoQuery *)query response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock
 {
     _needReloadData = YES;
     //_geoQuery = [query retain];
@@ -225,7 +225,7 @@
     _responder.chained = responder;
     [_collection nextPageAsync:_responder];
 }
--(void)nextPageAsync:(void (^)(BackendlessCollection *))responseBlock error:(void (^)(Fault *))errorBlock
+-(void)nextPageAsync:(void (^)(NSArray *))responseBlock error:(void (^)(Fault *))errorBlock
 {
     _needReloadData = NO;
     _responder.chained = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];

@@ -21,7 +21,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class BackendlessCollection, QueryOptions, BackendlessDataQuery, Fault, ObjectProperty;
+@class QueryOptions, BackendlessDataQuery, Fault, ObjectProperty;
 @protocol IResponder;
 
 @protocol IDataStore <NSObject>
@@ -31,8 +31,8 @@
 -(NSNumber *)remove:(id)entity;
 -(NSNumber *)removeID:(NSString *)objectID;
 -(id)removeAll:(BackendlessDataQuery *)dataQuery;
--(BackendlessCollection *)find;
--(BackendlessCollection *)find:(BackendlessDataQuery *)dataQuery;
+-(NSArray *)find;
+-(NSArray *)find:(BackendlessDataQuery *)dataQuery;
 -(id)findFirst;
 -(id)findLast;
 -(NSArray<ObjectProperty*> *)describe;
@@ -48,9 +48,9 @@
 -(id)save:(id)entity fault:(Fault **)fault;
 -(NSNumber *)remove:(id)entity fault:(Fault **)fault;
 -(NSNumber *)removeID:(NSString *)objectID fault:(Fault **)fault;
--(BackendlessCollection *)removeAll:(BackendlessDataQuery *)dataQuery fault:(Fault **)fault;
--(BackendlessCollection *)findFault:(Fault **)fault;
--(BackendlessCollection *)find:(BackendlessDataQuery *)dataQuery fault:(Fault **)fault;
+-(NSArray *)removeAll:(BackendlessDataQuery *)dataQuery fault:(Fault **)fault;
+-(NSArray *)findFault:(Fault **)fault;
+-(NSArray *)find:(BackendlessDataQuery *)dataQuery fault:(Fault **)fault;
 -(id)findFirstFault:(Fault **)fault;
 -(id)findLastFault:(Fault **)fault;
 -(NSArray<ObjectProperty*> *)describe:(Fault **)fault;
@@ -64,9 +64,9 @@
 -(void)save:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)remove:(id)entity response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)removeID:(NSString *)objectID response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)removeAll:(BackendlessDataQuery *)dataQuery response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)find:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)find:(BackendlessDataQuery *)dataQuery response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)removeAll:(BackendlessDataQuery *)dataQuery response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)find:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)find:(BackendlessDataQuery *)dataQuery response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)findFirst:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)findLast:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)describeResponse:(void(^)(NSArray<ObjectProperty*> *))responseBlock error:(void(^)(Fault *))errorBlock;

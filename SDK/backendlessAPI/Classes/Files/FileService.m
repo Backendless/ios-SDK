@@ -107,7 +107,7 @@ static NSString *METHOD_COUNT = @"count";
 -(id)init {
 	if ( (self=[super init]) ) {
         
-        [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.BackendlessCollection" mapped:[BackendlessCollection class]];
+        [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.NSArray" mapped:[NSArray class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.management.files.FileDetailedInfo" mapped:BEFileInfo.class];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.management.files.FileInfo" mapped:BEFileInfo.class];
         
@@ -231,18 +231,18 @@ static NSString *METHOD_COUNT = @"count";
     return [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_MOVE_FILE args:args];
 }
 
--(BackendlessCollection *)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive {
+-(NSArray *)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive {
     return [self listing:path pattern:pattern recursive:recursive pagesize:DEFAULT_PAGE_SIZE offset:DEFAULT_OFFSET];
 }
 
--(BackendlessCollection *)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive pagesize:(int)pagesize offset:(int)offset {
+-(NSArray *)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive pagesize:(int)pagesize offset:(int)offset {
     
     if (!path || !path.length)
         return [backendless throwFault:FAULT_NO_FILE_NAME];
     
     NSArray *args = @[path, pattern, @(recursive), @(pagesize), @(offset)];
-    BackendlessCollection *collection = [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_LISTING args:args];
-    collection.query = [BackendlessSimpleQuery query:pagesize offset:offset];
+    NSArray *collection = [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_LISTING args:args];
+    //collection.query = [BackendlessSimpleQuery query:pagesize offset:offset];
     return collection;
 }
 
@@ -593,7 +593,7 @@ id result = nil;
     }
 }
 
--(BackendlessCollection *)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive error:(Fault **)fault {
+-(NSArray *)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive error:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -611,7 +611,7 @@ id result = nil;
     }
 }
 
--(BackendlessCollection *)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive pagesize:(int)pagesize offset:(int)offset error:(Fault **)fault {
+-(NSArray *)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive pagesize:(int)pagesize offset:(int)offset error:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -915,11 +915,11 @@ id result = nil;
     [self moveFile:sourcePathName target:targetPathName responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self listing:path pattern:pattern recursive:recursive responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive pagesize:(int)pagesize offset:(int)offset response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive pagesize:(int)pagesize offset:(int)offset response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self listing:path pattern:pattern recursive:recursive pagesize:pagesize offset:offset responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
@@ -955,8 +955,8 @@ id result = nil;
 
 -(id)getListing:(ResponseContext *)response {
     
-    BackendlessCollection *collection = (BackendlessCollection *)response.response;
-    collection.query = response.context;
+    NSArray *collection = (NSArray *)response.response;
+    //collection.query = response.context;
     return collection;
 }
 

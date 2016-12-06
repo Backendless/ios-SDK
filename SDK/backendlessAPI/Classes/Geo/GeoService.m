@@ -26,7 +26,6 @@
 #import "Backendless.h"
 #import "Invoker.h"
 #import "BackendlessGeoQuery.h"
-#import "BackendlessCollection.h"
 #import "LocationTracker.h"
 #import "GeoFence.h"
 #import "GeoFenceMonitoring.h"
@@ -41,7 +40,7 @@
 #define FAULT_REMOVE_CATEGORY_NAME_IS_NULL [Fault fault:@"Category name is NULL" detail:@"Cannot remove category. Category name is NULL" faultCode:@"4015"]
 #define FAULT_REMOVE_CATEGORY_NAME_IS_EMPTY [Fault fault:@"Category name is empty" detail:@"Cannot remove category. Category name is empty" faultCode:@"4016"]
 #define FAULT_REMOVE_CATEGORY_NAME_IS_DEFAULT [Fault fault:@"Category name is 'Default'" detail:@"Cannot remove category. Category name is 'Default'" faultCode:@"4017"]
-//
+
 #define FAULT_GEO_POINT_ID_IS_NULL [Fault fault:@"Geo point ID is NULL" detail:@"Unable to operate with geo point. GeoPoint ID is NULL" faultCode:@"4900"]
 #define FAULT_GEO_FENCE_NAME_IS_NULL [Fault fault:@"Geo fence name is NULL"  detail:@"Unable to operate with geo fence. GeoFence is NULL" faultCode:@"4901"]
 #define FAULT_CALLBACK_IS_INVALID [Fault fault:@"Callback instance is not valid" detail:@"Callback instance is not valid" faultCode:@"4902"]
@@ -88,7 +87,7 @@ static NSString *METHOD_COUNT = @"count";
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.model.GeoCluster" mapped:[GeoCluster class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.BackendlesGeoQuery" mapped:[BackendlessGeoQuery class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.model.SearchMatchesResult" mapped:[SearchMatchesResult class]];
-        [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.BackendlessCollection" mapped:[BackendlessCollection class]];
+        [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.NSArray" mapped:[NSArray class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.geofence.model.GeoFenceAMF" mapped:[GeoFence class]];
 #if !_IS_USERS_CLASS_
         [[Types sharedInstance] addClientClassMapping:@"Users" mapped:[BackendlessUser class]];
@@ -158,7 +157,7 @@ static NSString *METHOD_COUNT = @"count";
     return result;
 }
 
--(BackendlessCollection *)getPoints:(BackendlessGeoQuery *)query error:(Fault **)fault {
+-(NSArray *)getPoints:(BackendlessGeoQuery *)query error:(Fault **)fault {
     
     id result = [self getPoints:query];
     if ([result isKindOfClass:[Fault class]]) {
@@ -168,7 +167,7 @@ static NSString *METHOD_COUNT = @"count";
     return result;
 }
 
--(BackendlessCollection *)getClusterPoints:(GeoCluster *)geoCluster error:(Fault **)fault {
+-(NSArray *)getClusterPoints:(GeoCluster *)geoCluster error:(Fault **)fault {
     
     id result = [self getClusterPoints:geoCluster];
     if ([result isKindOfClass:[Fault class]]) {
@@ -178,11 +177,11 @@ static NSString *METHOD_COUNT = @"count";
     return result;
 }
 
--(BackendlessCollection *)getFencePoints:(NSString *)geoFenceName error:(Fault **)fault {
+-(NSArray *)getFencePoints:(NSString *)geoFenceName error:(Fault **)fault {
     return [self getFencePoints:geoFenceName query:nil error:fault];
 }
 
--(BackendlessCollection *)getFencePoints:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query error:(Fault **)fault {
+-(NSArray *)getFencePoints:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query error:(Fault **)fault {
     
     id result = [self getFencePoints:geoFenceName query:query];
     if ([result isKindOfClass:[Fault class]]) {
@@ -192,7 +191,7 @@ static NSString *METHOD_COUNT = @"count";
     return result;
 }
 
--(BackendlessCollection *)relativeFind:(BackendlessGeoQuery *)query error:(Fault **)fault {
+-(NSArray *)relativeFind:(BackendlessGeoQuery *)query error:(Fault **)fault {
     
     id result = [self relativeFind:query];
     if ([result isKindOfClass:[Fault class]]) {
@@ -373,7 +372,7 @@ id result = nil;
     }
 }
 
--(BackendlessCollection *)getPoints:(BackendlessGeoQuery *)query error:(Fault **)fault {
+-(NSArray *)getPoints:(BackendlessGeoQuery *)query error:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -391,7 +390,7 @@ id result = nil;
     }
 }
 
--(BackendlessCollection *)getClusterPoints:(GeoCluster *)geoCluster error:(Fault **)fault {
+-(NSArray *)getClusterPoints:(GeoCluster *)geoCluster error:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -409,11 +408,11 @@ id result = nil;
     }
 }
 
--(BackendlessCollection *)getFencePoints:(NSString *)geoFenceName error:(Fault **)fault {
+-(NSArray *)getFencePoints:(NSString *)geoFenceName error:(Fault **)fault {
     return [self getFencePoints:geoFenceName query:nil error:fault];
 }
 
--(BackendlessCollection *)getFencePoints:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query error:(Fault **)fault {
+-(NSArray *)getFencePoints:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query error:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -431,7 +430,7 @@ id result = nil;
     }
 }
 
--(BackendlessCollection *)relativeFind:(BackendlessGeoQuery *)query error:(Fault **)fault {
+-(NSArray *)relativeFind:(BackendlessGeoQuery *)query error:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -669,7 +668,7 @@ id result = nil;
     return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_CATEGORIES args:@[]];
 }
 
--(BackendlessCollection *)getPoints:(BackendlessGeoQuery *)query {
+-(NSArray *)getPoints:(BackendlessGeoQuery *)query {
     
     NSArray *args = [NSArray arrayWithObjects:query, nil];
     id result = [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_POINTS args:args];
@@ -677,14 +676,13 @@ id result = nil;
         return result;
     }
 
-    if (![result isKindOfClass:[BackendlessCollection class]]) {
+    if (![result isKindOfClass:[NSArray class]]) {
         
         NSLog(@"GeoService->getPoints: (ERROR) [%@]\n%@", [result class], result);
         return nil;
     }
     
-    BackendlessCollection *collection = result;
-    collection.query = query;
+    NSArray *collection = result;
     [collection type:[GeoPoint class]];
     
     [self setReferenceToCluster:collection];
@@ -692,7 +690,7 @@ id result = nil;
     return collection;
 }
 
--(BackendlessCollection *)getClusterPoints:(GeoCluster *)geoCluster {
+-(NSArray *)getClusterPoints:(GeoCluster *)geoCluster {
     
     NSArray *args = @[geoCluster.objectId, geoCluster.geoQuery];
     id result = [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_LOAD_GEOPOINTS args:args];
@@ -700,24 +698,22 @@ id result = nil;
         return result;
     }
     
-    if (![result isKindOfClass:[BackendlessCollection class]]) {
+    if (![result isKindOfClass:[NSArray class]]) {
         
         NSLog(@"GeoService->getCluster: (ERROR) [%@]\n%@", [result class], result);
         return nil;
     }
-    
-    BackendlessCollection *collection = result;
-    collection.query = geoCluster.geoQuery;
+    NSArray *collection = result;
     [collection type:[GeoPoint class]];
     
     return collection;
 }
 
--(BackendlessCollection *)getFencePoints:(NSString *)geoFenceName {
+-(NSArray *)getFencePoints:(NSString *)geoFenceName {
     return [self getFencePoints:geoFenceName query:nil];
 }
 
--(BackendlessCollection *)getFencePoints:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query {
+-(NSArray *)getFencePoints:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query {
     
     id fault = nil;
     if ((fault = [self isFaultGeoFenceName:geoFenceName responder:nil]))
@@ -730,14 +726,13 @@ id result = nil;
         return result;
     }
     
-    if (![result isKindOfClass:[BackendlessCollection class]]) {
+    if (![result isKindOfClass:[NSArray class]]) {
         
         NSLog(@"GeoService->getPoints: (ERROR) [%@]\n%@", [result class], result);
         return nil;
     }
     
-    BackendlessCollection *collection = result;
-    collection.query = geoQuery;
+    NSArray *collection = result;
     [collection type:[GeoPoint class]];
     
     [self setReferenceToCluster:collection];
@@ -745,7 +740,7 @@ id result = nil;
     return collection;
 }
 
--(BackendlessCollection *)relativeFind:(BackendlessGeoQuery *)query {
+-(NSArray *)relativeFind:(BackendlessGeoQuery *)query {
     
     BackendlessGeoQuery *geoQuery = query?query:[BackendlessGeoQuery query];
     NSArray *args = @[geoQuery];
@@ -754,8 +749,7 @@ id result = nil;
         return result;
     }
     
-    BackendlessCollection *collection = result;
-    collection.query = query;
+    NSArray *collection = result;
     [collection type:[GeoPoint class]];
     
     [self setReferenceToCluster:collection];
@@ -1060,23 +1054,23 @@ id result = nil;
     [self getCategories:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)getPoints:(BackendlessGeoQuery *)query response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)getPoints:(BackendlessGeoQuery *)query response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self getPoints:query responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)getClusterPoints:(GeoCluster *)geoCluster response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)getClusterPoints:(GeoCluster *)geoCluster response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self getClusterPoints:geoCluster responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)getFencePoints:(NSString *)geoFenceName response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)getFencePoints:(NSString *)geoFenceName response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self getFencePoints:geoFenceName responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)getFencePoints:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)getFencePoints:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self getFencePoints:geoFenceName query:query responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)relativeFind:(BackendlessGeoQuery *)query response:(void(^)(BackendlessCollection *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)relativeFind:(BackendlessGeoQuery *)query response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self relativeFind:query responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
@@ -1139,53 +1133,6 @@ id result = nil;
     return rect;
 }
 
--(void)setReferenceToCluster:(BackendlessCollection *)points {
-    
-    BackendlessGeoQuery *geoQuery = points.query;
-    for (id geoPoint in points.data) {
-        if ([geoPoint isKindOfClass:[GeoCluster class]]) {
-            GeoCluster *geoCluster = geoPoint;
-            geoCluster.geoQuery = geoQuery;
-        }
-    }
-}
-
-// geo fence monitoring
-/*
- 
- public void startGeofenceMonitoring( GeoPoint geoPoint,
- final AsyncCallback<Void> responder ) throws BackendlessException
- {
- ICallback bCallback = new ServerCallback( geoPoint );
- 
- startGeofenceMonitoring( bCallback, responder );
- }
- 
- public void startGeofenceMonitoring( IGeofenceCallback callback,
- final AsyncCallback<Void> responder ) throws BackendlessException
- {
- ICallback bCallback = new ClientCallback( callback );
- 
- startGeofenceMonitoring( bCallback, responder );
- }
- 
- public void startGeofenceMonitoring( String geofenceName, GeoPoint geoPoint,
- final AsyncCallback<Void> responder ) throws BackendlessException
- {
- ICallback bCallback = new ServerCallback( geoPoint );
- 
- startGeofenceMonitoring( bCallback, geofenceName, responder );
- }
- 
- public void startGeofenceMonitoring( String geofenceName, IGeofenceCallback callback,
- final AsyncCallback<Void> responder ) throws BackendlessException
- {
- ICallback bCallback = new ClientCallback( callback );
- 
- startGeofenceMonitoring( bCallback, geofenceName, responder );
- }
- */
-
 -(void)startGeofenceMonitoringGeoPoint:(GeoPoint *)geoPoint responder:(id <IResponder>)responder {
     [self startGeofenceMonitoringCallback:[ServerCallback callback:geoPoint] responder:responder];
 }
@@ -1218,24 +1165,6 @@ id result = nil;
     [self startGeofenceMonitoring:geofenceName callback:callback responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
-/*
- 
- public void stopGeofenceMonitoring()
- {
- GeoFenceMonitoring.getInstance().removeGeoFences();
- LocationTracker.getInstance().removeListener( GeoFenceMonitoring.NAME );
- }
- 
- public void stopGeofenceMonitoring( String geofenceName )
- {
- GeoFenceMonitoring.getInstance().removeGeoFence( geofenceName );
- if( !GeoFenceMonitoring.getInstance().isMonitoring() )
- {
- LocationTracker.getInstance().removeListener( GeoFenceMonitoring.NAME );
- }
- }
- */
-
 -(void)stopGeofenceMonitoring {
     GeoFenceMonitoring *monitoring = [GeoFenceMonitoring sharedInstance];
     [monitoring removeGeoFences];
@@ -1253,38 +1182,6 @@ id result = nil;
 #pragma mark -
 #pragma mark Private Methods
 
-/*
- 
- private void startGeofenceMonitoring( final ICallback callback, final AsyncCallback<Void> responder )
- {
- Invoker.invokeAsync( GEO_MANAGER_SERVER_ALIAS, "getFences", new Object[] { Backendless.getApplicationId(), Backendless.getVersion() }, new AsyncCallback<GeoFence[]>()
- {
- @Override
- public void handleResponse( GeoFence[] geoFences )
- {
- try
- {
- addFenceMonitoring( callback, geoFences );
- 
- if( responder != null )
- responder.handleResponse( null );
- }
- catch( Exception ex )
- {
- if( responder != null )
- responder.handleFault( new BackendlessFault( ex ) );
- }
- }
- 
- @Override
- public void handleFault( BackendlessFault fault )
- {
- responder.handleFault( fault );
- }
- } );
- }
- */
-
 -(void)startGeofenceMonitoringCallback:(id <ICallback>)callback responder:(id <IResponder>)responder {
     
     if ([self isFaultCallbackIsInvalid:callback responder:responder])
@@ -1295,39 +1192,6 @@ id result = nil;
     _responder.context = callback;
     [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_FENCES args:@[] responder:_responder];
 }
-
-/*
- 
- private void startGeofenceMonitoring( final ICallback callback, String geofenceName,
- final AsyncCallback<Void> responder )
- {
- Invoker.invokeAsync( GEO_MANAGER_SERVER_ALIAS, "getFence", new Object[] { Backendless.getApplicationId(), Backendless.getVersion(), geofenceName }, new AsyncCallback<GeoFence>()
- {
- @Override
- public void handleResponse( GeoFence geoFences )
- {
- try
- {
- addFenceMonitoring( callback, geoFences );
- 
- if( responder != null )
- responder.handleResponse( null );
- }
- catch( Exception ex )
- {
- if( responder != null )
- responder.handleFault( new BackendlessFault( ex ) );
- }
- }
- 
- @Override
- public void handleFault( BackendlessFault fault )
- {
- responder.handleFault( fault );
- }
- } );
- }
- */
 
 -(void)startGeofenceMonitoringCallback:(id <ICallback>)callback name:(NSString *)geofenceName responder:(id <IResponder>)responder {
     
@@ -1340,40 +1204,6 @@ id result = nil;
     _responder.context = callback;
     [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_FENCE args:args responder:_responder];
 }
-
- /*
- 
- private void addFenceMonitoring( ICallback callback, GeoFence... geoFences )
- {
- 
- if( geoFences.length == 0 )
- {
- return;
- }
- 
- if( geoFences.length == 1 )
- {
- GeoFenceMonitoring.getInstance().addGeoFence( geoFences[ 0 ], callback );
- }
- else
- {
- GeoFenceMonitoring.getInstance().addGeoFences( new HashSet<GeoFence>( Arrays.asList( geoFences ) ), callback );
- }
- 
- if( !LocationTracker.getInstance().isContainListener( GeoFenceMonitoring.NAME ) )
- {
- try
- {
- LocationTracker.getInstance().addListeners( GeoFenceMonitoring.NAME, GeoFenceMonitoring.getInstance() );
- }
- catch( RuntimeException e )
- {
- GeoFenceMonitoring.getInstance().removeGeoFences();
- throw e;
- }
- }
- }
- */
 
 -(void)addFenceMonitoring:(id <ICallback>)callback geoFences:(id)geoFences {
     
@@ -1472,9 +1302,9 @@ id result = nil;
 
 -(id)getResponse:(ResponseContext *)response {
     
-    BackendlessCollection *collection = response.response;
+    NSArray *collection = response.response;
     BackendlessGeoQuery *geoQuery = response.context;
-    collection.query = geoQuery;
+//    collection.query = geoQuery;
     [collection type:[GeoPoint class]];
     
     [self setReferenceToCluster:collection];

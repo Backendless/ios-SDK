@@ -20,7 +20,6 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "BackendlessCollection.h"
 
 typedef void(^BackendlessCacheDataSaveCompletion)(BOOL done);
 
