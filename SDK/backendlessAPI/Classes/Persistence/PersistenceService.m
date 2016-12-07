@@ -43,13 +43,16 @@
 #import "BackendlessCache.h"
 #import "OfflineModeManager.h"
 #import "ObjectProperty.h"
+#import "LoadRelationsQueryBuilder.h"
 
 #define FAULT_NO_ENTITY [Fault fault:@"Entity is missing or null" detail:@"Entity is missing or null" faultCode:@"1900"]
 #define FAULT_OBJECT_ID_IS_NOT_EXIST [Fault fault:@"objectId is missing or null" detail:@"objectId is missing or null" faultCode:@"1901"]
 #define FAULT_NAME_IS_NULL [Fault fault:@"Name is missing or null" detail:@"Name is missing or null" faultCode:@"1902"]
+#define FAULT_FIELD_IS_NULL [Fault fault:@"Field is missing or null" detail:@"Field is missing or null" faultCode:@"1903"]
 
 // SERVICE NAME
-static NSString *SERVER_PERSISTENCE_SERVICE_PATH = @"com.backendless.services.persistence.PersistenceService";
+static NSString *SERVER_PERSISTENCE_SERVICE_PATH  = @"com.backendless.services.persistence.PersistenceService";
+static NSString *PERSISTENCE_MANAGER_SERVER_ALIAS = @"com.backendless.services.persistence.PersistenceService";
 // METHOD NAMES
 static NSString *METHOD_CREATE = @"create";
 static NSString *METHOD_UPDATE = @"update";
@@ -65,6 +68,7 @@ static NSString *METHOD_CALL_STORED_VIEW = @"callStoredView";
 static NSString *METHOD_CALL_STORED_PROCEDURE = @"callStoredProcedure";
 static NSString *METHOD_COUNT = @"count";
 static NSString *DELETE_RELATION = @"deleteRelation";
+static NSString *LOAD_RELATION = @"loadRelations";
 static NSString *CREATE_RELATION = @"setRelation";
 static NSString *ADD_RELATION = @"addRelation";
 //
@@ -1245,6 +1249,24 @@ id result = nil;
     }
 
 }
+
+-(id)loadRelations:(NSString *)parentType objectID:(NSString *)objectID queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder error:(Fault **)fault {
+    id result = nil;
+    @try {
+        result = [self loadRelations:parentType objectID:objectID queryBuilder:queryBuilder];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
 #endif
 
 // sync methods with fault return  (as exception)
@@ -1731,6 +1753,21 @@ id result = nil;
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:DELETE_RELATION args:args];
 }
 
+-(id)loadRelations:(NSString *)parentType objectID:(NSString *)objectID queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder {
+    if (!parentType)
+        return [backendless throwFault:FAULT_NO_ENTITY];
+    if (!queryBuilder)
+        return [backendless throwFault:FAULT_FIELD_IS_NULL];
+    
+    BackendlessDataQuery *dataQuery = [queryBuilder build];
+    NSString *relationName = [dataQuery.queryOptions.related objectAtIndex:0];
+    NSNumber *pageSize = dataQuery.pageSize;
+    NSNumber *offset  = dataQuery.offset;
+    
+    NSArray *args = @[parentType, objectID, relationName, pageSize, offset];
+    return  [invoker invokeSync:PERSISTENCE_MANAGER_SERVER_ALIAS method:LOAD_RELATION args:args];
+}
+
 // async methods with block-base callbacks
 
 -(void)describe:(NSString *)classCanonicalName response:(void(^)(NSArray<ObjectProperty*> *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -2167,7 +2204,21 @@ id result = nil;
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:DELETE_RELATION args:args responder:chainedResponder];
 }
 
-
+-(void)loadRelations:(NSString *)parentType objectID:(NSString *)objectID queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
+    Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!parentType)
+        return [chainedResponder errorHandler:FAULT_NO_ENTITY];
+    if (!queryBuilder)
+        return [chainedResponder errorHandler:FAULT_FIELD_IS_NULL];
+    
+    BackendlessDataQuery *dataQuery = [queryBuilder build];
+    NSString *relationName = [dataQuery.queryOptions.related objectAtIndex:0];
+    NSNumber *pageSize = dataQuery.pageSize;
+    NSNumber *offset  = dataQuery.offset;
+    
+    NSArray *args = @[parentType, objectID, relationName, pageSize, offset];
+    [invoker invokeAsync:PERSISTENCE_MANAGER_SERVER_ALIAS method:LOAD_RELATION args:args responder:chainedResponder];
+}
 
 // IDataStore class factory
 

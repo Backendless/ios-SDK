@@ -20,6 +20,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "LoadRelationsQueryBuilder.h"
 
 @class QueryOptions, BackendlessDataQuery, Fault, ObjectProperty;
 @protocol IResponder;
@@ -51,11 +52,12 @@
 -(id)deleteRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects;
 -(NSNumber *)deleteRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause;
 
+-(NSArray*)loadRelations:(NSString *)objectID queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder;
+
 // sync methods with fault option
 -(id)save:(id)entity fault:(Fault **)fault;
 -(NSNumber *)remove:(id)entity fault:(Fault **)fault;
 -(NSNumber *)removeID:(NSString *)objectID fault:(Fault **)fault;
--(NSArray *)removeAll:(BackendlessDataQuery *)dataQuery fault:(Fault **)fault;
 -(NSArray *)findFault:(Fault **)fault;
 -(NSArray *)find:(BackendlessDataQuery *)dataQuery fault:(Fault **)fault;
 -(id)findFirstFault:(Fault **)fault;
@@ -74,11 +76,12 @@
 -(id)deleteRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects error:(Fault **)fault;
 -(NSNumber *)deleteRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause error:(Fault **)fault;
 
+-(NSArray*)loadRelations:(NSString *)objectID queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder error:(Fault **)fault;
+
 // async methods with block-based callbacks
 -(void)save:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)remove:(id)entity response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)removeID:(NSString *)objectID response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)removeAll:(BackendlessDataQuery *)dataQuery response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)find:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)find:(BackendlessDataQuery *)dataQuery response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)findFirst:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
@@ -97,6 +100,7 @@
 -(void)addRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)addRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)deleteRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)deleteRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)deleteRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 
+-(void)loadRelations:(NSString *)objectID queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 @end

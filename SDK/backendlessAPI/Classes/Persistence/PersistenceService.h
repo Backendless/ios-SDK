@@ -22,6 +22,7 @@
 #import <Foundation/Foundation.h>
 #import "DataPermission.h"
 #import "MapDrivenDataStore.h"
+#import "LoadRelationsQueryBuilder.h"
 
 #define PERSIST_OBJECT_ID @"objectId"
 #define PERSIST_CLASS(CLASS) [backendless.persistenceService of:[CLASS class]]
@@ -73,6 +74,7 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(NSNumber *)addRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause;
 -(id)deleteRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects;
 -(NSNumber *)deleteRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause;
+-(id)loadRelations:(NSString *)parentType objectID:(NSString *)objectID queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder;
 /*
  Backendless.Data.of( T ).bulkCreate( List<T> objects );
  Backendless.Data.of( T ).bulkDelete( List<T> objects );
@@ -126,6 +128,7 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(NSNumber *)addRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause error:(Fault **)fault;
 -(id)deleteRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects error:(Fault **)fault;
 -(NSNumber *)deleteRelation:(NSString *)parentObject columnName: (NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause error:(Fault **)fault;
+-(id)loadRelations:(NSString *)parentType objectID:(NSString *)objectID queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder error:(Fault **)fault;
 /*
 -(id)bulkCreate:(NSArray *)objects error:(Fault **)fault;
 -(id)bulkDelete:(NSArray *)objects error:(Fault **)fault;
@@ -171,6 +174,8 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(void)addRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)deleteRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)deleteRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)loadRelations:(NSString *)parentType objectID:(NSString *)objectID queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
+
 /*
 -(void)bulkCreate:(NSArray *)objects response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)bulkDelete:(NSArray *)objects response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;

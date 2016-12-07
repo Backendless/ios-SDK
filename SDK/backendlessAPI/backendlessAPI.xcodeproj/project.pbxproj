@@ -133,6 +133,16 @@
 		1C7BB5081A2E092900D3C2C1 /* BackendlessCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1398C17D7240A00D1AC4C /* BackendlessCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C7BB5091A2E092900D3C2C1 /* BackendlessCacheData.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1398E17D7240A00D1AC4C /* BackendlessCacheData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C7BB50A1A2E092900D3C2C1 /* BackendlessCacheKey.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1399017D7240A00D1AC4C /* BackendlessCacheKey.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		84B027E61DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 84B027E41DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		84B027E71DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 84B027E41DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		84B027E81DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 84B027E41DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		84B027E91DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 84B027E41DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		84B027EA1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 84B027E41DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		84B027EB1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B027E51DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m */; };
+		84B027EC1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B027E51DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m */; };
+		84B027ED1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B027E51DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m */; };
+		84B027EE1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B027E51DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m */; };
+		84B027EF1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B027E51DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m */; };
 		910117D4180C0CCF008102A7 /* BodyParts.h in Headers */ = {isa = PBXBuildFile; fileRef = 910117D2180C0CCF008102A7 /* BodyParts.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		910117D5180C0CCF008102A7 /* BodyParts.h in Headers */ = {isa = PBXBuildFile; fileRef = 910117D2180C0CCF008102A7 /* BodyParts.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		910117D7180C0CCF008102A7 /* BodyParts.m in Sources */ = {isa = PBXBuildFile; fileRef = 910117D3180C0CCF008102A7 /* BodyParts.m */; };
@@ -323,31 +333,31 @@
 		F9512974168DCFFF0041460C /* MediaPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F9512970168DCFFF0041460C /* MediaPlayer.m */; };
 		F9512979168DEA210041460C /* IMediaStreamer.h in Headers */ = {isa = PBXBuildFile; fileRef = F9512978168DEA210041460C /* IMediaStreamer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F951297A168DEA210041460C /* IMediaStreamer.h in Headers */ = {isa = PBXBuildFile; fileRef = F9512978168DEA210041460C /* IMediaStreamer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F96B1C601DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C5E1DD3A23C00A4B362 /* PagedQueryBuilder.h */; };
-		F96B1C611DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C5E1DD3A23C00A4B362 /* PagedQueryBuilder.h */; };
-		F96B1C621DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C5E1DD3A23C00A4B362 /* PagedQueryBuilder.h */; };
-		F96B1C631DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C5E1DD3A23C00A4B362 /* PagedQueryBuilder.h */; };
-		F96B1C641DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C5E1DD3A23C00A4B362 /* PagedQueryBuilder.h */; };
+		F96B1C601DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C5E1DD3A23C00A4B362 /* PagedQueryBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F96B1C611DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C5E1DD3A23C00A4B362 /* PagedQueryBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F96B1C621DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C5E1DD3A23C00A4B362 /* PagedQueryBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F96B1C631DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C5E1DD3A23C00A4B362 /* PagedQueryBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F96B1C641DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C5E1DD3A23C00A4B362 /* PagedQueryBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F96B1C651DD3A23C00A4B362 /* PagedQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C5F1DD3A23C00A4B362 /* PagedQueryBuilder.m */; };
 		F96B1C661DD3A23C00A4B362 /* PagedQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C5F1DD3A23C00A4B362 /* PagedQueryBuilder.m */; };
 		F96B1C671DD3A23C00A4B362 /* PagedQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C5F1DD3A23C00A4B362 /* PagedQueryBuilder.m */; };
 		F96B1C681DD3A23C00A4B362 /* PagedQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C5F1DD3A23C00A4B362 /* PagedQueryBuilder.m */; };
 		F96B1C691DD3A23D00A4B362 /* PagedQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C5F1DD3A23C00A4B362 /* PagedQueryBuilder.m */; };
-		F96B1C6C1DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C6A1DD3B6CA00A4B362 /* QueryOptionsBuilder.h */; };
-		F96B1C6D1DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C6A1DD3B6CA00A4B362 /* QueryOptionsBuilder.h */; };
-		F96B1C6E1DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C6A1DD3B6CA00A4B362 /* QueryOptionsBuilder.h */; };
-		F96B1C6F1DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C6A1DD3B6CA00A4B362 /* QueryOptionsBuilder.h */; };
-		F96B1C701DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C6A1DD3B6CA00A4B362 /* QueryOptionsBuilder.h */; };
+		F96B1C6C1DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C6A1DD3B6CA00A4B362 /* QueryOptionsBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F96B1C6D1DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C6A1DD3B6CA00A4B362 /* QueryOptionsBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F96B1C6E1DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C6A1DD3B6CA00A4B362 /* QueryOptionsBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F96B1C6F1DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C6A1DD3B6CA00A4B362 /* QueryOptionsBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F96B1C701DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C6A1DD3B6CA00A4B362 /* QueryOptionsBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F96B1C711DD3B6CA00A4B362 /* QueryOptionsBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C6B1DD3B6CA00A4B362 /* QueryOptionsBuilder.m */; };
 		F96B1C721DD3B6CA00A4B362 /* QueryOptionsBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C6B1DD3B6CA00A4B362 /* QueryOptionsBuilder.m */; };
 		F96B1C731DD3B6CA00A4B362 /* QueryOptionsBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C6B1DD3B6CA00A4B362 /* QueryOptionsBuilder.m */; };
 		F96B1C741DD3B6CA00A4B362 /* QueryOptionsBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C6B1DD3B6CA00A4B362 /* QueryOptionsBuilder.m */; };
 		F96B1C751DD3B6CA00A4B362 /* QueryOptionsBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C6B1DD3B6CA00A4B362 /* QueryOptionsBuilder.m */; };
-		F96B1C7A1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C781DD4BF5F00A4B362 /* DataQueryBuilder.h */; };
-		F96B1C7B1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C781DD4BF5F00A4B362 /* DataQueryBuilder.h */; };
-		F96B1C7C1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C781DD4BF5F00A4B362 /* DataQueryBuilder.h */; };
-		F96B1C7D1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C781DD4BF5F00A4B362 /* DataQueryBuilder.h */; };
-		F96B1C7E1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C781DD4BF5F00A4B362 /* DataQueryBuilder.h */; };
+		F96B1C7A1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C781DD4BF5F00A4B362 /* DataQueryBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F96B1C7B1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C781DD4BF5F00A4B362 /* DataQueryBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F96B1C7C1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C781DD4BF5F00A4B362 /* DataQueryBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F96B1C7D1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C781DD4BF5F00A4B362 /* DataQueryBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F96B1C7E1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C781DD4BF5F00A4B362 /* DataQueryBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F96B1C7F1DD4BF5F00A4B362 /* DataQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C791DD4BF5F00A4B362 /* DataQueryBuilder.m */; };
 		F96B1C801DD4BF5F00A4B362 /* DataQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C791DD4BF5F00A4B362 /* DataQueryBuilder.m */; };
 		F96B1C811DD4BF5F00A4B362 /* DataQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C791DD4BF5F00A4B362 /* DataQueryBuilder.m */; };
@@ -839,6 +849,8 @@
 
 /* Begin PBXFileReference section */
 		1C7BB5101A2E092900D3C2C1 /* libbackendless-mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libbackendless-mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		84B027E41DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadRelationsQueryBuilder.h; sourceTree = "<group>"; };
+		84B027E51DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadRelationsQueryBuilder.m; sourceTree = "<group>"; };
 		910117D2180C0CCF008102A7 /* BodyParts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BodyParts.h; sourceTree = "<group>"; };
 		910117D3180C0CCF008102A7 /* BodyParts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BodyParts.m; sourceTree = "<group>"; };
 		91223DC8195AF6AB00F72F48 /* Events.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Events.h; sourceTree = "<group>"; };
@@ -1760,8 +1772,8 @@
 			children = (
 				F94487611B68EBA400EB12A5 /* Backendless-With-Media-Bridging-Header.h */,
 				D30A5D7319B9CA8200C0BA44 /* Backendless-Bridging-Header.h */,
-				F91B47FE15FF569400012DFC /* Backendless.h */,
 				F91B47FF15FF569400012DFC /* Backendless.m */,
+				F91B47FE15FF569400012DFC /* Backendless.h */,
 				91A42804184E2419005F91DE /* OfflineModeManager */,
 				91F1398917D7240A00D1AC4C /* Cache */,
 				F91B47EC15FF48AF00012DFC /* IO */,
@@ -1869,6 +1881,8 @@
 				F91B48291603649C00012DFC /* IDataStore.h */,
 				F99D92231607240B00AFF3F6 /* DataStoreFactory.h */,
 				F99D92241607240C00AFF3F6 /* DataStoreFactory.m */,
+				84B027E41DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h */,
+				84B027E51DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m */,
 				F99A74951D4A0CAB001AF91F /* MapDrivenDataStore.h */,
 				F99A74961D4A0CAB001AF91F /* MapDrivenDataStore.m */,
 				F96B1C5E1DD3A23C00A4B362 /* PagedQueryBuilder.h */,
@@ -2616,7 +2630,6 @@
 				D35CA5311A668AC600F500B0 /* FilePermission.h in Headers */,
 				1C7BB4F21A2E092900D3C2C1 /* BESubscription.h in Headers */,
 				1C7BB4F31A2E092900D3C2C1 /* Message.h in Headers */,
-				F96B1C6C1DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */,
 				1C7BB4F51A2E092900D3C2C1 /* MessageStatus.h in Headers */,
 				1C7BB4C91A2E092900D3C2C1 /* OfflineModeManager.h in Headers */,
 				D3A064C81AFCE69D00779BB1 /* GeoFenceMonitoring.h in Headers */,
@@ -2633,7 +2646,6 @@
 				D30FC9B11AE132C2007C9A83 /* LogBuffer.h in Headers */,
 				1C7BB5071A2E092900D3C2C1 /* Invoker.h in Headers */,
 				1C7BB5081A2E092900D3C2C1 /* BackendlessCache.h in Headers */,
-				F96B1C7A1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */,
 				1C7BB5091A2E092900D3C2C1 /* BackendlessCacheData.h in Headers */,
 				1C7BB50A1A2E092900D3C2C1 /* BackendlessCacheKey.h in Headers */,
 				1C7BB4F61A2E092900D3C2C1 /* FileService.h in Headers */,
@@ -2641,10 +2653,13 @@
 				1C7BB4F81A2E092900D3C2C1 /* HashMap.h in Headers */,
 				1C7BB4F91A2E092900D3C2C1 /* MediaPublishOptions.h in Headers */,
 				1C7BB4FA1A2E092900D3C2C1 /* MediaPlaybackOptions.h in Headers */,
-				F96B1C601DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */,
 				1C7BB4FC1A2E092900D3C2C1 /* MediaService.h in Headers */,
+				F96B1C6C1DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */,
 				1C7BB4FD1A2E092900D3C2C1 /* MediaPublisher.h in Headers */,
+				F96B1C7A1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */,
+				F96B1C601DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */,
 				1C7BB4FE1A2E092900D3C2C1 /* MediaPlayer.h in Headers */,
+				84B027E61DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h in Headers */,
 				1C7BB4FF1A2E092900D3C2C1 /* IMediaStreamer.h in Headers */,
 				1C7BB5001A2E092900D3C2C1 /* AbstractQuery.h in Headers */,
 				1C7BB5021A2E092900D3C2C1 /* BackendlessCachePolicy.h in Headers */,
@@ -2669,7 +2684,6 @@
 				F9796A08166CCBFE00595F5E /* AbstractProperty.h in Headers */,
 				F9796A09166CCBFE00595F5E /* UserService.h in Headers */,
 				F9796A0A166CCBFE00595F5E /* BackendlessUser.h in Headers */,
-				F96B1C6D1DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */,
 				F9796A0B166CCBFE00595F5E /* UserProperty.h in Headers */,
 				F9796A0C166CCBFE00595F5E /* PersistenceService.h in Headers */,
 				F9796A0D166CCBFE00595F5E /* ObjectProperty.h in Headers */,
@@ -2702,7 +2716,6 @@
 				F9796A20166CCBFE00595F5E /* FileService.h in Headers */,
 				F9C7DE901B7CBF0300AFCD06 /* BEFileInfo.h in Headers */,
 				D35DC3421AD7E19800EF2A68 /* Logger.h in Headers */,
-				F96B1C7B1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */,
 				910117D4180C0CCF008102A7 /* BodyParts.h in Headers */,
 				D3A064A81AFA6E4A00779BB1 /* LocationTracker.h in Headers */,
 				F9F0ADE71CD80FF800035C62 /* Backendless-With-Media-Bridging-Header.h in Headers */,
@@ -2718,7 +2731,6 @@
 				D3A064B91AFCE61700779BB1 /* GeoMath.h in Headers */,
 				D30FC9B21AE132C2007C9A83 /* LogBuffer.h in Headers */,
 				D3A064D91B0242B900779BB1 /* ClientCallback.h in Headers */,
-				F96B1C611DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */,
 				F9D5234E1B25CEF800F6A441 /* ClassCastException.h in Headers */,
 				F9CB138F1BC53D2300F3CA1D /* BeaconTracker.h in Headers */,
 				F9B361041D663FF500818EEF /* KeychainDataStore.h in Headers */,
@@ -2734,10 +2746,14 @@
 				91F1399F17D7240A00D1AC4C /* BackendlessCacheData.h in Headers */,
 				91F139A417D7240A00D1AC4C /* BackendlessCacheKey.h in Headers */,
 				91A42807184E2447005F91DE /* OfflineModeManager.h in Headers */,
+				F96B1C6D1DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */,
 				F9CB13971BC53D5100F3CA1D /* BeaconMonitoring.h in Headers */,
 				F994A3F4168DC36B00C1A498 /* MediaPublishOptions.h in Headers */,
 				F994A3FE168DC39400C1A498 /* MediaPlaybackOptions.h in Headers */,
+				F96B1C7B1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */,
 				F994A407168DC3BA00C1A498 /* MediaService.h in Headers */,
+				84B027E71DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h in Headers */,
+				F96B1C611DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */,
 				F9512967168DCFE90041460C /* MediaPublisher.h in Headers */,
 				F9512971168DCFFF0041460C /* MediaPlayer.h in Headers */,
 				F9512979168DEA210041460C /* IMediaStreamer.h in Headers */,
@@ -2764,7 +2780,6 @@
 				F9796A54166CD42E00595F5E /* AbstractProperty.h in Headers */,
 				F9796A55166CD42E00595F5E /* UserService.h in Headers */,
 				F9796A56166CD42E00595F5E /* BackendlessUser.h in Headers */,
-				F96B1C6E1DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */,
 				F9796A57166CD42E00595F5E /* UserProperty.h in Headers */,
 				F9796A58166CD42E00595F5E /* PersistenceService.h in Headers */,
 				F9796A59166CD42E00595F5E /* ObjectProperty.h in Headers */,
@@ -2797,7 +2812,6 @@
 				D35DC3431AD7E19800EF2A68 /* Logger.h in Headers */,
 				D30A5D7619B9CA8200C0BA44 /* Backendless-Bridging-Header.h in Headers */,
 				F9796A6C166CD42E00595F5E /* FileService.h in Headers */,
-				F96B1C7C1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */,
 				F9C7DE991B7CBFE600AFCD06 /* BackendlessSimpleQuery.h in Headers */,
 				D3A064E11B0243ED00779BB1 /* ICallback.h in Headers */,
 				F91AC57D1D58D07F00511EA5 /* MapDrivenDataStore.h in Headers */,
@@ -2813,7 +2827,6 @@
 				F9CB13901BC53D2300F3CA1D /* BeaconTracker.h in Headers */,
 				F9CB136D1BC284A900F3CA1D /* BeaconsInfo.h in Headers */,
 				D3A064BA1AFCE61700779BB1 /* GeoMath.h in Headers */,
-				F96B1C621DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */,
 				D30FC9B31AE132C2007C9A83 /* LogBuffer.h in Headers */,
 				D3A064DA1B0242B900779BB1 /* ClientCallback.h in Headers */,
 				F9D5234F1B25CEF800F6A441 /* ClassCastException.h in Headers */,
@@ -2831,7 +2844,11 @@
 				91F139A517D7240A00D1AC4C /* BackendlessCacheKey.h in Headers */,
 				91A42808184E2447005F91DE /* OfflineModeManager.h in Headers */,
 				F994A3F5168DC36B00C1A498 /* MediaPublishOptions.h in Headers */,
+				F96B1C7C1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */,
 				F994A3FF168DC39400C1A498 /* MediaPlaybackOptions.h in Headers */,
+				F96B1C6E1DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */,
+				84B027E81DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h in Headers */,
+				F96B1C621DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */,
 				F994A408168DC3BA00C1A498 /* MediaService.h in Headers */,
 				F9512968168DCFE90041460C /* MediaPublisher.h in Headers */,
 				F9512972168DCFFF0041460C /* MediaPlayer.h in Headers */,
@@ -2894,7 +2911,6 @@
 				F91AC5771D58C68000511EA5 /* MapDrivenDataStore.h in Headers */,
 				F9F0AF0B1CDBCA3900035C62 /* BodyParts.h in Headers */,
 				F9F0AF0C1CDBCA3900035C62 /* LocationTracker.h in Headers */,
-				F96B1C6F1DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */,
 				F9F0AF0E1CDBCA3900035C62 /* BackendlessSimpleQuery.h in Headers */,
 				F9F0AF121CDBCA3900035C62 /* ProtectedBackendlessGeoQuery.h in Headers */,
 				F9F0AF131CDBCA3900035C62 /* Logging.h in Headers */,
@@ -2911,7 +2927,6 @@
 				F9F0AF211CDBCA3900035C62 /* ServerCallback.h in Headers */,
 				F9F0AF231CDBCA3900035C62 /* BEReachability.h in Headers */,
 				F9F0AF241CDBCA3900035C62 /* AuthorizationException.h in Headers */,
-				F96B1C7D1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */,
 				F9F0AF2B1CDBCA3900035C62 /* Invoker.h in Headers */,
 				F9F0AF2C1CDBCA3900035C62 /* BackendlessCache.h in Headers */,
 				F9F0AF2D1CDBCA3900035C62 /* BackendlessCacheData.h in Headers */,
@@ -2919,9 +2934,12 @@
 				F9F0AF321CDBCA3900035C62 /* OfflineModeManager.h in Headers */,
 				F9F0AF331CDBCA3900035C62 /* BeaconMonitoring.h in Headers */,
 				F9F0AF151CDBCA3900035C62 /* GeoCluster.h in Headers */,
-				F96B1C631DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */,
+				84B027E91DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h in Headers */,
+				F96B1C6F1DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */,
+				F96B1C7D1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */,
 				F9F0AF161CDBCA3900035C62 /* FilePermission.h in Headers */,
 				F9F0AF171CDBCA3900035C62 /* DataPermission.h in Headers */,
+				F96B1C631DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */,
 				F9F0AF181CDBCA3900035C62 /* BackendlessFile.h in Headers */,
 				F9F0AF191CDBCA3900035C62 /* HashMap.h in Headers */,
 				F9F0AF261CDBCA3900035C62 /* AbstractQuery.h in Headers */,
@@ -2982,7 +3000,6 @@
 				F9F0AFC71CDBCAB500035C62 /* BackendlessSimpleQuery.h in Headers */,
 				F9F0AFC81CDBCAB500035C62 /* ICallback.h in Headers */,
 				F9F0AFCA1CDBCAB500035C62 /* Logging.h in Headers */,
-				F96B1C701DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */,
 				F9F0AFCB1CDBCAB500035C62 /* LocationTracker.h in Headers */,
 				F9F0AFCC1CDBCAB500035C62 /* ProtectedBackendlessGeoQuery.h in Headers */,
 				F9F0AF921CDBCAB500035C62 /* BeaconTracker.h in Headers */,
@@ -2999,7 +3016,6 @@
 				F9F0AFDD1CDBCAB500035C62 /* BEReachability.h in Headers */,
 				F9F0AFDE1CDBCAB500035C62 /* AuthorizationException.h in Headers */,
 				F9F0AFE01CDBCAB500035C62 /* BeaconMonitoring.h in Headers */,
-				F96B1C7E1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */,
 				F9F0AFE61CDBCAB500035C62 /* Invoker.h in Headers */,
 				F9F0AFE71CDBCAB500035C62 /* BackendlessCache.h in Headers */,
 				F9F0AFE81CDBCAB500035C62 /* BackendlessCacheData.h in Headers */,
@@ -3007,8 +3023,11 @@
 				F9F0AFED1CDBCAB500035C62 /* OfflineModeManager.h in Headers */,
 				F9F0AFCD1CDBCAB500035C62 /* GeoFence.h in Headers */,
 				F9F0AFCE1CDBCAB500035C62 /* GeoCluster.h in Headers */,
-				F96B1C641DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */,
+				F96B1C701DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */,
 				F9F0AFD01CDBCAB500035C62 /* DataPermission.h in Headers */,
+				F96B1C641DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */,
+				F96B1C7E1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */,
+				84B027EA1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h in Headers */,
 				F9F0AFD11CDBCAB500035C62 /* FilePermission.h in Headers */,
 				F9F0AFD21CDBCAB500035C62 /* BackendlessFile.h in Headers */,
 				F9F0AFD31CDBCAB500035C62 /* HashMap.h in Headers */,
@@ -3249,6 +3268,7 @@
 				D35CA5321A668E1400F500B0 /* DataPermission.m in Sources */,
 				D35CA5331A668E1400F500B0 /* FilePermission.m in Sources */,
 				1C7BB4901A2E092900D3C2C1 /* Backendless.m in Sources */,
+				84B027EB1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */,
 				1C7BB4911A2E092900D3C2C1 /* CustomService.m in Sources */,
 				1C7BB4921A2E092900D3C2C1 /* Invoker.m in Sources */,
 				1C7BB4931A2E092900D3C2C1 /* AbstractProperty.m in Sources */,
@@ -3372,6 +3392,7 @@
 				91223DCE195AF6AB00F72F48 /* Events.m in Sources */,
 				F9796A00166CCB8200595F5E /* BESubscription.m in Sources */,
 				F9796A01166CCB8200595F5E /* Message.m in Sources */,
+				84B027EC1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */,
 				D36CF3FF1A2F68DA00B6468A /* DataPermission.m in Sources */,
 				F9796A02166CCB8200595F5E /* MessageStatus.m in Sources */,
 				F9796A03166CCB8200595F5E /* FileService.m in Sources */,
@@ -3459,6 +3480,7 @@
 				91223DCF195AF6AB00F72F48 /* Events.m in Sources */,
 				F9796A4A166CD3DB00595F5E /* BESubscription.m in Sources */,
 				F9796A4B166CD3DB00595F5E /* Message.m in Sources */,
+				84B027ED1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */,
 				D36CF4001A2F68DA00B6468A /* DataPermission.m in Sources */,
 				F9796A4C166CD3DB00595F5E /* MessageStatus.m in Sources */,
 				F9796A4D166CD3DB00595F5E /* FileService.m in Sources */,
@@ -3499,6 +3521,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84B027EE1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */,
 				F9B360C51D65A7BD00818EEF /* UICKeyChainStore.m in Sources */,
 				F91AC5761D58C60500511EA5 /* MapDrivenDataStore.m in Sources */,
 				F9F0AE821CDBCA3900035C62 /* BETableView.m in Sources */,
@@ -3581,6 +3604,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84B027EF1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */,
 				F9B360C61D65A7D000818EEF /* UICKeyChainStore.m in Sources */,
 				F91AC57E1D58D0B300511EA5 /* MapDrivenDataStore.m in Sources */,
 				F9F0AF3C1CDBCAB500035C62 /* BETableView.m in Sources */,
