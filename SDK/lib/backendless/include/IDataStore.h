@@ -43,7 +43,7 @@
 -(id)findID:(id)objectID;
 -(id)findID:(id)objectID relationsDepth:(int)relationsDepth;
 -(NSNumber *)getObjectCount;
--(NSNumber *)getObjectCount:(BackendlessDataQuery *)dataQuery;
+-(NSNumber *)getObjectCount:(DataQueryBuilder *)dataQuery;
 //
 -(id)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects;
 -(NSNumber *)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause;
@@ -68,6 +68,8 @@
 -(id)findLast:(int)relationsDepth fault:(Fault **)fault;
 -(id)findID:(id)objectID fault:(Fault **)fault;
 -(id)findID:(id)objectID relationsDepth:(int)relationsDepth fault:(Fault **)fault;
+-(NSNumber *)getObjectCountFault:(Fault **)fault;
+-(NSNumber *)getObjectCount:(DataQueryBuilder *)dataQuery fault:(Fault **)fault;
 //
 -(id)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects error:(Fault **)fault;
 -(NSNumber *)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause error:(Fault **)fault;
@@ -93,7 +95,7 @@
 -(void)findID:(id)objectID response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)findID:(id)objectID relationsDepth:(int)relationsDepth response:(void(^)(id result))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getObjectCount:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)getObjectCount:(BackendlessDataQuery *)dataQuery response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)getObjectCount:(DataQueryBuilder *)dataQuery response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 //
 -(void)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;

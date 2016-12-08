@@ -1678,12 +1678,12 @@ id result = nil;
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_COUNT args:args];
 }
 
--(NSNumber *)getObjectCount:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery {
+-(NSNumber *)getObjectCount:(Class)entity dataQuery:(DataQueryBuilder *)dataQuery {
+    if (!entity) { return [backendless throwFault:FAULT_NO_ENTITY]; }
+    if (!dataQuery) { return [backendless throwFault:FAULT_FIELD_IS_NULL]; }
     
-    if (!entity)
-        return [backendless throwFault:FAULT_NO_ENTITY];
-    
-    NSArray *args = @[[self typeClassName:entity], dataQuery?dataQuery:BACKENDLESS_DATA_QUERY];
+    BackendlessDataQuery *dataQuerybuilder = [dataQuery build];
+    NSArray *args = @[NSStringFromClass(entity), dataQuerybuilder?dataQuerybuilder:BACKENDLESS_DATA_QUERY];
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_COUNT args:args];
 }
 
@@ -2123,12 +2123,13 @@ id result = nil;
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_COUNT args:args responder:chainedResponder];
 }
 
--(void)getObjectCount:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)getObjectCount:(Class)entity dataQuery:(DataQueryBuilder *)dataQuery response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
-    if (!entity)
-        return [chainedResponder errorHandler:FAULT_NO_ENTITY];
+    if (!entity) { return [chainedResponder errorHandler:FAULT_NO_ENTITY]; }
+    if (!dataQuery) { return [chainedResponder errorHandler: FAULT_FIELD_IS_NULL]; }
     
-    NSArray *args = @[[self typeClassName:entity], dataQuery?dataQuery:BACKENDLESS_DATA_QUERY];
+    BackendlessDataQuery *dataQuerybuilder = [dataQuery build];
+    NSArray *args = @[NSStringFromClass(entity), dataQuerybuilder?dataQuerybuilder:BACKENDLESS_DATA_QUERY];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_COUNT args:args responder:chainedResponder];
 }
 
@@ -2177,7 +2178,7 @@ id result = nil;
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:DELETE_RELATION args:args responder:chainedResponder];
 }
 
--(void)deleteRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)deleteRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!parentObject)
         return [chainedResponder errorHandler:FAULT_NO_ENTITY];
