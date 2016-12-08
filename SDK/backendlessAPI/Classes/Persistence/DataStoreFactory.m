@@ -81,15 +81,11 @@
     return [backendless.persistenceService remove:_entityClass sid:objectID];
 }
 
--(id)removeAll:(BackendlessDataQuery *)dataQuery {
-    return [backendless.persistenceService removeAll:_entityClass dataQuery:dataQuery];
-}
-
 -(NSArray *)find {
     return [self find:[BackendlessDataQuery query]];
 }
 
--(NSArray *)find:(BackendlessDataQuery *)dataQuery {
+-(NSArray *)find:(DataQueryBuilder *)dataQuery {
     return [backendless.persistenceService find:_entityClass dataQuery:dataQuery];
 }
 
@@ -197,7 +193,7 @@
     return [self find:[BackendlessDataQuery query] fault:fault];
 }
 
--(NSArray *)find:(BackendlessDataQuery *)dataQuery fault:(Fault **)fault {
+-(NSArray *)find:(DataQueryBuilder *)dataQuery fault:(Fault **)fault {
     return [backendless.persistenceService find:_entityClass dataQuery:dataQuery error:fault];
 }
 
@@ -292,7 +288,7 @@
     [self find:[BackendlessDataQuery query] response:responseBlock error:errorBlock];
 }
 
--(void)find:(BackendlessDataQuery *)dataQuery response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)find:(DataQueryBuilder *)dataQuery response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.persistenceService find:_entityClass dataQuery:dataQuery response:responseBlock error:errorBlock];
 }
 

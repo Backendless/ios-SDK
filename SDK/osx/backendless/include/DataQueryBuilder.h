@@ -12,6 +12,7 @@
 
 @interface DataQueryBuilder : NSObject 
 
+-(instancetype)init;
 -(BackendlessDataQuery *)build;
 -(instancetype)setPageSize:(int)pageSize;
 -(instancetype)setOffset:(int)offset;

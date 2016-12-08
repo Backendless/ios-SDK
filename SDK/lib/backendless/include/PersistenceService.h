@@ -23,6 +23,7 @@
 #import "DataPermission.h"
 #import "MapDrivenDataStore.h"
 #import "LoadRelationsQueryBuilder.h"
+#import "DataQueryBuilder.h"
 
 #define PERSIST_OBJECT_ID @"objectId"
 #define PERSIST_CLASS(CLASS) [backendless.persistenceService of:[CLASS class]]
@@ -46,7 +47,7 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(id)update:(id)entity;
 -(id)load:(id)object relations:(NSArray *)relations;
 -(id)load:(id)object relations:(NSArray *)relations relationsDepth:(int)relationsDepth;
--(NSArray *)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery;
+-(NSArray *)find:(Class)entity dataQuery:(DataQueryBuilder *)dataQuery;
 -(id)first:(Class)entity;
 -(id)first:(Class)entity relations:(NSArray *)relations relationsDepth:(int)relationsDepth;
 -(id)last:(Class)entity;
@@ -100,7 +101,7 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(id)update:(id)entity error:(Fault **)fault;
 -(id)load:(id)object relations:(NSArray *)relations error:(Fault **)fault;
 -(id)load:(id)object relations:(NSArray *)relations relationsDepth:(int)relationsDepth error:(Fault **)fault;
--(NSArray *)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault;
+-(NSArray *)find:(Class)entity dataQuery:(DataQueryBuilder *)dataQuery error:(Fault **)fault;
 -(id)first:(Class)entity error:(Fault **)fault;
 -(id)first:(Class)entity relations:(NSArray *)relations relationsDepth:(int)relationsDepth error:(Fault **)fault;
 -(id)last:(Class)entity error:(Fault **)fault;
@@ -146,7 +147,7 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(void)update:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)load:(id)object relations:(NSArray *)relations response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)load:(id)object relations:(NSArray *)relations relationsDepth:(int)relationsDepth response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)find:(Class)entity dataQuery:(DataQueryBuilder *)dataQuery response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)first:(Class)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)first:(Class)entity relations:(NSArray *)relations relationsDepth:(int)relationsDepth response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)last:(Class)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
