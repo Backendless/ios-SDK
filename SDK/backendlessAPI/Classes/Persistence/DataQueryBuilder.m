@@ -50,6 +50,7 @@
 -(BackendlessDataQuery *)build {
     
     BackendlessDataQuery *dataQuery = [BackendlessDataQuery new];
+    dataQuery = [_pagedQueryBuilder build];
     dataQuery.queryOptions = [_queryOptionsBuilder build];
     dataQuery.properties = _properties ? [[[NSMutableArray alloc] initWithArray:_properties] autorelease]: nil;
     dataQuery.whereClause = _whereClause.copy;

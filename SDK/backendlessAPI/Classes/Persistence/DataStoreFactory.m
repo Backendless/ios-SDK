@@ -101,10 +101,6 @@
     return [backendless.persistenceService describe:NSStringFromClass(_entityClass)];
 }
 
--(id)load:(id)object relations:(NSArray *)relations {
-    return [backendless.persistenceService load:object relations:relations];
-}
-
 -(id)findFirst:(int)relationsDepth {
     return [backendless.persistenceService first:_entityClass relations:@[] relationsDepth:relationsDepth];
 }
@@ -209,10 +205,6 @@
     return [backendless.persistenceService describe:NSStringFromClass(_entityClass) error:fault];
 }
 
--(id)load:(id)object relations:(NSArray *)relations fault:(Fault **)fault {
-    return [backendless.persistenceService load:object relations:relations error:fault];
-}
-
 -(id)findFirst:(int)relationsDepth fault:(Fault **)fault {
     return [backendless.persistenceService first:_entityClass relations:@[] relationsDepth:relationsDepth error:fault];
 }
@@ -310,10 +302,6 @@
 
 -(void)describeResponse:(void (^)(NSArray<ObjectProperty*> *))responseBlock error:(void (^)(Fault *))errorBlock {
     [backendless.persistenceService describe:NSStringFromClass(_entityClass) response:responseBlock error:errorBlock];
-}
-
--(void)load:(id)object relations:(NSArray *)relations response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
-    [backendless.persistenceService load:object relations:relations response:responseBlock error:errorBlock];
 }
 
 -(void)findFirst:(int)relationsDepth response:(void(^)(id result))responseBlock error:(void(^)(Fault *))errorBlock {

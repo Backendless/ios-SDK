@@ -42,7 +42,6 @@ static NSString *_METHOD_LAST = @"last";
 static NSString *_METHOD_FINDBYID = @"findById";
 static NSString *_METHOD_LOAD = @"loadRelations";
 
-
 @implementation MapDrivenDataStore
 
 -(id)init {
@@ -241,21 +240,42 @@ static NSString *_METHOD_LOAD = @"loadRelations";
     return [result isKindOfClass:NSDictionary.class]?result:[Types propertyDictionary:result];
 }
 
--(NSDictionary<NSString*,id> *)loadRelations:(NSDictionary<NSString*,id> *)entity relations:(NSArray<NSString*> *)relations {
-    
-    if (!entity)
-        return [backendless throwFault:FAULT_NO_ENTITY];
-    
-    NSArray *args = @[_tableName, entity, relations?relations:@[]];
-    id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_LOAD args:args];
-    if ([result isKindOfClass:[Fault class]]) {
-        return result;
-    }
-    
-    NSMutableDictionary<NSString*,id> *entityWithRel = [NSMutableDictionary dictionaryWithDictionary:entity];
-    [entityWithRel addEntriesFromDictionary:[result isKindOfClass:NSDictionary.class]?result:[Types propertyDictionary:result]];
-    return [NSDictionary dictionaryWithDictionary:entityWithRel];
+-(NSNumber *)getObjectCount {
+    return [backendless.persistenceService getObjectCount:NSClassFromString(_tableName)];
 }
+
+-(NSNumber *)getObjectCount:(DataQueryBuilder *)dataQuery{
+    return [backendless.persistenceService getObjectCount:NSClassFromString(_tableName) dataQuery:dataQuery];
+}
+
+-(id)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects {
+    return [backendless.persistenceService setRelation:_tableName columnName:columnName parentObjectId:parentObjectId childObjects:childObjects];
+}
+
+-(NSNumber *)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause{
+    return [backendless.persistenceService setRelation:_tableName columnName:columnName parentObjectId:parentObjectId whereClause:whereClause];
+}
+
+-(id)addRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects{
+    return [backendless.persistenceService addRelation:_tableName columnName:columnName parentObjectId:parentObjectId childObjects:childObjects];
+}
+
+-(NSNumber *)addRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause{
+    return [backendless.persistenceService addRelation:_tableName columnName:columnName parentObjectId:parentObjectId whereClause:whereClause];
+}
+
+-(id)deleteRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects{
+    return [backendless.persistenceService deleteRelation:_tableName columnName:columnName parentObjectId:parentObjectId childObjects:childObjects];
+}
+
+-(NSNumber *)deleteRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause{
+    return [backendless.persistenceService deleteRelation:_tableName columnName:columnName parentObjectId:parentObjectId whereClause:whereClause];
+}
+
+-(NSArray*)loadRelations:(NSString *)objectID queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder {
+    return [backendless.persistenceService loadRelations:_tableName objectID:(NSString *)objectID  queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder];
+}
+
 
 
 // sync methods with fault option
@@ -640,186 +660,35 @@ id result = nil;
     }
 }
 
--(NSDictionary<NSString*,id> *)loadRelations:(NSDictionary<NSString*,id> *)entity relations:(NSArray<NSString*> *)relations fault:(Fault **)fault {
-    
-    id result = nil;
-    @try {
-        result = [self loadRelations:entity relations:relations];
-    }
-    @catch (Fault *fault) {
-        result = fault;
-    }
-    @finally {
-        if ([result isKindOfClass:Fault.class]) {
-            if (fault)(*fault) = result;
-            return nil;
-        }
-        return result;
-    }
+-(NSNumber *)getObjectCountFault:(Fault **)fault {
+    return [backendless.persistenceService getObjectCount:NSClassFromString(_tableName) error:fault];
 }
 
-
-// async methods with responder
-
--(id)onResponse:(id)result {
-    return [result isKindOfClass:NSDictionary.class]?result:[Types propertyDictionary:result];
+-(NSNumber *)getObjectCount:(DataQueryBuilder *)dataQuery fault:(Fault **)fault {
+    return [backendless.persistenceService getObjectCount:NSClassFromString(_tableName) dataQuery:dataQuery error:fault];
 }
 
--(void)save:(NSDictionary<NSString*,id> *)entity responder:(id <IResponder>)responder {
-    
-    if (!entity)
-        return [responder errorHandler:FAULT_NO_ENTITY];
-    
-    NSArray *args = @[_tableName, entity];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onResponse:) selErrorHandler:nil];
-    _responder.chained = responder;
-    [invoker invokeAsync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_SAVE args:args responder:_responder];
+-(id)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects error:(Fault **)fault {
+    return [backendless.persistenceService setRelation:_tableName columnName:columnName parentObjectId:parentObjectId childObjects:childObjects error:fault];
+}
+-(NSNumber *)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause error:(Fault **)fault {
+    return [backendless.persistenceService setRelation:_tableName columnName:columnName parentObjectId:parentObjectId whereClause:whereClause error:fault];
+}
+-(id)addRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects error:(Fault **)fault {
+    return [backendless.persistenceService addRelation:_tableName columnName:columnName parentObjectId:parentObjectId childObjects:childObjects error:fault];
+}
+-(NSNumber *)addRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause error:(Fault **)fault {
+    return [backendless.persistenceService addRelation:_tableName columnName:columnName parentObjectId:parentObjectId whereClause:whereClause error:fault];
+}
+-(id)deleteRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects error:(Fault **)fault {
+    return [backendless.persistenceService deleteRelation:_tableName columnName:columnName parentObjectId:parentObjectId childObjects:childObjects error:fault];
+}
+-(NSNumber *)deleteRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause error:(Fault **)fault {
+    return [backendless.persistenceService deleteRelation:_tableName columnName:columnName parentObjectId:parentObjectId whereClause:whereClause error:fault];
 }
 
--(void)remove:(NSDictionary<NSString*,id> *)entity responder:(id <IResponder>)responder {
-    
-    if (!entity)
-        return [responder errorHandler:FAULT_NO_ENTITY];
-    
-    NSArray *args = @[_tableName, entity];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onResponse:) selErrorHandler:nil];
-    _responder.chained = responder;
-    [invoker invokeAsync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_REMOVE args:args responder:_responder];
-}
-
--(void)findResponder:(id <IResponder>)responder {
-    [self find:BACKENDLESS_DATA_QUERY responder:responder];
-}
-
--(void)find:(BackendlessDataQuery *)dataQuery responder:(id <IResponder>)responder {
-    
-    NSArray *args = @[_tableName, dataQuery?dataQuery:BACKENDLESS_DATA_QUERY];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(setCollectionFields:) selErrorHandler:nil];
-    _responder.context = dataQuery;
-    _responder.chained = responder;
-    [invoker invokeAsync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_FIND args:args responder:_responder];
-}
-
--(void)findFirstResponder:(id <IResponder>)responder {
-   
-    NSArray *args = @[_tableName];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onResponse:) selErrorHandler:nil];
-    _responder.chained = responder;
-    [invoker invokeAsync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_FIRST args:args responder:_responder];
-}
-
--(void)findFirst:(int)relationsDepth responder:(id <IResponder>)responder {
-    [self findFirst:@[] relationsDepth:relationsDepth responder:responder];
-}
-
--(void)findFirstWithRelations:(NSArray<NSString*> *)relations responder:(id <IResponder>)responder {
-    [self findFirst:relations relationsDepth:0 responder:responder];
-}
-
--(void)findFirst:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth responder:(id <IResponder>)responder {
-    
-    NSArray *args = @[_tableName, relations?relations:@[], @(relationsDepth)];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onResponse:) selErrorHandler:nil];
-    _responder.chained = responder;
-    [invoker invokeAsync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_FIRST args:args responder:_responder];
-}
-
--(void)findLastResponder:(id <IResponder>)responder {
-    
-    NSArray *args = @[_tableName];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onResponse:) selErrorHandler:nil];
-    _responder.chained = responder;
-    [invoker invokeAsync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_LAST args:args responder:_responder];
-}
-
--(void)findLast:(int)relationsDepth responder:(id <IResponder>)responder {
-    [self findLast:@[] relationsDepth:relationsDepth responder:responder];
-}
-
--(void)findLastWithRelations:(NSArray<NSString*> *)relations responder:(id <IResponder>)responder {
-    [self findLast:relations relationsDepth:0 responder:responder];
-}
-
--(void)findLast:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth responder:(id <IResponder>)responder {
-    
-    NSArray *args = @[_tableName, relations?relations:@[], @(relationsDepth)];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onResponse:) selErrorHandler:nil];
-    _responder.chained = responder;
-    [invoker invokeAsync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_LAST args:args responder:_responder];
-}
-
--(void)findById:(NSString *)objectId responder:(id <IResponder>)responder {
-    [self findByIdWithRelations:objectId relations:@[] responder:responder];
-}
-
--(void)findById:(NSString *)objectId relationsDepth:(int)relationsDepth responder:(id <IResponder>)responder {
-    [self findById:objectId relations:@[] relationsDepth:relationsDepth responder:responder];
-}
-
--(void)findByIdWithRelations:(NSString *)objectId relations:(NSArray<NSString*> *)relations responder:(id <IResponder>)responder {
-    
-    if (!objectId)
-        return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
-    
-    NSArray *args = @[_tableName, objectId, relations?relations:@[]];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onResponse:) selErrorHandler:nil];
-    _responder.chained = responder;
-    [invoker invokeAsync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_FINDBYID args:args responder:_responder];
-}
-
--(void)findById:(NSString *)objectId relations:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth responder:(id <IResponder>)responder {
-    
-    if (!objectId)
-        return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
-    
-    NSArray *args = @[_tableName, objectId, relations?relations:@[], @(relationsDepth)];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onResponse:) selErrorHandler:nil];
-    _responder.chained = responder;
-    [invoker invokeAsync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_FINDBYID args:args responder:_responder];
-}
-
--(void)findByEntity:(NSDictionary<NSString*,id> *)entity responder:(id <IResponder>)responder {
-    [self findByEntity:entity relations:@[] relationsDepth:0 responder:responder];
-}
-
--(void)findByEntity:(NSDictionary<NSString*,id> *)entity relationsDepth:(int)relationsDepth responder:(id <IResponder>)responder {
-    [self findByEntity:entity relations:@[] relationsDepth:relationsDepth responder:responder];
-}
-
--(void)findByEntityWithRelations:(NSDictionary<NSString*,id> *)entity relations:(NSArray<NSString*> *)relations responder:(id <IResponder>)responder {
-    [self findByEntity:entity relations:relations relationsDepth:0 responder:responder];
-}
-
--(void)findByEntity:(NSDictionary<NSString*,id> *)entity relations:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth responder:(id <IResponder>)responder {
-    
-    if (!entity)
-        return [responder errorHandler:FAULT_NO_ENTITY];
-    
-    NSArray *args = @[_tableName, entity, relations?relations:@[], @(relationsDepth)];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onResponse:) selErrorHandler:nil];
-    _responder.chained = responder;
-    [invoker invokeAsync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_FINDBYID args:args responder:_responder];
-}
-
--(id)addLodedRelations:(ResponseContext *)response {
-    
-    NSDictionary<NSString*,id> *relations = (NSDictionary<NSString*,id> *)response.response;
-    NSDictionary<NSString*,id> *result = [response.context isKindOfClass:NSDictionary.class]?response.context:[Types propertyDictionary:response.context];
-    NSMutableDictionary<NSString*,id> *entityWithRel = [NSMutableDictionary dictionaryWithDictionary:result];
-    [entityWithRel addEntriesFromDictionary:relations];
-    return [NSDictionary dictionaryWithDictionary:entityWithRel];
-}
-
--(void)loadRelations:(NSDictionary<NSString*,id> *)entity relations:(NSArray<NSString*> *)relations responder:(id <IResponder>)responder {
-    
-    if (!entity)
-        return [responder errorHandler:FAULT_NO_ENTITY];
-    
-    NSArray *args = @[_tableName, entity, relations?relations:@[]];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(addLodedRelations:) selErrorHandler:nil];
-    _responder.context = entity;
-    _responder.chained = responder;
-    [invoker invokeAsync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_LOAD args:args responder:_responder];
+-(NSArray*)loadRelations:(NSString *)objectID queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder error:(Fault **)fault {
+    return [backendless.persistenceService loadRelations:_tableName objectID:(NSString *)objectID  queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder error:fault];
 }
 
 
@@ -904,8 +773,40 @@ id result = nil;
     [self findByEntity:entity relations:relations relationsDepth:relationsDepth responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)loadRelations:(NSDictionary<NSString*,id> *)entity relations:(NSArray<NSString*> *)relations response:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self loadRelations:entity relations:relations responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+-(void)getObjectCount:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [backendless.persistenceService getObjectCount:_tableName response:responseBlock error:errorBlock];
+}
+
+-(void)getObjectCount:(DataQueryBuilder *)dataQuery response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [backendless.persistenceService getObjectCount:_tableName dataQuery:dataQuery response:responseBlock error:errorBlock];
+}
+
+-(void)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+    [backendless.persistenceService setRelation:(_tableName) columnName:columnName parentObjectId:parentObjectId childObjects:childObjects response:responseBlock error:errorBlock];
+}
+
+-(void)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [backendless.persistenceService setRelation:(_tableName) columnName:columnName parentObjectId:parentObjectId whereClause:whereClause response:responseBlock error:errorBlock];
+}
+
+-(void)addRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+    [backendless.persistenceService addRelation:(_tableName) columnName:columnName parentObjectId:parentObjectId childObjects:childObjects response:responseBlock error:errorBlock];
+}
+
+-(void)addRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [backendless.persistenceService addRelation:(_tableName) columnName:columnName parentObjectId:parentObjectId whereClause:whereClause response:responseBlock error:errorBlock];
+}
+
+-(void)deleteRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+    [backendless.persistenceService deleteRelation:(_tableName) columnName:columnName parentObjectId:parentObjectId childObjects:childObjects response:responseBlock error:errorBlock];
+}
+
+-(void)deleteRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [backendless.persistenceService deleteRelation:(_tableName) columnName:columnName parentObjectId:parentObjectId whereClause:whereClause response:responseBlock error:errorBlock];
+}
+
+-(void)loadRelations:(NSString *)objectID queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [backendless.persistenceService loadRelations:(_tableName) objectID:(NSString *)objectID  queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder response:responseBlock error:errorBlock];
 }
 
 @end
