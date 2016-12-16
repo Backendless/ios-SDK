@@ -11,11 +11,6 @@
 
 @interface LoadRelationsQueryBuilder : NSObject
 
-//@property (nonatomic, strong) NSString *relationName;
-//@property (nonatomic, strong) NSNumber *pageSize;
-//@property (nonatomic, strong) NSNumber *offset;
-//@property (nonatomic, strong) PagedQueryBuilder *pagedQueryBuilder;
-
 -(instancetype)initWithClass:(Class)relationType;
 
 -(BackendlessDataQuery *)build;
