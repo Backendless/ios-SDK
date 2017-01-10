@@ -37,12 +37,15 @@ static NSString *METHOD_DISPATCH_SERVICE = @"dispatchService";
 // sync methods with fault return (as exception)
 -(id)invoke:(NSString *)serviceName serviceVersion:(NSString *)serviceVersion method:(NSString *)method args:(NSArray *)args {
     
-    if (!serviceName)
+    if (!serviceName) {
         return [backendless throwFault:FAULT_NO_SERVICE];
-    if (!method)
+    }
+    if (!method) {
         return [backendless throwFault:FAULT_NO_SERVICE_METHOD];
-    if (!!serviceVersion)
+    }
+    if (!serviceVersion) {
         return [backendless throwFault:FAULT_NO_SERVICE_VERSION];
+    }
     
     NSArray *_args = @[backendless.appID, backendless.versionNum, serviceName, serviceVersion, method, args?args:@[]];
     return [invoker invokeSync:SERVER_CUSTOM_SERVICE_PATH method:METHOD_DISPATCH_SERVICE args:_args];
