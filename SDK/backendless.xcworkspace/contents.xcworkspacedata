@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:../DocsSamples/DocsSamples.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:backendlessAPI/backendlessAPI.xcodeproj">
    </FileRef>
 </Workspace>
