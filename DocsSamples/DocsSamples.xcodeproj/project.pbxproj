@@ -1,0 +1,456 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4D4CB1051E2EA2EE00FA73DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4CB1041E2EA2EE00FA73DE /* AppDelegate.swift */; };
+		4D4CB1071E2EA2EE00FA73DE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4CB1061E2EA2EE00FA73DE /* ViewController.swift */; };
+		4D4CB10A1E2EA2EE00FA73DE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D4CB1081E2EA2EE00FA73DE /* Main.storyboard */; };
+		4D4CB10C1E2EA2EE00FA73DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D4CB10B1E2EA2EE00FA73DE /* Assets.xcassets */; };
+		4D4CB10F1E2EA2EE00FA73DE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D4CB10D1E2EA2EE00FA73DE /* LaunchScreen.storyboard */; };
+		4D4CB13D1E2EADB600FA73DE /* CommLibiOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D4CB13C1E2EADB600FA73DE /* CommLibiOS.a */; };
+		4D4CB13F1E2EB04800FA73DE /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D4CB13E1E2EB04800FA73DE /* libsqlite3.tbd */; };
+		4D4CB1411E2EB08900FA73DE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D4CB1401E2EB08900FA73DE /* SystemConfiguration.framework */; };
+		4D4CB14F1E2EB7F000FA73DE /* libbkndlss-simulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D4CB1331E2EA6D100FA73DE /* libbkndlss-simulator.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4D4CB12C1E2EA6D100FA73DE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4D4CB1221E2EA6D100FA73DE /* backendlessAPI.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1C7BB5101A2E092900D3C2C1;
+			remoteInfo = "backendless-mac";
+		};
+		4D4CB12E1E2EA6D100FA73DE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4D4CB1221E2EA6D100FA73DE /* backendlessAPI.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F97969DC166CC8C300595F5E;
+			remoteInfo = "backendless-simulator";
+		};
+		4D4CB1301E2EA6D100FA73DE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4D4CB1221E2EA6D100FA73DE /* backendlessAPI.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F9796A28166CD3A400595F5E;
+			remoteInfo = "backendless-device";
+		};
+		4D4CB1321E2EA6D100FA73DE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4D4CB1221E2EA6D100FA73DE /* backendlessAPI.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F9F0AF391CDBCA3900035C62;
+			remoteInfo = "bkndlss-simulator";
+		};
+		4D4CB1341E2EA6D100FA73DE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4D4CB1221E2EA6D100FA73DE /* backendlessAPI.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F9F0AFF31CDBCAB500035C62;
+			remoteInfo = "bkndlss-device";
+		};
+		4D4CB1501E2EB7F600FA73DE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4D4CB1221E2EA6D100FA73DE /* backendlessAPI.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F9F0AE801CDBCA3900035C62;
+			remoteInfo = "bkndlss-simulator";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4D4CB1011E2EA2EE00FA73DE /* DocsSamples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DocsSamples.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D4CB1041E2EA2EE00FA73DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		4D4CB1061E2EA2EE00FA73DE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4D4CB1091E2EA2EE00FA73DE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		4D4CB10B1E2EA2EE00FA73DE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4D4CB10E1E2EA2EE00FA73DE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		4D4CB1101E2EA2EE00FA73DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4D4CB1171E2EA4CD00FA73DE /* backendless.xcworkspace */ = {isa = PBXFileReference; lastKnownFileType = wrapper.workspace; name = backendless.xcworkspace; path = ../SDK/backendless.xcworkspace; sourceTree = "<group>"; };
+		4D4CB1201E2EA6C300FA73DE /* libbackendless-simulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libbackendless-simulator.a"; path = "../SDK/backendlessAPI/build/Debug-iphoneos/libbackendless-simulator.a"; sourceTree = "<group>"; };
+		4D4CB1221E2EA6D100FA73DE /* backendlessAPI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = backendlessAPI.xcodeproj; path = ../SDK/backendlessAPI/backendlessAPI.xcodeproj; sourceTree = "<group>"; };
+		4D4CB13A1E2EAD9600FA73DE /* backendless.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = backendless.a; path = ../SDK/lib/backendless/backendless.a; sourceTree = "<group>"; };
+		4D4CB13C1E2EADB600FA73DE /* CommLibiOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = CommLibiOS.a; path = ../SDK/lib/CommLibiOS/CommLibiOS.a; sourceTree = "<group>"; };
+		4D4CB13E1E2EB04800FA73DE /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		4D4CB1401E2EB08900FA73DE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4D4CB0FE1E2EA2EE00FA73DE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D4CB14F1E2EB7F000FA73DE /* libbkndlss-simulator.a in Frameworks */,
+				4D4CB1411E2EB08900FA73DE /* SystemConfiguration.framework in Frameworks */,
+				4D4CB13F1E2EB04800FA73DE /* libsqlite3.tbd in Frameworks */,
+				4D4CB13D1E2EADB600FA73DE /* CommLibiOS.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4D4CB0F81E2EA2EE00FA73DE = {
+			isa = PBXGroup;
+			children = (
+				4D4CB1031E2EA2EE00FA73DE /* DocsSamples */,
+				4D4CB1021E2EA2EE00FA73DE /* Products */,
+				4D4CB1161E2EA4CD00FA73DE /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		4D4CB1021E2EA2EE00FA73DE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4D4CB1011E2EA2EE00FA73DE /* DocsSamples.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4D4CB1031E2EA2EE00FA73DE /* DocsSamples */ = {
+			isa = PBXGroup;
+			children = (
+				4D4CB1041E2EA2EE00FA73DE /* AppDelegate.swift */,
+				4D4CB1061E2EA2EE00FA73DE /* ViewController.swift */,
+				4D4CB1081E2EA2EE00FA73DE /* Main.storyboard */,
+				4D4CB10B1E2EA2EE00FA73DE /* Assets.xcassets */,
+				4D4CB10D1E2EA2EE00FA73DE /* LaunchScreen.storyboard */,
+				4D4CB1101E2EA2EE00FA73DE /* Info.plist */,
+			);
+			path = DocsSamples;
+			sourceTree = "<group>";
+		};
+		4D4CB1161E2EA4CD00FA73DE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4D4CB1401E2EB08900FA73DE /* SystemConfiguration.framework */,
+				4D4CB13E1E2EB04800FA73DE /* libsqlite3.tbd */,
+				4D4CB13C1E2EADB600FA73DE /* CommLibiOS.a */,
+				4D4CB13A1E2EAD9600FA73DE /* backendless.a */,
+				4D4CB1221E2EA6D100FA73DE /* backendlessAPI.xcodeproj */,
+				4D4CB1201E2EA6C300FA73DE /* libbackendless-simulator.a */,
+				4D4CB1171E2EA4CD00FA73DE /* backendless.xcworkspace */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4D4CB1231E2EA6D100FA73DE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4D4CB12D1E2EA6D100FA73DE /* libbackendless-mac.a */,
+				4D4CB12F1E2EA6D100FA73DE /* libbackendless-simulator.a */,
+				4D4CB1311E2EA6D100FA73DE /* libbackendless-device.a */,
+				4D4CB1331E2EA6D100FA73DE /* libbkndlss-simulator.a */,
+				4D4CB1351E2EA6D100FA73DE /* libbkndlss-device.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4D4CB1001E2EA2EE00FA73DE /* DocsSamples */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4D4CB1131E2EA2EE00FA73DE /* Build configuration list for PBXNativeTarget "DocsSamples" */;
+			buildPhases = (
+				4D4CB0FD1E2EA2EE00FA73DE /* Sources */,
+				4D4CB0FE1E2EA2EE00FA73DE /* Frameworks */,
+				4D4CB0FF1E2EA2EE00FA73DE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4D4CB1511E2EB7F600FA73DE /* PBXTargetDependency */,
+			);
+			name = DocsSamples;
+			productName = DocsSamples;
+			productReference = 4D4CB1011E2EA2EE00FA73DE /* DocsSamples.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4D4CB0F91E2EA2EE00FA73DE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0810;
+				LastUpgradeCheck = 0810;
+				ORGANIZATIONNAME = BackendlessOrganization;
+				TargetAttributes = {
+					4D4CB1001E2EA2EE00FA73DE = {
+						CreatedOnToolsVersion = 8.1;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 4D4CB0FC1E2EA2EE00FA73DE /* Build configuration list for PBXProject "DocsSamples" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 4D4CB0F81E2EA2EE00FA73DE;
+			productRefGroup = 4D4CB1021E2EA2EE00FA73DE /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 4D4CB1231E2EA6D100FA73DE /* Products */;
+					ProjectRef = 4D4CB1221E2EA6D100FA73DE /* backendlessAPI.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				4D4CB1001E2EA2EE00FA73DE /* DocsSamples */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		4D4CB12D1E2EA6D100FA73DE /* libbackendless-mac.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libbackendless-mac.a";
+			remoteRef = 4D4CB12C1E2EA6D100FA73DE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4D4CB12F1E2EA6D100FA73DE /* libbackendless-simulator.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libbackendless-simulator.a";
+			remoteRef = 4D4CB12E1E2EA6D100FA73DE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4D4CB1311E2EA6D100FA73DE /* libbackendless-device.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libbackendless-device.a";
+			remoteRef = 4D4CB1301E2EA6D100FA73DE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4D4CB1331E2EA6D100FA73DE /* libbkndlss-simulator.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libbkndlss-simulator.a";
+			remoteRef = 4D4CB1321E2EA6D100FA73DE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4D4CB1351E2EA6D100FA73DE /* libbkndlss-device.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libbkndlss-device.a";
+			remoteRef = 4D4CB1341E2EA6D100FA73DE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4D4CB0FF1E2EA2EE00FA73DE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D4CB10F1E2EA2EE00FA73DE /* LaunchScreen.storyboard in Resources */,
+				4D4CB10C1E2EA2EE00FA73DE /* Assets.xcassets in Resources */,
+				4D4CB10A1E2EA2EE00FA73DE /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4D4CB0FD1E2EA2EE00FA73DE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D4CB1071E2EA2EE00FA73DE /* ViewController.swift in Sources */,
+				4D4CB1051E2EA2EE00FA73DE /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4D4CB1511E2EB7F600FA73DE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "bkndlss-simulator";
+			targetProxy = 4D4CB1501E2EB7F600FA73DE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		4D4CB1081E2EA2EE00FA73DE /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4D4CB1091E2EA2EE00FA73DE /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		4D4CB10D1E2EA2EE00FA73DE /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4D4CB10E1E2EA2EE00FA73DE /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4D4CB1111E2EA2EE00FA73DE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4D4CB1121E2EA2EE00FA73DE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4D4CB1141E2EA2EE00FA73DE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"HEADER_SEARCH_PATHS[arch=*]" = (
+					"/Users/mark/dev/backendless-git/backendless-ios-4.0/ios-SDK/SDK/lib/CommLibiOS/include",
+					"/Users/mark/dev/backendless-git/backendless-ios-4.0/ios-SDK/SDK/lib/backendless/include",
+				);
+				INFOPLIST_FILE = DocsSamples/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.backendless.DocsSamples;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/mark/dev/backendless-git/backendless-ios-4.0/ios-SDK/SDK/backendlessAPI/Classes/Backendless-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		4D4CB1151E2EA2EE00FA73DE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				"HEADER_SEARCH_PATHS[arch=*]" = "/Users/mark/dev/backendless-git/backendless-ios-4.0/ios-SDK/SDK/lib/CommLibiOS/include";
+				INFOPLIST_FILE = DocsSamples/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.backendless.DocsSamples;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/mark/dev/backendless-git/backendless-ios-4.0/ios-SDK/SDK/backendlessAPI/Classes/Backendless-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4D4CB0FC1E2EA2EE00FA73DE /* Build configuration list for PBXProject "DocsSamples" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D4CB1111E2EA2EE00FA73DE /* Debug */,
+				4D4CB1121E2EA2EE00FA73DE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4D4CB1131E2EA2EE00FA73DE /* Build configuration list for PBXNativeTarget "DocsSamples" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D4CB1141E2EA2EE00FA73DE /* Debug */,
+				4D4CB1151E2EA2EE00FA73DE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4D4CB0F91E2EA2EE00FA73DE /* Project object */;
+}
