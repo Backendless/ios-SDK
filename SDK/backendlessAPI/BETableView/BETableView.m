@@ -142,11 +142,17 @@
     [super setDataSource:self];
 }
 
--(void)find:(Class)className dataQuery:(BackendlessDataQuery *)dataQuery
+-(void)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery
 {
     _needReloadData = YES;
-    //_className = [className copy];
-    //_dataQuery = [dataQuery retain];
+    NSString *className = NSStringFromClass(entity);
+    if ([className containsString:@"."]) {
+        NSLog(@"string contains bla!");
+    } else {
+        NSArray *Array = [className componentsSeparatedByString:@"."];
+        className = [Array lastObject];
+    }
+
     _responder.chained = nil;
     NSArray *collection = [backendless.persistenceService find:className dataQuery:dataQuery];
     [self responseHandler:collection];

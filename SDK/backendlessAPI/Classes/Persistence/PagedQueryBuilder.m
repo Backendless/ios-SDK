@@ -10,6 +10,9 @@
 #import "DEBUG.h"
 #import "BackendlessDataQuery.h"
 
+#define DEFAULT_PAGE_SIZE 10
+#define DEFAULT_OFFSET 0
+
 @interface PagedQueryBuilder () {
     int _pageSize;
     int _offset;
@@ -22,6 +25,8 @@
 
 -(instancetype)init {
     if ( (self=[super init]) ) {
+        _pageSize = DEFAULT_PAGE_SIZE;
+        _offset  =DEFAULT_OFFSET;
         _builder = nil;
     }
     
@@ -30,6 +35,8 @@
 
 -(instancetype)init:(id)builder {
     if ( (self=[super init]) ) {
+        _pageSize = DEFAULT_PAGE_SIZE;
+        _offset  =DEFAULT_OFFSET;
         _builder = [builder retain];
     }
     

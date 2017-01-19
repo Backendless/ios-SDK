@@ -81,15 +81,11 @@
     return [backendless.persistenceService remove:_entityClass sid:objectID];
 }
 
--(id)removeAll:(BackendlessDataQuery *)dataQuery {
-    return [backendless.persistenceService removeAll:_entityClass dataQuery:dataQuery];
-}
-
 -(NSArray *)find {
-    return [self find:[BackendlessDataQuery query]];
+    return [self find:[DataQueryBuilder query]];
 }
 
--(NSArray *)find:(BackendlessDataQuery *)dataQuery {
+-(NSArray *)find:(DataQueryBuilder *)dataQuery {
     return [backendless.persistenceService find:_entityClass dataQuery:dataQuery];
 }
 
@@ -103,10 +99,6 @@
 
 -(NSArray<ObjectProperty*> *)describe {
     return [backendless.persistenceService describe:NSStringFromClass(_entityClass)];
-}
-
--(id)load:(id)object relations:(NSArray *)relations {
-    return [backendless.persistenceService load:object relations:relations];
 }
 
 -(id)findFirst:(int)relationsDepth {
@@ -143,27 +135,36 @@
     return [backendless.persistenceService getObjectCount:_entityClass];
 }
 
--(NSNumber *)getObjectCount:(BackendlessDataQuery *)dataQuery{
+-(NSNumber *)getObjectCount:(DataQueryBuilder *)dataQuery{
     return [backendless.persistenceService getObjectCount:_entityClass dataQuery:dataQuery];
 }
 
 -(id)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects {
-    return [backendless.persistenceService setRelation:_entityClass columnName:columnName parentObjectId:parentObjectId childObjects:childObjects];
+    return [backendless.persistenceService setRelation:NSStringFromClass(_entityClass) columnName:columnName parentObjectId:parentObjectId childObjects:childObjects];
 }
+
 -(NSNumber *)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause{
-    return [backendless.persistenceService setRelation:_entityClass columnName:columnName parentObjectId:parentObjectId whereClause:whereClause];
+    return [backendless.persistenceService setRelation:NSStringFromClass(_entityClass) columnName:columnName parentObjectId:parentObjectId whereClause:whereClause];
 }
+
 -(id)addRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects{
-    return [backendless.persistenceService addRelation:_entityClass columnName:columnName parentObjectId:parentObjectId childObjects:childObjects];
+    return [backendless.persistenceService addRelation:NSStringFromClass(_entityClass) columnName:columnName parentObjectId:parentObjectId childObjects:childObjects];
 }
+
 -(NSNumber *)addRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause{
-    return [backendless.persistenceService addRelation:_entityClass columnName:columnName parentObjectId:parentObjectId whereClause:whereClause];
+    return [backendless.persistenceService addRelation:NSStringFromClass(_entityClass) columnName:columnName parentObjectId:parentObjectId whereClause:whereClause];
 }
+
 -(id)deleteRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects{
-    return [backendless.persistenceService deleteRelation:_entityClass columnName:columnName parentObjectId:parentObjectId childObjects:childObjects];
+    return [backendless.persistenceService deleteRelation:NSStringFromClass(_entityClass) columnName:columnName parentObjectId:parentObjectId childObjects:childObjects];
 }
+
 -(NSNumber *)deleteRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause{
-    return [backendless.persistenceService deleteRelation:_entityClass columnName:columnName parentObjectId:parentObjectId whereClause:whereClause];
+    return [backendless.persistenceService deleteRelation:NSStringFromClass(_entityClass) columnName:columnName parentObjectId:parentObjectId whereClause:whereClause];
+}
+
+-(NSArray*)loadRelations:(NSString *)objectID queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder {
+    return [backendless.persistenceService loadRelations:NSStringFromClass(_entityClass) objectID:(NSString *)objectID  queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder];
 }
 
 // sync methods with fault option
@@ -184,15 +185,11 @@
     return [backendless.persistenceService remove:_entityClass sid:objectID error:fault];
 }
 
--(id)removeAll:(BackendlessDataQuery *)dataQuery fault:(Fault **)fault {
-    return [backendless.persistenceService removeAll:_entityClass dataQuery:dataQuery error:fault];
-}
-
 -(NSArray *)findFault:(Fault **)fault {
-    return [self find:[BackendlessDataQuery query] fault:fault];
+    return [self find:[DataQueryBuilder query] fault:fault];
 }
 
--(NSArray *)find:(BackendlessDataQuery *)dataQuery fault:(Fault **)fault {
+-(NSArray *)find:(DataQueryBuilder *)dataQuery fault:(Fault **)fault {
     return [backendless.persistenceService find:_entityClass dataQuery:dataQuery error:fault];
 }
 
@@ -206,10 +203,6 @@
 
 -(NSArray<ObjectProperty*> *)describe:(Fault **)fault {
     return [backendless.persistenceService describe:NSStringFromClass(_entityClass) error:fault];
-}
-
--(id)load:(id)object relations:(NSArray *)relations fault:(Fault **)fault {
-    return [backendless.persistenceService load:object relations:relations error:fault];
 }
 
 -(id)findFirst:(int)relationsDepth fault:(Fault **)fault {
@@ -242,6 +235,14 @@
     return [backendless.persistenceService findByObject:objectID relations:@[] relationsDepth:relationsDepth error:fault];
 }
 
+-(NSNumber *)getObjectCountFault:(Fault **)fault {
+    return [backendless.persistenceService getObjectCount:_entityClass error:fault];
+}
+
+-(NSNumber *)getObjectCount:(DataQueryBuilder *)dataQuery fault:(Fault **)fault {
+    return [backendless.persistenceService getObjectCount:_entityClass dataQuery:dataQuery error:fault];
+}
+
 -(id)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects error:(Fault **)fault {
     return [backendless.persistenceService setRelation:NSStringFromClass(_entityClass) columnName:columnName parentObjectId:parentObjectId childObjects:childObjects error:fault];
 }
@@ -259,6 +260,10 @@
 }
 -(NSNumber *)deleteRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause error:(Fault **)fault {
     return [backendless.persistenceService deleteRelation:NSStringFromClass(_entityClass) columnName:columnName parentObjectId:parentObjectId whereClause:whereClause error:fault];
+}
+
+-(NSArray*)loadRelations:(NSString *)objectID queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder error:(Fault **)fault {
+    return [backendless.persistenceService loadRelations:NSStringFromClass(_entityClass) objectID:(NSString *)objectID  queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder error:fault];
 }
 
 // async methods with block-base callbacks
@@ -280,10 +285,10 @@
 }
 
 -(void)find:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self find:[BackendlessDataQuery query] response:responseBlock error:errorBlock];
+    [self find:[DataQueryBuilder query] response:responseBlock error:errorBlock];
 }
 
--(void)find:(BackendlessDataQuery *)dataQuery response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)find:(DataQueryBuilder *)dataQuery response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.persistenceService find:_entityClass dataQuery:dataQuery response:responseBlock error:errorBlock];
 }
 
@@ -297,10 +302,6 @@
 
 -(void)describeResponse:(void (^)(NSArray<ObjectProperty*> *))responseBlock error:(void (^)(Fault *))errorBlock {
     [backendless.persistenceService describe:NSStringFromClass(_entityClass) response:responseBlock error:errorBlock];
-}
-
--(void)load:(id)object relations:(NSArray *)relations response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
-    [backendless.persistenceService load:object relations:relations response:responseBlock error:errorBlock];
 }
 
 -(void)findFirst:(int)relationsDepth response:(void(^)(id result))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -337,27 +338,36 @@
     [backendless.persistenceService getObjectCount:_entityClass response:responseBlock error:errorBlock];
 }
 
--(void)getObjectCount:(BackendlessDataQuery *)dataQuery response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)getObjectCount:(DataQueryBuilder *)dataQuery response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.persistenceService getObjectCount:_entityClass dataQuery:dataQuery response:responseBlock error:errorBlock];
 }
 
 -(void)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.persistenceService setRelation:NSStringFromClass(_entityClass) columnName:columnName parentObjectId:parentObjectId childObjects:childObjects response:responseBlock error:errorBlock];
 }
+
 -(void)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.persistenceService setRelation:NSStringFromClass(_entityClass) columnName:columnName parentObjectId:parentObjectId whereClause:whereClause response:responseBlock error:errorBlock];
 }
+
 -(void)addRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.persistenceService addRelation:NSStringFromClass(_entityClass) columnName:columnName parentObjectId:parentObjectId childObjects:childObjects response:responseBlock error:errorBlock];
 }
+
 -(void)addRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.persistenceService addRelation:NSStringFromClass(_entityClass) columnName:columnName parentObjectId:parentObjectId whereClause:whereClause response:responseBlock error:errorBlock];
 }
+
 -(void)deleteRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.persistenceService deleteRelation:NSStringFromClass(_entityClass) columnName:columnName parentObjectId:parentObjectId childObjects:childObjects response:responseBlock error:errorBlock];
 }
--(void)deleteRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
+
+-(void)deleteRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.persistenceService deleteRelation:NSStringFromClass(_entityClass) columnName:columnName parentObjectId:parentObjectId whereClause:whereClause response:responseBlock error:errorBlock];
+}
+
+-(void)loadRelations:(NSString *)objectID queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [backendless.persistenceService loadRelations:NSStringFromClass(_entityClass) objectID:(NSString *)objectID  queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder response:responseBlock error:errorBlock];
 }
 
 @end

@@ -43,13 +43,16 @@
 #import "BackendlessCache.h"
 #import "OfflineModeManager.h"
 #import "ObjectProperty.h"
+#import "LoadRelationsQueryBuilder.h"
 
 #define FAULT_NO_ENTITY [Fault fault:@"Entity is missing or null" detail:@"Entity is missing or null" faultCode:@"1900"]
 #define FAULT_OBJECT_ID_IS_NOT_EXIST [Fault fault:@"objectId is missing or null" detail:@"objectId is missing or null" faultCode:@"1901"]
 #define FAULT_NAME_IS_NULL [Fault fault:@"Name is missing or null" detail:@"Name is missing or null" faultCode:@"1902"]
+#define FAULT_FIELD_IS_NULL [Fault fault:@"Field is missing or null" detail:@"Field is missing or null" faultCode:@"1903"]
 
 // SERVICE NAME
-static NSString *SERVER_PERSISTENCE_SERVICE_PATH = @"com.backendless.services.persistence.PersistenceService";
+static NSString *SERVER_PERSISTENCE_SERVICE_PATH  = @"com.backendless.services.persistence.PersistenceService";
+static NSString *PERSISTENCE_MANAGER_SERVER_ALIAS = @"com.backendless.services.persistence.PersistenceService";
 // METHOD NAMES
 static NSString *METHOD_CREATE = @"create";
 static NSString *METHOD_UPDATE = @"update";
@@ -65,6 +68,7 @@ static NSString *METHOD_CALL_STORED_VIEW = @"callStoredView";
 static NSString *METHOD_CALL_STORED_PROCEDURE = @"callStoredProcedure";
 static NSString *METHOD_COUNT = @"count";
 static NSString *DELETE_RELATION = @"deleteRelation";
+static NSString *LOAD_RELATION = @"loadRelations";
 static NSString *CREATE_RELATION = @"setRelation";
 static NSString *ADD_RELATION = @"addRelation";
 //
@@ -331,32 +335,6 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 -(id)update:(id)entity error:(Fault **)fault {
     
     id result = [self update:entity];
-    if ([result isKindOfClass:[Fault class]]) {
-        if (!fault) {
-            return nil;
-        }
-        (*fault) = result;
-        return nil;
-    }
-    return result;
-}
-
--(id)load:(id)object relations:(NSArray *)relations error:(Fault **)fault {
-    
-    id result = [self load:object relations:relations];
-    if ([result isKindOfClass:[Fault class]]) {
-        if (!fault) {
-            return nil;
-        }
-        (*fault) = result;
-        return nil;
-    }
-    return result;
-}
-
--(id)load:(id)object relations:(NSArray *)relations relationsDepth:(int)relationsDepth error:(Fault **)fault {
-    
-    id result = [self load:object relations:relations relationsDepth:relationsDepth];
     if ([result isKindOfClass:[Fault class]]) {
         if (!fault) {
             return nil;
@@ -717,43 +695,7 @@ id result = nil;
     }
 }
 
--(id)load:(id)object relations:(NSArray *)relations error:(Fault **)fault {
-    
-    id result = nil;
-    @try {
-        result = [self load:object relations:relations];
-    }
-    @catch (Fault *fault) {
-        result = fault;
-    }
-    @finally {
-        if ([result isKindOfClass:Fault.class]) {
-            if (fault)(*fault) = result;
-            return nil;
-        }
-        return result;
-    }
-}
-
--(id)load:(id)object relations:(NSArray *)relations relationsDepth:(int)relationsDepth error:(Fault **)fault {
-    
-    id result = nil;
-    @try {
-        result = [self load:object relations:relations relationsDepth:relationsDepth];
-    }
-    @catch (Fault *fault) {
-        result = fault;
-    }
-    @finally {
-        if ([result isKindOfClass:Fault.class]) {
-            if (fault)(*fault) = result;
-            return nil;
-        }
-        return result;
-    }
-}
-
--(NSArray *)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery error:(Fault **)fault {
+-(NSArray *)find:(Class)entity dataQuery:(DataQueryBuilder *)dataQuery error:(Fault **)fault {
     
     id result = nil;
     @try {
@@ -1245,6 +1187,24 @@ id result = nil;
     }
 
 }
+
+-(id)loadRelations:(NSString *)parentType objectID:(NSString *)objectID queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder error:(Fault **)fault {
+    id result = nil;
+    @try {
+        result = [self loadRelations:parentType objectID:objectID queryBuilder:queryBuilder];
+    }
+    @catch (Fault *fault) {
+        result = fault;
+    }
+    @finally {
+        if ([result isKindOfClass:Fault.class]) {
+            if (fault)(*fault) = result;
+            return nil;
+        }
+        return result;
+    }
+}
+
 #endif
 
 // sync methods with fault return  (as exception)
@@ -1425,29 +1385,13 @@ id result = nil;
     return [self setRelations:relations object:object response:result];
 }
 
--(NSArray *)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery {
-    
-    if (!entity)
-        return [backendless throwFault:FAULT_NO_ENTITY];
-    
-    [self prepareClass:entity];
-    if (!dataQuery) dataQuery = BACKENDLESS_DATA_QUERY;
-    
-    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], dataQuery, nil];
-    id result = [backendlessCache invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args];
-#if 1
-    return [result isKindOfClass:[Fault class]]? result : [self getAsCollection:result query:dataQuery];
-#else
-    if (![result isKindOfClass:[Fault class]])
-    {
-        NSArray *bc = result;
-        [bc pageSize:dataQuery.queryOptions.pageSize.integerValue];
-        bc.query = dataQuery;
-        return bc;
-    }
-    else
-        return result;
-#endif
+-(NSArray *)find:(Class)entity dataQuery:(DataQueryBuilder *)dataQuery {
+    if (!entity) { return [backendless throwFault:FAULT_NO_ENTITY]; }
+    if (!dataQuery) { return [backendless throwFault:FAULT_FIELD_IS_NULL]; }
+    NSString *className = [self checker:(entity)];
+    BackendlessDataQuery *dataQuerybuilder = [dataQuery build];
+    NSArray *args = @[className, dataQuerybuilder];
+    return [invoker invokeSync:PERSISTENCE_MANAGER_SERVER_ALIAS method:METHOD_FIND args:args];
 }
 
 -(id)first:(Class)entity {
@@ -1672,12 +1616,12 @@ id result = nil;
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_COUNT args:args];
 }
 
--(NSNumber *)getObjectCount:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery {
-    
-    if (!entity)
-        return [backendless throwFault:FAULT_NO_ENTITY];
-    
-    NSArray *args = @[[self typeClassName:entity], dataQuery?dataQuery:BACKENDLESS_DATA_QUERY];
+-(NSNumber *)getObjectCount:(Class)entity dataQuery:(DataQueryBuilder *)dataQuery {
+    if (!entity) { return [backendless throwFault:FAULT_NO_ENTITY]; }
+    if (!dataQuery) { return [backendless throwFault:FAULT_FIELD_IS_NULL]; }
+    NSString *className = [self checker:(entity)];
+    BackendlessDataQuery *dataQuerybuilder = [dataQuery build];
+    NSArray *args = @[className, dataQuerybuilder?dataQuerybuilder:BACKENDLESS_DATA_QUERY];
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_COUNT args:args];
 }
 
@@ -1729,6 +1673,21 @@ id result = nil;
     
     NSArray *args = @[parentObject, columnName, parentObjectId, whereClause];
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:DELETE_RELATION args:args];
+}
+
+-(id)loadRelations:(NSString *)parentType objectID:(NSString *)objectID queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder {
+    if (!parentType)
+        return [backendless throwFault:FAULT_NO_ENTITY];
+    if (!queryBuilder)
+        return [backendless throwFault:FAULT_FIELD_IS_NULL];
+    
+    BackendlessDataQuery *dataQuery = [queryBuilder build];
+    NSString *relationName = [dataQuery.queryOptions.related objectAtIndex:0];
+    NSNumber *pageSize = dataQuery.pageSize;
+    NSNumber *offset  = dataQuery.offset;
+    
+    NSArray *args = @[parentType, objectID, relationName, pageSize, offset];
+    return  [invoker invokeSync:PERSISTENCE_MANAGER_SERVER_ALIAS method:LOAD_RELATION args:args];
 }
 
 // async methods with block-base callbacks
@@ -1879,36 +1838,16 @@ id result = nil;
     }
 }
 
--(void)load:(id)object relations:(NSArray *)relations response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
-    NSString *objectId = [self getObjectId:object];
-    NSArray *args = @[[self objectClassName:object], [objectId isKindOfClass:[NSString class]]?objectId:object, relations];
-    Responder *_responder = [Responder responder:chainedResponder selResponseHandler:@selector(loadRelations:) selErrorHandler:nil];
-    _responder.chained = chainedResponder;
-    _responder.context = @{@"object":object, @"relations":relations};
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LOAD args:args responder:_responder];
-}
-
--(void)load:(id)object relations:(NSArray *)relations relationsDepth:(int)relationsDepth response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
-    Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
-    NSString *objectId = [self getObjectId:object];
-    NSArray *args = @[[self objectClassName:object], [objectId isKindOfClass:[NSString class]]?objectId:object, relations, @(relationsDepth)];
-    Responder *_responder = [Responder responder:chainedResponder selResponseHandler:@selector(loadRelations:) selErrorHandler:nil];
-    _responder.chained = chainedResponder;
-    _responder.context = @{@"object":object, @"relations":relations};
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LOAD args:args responder:_responder];
-}
-
--(void)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)find:(Class)entity dataQuery:(DataQueryBuilder *)dataQuery response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!entity) { return [chainedResponder errorHandler:FAULT_NO_ENTITY]; }
-    [self prepareClass:entity];
-    if (!dataQuery) { dataQuery = BACKENDLESS_DATA_QUERY; }
-    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], dataQuery, nil];
-    Responder *_responder = [Responder responder:chainedResponder selResponseHandler:@selector(setCurrentPageSize:) selErrorHandler:nil];
-    _responder.context = dataQuery;
-    _responder.chained = chainedResponder;
-    [backendlessCache invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args responder:_responder];
+    if (!dataQuery) { return [chainedResponder errorHandler: FAULT_FIELD_IS_NULL]; }
+    
+    BackendlessDataQuery *dataQuerybuilder = [dataQuery build];
+    NSString *className = [self checker:(entity)];
+
+    NSArray *args = @[className, dataQuerybuilder];
+    [invoker invokeAsync:PERSISTENCE_MANAGER_SERVER_ALIAS method:METHOD_FIND args:args responder:chainedResponder];
 }
 
 -(void)first:(Class)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -2104,12 +2043,13 @@ id result = nil;
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_COUNT args:args responder:chainedResponder];
 }
 
--(void)getObjectCount:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)getObjectCount:(Class)entity dataQuery:(DataQueryBuilder *)dataQuery response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
-    if (!entity)
-        return [chainedResponder errorHandler:FAULT_NO_ENTITY];
-    
-    NSArray *args = @[[self typeClassName:entity], dataQuery?dataQuery:BACKENDLESS_DATA_QUERY];
+    if (!entity) { return [chainedResponder errorHandler:FAULT_NO_ENTITY]; }
+    if (!dataQuery) { return [chainedResponder errorHandler: FAULT_FIELD_IS_NULL]; }
+    NSString *className = [self checker:(entity)];
+    BackendlessDataQuery *dataQuerybuilder = [dataQuery build];
+    NSArray *args = @[className, dataQuerybuilder?dataQuerybuilder:BACKENDLESS_DATA_QUERY];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_COUNT args:args responder:chainedResponder];
 }
 
@@ -2158,7 +2098,7 @@ id result = nil;
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:DELETE_RELATION args:args responder:chainedResponder];
 }
 
--(void)deleteRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)deleteRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!parentObject)
         return [chainedResponder errorHandler:FAULT_NO_ENTITY];
@@ -2167,7 +2107,33 @@ id result = nil;
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:DELETE_RELATION args:args responder:chainedResponder];
 }
 
+-(void)loadRelations:(NSString *)parentType objectID:(NSString *)objectID queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
+    Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!parentType)
+        return [chainedResponder errorHandler:FAULT_NO_ENTITY];
+    if (!queryBuilder)
+        return [chainedResponder errorHandler:FAULT_FIELD_IS_NULL];
+    
+    BackendlessDataQuery *dataQuery = [queryBuilder build];
+    NSString *relationName = [dataQuery.queryOptions.related objectAtIndex:0];
+    NSNumber *pageSize = dataQuery.pageSize;
+    NSNumber *offset  = dataQuery.offset;
+    
+    NSArray *args = @[parentType, objectID, relationName, pageSize, offset];
+    [invoker invokeAsync:PERSISTENCE_MANAGER_SERVER_ALIAS method:LOAD_RELATION args:args responder:chainedResponder];
+}
 
+//temp checker for swift
+-(NSString *)checker:(Class)entity {
+    NSString *className = NSStringFromClass(entity);
+    if ([className containsString:@"."]) {
+        NSArray *Array = [className componentsSeparatedByString:@"."];
+        className = [Array lastObject];
+    } else {
+        NSLog(@"Class name doesn't contains .");
+    }
+    return className;
+}
 
 // IDataStore class factory
 
