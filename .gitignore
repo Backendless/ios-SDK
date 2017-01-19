@@ -19,3 +19,17 @@ DerivedData
 
 #CocoaPods
 Pods
+
+DocsSamples/DocsSamples.xcodeproj/project.pbxproj
+
+DocsSamples/DocsSamples/AppDelegate.swift
+
+DocsSamples/DocsSamples/Assets.xcassets/AppIcon.appiconset/Contents.json
+
+DocsSamples/DocsSamples/Base.lproj/LaunchScreen.storyboard
+
+DocsSamples/DocsSamples/Base.lproj/Main.storyboard
+
+DocsSamples/DocsSamples/Info.plist
+
+DocsSamples/DocsSamples/ViewController.swift
