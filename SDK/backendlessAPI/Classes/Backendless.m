@@ -30,7 +30,7 @@
 
 #define MISSING_SERVER_URL @"Missing server URL. You should set hostURL property"
 #define MISSING_APP_ID @"Missing application ID argument. Login to Backendless Console, select your app and get the ID and key from the Manage > App Settings screen. Copy/paste the values into the [backendless initApp:apiKey:version:]"
-#define MISSING_API_KEY @"Missing api key argument. Login to Backendless Console, select your app and get the ID and key from the Manage > App Settings screen. Copy/paste the values into the [backendless initApp:apiKey:version:]"
+#define MISSING_API_KEY @"Missing API key argument. Login to Backendless Console, select your app and get the ID and key from the Manage > App Settings screen. Copy/paste the values into the [backendless initApp:apiKey:version:]"
 
 // backendless default url
 static NSString *BACKENDLESS_HOST_URL = @"https://api.backendless.com";
