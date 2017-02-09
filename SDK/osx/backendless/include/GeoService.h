@@ -59,27 +59,6 @@ typedef struct {
 -(NSNumber *)getGeopointCount:(BackendlessGeoQuery *)query;
 -(NSNumber *)getGeopointCount:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query;
 
-// sync methods with fault option
--(GeoCategory *)addCategory:(NSString *)categoryName error:(Fault **)fault;
--(BOOL)deleteCategory:(NSString *)categoryName error:(Fault **)fault;
--(GeoPoint *)savePoint:(GeoPoint *)geoPoint error:(Fault **)fault;
--(NSArray<NSString *> *)getCategoriesError:(Fault **)fault;
--(NSArray *)getPoints:(BackendlessGeoQuery *)query error:(Fault **)fault;
--(NSArray *)getClusterPoints:(GeoCluster *)geoCluster error:(Fault **)fault;
--(NSArray *)getFencePoints:(NSString *)geoFenceName error:(Fault **)fault;
--(NSArray *)getFencePoints:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query error:(Fault **)fault;
--(NSArray *)relativeFind:(BackendlessGeoQuery *)query error:(Fault **)fault;
--(BOOL)removePoint:(GeoPoint *)geoPoint error:(Fault **)fault;
--(GeoPoint *)loadMetadata:(GeoPoint *)geoPoint error:(Fault **)fault;
--(BOOL)runOnEnterAction:(NSString *)geoFenceName error:(Fault **)fault;
--(BOOL)runOnEnterAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint error:(Fault **)fault;
--(BOOL)runOnStayAction:(NSString *)geoFenceName error:(Fault **)fault;
--(BOOL)runOnStayAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint error:(Fault **)fault;
--(BOOL)runOnExitAction:(NSString *)geoFenceName error:(Fault **)fault;
--(BOOL)runOnExitAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint error:(Fault **)fault;
--(NSNumber *)getGeopointCount:(BackendlessGeoQuery *)query error:(Fault **)fault;
--(NSNumber *)getGeopointCount:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query error:(Fault **)fault;
-
 // async methods with responder
 -(void)addCategory:(NSString *)categoryName responder:(id <IResponder>)responder;
 -(void)deleteCategory:(NSString *)categoryName responder:(id <IResponder>)responder;

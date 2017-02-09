@@ -38,17 +38,6 @@
 -(NSNumber *)compareAndSet:(NSString *)counterName expected:(long)expected updated:(long)updated;
 -(id)reset:(NSString *)counterName;
 
-// sync methods with fault option
--(NSNumber *)get:(NSString *)counterName fault:(Fault **)fault;
--(NSNumber *)getAndIncrement:(NSString *)counterName fault:(Fault **)fault;
--(NSNumber *)incrementAndGet:(NSString *)counterName fault:(Fault **)fault;
--(NSNumber *)getAndDecrement:(NSString *)counterName fault:(Fault **)fault;
--(NSNumber *)decrementAndGet:(NSString *)counterName fault:(Fault **)fault;
--(NSNumber *)addAndGet:(NSString *)counterName value:(long)value fault:(Fault **)fault;
--(NSNumber *)getAndAdd:(NSString *)counterName value:(long)value fault:(Fault **)fault;
--(NSNumber *)compareAndSet:(NSString *)counterName expected:(long)expected updated:(long)updated fault:(Fault **)fault;
--(BOOL)reset:(NSString *)counterName fault:(Fault **)fault;
-
 // async methods with responder
 -(void)get:(NSString *)counterName responder:(id<IResponder>)responder;
 -(void)getAndIncrement:(NSString *)counterName responder:(id<IResponder>)responder;

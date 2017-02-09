@@ -42,16 +42,6 @@ typedef enum {
 -(id)grantForAllRoles:(id)entity operation:(DataPermissionOperation)operation;
 -(id)denyForAllRoles:(id)entity operation:(DataPermissionOperation)operation;
 
-// sync methods with fault option
--(BOOL)grantForUser:(NSString *)userId entity:(id)entity operation:(DataPermissionOperation)operation error:(Fault **)fault;
--(BOOL)denyForUser:(NSString *)userId entity:(id)entity operation:(DataPermissionOperation)operation error:(Fault **)fault;
--(BOOL)grantForRole:(NSString *)roleName entity:(id)entity operation:(DataPermissionOperation)operation error:(Fault **)fault;
--(BOOL)denyForRole:(NSString *)roleName entity:(id)entity operation:(DataPermissionOperation)operation error:(Fault **)fault;
--(BOOL)grantForAllUsers:(id)entity operation:(DataPermissionOperation)operation error:(Fault **)fault;
--(BOOL)denyForAllUsers:(id)entity operation:(DataPermissionOperation)operation error:(Fault **)fault;
--(BOOL)grantForAllRoles:(id)entity operation:(DataPermissionOperation)operation error:(Fault **)fault;
--(BOOL)denyForAllRoles:(id)entity operation:(DataPermissionOperation)operation error:(Fault **)fault;
-
 // async methods with responder
 -(void)grantForUser:(NSString *)userId entity:(id)entity operation:(DataPermissionOperation)operation responder:(id <IResponder>)responder;
 -(void)denyForUser:(NSString *)userId entity:(id)entity operation:(DataPermissionOperation)operation responder:(id <IResponder>)responder;

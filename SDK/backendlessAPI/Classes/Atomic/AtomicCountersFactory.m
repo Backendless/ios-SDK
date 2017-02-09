@@ -99,44 +99,6 @@
     return [backendless.counters reset:_name];
 }
 
-// sync methods with fault option
-
--(NSNumber *)get:(Fault **)fault {
-    return [backendless.counters get:_name fault:fault];
-}
-
--(NSNumber *)getAndIncrement:(Fault **)fault {
-    return [backendless.counters getAndIncrement:_name fault:fault];
-}
-
--(NSNumber *)incrementAndGet:(Fault **)fault {
-    return [backendless.counters incrementAndGet:_name fault:fault];
-}
-
--(NSNumber *)getAndDecrement:(Fault **)fault {
-    return [backendless.counters getAndDecrement:_name fault:fault];
-}
-
--(NSNumber *)decrementAndGet:(Fault **)fault {
-    return [backendless.counters decrementAndGet:_name fault:fault];
-}
-
--(NSNumber *)addAndGet:(long)value fault:(Fault **)fault {
-    return [backendless.counters addAndGet:_name value:value fault:fault];
-}
-
--(NSNumber *)getAndAdd:(long)value fault:(Fault **)fault {
-    return [backendless.counters getAndAdd:_name value:value fault:fault];
-}
-
--(NSNumber *)compareAndSet:(long)expected updated:(long)updated fault:(Fault **)fault {
-    return [backendless.counters compareAndSet:_name expected:expected updated:updated fault:fault];
-}
-
--(BOOL)reset:(Fault **)fault {
-    return [backendless.counters reset:_name fault:fault];
-}
-
 // async methods with responder
 
 -(void)getToResponder:(id<IResponder>)responder {

@@ -54,24 +54,6 @@
 -(BackendlessUser *)loginWithGoogleSignInSDK:(NSString *)idToken accessToken:(NSString *)accessToken permissions:(NSArray<NSString*> *)permissions fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping;
 -(id)resendEmailConfirmation:(NSString *)email;
 
-// sync methods with fault option
--(BackendlessUser *)registering:(BackendlessUser *)user error:(Fault **)fault;
--(BackendlessUser *)update:(BackendlessUser *)user error:(Fault **)fault;
--(BackendlessUser *)login:(NSString *)login password:(NSString *)password error:(Fault **)fault;
--(BackendlessUser *)findById:(NSString *)objectId error:(Fault **)fault;
--(BOOL)logoutError:(Fault **)fault;
--(NSNumber *)isValidUserTokenError:(Fault **)fault;
--(BOOL)restorePassword:(NSString *)login error:(Fault **)fault;
--(NSArray<UserProperty*> *)describeUserClassError:(Fault **)fault;
--(BOOL)user:(NSString *)user assignRole:(NSString *)role error:(Fault **)fault;
--(BOOL)user:(NSString *)user unassignRole:(NSString *)role error:(Fault **)fault;
--(NSArray<NSString*> *)getUserRolesError:(Fault **)fault;
--(BackendlessUser *)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping error:(Fault **)fault;
--(BackendlessUser *)loginWithFacebookSDK:(FBSDKAccessToken *)accessToken fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping error:(Fault **)fault;
--(BackendlessUser *)loginWithFacebookSDK:(FBSDKAccessToken *)accessToken permissions:(NSArray<NSString*> *)permissions fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping error:(Fault **)fault;
--(BackendlessUser *)loginWithGoogleSignInSDK:(NSString *)idToken accessToken:(NSString *)accessToken permissions:(NSArray<NSString*> *)permissions fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping error:(Fault **)fault;
--(BOOL)resendEmailConfirmation:(NSString *)email error:(Fault **)fault;
-
 // async methods with responder
 -(void)registering:(BackendlessUser *)user responder:(id <IResponder>)responder;
 -(void)update:(BackendlessUser *)user responder:(id <IResponder>)responder;

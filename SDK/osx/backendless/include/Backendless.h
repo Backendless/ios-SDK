@@ -164,7 +164,7 @@
  * This is the first step in using the client API.
  *
  * @param appId     a Backendless application ID, which could be retrieved at the Backendless console
- * @param apiKey    a Backendless application key, which could be retrieved at the Backendless console
+ * @param apiKey    a Backendless application API key, which could be retrieved at the Backendless console
  */
 -(void)initApp:(NSString *)applicationID apiKey:(NSString *)apiKey;
 -(void)initApp:(NSString *)plist;

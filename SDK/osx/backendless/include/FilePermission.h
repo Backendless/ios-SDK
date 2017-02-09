@@ -42,16 +42,6 @@ typedef enum {
 -(id)grantForAllRoles:(NSString *)url operation:(FilePermissionOperation)operation;
 -(id)denyForAllRoles:(NSString *)url operation:(FilePermissionOperation)operation;
 
-// sync methods with fault option
--(BOOL)grantForUser:(NSString *)userId url:(NSString *)url operation:(FilePermissionOperation)operation error:(Fault **)fault;
--(BOOL)denyForUser:(NSString *)userId url:(NSString *)url operation:(FilePermissionOperation)operation error:(Fault **)fault;
--(BOOL)grantForRole:(NSString *)roleName url:(NSString *)url operation:(FilePermissionOperation)operation error:(Fault **)fault;
--(BOOL)denyForRole:(NSString *)roleName url:(NSString *)url operation:(FilePermissionOperation)operation error:(Fault **)fault;
--(BOOL)grantForAllUsers:(NSString *)url operation:(FilePermissionOperation)operation error:(Fault **)fault;
--(BOOL)denyForAllUsers:(NSString *)url operation:(FilePermissionOperation)operation error:(Fault **)fault;
--(BOOL)grantForAllRoles:(NSString *)url operation:(FilePermissionOperation)operation error:(Fault **)fault;
--(BOOL)denyForAllRoles:(NSString *)url operation:(FilePermissionOperation)operation error:(Fault **)fault;
-
 // async methods with responder
 -(void)grantForUser:(NSString *)userId url:(NSString *)url operation:(FilePermissionOperation)operation responder:(id <IResponder>)responder;
 -(void)denyForUser:(NSString *)userId url:(NSString *)url operation:(FilePermissionOperation)operation responder:(id <IResponder>)responder;

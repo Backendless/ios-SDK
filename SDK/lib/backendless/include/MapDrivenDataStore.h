@@ -63,39 +63,6 @@
 
 -(NSArray*)loadRelations:(NSString *)objectID queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder;
 
-// sync methods with fault option
--(NSDictionary<NSString*,id> *)save:(NSDictionary<NSString*,id> *)entity fault:(Fault **)fault;
--(NSNumber *)remove:(NSDictionary<NSString*,id> *)entity fault:(Fault **)fault;
--(NSArray *)findFault:(Fault **)fault;
--(NSArray *)find:(BackendlessDataQuery *)dataQuery fault:(Fault **)fault;
--(NSDictionary<NSString*,id> *)findFirstFault:(Fault **)fault;
--(NSDictionary<NSString*,id> *)findFirst:(int)relationsDepth fault:(Fault **)fault;
--(NSDictionary<NSString*,id> *)findFirstWithRelations:(NSArray<NSString*> *)relations fault:(Fault **)fault;
--(NSDictionary<NSString*,id> *)findFirst:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth fault:(Fault **)fault;
--(NSDictionary<NSString*,id> *)findLastFault:(Fault **)fault;
--(NSDictionary<NSString*,id> *)findLast:(int)relationsDepth fault:(Fault **)fault;
--(NSDictionary<NSString*,id> *)findLastWithRelations:(NSArray<NSString*> *)relations fault:(Fault **)fault;
--(NSDictionary<NSString*,id> *)findLast:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth fault:(Fault **)fault;
--(NSDictionary<NSString*,id> *)findById:(NSString *)objectId fault:(Fault **)fault;
--(NSDictionary<NSString*,id> *)findById:(NSString *)objectId relationsDepth:(int)relationsDepth fault:(Fault **)fault;
--(NSDictionary<NSString*,id> *)findByIdWithRelations:(NSString *)objectId relations:(NSArray<NSString*> *)relations fault:(Fault **)fault;
--(NSDictionary<NSString*,id> *)findById:(NSString *)objectId relations:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth fault:(Fault **)fault;
--(NSDictionary<NSString*,id> *)findByEntity:(NSDictionary<NSString*,id> *)entity fault:(Fault **)fault;
--(NSDictionary<NSString*,id> *)findByEntity:(NSDictionary<NSString*,id> *)entity relationsDepth:(int)relationsDepth fault:(Fault **)fault;
--(NSDictionary<NSString*,id> *)findByEntityWithRelations:(NSDictionary<NSString*,id> *)entity relations:(NSArray<NSString*> *)relations fault:(Fault **)fault;
--(NSDictionary<NSString*,id> *)findByEntity:(NSDictionary<NSString*,id> *)entity relations:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth fault:(Fault **)fault;
--(NSNumber *)getObjectCountFault:(Fault **)fault;
--(NSNumber *)getObjectCount:(DataQueryBuilder *)dataQuery fault:(Fault **)fault;
-//
--(id)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects error:(Fault **)fault;
--(NSNumber *)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause error:(Fault **)fault;
--(id)addRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects error:(Fault **)fault;
--(NSNumber *)addRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause error:(Fault **)fault;
--(id)deleteRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects error:(Fault **)fault;
--(NSNumber *)deleteRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause error:(Fault **)fault;
-
--(NSArray*)loadRelations:(NSString *)objectID queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder error:(Fault **)fault;
-
 // async methods with block-based callbacks
 -(void)save:(NSDictionary<NSString*,id> *)entity response:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)remove:(NSDictionary<NSString*,id> *)entity response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
