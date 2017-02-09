@@ -113,7 +113,7 @@
 // BackendlessAppConf.plist keys
 #define BACKENDLESS_APP_CONF @"BackendlessAppConf"
 #define BACKENDLESS_APP_ID @"AppId"
-#define BACKENDLESS_API_KEY @"APIKey"
+#define BACKENDLESS_SECRET_KEY @"SecretKey"
 #define BACKENDLESS_DEBLOG_ON @"DebLogOn"
 
 @class MediaService;
@@ -126,7 +126,7 @@
 // context
 @property (strong, nonatomic, getter = getHostUrl, setter = setHostUrl:) NSString *hostURL;
 @property (strong, nonatomic, getter = getAppId, setter = setAppId:) NSString *appID;
-@property (strong, nonatomic, getter = getAPIKey, setter = setAPIKey:) NSString *apiKey;
+@property (strong, nonatomic, getter = getSecretKey, setter = setSecretKey:) NSString *secretKey;
 // options
 @property (strong, nonatomic) NSMutableDictionary *headers;
 @property (strong, nonatomic, readonly) NSDictionary *appConf;
@@ -164,10 +164,10 @@
  * Initializes the Backendless class and all Backendless dependencies.
  * This is the first step in using the client API.
  *
- * @param appId      a Backendless application ID, which must be retrieved at the Backendless console
- * @param apiKey  a Backendless application API key, which must be retrieved at the Backendless console
+ * @param appId      a Backendless application ID, which could be retrieved at the Backendless console
+ * @param secretKey  a Backendless application secret key, which could be retrieved at the Backendless console
  */
--(void)initApp:(NSString *)applicationID apiKey:(NSString *)apiKey;
+-(void)initApp:(NSString *)applicationID secret:(NSString *)secret;
 -(void)initApp:(NSString *)plist;
 -(void)initApp;
 -(void)initAppFault;
