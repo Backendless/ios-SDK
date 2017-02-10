@@ -76,7 +76,7 @@ static NSString *URL_DESTINATION = @"GenericDestination";
     
     [client release];
     
-    //     String urlEnding = Backendless.getUrl() + '/' + Backendless.getApplicationId() + '/' + Backendless.getApiKey() + "/binary";
+    //     String urlEnding = Backendless.getUrl() + '/' + Backendless.getApplicationId() + '/' + Backendless.getAPIKey() + "/binary";
     
     NSString *url = [NSString stringWithFormat:@"%@/%@/%@/%@", backendless.hostURL, backendless.appID, backendless.apiKey, URL_ENDING];
     client = [[WeborbClient alloc] initWithUrl:url destination:URL_DESTINATION];

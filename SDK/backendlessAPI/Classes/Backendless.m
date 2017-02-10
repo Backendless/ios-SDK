@@ -29,8 +29,8 @@
 #import "OfflineModeManager.h"
 
 #define MISSING_SERVER_URL @"Missing server URL. You should set hostURL property"
-#define MISSING_APP_ID @"Missing application ID argument. Login to Backendless Console, select your app and get the ID and key from the Manage > App Settings screen. Copy/paste the values into the [backendless initApp:apiKey:version:]"
-#define MISSING_API_KEY @"Missing API key argument. Login to Backendless Console, select your app and get the ID and key from the Manage > App Settings screen. Copy/paste the values into the [backendless initApp:apiKey:version:]"
+#define MISSING_APP_ID @"Missing application ID argument. Login to Backendless Console, select your app and get the ID and key from the Manage > App Settings screen. Copy/paste the values into the [backendless initApp:APIKey:]"
+#define MISSING_API_KEY @"Missing API key argument. Login to Backendless Console, select your app and get the ID and key from the Manage > App Settings screen. Copy/paste the values into the [backendless initApp:APIKey:]"
 
 // backendless default url
 static NSString *BACKENDLESS_HOST_URL = @"https://api.backendless.com";
@@ -43,7 +43,7 @@ static NSString *BACKENDLESS_MEDIA_URL = @"rtmp://10.0.1.33:1935/live";
 
 static NSString *APP_TYPE = @"IOS";
 static NSString *APP_ID_HEADER_KEY = @"application-id";
-static NSString *API_KEY_HEADER_KEY = @"api-key";
+static NSString *API_KEY_HEADER_KEY = @"API-key";
 #if 0
 static NSString *APP_TYPE_HEADER_KEY = @"application-type";
 static NSString *API_VERSION_HEADER_KEY = @"api-version";
@@ -321,11 +321,11 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     [invoker setup];
 }
 
--(NSString *)getApiKey {
+-(NSString *)getAPIKey {
     return _apiKey;
 }
 
--(void)setApiKey:(NSString *)apiKey {
+-(void)setAPIKey:(NSString *)apiKey {
     
     if ([_apiKey isEqualToString:apiKey])
         return;
@@ -343,10 +343,10 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
  * This is the first step in using the client API.
  *
  * @param appId     a Backendless application ID, which could be retrieved at the Backendless console
- * @param apiKey    a Backendless application API key, which could be retrieved at the Backendless console
+ * @param APIKey    a Backendless application API key, which could be retrieved at the Backendless console
  */
 
--(void)initApp:(NSString *)applicationID apiKey:(NSString *)apiKey {
+-(void)initApp:(NSString *)applicationID APIKey:(NSString *)apiKey {
     
     // get swift class prefix from caller class (usually AppDelegate)
     [__types makeSwiftClassPrefix:[NSThread callStackSymbols][1]];
@@ -373,7 +373,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     }
     
     [DebLog setIsActive:[_appConf[BACKENDLESS_DEBLOG_ON] boolValue]];
-    [backendless initApp:_appConf[BACKENDLESS_APP_ID] apiKey:_appConf[BACKENDLESS_API_KEY]];
+    [backendless initApp:_appConf[BACKENDLESS_APP_ID] APIKey:_appConf[BACKENDLESS_API_KEY]];
 }
 
 -(void)initApp {
@@ -387,7 +387,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
         [self throwFault:[Fault fault:MISSING_SERVER_URL faultCode:@"0001"]];
     else if (!(value = [self getAppId]) || !value.length)
         [self throwFault:[Fault fault:MISSING_APP_ID faultCode:@"0002"]];
-    else if (!(value = [self getApiKey]) || !value.length)
+    else if (!(value = [self getAPIKey]) || !value.length)
         [self throwFault:[Fault fault:MISSING_API_KEY faultCode:@"0003"]];
 }
 

@@ -536,7 +536,7 @@ static NSString *METHOD_COUNT = @"count";
     [body appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
     
     // create the request
-    //      String urlStr = Backendless.getUrl() + '/' + Backendless.getApplicationId() + '/' + Backendless.getApiKey() + "/files/" + encodeURL( path ) + "/" + encodeURL( name );
+    //      String urlStr = Backendless.getUrl() + '/' + Backendless.getApplicationId() + '/' + Backendless.getAPIKey() + "/files/" + encodeURL( path ) + "/" + encodeURL( name );
 
     NSString *url = [NSString stringWithFormat:@"%@/%@/%@/files/%@?overwrite=%@", backendless.hostURL, backendless.appID, backendless.apiKey, path, [overwrite boolValue]?@"true":@"false"];
     NSMutableURLRequest *webReq = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
