@@ -33,14 +33,25 @@
 -(NSNumber *)remove:(id)entity;
 -(NSNumber *)removeID:(NSString *)objectID;
 -(NSArray *)find;
--(NSArray *)find:(DataQueryBuilder *)dataQuery;
--(id)findFirst;
+-(NSArray *)find:(DataQueryBuilder *)dataQuery;-(id)findFirst;
+
 -(id)findLast;
 -(NSArray<ObjectProperty*> *)describe;
+
 -(id)findFirst:(int)relationsDepth;
+-(NSDictionary<NSString*,id> *)findFirstWithRelations:(NSArray<NSString*> *)relations;
 -(id)findLast:(int)relationsDepth;
+-(NSDictionary<NSString*,id> *)findLastWithRelations:(NSArray<NSString*> *)relations;
+
+
+
+
 -(id)findID:(id)objectID;
 -(id)findID:(id)objectID relationsDepth:(int)relationsDepth;
+
+
+
+
 -(NSNumber *)getObjectCount;
 -(NSNumber *)getObjectCount:(DataQueryBuilder *)dataQuery;
 //
