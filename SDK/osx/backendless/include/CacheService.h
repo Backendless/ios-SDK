@@ -36,15 +36,6 @@
 -(id)expireAt:(NSString *)key timestamp:(NSDate *)timestamp;
 -(id)remove:(NSString *)key;
 
-// sync methods with fault option
--(BOOL)put:(NSString *)key object:(id)entity fault:(Fault **)fault;
--(BOOL)put:(NSString *)key object:(id)entity timeToLive:(int)seconds fault:(Fault **)fault;
--(id)get:(NSString *)key fault:(Fault **)fault;
--(NSNumber *)contains:(NSString *)key fault:(Fault **)fault;
--(BOOL)expireIn:(NSString *)key timeToLive:(int)seconds fault:(Fault **)fault;
--(BOOL)expireAt:(NSString *)key timestamp:(NSDate *)timestamp fault:(Fault **)fault;
--(BOOL)remove:(NSString *)key fault:(Fault **)fault;
-
 // async methods with responder
 -(void)put:(NSString *)key object:(id)entity responder:(id<IResponder>)responder;
 -(void)put:(NSString *)key object:(id)entity timeToLive:(int)seconds responder:(id<IResponder>)responder;

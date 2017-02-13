@@ -53,31 +53,6 @@
 
 -(NSArray*)loadRelations:(NSString *)objectID queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder;
 
-// sync methods with fault option
--(id)save:(id)entity fault:(Fault **)fault;
--(NSNumber *)remove:(id)entity fault:(Fault **)fault;
--(NSNumber *)removeID:(NSString *)objectID fault:(Fault **)fault;
--(NSArray *)findFault:(Fault **)fault;
--(NSArray *)find:(DataQueryBuilder *)dataQuery fault:(Fault **)fault;
--(id)findFirstFault:(Fault **)fault;
--(id)findLastFault:(Fault **)fault;
--(NSArray<ObjectProperty*> *)describe:(Fault **)fault;
--(id)findFirst:(int)relationsDepth fault:(Fault **)fault;
--(id)findLast:(int)relationsDepth fault:(Fault **)fault;
--(id)findID:(id)objectID fault:(Fault **)fault;
--(id)findID:(id)objectID relationsDepth:(int)relationsDepth fault:(Fault **)fault;
--(NSNumber *)getObjectCountFault:(Fault **)fault;
--(NSNumber *)getObjectCount:(DataQueryBuilder *)dataQuery fault:(Fault **)fault;
-//
--(id)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects error:(Fault **)fault;
--(NSNumber *)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause error:(Fault **)fault;
--(id)addRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects error:(Fault **)fault;
--(NSNumber *)addRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause error:(Fault **)fault;
--(id)deleteRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects error:(Fault **)fault;
--(NSNumber *)deleteRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause error:(Fault **)fault;
-
--(NSArray*)loadRelations:(NSString *)objectID queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder error:(Fault **)fault;
-
 // async methods with block-based callbacks
 -(void)save:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)remove:(id)entity response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;

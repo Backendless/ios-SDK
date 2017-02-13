@@ -29,8 +29,8 @@
 #import "OfflineModeManager.h"
 
 #define MISSING_SERVER_URL @"Missing server URL. You should set hostURL property"
-#define MISSING_APP_ID @"Missing application ID argument. Login to Backendless Console, select your app and get the ID and key from the Manage > App Settings screen. Copy/paste the values into the [backendless initApp:secret:version:]"
-#define MISSING_SECRET_KEY @"Missing secret key argument. Login to Backendless Console, select your app and get the ID and key from the Manage > App Settings screen. Copy/paste the values into the [backendless initApp:secret:version:]"
+#define MISSING_APP_ID @"Missing application ID argument. Login to Backendless Console, select your app and get the ID and key from the Manage > App Settings screen. Copy/paste the values into the [backendless initApp:APIKey:]"
+#define MISSING_API_KEY @"Missing API key argument. Login to Backendless Console, select your app and get the ID and key from the Manage > App Settings screen. Copy/paste the values into the [backendless initApp:APIKey:]"
 
 // backendless default url
 static NSString *BACKENDLESS_HOST_URL = @"https://api.backendless.com";
@@ -43,7 +43,7 @@ static NSString *BACKENDLESS_MEDIA_URL = @"rtmp://10.0.1.33:1935/live";
 
 static NSString *APP_TYPE = @"IOS";
 static NSString *APP_ID_HEADER_KEY = @"application-id";
-static NSString *SECRET_KEY_HEADER_KEY = @"secret-key";
+static NSString *API_KEY_HEADER_KEY = @"API-key";
 #if 0
 static NSString *APP_TYPE_HEADER_KEY = @"application-type";
 static NSString *API_VERSION_HEADER_KEY = @"api-version";
@@ -57,7 +57,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 @end
 
 @implementation Backendless
-@synthesize hostURL = _hostURL, appID = _appID, secretKey = _secretKey, reachabilityDelegate = _reachabilityDelegate;
+@synthesize hostURL = _hostURL, appID = _appID, apiKey = _apiKey, reachabilityDelegate = _reachabilityDelegate;
 @synthesize userService = _userService, persistenceService = _persistenceService, messagingService = _messagingService;
 @synthesize geoService = _geoService, fileService = _fileService, mediaService = _mediaService;
 @synthesize customService = _customService, events = _events, cache = _cache, counters = _counters, logging = _logging;
@@ -88,7 +88,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
         
         _hostURL = [BACKENDLESS_HOST_URL retain];
         _appID = nil;
-        _secretKey = nil;
+        _apiKey = nil;
         _headers = [NSMutableDictionary new];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kBEReachabilityChangedNotification object:nil];
@@ -321,17 +321,17 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     [invoker setup];
 }
 
--(NSString *)getSecretKey {
-    return _secretKey;
+-(NSString *)getAPIKey {
+    return _apiKey;
 }
 
--(void)setSecretKey:(NSString *)secretKey {
+-(void)setAPIKey:(NSString *)apiKey {
     
-    if ([_secretKey isEqualToString:secretKey])
+    if ([_apiKey isEqualToString:apiKey])
         return;
     
-    [_secretKey release];
-    _secretKey = [secretKey retain];
+    [_apiKey release];
+    _apiKey = [apiKey retain];
     [invoker setup];
 }
 
@@ -342,19 +342,19 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
  * Initializes the Backendless class and all Backendless dependencies.
  * This is the first step in using the client API.
  *
- * @param appId      a Backendless application ID, which could be retrieved at the Backendless console
- * @param secretKey  a Backendless application secret key, which could be retrieved at the Backendless console
+ * @param appId     a Backendless application ID, which could be retrieved at the Backendless console
+ * @param APIKey    a Backendless application API key, which could be retrieved at the Backendless console
  */
 
--(void)initApp:(NSString *)applicationID secret:(NSString *)secret {
+-(void)initApp:(NSString *)applicationID APIKey:(NSString *)apiKey {
     
     // get swift class prefix from caller class (usually AppDelegate)
     [__types makeSwiftClassPrefix:[NSThread callStackSymbols][1]];
     
     [_appID release];
     _appID = [applicationID retain];
-    [_secretKey release];
-    _secretKey = [secret retain];
+    [_apiKey release];
+    _apiKey = [apiKey retain];
     
     BOOL isStayLoggedIn = backendless.userService.isStayLoggedIn;
     
@@ -373,7 +373,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     }
     
     [DebLog setIsActive:[_appConf[BACKENDLESS_DEBLOG_ON] boolValue]];
-    [backendless initApp:_appConf[BACKENDLESS_APP_ID] secret:_appConf[BACKENDLESS_SECRET_KEY]];
+    [backendless initApp:_appConf[BACKENDLESS_APP_ID] APIKey:_appConf[BACKENDLESS_API_KEY]];
 }
 
 -(void)initApp {
@@ -387,8 +387,8 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
         [self throwFault:[Fault fault:MISSING_SERVER_URL faultCode:@"0001"]];
     else if (!(value = [self getAppId]) || !value.length)
         [self throwFault:[Fault fault:MISSING_APP_ID faultCode:@"0002"]];
-    else if (!(value = [self getSecretKey]) || !value.length)
-        [self throwFault:[Fault fault:MISSING_SECRET_KEY faultCode:@"0003"]];
+    else if (!(value = [self getAPIKey]) || !value.length)
+        [self throwFault:[Fault fault:MISSING_API_KEY faultCode:@"0003"]];
 }
 
 -(NSString *)mediaServerUrl {

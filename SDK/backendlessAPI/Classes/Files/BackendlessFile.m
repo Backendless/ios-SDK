@@ -56,14 +56,10 @@
 #pragma mark -
 #pragma mark Public Methods
 
-// sunc
+// sync
 
 -(void)remove {
     [backendless.fileService remove:_fileURL];
-}
-
--(void)remove:(Fault **)fault {
-    [backendless.fileService remove:_fileURL error:fault];
 }
 
 // async

@@ -50,28 +50,6 @@
 -(NSNumber *)getFileCount:(NSString *)path pattern:(NSString *)pattern;
 -(NSNumber *)getFileCount:(NSString *)path;
 
-
-// sync methods with fault option
--(BackendlessFile *)upload:(NSString *)path content:(NSData *)content error:(Fault **)fault;
--(BackendlessFile *)upload:(NSString *)path content:(NSData *)content overwrite:(BOOL)overwrite error:(Fault **)fault;
--(BOOL)remove:(NSString *)fileURL error:(Fault **)fault;
--(BOOL)removeDirectory:(NSString *)path error:(Fault **)fault;
--(BackendlessFile *)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content error:(Fault **)fault;
--(BackendlessFile *)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content overwriteIfExist:(BOOL)overwrite error:(Fault **)fault;
--(BackendlessFile *)saveFile:(NSString *)filePathName content:(NSData *)content error:(Fault **)fault;
--(BackendlessFile *)saveFile:(NSString *)filePathName content:(NSData *)content overwriteIfExist:(BOOL)overwrite error:(Fault **)fault;
--(NSString *)renameFile:(NSString *)oldPathName newName:(NSString *)newName error:(Fault **)fault;
--(NSString *)copyFile:(NSString *)sourcePathName target:(NSString *)targetPathName error:(Fault **)fault;
--(NSString *)moveFile:(NSString *)sourcePathName target:(NSString *)targetPathName error:(Fault **)fault;
-// NSArray <BEFileInfo *>
--(NSArray *)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive error:(Fault **)fault;
--(NSArray *)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive pagesize:(int)pagesize offset:(int)offset error:(Fault **)fault;
--(NSNumber *)exists:(NSString *)path error:(Fault **)fault;
--(NSNumber *)getFileCount:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive countDirectories:(BOOL)countDirectories error:(Fault **)fault;
--(NSNumber *)getFileCount:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive error:(Fault **)fault;
--(NSNumber *)getFileCount:(NSString *)path pattern:(NSString *)pattern error:(Fault **)fault;
--(NSNumber *)getFileCount:(NSString *)path error:(Fault **)fault;
-
 // async methods with responder
 -(void)upload:(NSString *)path content:(NSData *)content responder:(id <IResponder>)responder;
 -(void)upload:(NSString *)path content:(NSData *)content overwrite:(BOOL)overwrite responder:(id <IResponder>)responder;

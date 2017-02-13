@@ -159,15 +159,14 @@
 
 // Singleton accessor:  this is how you should ALWAYS get a reference to the class instance.  Never init your own.
 +(Backendless *)sharedInstance;
-
 /**
  * Initializes the Backendless class and all Backendless dependencies.
  * This is the first step in using the client API.
  *
- * @param appId      a Backendless application ID, which must be retrieved at the Backendless console
- * @param apiKey  a Backendless application API key, which must be retrieved at the Backendless console
+ * @param appId     a Backendless application ID, which could be retrieved at the Backendless console
+ * @param APIKey    a Backendless application API key, which could be retrieved at the Backendless console
  */
--(void)initApp:(NSString *)applicationID apiKey:(NSString *)apiKey;
+-(void)initApp:(NSString *)applicationID APIKey:(NSString *)apiKey;
 -(void)initApp:(NSString *)plist;
 -(void)initApp;
 -(void)initAppFault;
