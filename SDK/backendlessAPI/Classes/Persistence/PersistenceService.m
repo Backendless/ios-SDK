@@ -681,7 +681,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_COUNT args:args];
 }
 
--(id)setRelation:(NSString *)parentObject columnName: (NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects {
+-(NSNumber *)setRelation:(NSString *)parentObject columnName: (NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects {
     if (!parentObject)
         return [backendless throwFault:FAULT_NO_ENTITY];
     
@@ -698,7 +698,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:CREATE_RELATION args:args];
 }
 
--(id)addRelation:(NSString *)parentObject columnName: (NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects {
+-(NSNumber *)addRelation:(NSString *)parentObject columnName: (NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects {
     if (!parentObject)
         return [backendless throwFault:FAULT_NO_ENTITY];
     
@@ -715,7 +715,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:ADD_RELATION args:args];
 }
 
--(id)deleteRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects {
+-(NSNumber *)deleteRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects {
     if (!parentObject)
         return [backendless throwFault:FAULT_NO_ENTITY];
     
