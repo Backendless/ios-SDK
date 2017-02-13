@@ -157,7 +157,7 @@ static NSString *_METHOD_LOAD = @"loadRelations";
     return [self findFirst:@[] relationsDepth:relationsDepth];
 }
 
--(NSDictionary<NSString*,id> *)findFirst:(NSArray<NSString*> *)relations {
+-(NSDictionary<NSString*,id> *)findFirstWithRelations:(NSArray<NSString*> *)relations {
     return [self findFirst:relations relationsDepth:0];
 }
 
@@ -178,7 +178,7 @@ static NSString *_METHOD_LOAD = @"loadRelations";
     return [self findLast:@[] relationsDepth:relationsDepth];
 }
 
--(NSDictionary<NSString*,id> *)findLast:(NSArray<NSString*> *)relations {
+-(NSDictionary<NSString*,id> *)findLastWithRelations:(NSArray<NSString*> *)relations {
     return [self findLast:relations relationsDepth:0];
 }
 
@@ -278,7 +278,7 @@ static NSString *_METHOD_LOAD = @"loadRelations";
     [self findFirst:relationsDepth responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)findFirst:(NSArray<NSString*> *)relations response:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)findFirstWithRelations:(NSArray<NSString*> *)relations response:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self findFirst:relations responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
@@ -294,7 +294,7 @@ static NSString *_METHOD_LOAD = @"loadRelations";
     [self findLast:relationsDepth responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)findLast:(NSArray<NSString*> *)relations response:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)findLastWithRelations:(NSArray<NSString*> *)relations response:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self findLast:relations responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 

@@ -34,10 +34,10 @@
 -(NSNumber *)removeID:(NSString *)objectID;
 -(NSArray *)find;
 -(NSArray *)find:(DataQueryBuilder *)dataQuery;
--(id)findFirst;
--(id)findLast;
 -(NSArray<ObjectProperty*> *)describe;
+-(id)findFirst;
 -(id)findFirst:(int)relationsDepth;
+-(id)findLast;
 -(id)findLast:(int)relationsDepth;
 -(id)findID:(id)objectID;
 -(id)findID:(id)objectID relationsDepth:(int)relationsDepth;
