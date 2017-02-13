@@ -157,12 +157,11 @@ static NSString *_METHOD_LOAD = @"loadRelations";
     return [self findFirst:@[] relationsDepth:relationsDepth];
 }
 
--(NSDictionary<NSString*,id> *)findFirstWithRelations:(NSArray<NSString*> *)relations {
+-(NSDictionary<NSString*,id> *)findFirst:(NSArray<NSString*> *)relations {
     return [self findFirst:relations relationsDepth:0];
 }
 
 -(NSDictionary<NSString*,id> *)findFirst:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth {
-    
     NSArray *args = @[_tableName, relations?relations:@[], @(relationsDepth)];
     id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_FIRST args:args];
     return [result isKindOfClass:NSDictionary.class]?result:[Types propertyDictionary:result];
@@ -179,7 +178,7 @@ static NSString *_METHOD_LOAD = @"loadRelations";
     return [self findLast:@[] relationsDepth:relationsDepth];
 }
 
--(NSDictionary<NSString*,id> *)findLastWithRelations:(NSArray<NSString*> *)relations {
+-(NSDictionary<NSString*,id> *)findLast:(NSArray<NSString*> *)relations {
     return [self findLast:relations relationsDepth:0];
 }
 
@@ -191,14 +190,14 @@ static NSString *_METHOD_LOAD = @"loadRelations";
 }
 
 -(NSDictionary<NSString*,id> *)findById:(NSString *)objectId {
-    return [self findByIdWithRelations:objectId relations:@[]];
+    return [self findById:objectId relations:@[]];
 }
 
 -(NSDictionary<NSString*,id> *)findById:(NSString *)objectId relationsDepth:(int)relationsDepth {
     return [self findById:objectId relations:@[] relationsDepth:relationsDepth];
 }
 
--(NSDictionary<NSString*,id> *)findByIdWithRelations:(NSString *)objectId relations:(NSArray<NSString*> *)relations {
+-(NSDictionary<NSString*,id> *)findById:(NSString *)objectId relations:(NSArray<NSString*> *)relations {
     
     if (!objectId)
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
@@ -214,28 +213,6 @@ static NSString *_METHOD_LOAD = @"loadRelations";
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
     NSArray *args = @[_tableName, objectId, relations?relations:@[], @(relationsDepth)];
-    id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_FINDBYID args:args];
-    return [result isKindOfClass:NSDictionary.class]?result:[Types propertyDictionary:result];
-}
-
--(NSDictionary<NSString*,id> *)findByEntity:(NSDictionary<NSString*,id> *)entity {
-    return [self findByEntity:entity relations:@[] relationsDepth:0];
-}
-
--(NSDictionary<NSString*,id> *)findByEntity:(NSDictionary<NSString*,id> *)entity relationsDepth:(int)relationsDepth {
-    return [self findByEntity:entity relations:@[] relationsDepth:relationsDepth];
-}
-
--(NSDictionary<NSString*,id> *)findByEntityWithRelations:(NSDictionary<NSString*,id> *)entity relations:(NSArray<NSString*> *)relations {
-    return [self findByEntity:entity relations:relations?relations:@[] relationsDepth:0];
-}
-
--(NSDictionary<NSString*,id> *)findByEntity:(NSDictionary<NSString*,id> *)entity relations:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth {
-    
-    if (!entity)
-        return [backendless throwFault:FAULT_NO_ENTITY];
-    
-    NSArray *args = @[_tableName, entity, relations?relations:@[], @(relationsDepth)];
     id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_FINDBYID args:args];
     return [result isKindOfClass:NSDictionary.class]?result:[Types propertyDictionary:result];
 }
@@ -301,8 +278,8 @@ static NSString *_METHOD_LOAD = @"loadRelations";
     [self findFirst:relationsDepth responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)findFirstWithRelations:(NSArray<NSString*> *)relations response:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self findFirstWithRelations:relations responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+-(void)findFirst:(NSArray<NSString*> *)relations response:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self findFirst:relations responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 -(void)findFirst:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth response:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -317,8 +294,8 @@ static NSString *_METHOD_LOAD = @"loadRelations";
     [self findLast:relationsDepth responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)findLastWithRelations:(NSArray<NSString*> *)relations response:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self findLastWithRelations:relations responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+-(void)findLast:(NSArray<NSString*> *)relations response:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self findLast:relations responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 -(void)findLast:(NSArray<NSString *>*)relations relationsDepth:(int)relationsDepth response:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -333,28 +310,12 @@ static NSString *_METHOD_LOAD = @"loadRelations";
     [self findById:objectId relationsDepth:relationsDepth responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)findByIdWithRelations:(NSString *)objectId relations:(NSArray<NSString*> *)relations response:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self findByIdWithRelations:objectId relations:relations responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+-(void)findById:(NSString *)objectId relations:(NSArray<NSString*> *)relations response:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self findById:objectId relations:relations responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 -(void)findById:(NSString *)objectId relations:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth response:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self findById:objectId relations:relations relationsDepth:relationsDepth responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
-}
-
--(void)findByEntity:(NSDictionary<NSString*,id> *)entity response:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self findByEntity:entity responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
-}
-
--(void)findByEntity:(NSDictionary<NSString*,id> *)entity relationsDepth:(int)relationsDepth response:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self findByEntity:entity relationsDepth:relationsDepth responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
-}
-
--(void)findByEntityWithRelations:(NSDictionary<NSString*,id> *)entity relations:(NSArray<NSString*> *)relations response:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self findByEntityWithRelations:entity relations:relations responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
-}
-
--(void)findByEntity:(NSDictionary<NSString*,id> *)entity relations:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth response:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self findByEntity:entity relations:relations relationsDepth:relationsDepth responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 -(void)getObjectCount:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
