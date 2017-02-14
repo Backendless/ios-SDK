@@ -505,6 +505,19 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args];
 }
 
+-(id)findByObject:(id)entity queryBuilder:(DataQueryBuilder *)queryBuilder {
+    
+    if (!entity)
+        return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
+    
+#if _FIND_BY_INSTANCE_
+    NSArray *args = @[[self objectClassName:entity], entity, [queryBuilder build]];
+#else
+    NSArray *args = @[[self objectClassName:entity], [self propertyDictionary:entity], [queryBuilder build]];
+#endif
+    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args];
+}
+
 -(id)findByObject:(id)entity relations:(NSArray *)relations {
     
     if (!entity)
@@ -540,6 +553,18 @@ NSString *LOAD_ALL_RELATIONS = @"*";
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
     NSArray *args = @[className, props];
+    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args];
+}
+
+-(id)findByObject:(NSString *)className keys:(NSDictionary *)props queryBuilder:(DataQueryBuilder *)queryBuilder {
+    
+    if (!className)
+        return [backendless throwFault:FAULT_NO_ENTITY];
+    
+    if (!props)
+        return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
+    
+    NSArray *args = @[className, props, [queryBuilder build]];
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args];
 }
 
@@ -616,6 +641,19 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     
     [self prepareClass:entity];
     NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], sid, nil];
+    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args];
+}
+
+-(id)findByClassId:(Class)entity objectID:(NSString *)objectID queryBuilder:(DataQueryBuilder *)queryBuilder {
+    
+    if (!entity)
+        return [backendless throwFault:FAULT_NO_ENTITY];
+    
+    if (!objectID)
+        return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
+    
+    [self prepareClass:entity];
+    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], objectID, [queryBuilder bui], nil];
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args];
 }
 
@@ -950,6 +988,14 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder];
 }
 
+-(void)findByObject:(id)entity queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+    Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!entity) { return [chainedResponder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST]; }
+    
+    NSArray *args = @[[self objectClassName:entity], entity, [queryBuilder build]];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder];
+}
+
 -(void)findByObject:(id)entity relations:(NSArray *)relations response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!entity) { return [chainedResponder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST]; }
@@ -974,6 +1020,16 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     if (!props) { return [chainedResponder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST]; }
     
     NSArray *args = [NSArray arrayWithObjects:className, props, nil];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder];
+}
+
+-(void)findByObject:(NSString *)className keys:(NSDictionary *)props queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+    Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!className) { return [chainedResponder errorHandler:FAULT_NO_ENTITY]; }
+    
+    if (!props) { return [chainedResponder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST]; }
+    
+    NSArray *args = [NSArray arrayWithObjects:className, props, [queryBuilder build], nil];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder];
 }
 
@@ -1005,6 +1061,17 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     
     [self prepareClass:NSClassFromString(entityName)];
     NSArray *args = [NSArray arrayWithObjects:entityName, sid, nil];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder];
+}
+
+-(void)findById:(NSString *)entityName objectId:(NSString *)objectId queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+    Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!entityName) { return [chainedResponder errorHandler:FAULT_NO_ENTITY]; }
+    
+    if (!objectId) { return [chainedResponder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST]; }
+    
+    [self prepareClass:NSClassFromString(entityName)];
+    NSArray *args = [NSArray arrayWithObjects:entityName, objectId, [queryBuilder build], nil];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder];
 }
 
@@ -1040,6 +1107,19 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     
     [self prepareClass:entity];
     NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], sid, nil];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder];
+}
+
+-(void)findByClassId:(Class)entity objectID:(NSString *)objectID queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+    Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!entity)
+        return [chainedResponder errorHandler:FAULT_NO_ENTITY];
+    
+    if (!objectID)
+        return [chainedResponder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
+    
+    [self prepareClass:entity];
+    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], objectID, [queryBuilder build], nil];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder];
 }
 

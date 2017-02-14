@@ -32,19 +32,19 @@
 @implementation DataStoreFactory
 
 -(id)init {
-	if ( (self=[super init]) ) {
+    if ( (self=[super init]) ) {
         _entityClass = nil;
-	}
-	
-	return self;
+    }
+    
+    return self;
 }
 
 -(id)init:(Class)entityClass {
-	if ( (self=[super init]) ) {
+    if ( (self=[super init]) ) {
         _entityClass = [entityClass retain];
-	}
-	
-	return self;
+    }
+    
+    return self;
 }
 
 +(id <IDataStore>)createDataStore:(Class)entityClass {
@@ -52,12 +52,12 @@
 }
 
 -(void)dealloc {
-	
-	[DebLog logN:@"DEALLOC DataStoreFactory"];
+    
+    [DebLog logN:@"DEALLOC DataStoreFactory"];
     
     if (_entityClass) [_entityClass release];
-	
-	[super dealloc];
+    
+    [super dealloc];
 }
 
 #pragma mark -
@@ -109,25 +109,36 @@
     return [backendless.persistenceService last:_entityClass relations:@[] relationsDepth:relationsDepth];
 }
 
--(id)findID:(id)objectID {
+-(id)findById:(id)objectID {
     
     if ([objectID isKindOfClass:[NSString class]])
         return [backendless.persistenceService findByClassId:_entityClass sid:objectID];
     
     if ([objectID isKindOfClass:[NSDictionary class]])
         return [backendless.persistenceService findByObject:NSStringFromClass(_entityClass) keys:objectID];
-
+    
     return [backendless.persistenceService findByObject:objectID];
 }
 
--(id)findID:(id)objectID relationsDepth:(int)relationsDepth {
+-(id)findById:(id)objectID queryBuilder:(DataQueryBuilder *)queryBuilder {
+    
+    if ([objectID isKindOfClass:[NSString class]])
+        return [backendless.persistenceService findByClassId:_entityClass objectID:objectID queryBuilder:queryBuilder];
+    
+    if ([objectID isKindOfClass:[NSDictionary class]])
+        return [backendless.persistenceService findByObject:NSStringFromClass(_entityClass) keys:objectID queryBuilder:queryBuilder];
+    
+    return [backendless.persistenceService findByObject:objectID queryBuilder:queryBuilder];
+}
+
+-(id)findById:(id)objectID relationsDepth:(int)relationsDepth {
     
     if ([objectID isKindOfClass:[NSString class]])
         return [backendless.persistenceService findById:NSStringFromClass(_entityClass) sid:objectID relations:@[] relationsDepth:relationsDepth];
     
     if ([objectID isKindOfClass:[NSDictionary class]])
         return [backendless.persistenceService findByObject:NSStringFromClass(_entityClass) keys:objectID relations:@[] relationsDepth:relationsDepth];
-
+    
     return [backendless.persistenceService findByObject:objectID relations:@[] relationsDepth:relationsDepth];
 }
 
@@ -213,7 +224,7 @@
     [backendless.persistenceService last:_entityClass relations:@[] relationsDepth:relationsDepth response:responseBlock error:errorBlock];
 }
 
--(void)findID:(id)objectID response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)findById:(id)objectID response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     
     if ([objectID isKindOfClass:[NSString class]])
         [backendless.persistenceService findByClassId:_entityClass sid:objectID response:responseBlock error:errorBlock];
@@ -224,7 +235,19 @@
             [backendless.persistenceService findByObject:objectID response:responseBlock error:errorBlock];
 }
 
--(void)findID:(id)objectID relationsDepth:(int)relationsDepth response:(void(^)(id result))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)findById:(id)objectID queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+    
+    if ([objectID isKindOfClass:[NSString class]])
+        [backendless.persistenceService findByClassId:_entityClass objectID:objectID queryBuilder:queryBuilder response:responseBlock error:errorBlock];
+    
+    else
+        if ([objectID isKindOfClass:[NSDictionary class]])
+            [backendless.persistenceService findByObject:NSStringFromClass(_entityClass) keys:objectID queryBuilder:queryBuilder response:responseBlock error:errorBlock];
+        else
+            [backendless.persistenceService findByObject:objectID queryBuilder:queryBuilder response:responseBlock error:errorBlock];
+}
+
+-(void)findById:(id)objectID relationsDepth:(int)relationsDepth response:(void(^)(id result))responseBlock error:(void(^)(Fault *))errorBlock {
     
     if ([objectID isKindOfClass:[NSString class]])
         [backendless.persistenceService findById:NSStringFromClass(_entityClass) sid:objectID relations:@[] relationsDepth:relationsDepth response:responseBlock error:errorBlock];
