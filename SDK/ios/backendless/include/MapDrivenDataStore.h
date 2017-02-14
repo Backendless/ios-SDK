@@ -37,7 +37,7 @@
 -(NSArray *)find:(BackendlessDataQuery *)dataQuery;
 -(NSDictionary<NSString*,id> *)findFirst;
 -(NSDictionary<NSString*,id> *)findFirst:(int)relationsDepth;
--(NSDictionary<NSString*,id> *)findFirstWithRelations:(NSArray<NSString*> *)relations;
+-(NSDictionary<NSString*,id> *)findFirstWithRelations:(NSArray<NSString*> *)relations;//
 -(NSDictionary<NSString*,id> *)findFirst:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth;
 -(NSDictionary<NSString*,id> *)findLast;
 -(NSDictionary<NSString*,id> *)findLast:(int)relationsDepth;

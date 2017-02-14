@@ -37,6 +37,7 @@
 -(NSArray<ObjectProperty*> *)describe;
 -(id)findFirst;
 -(id)findFirst:(int)relationsDepth;
+-(NSDictionary<NSString*,id> *)findFirstWithRelations:(NSArray<NSString*> *)relations;
 -(id)findLast;
 -(id)findLast:(int)relationsDepth;
 -(id)findID:(id)objectID;
