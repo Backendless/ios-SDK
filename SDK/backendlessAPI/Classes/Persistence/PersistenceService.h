@@ -33,7 +33,6 @@ extern NSString *LOAD_ALL_RELATIONS;
 @class QueryOptions, BackendlessDataQuery, Fault, ObjectProperty;
 @protocol IResponder, IDataStore;
 
-
 @interface PersistenceService : NSObject
 
 @property (strong, nonatomic, readonly) DataPermission *permissions;

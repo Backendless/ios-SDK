@@ -29,7 +29,7 @@
 @protocol IDataStore <NSObject>
 
 // sync methods with fault return (as exception)
--(id)save:(id)entity;
+//-(id)save:(id)entity;
 -(NSNumber *)remove:(id)entity;
 -(NSNumber *)removeID:(NSString *)objectID;
 -(NSArray *)find;
@@ -37,11 +37,16 @@
 -(NSArray<ObjectProperty*> *)describe;
 -(id)findFirst;
 -(id)findFirst:(int)relationsDepth;
--(NSDictionary<NSString*,id> *)findFirstWithRelations:(NSArray<NSString*> *)relations;
+-(id)findFirstWithRelations:(NSArray<NSString*> *)relations;
+-(id)findFirst:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth;
 -(id)findLast;
 -(id)findLast:(int)relationsDepth;
+-(id)findLastWithRelations:(NSArray<NSString*> *)relations;
+-(id)findLast:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth;
 -(id)findID:(id)objectID;
 -(id)findID:(id)objectID relationsDepth:(int)relationsDepth;
+-(id)findID:(id)objectID relations:(NSArray<NSString*> *)relations;
+-(id)findID:(id)objectID relations:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth;
 -(NSNumber *)getObjectCount;
 -(NSNumber *)getObjectCount:(DataQueryBuilder *)dataQuery;
 //
@@ -61,12 +66,20 @@
 -(void)find:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)find:(DataQueryBuilder *)dataQuery response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)findFirst:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)findFirst:(int)relationsDepth response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)findFirstWithRelations:(NSArray<NSString*> *)relations response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)findFirst:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)findLast:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)findLast:(int)relationsDepth response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)findLastWithRelations:(NSArray<NSString*> *)relations response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)findLast:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+
 -(void)describeResponse:(void(^)(NSArray<ObjectProperty*> *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)findFirst:(int)relationsDepth response:(void(^)(id result))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)findLast:(int)relationsDepth response:(void(^)(id result))responseBlock error:(void(^)(Fault *))errorBlock;
+
 -(void)findID:(id)objectID response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)findID:(id)objectID relationsDepth:(int)relationsDepth response:(void(^)(id result))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)findID:(id)objectID relationsDepth:(int)relationsDepth response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)findID:(id)objectID relations:(NSArray<NSString*> *)relations response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)findID:(NSString *)objectID relations:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getObjectCount:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getObjectCount:(DataQueryBuilder *)dataQuery response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 //
