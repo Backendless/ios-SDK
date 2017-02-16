@@ -39,9 +39,9 @@
 -(id)findFirst:(int)relationsDepth;
 -(id)findLast;
 -(id)findLast:(int)relationsDepth;
--(id)findID:(id)objectID;
--(id)findID:(id)objectID queryBuilder:(DataQueryBuilder *)queryBuilder;
--(id)findID:(id)objectID relationsDepth:(int)relationsDepth;
+-(id)findById:(id)objectID;
+-(id)findById:(id)objectID queryBuilder:(DataQueryBuilder *)queryBuilder;
+-(id)findById:(id)objectID relationsDepth:(int)relationsDepth;
 -(NSNumber *)getObjectCount;
 -(NSNumber *)getObjectCount:(DataQueryBuilder *)dataQuery;
 //
