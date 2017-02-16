@@ -43,10 +43,10 @@
 -(id)findLast:(int)relationsDepth;
 -(id)findLastWithRelations:(NSArray<NSString*> *)relations;
 -(id)findLast:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth;
--(id)findID:(id)objectID;
--(id)findID:(id)objectID relationsDepth:(int)relationsDepth;
--(id)findID:(id)objectID relations:(NSArray<NSString*> *)relations;
--(id)findID:(id)objectID relations:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth;
+-(id)findById:(id)objectID;
+-(id)findById:(id)objectID relationsDepth:(int)relationsDepth;
+-(id)findById:(id)objectID relations:(NSArray<NSString*> *)relations;
+-(id)findById:(id)objectID relations:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth;
 -(NSNumber *)getObjectCount;
 -(NSNumber *)getObjectCount:(DataQueryBuilder *)dataQuery;
 //
@@ -76,10 +76,10 @@
 
 -(void)describeResponse:(void(^)(NSArray<ObjectProperty*> *))responseBlock error:(void(^)(Fault *))errorBlock;
 
--(void)findID:(id)objectID response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)findID:(id)objectID relationsDepth:(int)relationsDepth response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)findID:(id)objectID relations:(NSArray<NSString*> *)relations response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)findID:(NSString *)objectID relations:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)findById:(id)objectID response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)findById:(id)objectID relationsDepth:(int)relationsDepth response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)findById:(id)objectID relations:(NSArray<NSString*> *)relations response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)findById:(NSString *)objectID relations:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getObjectCount:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getObjectCount:(DataQueryBuilder *)dataQuery response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 //
