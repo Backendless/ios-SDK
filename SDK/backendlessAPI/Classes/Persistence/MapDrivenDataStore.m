@@ -205,11 +205,13 @@ static NSString *_SERVER_PERSISTENCE_SERVICE_PATH = @"com.backendless.services.p
 }
 
 -(NSNumber *)getObjectCount {
-    return [backendless.persistenceService getObjectCount:NSClassFromString(_tableName)];
+    NSArray *args = @[_tableName];
+    return [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:@"count" args:args];
 }
 
 -(NSNumber *)getObjectCount:(DataQueryBuilder *)dataQuery{
-    return [backendless.persistenceService getObjectCount:NSClassFromString(_tableName) dataQuery:dataQuery];
+    NSArray *args = @[_tableName, [dataQuery build]];
+    return [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:@"count" args:args];
 }
 
 -(NSNumber *)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects {
