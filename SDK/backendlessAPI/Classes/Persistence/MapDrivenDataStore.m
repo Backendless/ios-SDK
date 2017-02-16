@@ -45,21 +45,19 @@ static NSString *_METHOD_LOAD = @"loadRelations";
 @implementation MapDrivenDataStore
 
 -(id)init {
-	if ( (self=[super init]) ) {
+    if (self = [super init]) {
         _tableName = nil;
         [self setClassMapping];
-	}
-	
-	return self;
+    }
+    return self;
 }
 
 -(id)init:(NSString *)tableName {
-	if ( (self=[super init]) ) {
+    if (self = [super init]) {
         _tableName = [tableName retain];
         [self setClassMapping];
-	}
-	
-	return self;
+    }
+    return self;
 }
 
 +(id)createDataStore:(NSString *)tableName {
@@ -67,23 +65,17 @@ static NSString *_METHOD_LOAD = @"loadRelations";
 }
 
 -(void)dealloc {
-	
-	[DebLog logN:@"DEALLOC MapDrivenDataStore"];
-    
+    [DebLog logN:@"DEALLOC MapDrivenDataStore"];
     [_tableName release];
-	
-	[super dealloc];
+    [super dealloc];
 }
 
-
-#pragma mark -
 #pragma mark Private Methods
 
 -(void)setClassMapping {
-    
-    if (backendless.data)
+    if (backendless.data) {
         return;
-    
+    }
     [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.NSArray" mapped:[NSArray class]];
     [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.ObjectProperty" mapped:[ObjectProperty class]];
     [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.model.GeoPoint" mapped:[GeoPoint class]];
@@ -91,13 +83,10 @@ static NSString *_METHOD_LOAD = @"loadRelations";
 #if !_IS_USERS_CLASS_
     [[Types sharedInstance] addClientClassMapping:@"Users" mapped:[BackendlessUser class]];
 #endif
-    
 }
 
 -(NSArray *)fixClassCollection:(NSArray *)bc {
-    
     if (bc.count && ![bc[0] isKindOfClass:NSDictionary.class]) {
-        
         NSMutableArray *data = [NSMutableArray array];
         for (id item in bc) {
             [data addObject:[Types propertyDictionary:item]];
@@ -107,26 +96,22 @@ static NSString *_METHOD_LOAD = @"loadRelations";
     return bc;
 }
 
-
-#pragma mark -
 #pragma mark Public Methods
 
 // sync methods with fault return (as exception)
--(NSDictionary<NSString*,id> *)save:(NSDictionary<NSString*,id> *)entity {
-    
-    if (!entity)
+-(NSDictionary<NSString *, id> *)save:(NSDictionary<NSString *, id> *)entity {
+    if (!entity) {
         return [backendless throwFault:FAULT_NO_ENTITY];
-    
+    }
     NSArray *args = @[_tableName, entity];
     id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_SAVE args:args];
     return [result isKindOfClass:NSDictionary.class]?result:[Types propertyDictionary:result];
 }
 
 -(NSNumber *)remove:(NSDictionary<NSString*,id> *)entity {
-    
-    if (!entity)
+    if (!entity) {
         return [backendless throwFault:FAULT_NO_ENTITY];
-    
+    }
     NSArray *args = @[_tableName, entity];
     return [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_REMOVE args:args];
 }
@@ -136,83 +121,90 @@ static NSString *_METHOD_LOAD = @"loadRelations";
 }
 
 -(NSArray *)find:(BackendlessDataQuery *)dataQuery {
-    
     NSArray *args = @[_tableName, dataQuery?dataQuery:BACKENDLESS_DATA_QUERY];
     id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_FIND args:args];
-    if ([result isKindOfClass:[Fault class]])
+    if ([result isKindOfClass:[Fault class]]) {
         return result;
-    
+    }
     NSArray *bc = (NSArray *)result;
     return [self fixClassCollection:bc];
 }
 
--(NSDictionary<NSString*,id> *)findFirst {
-    
+-(NSDictionary<NSString *, id> *)findFirst {
     NSArray *args = @[_tableName];
     id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_FIRST args:args];
     return [result isKindOfClass:NSDictionary.class]?result:[Types propertyDictionary:result];
 }
 
--(NSDictionary<NSString*,id> *)findFirst:(int)relationsDepth {
+-(NSDictionary<NSString *, id> *)findFirst:(int)relationsDepth {
     return [self findFirst:@[] relationsDepth:relationsDepth];
 }
 
--(NSDictionary<NSString*,id> *)findFirstWithRelations:(NSArray<NSString*> *)relations {
+-(NSDictionary<NSString *, id> *)findFirstWithRelations:(NSArray<NSString *> *)relations {
     return [self findFirst:relations relationsDepth:0];
 }
 
--(NSDictionary<NSString*,id> *)findFirst:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth {
+-(NSDictionary<NSString *, id> *)findFirst:(NSArray<NSString *> *)relations relationsDepth:(int)relationsDepth {
     NSArray *args = @[_tableName, relations?relations:@[], @(relationsDepth)];
     id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_FIRST args:args];
     return [result isKindOfClass:NSDictionary.class]?result:[Types propertyDictionary:result];
 }
 
--(NSDictionary<NSString*,id> *)findLast {
-    
+-(NSDictionary<NSString *, id> *)findLast {
     NSArray *args = @[_tableName];
     id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_LAST args:args];
     return [result isKindOfClass:NSDictionary.class]?result:[Types propertyDictionary:result];
 }
 
--(NSDictionary<NSString*,id> *)findLast:(int)relationsDepth {
+-(NSDictionary<NSString *, id> *)findLast:(int)relationsDepth {
     return [self findLast:@[] relationsDepth:relationsDepth];
 }
 
--(NSDictionary<NSString*,id> *)findLastWithRelations:(NSArray<NSString*> *)relations {
+-(NSDictionary<NSString *, id> *)findLastWithRelations:(NSArray<NSString *> *)relations {
     return [self findLast:relations relationsDepth:0];
 }
 
--(NSDictionary<NSString*,id> *)findLast:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth {
-    
+-(NSDictionary<NSString *, id> *)findLast:(NSArray<NSString *> *)relations relationsDepth:(int)relationsDepth {
     NSArray *args = @[_tableName, relations?relations:@[], @(relationsDepth)];
     id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_LAST args:args];
     return [result isKindOfClass:NSDictionary.class]?result:[Types propertyDictionary:result];
 }
 
--(NSDictionary<NSString*,id> *)findById:(NSString *)objectId {
-    return [self findById:objectId relations:@[]];
+-(id)findById:(NSString *)objectID {
+    return [self findById:objectID relations:@[]];
 }
 
--(NSDictionary<NSString*,id> *)findById:(NSString *)objectId relationsDepth:(int)relationsDepth {
-    return [self findById:objectId relations:@[] relationsDepth:relationsDepth];
+-(id)findById:(NSString *)objectID queryBuilder:(DataQueryBuilder *)queryBuilder {
+    return [self findById:objectID relations:@[] queryBuilder:queryBuilder];
 }
 
--(NSDictionary<NSString*,id> *)findById:(NSString *)objectId relations:(NSArray<NSString*> *)relations {
-    
-    if (!objectId)
+-(NSDictionary<NSString *,id> *)findById:(NSString *)objectID relationsDepth:(int)relationsDepth {
+    return [self findById:objectID relations:@[] relationsDepth:relationsDepth];
+}
+
+-(NSDictionary<NSString *, id> *)findById:(NSString *)objectID relations:(NSArray<NSString *> *)relations {
+    if (!objectID) {
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
-    
-    NSArray *args = @[_tableName, objectId, relations?relations:@[]];
+    }
+    NSArray *args = @[_tableName, objectID, relations?relations:@[]];
     id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_FINDBYID args:args];
     return [result isKindOfClass:NSDictionary.class]?result:[Types propertyDictionary:result];
 }
 
--(NSDictionary<NSString*,id> *)findById:(NSString *)objectId relations:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth {
-    
-    if (!objectId)
+-(NSDictionary<NSString *, id> *)findById:(NSString *)objectID relations:(NSArray<NSString *> *)relations queryBuilder:(DataQueryBuilder *)queryBuilder{
+    if (!objectID) {
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
-    
-    NSArray *args = @[_tableName, objectId, relations?relations:@[], @(relationsDepth)];
+    }
+    NSArray *args = @[_tableName, objectID, relations?relations:@[], [queryBuilder build]];
+    id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_FINDBYID args:args];
+    return [result isKindOfClass:NSDictionary.class]?result:[Types propertyDictionary:result];
+}
+
+-(NSDictionary<NSString *, id> *)findById:(NSString *)objectID relations:(NSArray<NSString *> *)relations relationsDepth:(int)relationsDepth {
+    if (!objectID) {
+        return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
+    }
+    NSArray *args = @[_tableName, objectID, relations?relations:@[], @(relationsDepth)];
     id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_FINDBYID args:args];
     return [result isKindOfClass:NSDictionary.class]?result:[Types propertyDictionary:result];
 }
@@ -254,11 +246,12 @@ static NSString *_METHOD_LOAD = @"loadRelations";
 }
 
 // async methods with block-based callbacks
--(void)save:(NSDictionary<NSString*,id> *)entity response:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock {
+
+-(void)save:(NSDictionary<NSString *, id> *)entity response:(void(^)(NSDictionary<NSString *, id> *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self save:entity responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)remove:(NSDictionary<NSString*,id> *)entity response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)remove:(NSDictionary<NSString *, id> *)entity response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self save:entity responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
@@ -270,52 +263,76 @@ static NSString *_METHOD_LOAD = @"loadRelations";
     [self find:dataQuery responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)findFirst:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)findFirst:(void(^)(NSDictionary<NSString *, id> *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self findFirstResponder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)findFirst:(int)relationsDepth response:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)findFirst:(int)relationsDepth response:(void(^)(NSDictionary<NSString *, id> *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self findFirst:relationsDepth responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)findFirstWithRelations:(NSArray<NSString*> *)relations response:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)findFirstWithRelations:(NSArray<NSString *> *)relations response:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self findFirst:relations responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)findFirst:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth response:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)findFirst:(NSArray<NSString *> *)relations relationsDepth:(int)relationsDepth response:(void(^)(NSDictionary<NSString *, id> *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self findFirst:relations relationsDepth:relationsDepth responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)findLast:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)findLast:(void(^)(NSDictionary<NSString *, id> *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self findLastResponder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)findLast:(int)relationsDepth response:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)findLast:(int)relationsDepth response:(void(^)(NSDictionary<NSString *, id> *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self findLast:relationsDepth responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)findLastWithRelations:(NSArray<NSString*> *)relations response:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)findLastWithRelations:(NSArray<NSString *> *)relations response:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self findLast:relations responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)findLast:(NSArray<NSString *>*)relations relationsDepth:(int)relationsDepth response:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)findLast:(NSArray<NSString *> *)relations relationsDepth:(int)relationsDepth response:(void(^)(NSDictionary<NSString *, id> *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self findLast:relations relationsDepth:relationsDepth responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)findById:(NSString *)objectId response:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self findById:objectId responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+-(void)findById:(id)objectID response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+    if ([objectID isKindOfClass:[NSString class]]) {
+        [backendless.persistenceService findById:_tableName sid:objectID response:responseBlock error:errorBlock];
+    }
+    else {
+        if ([objectID isKindOfClass:[NSDictionary class]]) {
+            [backendless.persistenceService findByObject:_tableName keys:objectID response:responseBlock error:errorBlock];
+        }
+        else {
+            [backendless.persistenceService findByObject:objectID response:responseBlock error:errorBlock];
+        }
+    }
 }
 
--(void)findById:(NSString *)objectId relationsDepth:(int)relationsDepth response:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self findById:objectId relationsDepth:relationsDepth responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+-(void)findById:(id)objectID queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+    if ([objectID isKindOfClass:[NSString class]]) {
+        [backendless.persistenceService findById:_tableName objectId:objectID queryBuilder:queryBuilder response:responseBlock error:errorBlock];
+    }
+    else {
+        if ([objectID isKindOfClass:[NSDictionary class]]) {
+            [backendless.persistenceService findByObject:_tableName keys:objectID queryBuilder:queryBuilder response:responseBlock error:errorBlock];
+        }
+        else {
+            [backendless.persistenceService findByObject:objectID queryBuilder:queryBuilder response:responseBlock error:errorBlock];
+        }
+    }
 }
 
--(void)findById:(NSString *)objectId relations:(NSArray<NSString*> *)relations response:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self findById:objectId relations:relations responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+-(void)findById:(NSString *)objectID relationsDepth:(int)relationsDepth response:(void(^)(NSDictionary<NSString *, id> *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self findById:objectID relationsDepth:relationsDepth responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)findById:(NSString *)objectId relations:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth response:(void(^)(NSDictionary<NSString*,id> *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self findById:objectId relations:relations relationsDepth:relationsDepth responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+-(void)findById:(NSString *)objectID relations:(NSArray<NSString *> *)relations response:(void(^)(NSDictionary<NSString *, id> *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self findById:objectID relations:relations responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+
+-(void)findById:(NSString *)objectID relations:(NSArray<NSString *> *)relations relationsDepth:(int)relationsDepth response:(void(^)(NSDictionary<NSString *, id> *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self findById:objectID relations:relations relationsDepth:relationsDepth responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 -(void)getObjectCount:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
