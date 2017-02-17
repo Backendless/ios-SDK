@@ -22,10 +22,9 @@
 #import "MapDrivenDataStore.h"
 #include "Backendless.h"
 #import "Invoker.h"
+#include "Responder.h"
 #import "ObjectProperty.h"
 #import "ClassCastException.h"
-#include "Responder.h"
-#include "PersistenceService.h"
 
 #define FAULT_NO_ENTITY [Fault fault:@"Entity is missing or null" detail:@"Entity is missing or null" faultCode:@"1900"]
 #define FAULT_OBJECT_ID_IS_NOT_EXIST [Fault fault:@"objectId is missing or null" detail:@"objectId is missing or null" faultCode:@"1901"]
@@ -38,20 +37,18 @@ static NSString *_SERVER_PERSISTENCE_SERVICE_PATH = @"com.backendless.services.p
 @implementation MapDrivenDataStore
 
 -(id)init {
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         _tableName = nil;
         [self setClassMapping];
     }
-    
     return self;
 }
 
 -(id)init:(NSString *)tableName {
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         _tableName = [tableName retain];
         [self setClassMapping];
     }
-    
     return self;
 }
 
@@ -60,11 +57,8 @@ static NSString *_SERVER_PERSISTENCE_SERVICE_PATH = @"com.backendless.services.p
 }
 
 -(void)dealloc {
-    
     [DebLog logN:@"DEALLOC MapDrivenDataStore"];
-    
     [_tableName release];
-    
     [super dealloc];
 }
 
@@ -98,8 +92,7 @@ static NSString *_SERVER_PERSISTENCE_SERVICE_PATH = @"com.backendless.services.p
 
 // sync methods with fault return (as exception)
 -(id)save:(id)entity {
-    
-    if (!entity)
+    if (!entity) {
         return [backendless throwFault:FAULT_NO_ENTITY];
     }
     NSArray *args = @[_tableName, entity];
@@ -122,7 +115,7 @@ static NSString *_SERVER_PERSISTENCE_SERVICE_PATH = @"com.backendless.services.p
 -(NSArray *)find:(BackendlessDataQuery *)dataQuery {
     NSArray *args = @[_tableName, dataQuery?dataQuery:BACKENDLESS_DATA_QUERY];
     id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:@"find" args:args];
-    if ([result isKindOfClass:[Fault class]])
+    if ([result isKindOfClass:[Fault class]]) {
         return result;
     }
     NSArray *bc = (NSArray *)result;
@@ -173,14 +166,18 @@ static NSString *_SERVER_PERSISTENCE_SERVICE_PATH = @"com.backendless.services.p
     return [self findById:objectID relations:@[]];
 }
 
--(id)findById:(id)objectID relationsDepth:(int)relationsDepth {
+-(id)findById:(NSString *)objectID queryBuilder:(DataQueryBuilder *)queryBuilder {
+    return [self findById:objectID relations:@[] queryBuilder:queryBuilder];
+}
+
+-(NSDictionary<NSString *,id> *)findById:(NSString *)objectID relationsDepth:(int)relationsDepth {
     return [self findById:objectID relations:@[] relationsDepth:relationsDepth];
 }
 
--(id)findById:(id)objectID relations:(NSArray<NSString*> *)relations {
-    if (!objectID)
+-(NSDictionary<NSString *, id> *)findById:(NSString *)objectID relations:(NSArray<NSString *> *)relations {
+    if (!objectID) {
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
-    
+    }
     NSArray *args = @[_tableName, objectID, relations?relations:@[]];
     id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:@"findById" args:args];
     return [result isKindOfClass:NSDictionary.class]?result:[Types propertyDictionary:result];
@@ -284,11 +281,31 @@ static NSString *_SERVER_PERSISTENCE_SERVICE_PATH = @"com.backendless.services.p
 }
 
 -(void)findById:(id)objectID response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self findById:objectID responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    if ([objectID isKindOfClass:[NSString class]]) {
+        [backendless.persistenceService findById:_tableName sid:objectID response:responseBlock error:errorBlock];
+    }
+    else {
+        if ([objectID isKindOfClass:[NSDictionary class]]) {
+            [backendless.persistenceService findByObject:_tableName keys:objectID response:responseBlock error:errorBlock];
+        }
+        else {
+            [backendless.persistenceService findByObject:objectID response:responseBlock error:errorBlock];
+        }
+    }
 }
 
--(void)findById:(id)objectID relationsDepth:(int)relationsDepth response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self findById:objectID relationsDepth:relationsDepth responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+-(void)findById:(id)objectID queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+    if ([objectID isKindOfClass:[NSString class]]) {
+        [backendless.persistenceService findById:_tableName objectId:objectID queryBuilder:queryBuilder response:responseBlock error:errorBlock];
+    }
+    else {
+        if ([objectID isKindOfClass:[NSDictionary class]]) {
+            [backendless.persistenceService findByObject:_tableName keys:objectID queryBuilder:queryBuilder response:responseBlock error:errorBlock];
+        }
+        else {
+            [backendless.persistenceService findByObject:objectID queryBuilder:queryBuilder response:responseBlock error:errorBlock];
+        }
+    }
 }
 
 -(void)findById:(id)objectID relations:(NSArray<NSString*> *)relations response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {

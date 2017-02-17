@@ -29,7 +29,7 @@
 @protocol IDataStore <NSObject>
 
 // sync methods with fault return (as exception)
-//-(id)save:(id)entity;
+-(id)save:(id)entity;
 -(NSNumber *)remove:(id)entity;
 -(NSNumber *)removeID:(NSString *)objectID;
 -(NSArray *)find;
@@ -44,6 +44,7 @@
 -(id)findLastWithRelations:(NSArray<NSString*> *)relations;
 -(id)findLast:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth;
 -(id)findById:(id)objectID;
+-(id)findById:(id)objectID queryBuilder:(DataQueryBuilder *)queryBuilder;
 -(id)findById:(id)objectID relationsDepth:(int)relationsDepth;
 -(id)findById:(id)objectID relations:(NSArray<NSString*> *)relations;
 -(id)findById:(id)objectID relations:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth;
@@ -77,6 +78,7 @@
 -(void)describeResponse:(void(^)(NSArray<ObjectProperty*> *))responseBlock error:(void(^)(Fault *))errorBlock;
 
 -(void)findById:(id)objectID response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)findById:(id)objectID queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)findById:(id)objectID relationsDepth:(int)relationsDepth response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)findById:(id)objectID relations:(NSArray<NSString*> *)relations response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)findById:(NSString *)objectID relations:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
