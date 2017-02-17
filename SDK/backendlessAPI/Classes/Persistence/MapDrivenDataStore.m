@@ -68,15 +68,12 @@ static NSString *_SERVER_PERSISTENCE_SERVICE_PATH = @"com.backendless.services.p
     [super dealloc];
 }
 
-
-#pragma mark -
 #pragma mark Private Methods
 
 -(void)setClassMapping {
-    
-    if (backendless.data)
+    if (backendless.data) {
         return;
-    
+    }
     [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.NSArray" mapped:[NSArray class]];
     [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.ObjectProperty" mapped:[ObjectProperty class]];
     [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.model.GeoPoint" mapped:[GeoPoint class]];
@@ -84,13 +81,10 @@ static NSString *_SERVER_PERSISTENCE_SERVICE_PATH = @"com.backendless.services.p
 #if !_IS_USERS_CLASS_
     [[Types sharedInstance] addClientClassMapping:@"Users" mapped:[BackendlessUser class]];
 #endif
-    
 }
 
 -(NSArray *)fixClassCollection:(NSArray *)bc {
-    
     if (bc.count && ![bc[0] isKindOfClass:NSDictionary.class]) {
-        
         NSMutableArray *data = [NSMutableArray array];
         for (id item in bc) {
             [data addObject:[Types propertyDictionary:item]];
@@ -100,8 +94,6 @@ static NSString *_SERVER_PERSISTENCE_SERVICE_PATH = @"com.backendless.services.p
     return bc;
 }
 
-
-#pragma mark -
 #pragma mark Public Methods
 
 // sync methods with fault return (as exception)
@@ -109,17 +101,16 @@ static NSString *_SERVER_PERSISTENCE_SERVICE_PATH = @"com.backendless.services.p
     
     if (!entity)
         return [backendless throwFault:FAULT_NO_ENTITY];
-    
+    }
     NSArray *args = @[_tableName, entity];
     id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:@"save" args:args];
     return [result isKindOfClass:NSDictionary.class]?result:[Types propertyDictionary:result];
 }
 
 -(NSNumber *)remove:(NSDictionary<NSString*,id> *)entity {
-    
-    if (!entity)
+    if (!entity) {
         return [backendless throwFault:FAULT_NO_ENTITY];
-    
+    }
     NSArray *args = @[_tableName, entity];
     return [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:@"remove" args:args];
 }
@@ -133,7 +124,7 @@ static NSString *_SERVER_PERSISTENCE_SERVICE_PATH = @"com.backendless.services.p
     id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:@"find" args:args];
     if ([result isKindOfClass:[Fault class]])
         return result;
-    
+    }
     NSArray *bc = (NSArray *)result;
     return [self fixClassCollection:bc];
 }
