@@ -170,11 +170,11 @@ static NSString *_SERVER_PERSISTENCE_SERVICE_PATH = @"com.backendless.services.p
     return [self findById:objectID relations:@[] queryBuilder:queryBuilder];
 }
 
--(NSDictionary<NSString *,id> *)findById:(NSString *)objectID relationsDepth:(int)relationsDepth {
+-(id)findById:(NSString *)objectID relationsDepth:(int)relationsDepth {
     return [self findById:objectID relations:@[] relationsDepth:relationsDepth];
 }
 
--(NSDictionary<NSString *, id> *)findById:(NSString *)objectID relations:(NSArray<NSString *> *)relations {
+-(id)findById:(NSString *)objectID relations:(NSArray<NSString *> *)relations {
     if (!objectID) {
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     }
