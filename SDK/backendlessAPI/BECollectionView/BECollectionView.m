@@ -138,29 +138,22 @@
     [super setDataSource:self];
 }
 
--(void)find:(Class)className dataQuery:(BackendlessDataQuery *)dataQuery
-{
-    //_className = [className copy];
-    //_dataQuery = [dataQuery retain];
+-(void)find:(Class)className queryBuilder:(DataQueryBuilder *)queryBuilder {
     _responder.chained = nil;
-    NSArray *collection = [backendless.persistenceService find:className dataQuery:dataQuery];
+    NSArray *collection = [backendless.persistenceService find:className queryBuilder:queryBuilder];
     [self responseHandler:collection];
 }
--(void)find:(Class)className dataQuery:(BackendlessDataQuery *)dataQuery responder:(id)responder
-{
-    //_className = [className copy];
-    //_dataQuery = [dataQuery retain];
-    _responder.chained = responder;
-    [backendless.persistenceService find:className dataQuery:dataQuery responder:_responder];
-}
--(void)find:(Class)className dataQuery:(BackendlessDataQuery *)dataQuery response:(void (^)(NSArray *))responseBlock error:(void (^)(Fault *))errorBlock
-{
-    //_className = [className copy];
-    //_dataQuery = [dataQuery retain];
-    _responder.chained = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
-    [backendless.persistenceService find:className dataQuery:dataQuery responder:_responder];
-}
 
+
+
+//-(void)find:(Class)className queryBuilder:(DataQueryBuilder *)queryBuilder responder:(id)responder {
+//    _responder.chained = responder;
+//    [backendless.persistenceService find:className queryBuilder:queryBuilder responder:_responder];
+//}
+
+-(void)find:(Class)className queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [backendless.persistenceService find:className queryBuilder:queryBuilder response:responseBlock error:errorBlock];
+}
 
 -(void)getPoints:(BackendlessGeoQuery *)query
 {

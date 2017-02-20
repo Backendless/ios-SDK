@@ -117,11 +117,12 @@ static NSString *_METHOD_LOAD = @"loadRelations";
 }
 
 -(NSArray *)find {
-    return [self find:BACKENDLESS_DATA_QUERY];
+    //return [self find:BACKENDLESS_DATA_QUERY];
+    return [self find:[[DataQueryBuilder alloc] init]];
 }
 
--(NSArray *)find:(BackendlessDataQuery *)dataQuery {
-    NSArray *args = @[_tableName, dataQuery?dataQuery:BACKENDLESS_DATA_QUERY];
+-(NSArray *)find:(DataQueryBuilder *)queryBuilder {
+    NSArray *args = @[_tableName, [queryBuilder build]];
     id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_FIND args:args];
     if ([result isKindOfClass:[Fault class]]) {
         return result;
@@ -191,7 +192,7 @@ static NSString *_METHOD_LOAD = @"loadRelations";
     return [result isKindOfClass:NSDictionary.class]?result:[Types propertyDictionary:result];
 }
 
--(NSDictionary<NSString *, id> *)findById:(NSString *)objectID relations:(NSArray<NSString *> *)relations queryBuilder:(DataQueryBuilder *)queryBuilder{
+-(NSDictionary<NSString *, id> *)findById:(NSString *)objectID relations:(NSArray<NSString *> *)relations queryBuilder:(DataQueryBuilder *)queryBuilder {
     if (!objectID) {
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     }
@@ -213,8 +214,8 @@ static NSString *_METHOD_LOAD = @"loadRelations";
     return [backendless.persistenceService getObjectCount:NSClassFromString(_tableName)];
 }
 
--(NSNumber *)getObjectCount:(DataQueryBuilder *)dataQuery{
-    return [backendless.persistenceService getObjectCount:NSClassFromString(_tableName) dataQuery:dataQuery];
+-(NSNumber *)getObjectCount:(DataQueryBuilder *)queryBuilder {
+    return [backendless.persistenceService getObjectCount:NSClassFromString(_tableName) queryBuilder:queryBuilder];
 }
 
 -(NSNumber *)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects {
@@ -259,8 +260,8 @@ static NSString *_METHOD_LOAD = @"loadRelations";
     [self findResponder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)find:(BackendlessDataQuery *)dataQuery response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self find:dataQuery responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+-(void)find:(DataQueryBuilder *)queryBuilder response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self find:queryBuilder responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 -(void)findFirst:(void(^)(NSDictionary<NSString *, id> *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -339,8 +340,8 @@ static NSString *_METHOD_LOAD = @"loadRelations";
     [backendless.persistenceService getObjectCount:_tableName response:responseBlock error:errorBlock];
 }
 
--(void)getObjectCount:(DataQueryBuilder *)dataQuery response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [backendless.persistenceService getObjectCount:_tableName dataQuery:dataQuery response:responseBlock error:errorBlock];
+-(void)getObjectCount:(DataQueryBuilder *)queryBuilder response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [backendless.persistenceService getObjectCount:_tableName queryBuilder:queryBuilder response:responseBlock error:errorBlock];
 }
 
 -(void)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {

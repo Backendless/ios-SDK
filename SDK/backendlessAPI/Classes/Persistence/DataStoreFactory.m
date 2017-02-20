@@ -80,11 +80,11 @@
 }
 
 -(NSArray *)find {
-    return [self find:[DataQueryBuilder query]];
+    return [backendless.persistenceService find:_entityClass queryBuilder:[DataQueryBuilder new]];
 }
 
--(NSArray *)find:(DataQueryBuilder *)dataQuery {
-    return [backendless.persistenceService find:_entityClass dataQuery:dataQuery];
+-(NSArray *)find:(DataQueryBuilder *)queryBuilder {
+    return [backendless.persistenceService find:_entityClass queryBuilder:queryBuilder];
 }
 
 -(id)findFirst {
@@ -141,8 +141,8 @@
     return [backendless.persistenceService getObjectCount:_entityClass];
 }
 
--(NSNumber *)getObjectCount:(DataQueryBuilder *)dataQuery {
-    return [backendless.persistenceService getObjectCount:_entityClass dataQuery:dataQuery];
+-(NSNumber *)getObjectCount:(DataQueryBuilder *)queryBuilder {
+    return [backendless.persistenceService getObjectCount:_entityClass queryBuilder:queryBuilder];
 }
 
 -(NSNumber *)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects {
@@ -194,11 +194,11 @@
 }
 
 -(void)find:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self find:[DataQueryBuilder query] response:responseBlock error:errorBlock];
+    [backendless.persistenceService find:_entityClass response:responseBlock error:errorBlock];
 }
 
--(void)find:(DataQueryBuilder *)dataQuery response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [backendless.persistenceService find:_entityClass dataQuery:dataQuery response:responseBlock error:errorBlock];
+-(void)find:(DataQueryBuilder *)queryBuilder response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [backendless.persistenceService find:_entityClass queryBuilder:queryBuilder response:responseBlock error:errorBlock];
 }
 
 -(void)findFirst:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -267,8 +267,8 @@
     [backendless.persistenceService getObjectCount:_entityClass response:responseBlock error:errorBlock];
 }
 
--(void)getObjectCount:(DataQueryBuilder *)dataQuery response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [backendless.persistenceService getObjectCount:_entityClass dataQuery:dataQuery response:responseBlock error:errorBlock];
+-(void)getObjectCount:(DataQueryBuilder *)queryBuilder response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [backendless.persistenceService getObjectCount:_entityClass queryBuilder:queryBuilder response:responseBlock error:errorBlock];
 }
 
 -(void)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
