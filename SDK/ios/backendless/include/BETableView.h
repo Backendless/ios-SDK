@@ -20,14 +20,14 @@
  */
 
 #import <UIKit/UIKit.h>
-@class BackendlessDataQuery, Fault, BackendlessGeoQuery;
+@class Fault, BackendlessGeoQuery, DataQueryBuilder;
 @interface BETableView : UITableView
 
 -(id)getDataForIndexPath:(NSIndexPath *)indexPath;
 
--(void)find:(Class)className dataQuery:(BackendlessDataQuery *)dataQuery;
--(void)find:(Class)className dataQuery:(BackendlessDataQuery *)dataQuery responder:(id)responder;
--(void)find:(Class)className dataQuery:(BackendlessDataQuery *)dataQuery response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)find:(Class)entity queryBuilder:(DataQueryBuilder *)queryBuiler;
+-(void)find:(Class)entity queryBuilder:(DataQueryBuilder *)queryBuiler responder:(id)responder;
+-(void)find:(Class)entity queryBuilder:(DataQueryBuilder *)queryBuiler response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 
 -(void)getPoints:(BackendlessGeoQuery *)query;
 -(void)relativeFind:(BackendlessGeoQuery *)query;

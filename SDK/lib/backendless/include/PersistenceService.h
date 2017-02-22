@@ -30,7 +30,7 @@
 
 extern NSString *LOAD_ALL_RELATIONS;
 
-@class QueryOptions, BackendlessDataQuery, Fault, ObjectProperty;
+@class QueryOptions, Fault, ObjectProperty;
 @protocol IResponder, IDataStore;
 
 @interface PersistenceService : NSObject
@@ -44,7 +44,7 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(id)save:(id)entity;
 -(id)create:(id)entity;
 -(id)update:(id)entity;
--(NSArray *)find:(Class)entity dataQuery:(DataQueryBuilder *)dataQuery;
+-(NSArray *)find:(Class)entity queryBuilder:(DataQueryBuilder *)queryBuilder;
 -(id)first:(Class)entity;
 -(id)first:(Class)entity relations:(NSArray *)relations relationsDepth:(int)relationsDepth;
 -(id)last:(Class)entity;
@@ -64,10 +64,10 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(id)findByClassId:(Class)entity objectID:(NSString *)objectID queryBuilder:(DataQueryBuilder *)queryBuilder;
 -(NSNumber *)remove:(id)entity;
 -(NSNumber *)remove:(Class)entity sid:(NSString *)sid;
--(NSArray *)getView:(NSString *)viewName dataQuery:(BackendlessDataQuery *)dataQuery;
+-(NSArray *)getView:(NSString *)viewName queryBuilder:(DataQueryBuilder *)queryBuilder;
 -(NSArray *)callStoredProcedure:(NSString *)spName arguments:(NSDictionary *)arguments;
 -(NSNumber *)getObjectCount:(Class)entity;
--(NSNumber *)getObjectCount:(Class)entity dataQuery:(DataQueryBuilder *)dataQuery;
+-(NSNumber *)getObjectCount:(Class)entity queryBuilder:(DataQueryBuilder *)queryBuilder;
 //
 -(NSNumber *)setRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects;
 -(NSNumber *)setRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause;
@@ -98,7 +98,7 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(void)save:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)create:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)update:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)find:(Class)entity dataQuery:(DataQueryBuilder *)dataQuery response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)find:(Class)entity queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)first:(Class)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)first:(Class)entity relations:(NSArray *)relations relationsDepth:(int)relationsDepth response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)last:(Class)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
@@ -119,10 +119,10 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(void)findByClassId:(Class)entity objectID:(NSString *)objectID queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)remove:(id)entity response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)remove:(Class)entity sid:(NSString *)sid response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)getView:(NSString *)viewName dataQuery:(BackendlessDataQuery *)dataQuery response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)getView:(NSString *)viewName queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)callStoredProcedure:(NSString *)spName arguments:(NSDictionary *)arguments response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getObjectCount:(Class)entity response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)getObjectCount:(Class)entity dataQuery:(DataQueryBuilder *)dataQuery response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)getObjectCount:(Class)entity queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 //
 -(void)setRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)setRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;

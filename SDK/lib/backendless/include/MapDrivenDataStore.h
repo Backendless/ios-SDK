@@ -22,12 +22,12 @@
 #import <Foundation/Foundation.h>
 #import "IDataStore.h"
 
-@class BackendlessDataQuery, Fault;
+@class Fault;
 @protocol IResponder;
 
 @interface MapDrivenDataStore : NSObject <IDataStore>
-@property (strong, nonatomic, readonly) NSString *tableName;
 
+@property (strong, nonatomic, readonly) NSString *tableName;
 +(id)createDataStore:(NSString *)tableName;
 
 @end

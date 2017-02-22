@@ -35,7 +35,6 @@
 #import "Invoker.h"
 #import "ObjectProperty.h"
 #import "QueryOptions.h"
-#import "BackendlessDataQuery.h"
 #import "BackendlessEntity.h"
 #import "DataStoreFactory.h"
 #import "BackendlessCache.h"
@@ -80,7 +79,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 -(NSString *)objectClassName:(id)object;
 -(NSDictionary *)propertyDictionary:(id)object;
 -(id)propertyObject:(id)object;
--(NSArray *)getAsCollection:(id)data query:(BackendlessDataQuery *)query;
+-(NSArray *)getAsCollection:(id)data queryBuilder:(DataQueryBuilder *)queryBuilder;
 -(id)setRelations:(NSArray *)relations object:(id)object response:(id)response;
 // callbacks
 -(id)setCurrentPageSize:(ResponseContext *)collection;
@@ -396,12 +395,15 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     return [self setRelations:relations object:object response:result];
 }
 
--(NSArray *)find:(Class)entity dataQuery:(DataQueryBuilder *)dataQuery {
-    if (!entity) { return [backendless throwFault:FAULT_NO_ENTITY]; }
-    if (!dataQuery) { return [backendless throwFault:FAULT_FIELD_IS_NULL]; }
+-(NSArray *)find:(Class)entity queryBuilder:(DataQueryBuilder *)queryBuilder {
+    if (!entity) {
+        return [backendless throwFault:FAULT_NO_ENTITY];
+    }
+    if (!queryBuilder) {
+        return [backendless throwFault:FAULT_FIELD_IS_NULL];
+    }
     NSString *className = [self checker:(entity)];
-    BackendlessDataQuery *dataQuerybuilder = [dataQuery build];
-    NSArray *args = @[className, dataQuerybuilder];
+    NSArray *args = @[className, [queryBuilder build]];
     return [invoker invokeSync:PERSISTENCE_MANAGER_SERVER_ALIAS method:METHOD_FIND args:args];
 }
 
@@ -591,7 +593,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     }
     [self prepareClass:entity];
-    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], objectID, [queryBuilder bui], nil];
+    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], objectID, [queryBuilder build], nil];
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args];
 }
 
@@ -614,16 +616,13 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_REMOVE args:args];
 }
 
--(NSArray *)getView:(NSString *)viewName dataQuery:(BackendlessDataQuery *)dataQuery {
+-(NSArray *)getView:(NSString *)viewName queryBuilder:(DataQueryBuilder *)queryBuilder {
     if (!viewName) {
         return [backendless throwFault:FAULT_NAME_IS_NULL];
     }
-    if (!dataQuery) {
-        dataQuery = BACKENDLESS_DATA_QUERY;
-    }
-    NSArray *args = @[viewName, dataQuery];
+    NSArray *args = @[viewName, [queryBuilder build]];
     id result = [backendlessCache invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_CALL_STORED_VIEW args:args];
-    return [result isKindOfClass:[Fault class]] ? result : [self getAsCollection:result query:dataQuery];
+    return [result isKindOfClass:[Fault class]] ? result : [self getAsCollection:result queryBuilder:queryBuilder];
 }
 
 -(NSArray *)callStoredProcedure:(NSString *)spName arguments:(NSDictionary *)arguments {
@@ -645,16 +644,16 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_COUNT args:args];
 }
 
--(NSNumber *)getObjectCount:(Class)entity dataQuery:(DataQueryBuilder *)dataQuery {
+-(NSNumber *)getObjectCount:(Class)entity queryBuilder:(DataQueryBuilder *)queryBuilder {
     if (!entity) {
         return [backendless throwFault:FAULT_NO_ENTITY];
     }
-    if (!dataQuery) {
+    if (!queryBuilder) {
         return [backendless throwFault:FAULT_FIELD_IS_NULL];
     }
     NSString *className = [self checker:(entity)];
-    BackendlessDataQuery *dataQuerybuilder = [dataQuery build];
-    NSArray *args = @[className, dataQuerybuilder ? dataQuerybuilder:BACKENDLESS_DATA_QUERY];
+    BackendlessDataQuery *dataQuery = [queryBuilder build];
+    NSArray *args = @[className, dataQuery ? dataQuery:BACKENDLESS_DATA_QUERY];
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_COUNT args:args];
 }
 
@@ -868,17 +867,16 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     }
 }
 
--(void)find:(Class)entity dataQuery:(DataQueryBuilder *)dataQuery response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)find:(Class)entity queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!entity) {
         return [chainedResponder errorHandler:FAULT_NO_ENTITY];
     }
-    if (!dataQuery) {
+    if (!queryBuilder) {
         return [chainedResponder errorHandler: FAULT_FIELD_IS_NULL];
     }
-    BackendlessDataQuery *dataQuerybuilder = [dataQuery build];
     NSString *className = [self checker:(entity)];
-    NSArray *args = @[className, dataQuerybuilder];
+    NSArray *args = @[className, [queryBuilder build]];
     [invoker invokeAsync:PERSISTENCE_MANAGER_SERVER_ALIAS method:METHOD_FIND args:args responder:chainedResponder];
 }
 
@@ -1106,14 +1104,12 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_REMOVE args:args responder:chainedResponder];
 }
 
--(void)getView:(NSString *)viewName dataQuery:(BackendlessDataQuery *)dataQuery response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)getView:(NSString *)viewName queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!viewName) {
         return [chainedResponder errorHandler:FAULT_NAME_IS_NULL];
     }
-    if (!dataQuery) {
-        dataQuery = BACKENDLESS_DATA_QUERY;
-    }
+    BackendlessDataQuery *dataQuery = [queryBuilder build];
     NSArray *args = @[viewName, dataQuery];
     Responder *_responder = [Responder responder:chainedResponder selResponseHandler:@selector(setCurrentPageSize:) selErrorHandler:nil];
     _responder.context = dataQuery;
@@ -1142,17 +1138,17 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_COUNT args:args responder:chainedResponder];
 }
 
--(void)getObjectCount:(Class)entity dataQuery:(DataQueryBuilder *)dataQuery response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)getObjectCount:(Class)entity queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!entity) {
         return [chainedResponder errorHandler:FAULT_NO_ENTITY];
     }
-    if (!dataQuery) {
+    if (!queryBuilder) {
         return [chainedResponder errorHandler: FAULT_FIELD_IS_NULL];
     }
     NSString *className = [self checker:(entity)];
-    BackendlessDataQuery *dataQuerybuilder = [dataQuery build];
-    NSArray *args = @[className, dataQuerybuilder ? dataQuerybuilder:BACKENDLESS_DATA_QUERY];
+    BackendlessDataQuery *dataQuery = [queryBuilder build];
+    NSArray *args = @[className, dataQuery ? dataQuery:BACKENDLESS_DATA_QUERY];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_COUNT args:args responder:chainedResponder];
 }
 
@@ -1438,7 +1434,7 @@ id get_object_id(id self, SEL _cmd) {
     return object;
 }
 
--(NSArray *)getAsCollection:(id)data query:(BackendlessDataQuery *)query {
+-(NSArray *)getAsCollection:(id)data queryBuilder:(DataQueryBuilder *)queryBuilder {
     NSArray *collection = nil;
     if ([data isKindOfClass:[NSArray class]]) {
         collection = data;

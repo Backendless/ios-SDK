@@ -22,78 +22,75 @@
 #import "BETableView.h"
 #import "Backendless.h"
 
-@interface BETableView()<UITableViewDataSource>
-{
-    //Class _className;
-    //BackendlessDataQuery *_dataQuery;
-    //BackendlessGeoQuery *_geoQuery;
+@interface BETableView()<UITableViewDataSource> {
     NSArray *_collection;
     Responder *_responder;
     BOOL _needReloadData;
 }
+
 @property (nonatomic, strong) id<UITableViewDataSource> beTableViewDelegate;
 @property (nonatomic, strong) NSMutableArray *data;
+
 -(id)errorHandler:(Fault *)fault;
 -(void)initProperties;
 -(id)responseHandler:(id)response;
 -(NSArray *)getIndexPathsForOffset:(NSUInteger)offset Count:(NSUInteger)count;
+
 @end
+
 @implementation BETableView
+
 @synthesize data=_data;
--(void)dealloc
-{
+
+-(void)dealloc {
     [_collection release];
     [_beTableViewDelegate release];
-    //[_dataQuery release];
-    //[_geoQuery release];
     self.delegate = nil;
     self.dataSource = nil;
     [_responder release];
     [_data release];
     [super dealloc];
 }
--(void)initProperties
-{
+
+-(void)initProperties {
     _needReloadData = YES;
     self.dataSource = self;
     _responder = [[Responder responder:self selResponseHandler:@selector(responseHandler:) selErrorHandler:@selector(errorHandler:)] retain];
     _data = [NSMutableArray new];
 }
-- (id)initWithFrame:(CGRect)frame style:(UITableViewStyle)style
-{
+
+- (id)initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
     self = [super initWithFrame:frame style:style];
     if (self) {
-        
-        
     }
     return self;
 }
-- (id)initWithFrame:(CGRect)frame
-{
+
+- (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         [self initProperties];
     }
     return self;
 }
--(id)initWithCoder:(NSCoder *)aDecoder
-{
+
+-(id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
         [self initProperties];
     }
     return self;
 }
-- (id)init
-{
+
+- (id)init {
     self = [super init];
     if (self) {
         [self initProperties];
     }
     return self;
 }
--(NSArray *)getIndexPathsForOffset:(NSUInteger)offset Count:(NSUInteger)count
-{
+
+-(NSArray *)getIndexPathsForOffset:(NSUInteger)offset Count:(NSUInteger)count {
     NSMutableArray *result = [NSMutableArray array];
     for (NSUInteger i=offset; i < offset + count; i++) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
@@ -101,8 +98,8 @@
     }
     return result;
 }
--(id)responseHandler:(NSArray *)response
-{
+
+-(id)responseHandler:(NSArray *)response {
     [_collection release];
     _collection = [response retain];
     
@@ -114,23 +111,20 @@
         [_data addObjectsFromArray:response];
         [self reloadData];
     }
-    else
-    {
+    else {
         NSInteger offset = _data.count;
         NSInteger count = response.count;
         [_data addObjectsFromArray:response];
         [self insertRowsAtIndexPaths:[self getIndexPathsForOffset:offset Count:count] withRowAnimation:UITableViewRowAnimationFade];
     }
-    
     return response;
 }
--(id)errorHandler:(Fault *)fault
-{
+
+-(id)errorHandler:(Fault *)fault {
     return fault;
 }
 
--(void)setDataSource:(id<UITableViewDataSource>)dataSource
-{
+-(void)setDataSource:(id<UITableViewDataSource>)dataSource {
     if (dataSource == nil) {
         self.beTableViewDelegate = nil;
         [super setDataSource:nil];
@@ -142,8 +136,7 @@
     [super setDataSource:self];
 }
 
--(void)find:(Class)entity dataQuery:(BackendlessDataQuery *)dataQuery
-{
+-(void)find:(Class)entity queryBuilder:(DataQueryBuilder *)queryBuilder {
     _needReloadData = YES;
     NSString *className = NSStringFromClass(entity);
     if ([className containsString:@"."]) {
@@ -152,26 +145,21 @@
         NSArray *Array = [className componentsSeparatedByString:@"."];
         className = [Array lastObject];
     }
-
     _responder.chained = nil;
-    NSArray *collection = [backendless.persistenceService find:className dataQuery:dataQuery];
+    NSArray *collection = [backendless.persistenceService find:entity queryBuilder:queryBuilder];
     [self responseHandler:collection];
 }
--(void)find:(Class)className dataQuery:(BackendlessDataQuery *)dataQuery responder:(id)responder
-{
+    
+-(void)find:(Class)entity queryBuilder:(DataQueryBuilder *)queryBuiler responder:(id)responder {
     _needReloadData = YES;
-    //_className = [className copy];
-    //_dataQuery = [dataQuery retain];
     _responder.chained = responder;
-    [backendless.persistenceService find:className dataQuery:dataQuery responder:_responder];
+    [backendless.persistenceService find:entity queryBuilder:queryBuiler responder:_responder];
 }
--(void)find:(Class)className dataQuery:(BackendlessDataQuery *)dataQuery response:(void (^)(NSArray *))responseBlock error:(void (^)(Fault *))errorBlock
-{
+
+-(void)find:(Class)entity queryBuilder:(DataQueryBuilder *)queryBuiler response:(void (^)(NSArray *))responseBlock error:(void (^)(Fault *))errorBlock {
     _needReloadData = YES;
-    //_className = [className copy];
-    //_dataQuery = [dataQuery retain];
     _responder.chained = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
-    [backendless.persistenceService find:className dataQuery:dataQuery responder:_responder];
+    [backendless.persistenceService find:entity queryBuilder:queryBuiler responder:_responder];
 }
 
 

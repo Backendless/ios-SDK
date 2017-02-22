@@ -109,12 +109,13 @@ static NSString *_SERVER_PERSISTENCE_SERVICE_PATH = @"com.backendless.services.p
 }
 
 -(NSArray *)find {
-    return [self find:BACKENDLESS_DATA_QUERY];
+    //return [self find:BACKENDLESS_DATA_QUERY];
+    return [self find:[[DataQueryBuilder alloc] init]];
 }
 
--(NSArray *)find:(BackendlessDataQuery *)dataQuery {
-    NSArray *args = @[_tableName, dataQuery?dataQuery:BACKENDLESS_DATA_QUERY];
-    id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:@"find" args:args];
+-(NSArray *)find:(DataQueryBuilder *)queryBuilder {
+    NSArray *args = @[_tableName, [queryBuilder build]];
+    id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:@"" args:args];
     if ([result isKindOfClass:[Fault class]]) {
         return result;
     }
@@ -244,8 +245,8 @@ static NSString *_SERVER_PERSISTENCE_SERVICE_PATH = @"com.backendless.services.p
     [self findResponder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)find:(BackendlessDataQuery *)dataQuery response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self find:dataQuery responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+-(void)find:(DataQueryBuilder *)queryBuilder response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self find:queryBuilder responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 -(void)findFirst:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
