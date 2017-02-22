@@ -25,7 +25,6 @@
 @interface BECollectionView() <UICollectionViewDataSource>
 {
     //Class _className;
-    //BackendlessDataQuery *_dataQuery;
     //BackendlessGeoQuery *_geoQuery;
     Responder *_responder;
     BOOL _needReloadData;

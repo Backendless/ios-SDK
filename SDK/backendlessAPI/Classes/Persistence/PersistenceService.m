@@ -35,7 +35,6 @@
 #import "Invoker.h"
 #import "ObjectProperty.h"
 #import "QueryOptions.h"
-#import "BackendlessDataQuery.h"
 #import "BackendlessEntity.h"
 #import "DataStoreFactory.h"
 #import "BackendlessCache.h"

@@ -115,7 +115,7 @@ static NSString *_SERVER_PERSISTENCE_SERVICE_PATH = @"com.backendless.services.p
 
 -(NSArray *)find:(DataQueryBuilder *)queryBuilder {
     NSArray *args = @[_tableName, [queryBuilder build]];
-    id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_FIND args:args];
+    id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:@"" args:args];
     if ([result isKindOfClass:[Fault class]]) {
         return result;
     }
@@ -184,17 +184,8 @@ static NSString *_SERVER_PERSISTENCE_SERVICE_PATH = @"com.backendless.services.p
     return [result isKindOfClass:NSDictionary.class]?result:[Types propertyDictionary:result];
 }
 
--(NSDictionary<NSString *, id> *)findById:(NSString *)objectID relations:(NSArray<NSString *> *)relations queryBuilder:(DataQueryBuilder *)queryBuilder {
-    if (!objectID) {
-        return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
-    }
-    NSArray *args = @[_tableName, objectID, relations?relations:@[], [queryBuilder build]];
-    id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:_METHOD_FINDBYID args:args];
-    return [result isKindOfClass:NSDictionary.class]?result:[Types propertyDictionary:result];
-}
-
--(NSDictionary<NSString *, id> *)findById:(NSString *)objectID relations:(NSArray<NSString *> *)relations relationsDepth:(int)relationsDepth {
-    if (!objectID) {
+-(id)findById:(id)objectID relations:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth {
+    if (!objectID)
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     
     NSArray *args = @[_tableName, objectID, relations?relations:@[], @(relationsDepth)];
@@ -207,8 +198,9 @@ static NSString *_SERVER_PERSISTENCE_SERVICE_PATH = @"com.backendless.services.p
     return [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:@"count" args:args];
 }
 
--(NSNumber *)getObjectCount:(DataQueryBuilder *)queryBuilder {
-    return [backendless.persistenceService getObjectCount:NSClassFromString(_tableName) queryBuilder:queryBuilder];
+-(NSNumber *)getObjectCount:(DataQueryBuilder *)dataQuery{
+    NSArray *args = @[_tableName, [dataQuery build]];
+    return [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:@"count" args:args];
 }
 
 -(NSNumber *)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects {
@@ -331,8 +323,10 @@ static NSString *_SERVER_PERSISTENCE_SERVICE_PATH = @"com.backendless.services.p
     [invoker invokeAsync:_SERVER_PERSISTENCE_SERVICE_PATH method:@"count" args:args responder:chainedResponder];
 }
 
--(void)getObjectCount:(DataQueryBuilder *)queryBuilder response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [backendless.persistenceService getObjectCount:_tableName queryBuilder:queryBuilder response:responseBlock error:errorBlock];
+-(void)getObjectCount:(DataQueryBuilder *)dataQuery response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
+    Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    NSArray *args = @[_tableName, [dataQuery build]];
+    [invoker invokeAsync:_SERVER_PERSISTENCE_SERVICE_PATH method:@"count" args:args responder:chainedResponder];
 }
 
 -(void)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {

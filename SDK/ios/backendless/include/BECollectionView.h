@@ -20,7 +20,7 @@
  */
 
 #import <UIKit/UIKit.h>
-@class BackendlessDataQuery, DataQueryBuilder, Fault, BackendlessGeoQuery;
+@class DataQueryBuilder, Fault, BackendlessGeoQuery;
 @interface BECollectionView : UICollectionView
 
 -(id)getDataForIndexPath:(NSIndexPath *)indexPath;

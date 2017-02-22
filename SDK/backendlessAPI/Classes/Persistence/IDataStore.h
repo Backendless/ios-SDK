@@ -23,7 +23,7 @@
 #import "LoadRelationsQueryBuilder.h"
 #import "DataQueryBuilder.h"
 
-@class QueryOptions, BackendlessDataQuery, Fault, ObjectProperty;
+@class QueryOptions, Fault, ObjectProperty;
 @protocol IResponder;
 
 @protocol IDataStore <NSObject>

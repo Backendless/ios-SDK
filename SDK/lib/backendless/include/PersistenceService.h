@@ -30,7 +30,7 @@
 
 extern NSString *LOAD_ALL_RELATIONS;
 
-@class QueryOptions, BackendlessDataQuery, Fault, ObjectProperty;
+@class QueryOptions, Fault, ObjectProperty;
 @protocol IResponder, IDataStore;
 
 @interface PersistenceService : NSObject
