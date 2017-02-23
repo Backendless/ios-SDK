@@ -35,14 +35,19 @@
 -(NSArray *)find;
 -(NSArray *)find:(DataQueryBuilder *)queryBuilder;
 -(NSArray<ObjectProperty*> *)describe;
+
+// ****************************************************************
+
 -(id)findFirst;
--(id)findFirst:(int)relationsDepth;
--(id)findFirstWithRelations:(NSArray<NSString*> *)relations;
--(id)findFirst:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth;
+-(id)findFirst:(DataQueryBuilder *)queryBuilder;
+
+// ****************************************************************
+
 -(id)findLast;
--(id)findLast:(int)relationsDepth;
--(id)findLastWithRelations:(NSArray<NSString*> *)relations;
--(id)findLast:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth;
+-(id)findLast:(DataQueryBuilder *)queryBuilder;
+
+// ****************************************************************
+
 -(id)findById:(id)objectID;
 -(id)findById:(id)objectID queryBuilder:(DataQueryBuilder *)queryBuilder;
 -(id)findById:(id)objectID relationsDepth:(int)relationsDepth;
@@ -66,14 +71,18 @@
 -(void)removeID:(NSString *)objectID response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)find:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)find:(DataQueryBuilder *)queryBuilder response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
+
+// ****************************************************************
+
 -(void)findFirst:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)findFirst:(int)relationsDepth response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)findFirstWithRelations:(NSArray<NSString*> *)relations response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)findFirst:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)findFirst:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+
+// ****************************************************************
+
 -(void)findLast:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)findLast:(int)relationsDepth response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)findLastWithRelations:(NSArray<NSString*> *)relations response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)findLast:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)findLast:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+
+// ****************************************************************
 
 -(void)describeResponse:(void(^)(NSArray<ObjectProperty*> *))responseBlock error:(void(^)(Fault *))errorBlock;
 

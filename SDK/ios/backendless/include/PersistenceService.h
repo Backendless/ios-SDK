@@ -45,10 +45,19 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(id)create:(id)entity;
 -(id)update:(id)entity;
 -(NSArray *)find:(Class)entity queryBuilder:(DataQueryBuilder *)queryBuilder;
+
+// ***********************************************************
+
 -(id)first:(Class)entity;
--(id)first:(Class)entity relations:(NSArray *)relations relationsDepth:(int)relationsDepth;
+-(id)first:(Class)entity queryBuilder:(DataQueryBuilder *)queryBuilder;
+
+// ***********************************************************
+
 -(id)last:(Class)entity;
--(id)last:(Class)entity relations:(NSArray *)relations relationsDepth:(int)relationsDepth;
+-(id)last:(Class)entity queryBuilder:(DataQueryBuilder *)queryBuilder;
+
+// ***********************************************************
+
 -(id)findByObject:(id)entity;
 -(id)findByObject:(id)entity queryBuilder:(DataQueryBuilder *)queryBuilder;
 -(id)findByObject:(id)entity relations:(NSArray *)relations;
@@ -99,10 +108,19 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(void)create:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)update:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)find:(Class)entity queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
+
+// ***********************************************************
+
 -(void)first:(Class)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)first:(Class)entity relations:(NSArray *)relations relationsDepth:(int)relationsDepth response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)first:(Class)entity queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+
+// ***********************************************************
+
 -(void)last:(Class)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)last:(Class)entity relations:(NSArray *)relations relationsDepth:(int)relationsDepth response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)last:(Class)entity queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+
+// ***********************************************************
+
 -(void)findByObject:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)findByObject:(id)entity queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)findByObject:(id)entity relations:(NSArray *)relations response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
