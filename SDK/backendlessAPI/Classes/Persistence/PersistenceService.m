@@ -405,8 +405,6 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     return [invoker invokeSync:PERSISTENCE_MANAGER_SERVER_ALIAS method:METHOD_FIND args:args];
 }
 
-// ***************************************************
-
 -(id)first:(Class)entity {
     if (!entity) {
         return [backendless throwFault:FAULT_NO_ENTITY];
@@ -421,15 +419,9 @@ NSString *LOAD_ALL_RELATIONS = @"*";
         return [backendless throwFault:FAULT_NO_ENTITY];
     }
     [self prepareClass:entity];
-    
-    NSArray *relations = [queryBuilder getRelated];
-    int relationsDepth = [queryBuilder getRelationsDepth];
-    
-    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], relations, @(relationsDepth), nil];
+    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], [queryBuilder getRelated], @([queryBuilder getRelationsDepth]), [queryBuilder getProperties], nil];
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:@"first" args:args];
 }
-
-// ***************************************************
 
 -(id)last:(Class)entity {
     if (!entity) {
@@ -445,15 +437,9 @@ NSString *LOAD_ALL_RELATIONS = @"*";
         return [backendless throwFault:FAULT_NO_ENTITY];
     }
     [self prepareClass:entity];
-    
-    NSArray *relations = [queryBuilder getRelated];
-    int relationsDepth = [queryBuilder getRelationsDepth];
-    
-    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], relations, @(relationsDepth), nil];
+    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], [queryBuilder getRelated], @([queryBuilder getRelationsDepth]), [queryBuilder getProperties], nil];
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:@"last" args:args];
 }
-
-// ***************************************************
 
 #define _FIND_BY_INSTANCE_ 0
 
@@ -914,11 +900,9 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     NSArray *relations = [queryBuilder getRelated];
     int relationsDepth = [queryBuilder getRelationsDepth];
     
-    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], relations, @(relationsDepth), nil];
+    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], relations, @(relationsDepth), [queryBuilder getProperties], nil];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:@"first" args:args responder:chainedResponder];
 }
-
-// ***************************************************
 
 -(void)last:(Class)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
@@ -939,12 +923,9 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     
     NSArray *relations = [queryBuilder getRelated];
     int relationsDepth = [queryBuilder getRelationsDepth];
-    
-    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], relations, @(relationsDepth), nil];    
+    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], [queryBuilder getRelated], @([queryBuilder getRelationsDepth]), [queryBuilder getProperties], nil];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:@"last" args:args responder:chainedResponder];
 }
-
-// ***************************************************
 
 -(void)findByObject:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];

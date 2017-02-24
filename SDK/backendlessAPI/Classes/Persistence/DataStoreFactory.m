@@ -87,8 +87,6 @@
     return [backendless.persistenceService find:_entityClass queryBuilder:queryBuilder];
 }
 
-// ****************************************************************
-
 -(id)findFirst {
     return [backendless.persistenceService first:_entityClass];
 }
@@ -97,8 +95,6 @@
     return [backendless.persistenceService first:_entityClass queryBuilder:queryBuilder];
 }
 
-// ****************************************************************
-
 -(id)findLast {
     return [backendless.persistenceService last:_entityClass];
 }
@@ -106,8 +102,6 @@
 -(id)findLast:(DataQueryBuilder *)queryBuilder {
     return [backendless.persistenceService last:_entityClass queryBuilder:queryBuilder];
 }
-
-// ****************************************************************
 
 -(NSArray<ObjectProperty *> *)describe {
     return [backendless.persistenceService describe:NSStringFromClass(_entityClass)];
@@ -207,8 +201,6 @@
     [backendless.persistenceService find:_entityClass queryBuilder:queryBuilder response:responseBlock error:errorBlock];
 }
 
-// ****************************************************************
-
 -(void)findFirst:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.persistenceService first:_entityClass response:responseBlock error:errorBlock];
 }
@@ -217,8 +209,6 @@
     [backendless.persistenceService first:_entityClass queryBuilder:queryBuilder response:responseBlock error:errorBlock];
 }
 
-// ****************************************************************
-
 -(void)findLast:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.persistenceService last:_entityClass response:responseBlock error:errorBlock];
 }
@@ -226,8 +216,6 @@
 -(void)findLast:(DataQueryBuilder *)queryBuilder response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
     [backendless.persistenceService last:_entityClass queryBuilder:queryBuilder response:responseBlock error:errorBlock];
 }
-
-// ****************************************************************
 
 -(void)describeResponse:(void (^)(NSArray<ObjectProperty*> *))responseBlock error:(void (^)(Fault *))errorBlock {
     [backendless.persistenceService describe:NSStringFromClass(_entityClass) response:responseBlock error:errorBlock];
