@@ -218,7 +218,9 @@ static NSString *_SERVER_PERSISTENCE_SERVICE_PATH = @"com.backendless.services.p
 // async methods with block-based callbacks
 
 -(void)save:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [backendless.persistenceService save:entity response:responseBlock error:errorBlock];
+    Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    NSArray *args = @[_tableName, entity];
+    [invoker invokeAsync:_SERVER_PERSISTENCE_SERVICE_PATH method:@"save" args:args responder:chainedResponder];
 }
 
 -(void)remove:(NSDictionary<NSString*,id> *)entity response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
