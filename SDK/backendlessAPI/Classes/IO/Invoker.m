@@ -113,7 +113,6 @@ static NSString *URL_DESTINATION = @"GenericDestination";
 }
 
 -(id)invokeSync:(NSString *)className method:(NSString *)methodName args:(NSArray *)args {
-    
     id result = [client invoke:className method:methodName args:args];
     if (_throwException && [result isKindOfClass:[Fault class]])
         @throw result;
