@@ -194,7 +194,7 @@
 }
 
 -(void)find:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [backendless.persistenceService find:_entityClass response:responseBlock error:errorBlock];
+    [backendless.persistenceService find:_entityClass queryBuilder:[DataQueryBuilder new] response:responseBlock error:errorBlock];
 }
 
 -(void)find:(DataQueryBuilder *)queryBuilder response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {

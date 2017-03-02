@@ -109,8 +109,8 @@ static NSString *_SERVER_PERSISTENCE_SERVICE_PATH = @"com.backendless.services.p
 }
 
 -(NSArray *)find {
-    //return [self find:BACKENDLESS_DATA_QUERY];
-    return [self find:[[DataQueryBuilder alloc] init]];
+    NSArray *args = @[_tableName, [DataQueryBuilder new]];
+    return [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:@"find" args:args];
 }
 
 -(NSArray *)find:(DataQueryBuilder *)queryBuilder {
@@ -228,7 +228,9 @@ static NSString *_SERVER_PERSISTENCE_SERVICE_PATH = @"com.backendless.services.p
 }
 
 -(void)find:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self findResponder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    NSArray *args = @[_tableName, [DataQueryBuilder new]];
+    return [invoker invokeAsync:_SERVER_PERSISTENCE_SERVICE_PATH method:@"find" args:args responder:chainedResponder];
 }
 
 -(void)find:(DataQueryBuilder *)queryBuilder response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
