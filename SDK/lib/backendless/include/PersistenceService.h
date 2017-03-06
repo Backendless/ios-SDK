@@ -38,7 +38,7 @@ extern NSString *LOAD_ALL_RELATIONS;
 @property (strong, nonatomic, readonly) DataPermission *permissions;
 
 // sync methods with fault return (as exception)
--(NSArray<ObjectProperty*> *)describe:(NSString *)classCanonicalName;
+-(NSArray<ObjectProperty*> *)describe:(NSString *)entityName;
 -(NSDictionary *)save:(NSString *)entityName entity:(NSDictionary *)entity;
 -(NSDictionary *)update:(NSString *)entityName entity:(NSDictionary *)entity sid:(NSString *)sid;
 -(id)save:(id)entity;
@@ -101,7 +101,7 @@ extern NSString *LOAD_ALL_RELATIONS;
  */
 
 // async methods with block-based callbacks
--(void)describe:(NSString *)classCanonicalName response:(void(^)(NSArray<ObjectProperty*> *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)describe:(NSString *)entityName response:(void(^)(NSArray<ObjectProperty*> *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)save:(NSString *)entityName entity:(NSDictionary *)entity response:(void(^)(NSDictionary *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)update:(NSString *)entityName entity:(NSDictionary *)entity sid:(NSString *)sid response:(void(^)(NSDictionary *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)save:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;

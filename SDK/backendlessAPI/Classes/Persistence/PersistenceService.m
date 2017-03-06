@@ -56,7 +56,6 @@ static NSString *METHOD_UPDATE = @"update";
 static NSString *METHOD_SAVE = @"save";
 static NSString *METHOD_REMOVE = @"remove";
 static NSString *METHOD_FINDBYID = @"findById";
-static NSString *METHOD_DESCRIBE = @"describe";
 static NSString *METHOD_FIND = @"find";
 static NSString *METHOD_LOAD = @"loadRelations";
 static NSString *METHOD_CALL_STORED_VIEW = @"callStoredView";
@@ -237,13 +236,13 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 
 // sync methods with fault return  (as exception)
 
--(NSArray<ObjectProperty *> *)describe:(NSString *)classCanonicalName {
-    if (!classCanonicalName) {
+-(NSArray<ObjectProperty *> *)describe:(NSString *)entityName {
+    if (!entityName || [entityName isEqualToString:@""]) {
         return [backendless throwFault:FAULT_NO_ENTITY];
     }
-    [self prepareClass:NSClassFromString(classCanonicalName)];
-    NSArray *args = [NSArray arrayWithObjects:classCanonicalName, nil];
-    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_DESCRIBE args:args];
+    [self prepareClass:NSClassFromString(entityName)];
+    NSArray *args = [NSArray arrayWithObjects:entityName, nil];
+    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:@"describe" args:args];
 }
 
 -(NSDictionary *)save:(NSString *)entityName entity:(NSDictionary *)entity {
@@ -720,14 +719,14 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 
 // async methods with block-base callbacks
 
--(void)describe:(NSString *)classCanonicalName response:(void(^)(NSArray<ObjectProperty*> *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)describe:(NSString *)entityName response:(void(^)(NSArray<ObjectProperty*> *))responseBlock error:(void(^)(Fault *))errorBlock {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
-    if (!classCanonicalName) {
+    if (!entityName || [entityName isEqualToString:@""]) {
         return [chainedResponder errorHandler:FAULT_NO_ENTITY];
     }
-    [self prepareClass:NSClassFromString(classCanonicalName)];
-    NSArray *args = [NSArray arrayWithObjects:classCanonicalName, nil];
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_DESCRIBE args:args responder:chainedResponder];
+    [self prepareClass:NSClassFromString(entityName)];
+    NSArray *args = [NSArray arrayWithObjects:entityName, nil];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:@"describe" args:args responder:chainedResponder];
 }
 
 -(void)save:(NSString *)entityName entity:(NSDictionary *)entity response:(void(^)(NSDictionary *))responseBlock error:(void(^)(Fault *))errorBlock {
