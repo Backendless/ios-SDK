@@ -103,10 +103,6 @@
     return [backendless.persistenceService last:_entityClass queryBuilder:queryBuilder];
 }
 
--(NSArray<ObjectProperty *> *)describe {
-    return [backendless.persistenceService describe:NSStringFromClass(_entityClass)];
-}
-
 -(id)findById:(id)objectId {
     if ([objectId isKindOfClass:[NSString class]]) {
         return [backendless.persistenceService findByClassId:_entityClass sid:objectId];
@@ -215,10 +211,6 @@
 
 -(void)findLast:(DataQueryBuilder *)queryBuilder response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
     [backendless.persistenceService last:_entityClass queryBuilder:queryBuilder response:responseBlock error:errorBlock];
-}
-
--(void)describeResponse:(void (^)(NSArray<ObjectProperty*> *))responseBlock error:(void (^)(Fault *))errorBlock {
-    [backendless.persistenceService describe:NSStringFromClass(_entityClass) response:responseBlock error:errorBlock];
 }
 
 -(void)findById:(id)objectId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {

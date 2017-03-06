@@ -34,7 +34,6 @@
 -(NSNumber *)removeById:(NSString *)objectId;
 -(NSArray *)find;
 -(NSArray *)find:(DataQueryBuilder *)queryBuilder;
--(NSArray<ObjectProperty*> *)describe;
 
 // ****************************************************************
 
@@ -83,8 +82,6 @@
 -(void)findLast:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 
 // ****************************************************************
-
--(void)describeResponse:(void(^)(NSArray<ObjectProperty*> *))responseBlock error:(void(^)(Fault *))errorBlock;
 
 -(void)findById:(id)objectId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)findById:(id)objectId queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
