@@ -49,9 +49,6 @@
 
 -(id)findById:(id)objectId;
 -(id)findById:(id)objectId queryBuilder:(DataQueryBuilder *)queryBuilder;
--(id)findById:(id)objectId relationsDepth:(int)relationsDepth;
--(id)findById:(id)objectId relations:(NSArray<NSString*> *)relations;
--(id)findById:(id)objectId relations:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth;
 -(NSNumber *)getObjectCount;
 -(NSNumber *)getObjectCount:(DataQueryBuilder *)queryBuilder;
 //
@@ -85,9 +82,6 @@
 
 -(void)findById:(id)objectId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)findById:(id)objectId queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)findById:(id)objectId relationsDepth:(int)relationsDepth response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)findById:(id)objectId relations:(NSArray<NSString*> *)relations response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)findById:(NSString *)objectId relations:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getObjectCount:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getObjectCount:(DataQueryBuilder *)queryBuilder response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 //
