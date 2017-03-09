@@ -148,33 +148,28 @@ static NSString *_SERVER_PERSISTENCE_SERVICE_PATH = @"com.backendless.services.p
 }
 
 -(id)findById:(id)objectId {
-    return [self findById:objectId relations:@[]];
-}
-
--(id)findById:(NSString *)objectId queryBuilder:(DataQueryBuilder *)queryBuilder {
-    return [self findById:objectId relations:@[] queryBuilder:queryBuilder];
-}
-
--(id)findById:(NSString *)objectId relationsDepth:(int)relationsDepth {
-    return [self findById:objectId relations:@[] relationsDepth:relationsDepth];
-}
-
--(id)findById:(NSString *)objectId relations:(NSArray<NSString *> *)relations {
-    if (!objectId) {
-        return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
+    if ([objectId isKindOfClass:[NSString class]]) {
+        return [backendless.persistenceService findById:_tableName objectId:objectId];
     }
-    NSArray *args = @[_tableName, objectId, relations?relations:@[]];
-    id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:@"findById" args:args];
-    return [result isKindOfClass:NSDictionary.class]?result:[Types propertyDictionary:result];
+    else if ([objectId isKindOfClass:[NSDictionary class]]) {
+        return [backendless.persistenceService findByObject:_tableName keys:objectId];
+    }
+    else {
+        return [backendless.persistenceService findByObject:objectId];
+    }
 }
 
--(id)findById:(id)objectId relations:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth {
-    if (!objectId)
-        return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
+-(id)findById:(id)objectId queryBuilder:(DataQueryBuilder *)queryBuilder {
     
-    NSArray *args = @[_tableName, objectId, relations?relations:@[], @(relationsDepth)];
-    id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:@"findById" args:args];
-    return [result isKindOfClass:NSDictionary.class]?result:[Types propertyDictionary:result];
+    if ([objectId isKindOfClass:[NSString class]]) {
+        return [backendless.persistenceService findById:_tableName objectId:objectId queryBuilder:queryBuilder];
+    }
+    else if ([objectId isKindOfClass:[NSDictionary class]]) {
+        return [backendless.persistenceService findByObject:_tableName keys:objectId queryBuilder:queryBuilder];
+    }
+    else {
+        return [backendless.persistenceService findByObject:objectId queryBuilder:queryBuilder];
+    }
 }
 
 -(NSNumber *)getObjectCount {
@@ -232,11 +227,13 @@ static NSString *_SERVER_PERSISTENCE_SERVICE_PATH = @"com.backendless.services.p
 -(void)find:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     NSArray *args = @[_tableName, [DataQueryBuilder new]];
-    return [invoker invokeAsync:_SERVER_PERSISTENCE_SERVICE_PATH method:@"find" args:args responder:chainedResponder];
+    [invoker invokeAsync:_SERVER_PERSISTENCE_SERVICE_PATH method:@"find" args:args responder:chainedResponder];
 }
 
 -(void)find:(DataQueryBuilder *)queryBuilder response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self find:queryBuilder responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    NSArray *args = @[_tableName, queryBuilder];
+    [invoker invokeAsync:_SERVER_PERSISTENCE_SERVICE_PATH method:@"find" args:args responder:chainedResponder];
 }
 
 -(void)findFirst:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -265,15 +262,13 @@ static NSString *_SERVER_PERSISTENCE_SERVICE_PATH = @"com.backendless.services.p
 
 -(void)findById:(id)objectId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     if ([objectId isKindOfClass:[NSString class]]) {
-        [backendless.persistenceService findById:_tableName sid:objectId response:responseBlock error:errorBlock];
+        [backendless.persistenceService findById:_tableName objectId:objectId response:responseBlock error:errorBlock];
+    }
+    else if ([objectId isKindOfClass:[NSDictionary class]]) {
+        [backendless.persistenceService findByObject:_tableName keys:objectId response:responseBlock error:errorBlock];
     }
     else {
-        if ([objectId isKindOfClass:[NSDictionary class]]) {
-            [backendless.persistenceService findByObject:_tableName keys:objectId response:responseBlock error:errorBlock];
-        }
-        else {
-            [backendless.persistenceService findByObject:objectId response:responseBlock error:errorBlock];
-        }
+        [backendless.persistenceService findByObject:objectId response:responseBlock error:errorBlock];
     }
 }
 
@@ -281,22 +276,12 @@ static NSString *_SERVER_PERSISTENCE_SERVICE_PATH = @"com.backendless.services.p
     if ([objectId isKindOfClass:[NSString class]]) {
         [backendless.persistenceService findById:_tableName objectId:objectId queryBuilder:queryBuilder response:responseBlock error:errorBlock];
     }
-    else {
-        if ([objectId isKindOfClass:[NSDictionary class]]) {
-            [backendless.persistenceService findByObject:_tableName keys:objectId queryBuilder:queryBuilder response:responseBlock error:errorBlock];
-        }
-        else {
-            [backendless.persistenceService findByObject:objectId queryBuilder:queryBuilder response:responseBlock error:errorBlock];
-        }
+    else if ([objectId isKindOfClass:[NSDictionary class]]) {
+        [backendless.persistenceService findByObject:_tableName keys:objectId queryBuilder:queryBuilder response:responseBlock error:errorBlock];
     }
-}
-
--(void)findById:(id)objectId relations:(NSArray<NSString*> *)relations response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self findById:objectId relations:relations responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
-}
-
--(void)findById:(NSString *)objectId relations:(NSArray<NSString*> *)relations relationsDepth:(int)relationsDepth response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self findById:objectId relations:relations relationsDepth:relationsDepth responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    else {
+        [backendless.persistenceService findByObject:objectId queryBuilder:queryBuilder response:responseBlock error:errorBlock];
+    }
 }
 
 -(void)getObjectCount:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
