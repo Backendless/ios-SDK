@@ -56,6 +56,7 @@ static NSString *METHOD_UPDATE = @"update";
 static NSString *METHOD_SAVE = @"save";
 static NSString *METHOD_REMOVE = @"remove";
 static NSString *METHOD_FIND = @"find";
+static NSString *METHOD_FINDBYID = @"findById";
 static NSString *METHOD_LOAD = @"loadRelations";
 static NSString *METHOD_CALL_STORED_VIEW = @"callStoredView";
 static NSString *METHOD_CALL_STORED_PROCEDURE = @"callStoredProcedure";
@@ -450,7 +451,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 #else
     NSArray *args = @[[self objectClassName:entity], [self propertyDictionary:entity]];
 #endif
-    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:@"findById" args:args];
+    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args];
 }
 
 -(id)findByObject:(id)entity queryBuilder:(DataQueryBuilder *)queryBuilder {
@@ -462,7 +463,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 #else
     NSArray *args = @[[self objectClassName:entity], [self propertyDictionary:entity], [queryBuilder build]];
 #endif
-    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:@"findById" args:args];
+    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args];
 }
 
 -(id)findByObject:(id)entity relations:(NSArray *)relations {
@@ -474,7 +475,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 #else
     NSArray *args = @[[self objectClassName:entity], [self propertyDictionary:entity], relations];
 #endif
-    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:@"findById" args:args];
+    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args];
 }
 
 -(id)findByObject:(id)entity relations:(NSArray *)relations relationsDepth:(int)relationsDepth {
@@ -486,7 +487,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 #else
     NSArray *args = @[[self objectClassName:entity], [self propertyDictionary:entity], relations, @(relationsDepth)];
 #endif
-    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:@"findById" args:args];
+    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args];
 }
 
 -(id)findByObject:(NSString *)className keys:(NSDictionary *)props {
@@ -497,7 +498,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     }
     NSArray *args = @[className, props];
-    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:@"findById" args:args];
+    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args];
 }
 
 -(id)findByObject:(NSString *)className keys:(NSDictionary *)props queryBuilder:(DataQueryBuilder *)queryBuilder {
@@ -508,7 +509,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     }
     NSArray *args = @[className, props, [queryBuilder build]];
-    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:@"findById" args:args];
+    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args];
 }
 
 -(id)findById:(NSString *)entityName objectId:(NSString *)objectId {
@@ -520,7 +521,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     }
     [self prepareClass:NSClassFromString(entityName)];
     NSArray *args = [NSArray arrayWithObjects:entityName, objectId, nil];
-    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:@"findById" args:args];
+    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args];
 }
 
 -(id)findById:(NSString *)entityName objectId:(NSString *)objectId queryBuilder:(DataQueryBuilder *)queryBuilder {
@@ -532,7 +533,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     }
     [self prepareClass:NSClassFromString(entityName)];
     NSArray *args = [NSArray arrayWithObjects:entityName, objectId, [queryBuilder build], nil];
-    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:@"findById" args:args];
+    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args];
 }
 
 -(id)findByClassId:(Class)entity objectId:(NSString *)objectId {
@@ -544,7 +545,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     }
     [self prepareClass:entity];
     NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], objectId, nil];
-    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:@"findById" args:args];
+    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args];
 }
 
 -(id)findByClassId:(Class)entity objectId:(NSString *)objectId queryBuilder:(DataQueryBuilder *)queryBuilder {
@@ -556,7 +557,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     }
     [self prepareClass:entity];
     NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], objectId, [queryBuilder build], nil];
-    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:@"findById" args:args];
+    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args];
 }
 
 -(NSNumber *)remove:(id)entity {
@@ -895,7 +896,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
         return [chainedResponder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     }
     NSArray *args = @[[self objectClassName:entity], entity];
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:@"findById" args:args responder:chainedResponder];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder];
 }
 
 -(void)findByObject:(id)entity queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -904,7 +905,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
         return [chainedResponder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     }
     NSArray *args = @[[self objectClassName:entity], entity, [queryBuilder build]];
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:@"findById" args:args responder:chainedResponder];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder];
 }
 
 -(void)findByObject:(id)entity relations:(NSArray *)relations response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -913,7 +914,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
         return [chainedResponder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     }
     NSArray *args = @[[self objectClassName:entity],entity, relations];
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:@"findById" args:args responder:chainedResponder];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder];
 }
 
 -(void)findByObject:(id)entity relations:(NSArray *)relations relationsDepth:(int)relationsDepth response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -922,7 +923,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
         return [chainedResponder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     }
     NSArray *args = @[[self objectClassName:entity], entity, relations, @(relationsDepth)];
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:@"findById" args:args responder:chainedResponder];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder];
 }
 
 -(void)findByObject:(NSString *)className keys:(NSDictionary *)props response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -934,7 +935,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
         return [chainedResponder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     }
     NSArray *args = [NSArray arrayWithObjects:className, props, nil];
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:@"findById" args:args responder:chainedResponder];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder];
 }
 
 -(void)findByObject:(NSString *)className keys:(NSDictionary *)props queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -946,7 +947,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
         return [chainedResponder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     }
     NSArray *args = [NSArray arrayWithObjects:className, props, [queryBuilder build], nil];
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:@"findById" args:args responder:chainedResponder];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder];
 }
 
 -(void)findByObject:(NSString *)className keys:(NSDictionary *)props relations:(NSArray *)relations response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -958,7 +959,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
         return [chainedResponder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     }
     NSArray *args = [NSArray arrayWithObjects:className, props, relations, nil];
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:@"findById" args:args responder:chainedResponder];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder];
 }
 
 -(void)findByObject:(NSString *)className keys:(NSDictionary *)props relations:(NSArray *)relations relationsDepth:(int)relationsDepth response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -970,7 +971,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
         return [chainedResponder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     }
     NSArray *args = [NSArray arrayWithObjects:className, props, relations, @(relationsDepth), nil];
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:@"findById" args:args responder:chainedResponder];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder];
 }
 
 -(void)findById:(NSString *)entityName objectId:(NSString *)objectId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -983,7 +984,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     }
     [self prepareClass:NSClassFromString(entityName)];
     NSArray *args = [NSArray arrayWithObjects:entityName, objectId, nil];
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:@"findById" args:args responder:chainedResponder];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder];
 }
 
 -(void)findById:(NSString *)entityName objectId:(NSString *)objectId queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -996,7 +997,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     }
     [self prepareClass:NSClassFromString(entityName)];
     NSArray *args = [NSArray arrayWithObjects:entityName, objectId, [queryBuilder build], nil];
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:@"findById" args:args responder:chainedResponder];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder];
 }
 
 -(void)findByClassId:(Class)entity sid:(NSString *)sid response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -1009,7 +1010,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     }
     [self prepareClass:entity];
     NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], sid, nil];
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:@"findById" args:args responder:chainedResponder];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder];
 }
 
 -(void)findByClassId:(Class)entity objectId:(NSString *)objectId queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -1022,7 +1023,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     }
     [self prepareClass:entity];
     NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], objectId, [queryBuilder build], nil];
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:@"findById" args:args responder:chainedResponder];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder];
 }
 
 -(void)remove:(id)entity response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
