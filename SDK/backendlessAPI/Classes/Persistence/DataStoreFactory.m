@@ -239,7 +239,7 @@
     [backendless.persistenceService getObjectCount:_entityClass queryBuilder:queryBuilder response:responseBlock error:errorBlock];
 }
 
--(void)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.persistenceService setRelation:NSStringFromClass(_entityClass) columnName:columnName parentObjectId:parentObjectId childObjects:childObjects response:responseBlock error:errorBlock];
 }
 

@@ -296,7 +296,7 @@ static NSString *_SERVER_PERSISTENCE_SERVICE_PATH = @"com.backendless.services.p
     [invoker invokeAsync:_SERVER_PERSISTENCE_SERVICE_PATH method:@"count" args:args responder:chainedResponder];
 }
 
--(void)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.persistenceService setRelation:(_tableName) columnName:columnName parentObjectId:parentObjectId childObjects:childObjects response:responseBlock error:errorBlock];
 }
 
