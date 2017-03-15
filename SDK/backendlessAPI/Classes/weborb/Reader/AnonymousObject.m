@@ -1,0 +1,515 @@
+//
+//  AnonymousObject.m
+//  RTMPStream
+//
+//  Created by Вячеслав Вдовиченко on 15.03.11.
+//  Copyright 2011 The Midnight Coders, Inc. All rights reserved.
+//
+
+#import <CoreData/CoreData.h>
+#import "ITypeReader.h"
+#import "AnonymousObject.h"
+#import "DEBUG.h"
+#import "Types.h"
+#import "ObjectFactories.h"
+#import "BinaryStream.h"
+#import "V3Message.h"
+//
+#import "NamedObject.h"
+
+@implementation AnonymousObject
+@synthesize properties;
+
+-(id)init {	
+	if ( (self=[super init]) ) {
+		self.properties = [NSMutableDictionary dictionary];
+	}
+	
+	return self;
+}
+
+-(id)initWithNode:(NSMutableDictionary  *)dictionary {	
+	if ( (self=[super init]) ) {
+		self.properties = dictionary;
+	}
+	
+	return self;
+}
+
++(id)objectType {
+#if AUTORELEASED_ANONYMOUS_OBJECT
+	return [[[AnonymousObject alloc] init] autorelease];
+#else
+    return [AnonymousObject new];
+#endif
+}
+
++(id)objectType:(NSMutableDictionary  *)dictionary {
+    [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> (#######) +(id)objectType: PROPERTIES: %@", dictionary];
+#if AUTORELEASED_ANONYMOUS_OBJECT
+    return [[[AnonymousObject alloc] initWithNode:dictionary] autorelease];
+#else
+	return [[AnonymousObject alloc] initWithNode:dictionary];
+#endif
+}
+
+-(void)dealloc {
+	
+	[DebLog logN:@"DEALLOC AnonymousObject"];
+	
+	[super dealloc];
+}
+
+
+#pragma mark -
+#pragma mark Private Methods
+
+-(Class)propertyType:(NSString *)attributes {
+    
+    const char *attr = [attributes UTF8String];
+    if (attr[0] != 'T' || attr[1] != '@') 
+        return [NSNull class];
+    
+    if (attr[2] == ',')
+        return [NSObject class];
+    
+    if (attr[2] == '"') {
+        size_t length = attributes.length;
+        for (int i = 3; i < length; i++) {
+            if (attr[i] == '"') {
+                size_t count = i - 3;
+                if (count == 0)
+                    break;
+                
+                char *buffer = malloc(count+1);
+                memmove(buffer, &attr[3], count);
+                buffer[count] = 0;
+                Class type = [__types classByName:[NSString stringWithUTF8String:buffer]];
+                free(buffer);
+                return (type) ? type : [NSObject class];
+            }
+        }
+    }
+    
+    return [NSObject class];
+}
+
+-(char)propertyCode:(NSString *)attributes {    
+    const char *attr = [attributes UTF8String];
+    return (attributes && (attributes.length > 1) && attr[0] == 'T') ? attr[1] : 0;
+}
+
+-(id)propertyValue:(id)obj {
+    return [obj conformsToProtocol:@protocol(IAdaptingType)] ? [obj defaultAdapt] : nil;
+}
+
+-(id)setFieldsDirect:(id)obj cache:(ReaderReferenceCache *)referenceCache {
+   
+    NSDictionary *props = [Types propertyDictionary:obj];
+    NSDictionary *attrs = [Types propertyKeysWithAttributes:obj];
+    NSArray *names = [props allKeys];
+    
+    [DebLog log:_ON_READERS_LOG_ text:@"\n\n\nAnonymousObject -> setFieldsDirect: START obj <%@> props = %@\n properties = %@", [obj class], props, properties];
+    
+    for (NSString *memberName in names) {
+        
+        //---------------------
+        
+        id prop = [props valueForKey:memberName];
+        [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> setFieldsDirect: PROPERTY %@ <%@>", memberName, [prop class]];
+        
+        //---------------------
+        
+        id propValue = [properties valueForKey:memberName];
+        if (!propValue) {
+         
+            // and with uppercased first char of property name?
+            NSString *upper = [memberName firstCharToUpper];
+            propValue = [properties valueForKey:upper];
+            
+            [DebLog logN:@"AnonymousObject -> setFieldsDirect: (upper) %@ = %@", upper, propValue];
+        }
+         
+        if (!propValue || [propValue isKindOfClass:[NSNull class]]) {
+            [DebLog logN:@"AnonymousObject -> setFieldsDirect: PROPERTY %@ WAS NOT FOUND, propValue = %@", memberName, propValue];
+            continue;
+        }
+        
+        NSString *attributes = [attrs valueForKey:memberName];
+        Class propertyType = [self propertyType:attributes];
+        char propertyCode = [self propertyCode:attributes];
+        
+        [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> setFieldsDirect: '%@' NEED ADAPT %@ <%@> TO <%@> [%@] {%c}", memberName, propValue, [propValue class], propertyType, attributes, propertyCode];
+        
+        if (propertyCode == '@') {
+          
+            if ([propValue conformsToProtocol:@protocol(IAdaptingType)]) {
+                
+                [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> setFieldsDirect: @protocol(IAdaptingType)"];
+                
+                id val = [[ObjectFactories sharedInstance] createArgumentObjectByType:propertyType argument:propValue];
+                
+                [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> setFieldsDirect: (0) val = %@", val];
+                
+                if (val) {
+                    
+                    [referenceCache addObject:propValue type:propertyType object:val];
+                    propValue = val;
+    
+                    [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> setFieldsDirect: (1) propValue = %@", propValue];
+                }
+                else {
+                     
+                    if ([propValue conformsToProtocol:@protocol(ICacheableAdaptingType)]) {
+                        propValue = [propValue adapt:propertyType cache:referenceCache];
+                        
+                        [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> setFieldsDirect: (2) propValue = %@", propValue];
+                    }
+                    else {
+                        propValue = [propValue adapt:propertyType];
+                        
+                        [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> setFieldsDirect: (3) propValue = %@", propValue];
+                   }
+                }
+            }
+            else {
+                
+                [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> setFieldsDirect: (4) propValue = %@, propertyType = %@", propValue, propertyType];
+                
+                if ([propValue isKindOfClass:[NSArray class]] && (propertyType == [NSSet class])) {
+                    propValue = [NSSet setWithArray:propValue];
+                    [DebLog logN:@"AnonymousObject -> setFieldsDirect: ***** NSSet from NSArray ******"];
+                }
+           }
+        }
+        else {
+            if ([propValue conformsToProtocol:@protocol(IAdaptingType)]) {
+#if 0
+                propValue = [propValue adapt:propertyType];
+#else
+                propValue = propertyCode? [propValue adapt:propertyType] : [propValue defaultAdapt];
+#endif
+                [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> setFieldsDirect: (5) propValue = %@ [%d]", propValue, (int)propertyCode];
+            }
+            else {
+                [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> setFieldsDirect: (6) propValue = %@", propValue];
+            }
+        }
+        
+        [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> setFieldsDirect: %@ [%c] SET %@ <%@>", memberName, propertyCode, propValue, [propValue class]];
+         
+        if (propValue && ![propValue isKindOfClass:[NSNull class]]) {
+            
+            @try {
+                [obj setValue:propValue forKey:memberName];
+            }
+            @catch (NSException *exception) {
+                [DebLog logY:@"AnonymousObject -> setFieldsDirect: <%@> %@ <%@> EXCEPTION = %@", [obj class], memberName, [propValue class], exception];
+            }
+        }
+    }
+    
+    [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> setFieldsDirect: (!!!!!!) SET ALL PROPERTIES obj = %@ <%@>", obj, [obj class]];
+
+#if _ON_RESOLVING_ABSENT_PROPERTY_ // add "on the fly" properties to obj ------------------------------------------------------------------------
+    
+    NSArray *_properties = [properties allKeys];
+    for (NSString *prop in _properties) {
+#if 1
+        if ([names containsObject:prop]) {
+            [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> setFieldsDirect: RESOLVED PROPERTY '%@'->%@", prop, [properties valueForKey:prop]];
+            continue;
+        }
+#else
+        if ([obj isPropertyResolved:prop]) {
+            [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> setFieldsDirect: RESOLVED PROPERTY '%@'", prop];
+            continue;
+        }
+#endif
+        id propertyValue = [properties valueForKey:prop];
+
+#if 0 // TEMPOPARY: included NamedObject deserialization is blocked - STRAINGE RECURSIVE LOOP !!!
+        if ([propertyValue isKindOfClass:[NamedObject class]]) {
+            [DebLog logY:@"AnonymousObject -> setFieldsDirect: (!!! BLOCKED !!!) PROPERTY '%@'[%@]", prop, [propertyValue description]];
+            continue;
+        }
+#endif
+        [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> setFieldsDirect: NEED TO RESOLVE '%@'[%@]", prop, [propertyValue description]];
+#if 1
+        id value = [self propertyValue:propertyValue];
+        [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> setFieldsDirect: PROPERTY '%@' OF CLASS %@ -> %@ <%@>", prop, [propertyValue class], value, [value class]];
+        [obj resolveProperty:prop value:value];
+#else
+        [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> setFieldsDirect: PROPERTY '%@' OF CLASS %@", prop, [propertyValue class]];
+        [obj resolveProperty:prop value:propertyValue];
+#endif
+    }
+    
+    [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> setFieldsDirect: FINISHED (0) obj = %@ <%@>\n%@\n\n", obj, [obj class], [Types propertyDictionary:obj]];
+
+#endif // _ON_RESOLVING_ABSENT_PROPERTY_ --------------------------------------------------------------------------------------------------------
+
+// deserializer pastprocessor
+#if TYPES_AMF_DESERIALIZE_POSTPROCESSOR_ON
+    if ([obj isKindOfClass:[V3Message class]]) {
+        V3Message *v3 = (V3Message *)obj;
+        v3.body.body = [Types pastAMFDeserialize:v3.body.body];
+    }
+    else {
+        obj = [Types pastAMFDeserialize:obj];
+    }
+#else
+    if ([obj isKindOfClass:[V3Message class]]) {
+        V3Message *v3 = (V3Message *)obj;
+        v3.body.body = [v3.body.body onAMFDeserialize];
+    }
+    else {
+        obj = [obj onAMFDeserialize];
+    }
+#endif
+    
+    [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> setFieldsDirect: FINISHED (1) obj = %@ <%@>\n%@\n\n\n", obj, [obj class], [Types propertyDictionary:obj]];
+    
+    return obj;
+}
+
+/*
+ 2016-07-08 14:34:46.768 TestCUserService[45206:11659733] AnonymousObject -> setFieldsDirect: PROPERTY body <BodyHolder>
+ 2016-07-08 14:34:46.769 TestCUserService[45206:11659733] AnonymousObject -> setFieldsDirect: 'body' NEED ADAPT <AnonymousObject: 0x7fadda554380> <AnonymousObject> TO <BodyHolder> [T@"BodyHolder",N,Vbody] {@}
+ 2016-07-08 14:34:46.769 TestCUserService[45206:11659733] AnonymousObject -> setFieldsDirect: @protocol(IAdaptingType)
+ 2016-07-08 14:34:46.769 TestCUserService[45206:11659733] BodyHolderFactory -> createObject: argument = <AnonymousObject: 0x7fadda554380>
+ 2016-07-08 14:34:46.769 TestCUserService[45206:11659733] AnonymousObject -> defaultAdapt (1)
+ 2016-07-08 14:34:46.769 TestCUserService[45206:11659733] AnonymousObject -> defaultAdapt: (2) refCache = <ReaderReferenceCache: 0x7fadda6a6a40>
+ 2016-07-08 14:34:46.769 TestCUserService[45206:11659733] ReaderReferenceCache <<ReaderReferenceCache: 0x7fadda6a6a40>> -> hasObject: key=140384669090688, type=__NSDictionaryM
+ 2016-07-08 14:34:46.769 TestCUserService[45206:11659733] AnonymousObject -> defaultAdapt: (3) obj = '<AnonymousObject: 0x7fadda554380>'
+ 2016-07-08 14:34:46.769 TestCUserService[45206:11659733] AnonymousObject -> defaultAdapt: (2) refCache = <ReaderReferenceCache: 0x7fadda6a6a40>
+ 2016-07-08 14:34:46.769 TestCUserService[45206:11659733] ReaderReferenceCache <<ReaderReferenceCache: 0x7fadda6a6a40>> -> hasObject: key=140384669090688, type=__NSDictionaryM
+ 2016-07-08 14:34:46.770 TestCUserService[45206:11659733] AnonymousObject -> defaultAdapt: (3) obj = '<AnonymousObject: 0x7fadda554380>'
+ 2016-07-08 14:34:46.770 TestCUserService[45206:11659733] AnonymousObject -> defaultAdapt: (2) refCache = <ReaderReferenceCache: 0x7fadda6a6a40>
+ 2016-07-08 14:34:46.770 TestCUserService[45206:11659733] ReaderReferenceCache <<ReaderReferenceCache: 0x7fadda6a6a40>> -> hasObject: key=140384669090688, type=__NSDictionaryM
+*/
+
+#pragma mark -
+#pragma mark ICacheableAdaptingType Methods
+
+-(Class)getDefaultType {
+	return [properties class];
+}
+
+-(id)defaultAdapt {
+	
+	[DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> defaultAdapt (0)"];
+  	
+    return [self defaultAdapt:[ReaderReferenceCache cache]];  
+}
+
+#if 1 // !!!!! NEW !!!!
+#if 1
+-(id)defaultAdapt:(ReaderReferenceCache *)refCache {
+    
+    [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> defaultAdapt: (1) refCache = %@", refCache];
+    
+    if ([refCache hasObject:self]) {
+        [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> defaultAdapt: (2) refCache has %@", self];
+        return [refCache getObject:self];
+    }
+    
+    NSMutableDictionary *hashtable = [NSMutableDictionary dictionary];
+    [refCache addObject:self object:hashtable];
+    
+    NSArray *keys = [properties allKeys];
+    for (id key in keys) {
+        
+        id obj = [properties objectForKey:key];
+        if ([obj conformsToProtocol:@protocol(ICacheableAdaptingType)]) {
+            
+            if ([refCache hasObject:obj]) {
+                [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> defaultAdapt (CASHED) %@", obj];
+                obj = [refCache getObject:obj];
+            }
+            else {
+                id val = [obj defaultAdapt:refCache];
+                [refCache addObject:obj object:val];
+                obj = val;
+            }
+        }
+        else {
+            if ([obj conformsToProtocol:@protocol(IAdaptingType)])
+                obj  = [obj defaultAdapt];
+        }
+        
+        if (!obj) obj = [NSNull null];
+        [hashtable setObject:obj forKey:key];
+    }
+    
+    return hashtable;
+}
+#else
+-(id)defaultAdapt:(ReaderReferenceCache *)refCache {
+	
+	[DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> defaultAdapt: (1) refCache = %@", refCache];
+    
+    if ([refCache hasObject:self]) {
+        [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> defaultAdapt: (2) refCache has %@", self];
+        return [refCache getObject:self];
+    }
+    
+    NSMutableDictionary *hashtable = [NSMutableDictionary dictionary];
+    NSArray *keys = [properties allKeys];
+    
+    for (id key in keys) {
+        
+        id obj = [properties objectForKey:key];
+        if (obj == self) {
+            
+            [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> defaultAdapt: (!!! SELF RELATION !!!) %@' == %@", obj, self];
+            obj = hashtable;
+        }
+        else {
+        
+            if ([obj conformsToProtocol:@protocol(ICacheableAdaptingType)]) {
+                id val = [obj defaultAdapt:refCache];
+                [refCache addObject:obj object:val];
+                obj = val;
+            }
+            else {
+                if ([obj conformsToProtocol:@protocol(IAdaptingType)])
+                    obj  = [obj defaultAdapt];
+            }
+        }
+        
+        if (!obj) obj = [NSNull null];
+        [hashtable setObject:obj forKey:key];
+    }
+    
+    return hashtable;
+}
+#endif
+#else // !!!!!! OLD !!!!!!
+-(id)defaultAdapt:(ReaderReferenceCache *)refCache {
+    
+    [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> defaultAdapt: (1) refCache = %@", refCache];
+    
+    if ([refCache hasObject:self]) {
+        [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> defaultAdapt: (2) refCache has %@", self];
+        return [refCache getObject:self];
+    }
+    
+    NSMutableDictionary *hashtable = [NSMutableDictionary dictionary];
+    NSArray *keys = [properties allKeys];
+    
+    for (id key in keys) {
+        
+        id obj = [properties objectForKey:key];
+        
+        [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> defaultAdapt: (3) obj = '%@' [self = %@]", obj, self];
+        
+        if ([obj conformsToProtocol:@protocol(ICacheableAdaptingType)]) {
+            id val = [obj defaultAdapt:refCache];
+            [refCache addObject:obj object:val];
+            obj = val;
+        }
+        else {
+            if ([obj conformsToProtocol:@protocol(IAdaptingType)])
+                obj  = [obj defaultAdapt];
+        }
+        
+        if (!obj) obj = [NSNull null];
+        [hashtable setObject:obj forKey:key];
+    }
+    
+    return hashtable;
+}
+#endif
+
+-(id)adapt:(Class)type {
+	
+    [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> adapt: %@", type];
+	
+    return [self adapt:type cache:[ReaderReferenceCache cache]];
+}
+
+-(id)adapt:(Class)type cache:(ReaderReferenceCache *)refCache {
+	
+	[DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> adapt:cache: (START) type = %@", type];
+    
+    id obj = [refCache getObject:self type:type];
+    if (obj) {
+        [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> adapt:cache: (FINISHED) refCache: type = %@, obj = %@", type, obj];
+        return obj;
+    }
+    
+    obj = [[ObjectFactories sharedInstance] createArgumentObjectByType:type argument:self];
+    if (obj) {
+        [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> adapt:cache: (FINISHED) createArgumentObjectByType:%@, obj = %@", type, obj];
+        [refCache addObject:self type:type object:obj];
+        return obj;
+    }
+    
+    if ([type conformsToProtocol:@protocol(IAdaptingType)]) {
+        [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> adapt:cache: (FINISHED) type %@ is an adapting type!", type];
+        [refCache addObject:self type:type object:obj];
+        return self;
+    }
+    
+    if ([type isSubclassOfClass:[NSArray class]]) {
+        // TODO: for array ???
+        [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> adapt:cache: (FINISHED) type is an array! *** TODO ***"];
+        return [NSMutableArray array];
+    }
+    
+    obj = [[ObjectFactories sharedInstance] createServiceObjectByType:type];
+    [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> adapt:cache: [ObjectFactories createServiceObjectByType:%@] = %@", type, [obj class]];
+    if (!obj) obj = [NSDictionary dictionary];
+#if 0
+    [refCache addObject:self type:type object:obj];
+#else
+    @try {
+        [refCache addObject:self type:type object:obj];
+    }
+    @catch (NSException *exception) {
+        [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> adapt:cache: (EXCEPTION) %@", exception];
+    }
+#endif
+    
+    if ((obj) && [obj isKindOfClass:[NSDictionary class]]) {
+        
+        [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> adapt:cache: type is a dictionary!"];
+       
+        NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+        NSArray *keys = [properties allKeys];
+        
+        for (id key in keys) {
+            id valueObj = [properties objectForKey:key];
+            if ([valueObj conformsToProtocol:@protocol(ICacheableAdaptingType)]) 
+                valueObj = [valueObj defaultAdapt:refCache];
+            else 
+                valueObj = [valueObj defaultAdapt];         
+            
+            if (!valueObj) valueObj = [NSNull null];
+            [dictionary setObject:valueObj forKey:key];
+        }
+        obj = dictionary;
+    }
+    else {
+        obj = [self setFieldsDirect:obj cache:refCache];
+    }
+	
+    [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> adapt:cache: (FINISHED) type = %@, obj = %@", type, obj];
+    
+	return obj;
+}
+
+-(id <IAdaptingType>)getCacheKey {
+    return self;
+}
+
+-(BOOL)canAdapt:(Class)formalArg {
+    return YES;
+}
+
+-(BOOL)equals:(id)obj pairs:(NSDictionary *)visitedPairs {
+    return NO;
+}
+
+@end
