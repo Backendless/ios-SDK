@@ -26,7 +26,6 @@
 #import "Invoker.h"
 #import "BackendlessCache.h"
 #import "BEReachability.h"
-#import "OfflineModeManager.h"
 
 #define MISSING_SERVER_URL @"Missing server URL. You should set hostURL property"
 #define MISSING_APP_ID @"Missing application ID argument. Login to Backendless Console, select your app and get the ID and key from the Manage > App Settings screen. Copy/paste the values into the [backendless initApp:APIKey:]"
@@ -78,8 +77,6 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 	
     if ( (self=[super init]) ) {
         
-        [OfflineModeManager sharedInstance].isOfflineMode = NO;
-
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
         [BETableView class];
         [BEMapView class];
@@ -282,9 +279,6 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     
     BENetworkStatus netStatus = [reachability currentReachabilityStatus];
     BOOL connectionRequired = [reachability connectionRequired];
-    if (netStatus != 0) {
-        [[OfflineModeManager sharedInstance] startUploadData];
-    }
     if ([_reachabilityDelegate respondsToSelector:@selector(changeNetworkStatus:connectionRequired:)]) {
         [_reachabilityDelegate changeNetworkStatus:netStatus connectionRequired:connectionRequired];
     }
@@ -472,16 +466,6 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     if (backendlessCache.storedType.integerValue == BackendlessCacheStoredDisc) {
         [backendlessCache saveOnDisc];
     }
-}
-
-#pragma mark - offline mode
-
--(void)setOfflineMode:(BOOL)offlineMode {
-    
-    if (offlineMode) {
-        [invoker setThrowException:NO];
-    }
-    [OfflineModeManager sharedInstance].isOfflineMode = offlineMode;
 }
 
 #pragma mark - hardware

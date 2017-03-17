@@ -38,7 +38,6 @@
 #import "BackendlessEntity.h"
 #import "DataStoreFactory.h"
 #import "BackendlessCache.h"
-#import "OfflineModeManager.h"
 #import "ObjectProperty.h"
 #import "LoadRelationsQueryBuilder.h"
 
@@ -82,7 +81,6 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 -(id)setCurrentPageSize:(ResponseContext *)collection;
 -(id)loadRelations:(ResponseContext *)response;
 -(id)createResponse:(ResponseContext *)response;
--(id)failWithOfflineMode:(Fault *)error;
 @end
 
 #if _IS_USERS_CLASS_
@@ -262,9 +260,6 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     NSArray *args = [NSArray arrayWithObjects:entityName, entity, nil];
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_CREATE args:args];
     if ([result isKindOfClass:[Fault class]]) {
-        if ([OfflineModeManager sharedInstance].isOfflineMode) {
-            return [[OfflineModeManager sharedInstance] saveObject:entity];
-        }
         return result;
     }
     return result;
@@ -280,9 +275,6 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     NSArray *args = [NSArray arrayWithObjects:entityName, entity, nil];
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_UPDATE args:args];
     if ([result isKindOfClass:[Fault class]]) {
-        if ([OfflineModeManager sharedInstance].isOfflineMode) {
-            return [[OfflineModeManager sharedInstance] saveObject:entity];
-        }
         return result;
     }
     return result;
@@ -318,9 +310,6 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 #endif
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:method args:args];
     if ([result isKindOfClass:[Fault class]]) {
-        if ([OfflineModeManager sharedInstance].isOfflineMode) {
-            return [[OfflineModeManager sharedInstance] saveObject:entity];
-        }
         return result;
     }
 #if _PERSISTENCE_UDPATE_CURRENTUSER_ON_
@@ -343,9 +332,6 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 #endif
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_CREATE args:args];
     if ([result isKindOfClass:[Fault class]]) {
-        if ([OfflineModeManager sharedInstance].isOfflineMode) {
-            return [[OfflineModeManager sharedInstance] saveObject:entity];
-        }
         return result;
     }
     if ([[entity class] isSubclassOfClass:[NSManagedObject class]]) {
@@ -370,9 +356,6 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 #endif
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_UPDATE args:args];
     if ([result isKindOfClass:[Fault class]]) {
-        if ([OfflineModeManager sharedInstance].isOfflineMode) {
-            return [[OfflineModeManager sharedInstance] saveObject:entity];
-        }
         return result;
     }
 #if _PERSISTENCE_UDPATE_CURRENTUSER_ON_
@@ -711,15 +694,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     }
     [self prepareClass:NSClassFromString(entityName)];
     NSArray *args = [NSArray arrayWithObjects:entityName, entity, nil];
-    if ([OfflineModeManager sharedInstance].isOfflineMode) {
-        Responder *offlineModeResponder = [Responder responder:chainedResponder selResponseHandler:nil selErrorHandler:@selector(failWithOfflineMode:)];
-        offlineModeResponder.chained = chainedResponder;
-        offlineModeResponder.context = entity;
-        [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_CREATE args:args responder:offlineModeResponder];
-    }
-    else {
-        [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_CREATE args:args responder:chainedResponder];
-    }
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_CREATE args:args responder:chainedResponder];
 }
 
 -(void)update:(NSString *)entityName entity:(NSDictionary *)entity sid:(NSString *)sid response:(void(^)(NSDictionary *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -731,15 +706,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
         return [chainedResponder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     }
     NSArray *args = [NSArray arrayWithObjects:entityName, entity, nil];
-    if ([OfflineModeManager sharedInstance].isOfflineMode) {
-        Responder *offlineModeResponder = [Responder responder:chainedResponder selResponseHandler:nil selErrorHandler:@selector(failWithOfflineMode:)];
-        offlineModeResponder.chained = chainedResponder;
-        offlineModeResponder.context = entity;
-        [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_UPDATE args:args responder:offlineModeResponder];
-    }
-    else {
-        [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_UPDATE args:args responder:chainedResponder];
-    }
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_UPDATE args:args responder:chainedResponder];
 }
 
 -(void)save:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -770,18 +737,10 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 #else
     NSArray *args = @[[self objectClassName:entity],  [self propertyObject:entity]];
 #endif
-    if ([OfflineModeManager sharedInstance].isOfflineMode) {
-        Responder *_responder = [Responder responder:chainedResponder selResponseHandler:@selector(createResponse:) selErrorHandler:@selector(failWithOfflineMode:)];
-        _responder.chained = chainedResponder;
-        _responder.context = entity;
-        [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:method args:args responder:_responder];
-    }
-    else {
-        Responder *_responder = [Responder responder:chainedResponder selResponseHandler:@selector(createResponse:) selErrorHandler:nil];
-        _responder.chained = chainedResponder;
-        _responder.context = entity;
-        [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:method args:args responder:_responder];
-    }
+    Responder *_responder = [Responder responder:chainedResponder selResponseHandler:@selector(createResponse:) selErrorHandler:nil];
+    _responder.chained = chainedResponder;
+    _responder.context = entity;
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:method args:args responder:_responder];
 }
 
 -(void)create:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -796,18 +755,10 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 #else
     NSArray *args = @[[self objectClassName:entity],  [self propertyObject:entity]];
 #endif
-    if ([OfflineModeManager sharedInstance].isOfflineMode) {
-        Responder *_responder = [Responder responder:chainedResponder selResponseHandler:@selector(createResponse:) selErrorHandler:@selector(failWithOfflineMode:)];
-        _responder.chained = chainedResponder;
-        _responder.context = entity;
-        [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_CREATE args:args responder:_responder];
-    }
-    else {
-        Responder *_responder = [Responder responder:chainedResponder selResponseHandler:@selector(createResponse:) selErrorHandler:nil];
-        _responder.chained = chainedResponder;
-        _responder.context = entity;
-        [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_CREATE args:args responder:_responder];
-    }
+    Responder *_responder = [Responder responder:chainedResponder selResponseHandler:@selector(createResponse:) selErrorHandler:nil];
+    _responder.chained = chainedResponder;
+    _responder.context = entity;
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_CREATE args:args responder:_responder];
 }
 
 -(void)update:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -821,22 +772,15 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 #else
     NSArray *args = @[[self objectClassName:entity],  [self propertyObject:entity]];
 #endif
-    if ([OfflineModeManager sharedInstance].isOfflineMode) {
-        Responder *_responder = [Responder responder:chainedResponder selResponseHandler:@selector(createResponse:) selErrorHandler:@selector(failWithOfflineMode:)];
-        _responder.chained = chainedResponder;
-        _responder.context = entity;
-        [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_UPDATE args:args responder:_responder];
-    }
-    else {
 #if _PERSISTENCE_UDPATE_CURRENTUSER_ON_
-        Responder *_responder = [Responder responder:chainedResponder selResponseHandler:@selector(createResponse:) selErrorHandler:nil];
-        _responder.chained = chainedResponder;
-        _responder.context = entity;
-        [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_UPDATE args:args responder:_responder];
+    Responder *_responder = [Responder responder:chainedResponder selResponseHandler:@selector(createResponse:) selErrorHandler:nil];
+    _responder.chained = chainedResponder;
+    _responder.context = entity;
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_UPDATE args:args responder:_responder];
 #else
-        [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_UPDATE args:args responder:chainedResponder];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_UPDATE args:args responder:chainedResponder];
 #endif
-    }
+    
 }
 
 -(void)find:(Class)entity queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -1430,13 +1374,6 @@ id get_object_id(id self, SEL _cmd) {
 #endif
         response.context = nil;
         return response.response;
-    }
-    -(id)failWithOfflineMode:(Fault *)error {
-        Responder *responder = error.context;
-        id res = [[OfflineModeManager sharedInstance] saveObject:responder.context];
-        [responder.chained responseHandler:res];
-        responder.chained = nil;
-        return nil;
     }
 #if _PERSISTENCE_UDPATE_CURRENTUSER_ON_
     -(id)onCurrentUserUpdate:(id)result {

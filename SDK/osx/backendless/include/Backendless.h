@@ -188,8 +188,6 @@
 -(void)saveCache;
 #pragma mark - connection
 -(NSInteger)getConnectionStatus;
-#pragma mark - offline mode
--(void)setOfflineMode:(BOOL)offlineMode;
 #pragma mark - hardware
 -(BOOL)is64bitSimulator;
 -(BOOL)is64bitHardware;
