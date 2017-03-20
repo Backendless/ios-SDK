@@ -10,7 +10,6 @@
 #import <Security/Security.h>
 #import "RTMPClient.h"
 #import "DEBUG.h"
-#import "LicenseManager.h"
 #import "CrowdNode.h"
 #import "Datatypes.h"
 #import "RTMPConstants.h"
@@ -48,8 +47,6 @@
 #define DEFAULT_CHANNEL_ID 4
 #define DEFAULT_STREAM_ID 1
 #endif
-
-static NSString *LICENSE_IS_NEEDED = @"A license is needed to use a library. Contact Midnight Coders Sales to purchase the license";
 
 @interface RTMPClient () {
     
@@ -111,8 +108,6 @@ static NSString *LICENSE_IS_NEEDED = @"A license is needed to use a library. Con
 -(void)stopOnSocketThread;
 -(BOOL)createSocket:(NSString *)host andPort:(int)port;
 -(void)eraseSocket;
--(void)checkLicense;
--(void)checkServer;
 -(void)sendFirstHandshake;
 -(void)timeoutFirstHandshake;
 -(void)repeatFirstHandshake;
@@ -988,41 +983,6 @@ static NSString *LICENSE_IS_NEEDED = @"A license is needed to use a library. Con
         printf("%02x ", outputBuffer[i]%0x100);
     }
     printf("\n\n");    
-}
-
--(void)checkLicense {
-    
-    NSString *URL = [self getURL];
-    //[DebLog logY:@">>>>>>>>>>>>> checkLicense <%@> ... ", URL];
-    if ([LicenseManager isExclusiveRtmpUrl:[NSURL URLWithString:URL]] || [LicenseManager isLicenseByOwnBundleIdentifier]) {
-        //[DebLog logY:@">>>>>>>>>>>>> ... checkLicense -> YES"];
-        return;
-    }
-    
-    //[DebLog logY:@">>>>>>>>>>>>> ... checkLicense -> NO: BREAK THE CONNECTION"];
-    
-    [self eraseSocket];
-    [self connectFailedEvent:-7 description:LICENSE_IS_NEEDED];
-
-    state = STATE_LOCKED;
-}
-
--(void)checkServer {    
-#if TARGET_IPHONE_SIMULATOR
-    // Don't check the license if running on the iPhone simulator.
-    //[DebLog log:@">>>>>>>>>> License won't be checked (SIMULATOR)"];
-#else	
-    const uint8_t sign[] = {0xA7, 0x21, 0x03, 0x0F, 0x15};
-    for (int i = 0; i < 5; i++) {
-        if (outputBuffer[i*256+outputBuffer[1531+i]] == sign[i])
-            continue;        
-        //[DebLog logY:@">>>>>>>>>> License will be checked"];
-        [self performSelector:@selector(checkLicense) withObject:nil afterDelay:LICENSE_TIMER_CRITERIUM];
-        
-        return;        
-    }    
-    //[DebLog logY:@">>>>>>>>>> License won't be checked (WEBORB)"];
-#endif
 }
 
 -(void)sendFirstHandshake {

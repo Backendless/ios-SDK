@@ -932,16 +932,6 @@
 		0F9ACB941E798C5E0087869F /* DEBUG.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC7B41E798C5C0087869F /* DEBUG.m */; };
 		0F9ACB951E798C5E0087869F /* DEBUG.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC7B41E798C5C0087869F /* DEBUG.m */; };
 		0F9ACB961E798C5E0087869F /* DEBUG.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC7B41E798C5C0087869F /* DEBUG.m */; };
-		0F9ACB971E798C5E0087869F /* LicenseManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC7B51E798C5C0087869F /* LicenseManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0F9ACB981E798C5E0087869F /* LicenseManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC7B51E798C5C0087869F /* LicenseManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0F9ACB991E798C5E0087869F /* LicenseManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC7B51E798C5C0087869F /* LicenseManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0F9ACB9A1E798C5E0087869F /* LicenseManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC7B51E798C5C0087869F /* LicenseManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0F9ACB9B1E798C5E0087869F /* LicenseManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC7B51E798C5C0087869F /* LicenseManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0F9ACB9C1E798C5E0087869F /* LicenseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC7B61E798C5C0087869F /* LicenseManager.m */; };
-		0F9ACB9D1E798C5E0087869F /* LicenseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC7B61E798C5C0087869F /* LicenseManager.m */; };
-		0F9ACB9E1E798C5E0087869F /* LicenseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC7B61E798C5C0087869F /* LicenseManager.m */; };
-		0F9ACB9F1E798C5E0087869F /* LicenseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC7B61E798C5C0087869F /* LicenseManager.m */; };
-		0F9ACBA01E798C5E0087869F /* LicenseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC7B61E798C5C0087869F /* LicenseManager.m */; };
 		0F9ACBA11E798C5E0087869F /* MemoryTicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC7B71E798C5C0087869F /* MemoryTicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0F9ACBA21E798C5E0087869F /* MemoryTicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC7B71E798C5C0087869F /* MemoryTicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0F9ACBA31E798C5E0087869F /* MemoryTicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC7B71E798C5C0087869F /* MemoryTicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2358,8 +2348,6 @@
 		0F9AC7B21E798C5C0087869F /* CrowdNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CrowdNode.m; sourceTree = "<group>"; };
 		0F9AC7B31E798C5C0087869F /* DEBUG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DEBUG.h; sourceTree = "<group>"; };
 		0F9AC7B41E798C5C0087869F /* DEBUG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DEBUG.m; sourceTree = "<group>"; };
-		0F9AC7B51E798C5C0087869F /* LicenseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenseManager.h; sourceTree = "<group>"; };
-		0F9AC7B61E798C5C0087869F /* LicenseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LicenseManager.m; sourceTree = "<group>"; };
 		0F9AC7B71E798C5C0087869F /* MemoryTicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoryTicker.h; sourceTree = "<group>"; };
 		0F9AC7B81E798C5C0087869F /* MemoryTicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemoryTicker.m; sourceTree = "<group>"; };
 		0F9AC7B91E798C5C0087869F /* IArgumentObjectFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IArgumentObjectFactory.h; sourceTree = "<group>"; };
@@ -3070,8 +3058,6 @@
 				0F9AC7B21E798C5C0087869F /* CrowdNode.m */,
 				0F9AC7B31E798C5C0087869F /* DEBUG.h */,
 				0F9AC7B41E798C5C0087869F /* DEBUG.m */,
-				0F9AC7B51E798C5C0087869F /* LicenseManager.h */,
-				0F9AC7B61E798C5C0087869F /* LicenseManager.m */,
 				0F9AC7B71E798C5C0087869F /* MemoryTicker.h */,
 				0F9AC7B81E798C5C0087869F /* MemoryTicker.m */,
 			);
@@ -3777,7 +3763,6 @@
 				0F9ACABB1E798C5E0087869F /* NumberObject.h in Headers */,
 				0F9ACC2D1E798C5F0087869F /* V3Message.h in Headers */,
 				0F9AC8C21E798C5C0087869F /* IServiceCall.h in Headers */,
-				0F9ACB971E798C5E0087869F /* LicenseManager.h in Headers */,
 				0F9AC9DA1E798C5D0087869F /* SharedObjectEvent.h in Headers */,
 				0F9AC8E51E798C5C0087869F /* IStreamDispatcher.h in Headers */,
 				0F9ACA2A1E798C5D0087869F /* BooleanReader.h in Headers */,
@@ -3963,7 +3948,6 @@
 				0F9AC8E61E798C5C0087869F /* IStreamDispatcher.h in Headers */,
 				0F9AC8461E798C5C0087869F /* WeborbClient.h in Headers */,
 				0F9ACC061E798C5F0087869F /* BodyHolderFactory.h in Headers */,
-				0F9ACB981E798C5E0087869F /* LicenseManager.h in Headers */,
 				0F9ACBD91E798C5E0087869F /* IServiceObjectFactory.h in Headers */,
 				0F9ACCC91E798C5F0087869F /* IProtocolFormatter.h in Headers */,
 				0F9AC94F1E798C5D0087869F /* MetaData.h in Headers */,
@@ -4211,7 +4195,6 @@
 				0F9AC8E71E798C5C0087869F /* IStreamDispatcher.h in Headers */,
 				0F9AC8471E798C5C0087869F /* WeborbClient.h in Headers */,
 				0F9ACC071E798C5F0087869F /* BodyHolderFactory.h in Headers */,
-				0F9ACB991E798C5E0087869F /* LicenseManager.h in Headers */,
 				0F9ACBDA1E798C5E0087869F /* IServiceObjectFactory.h in Headers */,
 				0F9ACCCA1E798C5F0087869F /* IProtocolFormatter.h in Headers */,
 				0F9AC9501E798C5D0087869F /* MetaData.h in Headers */,
@@ -4514,7 +4497,6 @@
 				0F9ACABE1E798C5E0087869F /* NumberObject.h in Headers */,
 				0F9ACC301E798C5F0087869F /* V3Message.h in Headers */,
 				0F9AC8C51E798C5C0087869F /* IServiceCall.h in Headers */,
-				0F9ACB9A1E798C5E0087869F /* LicenseManager.h in Headers */,
 				0F9AC9DD1E798C5D0087869F /* SharedObjectEvent.h in Headers */,
 				0F9AC8E81E798C5C0087869F /* IStreamDispatcher.h in Headers */,
 				0F9ACA2D1E798C5D0087869F /* BooleanReader.h in Headers */,
@@ -4755,7 +4737,6 @@
 				0F9ACABF1E798C5E0087869F /* NumberObject.h in Headers */,
 				0F9ACC311E798C5F0087869F /* V3Message.h in Headers */,
 				0F9AC8C61E798C5C0087869F /* IServiceCall.h in Headers */,
-				0F9ACB9B1E798C5E0087869F /* LicenseManager.h in Headers */,
 				0F9AC9DE1E798C5D0087869F /* SharedObjectEvent.h in Headers */,
 				0F9AC8E91E798C5C0087869F /* IStreamDispatcher.h in Headers */,
 				0F9ACA2E1E798C5D0087869F /* BooleanReader.h in Headers */,
@@ -5161,7 +5142,6 @@
 				1C7BB4911A2E092900D3C2C1 /* CustomService.m in Sources */,
 				0F9ACB7E1E798C5E0087869F /* AMFSerializer.m in Sources */,
 				1C7BB4921A2E092900D3C2C1 /* Invoker.m in Sources */,
-				0F9ACB9C1E798C5E0087869F /* LicenseManager.m in Sources */,
 				0F9ACC8C1E798C5F0087869F /* ArrayWriter.m in Sources */,
 				0F9ACBB51E798C5E0087869F /* BinaryCodec.m in Sources */,
 				1C7BB4931A2E092900D3C2C1 /* AbstractProperty.m in Sources */,
@@ -5355,7 +5335,6 @@
 				0F9ACCCE1E798C5F0087869F /* IProtocolFormatter.m in Sources */,
 				0F9ACBA71E798C5E0087869F /* MemoryTicker.m in Sources */,
 				0F9ACB111E798C5E0087869F /* UndefinedTypeReader.m in Sources */,
-				0F9ACB9D1E798C5E0087869F /* LicenseManager.m in Sources */,
 				F97969EC166CCB8200595F5E /* AbstractProperty.m in Sources */,
 				0F9AC9041E798C5C0087869F /* BaseRTMPProtocolEncoder.m in Sources */,
 				D3A064C41AFCE64D00779BB1 /* GeoFence.m in Sources */,
@@ -5557,7 +5536,6 @@
 				0F9ACCCF1E798C5F0087869F /* IProtocolFormatter.m in Sources */,
 				0F9ACBA81E798C5E0087869F /* MemoryTicker.m in Sources */,
 				0F9ACB121E798C5E0087869F /* UndefinedTypeReader.m in Sources */,
-				0F9ACB9E1E798C5E0087869F /* LicenseManager.m in Sources */,
 				F9796A36166CD3DA00595F5E /* AbstractProperty.m in Sources */,
 				0F9AC9051E798C5C0087869F /* BaseRTMPProtocolEncoder.m in Sources */,
 				D3A064C51AFCE64D00779BB1 /* GeoFence.m in Sources */,
@@ -5794,7 +5772,6 @@
 				0F9ACAA51E798C5D0087869F /* NotAReader.m in Sources */,
 				0F9ACAFF1E798C5E0087869F /* StringType.m in Sources */,
 				0F9ACB131E798C5E0087869F /* UndefinedTypeReader.m in Sources */,
-				0F9ACB9F1E798C5E0087869F /* LicenseManager.m in Sources */,
 				0F9ACD071E798C5F0087869F /* ObjectReferenceWriter.m in Sources */,
 				F9F0AE951CDBCA3900035C62 /* AtomicCounters.m in Sources */,
 				0F9ACBD61E798C5E0087869F /* FlashorbBinaryWriter.m in Sources */,
@@ -5991,7 +5968,6 @@
 				0F9ACAA61E798C5D0087869F /* NotAReader.m in Sources */,
 				0F9ACB001E798C5E0087869F /* StringType.m in Sources */,
 				0F9ACB141E798C5E0087869F /* UndefinedTypeReader.m in Sources */,
-				0F9ACBA01E798C5E0087869F /* LicenseManager.m in Sources */,
 				0F9ACD081E798C5F0087869F /* ObjectReferenceWriter.m in Sources */,
 				F9F0AF4F1CDBCAB500035C62 /* AtomicCounters.m in Sources */,
 				0F9ACBD71E798C5E0087869F /* FlashorbBinaryWriter.m in Sources */,

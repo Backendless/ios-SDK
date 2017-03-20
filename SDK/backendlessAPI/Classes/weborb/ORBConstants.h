@@ -44,15 +44,6 @@
 #define ORBConstants_ONSTATUS @"/onStatus"
 #define ORBConstants_NONE_HANDLERS_INSPECT_TARGETSERVICE @"None of the handlers were able to inspect the target service. The service may not be found: "
 
-//license constants
-#define ORBConstants_SOFTWARE @"Software"
-#define ORBConstants_MIDNIGHT_CODERS @"Midnight Coders"
-#define ORBConstants_WEBORB @"WebORB"
-#define ORBConstants_LICENSE_KEY @"LicenseKey"
-#define ORBConstants_TS_KEY @"TSKey"
-#define ORBConstants_AUTHORIZATION_KEY @"AuthKey"
-#define ORBConstants_WEBORBPATH_KEY @"WebORBPath"
-
 //console constants
 #define ORBConstants_HTTP @"http"
 #define ORBConstants_HTTPS @"https"
