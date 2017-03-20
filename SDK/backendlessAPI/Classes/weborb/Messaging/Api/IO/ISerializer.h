@@ -6,9 +6,6 @@
 //  Copyright 2011 The Midnight Coders, Inc. All rights reserved.
 //
 
-//#import <UIKit/UIKit.h>
-
-
 @protocol ISerializer <NSObject>
 -(void)serialize:(id)obj;
 -(void)serialize:(id)obj version:(int)ver;

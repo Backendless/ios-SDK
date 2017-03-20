@@ -5,9 +5,6 @@
 //  Created by Вячеслав Вдовиченко on 27.06.11.
 //  Copyright 2011 The Midnight Coders, Inc. All rights reserved.
 //
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-#import <UIKit/UIKit.h>
-#endif
 
 #import "Engine.h"
 #import "DEBUG.h"
@@ -127,12 +124,6 @@
 
 #pragma mark -
 #pragma mark Public Methods
-
--(void)setNetworkActivityIndicator:(BOOL)value {
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-    if (networkActivityIndicatorOn) [UIApplication sharedApplication].networkActivityIndicatorVisible = value;
-#endif
-}
 
 // sync
 

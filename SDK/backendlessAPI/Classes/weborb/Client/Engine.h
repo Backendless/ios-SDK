@@ -36,7 +36,6 @@
 -(id)initWithUrl:(NSString *)url info:(IdInfo *)info;
 +(id)create:(NSString *)url;
 +(id)create:(NSString *)url info:(IdInfo *)info;
--(void)setNetworkActivityIndicator:(BOOL)value;
 
 // sync
 -(id)invoke:(NSString *)className method:(NSString *)methodName args:(NSArray *)args;

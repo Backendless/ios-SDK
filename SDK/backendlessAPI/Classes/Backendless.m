@@ -76,13 +76,6 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 -(id)init {
 	
     if ( (self=[super init]) ) {
-        
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-        [BETableView class];
-        [BEMapView class];
-        [BECollectionView class];
-#endif
-        
         _hostURL = [BACKENDLESS_HOST_URL retain];
         _appID = nil;
         _apiKey = nil;
@@ -92,9 +85,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
         
         self.hostReachability = [BEReachability reachabilityWithHostName:_hostURL];
         [self.hostReachability startNotifier];
-        
 	}
-	
 	return self;
 }
 
@@ -387,10 +378,6 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 
 -(NSString *)mediaServerUrl {
     return [NSString stringWithFormat:@"%@", BACKENDLESS_MEDIA_URL];
-}
-
--(void)networkActivityIndicatorOn:(BOOL)value {
-    [invoker setNetworkActivityIndicatorOn:value];
 }
 
 -(void)setThrowException:(BOOL)needThrow {

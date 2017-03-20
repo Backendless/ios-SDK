@@ -6,9 +6,6 @@
 //  Copyright 2011 The Midnight Coders, Inc. All rights reserved.
 //
 
-//#import <UIKit/UIKit.h>
-
-
 @protocol IServiceCall <NSObject>
 -(BOOL)isSuccess;
 -(NSString *)getServiceMethodName;

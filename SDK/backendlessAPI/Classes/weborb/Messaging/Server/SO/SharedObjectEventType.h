@@ -6,8 +6,6 @@
 //  Copyright 2011 The Midnight Coders, Inc. All rights reserved.
 //
 
-//#import <UIKit/UIKit.h>
-
 typedef enum shared_object_event_type SharedObjectEventType;
 
 enum shared_object_event_type

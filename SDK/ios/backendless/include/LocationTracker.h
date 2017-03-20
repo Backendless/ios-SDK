@@ -21,9 +21,6 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-#import <UIKit/UIKit.h>
-#endif
 
 // Location Tracker invokes the ILocationTrackerListener methods from default global dispatch queue (DISPATCH_QUEUE_PRIORITY_DEFAULT) -
 // so if the listener uses UI in its callbckacs, it MUST get the main dispatch queue.
@@ -32,17 +29,15 @@
 -(void)onLocationFailed:(NSError *)error;
 @end
 
+@interface LocationTracker : NSObject
+
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-@interface LocationTracker : NSObject <UIApplicationDelegate>
 // location manager options
 @property(assign, nonatomic) CLActivityType activityType;
 @property(assign, nonatomic) BOOL pausesLocationUpdatesAutomatically;
-
--(BOOL)isBackgroundRefreshAvailable;
 -(BOOL)isSuspendedRefreshAvailable;
-#else
-@interface LocationTracker : NSObject
 #endif
+
 // location manager options
 @property(assign, nonatomic) BOOL monitoringSignificantLocationChanges;
 @property(assign, nonatomic) CLLocationDistance distanceFilter;

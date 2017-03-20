@@ -6,7 +6,6 @@
 //  Copyright 2011 The Midnight Coders, Inc. All rights reserved.
 //
 
-//#import <UIKit/UIKit.h>
 #import "IServiceCall.h"
 #import "IPendingServiceCallback.h"
 
