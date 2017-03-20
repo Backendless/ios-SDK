@@ -13,7 +13,6 @@
 #import "DEBUG.h"
 #import "WeborbClient.h"
 #import "HttpEngine.h"
-#import "RtmpEngine.h"
 #import "V3Message.h"
 #import "AsyncMessage.h"
 #import "ErrMessage.h"
@@ -71,9 +70,6 @@
     if ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"])
         return [[HttpEngine alloc] initWithUrl:url];
     
-    if ([scheme isEqualToString:@"rtmp"] || [scheme isEqualToString:@"rtmps"])
-        return [[RtmpEngine alloc] initWithUrl:url];
-    
     return nil;
 }
 
@@ -86,9 +82,6 @@
     
     if ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"])
         return [[HttpEngine alloc] initWithUrl:url info:info];
-    
-    if ([scheme isEqualToString:@"rtmp"] || [scheme isEqualToString:@"rtmps"])
-        return [[RtmpEngine alloc] initWithUrl:url info:info];
     
     return nil;
 }
@@ -134,10 +127,6 @@
 
 #pragma mark -
 #pragma mark Public Methods
-
--(BOOL)isRTMP {
-    return [self isKindOfClass:[RtmpEngine class]];
-}
 
 -(void)setNetworkActivityIndicator:(BOOL)value {
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR

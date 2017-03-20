@@ -23,7 +23,6 @@
     NSMutableDictionary *subscribers;
 }
 @property (nonatomic, retain) SubscribedHandler *subscribedHandler;
-@property (nonatomic, assign, readonly, getter = getRTMP) RTMPClient *RTMP;
 @property (nonatomic, assign, getter = getRequestHeaders, setter = setRequestHeaders:) NSMutableDictionary *requestHeaders;
 @property (nonatomic, assign, getter = getHttpHeaders, setter = setHttpHeaders:) NSMutableDictionary *httpHeaders;
 

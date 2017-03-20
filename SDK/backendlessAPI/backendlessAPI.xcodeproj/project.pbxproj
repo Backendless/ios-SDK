@@ -62,16 +62,6 @@
 		0F9AC82E1E798C5C0087869F /* Responder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC6EF1E798C5B0087869F /* Responder.m */; };
 		0F9AC82F1E798C5C0087869F /* Responder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC6EF1E798C5B0087869F /* Responder.m */; };
 		0F9AC8301E798C5C0087869F /* Responder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC6EF1E798C5B0087869F /* Responder.m */; };
-		0F9AC8311E798C5C0087869F /* RtmpEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC6F01E798C5B0087869F /* RtmpEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0F9AC8321E798C5C0087869F /* RtmpEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC6F01E798C5B0087869F /* RtmpEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0F9AC8331E798C5C0087869F /* RtmpEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC6F01E798C5B0087869F /* RtmpEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0F9AC8341E798C5C0087869F /* RtmpEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC6F01E798C5B0087869F /* RtmpEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0F9AC8351E798C5C0087869F /* RtmpEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC6F01E798C5B0087869F /* RtmpEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0F9AC8361E798C5C0087869F /* RtmpEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC6F11E798C5C0087869F /* RtmpEngine.m */; };
-		0F9AC8371E798C5C0087869F /* RtmpEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC6F11E798C5C0087869F /* RtmpEngine.m */; };
-		0F9AC8381E798C5C0087869F /* RtmpEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC6F11E798C5C0087869F /* RtmpEngine.m */; };
-		0F9AC8391E798C5C0087869F /* RtmpEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC6F11E798C5C0087869F /* RtmpEngine.m */; };
-		0F9AC83A1E798C5C0087869F /* RtmpEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC6F11E798C5C0087869F /* RtmpEngine.m */; };
 		0F9AC83B1E798C5C0087869F /* Subscription.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC6F21E798C5C0087869F /* Subscription.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0F9AC83C1E798C5C0087869F /* Subscription.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC6F21E798C5C0087869F /* Subscription.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0F9AC83D1E798C5C0087869F /* Subscription.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC6F21E798C5C0087869F /* Subscription.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2174,8 +2164,6 @@
 		0F9AC6ED1E798C5B0087869F /* HttpEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpEngine.m; sourceTree = "<group>"; };
 		0F9AC6EE1E798C5B0087869F /* Responder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Responder.h; sourceTree = "<group>"; };
 		0F9AC6EF1E798C5B0087869F /* Responder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Responder.m; sourceTree = "<group>"; };
-		0F9AC6F01E798C5B0087869F /* RtmpEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RtmpEngine.h; sourceTree = "<group>"; };
-		0F9AC6F11E798C5C0087869F /* RtmpEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RtmpEngine.m; sourceTree = "<group>"; };
 		0F9AC6F21E798C5C0087869F /* Subscription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Subscription.h; sourceTree = "<group>"; };
 		0F9AC6F31E798C5C0087869F /* Subscription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Subscription.m; sourceTree = "<group>"; };
 		0F9AC6F41E798C5C0087869F /* WeborbClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeborbClient.h; sourceTree = "<group>"; };
@@ -2703,8 +2691,6 @@
 				0F9AC6ED1E798C5B0087869F /* HttpEngine.m */,
 				0F9AC6EE1E798C5B0087869F /* Responder.h */,
 				0F9AC6EF1E798C5B0087869F /* Responder.m */,
-				0F9AC6F01E798C5B0087869F /* RtmpEngine.h */,
-				0F9AC6F11E798C5C0087869F /* RtmpEngine.m */,
 				0F9AC6F21E798C5C0087869F /* Subscription.h */,
 				0F9AC6F31E798C5C0087869F /* Subscription.m */,
 				0F9AC6F41E798C5C0087869F /* WeborbClient.h */,
@@ -3795,7 +3781,6 @@
 				0F9ACC411E798C5F0087869F /* AbstractUnreferenceableTypeWriter.h in Headers */,
 				0F9ACC691E798C5F0087869F /* AMFHeaderWriter.h in Headers */,
 				0F9ACAD91E798C5E0087869F /* PointerReader.h in Headers */,
-				0F9AC8311E798C5C0087869F /* RtmpEngine.h in Headers */,
 				0F9ACC231E798C5F0087869F /* ReqMessage.h in Headers */,
 				0F9ACB151E798C5E0087869F /* UTFStringReader.h in Headers */,
 				0F9ACD091E798C5F0087869F /* ObjectSerializer.h in Headers */,
@@ -3951,7 +3936,6 @@
 				0F9ACBD91E798C5E0087869F /* IServiceObjectFactory.h in Headers */,
 				0F9ACCC91E798C5F0087869F /* IProtocolFormatter.h in Headers */,
 				0F9AC94F1E798C5D0087869F /* MetaData.h in Headers */,
-				0F9AC8321E798C5C0087869F /* RtmpEngine.h in Headers */,
 				0F9ACCBA1E798C5F0087869F /* DateWriter.h in Headers */,
 				0F9AC8911E798C5C0087869F /* IDeserializer.h in Headers */,
 				0F9AC96D1E798C5D0087869F /* VideoData.h in Headers */,
@@ -4198,7 +4182,6 @@
 				0F9ACBDA1E798C5E0087869F /* IServiceObjectFactory.h in Headers */,
 				0F9ACCCA1E798C5F0087869F /* IProtocolFormatter.h in Headers */,
 				0F9AC9501E798C5D0087869F /* MetaData.h in Headers */,
-				0F9AC8331E798C5C0087869F /* RtmpEngine.h in Headers */,
 				0F9ACCBB1E798C5F0087869F /* DateWriter.h in Headers */,
 				0F9AC8921E798C5C0087869F /* IDeserializer.h in Headers */,
 				0F9AC96E1E798C5D0087869F /* VideoData.h in Headers */,
@@ -4529,7 +4512,6 @@
 				0F9ACC441E798C5F0087869F /* AbstractUnreferenceableTypeWriter.h in Headers */,
 				0F9ACC6C1E798C5F0087869F /* AMFHeaderWriter.h in Headers */,
 				0F9ACADC1E798C5E0087869F /* PointerReader.h in Headers */,
-				0F9AC8341E798C5C0087869F /* RtmpEngine.h in Headers */,
 				0F9ACC261E798C5F0087869F /* ReqMessage.h in Headers */,
 				0F9ACB181E798C5E0087869F /* UTFStringReader.h in Headers */,
 				0F9ACD0C1E798C5F0087869F /* ObjectSerializer.h in Headers */,
@@ -4769,7 +4751,6 @@
 				0F9ACC451E798C5F0087869F /* AbstractUnreferenceableTypeWriter.h in Headers */,
 				0F9ACC6D1E798C5F0087869F /* AMFHeaderWriter.h in Headers */,
 				0F9ACADD1E798C5E0087869F /* PointerReader.h in Headers */,
-				0F9AC8351E798C5C0087869F /* RtmpEngine.h in Headers */,
 				0F9ACC271E798C5F0087869F /* ReqMessage.h in Headers */,
 				0F9ACB191E798C5E0087869F /* UTFStringReader.h in Headers */,
 				0F9ACD0D1E798C5F0087869F /* ObjectSerializer.h in Headers */,
@@ -5211,7 +5192,6 @@
 				0F9ACC3C1E798C5F0087869F /* AbstractReferenceableTypeWriter.m in Sources */,
 				D30FC9B41AE132C2007C9A83 /* LogBuffer.m in Sources */,
 				0F9ACC821E798C5F0087869F /* ArrayReferenceWriter.m in Sources */,
-				0F9AC8361E798C5C0087869F /* RtmpEngine.m in Sources */,
 				0F9AC8631E798C5C0087869F /* MHeader.m in Sources */,
 				0F9ACC961E798C5F0087869F /* BodyHolderWriter.m in Sources */,
 				0F9ACCF01E798C5F0087869F /* NullWriter.m in Sources */,
@@ -5426,7 +5406,6 @@
 				0F9ACC651E798C5F0087869F /* AMFBodyWriter.m in Sources */,
 				F9796A00166CCB8200595F5E /* BESubscription.m in Sources */,
 				F9796A01166CCB8200595F5E /* Message.m in Sources */,
-				0F9AC8371E798C5C0087869F /* RtmpEngine.m in Sources */,
 				0F9ACD191E798C600087869F /* ObjectWriter.m in Sources */,
 				0F9AC8641E798C5C0087869F /* MHeader.m in Sources */,
 				0F9ACBED1E798C5F0087869F /* AckMessage.m in Sources */,
@@ -5627,7 +5606,6 @@
 				0F9ACC661E798C5F0087869F /* AMFBodyWriter.m in Sources */,
 				F9796A4A166CD3DB00595F5E /* BESubscription.m in Sources */,
 				F9796A4B166CD3DB00595F5E /* Message.m in Sources */,
-				0F9AC8381E798C5C0087869F /* RtmpEngine.m in Sources */,
 				0F9ACD1A1E798C600087869F /* ObjectWriter.m in Sources */,
 				0F9AC8651E798C5C0087869F /* MHeader.m in Sources */,
 				0F9ACBEE1E798C5F0087869F /* AckMessage.m in Sources */,
@@ -5831,7 +5809,6 @@
 				F9F0AEA91CDBCA3900035C62 /* ClientCallback.m in Sources */,
 				F9F0AEAA1CDBCA3900035C62 /* Events.m in Sources */,
 				0F9ACB631E798C5E0087869F /* V3VectorReader.m in Sources */,
-				0F9AC8391E798C5C0087869F /* RtmpEngine.m in Sources */,
 				0F9ACC991E798C5F0087869F /* BodyHolderWriter.m in Sources */,
 				0F9ACB771E798C5E0087869F /* Types.m in Sources */,
 				F9F0AEAB1CDBCA3900035C62 /* BESubscription.m in Sources */,
@@ -6027,7 +6004,6 @@
 				F9F0AF631CDBCAB500035C62 /* ClientCallback.m in Sources */,
 				F9F0AF641CDBCAB500035C62 /* Events.m in Sources */,
 				0F9ACB641E798C5E0087869F /* V3VectorReader.m in Sources */,
-				0F9AC83A1E798C5C0087869F /* RtmpEngine.m in Sources */,
 				0F9ACC9A1E798C5F0087869F /* BodyHolderWriter.m in Sources */,
 				0F9ACB781E798C5E0087869F /* Types.m in Sources */,
 				F9F0AF651CDBCAB500035C62 /* BESubscription.m in Sources */,
