@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
 
 /*******************************************************************************************************
  * Types singleton accessor: this is how you should ALWAYS get a reference to the Types class instance *
@@ -21,15 +20,12 @@
 	NSMutableDictionary	*clientMappings;
 	NSMutableDictionary	*serverMappings;
 }
-@property (nonatomic, retain) NSManagedObjectModel *managedObjectModel;
-@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+
 @property (nonatomic, retain) NSString *swiftClassPrefix;
 
 // Singleton accessor:  this is how you should ALWAYS get a reference to the class instance.  Never init your own. 
 +(Types *)sharedInstance;
-// managed objects support
--(BOOL)isManagedObjectSupport;
--(id)managedInstance:(Class)type;
+
 // type mapping
 -(void)addAbstractClassMapping:(Class)abstractType mapped:(Class)mappedType;
 -(Class)getAbstractClassMapping:(Class)type;

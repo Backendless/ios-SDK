@@ -186,27 +186,6 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 
 @end
 
-@implementation NSManagedObject (AMF)
-
--(id)onAMFDeserialize {
-    if (!__types.managedObjectContext) {
-        return self;
-    }
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([self class])];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"objectId LIKE %@", [self valueForKey:PERSIST_OBJECT_ID]];
-    [request setPredicate:predicate];
-    NSArray *data = [__types.managedObjectContext executeFetchRequest:request error:nil];
-    for (id entity in data) {
-        if (![entity isEqual:self]) {
-            [__types.managedObjectContext deleteObject:entity];
-        }
-    }
-    return self;
-}
-
-@end
-
-
 @implementation PersistenceService
 
 -(id)init {
@@ -333,9 +312,6 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_CREATE args:args];
     if ([result isKindOfClass:[Fault class]]) {
         return result;
-    }
-    if ([[entity class] isSubclassOfClass:[NSManagedObject class]]) {
-        [__types.managedObjectContext deleteObject:entity];
     }
 #if _PERSISTENCE_UDPATE_CURRENTUSER_ON_
     [self onCurrentUserUpdate:result];
@@ -1264,9 +1240,6 @@ id get_object_id(id self, SEL _cmd) {
     id object = [__types classInstance:className];
     BOOL result = [object resolveProperty:PERSIST_OBJECT_ID];
     [object resolveProperty:@"__meta"];
-    if ([[object class] isSubclassOfClass:[NSManagedObject class]]) {
-        [__types.managedObjectContext deleteObject:object];
-    }
     return result;
 }
 
@@ -1366,9 +1339,6 @@ id get_object_id(id self, SEL _cmd) {
     
     -(id)createResponse:(ResponseContext *)response {
         id object = response.context;
-        if ([[object class] isSubclassOfClass:[NSManagedObject class]]) {
-            [__types.managedObjectContext deleteObject:object];
-        }
 #if _PERSISTENCE_UDPATE_CURRENTUSER_ON_
         [self onCurrentUserUpdate:response.response];
 #endif
