@@ -6,7 +6,6 @@
 //  Copyright 2011 The Midnight Coders, Inc. All rights reserved.
 //
 
-#import <CoreData/CoreData.h>
 #import "ITypeReader.h"
 #import "AnonymousObject.h"
 #import "DEBUG.h"
