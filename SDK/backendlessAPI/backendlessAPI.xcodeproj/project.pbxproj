@@ -62,16 +62,6 @@
 		0F9AC82E1E798C5C0087869F /* Responder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC6EF1E798C5B0087869F /* Responder.m */; };
 		0F9AC82F1E798C5C0087869F /* Responder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC6EF1E798C5B0087869F /* Responder.m */; };
 		0F9AC8301E798C5C0087869F /* Responder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC6EF1E798C5B0087869F /* Responder.m */; };
-		0F9AC8311E798C5C0087869F /* RtmpEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC6F01E798C5B0087869F /* RtmpEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0F9AC8321E798C5C0087869F /* RtmpEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC6F01E798C5B0087869F /* RtmpEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0F9AC8331E798C5C0087869F /* RtmpEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC6F01E798C5B0087869F /* RtmpEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0F9AC8341E798C5C0087869F /* RtmpEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC6F01E798C5B0087869F /* RtmpEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0F9AC8351E798C5C0087869F /* RtmpEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC6F01E798C5B0087869F /* RtmpEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0F9AC8361E798C5C0087869F /* RtmpEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC6F11E798C5C0087869F /* RtmpEngine.m */; };
-		0F9AC8371E798C5C0087869F /* RtmpEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC6F11E798C5C0087869F /* RtmpEngine.m */; };
-		0F9AC8381E798C5C0087869F /* RtmpEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC6F11E798C5C0087869F /* RtmpEngine.m */; };
-		0F9AC8391E798C5C0087869F /* RtmpEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC6F11E798C5C0087869F /* RtmpEngine.m */; };
-		0F9AC83A1E798C5C0087869F /* RtmpEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC6F11E798C5C0087869F /* RtmpEngine.m */; };
 		0F9AC83B1E798C5C0087869F /* Subscription.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC6F21E798C5C0087869F /* Subscription.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0F9AC83C1E798C5C0087869F /* Subscription.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC6F21E798C5C0087869F /* Subscription.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0F9AC83D1E798C5C0087869F /* Subscription.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC6F21E798C5C0087869F /* Subscription.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -932,16 +922,6 @@
 		0F9ACB941E798C5E0087869F /* DEBUG.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC7B41E798C5C0087869F /* DEBUG.m */; };
 		0F9ACB951E798C5E0087869F /* DEBUG.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC7B41E798C5C0087869F /* DEBUG.m */; };
 		0F9ACB961E798C5E0087869F /* DEBUG.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC7B41E798C5C0087869F /* DEBUG.m */; };
-		0F9ACB971E798C5E0087869F /* LicenseManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC7B51E798C5C0087869F /* LicenseManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0F9ACB981E798C5E0087869F /* LicenseManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC7B51E798C5C0087869F /* LicenseManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0F9ACB991E798C5E0087869F /* LicenseManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC7B51E798C5C0087869F /* LicenseManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0F9ACB9A1E798C5E0087869F /* LicenseManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC7B51E798C5C0087869F /* LicenseManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0F9ACB9B1E798C5E0087869F /* LicenseManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC7B51E798C5C0087869F /* LicenseManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0F9ACB9C1E798C5E0087869F /* LicenseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC7B61E798C5C0087869F /* LicenseManager.m */; };
-		0F9ACB9D1E798C5E0087869F /* LicenseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC7B61E798C5C0087869F /* LicenseManager.m */; };
-		0F9ACB9E1E798C5E0087869F /* LicenseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC7B61E798C5C0087869F /* LicenseManager.m */; };
-		0F9ACB9F1E798C5E0087869F /* LicenseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC7B61E798C5C0087869F /* LicenseManager.m */; };
-		0F9ACBA01E798C5E0087869F /* LicenseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC7B61E798C5C0087869F /* LicenseManager.m */; };
 		0F9ACBA11E798C5E0087869F /* MemoryTicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC7B71E798C5C0087869F /* MemoryTicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0F9ACBA21E798C5E0087869F /* MemoryTicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC7B71E798C5C0087869F /* MemoryTicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0F9ACBA31E798C5E0087869F /* MemoryTicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC7B71E798C5C0087869F /* MemoryTicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1414,12 +1394,7 @@
 		1C7BB4B01A2E092900D3C2C1 /* BEReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A4285A18508269005F91DE /* BEReachability.m */; };
 		1C7BB4B11A2E092900D3C2C1 /* backendless_simulator.m in Sources */ = {isa = PBXBuildFile; fileRef = F97969E3166CC8C300595F5E /* backendless_simulator.m */; };
 		1C7BB4B21A2E092900D3C2C1 /* CacheService.m in Sources */ = {isa = PBXBuildFile; fileRef = D39A468019811D9B006CBD1B /* CacheService.m */; };
-		1C7BB4B31A2E092900D3C2C1 /* MediaPublishOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F994A3F3168DC36B00C1A498 /* MediaPublishOptions.m */; };
-		1C7BB4B41A2E092900D3C2C1 /* MediaPlaybackOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F994A3FD168DC39400C1A498 /* MediaPlaybackOptions.m */; };
 		1C7BB4B51A2E092900D3C2C1 /* BodyParts.m in Sources */ = {isa = PBXBuildFile; fileRef = 910117D3180C0CCF008102A7 /* BodyParts.m */; };
-		1C7BB4B61A2E092900D3C2C1 /* MediaService.m in Sources */ = {isa = PBXBuildFile; fileRef = F994A406168DC3BA00C1A498 /* MediaService.m */; };
-		1C7BB4B71A2E092900D3C2C1 /* MediaPublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = F9512966168DCFE90041460C /* MediaPublisher.m */; };
-		1C7BB4B81A2E092900D3C2C1 /* MediaPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F9512970168DCFFF0041460C /* MediaPlayer.m */; };
 		1C7BB4B91A2E092900D3C2C1 /* AbstractQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1398B17D7240A00D1AC4C /* AbstractQuery.m */; };
 		1C7BB4BA1A2E092900D3C2C1 /* AtomicCountersFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FB9B7319867F0E00A13FB6 /* AtomicCountersFactory.m */; };
 		1C7BB4BB1A2E092900D3C2C1 /* BackendlessCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1398D17D7240A00D1AC4C /* BackendlessCache.m */; };
@@ -1464,12 +1439,6 @@
 		1C7BB4F61A2E092900D3C2C1 /* FileService.h in Headers */ = {isa = PBXBuildFile; fileRef = F918412C1638281600D36A61 /* FileService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C7BB4F71A2E092900D3C2C1 /* BackendlessFile.h in Headers */ = {isa = PBXBuildFile; fileRef = F9184132163AB29600D36A61 /* BackendlessFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C7BB4F81A2E092900D3C2C1 /* HashMap.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B47E915FF448F00012DFC /* HashMap.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1C7BB4F91A2E092900D3C2C1 /* MediaPublishOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = F994A3F2168DC36B00C1A498 /* MediaPublishOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1C7BB4FA1A2E092900D3C2C1 /* MediaPlaybackOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = F994A3FC168DC39400C1A498 /* MediaPlaybackOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1C7BB4FC1A2E092900D3C2C1 /* MediaService.h in Headers */ = {isa = PBXBuildFile; fileRef = F994A405168DC3BA00C1A498 /* MediaService.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1C7BB4FD1A2E092900D3C2C1 /* MediaPublisher.h in Headers */ = {isa = PBXBuildFile; fileRef = F9512965168DCFE90041460C /* MediaPublisher.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1C7BB4FE1A2E092900D3C2C1 /* MediaPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = F951296F168DCFFF0041460C /* MediaPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1C7BB4FF1A2E092900D3C2C1 /* IMediaStreamer.h in Headers */ = {isa = PBXBuildFile; fileRef = F9512978168DEA210041460C /* IMediaStreamer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C7BB5001A2E092900D3C2C1 /* AbstractQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1398A17D7240A00D1AC4C /* AbstractQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C7BB5021A2E092900D3C2C1 /* BackendlessCachePolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1399217D7240A00D1AC4C /* BackendlessCachePolicy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C7BB5041A2E092900D3C2C1 /* BodyParts.h in Headers */ = {isa = PBXBuildFile; fileRef = 910117D2180C0CCF008102A7 /* BodyParts.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1497,26 +1466,10 @@
 		91223DCC195AF6AB00F72F48 /* Events.h in Headers */ = {isa = PBXBuildFile; fileRef = 91223DC8195AF6AB00F72F48 /* Events.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91223DCE195AF6AB00F72F48 /* Events.m in Sources */ = {isa = PBXBuildFile; fileRef = 91223DC9195AF6AB00F72F48 /* Events.m */; };
 		91223DCF195AF6AB00F72F48 /* Events.m in Sources */ = {isa = PBXBuildFile; fileRef = 91223DC9195AF6AB00F72F48 /* Events.m */; };
-		912D504C182102F0006A090A /* BETableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 912D504A182102F0006A090A /* BETableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		912D504D182102F0006A090A /* BETableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 912D504A182102F0006A090A /* BETableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		912D504F182102F0006A090A /* BETableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 912D504B182102F0006A090A /* BETableView.m */; };
-		912D5050182102F0006A090A /* BETableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 912D504B182102F0006A090A /* BETableView.m */; };
-		91764F9B1823E43400745497 /* BECollectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 91764F991823E43400745497 /* BECollectionView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		91764F9C1823E43400745497 /* BECollectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 91764F991823E43400745497 /* BECollectionView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		91764F9E1823E43400745497 /* BECollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91764F9A1823E43400745497 /* BECollectionView.m */; };
-		91764F9F1823E43400745497 /* BECollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91764F9A1823E43400745497 /* BECollectionView.m */; };
 		91A4285B18508269005F91DE /* BEReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 91A4285918508269005F91DE /* BEReachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91A4285C18508269005F91DE /* BEReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 91A4285918508269005F91DE /* BEReachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91A4285E18508269005F91DE /* BEReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A4285A18508269005F91DE /* BEReachability.m */; };
 		91A4285F18508269005F91DE /* BEReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A4285A18508269005F91DE /* BEReachability.m */; };
-		91DF023A1821625B009DAE40 /* BEMapView.h in Headers */ = {isa = PBXBuildFile; fileRef = 91DF02381821625B009DAE40 /* BEMapView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		91DF023B1821625B009DAE40 /* BEMapView.h in Headers */ = {isa = PBXBuildFile; fileRef = 91DF02381821625B009DAE40 /* BEMapView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		91DF023D1821625B009DAE40 /* BEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DF02391821625B009DAE40 /* BEMapView.m */; };
-		91DF023E1821625B009DAE40 /* BEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DF02391821625B009DAE40 /* BEMapView.m */; };
-		91DF02461821718C009DAE40 /* BEAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 91DF02441821718C009DAE40 /* BEAnnotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		91DF02471821718C009DAE40 /* BEAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 91DF02441821718C009DAE40 /* BEAnnotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		91DF02491821718C009DAE40 /* BEAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DF02451821718C009DAE40 /* BEAnnotation.m */; };
-		91DF024A1821718C009DAE40 /* BEAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DF02451821718C009DAE40 /* BEAnnotation.m */; };
 		91F1399517D7240A00D1AC4C /* AbstractQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1398A17D7240A00D1AC4C /* AbstractQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91F1399617D7240A00D1AC4C /* AbstractQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1398A17D7240A00D1AC4C /* AbstractQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91F1399717D7240A00D1AC4C /* AbstractQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1398B17D7240A00D1AC4C /* AbstractQuery.m */; };
@@ -1661,16 +1614,6 @@
 		F91AC57E1D58D0B300511EA5 /* MapDrivenDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F99A74961D4A0CAB001AF91F /* MapDrivenDataStore.m */; };
 		F91AC57F1D58D0C900511EA5 /* MapDrivenDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = F99A74951D4A0CAB001AF91F /* MapDrivenDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F94487621B68EBA400EB12A5 /* Backendless-With-Media-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = F94487611B68EBA400EB12A5 /* Backendless-With-Media-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F9512967168DCFE90041460C /* MediaPublisher.h in Headers */ = {isa = PBXBuildFile; fileRef = F9512965168DCFE90041460C /* MediaPublisher.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F9512968168DCFE90041460C /* MediaPublisher.h in Headers */ = {isa = PBXBuildFile; fileRef = F9512965168DCFE90041460C /* MediaPublisher.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F9512969168DCFE90041460C /* MediaPublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = F9512966168DCFE90041460C /* MediaPublisher.m */; };
-		F951296A168DCFE90041460C /* MediaPublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = F9512966168DCFE90041460C /* MediaPublisher.m */; };
-		F9512971168DCFFF0041460C /* MediaPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = F951296F168DCFFF0041460C /* MediaPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F9512972168DCFFF0041460C /* MediaPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = F951296F168DCFFF0041460C /* MediaPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F9512973168DCFFF0041460C /* MediaPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F9512970168DCFFF0041460C /* MediaPlayer.m */; };
-		F9512974168DCFFF0041460C /* MediaPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F9512970168DCFFF0041460C /* MediaPlayer.m */; };
-		F9512979168DEA210041460C /* IMediaStreamer.h in Headers */ = {isa = PBXBuildFile; fileRef = F9512978168DEA210041460C /* IMediaStreamer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F951297A168DEA210041460C /* IMediaStreamer.h in Headers */ = {isa = PBXBuildFile; fileRef = F9512978168DEA210041460C /* IMediaStreamer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F96B1C601DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C5E1DD3A23C00A4B362 /* PagedQueryBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F96B1C611DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C5E1DD3A23C00A4B362 /* PagedQueryBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F96B1C621DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C5E1DD3A23C00A4B362 /* PagedQueryBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1809,18 +1752,6 @@
 		F9796A6C166CD42E00595F5E /* FileService.h in Headers */ = {isa = PBXBuildFile; fileRef = F918412C1638281600D36A61 /* FileService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9796A6D166CD42E00595F5E /* BackendlessFile.h in Headers */ = {isa = PBXBuildFile; fileRef = F9184132163AB29600D36A61 /* BackendlessFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9796A6E166CD42E00595F5E /* HashMap.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B47E915FF448F00012DFC /* HashMap.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F994A3F4168DC36B00C1A498 /* MediaPublishOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = F994A3F2168DC36B00C1A498 /* MediaPublishOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F994A3F5168DC36B00C1A498 /* MediaPublishOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = F994A3F2168DC36B00C1A498 /* MediaPublishOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F994A3F6168DC36B00C1A498 /* MediaPublishOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F994A3F3168DC36B00C1A498 /* MediaPublishOptions.m */; };
-		F994A3F7168DC36B00C1A498 /* MediaPublishOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F994A3F3168DC36B00C1A498 /* MediaPublishOptions.m */; };
-		F994A3FE168DC39400C1A498 /* MediaPlaybackOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = F994A3FC168DC39400C1A498 /* MediaPlaybackOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F994A3FF168DC39400C1A498 /* MediaPlaybackOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = F994A3FC168DC39400C1A498 /* MediaPlaybackOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F994A400168DC39400C1A498 /* MediaPlaybackOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F994A3FD168DC39400C1A498 /* MediaPlaybackOptions.m */; };
-		F994A401168DC39400C1A498 /* MediaPlaybackOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F994A3FD168DC39400C1A498 /* MediaPlaybackOptions.m */; };
-		F994A407168DC3BA00C1A498 /* MediaService.h in Headers */ = {isa = PBXBuildFile; fileRef = F994A405168DC3BA00C1A498 /* MediaService.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F994A408168DC3BA00C1A498 /* MediaService.h in Headers */ = {isa = PBXBuildFile; fileRef = F994A405168DC3BA00C1A498 /* MediaService.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F994A409168DC3BA00C1A498 /* MediaService.m in Sources */ = {isa = PBXBuildFile; fileRef = F994A406168DC3BA00C1A498 /* MediaService.m */; };
-		F994A40A168DC3BA00C1A498 /* MediaService.m in Sources */ = {isa = PBXBuildFile; fileRef = F994A406168DC3BA00C1A498 /* MediaService.m */; };
 		F9B360C31D65A78C00818EEF /* UICKeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F9B360C21D65A70E00818EEF /* UICKeyChainStore.m */; };
 		F9B360C41D65A7AA00818EEF /* UICKeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F9B360C21D65A70E00818EEF /* UICKeyChainStore.m */; };
 		F9B360C51D65A7BD00818EEF /* UICKeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F9B360C21D65A70E00818EEF /* UICKeyChainStore.m */; };
@@ -1889,7 +1820,6 @@
 		F9D523511B25CEF800F6A441 /* ClassCastException.m in Sources */ = {isa = PBXBuildFile; fileRef = F9D5234C1B25CEF800F6A441 /* ClassCastException.m */; };
 		F9D523521B25CEF800F6A441 /* ClassCastException.m in Sources */ = {isa = PBXBuildFile; fileRef = F9D5234C1B25CEF800F6A441 /* ClassCastException.m */; };
 		F9F0ADE71CD80FF800035C62 /* Backendless-With-Media-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = F94487611B68EBA400EB12A5 /* Backendless-With-Media-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F9F0AE821CDBCA3900035C62 /* BETableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 912D504B182102F0006A090A /* BETableView.m */; };
 		F9F0AE831CDBCA3900035C62 /* Backendless.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B47FF15FF569400012DFC /* Backendless.m */; };
 		F9F0AE851CDBCA3900035C62 /* Invoker.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480215FF5AA900012DFC /* Invoker.m */; };
 		F9F0AE861CDBCA3900035C62 /* AbstractProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D9234160B61AF00AFF3F6 /* AbstractProperty.m */; };
@@ -1934,7 +1864,6 @@
 		F9F0AEAE1CDBCA3900035C62 /* MessageStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C070161AB84100409FF2 /* MessageStatus.m */; };
 		F9F0AEAF1CDBCA3900035C62 /* FileService.m in Sources */ = {isa = PBXBuildFile; fileRef = F918412D1638281600D36A61 /* FileService.m */; };
 		F9F0AEB01CDBCA3900035C62 /* BackendlessFile.m in Sources */ = {isa = PBXBuildFile; fileRef = F9184133163AB29600D36A61 /* BackendlessFile.m */; };
-		F9F0AEB11CDBCA3900035C62 /* BECollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91764F9A1823E43400745497 /* BECollectionView.m */; };
 		F9F0AEB21CDBCA3900035C62 /* BeaconsInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB136A1BC284A900F3CA1D /* BeaconsInfo.m */; };
 		F9F0AEB31CDBCA3900035C62 /* CacheService.m in Sources */ = {isa = PBXBuildFile; fileRef = D39A468019811D9B006CBD1B /* CacheService.m */; };
 		F9F0AEB41CDBCA3900035C62 /* HashMap.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B47EA15FF448F00012DFC /* HashMap.m */; };
@@ -1943,10 +1872,8 @@
 		F9F0AEB71CDBCA3900035C62 /* Logging.m in Sources */ = {isa = PBXBuildFile; fileRef = D35DC3381AD6CE1500EF2A68 /* Logging.m */; };
 		F9F0AEB81CDBCA3900035C62 /* BeaconMonitoring.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB13951BC53D5100F3CA1D /* BeaconMonitoring.m */; };
 		F9F0AEBA1CDBCA3900035C62 /* AtomicCountersFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FB9B7319867F0E00A13FB6 /* AtomicCountersFactory.m */; };
-		F9F0AEBC1CDBCA3900035C62 /* BEAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DF02451821718C009DAE40 /* BEAnnotation.m */; };
 		F9F0AEBD1CDBCA3900035C62 /* BodyParts.m in Sources */ = {isa = PBXBuildFile; fileRef = 910117D3180C0CCF008102A7 /* BodyParts.m */; };
 		F9F0AEBF1CDBCA3900035C62 /* BackendlessBeacon.m in Sources */ = {isa = PBXBuildFile; fileRef = F9F58DAD1BA83BB1009B8782 /* BackendlessBeacon.m */; };
-		F9F0AEC11CDBCA3900035C62 /* BEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DF02391821625B009DAE40 /* BEMapView.m */; };
 		F9F0AEC41CDBCA3900035C62 /* AbstractQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1398B17D7240A00D1AC4C /* AbstractQuery.m */; };
 		F9F0AEC51CDBCA3900035C62 /* BackendlessCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1398D17D7240A00D1AC4C /* BackendlessCache.m */; };
 		F9F0AEC61CDBCA3900035C62 /* Presence.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB13851BC53CDD00F3CA1D /* Presence.m */; };
@@ -1960,11 +1887,7 @@
 		F9F0AED01CDBCA3900035C62 /* Presence.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13841BC53CDD00F3CA1D /* Presence.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AED11CDBCA3900035C62 /* BackendlessBeacon.h in Headers */ = {isa = PBXBuildFile; fileRef = F9F58DAC1BA83BB1009B8782 /* BackendlessBeacon.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AED21CDBCA3900035C62 /* Events.h in Headers */ = {isa = PBXBuildFile; fileRef = 91223DC8195AF6AB00F72F48 /* Events.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F9F0AED31CDBCA3900035C62 /* BEMapView.h in Headers */ = {isa = PBXBuildFile; fileRef = 91DF02381821625B009DAE40 /* BEMapView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AED51CDBCA3900035C62 /* Backendless.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B47FE15FF569400012DFC /* Backendless.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F9F0AED61CDBCA3900035C62 /* BETableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 912D504A182102F0006A090A /* BETableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F9F0AED91CDBCA3900035C62 /* BECollectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 91764F991823E43400745497 /* BECollectionView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F9F0AEDA1CDBCA3900035C62 /* BEAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 91DF02441821718C009DAE40 /* BEAnnotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AEDB1CDBCA3900035C62 /* AbstractProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = F99D9233160B61AF00AFF3F6 /* AbstractProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AEDC1CDBCA3900035C62 /* UserService.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B480415FF5AC500012DFC /* UserService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AEDD1CDBCA3900035C62 /* GeoMath.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064B61AFCE61700779BB1 /* GeoMath.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2029,7 +1952,6 @@
 		F9F0AF2D1CDBCA3900035C62 /* BackendlessCacheData.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1398E17D7240A00D1AC4C /* BackendlessCacheData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AF311CDBCA3900035C62 /* BackendlessCacheKey.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1399017D7240A00D1AC4C /* BackendlessCacheKey.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AF331CDBCA3900035C62 /* BeaconMonitoring.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13941BC53D5100F3CA1D /* BeaconMonitoring.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F9F0AF3C1CDBCAB500035C62 /* BETableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 912D504B182102F0006A090A /* BETableView.m */; };
 		F9F0AF3D1CDBCAB500035C62 /* Backendless.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B47FF15FF569400012DFC /* Backendless.m */; };
 		F9F0AF3F1CDBCAB500035C62 /* Invoker.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480215FF5AA900012DFC /* Invoker.m */; };
 		F9F0AF401CDBCAB500035C62 /* AbstractProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D9234160B61AF00AFF3F6 /* AbstractProperty.m */; };
@@ -2074,7 +1996,6 @@
 		F9F0AF681CDBCAB500035C62 /* MessageStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C070161AB84100409FF2 /* MessageStatus.m */; };
 		F9F0AF691CDBCAB500035C62 /* FileService.m in Sources */ = {isa = PBXBuildFile; fileRef = F918412D1638281600D36A61 /* FileService.m */; };
 		F9F0AF6A1CDBCAB500035C62 /* BackendlessFile.m in Sources */ = {isa = PBXBuildFile; fileRef = F9184133163AB29600D36A61 /* BackendlessFile.m */; };
-		F9F0AF6B1CDBCAB500035C62 /* BECollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91764F9A1823E43400745497 /* BECollectionView.m */; };
 		F9F0AF6C1CDBCAB500035C62 /* BeaconsInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB136A1BC284A900F3CA1D /* BeaconsInfo.m */; };
 		F9F0AF6D1CDBCAB500035C62 /* CacheService.m in Sources */ = {isa = PBXBuildFile; fileRef = D39A468019811D9B006CBD1B /* CacheService.m */; };
 		F9F0AF6E1CDBCAB500035C62 /* HashMap.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B47EA15FF448F00012DFC /* HashMap.m */; };
@@ -2083,10 +2004,8 @@
 		F9F0AF711CDBCAB500035C62 /* Logging.m in Sources */ = {isa = PBXBuildFile; fileRef = D35DC3381AD6CE1500EF2A68 /* Logging.m */; };
 		F9F0AF721CDBCAB500035C62 /* BeaconMonitoring.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB13951BC53D5100F3CA1D /* BeaconMonitoring.m */; };
 		F9F0AF741CDBCAB500035C62 /* AtomicCountersFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FB9B7319867F0E00A13FB6 /* AtomicCountersFactory.m */; };
-		F9F0AF761CDBCAB500035C62 /* BEAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DF02451821718C009DAE40 /* BEAnnotation.m */; };
 		F9F0AF771CDBCAB500035C62 /* BodyParts.m in Sources */ = {isa = PBXBuildFile; fileRef = 910117D3180C0CCF008102A7 /* BodyParts.m */; };
 		F9F0AF791CDBCAB500035C62 /* BackendlessBeacon.m in Sources */ = {isa = PBXBuildFile; fileRef = F9F58DAD1BA83BB1009B8782 /* BackendlessBeacon.m */; };
-		F9F0AF7B1CDBCAB500035C62 /* BEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DF02391821625B009DAE40 /* BEMapView.m */; };
 		F9F0AF7E1CDBCAB500035C62 /* AbstractQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1398B17D7240A00D1AC4C /* AbstractQuery.m */; };
 		F9F0AF7F1CDBCAB500035C62 /* BackendlessCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1398D17D7240A00D1AC4C /* BackendlessCache.m */; };
 		F9F0AF801CDBCAB500035C62 /* Presence.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB13851BC53CDD00F3CA1D /* Presence.m */; };
@@ -2100,12 +2019,8 @@
 		F9F0AF8A1CDBCAB500035C62 /* BackendlessBeacon.h in Headers */ = {isa = PBXBuildFile; fileRef = F9F58DAC1BA83BB1009B8782 /* BackendlessBeacon.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AF8B1CDBCAB500035C62 /* Presence.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13841BC53CDD00F3CA1D /* Presence.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AF8C1CDBCAB500035C62 /* Events.h in Headers */ = {isa = PBXBuildFile; fileRef = 91223DC8195AF6AB00F72F48 /* Events.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F9F0AF8D1CDBCAB500035C62 /* BEMapView.h in Headers */ = {isa = PBXBuildFile; fileRef = 91DF02381821625B009DAE40 /* BEMapView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AF901CDBCAB500035C62 /* Backendless.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B47FE15FF569400012DFC /* Backendless.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F9F0AF911CDBCAB500035C62 /* BETableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 912D504A182102F0006A090A /* BETableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AF921CDBCAB500035C62 /* BeaconTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB138C1BC53D2300F3CA1D /* BeaconTracker.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F9F0AF951CDBCAB500035C62 /* BECollectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 91764F991823E43400745497 /* BECollectionView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F9F0AF961CDBCAB500035C62 /* BEAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 91DF02441821718C009DAE40 /* BEAnnotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AF971CDBCAB500035C62 /* BeaconsInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13691BC284A900F3CA1D /* BeaconsInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AF981CDBCAB500035C62 /* AbstractProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = F99D9233160B61AF00AFF3F6 /* AbstractProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AF991CDBCAB500035C62 /* UserService.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B480415FF5AC500012DFC /* UserService.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2184,8 +2099,6 @@
 		0F9AC6ED1E798C5B0087869F /* HttpEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpEngine.m; sourceTree = "<group>"; };
 		0F9AC6EE1E798C5B0087869F /* Responder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Responder.h; sourceTree = "<group>"; };
 		0F9AC6EF1E798C5B0087869F /* Responder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Responder.m; sourceTree = "<group>"; };
-		0F9AC6F01E798C5B0087869F /* RtmpEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RtmpEngine.h; sourceTree = "<group>"; };
-		0F9AC6F11E798C5C0087869F /* RtmpEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RtmpEngine.m; sourceTree = "<group>"; };
 		0F9AC6F21E798C5C0087869F /* Subscription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Subscription.h; sourceTree = "<group>"; };
 		0F9AC6F31E798C5C0087869F /* Subscription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Subscription.m; sourceTree = "<group>"; };
 		0F9AC6F41E798C5C0087869F /* WeborbClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeborbClient.h; sourceTree = "<group>"; };
@@ -2358,8 +2271,6 @@
 		0F9AC7B21E798C5C0087869F /* CrowdNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CrowdNode.m; sourceTree = "<group>"; };
 		0F9AC7B31E798C5C0087869F /* DEBUG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DEBUG.h; sourceTree = "<group>"; };
 		0F9AC7B41E798C5C0087869F /* DEBUG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DEBUG.m; sourceTree = "<group>"; };
-		0F9AC7B51E798C5C0087869F /* LicenseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenseManager.h; sourceTree = "<group>"; };
-		0F9AC7B61E798C5C0087869F /* LicenseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LicenseManager.m; sourceTree = "<group>"; };
 		0F9AC7B71E798C5C0087869F /* MemoryTicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoryTicker.h; sourceTree = "<group>"; };
 		0F9AC7B81E798C5C0087869F /* MemoryTicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemoryTicker.m; sourceTree = "<group>"; };
 		0F9AC7B91E798C5C0087869F /* IArgumentObjectFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IArgumentObjectFactory.h; sourceTree = "<group>"; };
@@ -2455,16 +2366,8 @@
 		910117D3180C0CCF008102A7 /* BodyParts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BodyParts.m; sourceTree = "<group>"; };
 		91223DC8195AF6AB00F72F48 /* Events.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Events.h; sourceTree = "<group>"; };
 		91223DC9195AF6AB00F72F48 /* Events.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Events.m; sourceTree = "<group>"; };
-		912D504A182102F0006A090A /* BETableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BETableView.h; sourceTree = "<group>"; };
-		912D504B182102F0006A090A /* BETableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BETableView.m; sourceTree = "<group>"; };
-		91764F991823E43400745497 /* BECollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BECollectionView.h; sourceTree = "<group>"; };
-		91764F9A1823E43400745497 /* BECollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BECollectionView.m; sourceTree = "<group>"; };
 		91A4285918508269005F91DE /* BEReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEReachability.h; sourceTree = "<group>"; };
 		91A4285A18508269005F91DE /* BEReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEReachability.m; sourceTree = "<group>"; };
-		91DF02381821625B009DAE40 /* BEMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEMapView.h; sourceTree = "<group>"; };
-		91DF02391821625B009DAE40 /* BEMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEMapView.m; sourceTree = "<group>"; };
-		91DF02441821718C009DAE40 /* BEAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEAnnotation.h; sourceTree = "<group>"; };
-		91DF02451821718C009DAE40 /* BEAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEAnnotation.m; sourceTree = "<group>"; };
 		91F1398A17D7240A00D1AC4C /* AbstractQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractQuery.h; sourceTree = "<group>"; };
 		91F1398B17D7240A00D1AC4C /* AbstractQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractQuery.m; sourceTree = "<group>"; };
 		91F1398C17D7240A00D1AC4C /* BackendlessCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackendlessCache.h; sourceTree = "<group>"; };
@@ -2480,13 +2383,6 @@
 		91F139B117D724C600D1AC4C /* QueryOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryOptions.m; sourceTree = "<group>"; };
 		D30A5D7319B9CA8200C0BA44 /* Backendless-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Backendless-Bridging-Header.h"; sourceTree = "<group>"; };
 		D30A5D7819B9D03100C0BA44 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
-		D30E684219E28E0C00AE3949 /* BroadcastStreamClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BroadcastStreamClient.h; sourceTree = "<group>"; };
-		D30E684319E28E0C00AE3949 /* MediaStreamPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaStreamPlayer.h; sourceTree = "<group>"; };
-		D30E684419E28E0C00AE3949 /* MPMediaData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPMediaData.h; sourceTree = "<group>"; };
-		D30E684519E28E0C00AE3949 /* MPMediaDecoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPMediaDecoder.h; sourceTree = "<group>"; };
-		D30E684619E28E0C00AE3949 /* MPMediaEncoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPMediaEncoder.h; sourceTree = "<group>"; };
-		D30E684719E28E0C00AE3949 /* VideoPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoPlayer.h; sourceTree = "<group>"; };
-		D30E684819E28E0C00AE3949 /* MediaLibiOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = MediaLibiOS.a; sourceTree = "<group>"; };
 		D30FC9AF1AE132C2007C9A83 /* LogBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogBuffer.h; sourceTree = "<group>"; };
 		D30FC9B01AE132C2007C9A83 /* LogBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogBuffer.m; sourceTree = "<group>"; };
 		D316BA351A83C649007215CA /* ProtectedBackendlessGeoQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProtectedBackendlessGeoQuery.h; sourceTree = "<group>"; };
@@ -2553,11 +2449,6 @@
 		F91B48291603649C00012DFC /* IDataStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDataStore.h; sourceTree = "<group>"; };
 		F9356C701B6FA479009A01D9 /* getting-started.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = "getting-started.pdf"; path = "../getting-started.pdf"; sourceTree = "<group>"; };
 		F94487611B68EBA400EB12A5 /* Backendless-With-Media-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Backendless-With-Media-Bridging-Header.h"; sourceTree = "<group>"; };
-		F9512965168DCFE90041460C /* MediaPublisher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaPublisher.h; sourceTree = "<group>"; };
-		F9512966168DCFE90041460C /* MediaPublisher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaPublisher.m; sourceTree = "<group>"; };
-		F951296F168DCFFF0041460C /* MediaPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaPlayer.h; sourceTree = "<group>"; };
-		F9512970168DCFFF0041460C /* MediaPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaPlayer.m; sourceTree = "<group>"; };
-		F9512978168DEA210041460C /* IMediaStreamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMediaStreamer.h; sourceTree = "<group>"; };
 		F96B1C5E1DD3A23C00A4B362 /* PagedQueryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagedQueryBuilder.h; sourceTree = "<group>"; };
 		F96B1C5F1DD3A23C00A4B362 /* PagedQueryBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PagedQueryBuilder.m; sourceTree = "<group>"; };
 		F96B1C6A1DD3B6CA00A4B362 /* QueryOptionsBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryOptionsBuilder.h; sourceTree = "<group>"; };
@@ -2573,12 +2464,6 @@
 		F9796A2D166CD3A400595F5E /* backendless_device.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = backendless_device.h; sourceTree = "<group>"; };
 		F9796A2F166CD3A400595F5E /* backendless_device.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = backendless_device.m; sourceTree = "<group>"; };
 		F98A7EFC1B307017007635B6 /* libbackendless-mac.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libbackendless-mac.a"; sourceTree = "<group>"; };
-		F994A3F2168DC36B00C1A498 /* MediaPublishOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaPublishOptions.h; sourceTree = "<group>"; };
-		F994A3F3168DC36B00C1A498 /* MediaPublishOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaPublishOptions.m; sourceTree = "<group>"; };
-		F994A3FC168DC39400C1A498 /* MediaPlaybackOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaPlaybackOptions.h; sourceTree = "<group>"; };
-		F994A3FD168DC39400C1A498 /* MediaPlaybackOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaPlaybackOptions.m; sourceTree = "<group>"; };
-		F994A405168DC3BA00C1A498 /* MediaService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaService.h; sourceTree = "<group>"; };
-		F994A406168DC3BA00C1A498 /* MediaService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaService.m; sourceTree = "<group>"; };
 		F99A74951D4A0CAB001AF91F /* MapDrivenDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapDrivenDataStore.h; sourceTree = "<group>"; };
 		F99A74961D4A0CAB001AF91F /* MapDrivenDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapDrivenDataStore.m; sourceTree = "<group>"; };
 		F99D92231607240B00AFF3F6 /* DataStoreFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataStoreFactory.h; sourceTree = "<group>"; };
@@ -2635,16 +2520,6 @@
 		F9F0AF391CDBCA3900035C62 /* libbkndlss-simulator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libbkndlss-simulator.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9F0AFF31CDBCAB500035C62 /* libbkndlss-device.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libbkndlss-device.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9F26B571D8C3A1E00B9EA82 /* backendless.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = backendless.a; sourceTree = "<group>"; };
-		F9F26C681D8C434A00B9EA82 /* AudioCodec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioCodec.h; sourceTree = "<group>"; };
-		F9F26C691D8C434A00B9EA82 /* AudioQueuePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioQueuePlayer.h; sourceTree = "<group>"; };
-		F9F26C6A1D8C434A00B9EA82 /* CodecConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodecConstants.h; sourceTree = "<group>"; };
-		F9F26C6B1D8C434A00B9EA82 /* IAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAudioPlayer.h; sourceTree = "<group>"; };
-		F9F26C6C1D8C434A00B9EA82 /* MPAudioUnitEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPAudioUnitEngine.h; sourceTree = "<group>"; };
-		F9F26C6D1D8C434A00B9EA82 /* MPCodecIDMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPCodecIDMapping.h; sourceTree = "<group>"; };
-		F9F26C6E1D8C434A00B9EA82 /* NellyMoserDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NellyMoserDecoder.h; sourceTree = "<group>"; };
-		F9F26C6F1D8C434A00B9EA82 /* SysTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SysTimer.h; sourceTree = "<group>"; };
-		F9F26C701D8C434A00B9EA82 /* VideoCodec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoCodec.h; sourceTree = "<group>"; };
-		F9F26C711D8C434A00B9EA82 /* VideoStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoStream.h; sourceTree = "<group>"; };
 		F9F58DAC1BA83BB1009B8782 /* BackendlessBeacon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackendlessBeacon.h; sourceTree = "<group>"; };
 		F9F58DAD1BA83BB1009B8782 /* BackendlessBeacon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackendlessBeacon.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2715,8 +2590,6 @@
 				0F9AC6ED1E798C5B0087869F /* HttpEngine.m */,
 				0F9AC6EE1E798C5B0087869F /* Responder.h */,
 				0F9AC6EF1E798C5B0087869F /* Responder.m */,
-				0F9AC6F01E798C5B0087869F /* RtmpEngine.h */,
-				0F9AC6F11E798C5C0087869F /* RtmpEngine.m */,
 				0F9AC6F21E798C5C0087869F /* Subscription.h */,
 				0F9AC6F31E798C5C0087869F /* Subscription.m */,
 				0F9AC6F41E798C5C0087869F /* WeborbClient.h */,
@@ -3070,8 +2943,6 @@
 				0F9AC7B21E798C5C0087869F /* CrowdNode.m */,
 				0F9AC7B31E798C5C0087869F /* DEBUG.h */,
 				0F9AC7B41E798C5C0087869F /* DEBUG.m */,
-				0F9AC7B51E798C5C0087869F /* LicenseManager.h */,
-				0F9AC7B61E798C5C0087869F /* LicenseManager.m */,
 				0F9AC7B71E798C5C0087869F /* MemoryTicker.h */,
 				0F9AC7B81E798C5C0087869F /* MemoryTicker.m */,
 			);
@@ -3198,24 +3069,6 @@
 			path = Events;
 			sourceTree = "<group>";
 		};
-		912D5049182102C7006A090A /* BETableView */ = {
-			isa = PBXGroup;
-			children = (
-				912D504A182102F0006A090A /* BETableView.h */,
-				912D504B182102F0006A090A /* BETableView.m */,
-			);
-			path = BETableView;
-			sourceTree = "<group>";
-		};
-		91764F981823E40000745497 /* BECollectionView */ = {
-			isa = PBXGroup;
-			children = (
-				91764F991823E43400745497 /* BECollectionView.h */,
-				91764F9A1823E43400745497 /* BECollectionView.m */,
-			);
-			path = BECollectionView;
-			sourceTree = "<group>";
-		};
 		91A4285818508257005F91DE /* Reachability */ = {
 			isa = PBXGroup;
 			children = (
@@ -3223,17 +3076,6 @@
 				91A4285A18508269005F91DE /* BEReachability.m */,
 			);
 			name = Reachability;
-			sourceTree = "<group>";
-		};
-		91DF02371821623E009DAE40 /* BEMapView */ = {
-			isa = PBXGroup;
-			children = (
-				91DF02381821625B009DAE40 /* BEMapView.h */,
-				91DF02391821625B009DAE40 /* BEMapView.m */,
-				91DF02441821718C009DAE40 /* BEAnnotation.h */,
-				91DF02451821718C009DAE40 /* BEAnnotation.m */,
-			);
-			path = BEMapView;
 			sourceTree = "<group>";
 		};
 		91F1398917D7240A00D1AC4C /* Cache */ = {
@@ -3252,38 +3094,6 @@
 				91F1399417D7240A00D1AC4C /* BackendlessCacheProtocol.h */,
 			);
 			path = Cache;
-			sourceTree = "<group>";
-		};
-		D30E684019E28E0C00AE3949 /* MediaLibiOS3x */ = {
-			isa = PBXGroup;
-			children = (
-				D30E684119E28E0C00AE3949 /* include */,
-				D30E684819E28E0C00AE3949 /* MediaLibiOS.a */,
-			);
-			path = MediaLibiOS3x;
-			sourceTree = "<group>";
-		};
-		D30E684119E28E0C00AE3949 /* include */ = {
-			isa = PBXGroup;
-			children = (
-				F9F26C681D8C434A00B9EA82 /* AudioCodec.h */,
-				F9F26C691D8C434A00B9EA82 /* AudioQueuePlayer.h */,
-				F9F26C6A1D8C434A00B9EA82 /* CodecConstants.h */,
-				F9F26C6B1D8C434A00B9EA82 /* IAudioPlayer.h */,
-				F9F26C6C1D8C434A00B9EA82 /* MPAudioUnitEngine.h */,
-				F9F26C6D1D8C434A00B9EA82 /* MPCodecIDMapping.h */,
-				F9F26C6E1D8C434A00B9EA82 /* NellyMoserDecoder.h */,
-				F9F26C6F1D8C434A00B9EA82 /* SysTimer.h */,
-				F9F26C701D8C434A00B9EA82 /* VideoCodec.h */,
-				F9F26C711D8C434A00B9EA82 /* VideoStream.h */,
-				D30E684219E28E0C00AE3949 /* BroadcastStreamClient.h */,
-				D30E684319E28E0C00AE3949 /* MediaStreamPlayer.h */,
-				D30E684419E28E0C00AE3949 /* MPMediaData.h */,
-				D30E684519E28E0C00AE3949 /* MPMediaDecoder.h */,
-				D30E684619E28E0C00AE3949 /* MPMediaEncoder.h */,
-				D30E684719E28E0C00AE3949 /* VideoPlayer.h */,
-			);
-			path = include;
 			sourceTree = "<group>";
 		};
 		D35DC3361AD6CD7200EF2A68 /* Logging */ = {
@@ -3346,9 +3156,6 @@
 				D30A5D7819B9D03100C0BA44 /* README.md */,
 				F9356C701B6FA479009A01D9 /* getting-started.pdf */,
 				F90F2B5E1BB2DF9C004F8D33 /* Update Project with Backendless SDK for iOS9.pdf */,
-				91764F981823E40000745497 /* BECollectionView */,
-				91DF02371821623E009DAE40 /* BEMapView */,
-				912D5049182102C7006A090A /* BETableView */,
 				F9F26B551D8C3A1E00B9EA82 /* ios */,
 				F91B47C415FE380C00012DFC /* lib */,
 				F98A7EBE1B307017007635B6 /* osx */,
@@ -3382,7 +3189,6 @@
 		F91B47C415FE380C00012DFC /* lib */ = {
 			isa = PBXGroup;
 			children = (
-				D30E684019E28E0C00AE3949 /* MediaLibiOS3x */,
 				D3AD804318F01F7600AADCB0 /* backendless */,
 			);
 			name = lib;
@@ -3407,7 +3213,6 @@
 				F91B47E315FF448F00012DFC /* Geo */,
 				F91B480715FF655800012DFC /* Messaging */,
 				F91B47E215FF448F00012DFC /* Files */,
-				F91B47E415FF448F00012DFC /* Media */,
 				D36CDDED19C99CFF00C3FFE3 /* CustomService */,
 				91223DC7195AF68900F72F48 /* Events */,
 				D39A467E19811CDC006CBD1B /* CacheService */,
@@ -3463,24 +3268,6 @@
 				D3A064DE1B0243ED00779BB1 /* ICallback.h */,
 			);
 			path = Geo;
-			sourceTree = "<group>";
-		};
-		F91B47E415FF448F00012DFC /* Media */ = {
-			isa = PBXGroup;
-			children = (
-				F994A405168DC3BA00C1A498 /* MediaService.h */,
-				F994A406168DC3BA00C1A498 /* MediaService.m */,
-				F9512978168DEA210041460C /* IMediaStreamer.h */,
-				F9512965168DCFE90041460C /* MediaPublisher.h */,
-				F9512966168DCFE90041460C /* MediaPublisher.m */,
-				F951296F168DCFFF0041460C /* MediaPlayer.h */,
-				F9512970168DCFFF0041460C /* MediaPlayer.m */,
-				F994A3F2168DC36B00C1A498 /* MediaPublishOptions.h */,
-				F994A3F3168DC36B00C1A498 /* MediaPublishOptions.m */,
-				F994A3FC168DC39400C1A498 /* MediaPlaybackOptions.h */,
-				F994A3FD168DC39400C1A498 /* MediaPlaybackOptions.m */,
-			);
-			path = Media;
 			sourceTree = "<group>";
 		};
 		F91B47E515FF448F00012DFC /* Persistence */ = {
@@ -3777,7 +3564,6 @@
 				0F9ACABB1E798C5E0087869F /* NumberObject.h in Headers */,
 				0F9ACC2D1E798C5F0087869F /* V3Message.h in Headers */,
 				0F9AC8C21E798C5C0087869F /* IServiceCall.h in Headers */,
-				0F9ACB971E798C5E0087869F /* LicenseManager.h in Headers */,
 				0F9AC9DA1E798C5D0087869F /* SharedObjectEvent.h in Headers */,
 				0F9AC8E51E798C5C0087869F /* IStreamDispatcher.h in Headers */,
 				0F9ACA2A1E798C5D0087869F /* BooleanReader.h in Headers */,
@@ -3810,7 +3596,6 @@
 				0F9ACC411E798C5F0087869F /* AbstractUnreferenceableTypeWriter.h in Headers */,
 				0F9ACC691E798C5F0087869F /* AMFHeaderWriter.h in Headers */,
 				0F9ACAD91E798C5E0087869F /* PointerReader.h in Headers */,
-				0F9AC8311E798C5C0087869F /* RtmpEngine.h in Headers */,
 				0F9ACC231E798C5F0087869F /* ReqMessage.h in Headers */,
 				0F9ACB151E798C5E0087869F /* UTFStringReader.h in Headers */,
 				0F9ACD091E798C5F0087869F /* ObjectSerializer.h in Headers */,
@@ -3921,16 +3706,10 @@
 				1C7BB4F61A2E092900D3C2C1 /* FileService.h in Headers */,
 				1C7BB4F71A2E092900D3C2C1 /* BackendlessFile.h in Headers */,
 				1C7BB4F81A2E092900D3C2C1 /* HashMap.h in Headers */,
-				1C7BB4F91A2E092900D3C2C1 /* MediaPublishOptions.h in Headers */,
-				1C7BB4FA1A2E092900D3C2C1 /* MediaPlaybackOptions.h in Headers */,
-				1C7BB4FC1A2E092900D3C2C1 /* MediaService.h in Headers */,
 				F96B1C6C1DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */,
-				1C7BB4FD1A2E092900D3C2C1 /* MediaPublisher.h in Headers */,
 				F96B1C7A1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */,
 				F96B1C601DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */,
-				1C7BB4FE1A2E092900D3C2C1 /* MediaPlayer.h in Headers */,
 				84B027E61DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h in Headers */,
-				1C7BB4FF1A2E092900D3C2C1 /* IMediaStreamer.h in Headers */,
 				1C7BB5001A2E092900D3C2C1 /* AbstractQuery.h in Headers */,
 				1C7BB5021A2E092900D3C2C1 /* BackendlessCachePolicy.h in Headers */,
 				1C7BB5051A2E092900D3C2C1 /* BackendlessCacheProtocol.h in Headers */,
@@ -3963,11 +3742,9 @@
 				0F9AC8E61E798C5C0087869F /* IStreamDispatcher.h in Headers */,
 				0F9AC8461E798C5C0087869F /* WeborbClient.h in Headers */,
 				0F9ACC061E798C5F0087869F /* BodyHolderFactory.h in Headers */,
-				0F9ACB981E798C5E0087869F /* LicenseManager.h in Headers */,
 				0F9ACBD91E798C5E0087869F /* IServiceObjectFactory.h in Headers */,
 				0F9ACCC91E798C5F0087869F /* IProtocolFormatter.h in Headers */,
 				0F9AC94F1E798C5D0087869F /* MetaData.h in Headers */,
-				0F9AC8321E798C5C0087869F /* RtmpEngine.h in Headers */,
 				0F9ACCBA1E798C5F0087869F /* DateWriter.h in Headers */,
 				0F9AC8911E798C5C0087869F /* IDeserializer.h in Headers */,
 				0F9AC96D1E798C5D0087869F /* VideoData.h in Headers */,
@@ -4100,11 +3877,7 @@
 				F9CB13871BC53CDD00F3CA1D /* Presence.h in Headers */,
 				F9F58DAF1BA83BB1009B8782 /* BackendlessBeacon.h in Headers */,
 				91223DCB195AF6AB00F72F48 /* Events.h in Headers */,
-				91DF023A1821625B009DAE40 /* BEMapView.h in Headers */,
 				F9796A06166CCBFE00595F5E /* Backendless.h in Headers */,
-				912D504C182102F0006A090A /* BETableView.h in Headers */,
-				91764F9B1823E43400745497 /* BECollectionView.h in Headers */,
-				91DF02461821718C009DAE40 /* BEAnnotation.h in Headers */,
 				F9796A08166CCBFE00595F5E /* AbstractProperty.h in Headers */,
 				F9796A09166CCBFE00595F5E /* UserService.h in Headers */,
 				F9796A0A166CCBFE00595F5E /* BackendlessUser.h in Headers */,
@@ -4170,15 +3943,9 @@
 				91F139A417D7240A00D1AC4C /* BackendlessCacheKey.h in Headers */,
 				F96B1C6D1DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */,
 				F9CB13971BC53D5100F3CA1D /* BeaconMonitoring.h in Headers */,
-				F994A3F4168DC36B00C1A498 /* MediaPublishOptions.h in Headers */,
-				F994A3FE168DC39400C1A498 /* MediaPlaybackOptions.h in Headers */,
 				F96B1C7B1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */,
-				F994A407168DC3BA00C1A498 /* MediaService.h in Headers */,
 				84B027E71DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h in Headers */,
 				F96B1C611DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */,
-				F9512967168DCFE90041460C /* MediaPublisher.h in Headers */,
-				F9512971168DCFFF0041460C /* MediaPlayer.h in Headers */,
-				F9512979168DEA210041460C /* IMediaStreamer.h in Headers */,
 				91F1399517D7240A00D1AC4C /* AbstractQuery.h in Headers */,
 				91F139A917D7240A00D1AC4C /* BackendlessCachePolicy.h in Headers */,
 				91F139AE17D7240A00D1AC4C /* BackendlessCacheProtocol.h in Headers */,
@@ -4211,11 +3978,9 @@
 				0F9AC8E71E798C5C0087869F /* IStreamDispatcher.h in Headers */,
 				0F9AC8471E798C5C0087869F /* WeborbClient.h in Headers */,
 				0F9ACC071E798C5F0087869F /* BodyHolderFactory.h in Headers */,
-				0F9ACB991E798C5E0087869F /* LicenseManager.h in Headers */,
 				0F9ACBDA1E798C5E0087869F /* IServiceObjectFactory.h in Headers */,
 				0F9ACCCA1E798C5F0087869F /* IProtocolFormatter.h in Headers */,
 				0F9AC9501E798C5D0087869F /* MetaData.h in Headers */,
-				0F9AC8331E798C5C0087869F /* RtmpEngine.h in Headers */,
 				0F9ACCBB1E798C5F0087869F /* DateWriter.h in Headers */,
 				0F9AC8921E798C5C0087869F /* IDeserializer.h in Headers */,
 				0F9AC96E1E798C5D0087869F /* VideoData.h in Headers */,
@@ -4348,11 +4113,7 @@
 				F9F58DB01BA83BB1009B8782 /* BackendlessBeacon.h in Headers */,
 				F9CB13881BC53CDD00F3CA1D /* Presence.h in Headers */,
 				91223DCC195AF6AB00F72F48 /* Events.h in Headers */,
-				91DF023B1821625B009DAE40 /* BEMapView.h in Headers */,
 				F9796A52166CD42E00595F5E /* Backendless.h in Headers */,
-				912D504D182102F0006A090A /* BETableView.h in Headers */,
-				91764F9C1823E43400745497 /* BECollectionView.h in Headers */,
-				91DF02471821718C009DAE40 /* BEAnnotation.h in Headers */,
 				F9796A54166CD42E00595F5E /* AbstractProperty.h in Headers */,
 				F9796A55166CD42E00595F5E /* UserService.h in Headers */,
 				F9796A56166CD42E00595F5E /* BackendlessUser.h in Headers */,
@@ -4417,16 +4178,10 @@
 				91F1399B17D7240A00D1AC4C /* BackendlessCache.h in Headers */,
 				91F139A017D7240A00D1AC4C /* BackendlessCacheData.h in Headers */,
 				91F139A517D7240A00D1AC4C /* BackendlessCacheKey.h in Headers */,
-				F994A3F5168DC36B00C1A498 /* MediaPublishOptions.h in Headers */,
 				F96B1C7C1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */,
-				F994A3FF168DC39400C1A498 /* MediaPlaybackOptions.h in Headers */,
 				F96B1C6E1DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */,
 				84B027E81DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h in Headers */,
 				F96B1C621DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */,
-				F994A408168DC3BA00C1A498 /* MediaService.h in Headers */,
-				F9512968168DCFE90041460C /* MediaPublisher.h in Headers */,
-				F9512972168DCFFF0041460C /* MediaPlayer.h in Headers */,
-				F951297A168DEA210041460C /* IMediaStreamer.h in Headers */,
 				91F1399617D7240A00D1AC4C /* AbstractQuery.h in Headers */,
 				91F139AA17D7240A00D1AC4C /* BackendlessCachePolicy.h in Headers */,
 				91F139AF17D7240A00D1AC4C /* BackendlessCacheProtocol.h in Headers */,
@@ -4514,7 +4269,6 @@
 				0F9ACABE1E798C5E0087869F /* NumberObject.h in Headers */,
 				0F9ACC301E798C5F0087869F /* V3Message.h in Headers */,
 				0F9AC8C51E798C5C0087869F /* IServiceCall.h in Headers */,
-				0F9ACB9A1E798C5E0087869F /* LicenseManager.h in Headers */,
 				0F9AC9DD1E798C5D0087869F /* SharedObjectEvent.h in Headers */,
 				0F9AC8E81E798C5C0087869F /* IStreamDispatcher.h in Headers */,
 				0F9ACA2D1E798C5D0087869F /* BooleanReader.h in Headers */,
@@ -4547,7 +4301,6 @@
 				0F9ACC441E798C5F0087869F /* AbstractUnreferenceableTypeWriter.h in Headers */,
 				0F9ACC6C1E798C5F0087869F /* AMFHeaderWriter.h in Headers */,
 				0F9ACADC1E798C5E0087869F /* PointerReader.h in Headers */,
-				0F9AC8341E798C5C0087869F /* RtmpEngine.h in Headers */,
 				0F9ACC261E798C5F0087869F /* ReqMessage.h in Headers */,
 				0F9ACB181E798C5E0087869F /* UTFStringReader.h in Headers */,
 				0F9ACD0C1E798C5F0087869F /* ObjectSerializer.h in Headers */,
@@ -4596,11 +4349,7 @@
 				F9F0AED01CDBCA3900035C62 /* Presence.h in Headers */,
 				F9F0AED11CDBCA3900035C62 /* BackendlessBeacon.h in Headers */,
 				F9F0AED21CDBCA3900035C62 /* Events.h in Headers */,
-				F9F0AED31CDBCA3900035C62 /* BEMapView.h in Headers */,
 				F9F0AED51CDBCA3900035C62 /* Backendless.h in Headers */,
-				F9F0AED61CDBCA3900035C62 /* BETableView.h in Headers */,
-				F9F0AED91CDBCA3900035C62 /* BECollectionView.h in Headers */,
-				F9F0AEDA1CDBCA3900035C62 /* BEAnnotation.h in Headers */,
 				F9F0AEDB1CDBCA3900035C62 /* AbstractProperty.h in Headers */,
 				F9F0AEDC1CDBCA3900035C62 /* UserService.h in Headers */,
 				F9F0AEDE1CDBCA3900035C62 /* BackendlessUser.h in Headers */,
@@ -4755,7 +4504,6 @@
 				0F9ACABF1E798C5E0087869F /* NumberObject.h in Headers */,
 				0F9ACC311E798C5F0087869F /* V3Message.h in Headers */,
 				0F9AC8C61E798C5C0087869F /* IServiceCall.h in Headers */,
-				0F9ACB9B1E798C5E0087869F /* LicenseManager.h in Headers */,
 				0F9AC9DE1E798C5D0087869F /* SharedObjectEvent.h in Headers */,
 				0F9AC8E91E798C5C0087869F /* IStreamDispatcher.h in Headers */,
 				0F9ACA2E1E798C5D0087869F /* BooleanReader.h in Headers */,
@@ -4788,7 +4536,6 @@
 				0F9ACC451E798C5F0087869F /* AbstractUnreferenceableTypeWriter.h in Headers */,
 				0F9ACC6D1E798C5F0087869F /* AMFHeaderWriter.h in Headers */,
 				0F9ACADD1E798C5E0087869F /* PointerReader.h in Headers */,
-				0F9AC8351E798C5C0087869F /* RtmpEngine.h in Headers */,
 				0F9ACC271E798C5F0087869F /* ReqMessage.h in Headers */,
 				0F9ACB191E798C5E0087869F /* UTFStringReader.h in Headers */,
 				0F9ACD0D1E798C5F0087869F /* ObjectSerializer.h in Headers */,
@@ -4837,11 +4584,7 @@
 				F9F0AF8A1CDBCAB500035C62 /* BackendlessBeacon.h in Headers */,
 				F9F0AF8B1CDBCAB500035C62 /* Presence.h in Headers */,
 				F9F0AF8C1CDBCAB500035C62 /* Events.h in Headers */,
-				F9F0AF8D1CDBCAB500035C62 /* BEMapView.h in Headers */,
 				F9F0AF901CDBCAB500035C62 /* Backendless.h in Headers */,
-				F9F0AF911CDBCAB500035C62 /* BETableView.h in Headers */,
-				F9F0AF951CDBCAB500035C62 /* BECollectionView.h in Headers */,
-				F9F0AF961CDBCAB500035C62 /* BEAnnotation.h in Headers */,
 				F9F0AF981CDBCAB500035C62 /* AbstractProperty.h in Headers */,
 				F9F0AF991CDBCAB500035C62 /* UserService.h in Headers */,
 				F9F0AF9B1CDBCAB500035C62 /* BackendlessUser.h in Headers */,
@@ -5161,7 +4904,6 @@
 				1C7BB4911A2E092900D3C2C1 /* CustomService.m in Sources */,
 				0F9ACB7E1E798C5E0087869F /* AMFSerializer.m in Sources */,
 				1C7BB4921A2E092900D3C2C1 /* Invoker.m in Sources */,
-				0F9ACB9C1E798C5E0087869F /* LicenseManager.m in Sources */,
 				0F9ACC8C1E798C5F0087869F /* ArrayWriter.m in Sources */,
 				0F9ACBB51E798C5E0087869F /* BinaryCodec.m in Sources */,
 				1C7BB4931A2E092900D3C2C1 /* AbstractProperty.m in Sources */,
@@ -5231,7 +4973,6 @@
 				0F9ACC3C1E798C5F0087869F /* AbstractReferenceableTypeWriter.m in Sources */,
 				D30FC9B41AE132C2007C9A83 /* LogBuffer.m in Sources */,
 				0F9ACC821E798C5F0087869F /* ArrayReferenceWriter.m in Sources */,
-				0F9AC8361E798C5C0087869F /* RtmpEngine.m in Sources */,
 				0F9AC8631E798C5C0087869F /* MHeader.m in Sources */,
 				0F9ACC961E798C5F0087869F /* BodyHolderWriter.m in Sources */,
 				0F9ACCF01E798C5F0087869F /* NullWriter.m in Sources */,
@@ -5274,10 +5015,8 @@
 				0F9AC91C1E798C5C0087869F /* Aggregate.m in Sources */,
 				F9CB136E1BC284A900F3CA1D /* BeaconsInfo.m in Sources */,
 				0F9ACC281E798C5F0087869F /* ReqMessage.m in Sources */,
-				1C7BB4B31A2E092900D3C2C1 /* MediaPublishOptions.m in Sources */,
 				0F9AC9711E798C5D0087869F /* VideoData.m in Sources */,
 				0F9ACD2C1E798C600087869F /* ReferenceCache.m in Sources */,
-				1C7BB4B41A2E092900D3C2C1 /* MediaPlaybackOptions.m in Sources */,
 				1C7BB4B51A2E092900D3C2C1 /* BodyParts.m in Sources */,
 				D3A064DB1B0242B900779BB1 /* ClientCallback.m in Sources */,
 				F9C7DE9A1B7CBFE600AFCD06 /* BackendlessSimpleQuery.m in Sources */,
@@ -5285,12 +5024,9 @@
 				0F9ACD361E798C600087869F /* StringReferenceWriter.m in Sources */,
 				0F9ACAAC1E798C5E0087869F /* NullReader.m in Sources */,
 				D31700D51A84D2AA00772766 /* GeoCluster.m in Sources */,
-				1C7BB4B61A2E092900D3C2C1 /* MediaService.m in Sources */,
 				D35DC3441AD7E19800EF2A68 /* Logger.m in Sources */,
 				0F9ACAB61E798C5E0087869F /* NullType.m in Sources */,
-				1C7BB4B71A2E092900D3C2C1 /* MediaPublisher.m in Sources */,
 				0F9ACAF21E798C5E0087869F /* ReaderUtils.m in Sources */,
-				1C7BB4B81A2E092900D3C2C1 /* MediaPlayer.m in Sources */,
 				1C7BB4B91A2E092900D3C2C1 /* AbstractQuery.m in Sources */,
 				0F9ACAC01E798C5E0087869F /* NumberObject.m in Sources */,
 				1C7BB4BA1A2E092900D3C2C1 /* AtomicCountersFactory.m in Sources */,
@@ -5347,7 +5083,6 @@
 				0F9ACD051E798C5F0087869F /* ObjectReferenceWriter.m in Sources */,
 				0F9ACD2D1E798C600087869F /* ReferenceCache.m in Sources */,
 				F91AC57A1D58CFE800511EA5 /* MapDrivenDataStore.m in Sources */,
-				912D504F182102F0006A090A /* BETableView.m in Sources */,
 				0F9ACA441E798C5D0087869F /* BoundPropertyBagReader.m in Sources */,
 				F97969EA166CCB8200595F5E /* Backendless.m in Sources */,
 				F97969EB166CCB8200595F5E /* Invoker.m in Sources */,
@@ -5355,7 +5090,6 @@
 				0F9ACCCE1E798C5F0087869F /* IProtocolFormatter.m in Sources */,
 				0F9ACBA71E798C5E0087869F /* MemoryTicker.m in Sources */,
 				0F9ACB111E798C5E0087869F /* UndefinedTypeReader.m in Sources */,
-				0F9ACB9D1E798C5E0087869F /* LicenseManager.m in Sources */,
 				F97969EC166CCB8200595F5E /* AbstractProperty.m in Sources */,
 				0F9AC9041E798C5C0087869F /* BaseRTMPProtocolEncoder.m in Sources */,
 				D3A064C41AFCE64D00779BB1 /* GeoFence.m in Sources */,
@@ -5447,7 +5181,6 @@
 				0F9ACC651E798C5F0087869F /* AMFBodyWriter.m in Sources */,
 				F9796A00166CCB8200595F5E /* BESubscription.m in Sources */,
 				F9796A01166CCB8200595F5E /* Message.m in Sources */,
-				0F9AC8371E798C5C0087869F /* RtmpEngine.m in Sources */,
 				0F9ACD191E798C600087869F /* ObjectWriter.m in Sources */,
 				0F9AC8641E798C5C0087869F /* MHeader.m in Sources */,
 				0F9ACBED1E798C5F0087869F /* AckMessage.m in Sources */,
@@ -5461,7 +5194,6 @@
 				F9796A04166CCB8200595F5E /* BackendlessFile.m in Sources */,
 				0F9ACC6F1E798C5F0087869F /* AMFHeaderWriter.m in Sources */,
 				0F9ACB1B1E798C5E0087869F /* UTFStringReader.m in Sources */,
-				91764F9E1823E43400745497 /* BECollectionView.m in Sources */,
 				0F9ACC291E798C5F0087869F /* ReqMessage.m in Sources */,
 				0F9AC85A1E798C5C0087869F /* Body.m in Sources */,
 				0F9ACC791E798C5F0087869F /* AMFMessageWriter.m in Sources */,
@@ -5479,7 +5211,6 @@
 				D35DC33D1AD6CE1500EF2A68 /* Logging.m in Sources */,
 				F9CB139A1BC53D5100F3CA1D /* BeaconMonitoring.m in Sources */,
 				0F9ACD4B1E798C600087869F /* V3ObjectSerializer.m in Sources */,
-				F994A3F6168DC36B00C1A498 /* MediaPublishOptions.m in Sources */,
 				0F9AC9B31E798C5D0087869F /* PendingCall.m in Sources */,
 				D3FB9B7819867F0E00A13FB6 /* AtomicCountersFactory.m in Sources */,
 				0F9ACB431E798C5E0087869F /* V3ObjectReader.m in Sources */,
@@ -5490,27 +5221,21 @@
 				0F9ACC0B1E798C5F0087869F /* BodyHolderFactory.m in Sources */,
 				0F9ACCF11E798C5F0087869F /* NullWriter.m in Sources */,
 				0F9AC97C1E798C5D0087869F /* Header.m in Sources */,
-				F994A400168DC39400C1A498 /* MediaPlaybackOptions.m in Sources */,
 				0F9ACCE71E798C5F0087869F /* MultiDimArrayWriter.m in Sources */,
 				0F9ACC011E798C5F0087869F /* BodyHolder.m in Sources */,
 				0F9ACA991E798C5D0087869F /* NamedObjectReader.m in Sources */,
 				0F9ACB931E798C5E0087869F /* DEBUG.m in Sources */,
-				91DF02491821718C009DAE40 /* BEAnnotation.m in Sources */,
 				0F9AC8411E798C5C0087869F /* Subscription.m in Sources */,
 				0F9AC86E1E798C5C0087869F /* Request.m in Sources */,
 				0F9AC8AA1E798C5C0087869F /* WebORBSerializer.m in Sources */,
 				0F9ACB571E798C5E0087869F /* V3StringReader.m in Sources */,
 				0F9ACADF1E798C5E0087869F /* PointerReader.m in Sources */,
 				910117D7180C0CCF008102A7 /* BodyParts.m in Sources */,
-				F994A409168DC3BA00C1A498 /* MediaService.m in Sources */,
 				F9F58DB21BA83BB1009B8782 /* BackendlessBeacon.m in Sources */,
 				0F9AC8FA1E798C5C0087869F /* BaseRTMPProtocolDecoder.m in Sources */,
-				F9512969168DCFE90041460C /* MediaPublisher.m in Sources */,
 				0F9ACB891E798C5E0087869F /* CrowdNode.m in Sources */,
 				0F9ACD0F1E798C5F0087869F /* ObjectSerializer.m in Sources */,
-				91DF023D1821625B009DAE40 /* BEMapView.m in Sources */,
 				0F9ACB4D1E798C5E0087869F /* V3Reader.m in Sources */,
-				F9512973168DCFFF0041460C /* MediaPlayer.m in Sources */,
 				0F9ACB611E798C5E0087869F /* V3VectorReader.m in Sources */,
 				91F1399717D7240A00D1AC4C /* AbstractQuery.m in Sources */,
 				91F1399C17D7240A00D1AC4C /* BackendlessCache.m in Sources */,
@@ -5549,7 +5274,6 @@
 				0F9ACD061E798C5F0087869F /* ObjectReferenceWriter.m in Sources */,
 				0F9ACD2E1E798C600087869F /* ReferenceCache.m in Sources */,
 				F91AC57C1D58D06B00511EA5 /* MapDrivenDataStore.m in Sources */,
-				912D5050182102F0006A090A /* BETableView.m in Sources */,
 				0F9ACA451E798C5D0087869F /* BoundPropertyBagReader.m in Sources */,
 				F9796A34166CD3DA00595F5E /* Backendless.m in Sources */,
 				F9796A35166CD3DA00595F5E /* Invoker.m in Sources */,
@@ -5557,7 +5281,6 @@
 				0F9ACCCF1E798C5F0087869F /* IProtocolFormatter.m in Sources */,
 				0F9ACBA81E798C5E0087869F /* MemoryTicker.m in Sources */,
 				0F9ACB121E798C5E0087869F /* UndefinedTypeReader.m in Sources */,
-				0F9ACB9E1E798C5E0087869F /* LicenseManager.m in Sources */,
 				F9796A36166CD3DA00595F5E /* AbstractProperty.m in Sources */,
 				0F9AC9051E798C5C0087869F /* BaseRTMPProtocolEncoder.m in Sources */,
 				D3A064C51AFCE64D00779BB1 /* GeoFence.m in Sources */,
@@ -5649,7 +5372,6 @@
 				0F9ACC661E798C5F0087869F /* AMFBodyWriter.m in Sources */,
 				F9796A4A166CD3DB00595F5E /* BESubscription.m in Sources */,
 				F9796A4B166CD3DB00595F5E /* Message.m in Sources */,
-				0F9AC8381E798C5C0087869F /* RtmpEngine.m in Sources */,
 				0F9ACD1A1E798C600087869F /* ObjectWriter.m in Sources */,
 				0F9AC8651E798C5C0087869F /* MHeader.m in Sources */,
 				0F9ACBEE1E798C5F0087869F /* AckMessage.m in Sources */,
@@ -5663,7 +5385,6 @@
 				F9796A4E166CD3DB00595F5E /* BackendlessFile.m in Sources */,
 				0F9ACC701E798C5F0087869F /* AMFHeaderWriter.m in Sources */,
 				0F9ACB1C1E798C5E0087869F /* UTFStringReader.m in Sources */,
-				91764F9F1823E43400745497 /* BECollectionView.m in Sources */,
 				0F9ACC2A1E798C5F0087869F /* ReqMessage.m in Sources */,
 				0F9AC85B1E798C5C0087869F /* Body.m in Sources */,
 				0F9ACC7A1E798C5F0087869F /* AMFMessageWriter.m in Sources */,
@@ -5681,7 +5402,6 @@
 				D35DC33E1AD6CE1500EF2A68 /* Logging.m in Sources */,
 				F9CB139B1BC53D5100F3CA1D /* BeaconMonitoring.m in Sources */,
 				0F9ACD4C1E798C600087869F /* V3ObjectSerializer.m in Sources */,
-				F994A3F7168DC36B00C1A498 /* MediaPublishOptions.m in Sources */,
 				0F9AC9B41E798C5D0087869F /* PendingCall.m in Sources */,
 				D3FB9B7919867F0E00A13FB6 /* AtomicCountersFactory.m in Sources */,
 				0F9ACB441E798C5E0087869F /* V3ObjectReader.m in Sources */,
@@ -5692,27 +5412,21 @@
 				0F9ACC0C1E798C5F0087869F /* BodyHolderFactory.m in Sources */,
 				0F9ACCF21E798C5F0087869F /* NullWriter.m in Sources */,
 				0F9AC97D1E798C5D0087869F /* Header.m in Sources */,
-				F994A401168DC39400C1A498 /* MediaPlaybackOptions.m in Sources */,
 				0F9ACCE81E798C5F0087869F /* MultiDimArrayWriter.m in Sources */,
 				0F9ACC021E798C5F0087869F /* BodyHolder.m in Sources */,
 				0F9ACA9A1E798C5D0087869F /* NamedObjectReader.m in Sources */,
 				0F9ACB941E798C5E0087869F /* DEBUG.m in Sources */,
-				91DF024A1821718C009DAE40 /* BEAnnotation.m in Sources */,
 				0F9AC8421E798C5C0087869F /* Subscription.m in Sources */,
 				0F9AC86F1E798C5C0087869F /* Request.m in Sources */,
 				0F9AC8AB1E798C5C0087869F /* WebORBSerializer.m in Sources */,
 				0F9ACB581E798C5E0087869F /* V3StringReader.m in Sources */,
 				0F9ACAE01E798C5E0087869F /* PointerReader.m in Sources */,
 				910117D8180C0CCF008102A7 /* BodyParts.m in Sources */,
-				F994A40A168DC3BA00C1A498 /* MediaService.m in Sources */,
 				F9F58DB31BA83BB1009B8782 /* BackendlessBeacon.m in Sources */,
 				0F9AC8FB1E798C5C0087869F /* BaseRTMPProtocolDecoder.m in Sources */,
-				F951296A168DCFE90041460C /* MediaPublisher.m in Sources */,
 				0F9ACB8A1E798C5E0087869F /* CrowdNode.m in Sources */,
 				0F9ACD101E798C5F0087869F /* ObjectSerializer.m in Sources */,
-				91DF023E1821625B009DAE40 /* BEMapView.m in Sources */,
 				0F9ACB4E1E798C5E0087869F /* V3Reader.m in Sources */,
-				F9512974168DCFFF0041460C /* MediaPlayer.m in Sources */,
 				0F9ACB621E798C5E0087869F /* V3VectorReader.m in Sources */,
 				91F1399817D7240A00D1AC4C /* AbstractQuery.m in Sources */,
 				91F1399D17D7240A00D1AC4C /* BackendlessCache.m in Sources */,
@@ -5744,7 +5458,6 @@
 				84B027EE1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */,
 				F9B360C51D65A7BD00818EEF /* UICKeyChainStore.m in Sources */,
 				F91AC5761D58C60500511EA5 /* MapDrivenDataStore.m in Sources */,
-				F9F0AE821CDBCA3900035C62 /* BETableView.m in Sources */,
 				0F9AC85C1E798C5C0087869F /* Body.m in Sources */,
 				F9F0AE831CDBCA3900035C62 /* Backendless.m in Sources */,
 				0F9AC8701E798C5C0087869F /* Request.m in Sources */,
@@ -5794,7 +5507,6 @@
 				0F9ACAA51E798C5D0087869F /* NotAReader.m in Sources */,
 				0F9ACAFF1E798C5E0087869F /* StringType.m in Sources */,
 				0F9ACB131E798C5E0087869F /* UndefinedTypeReader.m in Sources */,
-				0F9ACB9F1E798C5E0087869F /* LicenseManager.m in Sources */,
 				0F9ACD071E798C5F0087869F /* ObjectReferenceWriter.m in Sources */,
 				F9F0AE951CDBCA3900035C62 /* AtomicCounters.m in Sources */,
 				0F9ACBD61E798C5E0087869F /* FlashorbBinaryWriter.m in Sources */,
@@ -5854,7 +5566,6 @@
 				F9F0AEA91CDBCA3900035C62 /* ClientCallback.m in Sources */,
 				F9F0AEAA1CDBCA3900035C62 /* Events.m in Sources */,
 				0F9ACB631E798C5E0087869F /* V3VectorReader.m in Sources */,
-				0F9AC8391E798C5C0087869F /* RtmpEngine.m in Sources */,
 				0F9ACC991E798C5F0087869F /* BodyHolderWriter.m in Sources */,
 				0F9ACB771E798C5E0087869F /* Types.m in Sources */,
 				F9F0AEAB1CDBCA3900035C62 /* BESubscription.m in Sources */,
@@ -5869,7 +5580,6 @@
 				0F9ACA9B1E798C5D0087869F /* NamedObjectReader.m in Sources */,
 				F9F0AEAF1CDBCA3900035C62 /* FileService.m in Sources */,
 				F9F0AEB01CDBCA3900035C62 /* BackendlessFile.m in Sources */,
-				F9F0AEB11CDBCA3900035C62 /* BECollectionView.m in Sources */,
 				F9F0AEB21CDBCA3900035C62 /* BeaconsInfo.m in Sources */,
 				0F9ACBEF1E798C5F0087869F /* AckMessage.m in Sources */,
 				0F9ACAD71E798C5E0087869F /* ParseContext.m in Sources */,
@@ -5904,11 +5614,9 @@
 				0F9AC9291E798C5C0087869F /* AudioData.m in Sources */,
 				0F9ACB3B1E798C5E0087869F /* V3DateReader.m in Sources */,
 				F9F0AEBA1CDBCA3900035C62 /* AtomicCountersFactory.m in Sources */,
-				F9F0AEBC1CDBCA3900035C62 /* BEAnnotation.m in Sources */,
 				F9F0AEBD1CDBCA3900035C62 /* BodyParts.m in Sources */,
 				0F9AC9061E798C5C0087869F /* BaseRTMPProtocolEncoder.m in Sources */,
 				F9F0AEBF1CDBCA3900035C62 /* BackendlessBeacon.m in Sources */,
-				F9F0AEC11CDBCA3900035C62 /* BEMapView.m in Sources */,
 				0F9ACC211E798C5F0087869F /* ErrMessage.m in Sources */,
 				0F9ACCE91E798C5F0087869F /* MultiDimArrayWriter.m in Sources */,
 				0F9ACB951E798C5E0087869F /* DEBUG.m in Sources */,
@@ -5941,7 +5649,6 @@
 				84B027EF1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */,
 				F9B360C61D65A7D000818EEF /* UICKeyChainStore.m in Sources */,
 				F91AC57E1D58D0B300511EA5 /* MapDrivenDataStore.m in Sources */,
-				F9F0AF3C1CDBCAB500035C62 /* BETableView.m in Sources */,
 				0F9AC85D1E798C5C0087869F /* Body.m in Sources */,
 				F9F0AF3D1CDBCAB500035C62 /* Backendless.m in Sources */,
 				0F9AC8711E798C5C0087869F /* Request.m in Sources */,
@@ -5991,7 +5698,6 @@
 				0F9ACAA61E798C5D0087869F /* NotAReader.m in Sources */,
 				0F9ACB001E798C5E0087869F /* StringType.m in Sources */,
 				0F9ACB141E798C5E0087869F /* UndefinedTypeReader.m in Sources */,
-				0F9ACBA01E798C5E0087869F /* LicenseManager.m in Sources */,
 				0F9ACD081E798C5F0087869F /* ObjectReferenceWriter.m in Sources */,
 				F9F0AF4F1CDBCAB500035C62 /* AtomicCounters.m in Sources */,
 				0F9ACBD71E798C5E0087869F /* FlashorbBinaryWriter.m in Sources */,
@@ -6051,7 +5757,6 @@
 				F9F0AF631CDBCAB500035C62 /* ClientCallback.m in Sources */,
 				F9F0AF641CDBCAB500035C62 /* Events.m in Sources */,
 				0F9ACB641E798C5E0087869F /* V3VectorReader.m in Sources */,
-				0F9AC83A1E798C5C0087869F /* RtmpEngine.m in Sources */,
 				0F9ACC9A1E798C5F0087869F /* BodyHolderWriter.m in Sources */,
 				0F9ACB781E798C5E0087869F /* Types.m in Sources */,
 				F9F0AF651CDBCAB500035C62 /* BESubscription.m in Sources */,
@@ -6066,7 +5771,6 @@
 				0F9ACA9C1E798C5D0087869F /* NamedObjectReader.m in Sources */,
 				F9F0AF691CDBCAB500035C62 /* FileService.m in Sources */,
 				F9F0AF6A1CDBCAB500035C62 /* BackendlessFile.m in Sources */,
-				F9F0AF6B1CDBCAB500035C62 /* BECollectionView.m in Sources */,
 				F9F0AF6C1CDBCAB500035C62 /* BeaconsInfo.m in Sources */,
 				0F9ACBF01E798C5F0087869F /* AckMessage.m in Sources */,
 				0F9ACAD81E798C5E0087869F /* ParseContext.m in Sources */,
@@ -6101,11 +5805,9 @@
 				0F9AC92A1E798C5C0087869F /* AudioData.m in Sources */,
 				0F9ACB3C1E798C5E0087869F /* V3DateReader.m in Sources */,
 				F9F0AF741CDBCAB500035C62 /* AtomicCountersFactory.m in Sources */,
-				F9F0AF761CDBCAB500035C62 /* BEAnnotation.m in Sources */,
 				F9F0AF771CDBCAB500035C62 /* BodyParts.m in Sources */,
 				0F9AC9071E798C5C0087869F /* BaseRTMPProtocolEncoder.m in Sources */,
 				F9F0AF791CDBCAB500035C62 /* BackendlessBeacon.m in Sources */,
-				F9F0AF7B1CDBCAB500035C62 /* BEMapView.m in Sources */,
 				0F9ACC221E798C5F0087869F /* ErrMessage.m in Sources */,
 				0F9ACCEA1E798C5F0087869F /* MultiDimArrayWriter.m in Sources */,
 				0F9ACB961E798C5E0087869F /* DEBUG.m in Sources */,

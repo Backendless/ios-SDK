@@ -9,7 +9,6 @@
 #import "WeborbClient.h"
 #import "DEBUG.h"
 #import "Engine.h"
-#import "RtmpEngine.h"
 #import "HttpEngine.h"
 #import "RTMPClient.h"
 #import "Types.h"
@@ -160,16 +159,6 @@
 
 #pragma mark -
 #pragma mark getters / setters
-
--(RTMPClient *)getRTMP {
-    
-    if (engine && [engine isRTMP]) {
-        RtmpEngine *e = (RtmpEngine *)engine;
-        return e.client;
-    }
-    
-    return nil;
-}
 
 -(NSMutableDictionary *)getRequestHeaders {
     return (engine) ? engine.requestHeaders : nil;

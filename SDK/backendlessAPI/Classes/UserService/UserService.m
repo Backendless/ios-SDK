@@ -22,12 +22,6 @@
 #define PERSIST_CURRENTUSER_OFF 0
 #define REPEAT_EASYLOGIN_ON 0
 
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-#import <UIKit/UIKit.h>
-#else
-#import <AppKit/AppKit.h>
-#endif
-
 #import "UserService.h"
 #import "DEBUG.h"
 #import "Types.h"
@@ -862,8 +856,6 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 #else
     [[UIApplication sharedApplication] openURL:url];
 #endif
-#else
-    [[NSWorkspace sharedWorkspace] openURL:url];
 #endif
     return @(YES);
 }

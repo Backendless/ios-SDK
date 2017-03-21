@@ -13,7 +13,7 @@
 #define SWIFT_ON 1
 
 @implementation Types
-@synthesize managedObjectModel, managedObjectContext, swiftClassPrefix;
+@synthesize swiftClassPrefix;
 
 // Singleton accessor:  this is how you should ALWAYS get a reference to the class instance.  Never init your own. 
 +(Types *)sharedInstance {
@@ -27,25 +27,19 @@
 }
 
 -(id)init {	
-	if ( (self=[super init]) ) {
+	if (self = [super init]) {
 		abstractMappings = [[NSMutableDictionary alloc] init];
 		clientMappings = [[NSMutableDictionary alloc] init];
 		serverMappings = [[NSMutableDictionary alloc] init];
-        
-        self.managedObjectModel = nil;
-        self.managedObjectContext = nil;
         self.swiftClassPrefix = [Types targetName];
 	}
-	
 	return self;
 }
 
 -(void)dealloc {
 	
 	[DebLog logN:@"DEALLOC Types"];
-    
-    [self.managedObjectModel release];
-    [self. managedObjectContext release];
+
     [self.swiftClassPrefix release];
 	
 	[abstractMappings removeAllObjects];
@@ -110,15 +104,6 @@
 
 #pragma mark -
 #pragma mark Public Methods
-
--(BOOL)isManagedObjectSupport {
-    return (managedObjectModel && managedObjectContext);
-}
-
--(id)managedInstance:(Class)type {
-    return type && [self isManagedObjectSupport]? [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass(type) inManagedObjectContext:managedObjectContext] : nil;
-}
-
 
 -(void)addAbstractClassMapping:(Class)abstractType mapped:(Class)mappedType {
     
@@ -196,12 +181,6 @@
     if (!type)
         return nil;
     
-    // check: is managed object supported?
-    if ([type isSubclassOfClass:[NSManagedObject class]]) {
-        if (![__types isManagedObjectSupport])
-            return nil;
-    }
-    
     [DebLog logN:@"Types -> classInstance: (!!!!!!!!!!!!!!! CREATE !!!!!!!!!!!!!!!) %@", type];
     
     id instance = class_createInstance(type, 0);
@@ -216,26 +195,7 @@
         return nil;
 #endif
     }
-    
-    if (![instance isKindOfClass:[NSManagedObject class]])
-        return [[instance init] autorelease];
-    
-    // NSManageObject instance initialization
-    NSManagedObjectModel *model = __types.managedObjectModel;
-    if (model) {
-        
-        NSEntityDescription *entityDescription = [[model entitiesByName] objectForKey:[Types typeClassName:type]];
-        if (entityDescription) {
-            
-            id obj = [instance initWithEntity:entityDescription insertIntoManagedObjectContext:__types.managedObjectContext];
-            [DebLog logN:@"Types -> classInstance: <NSManagedObject> %@", obj];
-            return [obj autorelease];
-        }
-    }
-    
-    [DebLog logY:@"Types -> classInstance: (ERROR) NSManagedObject model is crashed"];
-    [[instance init] release];
-    return nil;
+    return [[instance init] autorelease];
 }
 
 -(Class)classByName:(NSString *)className {

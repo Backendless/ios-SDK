@@ -18,7 +18,6 @@
 
 
 @implementation VideoData
-@synthesize image;
 
 -(id)init {	
 	if( (self=[super initWithType:STREAM_DATA]) ) {
@@ -52,18 +51,13 @@
         [self setCodec:videoCodec];
         [self setData:stream];
 	}
-	
 	return self;    
 }
 
 -(void)dealloc {
-	
 	[DebLog logN:@"DEALLOC VideoData"];
-    
     if (data) [data release]; 
     if (codec) [codec release];
-    if (image) [image release];
-	
 	[super dealloc];
 }
 
@@ -73,7 +67,6 @@
 -(void)defaultInit {
     data = nil;
     codec = nil;
-    image = nil;
     timestamp = 0;
 }
 

@@ -27,7 +27,6 @@
     CLLocationManager *_locationManager;
     HashMap *_locationListeners;
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-    UIBackgroundTaskIdentifier _bgTask;
     float iOSVersion;
 #endif
 }
@@ -57,16 +56,10 @@
         _monitoringSignificantLocationChanges = YES;
         _distanceFilter = kCLDistanceFilterNone;
         _desiredAccuracy = kCLLocationAccuracyBest;
-
+        
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
         _activityType = CLActivityTypeOther;
         _pausesLocationUpdatesAutomatically = YES;
-        
-        _bgTask = UIBackgroundTaskInvalid;
-        iOSVersion = [[[UIDevice currentDevice] systemVersion] floatValue];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
 #endif
         [self startLocationManager];
     }
@@ -77,7 +70,7 @@
     
     [DebLog logN:@"DEALLOC LocationTracker"];
     
-    [_locationListeners release];    
+    [_locationListeners release];
     [_locationManager release];
     
     [super dealloc];
@@ -123,36 +116,10 @@
     _locationManager.desiredAccuracy = desiredAccuracy;
 }
 
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-
-#pragma mark -
-#pragma mark UIApplicationDelegate Methods
-
--(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
-    // When there is a significant changes of the location, the key UIApplicationLaunchOptionsLocationKey will be returned from didFinishLaunchingWithOptions.
-    // When the app is receiving the key, it must reinitiate the locationManager and get the latest location updates.
-    // UIApplicationLaunchOptionsLocationKey key enables the location update even when the app has been killed/terminated (not in th background) by iOS or the user.
-    
-    if ([launchOptions objectForKey:UIApplicationLaunchOptionsLocationKey]) {
-        
-        [DebLog log:@"LocationTracker -> application:%@ didFinishLaunchingWithOptions: UIApplicationLaunchOptionsLocationKey is - so app woke up from killed/terminated/suspended"];
-        
-        [self startLocationManager];
-    }
-    
-    return YES;
-}
-#endif
-
 #pragma mark -
 #pragma mark Public Methods
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
--(BOOL)isBackgroundRefreshAvailable {
-    return [[UIApplication sharedApplication] backgroundRefreshStatus] == UIBackgroundRefreshStatusAvailable;
-}
-
 -(BOOL)isSuspendedRefreshAvailable {
     return _monitoringSignificantLocationChanges && (iOSVersion >= 7.1);
 }
@@ -232,7 +199,6 @@
 }
 
 -(void)makeForegroundLocationFailed:(NSError *)error {
-    
     // Start the long-running task and return immediately.
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self onLocationFailed:error];
@@ -241,69 +207,21 @@
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 -(void)makeBackgroundUpdateLocations:(CLLocation *)location {
-    
-    if (![self isBackgroundRefreshAvailable]) {
-        return;
-    }
-    
-    if (_bgTask != UIBackgroundTaskInvalid) {
-        [[UIApplication sharedApplication] endBackgroundTask:_bgTask];
-    }
-    
-    _bgTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-        // stopped or ending the task outright.
-        [[UIApplication sharedApplication] endBackgroundTask:_bgTask];
-        _bgTask = UIBackgroundTaskInvalid;
-    }];
-    
-    if (_bgTask == UIBackgroundTaskInvalid) {
-        return;
-    }
-    
     // Start the long-running task and return immediately.
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
         [self onLocationChanged:location];
-        
-        [[UIApplication sharedApplication] endBackgroundTask:_bgTask];
-        _bgTask = UIBackgroundTaskInvalid;
     });
 }
 
 -(void)makeBackgroundLocationFailed:(NSError *)error {
-    
-    if (![self isBackgroundRefreshAvailable]) {
-        return;
-    }
-    
-    if (_bgTask != UIBackgroundTaskInvalid) {
-        [[UIApplication sharedApplication] endBackgroundTask:_bgTask];
-    }
-    
-    _bgTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-        // stopped or ending the task outright.
-        [[UIApplication sharedApplication] endBackgroundTask:_bgTask];
-        _bgTask = UIBackgroundTaskInvalid;
-    }];
-    
-    if (_bgTask == UIBackgroundTaskInvalid) {
-        return;
-    }
-    
     // Start the long-running task and return immediately.
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
         [self onLocationFailed:error];
-        
-        [[UIApplication sharedApplication] endBackgroundTask:_bgTask];
-        _bgTask = UIBackgroundTaskInvalid;
     });
 }
 
 -(void)applicationDidEnterBackground {
-    
     [DebLog log:@"LocationTracker -> applicationDidEnterBackground"];
-    
     _monitoringSignificantLocationChanges?[_locationManager stopMonitoringSignificantLocationChanges]:[_locationManager stopUpdatingLocation];
     if (iOSVersion >= 8.0)
         [_locationManager requestAlwaysAuthorization];
@@ -311,20 +229,16 @@
 }
 
 -(void)applicationDidBecomeActive {
-    
     [DebLog log:@"LocationTracker -> applicationDidBecomeActive"];
-    
     _monitoringSignificantLocationChanges?[_locationManager stopMonitoringSignificantLocationChanges]:[_locationManager stopUpdatingLocation];
     [self startLocationManager];
 }
 #endif
 
 -(NSString *)GUIDString {
-    
     CFUUIDRef theUUID = CFUUIDCreate(NULL);
     CFStringRef string = CFUUIDCreateString(NULL, theUUID);
     CFRelease(theUUID);
-    
     return [(NSString *)string autorelease];
 }
 
@@ -332,24 +246,15 @@
 #pragma mark CLLocationManagerDelegate Methods
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
-    
     CLLocation *location = [locations lastObject];
     [DebLog log:@"LocationTracker -> locationManager:didUpdateLocations: %@", location];
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-    ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground)?[self makeBackgroundUpdateLocations:location]:[self makeForegroundUpdateLocations:location];
-#else
-[   self makeForegroundUpdateLocations:location];
-#endif
+    [self makeForegroundUpdateLocations:location];
+    
 }
 
 -(void)locationManager: (CLLocationManager *)manager didFailWithError: (NSError *)error {
-    
     [DebLog log:@"LocationTracker -> locationManager:didFailWithError: %@", error];
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-    ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground)?[self makeBackgroundLocationFailed:(NSError *)error]:[self makeForegroundLocationFailed:error];
-#else
     [self makeForegroundLocationFailed:error];
-#endif
 }
 
 @end

@@ -46,13 +46,6 @@
 #import "AMFSerializer.h"
 #import "BinaryCodec.h"
 
-//UI
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-#import "BEMapView.h"
-#import "BETableView.h"
-#import "BECollectionView.h"
-#endif
-
 // backendless
 #import "HashMap.h"
 #import "AbstractProperty.h"

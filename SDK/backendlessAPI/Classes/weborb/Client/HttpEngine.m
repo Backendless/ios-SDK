@@ -9,7 +9,6 @@
 #import "HttpEngine.h"
 #import "DEBUG.h"
 #import "Datatypes.h"
-#import "LicenseManager.h"
 #import "BinaryStream.h"
 #import "FlashorbBinaryReader.h"
 #import "RequestParser.h"
@@ -33,13 +32,7 @@
 #define ON_PRINT_REQUEST 0
 
 #define REPEAT_REQUEST_ON 1
-
-#define URL_CHECK_LICENSE 0
-#define IS_CHECK_LICENSE 0
-
 #define POLLING_INTERVAL 3.0f
-
-static NSString *LICENSE_IS_NEEDED = @"A license is needed to use a library. Contact Midnight Coders Sales to purchase the license";
 
 #pragma mark -
 #pragma mark AsyncHttpResponse Class
@@ -182,26 +175,7 @@ static NSString *LICENSE_IS_NEEDED = @"A license is needed to use a library. Con
 -(void)processAsyncAMFResponse:(AsyncHttpResponse *)async {
     
     id <IResponder> responder = (async.responder) ? async.responder : _responder;
-    
-#if URL_CHECK_LICENSE && IS_CHECK_LICENSE
-    
-    if (![LicenseManager sharedInstance].isLicense && ![LicenseManager isExclusiveHttpUrl:[NSURL URLWithString:gatewayUrl]] && ![LicenseManager isWeborbKey:[async.responseUrl allHeaderFields]]) {
-        
-        if (([LicenseManager sharedInstance].noLicenseCount += 1) > LICENSE_QUANTITY_CRITERIUM) {
-            
-            Fault *fault = [Fault fault:@"License is not found" detail:LICENSE_IS_NEEDED faultCode:@"9999"];
-            [responder errorHandler:fault];
-            
-            // clean up received data
-            [async release];
-            return;
-        }
-    }
-    else {
-        [LicenseManager sharedInstance].noLicenseCount = 0;
-    }
-#endif
-    
+   
     int statusCode = [async.responseUrl statusCode];
     if (statusCode != 200) {
         
@@ -249,26 +223,6 @@ static NSString *LICENSE_IS_NEEDED = @"A license is needed to use a library. Con
     [DebLog log:ON_PRINT_RESPONSE text:@"HttpEngine -> processAsyncAMFResponse: type: %@, type.typedObject = '%@', v3 = '%@'", type, [type getCacheKey], v3];
     
     if (v3) {
-
-#if !URL_CHECK_LICENSE && IS_CHECK_LICENSE
-        
-        if (![LicenseManager sharedInstance].isLicense && ![LicenseManager isBackendlessBehavior:self.requestHeaders response:v3.headers] && ![LicenseManager isWeborbKey:[async.responseUrl allHeaderFields]]) {
-            
-            if (([LicenseManager sharedInstance].noLicenseCount += 1) > LICENSE_QUANTITY_CRITERIUM) {
-                
-                Fault *fault = [Fault fault:@"License is not found" detail:LICENSE_IS_NEEDED faultCode:@"9999"];
-                [responder errorHandler:fault];
-                
-                // clean up received data
-                [async release];
-                return;
-            }
-        }
-        else {
-            [LicenseManager sharedInstance].noLicenseCount = 0;
-        }
-#endif
-   
         if (idInfo) {
             if (!idInfo.dsId && v3.headers)
                 idInfo.dsId = (NSString *)v3.headers[@"DSId"];
@@ -357,9 +311,6 @@ static NSString *LICENSE_IS_NEEDED = @"A license is needed to use a library. Con
     NSMutableURLRequest *webReq = [NSMutableURLRequest requestWithURL:url];
     [webReq addValue:@"application/x-amf" forHTTPHeaderField:@"Content-Type"];
     
-    if (![LicenseManager sharedInstance].isLicense && ![LicenseManager isExclusiveHttpUrl:url])
-        [webReq addValue:@"answer" forHTTPHeaderField:@"WHO-ARE-YOU"];
-    
     if (httpHeaders) {
         NSArray *headers = [httpHeaders allKeys];
         for (NSString *header in headers)
@@ -432,18 +383,6 @@ static NSString *LICENSE_IS_NEEDED = @"A license is needed to use a library. Con
         return fault;
     }
     
-#if URL_CHECK_LICENSE && IS_CHECK_LICENSE
-    if (![LicenseManager sharedInstance].isLicense && ![LicenseManager isExclusiveHttpUrl:[NSURL URLWithString:gatewayUrl]] && ![LicenseManager isWeborbKey:[responseUrl allHeaderFields]]) {
-        
-        if (([LicenseManager sharedInstance].noLicenseCount += 1) > LICENSE_QUANTITY_CRITERIUM) {
-            return [Fault fault:@"License is not found" detail:LICENSE_IS_NEEDED faultCode:@"9999"];
-        }
-    }
-    else {
-        [LicenseManager sharedInstance].noLicenseCount = 0;
-    }
-#endif
-    
     int statusCode = [responseUrl statusCode];
     if (statusCode != 200) {
         
@@ -481,21 +420,7 @@ static NSString *LICENSE_IS_NEEDED = @"A license is needed to use a library. Con
     
     [DebLog log:ON_PRINT_RESPONSE text:@"HttpEngine -> sendRequest: (SYNC) type: %@, type.defaultAdapt = '%@', v3 = '%@'", type, [v3 class], v3];
     
-    if (v3) {
-        
-#if !URL_CHECK_LICENSE && IS_CHECK_LICENSE
-        
-        if (![LicenseManager sharedInstance].isLicense && ![LicenseManager isBackendlessBehavior:self.requestHeaders response:v3.headers] && ![LicenseManager isWeborbKey:[responseUrl allHeaderFields]]) {
-            
-            if (([LicenseManager sharedInstance].noLicenseCount += 1) > LICENSE_QUANTITY_CRITERIUM) {
-                return [Fault fault:@"License is not found" detail:LICENSE_IS_NEEDED faultCode:@"9999"];
-            }
-        }
-        else {
-            [LicenseManager sharedInstance].noLicenseCount = 0;
-        }
-#endif
-        
+    if (v3) {        
         if (idInfo) {
             
             if (!idInfo.dsId && v3.headers)

@@ -16,7 +16,6 @@
 #import "FlashorbBinaryReader.h"
 #import "FlashorbBinaryWriter.h"
 #import "BaseRTMPProtocolDecoder.h"
-#import "LicenseManager.h"
 
 #define IS_DISPATCH_QUEUE 0
 
