@@ -33,7 +33,7 @@ Pod::Spec.new do |s|
   s.source_files = "SDK/ios/**/*.h"
 
   s.frameworks     = 'CFNetwork', 'CoreLocation', 'Foundation', 'MapKit', 'Security', 'SystemConfiguration', 'SafariServices'
-  s.libraries 	   = 'z', 'backendless'
+  s.libraries 	   = 'backendless'
   s.xcconfig       =  { 'LIBRARY_SEARCH_PATHS' => '"$(SRCROOT)/Pods/Backendless/SDK/ios/backendless"' }
 
   s.prepare_command = <<-CMD
