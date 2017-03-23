@@ -156,10 +156,10 @@
  * Initializes the Backendless class and all Backendless dependencies.
  * This is the first step in using the client API.
  *
- @param applicationID a Backendless application ID, which could be retrieved at the Backendless console
+ @param applicationId a Backendless application ID, which could be retrieved at the Backendless console
  @param apiKey a Backendless application API key, which could be retrieved at the Backendless console
  */
--(void)initApp:(NSString *)applicationID APIKey:(NSString *)apiKey;
+-(void)initApp:(NSString *)applicationId APIKey:(NSString *)apiKey;
 -(void)initApp:(NSString *)plist;
 -(void)initApp;
 -(void)initAppFault;
