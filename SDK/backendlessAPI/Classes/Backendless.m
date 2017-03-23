@@ -327,17 +327,16 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
  * Initializes the Backendless class and all Backendless dependencies.
  * This is the first step in using the client API.
  *
- * @param appId     a Backendless application ID, which could be retrieved at the Backendless console
- * @param APIKey    a Backendless application API key, which could be retrieved at the Backendless console
+ @param applicationId a Backendless application ID, which could be retrieved at the Backendless console
+ @param apiKey a Backendless application API key, which could be retrieved at the Backendless console
  */
-
--(void)initApp:(NSString *)applicationID APIKey:(NSString *)apiKey {
+-(void)initApp:(NSString *)applicationId APIKey:(NSString *)apiKey {
     
     // get swift class prefix from caller class (usually AppDelegate)
     [__types makeSwiftClassPrefix:[NSThread callStackSymbols][1]];
     
     [_appID release];
-    _appID = [applicationID retain];
+    _appID = [applicationId retain];
     [_apiKey release];
     _apiKey = [apiKey retain];
     

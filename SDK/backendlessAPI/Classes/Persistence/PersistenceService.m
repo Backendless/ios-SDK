@@ -1080,7 +1080,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:DELETE_RELATION args:args responder:chainedResponder];
 }
 
--(void)loadRelations:(NSString *)parentType objectId:(NSString *)objectId queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)loadRelations:(NSString *)parentType objectId:(NSString *)objectId queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!parentType) {
         return [chainedResponder errorHandler:FAULT_NO_ENTITY];
@@ -1097,7 +1097,6 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 }
 
 // IDataStore class factory
-
 -(id <IDataStore>)of:(Class)entityClass {
     return [DataStoreFactory createDataStore:entityClass];
 }
