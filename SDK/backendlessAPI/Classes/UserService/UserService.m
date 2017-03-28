@@ -98,14 +98,14 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 @implementation UserService
 
 -(id)init {
-	if ( (self=[super init]) ) {
-
+    if ( (self=[super init]) ) {
+        
 #if REPEAT_EASYLOGIN_ON
         _easyLoginUrl = nil;
 #endif
         _currentUser = nil;
         _isStayLoggedIn = NO;
-
+        
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.users.property.UserProperty" mapped:[UserProperty class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.users.property.AbstractProperty" mapped:[AbstractProperty class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.exceptions.security.AuthorizationException" mapped:[AuthorizationException class]];
@@ -118,21 +118,21 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
         self.iOS9above = [[[UIApplication sharedApplication] delegate] respondsToSelector:@selector(application:openURL:options:)];
 #endif
-	}
-	
-	return self;
+    }
+    
+    return self;
 }
 
 -(void)dealloc {
-	
-	[DebLog logN:@"DEALLOC UserService"];
+    
+    [DebLog logN:@"DEALLOC UserService"];
 #if REPEAT_EASYLOGIN_ON
     [_easyLoginUrl release];
 #endif
     
     [_currentUser release];
-	
-	[super dealloc];
+    
+    [super dealloc];
 }
 
 
@@ -151,7 +151,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 
 -(BackendlessUser *)registering:(BackendlessUser *)user {
     
-    if (!user) 
+    if (!user)
         return [backendless throwFault:FAULT_NO_USER];
     
     if (![user retrieveProperties])
@@ -180,7 +180,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 
 -(BackendlessUser *)update:(BackendlessUser *)user {
     
-    if (!user) 
+    if (!user)
         return [backendless throwFault:FAULT_NO_USER];
     
     NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user retrieveProperties]];
@@ -202,7 +202,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     else {
         [user assignProperties:result];
     }
-
+    
     if (_isStayLoggedIn && _currentUser && [user.objectId isEqualToString:_currentUser.objectId]) {
         [self updateCurrentUser:result];
     }
@@ -257,7 +257,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 #if 1
         return @(NO);
 #else
-        return [backendless throwFault:FAULT_USER_IS_NOT_LOGGED_IN];
+    return [backendless throwFault:FAULT_USER_IS_NOT_LOGGED_IN];
 #endif
     
     NSArray *args = @[userToken];
@@ -356,28 +356,9 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 
 // async methods with responder
 
--(void)registering:(BackendlessUser *)user responder:(id <IResponder>)responder {
-    
-    if (!user) 
-        return [responder errorHandler:FAULT_NO_USER];
-    
-    if (![user retrieveProperties])
-        return [responder errorHandler:FAULT_NO_USER_CREDENTIALS];
-    
-    NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user retrieveProperties]];
-#if FILTRATION_USER_TOKEN_ON
-    [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
-#endif
-    NSArray *args = [NSArray arrayWithObjects:props, nil];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(registerResponse:) selErrorHandler:@selector(registerError:)];
-    _responder.chained = responder;
-    _responder.context = user;
-    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_REGISTER args:args responder:_responder];
-}
-
 -(void)update:(BackendlessUser *)user responder:(id <IResponder>)responder {
     
-    if (!user) 
+    if (!user)
         return [responder errorHandler:FAULT_NO_USER];
     
     NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user retrieveProperties]];
@@ -516,7 +497,16 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 // async methods with block-based callbacks
 
 -(void)registering:(BackendlessUser *)user response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self registering:user responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    if (!user)
+        [backendless throwFault:FAULT_NO_USER];
+    if (![user retrieveProperties])
+        [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
+    NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user retrieveProperties]];
+#if FILTRATION_USER_TOKEN_ON
+    [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
+#endif
+    NSArray *args = [NSArray arrayWithObjects:props, nil];
+    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_REGISTER args:args responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 -(void)update:(BackendlessUser *)user response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -660,7 +650,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
         [DebLog logY:@"UserService -> handleOpenURL: SCHEME IS WRONG = %@", url.scheme];
         return nil;
     }
-
+    
     NSString *absoluteString = [url.absoluteString stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@://", url.scheme] withString:@""];
     NSString *json = [absoluteString stringByRemovingPercentEncoding];
     if (!json) {
@@ -684,7 +674,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     }
     
     [DebLog log:@"UserService -> handleOpenURL: JSONObject = '%@'", json];
-
+    
     @try {
         NSError *error = nil;
         id userData = [NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding: NSUTF8StringEncoding] options:0 error:&error];
@@ -713,9 +703,9 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 #if _USE_SAFARI_VC_
     if (self.iOS9above) {
-
+        
         __block BackendlessUser *user = [self handleOpenURL:url];
-       [backendless.safariVC
+        [backendless.safariVC
          dismissViewControllerAnimated:true
          completion:^(void) {
 #if REPEAT_EASYLOGIN_ON
@@ -776,7 +766,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
         return [AMFSerializer serializeToFile:properties fileName:PERSIST_USER_FILE_NAME];
     }
     return NO;
-
+    
 #endif
 }
 
@@ -826,7 +816,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 #if REPEAT_EASYLOGIN_ON
     _easyLoginUrl = nil;
 #endif
-
+    
     [DebLog log:@"UserService -> easyLoginError: %@", fault.detail];
     return fault;
 }
@@ -937,14 +927,14 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 -(id)onLogoutError:(Fault *)fault {
     
     [DebLog log:@"UserService -> onLogoutError: %@", fault];
-
+    
     NSArray *faultCodes = @[@"3023", @"3064", @"3090", @"3091"];
     for (NSString *code in faultCodes) {
         if ([fault.faultCode isEqualToString:code]) {
             return [self onLogout:fault];
         }
     }
-
+    
     return fault;
 }
 

@@ -37,7 +37,7 @@
 -(BOOL)setStayLoggedIn:(BOOL)value;
 
 // sync methods with fault return  (as exception)
--(BackendlessUser *)registering:(BackendlessUser *)user;
+-(BackendlessUser *)registering:(BackendlessUser *)user; //__deprecated;
 -(BackendlessUser *)update:(BackendlessUser *)user;
 -(BackendlessUser *)login:(NSString *)login password:(NSString *)password;
 -(BackendlessUser *)findById:(NSString *)objectId;
@@ -55,7 +55,6 @@
 -(id)resendEmailConfirmation:(NSString *)email;
 
 // async methods with responder
--(void)registering:(BackendlessUser *)user responder:(id <IResponder>)responder;
 -(void)update:(BackendlessUser *)user responder:(id <IResponder>)responder;
 -(void)login:(NSString *)login password:(NSString *)password responder:(id <IResponder>)responder;
 -(void)findById:(NSString *)objectId responder:(id <IResponder>)responder;
