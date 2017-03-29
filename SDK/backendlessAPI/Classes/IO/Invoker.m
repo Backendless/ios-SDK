@@ -116,7 +116,6 @@ static NSString *URL_DESTINATION = @"GenericDestination";
     id result = [client invoke:className method:methodName args:args];
     if (_throwException && [result isKindOfClass:[Fault class]])
         @throw result;
-    
     return result;
 }
 
