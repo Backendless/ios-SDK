@@ -272,7 +272,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 }
 
 -(NSNumber *)isValidUserToken {
-    
+
     NSString *userToken = [backendless.headers valueForKey:BACKENDLESS_USER_TOKEN];
     
     // http://bugs.backendless.com/browse/BKNDLSS-12841
@@ -395,17 +395,6 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_UPDATE args:args responder:_responder];
 }
 
--(void)login:(NSString *)login password:(NSString *)password responder:(id <IResponder>)responder {
-    
-    if (!login || !password || ![login length] || ![password length])
-        return [responder errorHandler:FAULT_NO_USER_CREDENTIALS];
-    
-    NSArray *args = [NSArray arrayWithObjects:login, password, nil];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onLogin:) selErrorHandler:nil];
-    _responder.chained = responder;
-    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_LOGIN args:args responder:_responder];
-}
-
 -(void)findById:(NSString *)objectId responder:(id <IResponder>)responder {
     
     if (!objectId || ![objectId length])
@@ -420,29 +409,6 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onLogout:) selErrorHandler:@selector(onLogoutError:)];
     _responder.chained = responder;
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_LOGOUT args:@[] responder:_responder];
-}
-
--(void)isValidUserToken:(id <IResponder>)responder {
-    
-    NSString *userToken = [backendless.headers valueForKey:BACKENDLESS_USER_TOKEN];
-    
-    // http://bugs.backendless.com/browse/BKNDLSS-12841
-    if (!_currentUser || !userToken) {
-#if 1
-        [responder responseHandler:@(NO)];
-        return;
-#else
-        return [responder errorHandler:FAULT_USER_IS_NOT_LOGGED_IN];
-#endif
-    }
-    NSArray *args = @[userToken];
-#if 1 // http://bugs.backendless.com/browse/BKNDLSS-11864
-    Responder *_responder = [Responder responder:self selResponseHandler:nil selErrorHandler:@selector(onValidUserTokenFault:)];
-    _responder.chained = responder;
-    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_IS_VALID_USER_TOKEN args:args responder:_responder];
-#else
-    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_IS_VALID_USER_TOKEN args:args responder:responder];
-#endif
 }
 
 -(void)restorePassword:(NSString *)login responder:(id <IResponder>)responder {
@@ -550,7 +516,10 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 }
 
 -(void)login:(NSString *)login password:(NSString *)password response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self login:login password:password responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    if (!login || !password || ![login length] || ![password length])
+        [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
+    NSArray *args = [NSArray arrayWithObjects:login, password, nil];
+    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_LOGIN args:args responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 -(void)findById:(NSString *)objectId response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -562,7 +531,27 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 }
 
 -(void)isValidUserToken:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self isValidUserToken:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id <IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    
+    NSString *userToken = [backendless.headers valueForKey:BACKENDLESS_USER_TOKEN];
+    
+    if (!_currentUser || !userToken) {
+#if 1
+        [responder responseHandler:@(NO)];
+        return;
+#else
+        return [responder errorHandler:FAULT_USER_IS_NOT_LOGGED_IN];
+#endif
+    }
+    NSArray *args = @[userToken];
+#if 1
+    Responder *_responder = [Responder responder:self selResponseHandler:nil selErrorHandler:@selector(onValidUserTokenFault:)];
+    _responder.chained = responder;
+    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_IS_VALID_USER_TOKEN args:args responder:_responder];
+#else
+    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_IS_VALID_USER_TOKEN args:args responder:responder];
+#endif
+
 }
 
 -(void)restorePassword:(NSString *)login response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
