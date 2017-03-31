@@ -113,10 +113,16 @@
 }
 
 -(void)assignProperties:(NSDictionary<NSString*, id> *)props {
-    
     [__properties release];
     __properties = (props) ? [[HashMap alloc] initWithNode:props] : nil;
-    
+#if CURRENTUSER_PERSISTENCE_ON
+    [self persistCurrentUser];
+#endif
+}
+
+-(void)setProperties:(NSDictionary<NSString*, id> *)props {
+    [__properties release];
+    __properties = (props) ? [[HashMap alloc] initWithNode:props] : nil;
 #if CURRENTUSER_PERSISTENCE_ON
     [self persistCurrentUser];
 #endif
@@ -141,6 +147,10 @@
 }
 
 -(NSDictionary<NSString*, id> *)retrieveProperties {
+    return (__properties) ? [NSDictionary dictionaryWithDictionary:__properties.node] : [NSDictionary dictionary];
+}
+
+-(NSDictionary<NSString *, id> *)getProperties {
     return (__properties) ? [NSDictionary dictionaryWithDictionary:__properties.node] : [NSDictionary dictionary];
 }
 
@@ -215,7 +225,7 @@
 #pragma mark NSCopying Methods
 
 -(id)copyWithZone:(NSZone *)zone {
-    return [[BackendlessUser alloc] initWithProperties:[self retrieveProperties]];
+    return [[BackendlessUser alloc] initWithProperties:[self getProperties]];
 }
 
 @end
