@@ -42,10 +42,10 @@
 
 -(BOOL)isUserRegistered;
 -(NSString *)getUserToken;
--(void)assignProperties:(NSDictionary<NSString*, id> *)props __attribute__((deprecated("Replaced by setProperties method")));
+-(void)assignProperties:(NSDictionary<NSString*, id> *)props __attribute__((deprecated("Replaced by the setProperties method")));
 -(void)setProperties:(NSDictionary<NSString*, id> *)props;
 -(void)addProperties:(NSDictionary<NSString*, id> *)props;
--(NSDictionary<NSString*, id> *)retrieveProperties __attribute__((deprecated("Replaced by getProperties method")));
+-(NSDictionary<NSString*, id> *)retrieveProperties __attribute__((deprecated("Replaced by the getProperties method")));
 -(NSDictionary<NSString*, id> *)getProperties;
 -(void)updateProperties:(NSDictionary<NSString*, id> *)props;
 -(id)getProperty:(NSString *)key;
