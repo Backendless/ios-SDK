@@ -388,13 +388,6 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_FIND_BY_ID args:args responder:responder];
 }
 
--(void)logout:(id <IResponder>)responder {
-    
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onLogout:) selErrorHandler:@selector(onLogoutError:)];
-    _responder.chained = responder;
-    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_LOGOUT args:@[] responder:_responder];
-}
-
 -(void)restorePassword:(NSString *)login responder:(id <IResponder>)responder {
     
     if (!login||!login.length)
@@ -525,7 +518,10 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 }
 
 -(void)logout:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self logout:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id <IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onLogout:) selErrorHandler:@selector(onLogoutError:)];
+    _responder.chained = responder;
+    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_LOGOUT args:@[] responder:_responder];
 }
 
 -(void)isValidUserToken:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
