@@ -57,7 +57,6 @@
 
 // async methods with responder
 -(void)findById:(NSString *)objectId responder:(id <IResponder>)responder;
--(void)restorePassword:(NSString *)login responder:(id <IResponder>)responder;
 -(void)describeUserClass:(id <IResponder>)responder;
 -(void)user:(NSString *)user assignRole:(NSString *)role responder:(id <IResponder>)responder;
 -(void)user:(NSString *)user unassignRole:(NSString *)role responder:(id <IResponder>)responder;

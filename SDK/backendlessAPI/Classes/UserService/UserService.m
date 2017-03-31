@@ -388,15 +388,6 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_FIND_BY_ID args:args responder:responder];
 }
 
--(void)restorePassword:(NSString *)login responder:(id <IResponder>)responder {
-    
-    if (!login||!login.length)
-        return [responder errorHandler:FAULT_NO_USER_CREDENTIALS];
-    
-    NSArray *args = [NSArray arrayWithObjects:login, nil];
-    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_RESTORE_PASSWORD args:args responder:responder];
-}
-
 -(void)describeUserClass:(id <IResponder>)responder {
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_DESCRIBE_USER_CLASS args:@[] responder:responder];
 }
@@ -549,7 +540,11 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 }
 
 -(void)restorePassword:(NSString *)login response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self restorePassword:login responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!login||!login.length)
+        return [responder errorHandler:FAULT_NO_USER_CREDENTIALS];    
+    NSArray *args = [NSArray arrayWithObjects:login, nil];
+    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_RESTORE_PASSWORD args:args responder:responder];
 }
 
 -(void)describeUserClass:(void(^)(NSArray<UserProperty*> *))responseBlock error:(void(^)(Fault *))errorBlock {
