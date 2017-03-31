@@ -106,14 +106,14 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     }
     return self;
 #else
-    [self assignProperties:[Types propertyDictionary:self]];
+    [self setProperties:[Types propertyDictionary:self]];
     return self;
 #endif
 #else
     BackendlessUser *user = [BackendlessUser new];
     NSMutableDictionary *properties = [NSMutableDictionary dictionaryWithDictionary:[Types propertyDictionary:self]];
     [DebLog log:@"Users -> onAMFDeserialize: BackendlessUser.properties = %@", properties];
-    [user assignProperties:properties];
+    [user setProperties:properties];
     return user;
 #endif
 }
@@ -142,7 +142,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 #else
     NSDictionary *props = [Types propertyDictionary:user];
     //[user replaceAllProperties]; // http://bugs.backendless.com/browse/BKNDLSS-12973
-    [user assignProperties:props];
+    [user setProperties:props];
     return user;
 #endif
 }
@@ -153,7 +153,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 
 -(id)onAMFSerialize {
     // as dictionary with '___class' label (analog of Android implementation)
-    NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:[self retrieveProperties]];
+    NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:[self getProperties]];
     data[@"___class"] = @"Users";
     [data removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
     [DebLog log:@"BackendlessUser -> onAMFSerialize: %@", data];
@@ -164,7 +164,7 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 -(id)onAMFDeserialize {
     NSDictionary *props = [Types propertyDictionary:self];
     //[self replaceAllProperties]; // http://bugs.backendless.com/browse/BKNDLSS-12973
-    [self assignProperties:props];
+    [self setProperties:props];
     [DebLog log:@"BackendlessUser -> onAMFDeserialize: %@", props];
     return self;
 }
@@ -1268,11 +1268,11 @@ id get_object_id(id self, SEL _cmd) {
 -(NSDictionary *)propertyDictionary:(id)object {
     if ([[object class] isSubclassOfClass:[BackendlessUser class]]) {
 #if FILTRATION_USER_TOKEN_ON
-        NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:[(BackendlessUser *)object retrieveProperties]];
+        NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:[(BackendlessUser *)object getProperties]];
         [data removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
         return data;
 #else
-        return [(BackendlessUser *)object retrieveProperties];
+        return [(BackendlessUser *)object getProperties];
 #endif
     }
     return [Types propertyDictionary:object];
@@ -1281,11 +1281,11 @@ id get_object_id(id self, SEL _cmd) {
 -(id)propertyObject:(id)object {
     if ([[object class] isSubclassOfClass:[BackendlessUser class]]) {
 #if FILTRATION_USER_TOKEN_ON
-        NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:[(BackendlessUser *) object retrieveProperties]];
+        NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:[(BackendlessUser *) object getProperties]];
         [data removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
         return data;
 #else
-        return [(BackendlessUser *)object retrieveProperties];
+        return [(BackendlessUser *)object getProperties];
 #endif
     }
     return object;

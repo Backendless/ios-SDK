@@ -154,10 +154,10 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     if (!user)
         return [backendless throwFault:FAULT_NO_USER];
     
-    if (![user retrieveProperties])
+    if (![user getProperties])
         return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
     
-    NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user retrieveProperties]];
+    NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
 #if FILTRATION_USER_TOKEN_ON
     [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
 #endif
@@ -172,7 +172,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     
     NSLog(@"$$$registering: result = %@", result);
     
-    [user assignProperties:result];
+    [user setProperties:result];
     
     return user;
 #endif
@@ -181,9 +181,9 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 -(BackendlessUser *)registerUser:(BackendlessUser *)user {
     if (!user)
         return [backendless throwFault:FAULT_NO_USER];
-    if (![user retrieveProperties])
+    if (![user getProperties])
         return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
-    NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user retrieveProperties]];
+    NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
 #if FILTRATION_USER_TOKEN_ON
     [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
 #endif
@@ -196,7 +196,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
         return result;
     }
     NSLog(@"$$$user register: result = %@", result);
-    [user assignProperties:result];
+    [user setProperties:result];
     return user;
 #endif
 }
@@ -206,7 +206,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     if (!user)
         return [backendless throwFault:FAULT_NO_USER];
     
-    NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user retrieveProperties]];
+    NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
 #if FILTRATION_USER_TOKEN_ON
     [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
 #endif
@@ -217,13 +217,13 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     }
     
 #if PERSIST_CURRENTUSER_OFF
-    [user assignProperties:result];
+    [user setProperties:result];
 #else
     if ([result isKindOfClass:[BackendlessUser class]]) {
         user = result;
     }
     else {
-        [user assignProperties:result];
+        [user setProperties:result];
     }
     
     if (_isStayLoggedIn && _currentUser && [user.objectId isEqualToString:_currentUser.objectId]) {
@@ -384,7 +384,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     if (!user)
         return [responder errorHandler:FAULT_NO_USER];
     
-    NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user retrieveProperties]];
+    NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
 #if FILTRATION_USER_TOKEN_ON
     [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
 #endif
@@ -488,9 +488,9 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 -(void)registering:(BackendlessUser *)user response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {
     if (!user)
         [backendless throwFault:FAULT_NO_USER];
-    if (![user retrieveProperties])
+    if (![user getProperties])
         [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
-    NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user retrieveProperties]];
+    NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
 #if FILTRATION_USER_TOKEN_ON
     [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
 #endif
@@ -501,9 +501,9 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 -(void)registerUser:(BackendlessUser *)user response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {
     if (!user)
         [backendless throwFault:FAULT_NO_USER];
-    if (![user retrieveProperties])
+    if (![user getProperties])
         [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
-    NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user retrieveProperties]];
+    NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
 #if FILTRATION_USER_TOKEN_ON
     [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
 #endif
@@ -782,11 +782,11 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 
 -(BOOL)setPersistentUser {
 #if 0
-    return (_currentUser && _isStayLoggedIn) ? [AMFSerializer serializeToFile:[_currentUser retrieveProperties] fileName:PERSIST_USER_FILE_NAME] : NO;
+    return (_currentUser && _isStayLoggedIn) ? [AMFSerializer serializeToFile:[_currentUser getProperties] fileName:PERSIST_USER_FILE_NAME] : NO;
 #else
     if (_currentUser && _isStayLoggedIn) {
         
-        NSMutableDictionary *properties = [NSMutableDictionary dictionaryWithDictionary:[_currentUser retrieveProperties]];
+        NSMutableDictionary *properties = [NSMutableDictionary dictionaryWithDictionary:[_currentUser getProperties]];
         NSString *userToken = [backendless.headers valueForKey:BACKENDLESS_USER_TOKEN];
         if (userToken) {
             [properties setValue:userToken forKey:BACKENDLESS_USER_TOKEN];
@@ -835,7 +835,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     [DebLog log:@"UserService -> registerResponse: %@", response];
     
     BackendlessUser *user = response.context;
-    [user assignProperties:response.response];
+    [user setProperties:response.response];
     return user;
 }
 
@@ -885,7 +885,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     }
     else {
         NSDictionary *props = (NSDictionary *)response;
-        (_currentUser) ? [_currentUser assignProperties:props] : (_currentUser = [[BackendlessUser alloc] initWithProperties:props]);
+        (_currentUser) ? [_currentUser setProperties:props] : (_currentUser = [[BackendlessUser alloc] initWithProperties:props]);
     }
     
     if (_currentUser.getUserToken)
@@ -907,7 +907,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     }
     else {
         NSDictionary *props = (NSDictionary *)response;
-        (_currentUser) ? [_currentUser assignProperties:props] : (_currentUser = [[BackendlessUser alloc] initWithProperties:props]);
+        (_currentUser) ? [_currentUser setProperties:props] : (_currentUser = [[BackendlessUser alloc] initWithProperties:props]);
     }
     
     [self setPersistentUser];
@@ -919,14 +919,14 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     
     BackendlessUser *user = response.context;
 #if PERSIST_CURRENTUSER_OFF
-    [user assignProperties:response.response];
+    [user setProperties:response.response];
 #else
     id result = response.response;
     if ([result isKindOfClass:[BackendlessUser class]]) {
         user = result;
     }
     else {
-        [user assignProperties:result];
+        [user setProperties:result];
     }
     
     if (_isStayLoggedIn && _currentUser && [user.objectId isEqualToString:_currentUser.objectId]) {
