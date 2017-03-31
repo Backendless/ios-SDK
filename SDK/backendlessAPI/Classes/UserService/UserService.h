@@ -56,7 +56,6 @@
 -(id)resendEmailConfirmation:(NSString *)email;
 
 // async methods with responder
--(void)update:(BackendlessUser *)user responder:(id <IResponder>)responder;
 -(void)findById:(NSString *)objectId responder:(id <IResponder>)responder;
 -(void)logout:(id <IResponder>)responder;
 -(void)restorePassword:(NSString *)login responder:(id <IResponder>)responder;

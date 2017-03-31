@@ -379,22 +379,6 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 
 // async methods with responder
 
--(void)update:(BackendlessUser *)user responder:(id <IResponder>)responder {
-    
-    if (!user)
-        return [responder errorHandler:FAULT_NO_USER];
-    
-    NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
-#if FILTRATION_USER_TOKEN_ON
-    [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
-#endif
-    NSArray *args = [NSArray arrayWithObjects:props, nil];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onUpdate:) selErrorHandler:nil];
-    _responder.chained = responder;
-    _responder.context = user;
-    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_UPDATE args:args responder:_responder];
-}
-
 -(void)findById:(NSString *)objectId responder:(id <IResponder>)responder {
     
     if (!objectId || ![objectId length])
@@ -512,7 +496,18 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 }
 
 -(void)update:(BackendlessUser *)user response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self update:user responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id <IResponder> responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!user)
+        return [responder errorHandler:FAULT_NO_USER];
+    NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
+#if FILTRATION_USER_TOKEN_ON
+    [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
+#endif
+    NSArray *args = [NSArray arrayWithObjects:props, nil];
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onUpdate:) selErrorHandler:nil];
+    _responder.chained = responder;
+    _responder.context = user;
+    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_UPDATE args:args responder:_responder];
 }
 
 -(void)login:(NSString *)login password:(NSString *)password response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {
