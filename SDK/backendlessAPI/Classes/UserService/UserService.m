@@ -53,8 +53,6 @@ static NSString *METHOD_FIND_BY_ID = @"findById";
 static NSString *METHOD_LOGOUT = @"logout";
 static NSString *METHOD_RESTORE_PASSWORD = @"restorePassword";
 static NSString *METHOD_DESCRIBE_USER_CLASS = @"describeUserClass";
-static NSString *METHOD_ASSIGN_ROLE = @"assignRole";
-static NSString *METHOD_UNASSIGN_ROLE = @"unassignRole";
 static NSString *METHOD_GET_USER_ROLES = @"getUserRoles";
 static NSString *METHOD_IS_VALID_USER_TOKEN = @"isValidUserToken";
 static NSString *METHOD_USER_LOGIN_WITH_FACEBOOK = @"getFacebookServiceAuthorizationUrlLink";
@@ -317,30 +315,6 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     return [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_DESCRIBE_USER_CLASS args:@[]];
 }
 
--(id)user:(NSString *)user assignRole:(NSString *)role {
-    
-    if (!user||![user length])
-        return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
-    if (!role||![role length]) {
-        return [backendless throwFault:FAULT_NO_USER_ROLE];
-    }
-    NSArray *args = [NSArray arrayWithObjects:user, role, nil];
-    id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_ASSIGN_ROLE args:args];
-    return result;
-}
-
--(id)user:(NSString *)user unassignRole:(NSString *)role {
-    
-    if (!user||![user length])
-        return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
-    if (!role||![role length]) {
-        return [backendless throwFault:FAULT_NO_USER_ROLE];
-    }
-    NSArray *args = [NSArray arrayWithObjects:user, role, nil];
-    id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_UNASSIGN_ROLE args:args];
-    return result;
-}
-
 -(NSArray<NSString*> *)getUserRoles {
     return [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_GET_USER_ROLES args:@[]];
 }
@@ -390,32 +364,6 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 
 -(void)describeUserClass:(id <IResponder>)responder {
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_DESCRIBE_USER_CLASS args:@[] responder:responder];
-}
-
--(void)user:(NSString *)user assignRole:(NSString *)role responder:(id <IResponder>)responder {
-    
-    if (!user||![user length])
-        return [responder errorHandler:FAULT_NO_USER_CREDENTIALS];
-    if (!role||![role length]) {
-        return [responder errorHandler:FAULT_NO_USER_ROLE];
-    }
-    NSArray *args = [NSArray arrayWithObjects:user, role, nil];
-    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_ASSIGN_ROLE args:args responder:responder];
-}
-
--(void)user:(NSString *)user unassignRole:(NSString *)role responder:(id <IResponder>)responder {
-    
-    if (!user||![user length])
-        return [responder errorHandler:FAULT_NO_USER_CREDENTIALS];
-    if (!role||![role length]) {
-        return [responder errorHandler:FAULT_NO_USER_ROLE];
-    }
-    NSArray *args = [NSArray arrayWithObjects:user, role, nil];
-    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_UNASSIGN_ROLE args:args responder:responder];
-}
-
--(void)getUserRoles:(id<IResponder>)responder {
-    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_GET_USER_ROLES args:@[] responder:responder];
 }
 
 -(void)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping responder:(id<IResponder>)responder {
@@ -551,16 +499,8 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     [self describeUserClass:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)user:(NSString *)user assignRole:(NSString *)role response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self user:user assignRole:role responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
-}
-
--(void)user:(NSString *)user unassignRole:(NSString *)role response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self user:user unassignRole:role responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
-}
-
 -(void)getUserRoles:(void (^)(NSArray<NSString*> *))responseBlock error:(void (^)(Fault *))errorBlock {
-    [self getUserRoles:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_GET_USER_ROLES args:@[] responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 -(void)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary<FBGraphUser> *)fieldsMapping response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {

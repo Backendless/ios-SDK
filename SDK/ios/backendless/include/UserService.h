@@ -46,8 +46,6 @@
 -(NSNumber *)isValidUserToken;
 -(id)restorePassword:(NSString *)login;
 -(NSArray<UserProperty*> *)describeUserClass;
--(id)user:(NSString *)user assignRole:(NSString *)role;
--(id)user:(NSString *)user unassignRole:(NSString *)role;
 -(NSArray<NSString*> *)getUserRoles;
 -(BackendlessUser *)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping;
 -(BackendlessUser *)loginWithFacebookSDK:(FBSDKAccessToken *)accessToken fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping;
@@ -58,9 +56,6 @@
 // async methods with responder
 -(void)findById:(NSString *)objectId responder:(id <IResponder>)responder;
 -(void)describeUserClass:(id <IResponder>)responder;
--(void)user:(NSString *)user assignRole:(NSString *)role responder:(id <IResponder>)responder;
--(void)user:(NSString *)user unassignRole:(NSString *)role responder:(id <IResponder>)responder;
--(void)getUserRoles:(id <IResponder>)responder;
 -(void)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping responder:(id <IResponder>)responder;
 -(void)loginWithFacebookSDK:(FBSDKAccessToken *)accessToken fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping responder:(id <IResponder>)responder;
 -(void)loginWithFacebookSDK:(FBSDKAccessToken *)accessToken permissions:(NSArray<NSString*> *)permissions fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping responder:(id <IResponder>)responder;
@@ -77,8 +72,6 @@
 -(void)isValidUserToken:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)restorePassword:(NSString *)login response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)describeUserClass:(void(^)(NSArray<UserProperty*> *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)user:(NSString *)user assignRole:(NSString *)role response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)user:(NSString *)user unassignRole:(NSString *)role response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getUserRoles:(void(^)(NSArray<NSString*> *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)loginWithFacebookSDK:(FBSession *)session user:(NSDictionary<FBGraphUser> *)user fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)loginWithFacebookSDK:(FBSDKAccessToken *)accessToken fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock;
