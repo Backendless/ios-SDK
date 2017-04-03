@@ -1,7 +1,7 @@
 
 Backendless SDK v4.0 for iOS (http://backendless.com)
 ---
-# GETTING STARTED WITH BACKENDLESS
+## GETTING STARTED WITH BACKENDLESS
 The simplest way to get started with Backendless is by using a Project Template for iOS:
 1. Register for your free account at https://develop.backendless.com
 2. Login to Backendless Console and create a new app
@@ -17,7 +17,7 @@ The simplest way to get started with Backendless is by using a Project Template 
 8. Run the `pod install` command. Once all of the pod data is downloaded, Xcode project workspace file will be created. This is the file you must open when working on your app.
 9. Open .xcworkspace file to launch your project.
 
-# GETTING STARTED WITH COCOAPODS:
+## GETTING STARTED WITH COCOAPODS:
 To create a new project with CocoaPods, follow the instructions below:
 
 1. Create a new project in Xcode as you would normally, then close the project.
