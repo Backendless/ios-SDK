@@ -71,9 +71,9 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 @property BOOL iOS9above;
 #endif
 // sync
--(id)loginWithFacebookSocialUserId:(NSString *)userId accessToken:(NSString *)accessToken expirationDate:(NSDate *)expirationDate permissions:(NSArray<NSString*> *)permissions fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping;
+-(id)loginWithFacebookSocialUserId:(NSString *)userId accessToken:(NSString *)accessToken expirationDate:(NSDate *)expirationDate fieldsMapping:(NSDictionary/*<NSString*,NSString*>*/ *)fieldsMapping;
 // async
--(void)loginWithFacebookSocialUserId:(NSString *)userId accessToken:(NSString *)accessToken expirationDate:(NSDate *)expirationDate permissions:(NSArray<NSString*> *)permissions fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping responder:(id <IResponder>)responder;
+-(void)loginWithFacebookSocialUserId:(NSString *)userId accessToken:(NSString *)accessToken expirationDate:(NSDate *)expirationDate fieldsMapping:(NSDictionary/*<NSString*,NSString*>*/ *)fieldsMapping responder:(id <IResponder>)responder;
 // callbacks
 -(id)registerResponse:(ResponseContext *)response;
 -(id)registerError:(id)error;
@@ -323,16 +323,14 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     return [self loginWithFacebookSocialUserId:[accessToken valueForKey:@"userID"]
                                    accessToken:[accessToken valueForKey:@"tokenString"]
                                 expirationDate:[accessToken valueForKey:@"expirationDate"]
-                                   permissions:[accessToken valueForKey:@"permissions"]
-                                 fieldsMapping:fieldsMapping];
+                                 fieldsMapping:(NSDictionary<NSString *, NSString*> *)fieldsMapping];
 }
 
--(BackendlessUser *)loginWithFacebookSDK:(NSString *)userId tokenString:(NSString *)tokenString expirationDate:(NSDate *)expirationDate permissions:(NSSet *)permissions fieldsMapping:(NSDictionary<NSString *,NSString *> *)fieldsMapping {
+-(BackendlessUser *)loginWithFacebookSDK:(NSString *)userId tokenString:(NSString *)tokenString expirationDate:(NSDate *)expirationDate fieldsMapping:(id)fieldsMapping {
     return [self loginWithFacebookSocialUserId:userId
                                    accessToken:tokenString
                                 expirationDate:expirationDate
-                                   permissions:(NSArray<NSString *> *)permissions
-                                 fieldsMapping:fieldsMapping];
+                                 fieldsMapping:(NSDictionary<NSString *, NSString*> *)fieldsMapping];
 }
 
 -(BackendlessUser *)loginWithGoogleSignInSDK:(NSString *)idToken accessToken:(NSString *)accessToken permissions:(NSArray<NSString*> *)permissions fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping {
@@ -500,17 +498,17 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     [self loginWithFacebookSocialUserId:[accessToken valueForKey:@"userID"]
                             accessToken:[accessToken valueForKey:@"tokenString"]
                          expirationDate:[accessToken valueForKey:@"expirationDate"]
-                            permissions:[accessToken valueForKey:@"permissions"]
-                          fieldsMapping:fieldsMapping responder:responder];    
+                          fieldsMapping:(NSDictionary<NSString *, NSString*> *)fieldsMapping
+                              responder:responder];
 }
 
--(void)loginWithFacebookSDK:(NSString *)userId tokenString:(NSString *)tokenString expirationDate:(NSDate *)expirationDate permissions:(NSSet *)permissions fieldsMapping:(NSDictionary<NSString *,NSString *> *)fieldsMapping response:(void (^)(BackendlessUser *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)loginWithFacebookSDK:(NSString *)userId tokenString:(NSString *)tokenString expirationDate:(NSDate *)expirationDate fieldsMapping:(id)fieldsMapping response:(void (^)(BackendlessUser *))responseBlock error:(void (^)(Fault *))errorBlock {
     id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     [self loginWithFacebookSocialUserId:userId
                             accessToken:tokenString
                          expirationDate:expirationDate
-                            permissions:(NSArray<NSString *> *)permissions
-                          fieldsMapping:fieldsMapping responder:responder];
+                          fieldsMapping:(NSDictionary<NSString *, NSString*> *)fieldsMapping
+                              responder:responder];
 }
 
 -(void)loginWithGoogleSignInSDK:(NSString *)idToken accessToken:(NSString *)accessToken permissions:(NSArray<NSString*> *)permissions fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -522,21 +520,6 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 }
 
 // methods of social easy logins
-
-// Facebook
--(void)easyLoginWithFacebookFieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping permissions:(NSArray<NSString*> *)permissions {
-    NSArray *args = @[backendless.applicationType, fieldsMapping?fieldsMapping:@{}, permissions?permissions:@{}];
-    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_FACEBOOK args:args responder:nil];
-}
-
--(void)easyLoginWithFacebookFieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping permissions:(NSArray<NSString*> *)permissions response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
-    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(easyLoginResponder:) selErrorHandler:@selector(easyLoginError:)];
-    _responder.chained = responder;
-    NSArray *args = @[backendless.applicationType, fieldsMapping?fieldsMapping:@{}, permissions?permissions:@{}];
-    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_FACEBOOK args:args responder:_responder];
-}
-
 // TWitter
 -(void)easyLoginWithTwitterFieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping
 {
@@ -714,16 +697,15 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 #pragma mark Private Methods
 
 // sync
--(BackendlessUser *)loginWithFacebookSocialUserId:(NSString *)userId accessToken:(NSString *)accessToken expirationDate:(NSDate *)expirationDate  permissions:(NSArray<NSString*> *)permissions fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping {
-    NSArray *args = @[userId, accessToken, expirationDate, permissions, fieldsMapping?fieldsMapping:@{}];
+-(BackendlessUser *)loginWithFacebookSocialUserId:(NSString *)userId accessToken:(NSString *)accessToken expirationDate:(NSDate *)expirationDate fieldsMapping:(NSDictionary *)fieldsMapping {
+    NSArray *args = @[userId, accessToken, expirationDate, @[], fieldsMapping?fieldsMapping:@{}];
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_FACEBOOK_SDK args:args];
     return [result isKindOfClass:[Fault class]] ? result : [self onLogin:result];
 }
 
 //async
--(void)loginWithFacebookSocialUserId:(NSString *)userId accessToken:(NSString *)accessToken expirationDate:(NSDate *)expirationDate permissions:(NSArray<NSString*> *)permissions fieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping responder:(id<IResponder>)responder {
-    
-    NSArray *args = @[userId, accessToken, expirationDate, permissions, fieldsMapping?fieldsMapping:@{}];
+-(void)loginWithFacebookSocialUserId:(NSString *)userId accessToken:(NSString *)accessToken expirationDate:(NSDate *)expirationDate fieldsMapping:(NSDictionary *)fieldsMapping responder:(id<IResponder>)responder {
+    NSArray *args = @[userId, accessToken, expirationDate, @[], fieldsMapping?fieldsMapping:@{}];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onLogin:) selErrorHandler:nil];
     _responder.chained = responder;
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_FACEBOOK_SDK args:args responder:_responder];
