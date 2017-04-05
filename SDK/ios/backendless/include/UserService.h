@@ -85,7 +85,7 @@
 // utilites
 -(id)handleOpenURL:(NSURL *)url;
 -(void)handleOpenURL:(NSURL *)url completion:(void(^)(BackendlessUser *))completion;
-    
+
 // persistent user
 -(BOOL)getPersistentUser;
 -(BOOL)setPersistentUser;
