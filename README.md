@@ -1,6 +1,9 @@
-
-Backendless SDK v4.0 Beta 3 for iOS (http://backendless.com)
+Backendless SDK for iOS (http://backendless.com)
 ---
+
+# Version 4.0 Beta 3
+> For the instructions for version 3.x of the library, see [Backendless 3.x Getting Started Guide](https://backendless.com/mobile-developers/quick-start-guide-for-ios/ "Backendless 3.x Getting Started Guide")
+
 ## GETTING STARTED WITH BACKENDLESS
 The simplest way to get started with Backendless is by using a Project Template for iOS:
 1. Register for your free account at https://develop.backendless.com
