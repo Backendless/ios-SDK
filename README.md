@@ -33,6 +33,11 @@ pod 'Backendless'
 `${PODS_ROOT}/Headers/Public/Backendless/Backendless-Bridging-Header.h`
 
 ## RELEASE HISTORY
+4.0b3 April 7, 2017
+* Removed easy login for Facebook and Google
+* Removed signatures with IResponder for all methods in User Service
+* Removed the assignRole/unassignRole methods - they must be invoked only from the server-code
+
 4.0b2 March 31, 2017
 * Removed asynchronous methods with IResponder from Data Service API
 * Removed synchronous methods accepting Fault argument from Data Service API
