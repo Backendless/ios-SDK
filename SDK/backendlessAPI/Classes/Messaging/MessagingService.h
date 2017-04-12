@@ -71,20 +71,13 @@
 #endif
 
 // sync methods with fault return (as exception)
--(NSString *)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration token:(NSData *)deviceToken;
--(NSString *)registerDeviceToken:(NSData *)deviceToken;
--(NSString *)registerDeviceExpiration:(NSDate *)expiration;
--(NSString *)registerDevice:(NSArray<NSString*> *)channels;
--(NSString *)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration;
--(NSString *)registerDevice;
--(DeviceRegistration *)getRegistration;
+- (NSString *)registerDevice:(NSData *)deviceToken;
+- (NSString *)registerDevice:(NSData *)deviceToken channels:(NSArray<NSString *> *)channels;
+- (NSString *)registerDevice:(NSData *)deviceToken expiration:(NSDate *)expiration;
+- (NSString *)registerDevice:(NSData *)deviceToken channels:(NSArray<NSString *> *)channels expiration:(NSDate *)expiration;
 -(DeviceRegistration *)getRegistration:(NSString *)deviceId;
 -(id)unregisterDevice;
 -(id)unregisterDevice:(NSString *)deviceId;
--(MessageStatus *)publish:(id)message;
--(MessageStatus *)publish:(id)message publishOptions:(PublishOptions *)publishOptions;
--(MessageStatus *)publish:(id)message deliveryOptions:(DeliveryOptions *)deliveryOptions;
--(MessageStatus *)publish:(id)message publishOptions:(PublishOptions *)publishOptions deliveryOptions:(DeliveryOptions *)deliveryOptions;
 -(MessageStatus *)publish:(NSString *)channelName message:(id)message;
 -(MessageStatus *)publish:(NSString *)channelName message:(id)message publishOptions:(PublishOptions *)publishOptions;
 -(MessageStatus *)publish:(NSString *)channelName message:(id)message deliveryOptions:(DeliveryOptions *)deliveryOptions;
@@ -105,24 +98,8 @@
 -(MessageStatus*)getMessageStatus:(NSString*)messageId;
 
 // async methods with responder
--(void)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration token:(NSData *)deviceToken responder:(id <IResponder>)responder;
--(void)registerDeviceToken:(NSData *)deviceToken responder:(id <IResponder>)responder;
--(void)registerDeviceExpiration:(NSDate *)expiration responder:(id <IResponder>)responder;
--(void)registerDevice:(NSArray<NSString*> *)channels responder:(id <IResponder>)responder;
--(void)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration responder:(id <IResponder>)responder;
--(void)registerDeviceAsync:(id <IResponder>)responder;
--(void)getRegistrationAsync:(id<IResponder>)responder;
--(void)getRegistrationAsync:(NSString *)deviceId responder:(id<IResponder>)responder;
 -(void)unregisterDeviceAsync:(id<IResponder>)responder;
 -(void)unregisterDeviceAsync:(NSString *)deviceId responder:(id<IResponder>)responder;
--(void)publish:(id)message responder:(id <IResponder>)responder;
--(void)publish:(id)message publishOptions:(PublishOptions *)publishOptions responder:(id <IResponder>)responder;
--(void)publish:(id)message deliveryOptions:(DeliveryOptions *)deliveryOptions responder:(id <IResponder>)responder;
--(void)publish:(id)message publishOptions:(PublishOptions *)publishOptions deliveryOptions:(DeliveryOptions *)deliveryOptions responder:(id <IResponder>)responder;
--(void)publish:(NSString *)channelName message:(id)message responder:(id <IResponder>)responder;
--(void)publish:(NSString *)channelName message:(id)message publishOptions:(PublishOptions *)publishOptions responder:(id <IResponder>)responder;
--(void)publish:(NSString *)channelName message:(id)message deliveryOptions:(DeliveryOptions *)deliveryOptions responder:(id <IResponder>)responder;
--(void)publish:(NSString *)channelName message:(id)message publishOptions:(PublishOptions *)publishOptions deliveryOptions:(DeliveryOptions *)deliveryOptions responder:(id <IResponder>)responder;
 -(void)cancel:(NSString *)messageId responder:(id <IResponder>)responder;
 -(void)subscribe:(NSString *)channelName responder:(id <IResponder>)responder;
 -(void)subscribe:(NSString *)channelName subscriptionResponder:(id <IResponder>)subscriptionResponder responder:(id <IResponder>)responder;
@@ -136,20 +113,13 @@
 -(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients attachment:(NSArray *)attachments responder:(id <IResponder>)responder;
 
 // async methods with block-based callbacks
--(void)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration token:(NSData *)deviceToken response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)registerDeviceToken:(NSData *)deviceToken response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)registerDeviceExpiration:(NSDate *)expiration response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)registerDevice:(NSArray<NSString*> *)channels response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)registerDeviceAsync:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)getRegistrationAsync:(void(^)(DeviceRegistration *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)getRegistrationAsync:(NSString *)deviceId response:(void(^)(DeviceRegistration *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)registerDevice:(NSData *)deviceToken response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)registerDevice:(NSData *)deviceToken channels:(NSArray<NSString *> *)channels response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)registerDevice:(NSData *)deviceToken expiration:(NSDate *)expiration response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)registerDevice:(NSData *)deviceToken channels:(NSArray<NSString *> *)channels expiration:(NSDate *)expiration response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)getRegistration:(NSString *)deviceId response:(void(^)(DeviceRegistration *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)unregisterDeviceAsync:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)unregisterDeviceAsync:(NSString *)deviceId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)publish:(id)message response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)publish:(id)message publishOptions:(PublishOptions *)publishOptions response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)publish:(id)message deliveryOptions:(DeliveryOptions *)deliveryOptions response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)publish:(id)message publishOptions:(PublishOptions *)publishOptions deliveryOptions:(DeliveryOptions *)deliveryOptions response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)publish:(NSString *)channelName message:(id)message response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)publish:(NSString *)channelName message:(id)message publishOptions:(PublishOptions *)publishOptions response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)publish:(NSString *)channelName message:(id)message deliveryOptions:(DeliveryOptions *)deliveryOptions response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
@@ -189,11 +159,6 @@
 // - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 // -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))handler
 -(void)didReceiveRemoteNotification:(NSDictionary *)userInfo;
-
-// start up register device methods
--(void)registerDeviceWithExpiration:(NSDate *)expiration;
--(void)registerDeviceWithChannels:(NSArray<NSString*> *)channels;
--(void)registerDeviceWithChannels:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration;
 #endif
 
 @end
