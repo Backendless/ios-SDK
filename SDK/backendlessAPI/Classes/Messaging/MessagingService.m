@@ -298,16 +298,13 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 }
 
 -(id)unregisterDevice:(NSString *)deviceId {
-    
     if (!deviceId)
         return [backendless throwFault:FAULT_NO_DEVICE_ID];
-    
     NSArray *args = [NSArray arrayWithObjects:deviceId, nil];
     id result = [invoker invokeSync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_UNREGISTER_DEVICE args:args];
     if (result && ![result isKindOfClass:[Fault class]]) {
         if ([result boolValue]) deviceRegistration.id = nil;
     }
-    
     return result;
 }
 
@@ -440,15 +437,9 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     [invoker invokeAsync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_REGISTER_DEVICE args:args responder:_responder];
 }
 
--(void)unregisterDeviceAsync:(id<IResponder>)responder {
-    return [self unregisterDeviceAsync:deviceRegistration.deviceId responder:responder];
-}
-
 -(void)unregisterDeviceAsync:(NSString *)deviceId responder:(id<IResponder>)responder {
-    
     if (!deviceId)
         return [responder errorHandler:FAULT_NO_DEVICE_ID];
-    
     NSArray *args = [NSArray arrayWithObjects:deviceId, nil];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onUnregistering:) selErrorHandler:nil];
     _responder.chained = responder;
@@ -580,11 +571,11 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     [invoker invokeAsync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_GET_REGISTRATIONS args:args responder:responder];
 }
 
--(void)unregisterDeviceAsync:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self unregisterDeviceAsync:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+-(void)unregisterDevice:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self unregisterDeviceAsync:deviceRegistration.deviceId responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)unregisterDeviceAsync:(NSString *)deviceId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)unregisterDevice:(NSString *)deviceId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [self unregisterDeviceAsync:deviceId responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
