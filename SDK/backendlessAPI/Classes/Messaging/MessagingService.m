@@ -68,15 +68,6 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 @interface MessagingService() {
     DeviceRegistration  *deviceRegistration;
 }
-
-// sync methods
--(NSString *)subscribeForPollingAccess:(NSString *)channelName subscriptionOptions:(SubscriptionOptions *)subscriptionOptions;
-// async methods
--(void)subscribeForPollingAccess:(NSString *)channelName subscriptionOptions:(SubscriptionOptions *)subscriptionOptions responder:(id <IResponder>)responder;
-// callbacks
--(id)onRegistering:(id)response;
--(id)onUnregistering:(id)response;
--(id)onSubscribe:(id)response;
 // utils
 -(NSString *)serialNumber;
 @end
@@ -341,49 +332,34 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 }
 
 -(BESubscription *)subscribe:(NSString *)channelName {
-    return [self subscribe:channelName subscriptionResponder:nil subscriptionOptions:nil];
-}
-
--(BESubscription *)subscribe:(NSString *)channelName subscriptionResponder:(id <IResponder>)subscriptionResponder {
-    return [self subscribe:channelName subscriptionResponder:subscriptionResponder subscriptionOptions:nil];
-}
-
--(BESubscription *)subscribe:(NSString *)channelName subscriptionResponder:(id <IResponder>)subscriptionResponder subscriptionOptions:(SubscriptionOptions *)subscriptionOptions {
-    return [self subscribe:[BESubscription subscription:channelName responder:subscriptionResponder] subscriptionOptions:subscriptionOptions];
+    return [self subscribe:[BESubscription subscription:channelName responder:nil] subscriptionOptions:nil];
 }
 
 -(BESubscription *)subscribe:(NSString *)channelName subscriptionResponse:(void(^)(NSArray<Message*> *))subscriptionResponseBlock subscriptionError:(void(^)(Fault *))subscriptionErrorBlock {
-    return [self subscribe:channelName subscriptionResponder:[ResponderBlocksContext responderBlocksContext:subscriptionResponseBlock error:subscriptionErrorBlock]];
+    return [self subscribe:[BESubscription subscription:channelName responder:[ResponderBlocksContext responderBlocksContext:subscriptionResponseBlock error:subscriptionErrorBlock]] subscriptionOptions:nil];
 }
 
 -(BESubscription *)subscribe:(NSString *)channelName subscriptionResponse:(void(^)(NSArray<Message*> *))subscriptionResponseBlock subscriptionError:(void(^)(Fault *))subscriptionErrorBlock subscriptionOptions:(SubscriptionOptions *)subscriptionOptions {
-    return [self subscribe:channelName subscriptionResponder:[ResponderBlocksContext responderBlocksContext:subscriptionResponseBlock error:subscriptionErrorBlock] subscriptionOptions:subscriptionOptions];
+    return [self subscribe:[BESubscription subscription:channelName responder:[ResponderBlocksContext responderBlocksContext:subscriptionResponseBlock error:subscriptionErrorBlock]] subscriptionOptions:subscriptionOptions];
 }
 
 -(BESubscription *)subscribe:(BESubscription *)subscription subscriptionOptions:(SubscriptionOptions *)subscriptionOptions {
-    
     if (!subscription)
         return [backendless throwFault:FAULT_NO_CHANNEL];
-    
     subscription.deliveryMethod = [subscriptionOptions valDeliveryMethod];
     subscriptionOptions.deviceId = deviceRegistration.deviceId;
-    
     id result = [self subscribeForPollingAccess:subscription.channelName subscriptionOptions:subscriptionOptions];
     if ([result isKindOfClass:[Fault class]])
         return result;
-    
     subscription.subscriptionId = (NSString *)result;
     return subscription;
 }
 
 -(NSArray *)pollMessages:(NSString *)channelName subscriptionId:(NSString *)subscriptionId {
-    
     if (!channelName)
         return [backendless throwFault:FAULT_NO_CHANNEL];
-    
     if (!subscriptionId)
         return [backendless throwFault:FAULT_NO_SUBSCRIPTION_ID];
-    
     NSArray *args = [NSArray arrayWithObjects:channelName, subscriptionId, nil];
     return [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_POLL_MESSAGES args:args];
 }
@@ -423,14 +399,11 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 // async methods with responder
 
 -(void)registerDeviceAsync:(id<IResponder>)responder {
-    
     if (!deviceRegistration.deviceToken) {
         [DebLog logY:@"MessagingService -> registerDeviceASync (ERROR): deviceToken is not exist"];
         return [responder errorHandler:FAULT_NO_DEVICE_TOKEN];
     }
-    
-    [DebLog log:@"MessagingService -> registerDeviceAsync (ASYNC): %@", deviceRegistration];
-    
+    [DebLog log:@"MessagingService -> registerDeviceAsync (ASYNC): %@", deviceRegistration];    
     NSArray *args = [NSArray arrayWithObjects:deviceRegistration, nil];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onRegistering:) selErrorHandler:nil];
     _responder.chained = responder;
@@ -457,42 +430,6 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_PUBLISH args:args responder:responder];
 }
 
--(void)cancel:(NSString *)messageId responder:(id <IResponder>)responder {
-    
-    if (!messageId)
-        return [responder errorHandler:FAULT_NO_MESSAGE_ID];
-    
-    NSArray *args = [NSArray arrayWithObjects:messageId, nil];
-    [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_CANCEL args:args responder:responder];
-}
-
-
--(void)subscribe:(NSString *)channelName responder:(id <IResponder>)responder {
-    [self subscribe:channelName subscriptionResponder:nil subscriptionOptions:nil responder:responder];
-}
-
--(void)subscribe:(NSString *)channelName subscriptionResponder:(id <IResponder>)subscriptionResponder responder:(id <IResponder>)responder {
-    [self subscribe:channelName subscriptionResponder:subscriptionResponder subscriptionOptions:nil responder:responder];
-}
-
--(void)subscribe:(NSString *)channelName subscriptionResponder:(id <IResponder>)subscriptionResponder subscriptionOptions:(SubscriptionOptions *)subscriptionOptions responder:(id <IResponder>)responder {
-    [self subscribe:[BESubscription subscription:channelName responder:subscriptionResponder] subscriptionOptions:subscriptionOptions responder:responder];
-}
-
--(void)subscribe:(BESubscription *)subscription subscriptionOptions:(SubscriptionOptions *)subscriptionOptions responder:(id <IResponder>)responder {
-    
-    if (!subscription)
-        return [responder errorHandler:FAULT_NO_CHANNEL];
-    
-    subscription.deliveryMethod = [subscriptionOptions valDeliveryMethod];
-    subscriptionOptions.deviceId = deviceRegistration.deviceId;
-    
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onSubscribe:) selErrorHandler:nil];
-    _responder.context = [subscription retain];
-    _responder.chained = responder;
-    [self subscribeForPollingAccess:subscription.channelName subscriptionOptions:subscriptionOptions responder:_responder];
-}
-
 -(void)pollMessages:(NSString *)channelName subscriptionId:(NSString *)subscriptionId responder:(id <IResponder>)responder {
     
     if (!channelName)
@@ -503,6 +440,15 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     
     NSArray *args = [NSArray arrayWithObjects:channelName, subscriptionId, nil];
     [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_POLL_MESSAGES args:args responder:responder];
+}
+
+-(void)cancel:(NSString *)messageId responder:(id <IResponder>)responder {
+    
+    if (!messageId)
+        return [responder errorHandler:FAULT_NO_MESSAGE_ID];
+    
+    NSArray *args = [NSArray arrayWithObjects:messageId, nil];
+    [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_CANCEL args:args responder:responder];
 }
 
 -(void)sendTextEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray<NSString*> *)recipients responder:(id <IResponder>)responder {
@@ -604,19 +550,32 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 }
 
 -(void)subscribe:(NSString *)channelName response:(void(^)(BESubscription *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self subscribe:channelName responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    [self  subscribe:[BESubscription subscription:channelName responder:nil]
+ subscriptionOptions:nil
+           responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 -(void)subscribe:(NSString *)channelName subscriptionResponse:(void(^)(NSArray<Message*> *))subscriptionResponseBlock subscriptionError:(void(^)(Fault *))subscriptionErrorBlock response:(void(^)(BESubscription *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self subscribe:channelName subscriptionResponder:[ResponderBlocksContext responderBlocksContext:subscriptionResponseBlock error:subscriptionErrorBlock] responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    [self  subscribe:[BESubscription subscription:channelName responder:[ResponderBlocksContext responderBlocksContext:subscriptionResponseBlock error:subscriptionErrorBlock]]
+ subscriptionOptions:nil
+           responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 -(void)subscribe:(NSString *)channelName subscriptionResponse:(void(^)(NSArray<Message*> *))subscriptionResponseBlock subscriptionError:(void(^)(Fault *))subscriptionErrorBlock subscriptionOptions:(SubscriptionOptions *)subscriptionOptions response:(void(^)(BESubscription *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self subscribe:channelName subscriptionResponder:[ResponderBlocksContext responderBlocksContext:subscriptionResponseBlock error:subscriptionErrorBlock] subscriptionOptions:subscriptionOptions responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    [self  subscribe:[BESubscription subscription:channelName responder:[ResponderBlocksContext responderBlocksContext:subscriptionResponseBlock error:subscriptionErrorBlock]]
+ subscriptionOptions:subscriptionOptions
+           responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)subscribe:(BESubscription *)subscription subscriptionOptions:(SubscriptionOptions *)subscriptionOptions response:(void(^)(BESubscription *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self  subscribe:subscription subscriptionOptions:subscriptionOptions responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+-(void)subscribe:(BESubscription *)subscription subscriptionOptions:(SubscriptionOptions *)subscriptionOptions responder:(id <IResponder>)responder {
+    if (!subscription)
+        return [responder errorHandler:FAULT_NO_CHANNEL];
+    subscription.deliveryMethod = [subscriptionOptions valDeliveryMethod];
+    subscriptionOptions.deviceId = deviceRegistration.deviceId;
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onSubscribe:) selErrorHandler:nil];
+    _responder.context = [subscription retain];
+    _responder.chained = responder;
+    [self subscribeForPollingAccess:subscription.channelName subscriptionOptions:subscriptionOptions responder:_responder];
 }
 
 -(void)pollMessages:(NSString *)channelName subscriptionId:(NSString *)subscriptionId response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -794,8 +753,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 #pragma mark -
 #pragma mark Private Methods
 
-// sync methods
-
+// sync
 -(NSString *)subscribeForPollingAccess:(NSString *)channelName subscriptionOptions:(SubscriptionOptions *)subscriptionOptions {
     
     if (!channelName)
@@ -812,13 +770,10 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     
 }
 
-// async methods
-
+// async
 -(void)subscribeForPollingAccess:(NSString *)channelName subscriptionOptions:(SubscriptionOptions *)subscriptionOptions responder:(id <IResponder>)responder {
-    
     if (!channelName)
         return [responder errorHandler:FAULT_NO_CHANNEL];
-    
     if (!subscriptionOptions)
         subscriptionOptions = [SubscriptionOptions new];
 #if !BACKENDLESS_VERSION_2_1_0
@@ -836,17 +791,14 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 }
 
 -(id)onUnregistering:(id)response {
-    
     NSNumber *result = (NSNumber *)response;
     if (result && [result boolValue]) deviceRegistration.id = nil;
     return response;
 }
 
 -(id)onSubscribe:(id)response {
-    
     BESubscription *subscription = ((ResponseContext *)response).context;
     subscription.subscriptionId = (NSString *)((ResponseContext *)response).response;
-    
     return [subscription autorelease];
 }
 
