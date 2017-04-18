@@ -49,23 +49,15 @@
 
 @class UIUserNotificationCategory;
 @class MessageStatus, PublishOptions, DeliveryOptions, SubscriptionOptions, BESubscription, BodyParts, Message, Fault;
-@protocol IResponder;
 
-@protocol IBEPushReceiver <NSObject>
-@optional
--(void)didReceiveRemoteNotification:(NSString *)notification headers:(NSDictionary *)headers;
--(void)didReceiveRemoteNotificationWithObject:(id)object headers:(NSDictionary *)headers;
--(void)didRegisterForRemoteNotificationsWithDeviceId:(NSString *)deviceId fault:(Fault *)fault;
--(void)didFailToRegisterForRemoteNotificationsWithError:(NSError *)err;
--(void)applicationWillTerminate;
-@end
+@protocol IResponder;
 
 @interface MessagingService : NSObject
 @property (nonatomic) uint pollingFrequencyMs;
 @property (strong, nonatomic, readonly) HashMap *subscriptions;
-@property (assign, nonatomic) id <IBEPushReceiver> pushReceiver;
-#if _OLD_NOTIFICATION_ 
-// USE UNUserNotificationCenter requestAuthorizationWithOptions: (iOS10) OR UIApplication registerUserNotificationSettings: (iOS9<) instead
+
+#if _OLD_NOTIFICATION_
+// USE UNUserNotificationCenter requestAuthorizationWithOptions: (iOS10) OR UIApplication registerUserNotificationSettings: (<iOS9) instead
 @property NSUInteger notificationTypes;
 @property (strong, nonatomic) NSSet<UIUserNotificationCategory*> *categories;
 #endif
@@ -84,12 +76,8 @@
 -(MessageStatus *)publish:(NSString *)channelName message:(id)message publishOptions:(PublishOptions *)publishOptions deliveryOptions:(DeliveryOptions *)deliveryOptions;
 -(id)cancel:(NSString *)messageId;
 -(BESubscription *)subscribe:(NSString *)channelName;
--(BESubscription *)subscribe:(NSString *)channelName subscriptionResponder:(id <IResponder>)subscriptionResponder;
--(BESubscription *)subscribe:(NSString *)channelName subscriptionResponder:(id <IResponder>)subscriptionResponder subscriptionOptions:(SubscriptionOptions *)subscriptionOptions;
 -(BESubscription *)subscribe:(NSString *)channelName subscriptionResponse:(void(^)(NSArray<Message*> *))subscriptionResponseBlock subscriptionError:(void(^)(Fault *))subscriptionErrorBlock;
 -(BESubscription *)subscribe:(NSString *)channelName subscriptionResponse:(void(^)(NSArray<Message*> *))subscriptionResponseBlock subscriptionError:(void(^)(Fault *))subscriptionErrorBlock subscriptionOptions:(SubscriptionOptions *)subscriptionOptions;
--(BESubscription *)subscribe:(BESubscription *)subscription subscriptionOptions:(SubscriptionOptions *)subscriptionOptions;
--(NSArray *)pollMessages:(NSString *)channelName subscriptionId:(NSString *)subscriptionId;
 //
 -(id)sendTextEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray<NSString*> *)recipients;
 -(id)sendHTMLEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray<NSString*> *)recipients;
@@ -98,13 +86,6 @@
 -(MessageStatus*)getMessageStatus:(NSString*)messageId;
 
 // async methods with responder
--(void)cancel:(NSString *)messageId responder:(id <IResponder>)responder;
--(void)subscribe:(NSString *)channelName responder:(id <IResponder>)responder;
--(void)subscribe:(NSString *)channelName subscriptionResponder:(id <IResponder>)subscriptionResponder responder:(id <IResponder>)responder;
--(void)subscribe:(NSString *)channelName subscriptionResponder:(id <IResponder>)subscriptionResponder subscriptionOptions:(SubscriptionOptions *)subscriptionOptions responder:(id <IResponder>)responder;
--(void)subscribe:(BESubscription *)subscription subscriptionOptions:(SubscriptionOptions *)subscriptionOptions responder:(id <IResponder>)responder;
--(void)pollMessages:(NSString *)channelName subscriptionId:(NSString *)subscriptionId responder:(id <IResponder>)responder;
-//
 -(void)sendTextEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray<NSString*> *)recipients responder:(id <IResponder>)responder;
 -(void)sendHTMLEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray<NSString*> *)recipients responder:(id <IResponder>)responder;
 -(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients responder:(id <IResponder>)responder;
@@ -126,8 +107,6 @@
 -(void)subscribe:(NSString *)channelName response:(void(^)(BESubscription *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)subscribe:(NSString *)channelName subscriptionResponse:(void(^)(NSArray<Message*> *))subscriptionResponseBlock subscriptionError:(void(^)(Fault *))subscriptionErrorBlock response:(void(^)(BESubscription *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)subscribe:(NSString *)channelName subscriptionResponse:(void(^)(NSArray<Message*> *))subscriptionResponseBlock subscriptionError:(void(^)(Fault *))subscriptionErrorBlock subscriptionOptions:(SubscriptionOptions *)subscriptionOptions response:(void(^)(BESubscription *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)subscribe:(BESubscription *)subscription subscriptionOptions:(SubscriptionOptions *)subscriptionOptions response:(void(^)(BESubscription *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)pollMessages:(NSString *)channelName subscriptionId:(NSString *)subscriptionId response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 //
 -(void)sendTextEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray<NSString*> *)recipients response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)sendHTMLEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray<NSString*> *)recipients response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
@@ -138,25 +117,5 @@
 // utilites
 -(DeviceRegistration *)currentDevice;
 -(NSString *)deviceTokenAsString:(NSData *)token;
-
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
--(void)registerForRemoteNotifications;
--(void)unregisterFromRemoteNotifications;
-// the methods for AppDelegate using for push publish & push pub/sub (SubscriptionOptions.deliveryMethod = DELIVERY_PUSH)
--(void)registerForPushPubSub;
--(void)unregisterFromPushPubSub;
-// invoke it in -(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
--(void)didFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
-// invoke it in -(void)applicationWillTerminate:(UIApplication *)application
--(void)applicationWillTerminate;
-// invoke it in - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
--(void)didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken;
-// invoke it in - (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err
--(void)didFailToRegisterForRemoteNotificationsWithError:(NSError *)err;
-// invoke it in:
-// - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
-// -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))handler
--(void)didReceiveRemoteNotification:(NSDictionary *)userInfo;
-#endif
 
 @end
