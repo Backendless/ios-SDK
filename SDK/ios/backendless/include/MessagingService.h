@@ -86,8 +86,6 @@
 -(MessageStatus*)getMessageStatus:(NSString*)messageId;
 
 // async methods with responder
--(void)cancel:(NSString *)messageId responder:(id <IResponder>)responder;
-//
 -(void)sendTextEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray<NSString*> *)recipients responder:(id <IResponder>)responder;
 -(void)sendHTMLEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray<NSString*> *)recipients responder:(id <IResponder>)responder;
 -(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients responder:(id <IResponder>)responder;
