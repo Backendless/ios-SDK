@@ -86,13 +86,10 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     NSData *data = [keychainStore get:bundleId];
     NSString *UUID = data?[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]:nil;
     if (!UUID) {
-        
         CFUUIDRef uuid = CFUUIDCreate(NULL);
         UUID = (NSString *)CFUUIDCreateString(NULL, uuid);
         CFRelease(uuid);
-        
         [keychainStore save:bundleId data:[UUID dataUsingEncoding:NSUTF8StringEncoding]];
-        
         dispatch_async(dispatch_get_main_queue(), ^{
             [self unregisterDeviceAsync:[[UIDevice currentDevice].identifierForVendor UUIDString] responder:nil];
         });
@@ -103,13 +100,10 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     NSString *bundleId = [[NSBundle mainBundle] bundleIdentifier];
     NSString *UUID = [UICKeyChainStore stringForKey:bundleId service:kBackendlessApplicationUUIDKey];
     if (!UUID) {
-        
         CFUUIDRef uuid = CFUUIDCreate(NULL);
         UUID = (NSString *)CFUUIDCreateString(NULL, uuid);
         CFRelease(uuid);
-        
         [UICKeyChainStore setString:UUID forKey:bundleId service:kBackendlessApplicationUUIDKey];
-        
         dispatch_async(dispatch_get_main_queue(), ^{
             [self unregisterDeviceAsync:[[UIDevice currentDevice].identifierForVendor UUIDString] responder:nil];
         });
@@ -119,11 +113,9 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 #else // store in NSUserDefaults (NOT USEFUL: changes after app was removed)
     NSString *UUID = [[NSUserDefaults standardUserDefaults] objectForKey:kBackendlessApplicationUUIDKey];
     if (!UUID) {
-        
         CFUUIDRef uuid = CFUUIDCreate(NULL);
         UUID = (NSString *)CFUUIDCreateString(NULL, uuid);
         CFRelease(uuid);
-        
         [[NSUserDefaults standardUserDefaults] setObject:UUID forKey:kBackendlessApplicationUUIDKey];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
@@ -132,60 +124,39 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 }
 #else // OSX
 -(NSString *)serialNumber {
-    
     io_service_t    platformExpert = IOServiceGetMatchingService(kIOMasterPortDefault, IOServiceMatching("IOPlatformExpertDevice"));
     CFStringRef serialNumberAsCFString = NULL;
-    
     if (platformExpert) {
         serialNumberAsCFString = IORegistryEntryCreateCFProperty(platformExpert,
                                                                  CFSTR(kIOPlatformSerialNumberKey),
                                                                  kCFAllocatorDefault, 0);
         IOObjectRelease(platformExpert);
     }
-    
     NSString *serialNumberAsNSString = nil;
     if (serialNumberAsCFString) {
         serialNumberAsNSString = [NSString stringWithString:(NSString *)serialNumberAsCFString];
         CFRelease(serialNumberAsCFString);
     }
-    
     return serialNumberAsNSString;
 }
 #endif
 
 -(id)init {
-    
-    if ( (self=[super init]) ) {
-        
+    if (self = [super init]) {
         self.pollingFrequencyMs = POLLING_INTERVAL;
         _subscriptions = [HashMap new];
 #if _OLD_NOTIFICATION_
         self.categories = nil;
 #endif
-        
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.management.DeviceRegistrationDto" mapped:[DeviceRegistration class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.messaging.Message" mapped:[Message class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.messaging.MessageStatus" mapped:[MessageStatus class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.messaging.PublishOptions" mapped:[PublishOptions class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.messaging.DeliveryOptions" mapped:[DeliveryOptions class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.mail.BodyParts" mapped:[BodyParts class]];
-        
         deviceRegistration = [DeviceRegistration new];
         
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-        
-#if _OLD_NOTIFICATION_
-        // if >= iOS8
-        if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
-            self.notificationTypes = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
-        }
-#if 0
-        else {
-            self.notificationTypes = UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound;
-        }
-#endif
-#endif
-        
         UIDevice *device = [UIDevice currentDevice];
 #if 1   // use generated UUID which is saved in keychain with bundleId as key
         NSString *deviceId = [self serialNumber];
@@ -202,26 +173,20 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
         NSString *deviceId = [self serialNumber];
         deviceRegistration.deviceId = deviceId ? deviceId : [backendless GUIDString];
 #endif
-        
         [DebLog log:@"MessagingService -> init: deviceToken = %@, deviceId = %@, os = %@, osVersion = %@", deviceRegistration.deviceToken, deviceRegistration.deviceId, deviceRegistration.os, deviceRegistration.osVersion];
     }
-    
     return self;
 }
 
 -(void)dealloc {
-    
     [DebLog logN:@"DEALLOC MessagingService"];
-    
     [deviceRegistration release];
     [self.subscriptions release];
 #if _OLD_NOTIFICATION_
     [self.categories release];
-#endif
-    
+#endif    
     [super dealloc];
 }
-
 
 #pragma mark -
 #pragma mark Public Methods
@@ -323,10 +288,8 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 }
 
 -(id)cancel:(NSString *)messageId {
-    
     if (!messageId)
         return [backendless throwFault:FAULT_NO_MESSAGE_ID];
-    
     NSArray *args = [NSArray arrayWithObjects:messageId, nil];
     return [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_CANCEL args:args];
 }
@@ -377,13 +340,10 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 }
 
 -(id)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients attachment:(NSArray *)attachments {
-    
     if (!bodyParts || ![bodyParts isBody])
         return [backendless throwFault:FAULT_NO_BODY];
-    
     if (!recipients || !recipients.count)
         return [backendless throwFault:FAULT_NO_RECIPIENT];
-    
     NSArray *args = @[(subject)?subject:@"", bodyParts, recipients, (attachments)?attachments:@[]];
     return [invoker invokeSync:SERVER_MAIL_SERVICE_PATH method:METHOD_SEND_EMAIL args:args];
 }
@@ -391,7 +351,6 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 -(MessageStatus*)getMessageStatus:(NSString*)messageId {
     if (!messageId)
         return [backendless throwFault:FAULT_NO_MESSAGE_ID];
-    
     NSArray *args = [NSMutableArray arrayWithObjects:messageId, nil];
     return [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_MESSAGE_STATUS args:args];
 }
@@ -403,7 +362,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
         [DebLog logY:@"MessagingService -> registerDeviceASync (ERROR): deviceToken is not exist"];
         return [responder errorHandler:FAULT_NO_DEVICE_TOKEN];
     }
-    [DebLog log:@"MessagingService -> registerDeviceAsync (ASYNC): %@", deviceRegistration];    
+    [DebLog log:@"MessagingService -> registerDeviceAsync (ASYNC): %@", deviceRegistration];
     NSArray *args = [NSArray arrayWithObjects:deviceRegistration, nil];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onRegistering:) selErrorHandler:nil];
     _responder.chained = responder;
@@ -431,22 +390,17 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 }
 
 -(void)pollMessages:(NSString *)channelName subscriptionId:(NSString *)subscriptionId responder:(id <IResponder>)responder {
-    
     if (!channelName)
         return [responder errorHandler:FAULT_NO_CHANNEL];
-    
     if (!subscriptionId)
         return [responder errorHandler:FAULT_NO_SUBSCRIPTION_ID];
-    
     NSArray *args = [NSArray arrayWithObjects:channelName, subscriptionId, nil];
     [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_POLL_MESSAGES args:args responder:responder];
 }
 
 -(void)cancel:(NSString *)messageId responder:(id <IResponder>)responder {
-    
     if (!messageId)
         return [responder errorHandler:FAULT_NO_MESSAGE_ID];
-    
     NSArray *args = [NSArray arrayWithObjects:messageId, nil];
     [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_CANCEL args:args responder:responder];
 }
@@ -464,13 +418,10 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 }
 
 -(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients attachment:(NSArray *)attachments responder:(id <IResponder>)responder {
-    
     if (!bodyParts || ![bodyParts isBody])
         return [responder errorHandler:FAULT_NO_BODY];
-    
     if (!recipients || !recipients.count)
         return [responder errorHandler:FAULT_NO_RECIPIENT];
-    
     NSArray *args = @[(subject)?subject:@"", bodyParts, recipients, (attachments)?attachments:@[]];
     [invoker invokeAsync:SERVER_MAIL_SERVICE_PATH method:METHOD_SEND_EMAIL args:args responder:responder];
 }
@@ -602,163 +553,17 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!messageId)
         return [chainedResponder errorHandler:FAULT_NO_MESSAGE_ID];
-    
     NSMutableArray *args = [NSMutableArray arrayWithObjects:messageId, nil];
     [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_MESSAGE_STATUS args:args responder:chainedResponder];
 }
-
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-
--(void)registerForRemoteNotifications {
-    
-    /*
-     typedef NS_OPTIONS(NSUInteger, UIUserNotificationType) {
-     UIUserNotificationTypeNone    = 0,      // the application may not present any UI upon a notification being received
-     UIUserNotificationTypeBadge   = 1 << 0, // the application may badge its icon upon a notification being received
-     UIUserNotificationTypeSound   = 1 << 1, // the application may play a sound upon a notification being received
-     UIUserNotificationTypeAlert   = 1 << 2, // the application may display an alert upon a notification being received
-     } NS_ENUM_AVAILABLE_IOS(8_0) __TVOS_PROHIBITED;
-     */
-    
-    // check if iOS8
-    if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
-        //UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
-#if _OLD_NOTIFICATION_
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:self.notificationTypes categories:self.categories];
-        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-#endif
-        [[UIApplication sharedApplication] registerForRemoteNotifications];
-    }
-#if 0
-    else {
-        //UIRemoteNotificationType types = UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound;
-        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:self.notificationTypes];
-    }
-#endif
-}
-
--(void)unregisterFromRemoteNotifications {
-    [[UIApplication sharedApplication] unregisterForRemoteNotifications];
-}
-// for pubsub using silent remote notification (SubscriptionOptions.deliveryMethod = DELIVERY_PUSH)
-
--(void)registerForPushPubSub {
-    [self registerForRemoteNotifications];
-}
-
--(void)unregisterFromPushPubSub {
-    [self unregisterFromRemoteNotifications];
-}
-
--(void)didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    NSDictionary *remoteDict = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-    if (remoteDict) [self didReceiveRemoteNotification:remoteDict];
-}
-
--(void)applicationWillTerminate {
-    [self unregisterFromRemoteNotifications];
-    if ([self.pushReceiver respondsToSelector:@selector(applicationWillTerminate)]) {
-        [self.pushReceiver applicationWillTerminate];
-    }
-}
-
--(void)didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken {
-    
-#if 1  // async
-    deviceRegistration.deviceToken = [self deviceTokenAsString:deviceToken];
-    [self registerDeviceAsync:
-     ^(NSString *deviceRegistrationId) {
-         [DebLog log:@"MessagingService -> application:didRegisterForRemoteNotificationsWithDeviceToken: deviceRegistrationId = %@", deviceRegistrationId];
-         if ([self.pushReceiver respondsToSelector:@selector(didRegisterForRemoteNotificationsWithDeviceId:fault:)]) {
-             [self.pushReceiver didRegisterForRemoteNotificationsWithDeviceId:deviceRegistrationId fault:nil];
-         }
-     }
-                        error:^(Fault *fault) {
-                            [DebLog log:@"MessagingService -> application:didRegisterForRemoteNotificationsWithDeviceToken: %@", fault];
-                            if ([self.pushReceiver respondsToSelector:@selector(didRegisterForRemoteNotificationsWithDeviceId:fault:)]) {
-                                [self.pushReceiver didRegisterForRemoteNotificationsWithDeviceId:nil fault:fault];
-                            }
-                        }];
-#else // sync
-    @try {
-        NSString *deviceRegistrationId = [self registerDeviceToken:deviceToken];
-        [DebLog log:@"MessagingService -> application:didRegisterForRemoteNotificationsWithDeviceToken: -> registerDeviceToken: deviceRegistrationId = %@", deviceRegistrationId];
-        if ([self.pushReceiver respondsToSelector:@selector(didRegisterForRemoteNotificationsWithDeviceId:fault:)]) {
-            [self.pushReceiver didRegisterForRemoteNotificationsWithDeviceId:deviceRegistrationId fault:nil];
-        }
-    }
-    @catch (Fault *fault) {
-        [DebLog log:@"MessagingService -> application:didRegisterForRemoteNotificationsWithDeviceToken: -> registerDeviceToken: %@", fault];
-        if ([self.pushReceiver respondsToSelector:@selector(didRegisterForRemoteNotificationsWithDeviceId:fault:)]) {
-            [self.pushReceiver didRegisterForRemoteNotificationsWithDeviceId:nil fault:fault];
-        }
-    }
-#endif
-}
-
--(void)didFailToRegisterForRemoteNotificationsWithError:(NSError *)err {
-    [DebLog log:@"MessagingService -> application:didFailToRegisterForRemoteNotificationsWithError: %@", err];
-    if ([self.pushReceiver respondsToSelector:@selector(didFailToRegisterForRemoteNotificationsWithError:)]) {
-        [self.pushReceiver didFailToRegisterForRemoteNotificationsWithError:err];
-    }
-}
-
--(void)didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    
-    [DebLog log:@"MessagingService -> application:didReceiveRemoteNotification: %@", userInfo];
-    
-#if 1 // -(void)didReceiveRemoteNotificationWithObject:(id)object headers:(NSDictionary *)headers;
-    id object = [[userInfo objectForKey:@"aps"] objectForKey:@"alert"];
-    if (![object isKindOfClass:NSString.class]) {
-        if ([self.pushReceiver respondsToSelector:@selector(didReceiveRemoteNotificationWithObject:headers:)]) {
-            [self.pushReceiver didReceiveRemoteNotificationWithObject:object headers:userInfo];
-        }
-        return;
-    }
-#endif
-    
-    NSString *pushMessage = [[userInfo objectForKey:@"aps"] objectForKey:@"alert"];
-    NSString *channelName = [userInfo objectForKey:@"{n}"];
-    if (channelName && channelName.length) {
-        
-        BESubscription *subscription = [backendless.messaging.subscriptions get:channelName];
-        if (subscription) {
-            
-            if (pushMessage && pushMessage.length) {
-                
-                NSData *data = [BEBase64 decode:pushMessage];
-                BinaryStream *bytes = [BinaryStream streamWithStream:(char*)data.bytes andSize:(size_t)data.length];
-                id message = [AMFSerializer deserializeFromBytes:bytes];
-                if (message && [message isKindOfClass:Message.class]) {
-                    [subscription.responder responseHandler:@[message]];
-                }
-                [DebLog log:@"MessagingService -> application:didReceiveRemoteNotification: (MESSAGE) %@", message];
-            }
-            else {
-                [DebLog log:@"MessagingService -> application:didReceiveRemoteNotification: (!!! POLLING !!!)"];
-                [backendless.messagingService pollMessages:channelName subscriptionId:subscription.subscriptionId responder:subscription.responder];
-            }
-        }
-    }
-    else {
-        if ([self.pushReceiver respondsToSelector:@selector(didReceiveRemoteNotification:headers:)]) {
-            NSMutableDictionary *headers = [NSMutableDictionary dictionaryWithDictionary:userInfo];
-            [headers removeObjectForKey:@"aps"];
-            [self.pushReceiver didReceiveRemoteNotification:pushMessage headers:headers];
-        }
-    }
-}
-#endif
 
 #pragma mark -
 #pragma mark Private Methods
 
 // sync
 -(NSString *)subscribeForPollingAccess:(NSString *)channelName subscriptionOptions:(SubscriptionOptions *)subscriptionOptions {
-    
     if (!channelName)
         return [backendless throwFault:FAULT_NO_CHANNEL];
-    
     if (!subscriptionOptions)
         subscriptionOptions = [SubscriptionOptions new];
 #if !BACKENDLESS_VERSION_2_1_0
@@ -766,8 +571,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 #else
     NSArray *args = @[channelName, subscriptionOptions, deviceRegistration];
 #endif
-    return [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_POLLING_SUBSCRIBE args:args];
-    
+    return [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_POLLING_SUBSCRIBE args:args];    
 }
 
 // async
