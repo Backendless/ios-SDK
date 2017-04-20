@@ -54,10 +54,6 @@
 -(void)remove:(NSString *)fileURL responder:(id <IResponder>)responder;
 -(void)removeDirectory:(NSString *)path responder:(id <IResponder>)responder;
 -(void)exists:(NSString *)path responder:(id <IResponder>)responder;
--(void)getFileCount:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive countDirectories:(BOOL)countDirectories responder:(id <IResponder>)responder;
--(void)getFileCount:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive responder:(id <IResponder>)responder;
--(void)getFileCount:(NSString *)path pattern:(NSString *)pattern responder:(id <IResponder>)responder;
--(void)getFileCount:(NSString *)path responder:(id <IResponder>)responder;
 
 // async methods with block-based callbacks
 -(void)upload:(NSString *)path content:(NSData *)content response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock;

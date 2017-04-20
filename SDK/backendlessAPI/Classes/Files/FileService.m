@@ -169,16 +169,12 @@ static NSString *METHOD_COUNT = @"count";
 }
 
 -(BackendlessFile *)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content overwriteIfExist:(BOOL)overwrite {
-    
     if (!path || !path.length)
         return [backendless throwFault:FAULT_NO_DIRECTORY_PATH];
-    
     if (!fileName || !fileName.length)
         return [backendless throwFault:FAULT_NO_FILE_NAME];
-    
     if (!content || !content.length)
-        return [backendless throwFault:FAULT_NO_FILE_DATA];
-    
+        return [backendless throwFault:FAULT_NO_FILE_DATA];    
     NSArray *args = @[path, fileName, content, @(overwrite)];
     NSString *receiveUrl = [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_SAVE_FILE args:args];
     return [BackendlessFile file:receiveUrl];
@@ -246,13 +242,10 @@ static NSString *METHOD_COUNT = @"count";
 }
 
 -(NSNumber *)getFileCount:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive countDirectories:(BOOL)countDirectories {
-    
     if (!path || !path.length)
         return [backendless throwFault:FAULT_NO_DIRECTORY_PATH];
-    
     if (!pattern || !pattern.length)
-        return [backendless throwFault:FAULT_NO_PATTERN];
-    
+        return [backendless throwFault:FAULT_NO_PATTERN];    
     NSArray *args = @[path, pattern, @(recursive), @(countDirectories)];
     return [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_COUNT args:args];
 }
@@ -262,7 +255,7 @@ static NSString *METHOD_COUNT = @"count";
 }
 
 -(NSNumber *)getFileCount:(NSString *)path pattern:(NSString *)pattern {
-    return [self getFileCount:path pattern:pattern recursive:NO];
+    return [self getFileCount:path pattern:pattern recursive:NO countDirectories:NO];
 }
 
 -(NSNumber *)getFileCount:(NSString *)path {
@@ -333,29 +326,13 @@ static NSString *METHOD_COUNT = @"count";
 }
 
 -(void)getFileCount:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive countDirectories:(BOOL)countDirectories responder:(id <IResponder>)responder {
-    
     if (!path || !path.length)
         return [responder errorHandler:FAULT_NO_DIRECTORY_PATH];
-    
     if (!pattern || !pattern.length)
-        return [responder errorHandler:FAULT_NO_PATTERN];
-    
+        return [responder errorHandler:FAULT_NO_PATTERN];    
     NSArray *args = @[path, pattern, @(recursive), @(countDirectories)];
     [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_COUNT args:args responder:responder];
 }
-
--(void)getFileCount:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive responder:(id <IResponder>)responder {
-    [self getFileCount:path pattern:pattern recursive:recursive countDirectories:NO responder:responder];
-}
-
--(void)getFileCount:(NSString *)path pattern:(NSString *)pattern responder:(id <IResponder>)responder {
-    [self getFileCount:path pattern:pattern recursive:NO countDirectories:NO responder:responder];
-}
-
--(void)getFileCount:(NSString *)path responder:(id <IResponder>)responder {
-    [self getFileCount:path pattern:@"*" recursive:NO countDirectories:NO responder:responder];
-}
-
 
 // async methods with block-base callbacks
 
@@ -434,15 +411,15 @@ static NSString *METHOD_COUNT = @"count";
 }
 
 -(void)getFileCount:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self getFileCount:path pattern:pattern recursive:recursive responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+     [self getFileCount:path pattern:pattern recursive:recursive countDirectories:NO responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 -(void)getFileCount:(NSString *)path pattern:(NSString *)pattern response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self getFileCount:path pattern:pattern responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+     [self getFileCount:path pattern:pattern recursive:NO countDirectories:NO responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)getFileCount:(NSString *)path response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self getFileCount:path responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+-(void)getFileCount:(NSString *)path response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {    
+    [self getFileCount:path pattern:@"*" recursive:NO countDirectories:NO responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 
