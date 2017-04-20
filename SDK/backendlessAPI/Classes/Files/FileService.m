@@ -229,13 +229,10 @@ static NSString *METHOD_COUNT = @"count";
 }
 
 -(NSArray *)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive pagesize:(int)pagesize offset:(int)offset {
-    
     if (!path || !path.length)
         return [backendless throwFault:FAULT_NO_FILE_NAME];
-    
     NSArray *args = @[path, pattern, @(recursive), @(pagesize), @(offset)];
     NSArray *collection = [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_LISTING args:args];
-    //collection.query = [BackendlessSimpleQuery query:pagesize offset:offset];
     return collection;
 }
 
@@ -316,15 +313,9 @@ static NSString *METHOD_COUNT = @"count";
     [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_SAVE_FILE args:args responder:_responder];
 }
 
--(void)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive responder:(id <IResponder>)responder {
-    [self listing:path pattern:pattern recursive:recursive pagesize:DEFAULT_PAGE_SIZE offset:DEFAULT_OFFSET responder:responder];
-}
-
 -(void)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive pagesize:(int)pagesize offset:(int)offset responder:(id <IResponder>)responder {
-    
     if (!path || !path.length)
         return [responder errorHandler:FAULT_NO_FILE_NAME];
-    
     NSArray *args = @[path, pattern, @(recursive), @(pagesize), @(offset)];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(getListing:) selErrorHandler:nil];
     _responder.chained = responder;
@@ -427,7 +418,7 @@ static NSString *METHOD_COUNT = @"count";
 }
 
 -(void)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self listing:path pattern:pattern recursive:recursive responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    [self listing:path pattern:pattern recursive:recursive pagesize:DEFAULT_PAGE_SIZE offset:DEFAULT_OFFSET responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 -(void)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive pagesize:(int)pagesize offset:(int)offset response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
