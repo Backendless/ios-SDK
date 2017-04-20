@@ -51,8 +51,6 @@
 -(NSNumber *)getFileCount:(NSString *)path;
 
 // async methods with responder
--(void)upload:(NSString *)path content:(NSData *)content responder:(id <IResponder>)responder;
--(void)upload:(NSString *)path content:(NSData *)content overwrite:(BOOL)overwrite responder:(id <IResponder>)responder;
 -(void)remove:(NSString *)fileURL responder:(id <IResponder>)responder;
 -(void)removeDirectory:(NSString *)path responder:(id <IResponder>)responder;
 -(void)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content responder:(id <IResponder>)responder;

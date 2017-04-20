@@ -281,14 +281,6 @@ static NSString *METHOD_COUNT = @"count";
 
 // async methods with responder
 
--(void)upload:(NSString *)path content:(NSData *)content responder:(id <IResponder>)responder {
-    [self sendUploadRequest:path content:content overwrite:nil responder:responder];
-}
-
--(void)upload:(NSString *)path content:(NSData *)content overwrite:(BOOL)overwrite responder:(id <IResponder>)responder {
-    [self sendUploadRequest:path content:content overwrite:@(overwrite) responder:responder];
-}
-
 -(void)remove:(NSString *)fileURL responder:(id <IResponder>)responder {
     
     if (!fileURL || !fileURL.length)
@@ -429,11 +421,11 @@ static NSString *METHOD_COUNT = @"count";
 // async methods with block-base callbacks
 
 -(void)upload:(NSString *)path content:(NSData *)content response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self upload:path content:content responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    [self sendUploadRequest:path content:content overwrite:nil responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 -(void)upload:(NSString *)path content:(NSData *)content overwrite:(BOOL)overwrite response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self upload:path content:content overwrite:overwrite responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    [self sendUploadRequest:path content:content overwrite:@(overwrite) responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 -(void)remove:(NSString *)fileURL response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -565,21 +557,14 @@ static NSString *METHOD_COUNT = @"count";
 // sync request
 
 -(id)sendUploadRequest:(NSString *)path content:(NSData *)content overwrite:(NSNumber *)overwrite {
-    
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-    
     NSURLRequest *webReq = [self httpUploadRequest:path content:content overwrite:overwrite];
-    
     NSHTTPURLResponse *responseUrl;
     NSError *error;
     NSData *receivedData = [NSURLConnection sendSynchronousRequest:webReq returningResponse:&responseUrl error:&error];
-    
     NSInteger statusCode = [responseUrl statusCode];
-    
     [DebLog log:@"FileService -> sendUploadRequest: HTTP status code: %@", @(statusCode)];
-    
-    if (statusCode == 200 && receivedData)
-    {
+    if (statusCode == 200 && receivedData) {
         NSString *receiveUrl = [[[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding] autorelease];
         receiveUrl = [receiveUrl stringByReplacingOccurrencesOfString:@"{\"fileURL\":\"" withString:@""];
         receiveUrl = [receiveUrl stringByReplacingOccurrencesOfString:@"\"}" withString:@""];
@@ -595,16 +580,12 @@ static NSString *METHOD_COUNT = @"count";
 // async request
 
 -(void)sendUploadRequest:(NSString *)path content:(NSData *)content overwrite:(NSNumber *)overwrite responder:(id <IResponder>)responder {
-
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-    
     // create the connection with the request and start the data exchananging
     NSURLRequest *webReq = [self httpUploadRequest:path content:content overwrite:overwrite];
     NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:webReq delegate:self];
     if (connection) {
-        
         [DebLog log:@"FileService -> sendUploadRequest: (SUCSESS) the connection with path: '%@' is created", path];
-        
         AsyncResponse *async = [AsyncResponse new];
         // save the connection
         async.connection = connection;
@@ -612,12 +593,9 @@ static NSString *METHOD_COUNT = @"count";
         async.receivedData = [NSMutableData new];
         // save the request responder
         async.responder = responder;
-        
         [asyncResponses addObject:async];
-        
         return;
-    }
-    
+    }    
     [DebLog log:@"FileService -> sendUploadRequest: (ERROR) the connection with path: '%@' didn't create", path];
 #else
     [self saveFile:path content:content overwriteIfExist:(overwrite!=nil)&&overwrite.boolValue responder:responder];
