@@ -320,15 +320,6 @@ static NSString *METHOD_COUNT = @"count";
     [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_SAVE_FILE args:args responder:_responder];
 }
 
--(void)copyFile:(NSString *)sourcePathName target:(NSString *)targetPathName responder:(id <IResponder>)responder {
-    
-    if (!sourcePathName || !sourcePathName.length || !targetPathName || !targetPathName.length)
-        return [responder errorHandler:FAULT_NO_DIRECTORY_PATH];
-    
-    NSArray *args = @[sourcePathName, targetPathName];
-    [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_COPY_FILE args:args responder:responder];
-}
-
 -(void)moveFile:(NSString *)sourcePathName target:(NSString *)targetPathName responder:(id <IResponder>)responder {
     
     if (!sourcePathName || !sourcePathName.length || !targetPathName || !targetPathName.length)
@@ -433,7 +424,11 @@ static NSString *METHOD_COUNT = @"count";
 }
 
 -(void)copyFile:(NSString *)sourcePathName target:(NSString *)targetPathName response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self copyFile:sourcePathName target:targetPathName responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!sourcePathName || !sourcePathName.length || !targetPathName || !targetPathName.length)
+        return [responder errorHandler:FAULT_NO_DIRECTORY_PATH];    
+    NSArray *args = @[sourcePathName, targetPathName];
+    [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_COPY_FILE args:args responder:responder];
 }
 
 -(void)moveFile:(NSString *)sourcePathName target:(NSString *)targetPathName response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
