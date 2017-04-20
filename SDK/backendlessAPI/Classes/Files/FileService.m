@@ -299,39 +299,24 @@ static NSString *METHOD_COUNT = @"count";
     [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_DELETE args:args responder:responder];
 }
 
--(void)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content responder:(id <IResponder>)responder {
-    [self saveFile:path fileName:fileName content:content overwriteIfExist:NO responder:responder];
-}
-
 -(void)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content overwriteIfExist:(BOOL)overwrite responder:(id <IResponder>)responder {
-    
     if (!path || !path.length)
         return [responder errorHandler:FAULT_NO_DIRECTORY_PATH];
-    
     if (!fileName || !fileName.length)
         return [responder errorHandler:FAULT_NO_FILE_NAME];
-    
     if (!content|| !content.length)
         return [responder errorHandler:FAULT_NO_FILE_DATA];
-    
     NSArray *args = @[path, fileName, content, @(overwrite)];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(saveFileResponse:) selErrorHandler:nil];
     _responder.chained = responder;
     [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_SAVE_FILE args:args responder:_responder];
 }
 
--(void)saveFile:(NSString *)filePathName content:(NSData *)content responder:(id <IResponder>)responder {
-    [self saveFile:filePathName content:content overwriteIfExist:NO responder:responder];
-}
-
 -(void)saveFile:(NSString *)filePathName content:(NSData *)content overwriteIfExist:(BOOL)overwrite responder:(id <IResponder>)responder {
-    
     if (!filePathName || !filePathName.length)
         return [responder errorHandler:FAULT_NO_FILE_NAME];
-    
     if (!content|| !content.length)
-        return [responder errorHandler:FAULT_NO_FILE_DATA];
-    
+        return [responder errorHandler:FAULT_NO_FILE_DATA];    
     NSArray *args = @[filePathName, content, @(overwrite)];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(saveFileResponse:) selErrorHandler:nil];
     _responder.chained = responder;
@@ -437,7 +422,7 @@ static NSString *METHOD_COUNT = @"count";
 }
 
 -(void)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self saveFile:path fileName:fileName content:content responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    [self saveFile:path fileName:fileName content:content overwriteIfExist:NO responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 -(void)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content overwriteIfExist:(BOOL)overwrite response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -445,7 +430,7 @@ static NSString *METHOD_COUNT = @"count";
 }
 
 -(void)saveFile:(NSString *)filePathName content:(NSData *)content response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self saveFile:filePathName content:content responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    [self saveFile:filePathName content:content overwriteIfExist:NO responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 -(void)saveFile:(NSString *)filePathName content:(NSData *)content overwriteIfExist:(BOOL)overwrite response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock {
