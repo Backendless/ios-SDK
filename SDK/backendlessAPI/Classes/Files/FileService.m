@@ -202,13 +202,10 @@ static NSString *METHOD_COUNT = @"count";
 }
 
 -(NSString *)renameFile:(NSString *)oldPathName newName:(NSString *)newName {
-    
     if (!oldPathName || !oldPathName.length)
         return [backendless throwFault:FAULT_NO_DIRECTORY_PATH];
-    
     if (!newName || !newName.length)
-        return [backendless throwFault:FAULT_NO_FILE_NAME];
-    
+        return [backendless throwFault:FAULT_NO_FILE_NAME];    
     NSArray *args = @[oldPathName, newName];
     return [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_RENAME_FILE args:args];
 }
@@ -323,18 +320,6 @@ static NSString *METHOD_COUNT = @"count";
     [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_SAVE_FILE args:args responder:_responder];
 }
 
--(void)renameFile:(NSString *)oldPathName newName:(NSString *)newName responder:(id <IResponder>)responder {
-    
-    if (!oldPathName || !oldPathName.length)
-        return [responder errorHandler:FAULT_NO_DIRECTORY_PATH];
-    
-    if (!newName || !newName.length)
-        return [responder errorHandler:FAULT_NO_FILE_NAME];
-    
-    NSArray *args = @[oldPathName, newName];
-    [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_RENAME_FILE args:args responder:responder];
-}
-
 -(void)copyFile:(NSString *)sourcePathName target:(NSString *)targetPathName responder:(id <IResponder>)responder {
     
     if (!sourcePathName || !sourcePathName.length || !targetPathName || !targetPathName.length)
@@ -438,7 +423,13 @@ static NSString *METHOD_COUNT = @"count";
 }
 
 -(void)renameFile:(NSString *)oldPathName newName:(NSString *)newName response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self renameFile:oldPathName newName:newName responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!oldPathName || !oldPathName.length)
+        return [responder errorHandler:FAULT_NO_DIRECTORY_PATH];
+    if (!newName || !newName.length)
+        return [responder errorHandler:FAULT_NO_FILE_NAME];
+    NSArray *args = @[oldPathName, newName];
+    [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_RENAME_FILE args:args responder:responder];
 }
 
 -(void)copyFile:(NSString *)sourcePathName target:(NSString *)targetPathName response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
