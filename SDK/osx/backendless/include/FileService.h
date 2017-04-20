@@ -53,7 +53,6 @@
 // async methods with responder
 -(void)remove:(NSString *)fileURL responder:(id <IResponder>)responder;
 -(void)removeDirectory:(NSString *)path responder:(id <IResponder>)responder;
--(void)moveFile:(NSString *)sourcePathName target:(NSString *)targetPathName responder:(id <IResponder>)responder;
 -(void)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive responder:(id <IResponder>)responder;
 -(void)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive pagesize:(int)pagesize offset:(int)offset responder:(id <IResponder>)responder;
 -(void)exists:(NSString *)path responder:(id <IResponder>)responder;

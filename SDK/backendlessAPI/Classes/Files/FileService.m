@@ -211,19 +211,15 @@ static NSString *METHOD_COUNT = @"count";
 }
 
 -(NSString *)copyFile:(NSString *)sourcePathName target:(NSString *)targetPathName {
-    
     if (!sourcePathName || !sourcePathName.length || !targetPathName || !targetPathName.length)
         return [backendless throwFault:FAULT_NO_DIRECTORY_PATH];
-    
     NSArray *args = @[sourcePathName, targetPathName];
     return [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_COPY_FILE args:args];
 }
 
 -(NSString *)moveFile:(NSString *)sourcePathName target:(NSString *)targetPathName {
-    
     if (!sourcePathName || !sourcePathName.length || !targetPathName || !targetPathName.length)
         return [backendless throwFault:FAULT_NO_DIRECTORY_PATH];
-    
     NSArray *args = @[sourcePathName, targetPathName];
     return [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_MOVE_FILE args:args];
 }
@@ -318,15 +314,6 @@ static NSString *METHOD_COUNT = @"count";
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(saveFileResponse:) selErrorHandler:nil];
     _responder.chained = responder;
     [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_SAVE_FILE args:args responder:_responder];
-}
-
--(void)moveFile:(NSString *)sourcePathName target:(NSString *)targetPathName responder:(id <IResponder>)responder {
-    
-    if (!sourcePathName || !sourcePathName.length || !targetPathName || !targetPathName.length)
-        return [responder errorHandler:FAULT_NO_DIRECTORY_PATH];
-    
-    NSArray *args = @[sourcePathName, targetPathName];
-    [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_MOVE_FILE args:args responder:responder];
 }
 
 -(void)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive responder:(id <IResponder>)responder {
@@ -432,7 +419,11 @@ static NSString *METHOD_COUNT = @"count";
 }
 
 -(void)moveFile:(NSString *)sourcePathName target:(NSString *)targetPathName response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self moveFile:sourcePathName target:targetPathName responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!sourcePathName || !sourcePathName.length || !targetPathName || !targetPathName.length)
+        return [responder errorHandler:FAULT_NO_DIRECTORY_PATH];    
+    NSArray *args = @[sourcePathName, targetPathName];
+    [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_MOVE_FILE args:args responder:responder];
 }
 
 -(void)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
