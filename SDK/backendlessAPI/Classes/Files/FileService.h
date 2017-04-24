@@ -30,9 +30,6 @@
 @property (strong, nonatomic, readonly) FilePermission *permissions;
 
 // sync methods with fault return (as exception)
--(BackendlessFile *)upload:(NSString *)path content:(NSData *)content;
--(BackendlessFile *)upload:(NSString *)path content:(NSData *)content overwrite:(BOOL)overwrite;
--(id)remove:(NSString *)fileURL;
 -(id)removeDirectory:(NSString *)path;
 -(BackendlessFile *)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content;
 -(BackendlessFile *)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content overwriteIfExist:(BOOL)overwrite;
@@ -56,8 +53,6 @@
 -(void)exists:(NSString *)path responder:(id <IResponder>)responder;
 
 // async methods with block-based callbacks
--(void)upload:(NSString *)path content:(NSData *)content response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)upload:(NSString *)path content:(NSData *)content overwrite:(BOOL)overwrite response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)remove:(NSString *)fileURL response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)removeDirectory:(NSString *)path response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock;
