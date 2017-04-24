@@ -214,6 +214,9 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 -(NSString *)getEntityName:(Class)entity {
     NSString *className = NSStringFromClass(entity);
     if ([className containsString:@"."]) {
+        if ([className isEqualToString: @"BackendlessUser"]) {
+            className = @"Users";
+        }
         NSArray *Array = [className componentsSeparatedByString:@"."];
         className = [Array lastObject];
     }
