@@ -28,7 +28,6 @@ typedef enum {
 } FilePermissionOperation;
 
 @class Fault;
-@protocol IResponder;
 
 @interface FilePermission : NSObject
 
@@ -41,16 +40,6 @@ typedef enum {
 -(id)denyForAllUsers:(NSString *)url operation:(FilePermissionOperation)operation;
 -(id)grantForAllRoles:(NSString *)url operation:(FilePermissionOperation)operation;
 -(id)denyForAllRoles:(NSString *)url operation:(FilePermissionOperation)operation;
-
-// async methods with responder
--(void)grantForUser:(NSString *)userId url:(NSString *)url operation:(FilePermissionOperation)operation responder:(id <IResponder>)responder;
--(void)denyForUser:(NSString *)userId url:(NSString *)url operation:(FilePermissionOperation)operation responder:(id <IResponder>)responder;
--(void)grantForRole:(NSString *)roleName url:(NSString *)url operation:(FilePermissionOperation)operation responder:(id <IResponder>)responder;
--(void)denyForRole:(NSString *)roleName url:(NSString *)url operation:(FilePermissionOperation)operation responder:(id <IResponder>)responder;
--(void)grantForAllUsers:(NSString *)url operation:(FilePermissionOperation)operation responder:(id <IResponder>)responder;
--(void)denyForAllUsers:(NSString *)url operation:(FilePermissionOperation)operation responder:(id <IResponder>)responder;
--(void)grantForAllRoles:(NSString *)url operation:(FilePermissionOperation)operation responder:(id <IResponder>)responder;
--(void)denyForAllRoles:(NSString *)url operation:(FilePermissionOperation)operation responder:(id <IResponder>)responder;
 
 // async methods with block-based callbacks
 -(void)grantForUser:(NSString *)userId url:(NSString *)url operation:(FilePermissionOperation)operation response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
