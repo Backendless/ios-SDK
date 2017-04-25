@@ -42,12 +42,12 @@ pod 'Backendless', '4.0b3'
 * Removed unregister device methods with IResponder
 * Cleaned up Subscribe methods in Messaging
 * Removed cancel subscription method with the IResponder argument
-* Remove file upload methods with the IResponder argument
-* Remove save file methods with the IResponder argument
-* Remove rename file methods with the IResponder argument
-* Remove copy file methods with the IResponder argument
-* Remove move file methods with the IResponder argument
-* Remove listing methods with the IResponder argument
+* Removed file upload methods with the IResponder argument
+* Removed save file methods with the IResponder argument
+* Removed rename file methods with the IResponder argument
+* Removed copy file methods with the IResponder argument
+* Removed move file methods with the IResponder argument
+* Removed listing methods with the IResponder argument
 * Removed get file count methods with the IResponder argument
 * Fixed getEntityName method to get it to work correctly with BackendlessUser
 * Removed upload file methods removed FileService class (the methods are replaced by the "saveFile" methods)
