@@ -136,10 +136,8 @@ static NSString *METHOD_COUNT = @"count";
 // sync methods with fault return (as exception)
 
 -(id)remove:(NSString *)fileURL {
-    
     if (!fileURL || !fileURL.length)
         return [backendless throwFault:FAULT_NO_FILE_URL];
-    
     NSArray *args = [NSArray arrayWithObjects:fileURL, nil];
     return [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_DELETE args:args];
 }
@@ -254,10 +252,8 @@ static NSString *METHOD_COUNT = @"count";
 // async methods with responder
 
 -(void)remove:(NSString *)fileURL responder:(id <IResponder>)responder {
-    
     if (!fileURL || !fileURL.length)
         return [responder errorHandler:FAULT_NO_FILE_URL];
-    
     NSArray *args = [NSArray arrayWithObjects:fileURL, nil];
     [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_DELETE args:args responder:responder];
 }
@@ -326,7 +322,11 @@ static NSString *METHOD_COUNT = @"count";
 // async methods with block-base callbacks
 
 -(void)remove:(NSString *)fileURL response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self remove:fileURL responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!fileURL || !fileURL.length)
+        return [responder errorHandler:FAULT_NO_FILE_URL];
+    NSArray *args = [NSArray arrayWithObjects:fileURL, nil];
+    [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_DELETE args:args responder:responder];
 }
 
 -(void)removeDirectory:(NSString *)path response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
