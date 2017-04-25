@@ -1,7 +1,7 @@
 Backendless SDK for iOS (http://backendless.com)
 ---
 
-# Version 4.0 Beta 3
+# Version 4.0 Beta 4
 The source code for version 4.0 is currently available in a separate branch of this repository: https://github.com/Backendless/ios-SDK/tree/4.0
 > For the instructions for version 3.x of the library, see [Backendless 3.x Getting Started Guide](https://backendless.com/mobile-developers/quick-start-guide-for-ios/ "Backendless 3.x Getting Started Guide")
 
@@ -37,6 +37,21 @@ pod 'Backendless', '4.0b3'
 `${PODS_ROOT}/Headers/Public/Backendless/Backendless-Bridging-Header.h`
 
 ## RELEASE HISTORY
+4.0b4 April 25, 2017
+* Fixed and cleaned up register device methods in Messaging.
+* Removed unregister device methods with IResponder
+* Cleaned up Subscribe methods in Messaging
+* Removed cancel subscription method with the IResponder argument
+* Remove file upload methods with the IResponder argument
+* Remove save file methods with the IResponder argument
+* Remove rename file methods with the IResponder argument
+* Remove copy file methods with the IResponder argument
+* Remove move file methods with the IResponder argument
+* Remove listing methods with the IResponder argument
+* Removed get file count methods with the IResponder argument
+* Fixed getEntityName method to get it to work correctly with BackendlessUser
+* Removed upload file methods removed FileService class (the methods are replaced by the "saveFile" methods)
+
 4.0b3 April 7, 2017
 * Removed easy login for Facebook and Google
 * Removed signatures with IResponder for all methods in User Service
