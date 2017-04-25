@@ -41,15 +41,18 @@ pod 'Backendless', '4.0b3'
 * Removed unregister device methods with IResponder
 * Cleaned up Subscribe methods in Messaging
 * Removed cancel subscription method with the IResponder argument
-* Removed file upload methods with the IResponder argument
+* Removed send email methods with the IResponder argument
+* Removed file upload methods from FileService class (the methods are replaced by the "saveFile" methods)
 * Removed save file methods with the IResponder argument
 * Removed rename file methods with the IResponder argument
 * Removed copy file methods with the IResponder argument
 * Removed move file methods with the IResponder argument
 * Removed listing methods with the IResponder argument
 * Removed get file count methods with the IResponder argument
+* Removed remove file by URL method with the IResponder argument
+* Removed remove directory by URL method with the IResponder argument
+* Removed all methods with the IResponder argument from FilePermission class
 * Fixed getEntityName method to get it to work correctly with BackendlessUser
-* Removed upload file methods removed FileService class (the methods are replaced by the "saveFile" methods)
 
 4.0b3 April 7, 2017
 * Removed easy login for Facebook and Google
