@@ -28,7 +28,6 @@ typedef enum {
 } FilePermissionOperation;
 
 @class Fault;
-@protocol IResponder;
 
 @interface FilePermission : NSObject
 
