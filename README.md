@@ -38,7 +38,7 @@ pod 'Backendless', '4.0b3'
 
 ## RELEASE HISTORY
 4.0b4 April 25, 2017
-* Fixed and cleaned up register device methods in Messaging.
+* Fixed and cleaned up register device methods in Messaging
 * Removed unregister device methods with IResponder
 * Cleaned up Subscribe methods in Messaging
 * Removed cancel subscription method with the IResponder argument
