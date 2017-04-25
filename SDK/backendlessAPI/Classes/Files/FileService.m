@@ -218,10 +218,8 @@ static NSString *METHOD_COUNT = @"count";
 }
 
 -(NSNumber *)exists:(NSString *)path {
-    
     if (!path || !path.length)
-        return [backendless throwFault:FAULT_NO_DIRECTORY_PATH];
-    
+        return [backendless throwFault:FAULT_NO_DIRECTORY_PATH];    
     NSArray *args = @[path];
     return [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_EXISTS args:args];
 }
@@ -281,15 +279,6 @@ static NSString *METHOD_COUNT = @"count";
     _responder.chained = responder;
     _responder.context = [BackendlessSimpleQuery query:pagesize offset:offset];
     [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_LISTING args:args responder:_responder];
-}
-
--(void)exists:(NSString *)path responder:(id <IResponder>)responder {
-    
-    if (!path || !path.length)
-        return [responder errorHandler:FAULT_NO_DIRECTORY_PATH];
-    
-    NSArray *args = @[path];
-    [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_EXISTS args:args responder:responder];
 }
 
 -(void)getFileCount:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive countDirectories:(BOOL)countDirectories responder:(id <IResponder>)responder {
@@ -370,7 +359,11 @@ static NSString *METHOD_COUNT = @"count";
 }
 
 -(void)exists:(NSString *)path response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self exists:path responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!path || !path.length)
+        return [responder errorHandler:FAULT_NO_DIRECTORY_PATH];
+    NSArray *args = @[path];
+    [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_EXISTS args:args responder:responder];
 }
 
 -(void)getFileCount:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive countDirectories:(BOOL)countDirectories response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {

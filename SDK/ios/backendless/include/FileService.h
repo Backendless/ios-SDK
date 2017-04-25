@@ -23,7 +23,6 @@
 #import "FilePermission.h"
 
 @class BackendlessFile, Fault, NSArray, BEFileInfo;
-@protocol IResponder;
 
 @interface FileService : NSObject
 
@@ -48,9 +47,6 @@
 -(NSNumber *)getFileCount:(NSString *)path pattern:(NSString *)pattern;
 -(NSNumber *)getFileCount:(NSString *)path;
 
-// async methods with responder
--(void)exists:(NSString *)path responder:(id <IResponder>)responder;
-
 // async methods with block-based callbacks
 -(void)remove:(NSString *)fileURL response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)removeDirectory:(NSString *)path response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
@@ -61,7 +57,7 @@
 -(void)renameFile:(NSString *)oldPathName newName:(NSString *)newName response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)copyFile:(NSString *)sourcePathName target:(NSString *)targetPathName response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)moveFile:(NSString *)sourcePathName target:(NSString *)targetPathName response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
-// NSArray <BEFileInfo *>
+// NSArray <BEFileInfo *>      
 -(void)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive pagesize:(int)pagesize offset:(int)offset response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)exists:(NSString *)path response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
