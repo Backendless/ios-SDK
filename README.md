@@ -49,6 +49,7 @@ pod 'Backendless', '4.0b4'
 * Removed move file methods with the IResponder argument
 * Removed listing methods with the IResponder argument
 * Removed get file count methods with the IResponder argument
+* Removed exists method with the IResponder argument
 * Removed remove file by URL method with the IResponder argument
 * Removed remove directory by URL method with the IResponder argument
 * Removed all methods with the IResponder argument from FilePermission class
