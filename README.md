@@ -18,7 +18,7 @@ The simplest way to get started with Backendless is by using a Project Template 
 5. Click the Download button to download a template generated for your Backendless app
 6. Unzip the downloaded file into a directory, let's call it `Project Directory`.
 7. Open a Terminal window and change the currect directory to `Project Directory`.
-8. Run the `pod install` command. Once all of the pod data is downloaded, Xcode project workspace file will be created. This is the file you must open when working on your app.
+8. Run the `pod install` and `pod update` commands. Once all of the pod data is downloaded / updated, Xcode project workspace file will be created. This is the file you must open when working on your app.
 9. Open .xcworkspace file to launch your project.
 
 ## GETTING STARTED WITH COCOAPODS:
