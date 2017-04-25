@@ -38,6 +38,7 @@ pod 'Backendless', '4.0b4'
 
 ## RELEASE HISTORY
 4.0b4 April 25, 2017
+* Fixed "Table with the name BackendlessUser does not exist." when using Data service API to query the Users table
 * Fixed and cleaned up register device methods in Messaging
 * Removed unregister device methods with IResponder
 * Cleaned up Subscribe methods in Messaging
