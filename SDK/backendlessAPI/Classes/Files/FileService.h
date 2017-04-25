@@ -49,8 +49,6 @@
 -(NSNumber *)getFileCount:(NSString *)path;
 
 // async methods with responder
-//-(void)remove:(NSString *)fileURL responder:(id <IResponder>)responder;
-//-(void)removeDirectory:(NSString *)path responder:(id <IResponder>)responder;
 -(void)exists:(NSString *)path responder:(id <IResponder>)responder;
 
 // async methods with block-based callbacks

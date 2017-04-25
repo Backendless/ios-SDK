@@ -143,10 +143,8 @@ static NSString *METHOD_COUNT = @"count";
 }
 
 -(id)removeDirectory:(NSString *)path {
-    
     if (!path || !path.length)
-        return [backendless throwFault:FAULT_NO_DIRECTORY_PATH];
-    
+        return [backendless throwFault:FAULT_NO_DIRECTORY_PATH];    
     NSArray *args = [NSArray arrayWithObjects:path, nil];
     return [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_DELETE args:args];
 }
@@ -251,22 +249,6 @@ static NSString *METHOD_COUNT = @"count";
 
 // async methods with responder
 
--(void)remove:(NSString *)fileURL responder:(id <IResponder>)responder {
-    if (!fileURL || !fileURL.length)
-        return [responder errorHandler:FAULT_NO_FILE_URL];
-    NSArray *args = [NSArray arrayWithObjects:fileURL, nil];
-    [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_DELETE args:args responder:responder];
-}
-
--(void)removeDirectory:(NSString *)path responder:(id <IResponder>)responder {
-    
-    if (!path || !path.length)
-        return [responder errorHandler:FAULT_NO_DIRECTORY_PATH];
-    
-    NSArray *args = [NSArray arrayWithObjects:path, nil];
-    [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_DELETE args:args responder:responder];
-}
-
 -(void)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content overwriteIfExist:(BOOL)overwrite responder:(id <IResponder>)responder {
     if (!path || !path.length)
         return [responder errorHandler:FAULT_NO_DIRECTORY_PATH];
@@ -330,7 +312,11 @@ static NSString *METHOD_COUNT = @"count";
 }
 
 -(void)removeDirectory:(NSString *)path response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self removeDirectory:path responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!path || !path.length)
+        return [responder errorHandler:FAULT_NO_DIRECTORY_PATH];
+    NSArray *args = [NSArray arrayWithObjects:path, nil];
+    [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_DELETE args:args responder:responder];
 }
 
 -(void)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock {
