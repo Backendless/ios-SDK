@@ -30,6 +30,7 @@
 @property (strong, nonatomic, readonly) FilePermission *permissions;
 
 // sync methods with fault return (as exception)
+-(id)remove:(NSString *)fileURL;
 -(id)removeDirectory:(NSString *)path;
 -(BackendlessFile *)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content;
 -(BackendlessFile *)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content overwriteIfExist:(BOOL)overwrite;
@@ -48,8 +49,6 @@
 -(NSNumber *)getFileCount:(NSString *)path;
 
 // async methods with responder
--(void)remove:(NSString *)fileURL responder:(id <IResponder>)responder;
--(void)removeDirectory:(NSString *)path responder:(id <IResponder>)responder;
 -(void)exists:(NSString *)path responder:(id <IResponder>)responder;
 
 // async methods with block-based callbacks

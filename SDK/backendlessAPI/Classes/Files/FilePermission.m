@@ -115,18 +115,15 @@ static NSString *_DENY = @"DENY";
 @implementation FilePermission
 
 -(id)init {
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.file.permissions.FileUserPermission" mapped:FileUserPermission.class];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.file.permissions.FileRolePermission" mapped:FileRolePermission.class];
     }
-    
     return self;
 }
 
 -(void)dealloc {
-    
     [DebLog logN:@"DEALLOC FilePermission"];
-    
     [super dealloc];
 }
 
@@ -143,58 +140,44 @@ static NSString *_DENY = @"DENY";
 // sync methods with fault return (as exception)
 
 -(id)grantForUser:(NSString *)userId url:(NSString *)url operation:(FilePermissionOperation)operation {
-    
     if (!userId)
         return [backendless throwFault:FAULT_NO_USER_ID];
-    
     if (![self isUrlValid:url])
         return [backendless throwFault:FAULT_NO_URL];
-    
     NSArray *args = @[userId, [FileUserPermission grant:url operation:operation]];
     return [invoker invokeSync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_USER_PERMISSION args:args];
 }
 
 -(id)denyForUser:(NSString *)userId url:(NSString *)url operation:(FilePermissionOperation)operation {
-    
     if (!userId)
         return [backendless throwFault:FAULT_NO_USER_ID];
-    
     if (![self isUrlValid:url])
         return [backendless throwFault:FAULT_NO_URL];
-    
     NSArray *args = @[userId, [FileUserPermission deny:url operation:operation]];
     return [invoker invokeSync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_USER_PERMISSION args:args];
 }
 
 -(id)grantForRole:(NSString *)roleName url:(NSString *)url operation:(FilePermissionOperation)operation {
-    
     if (!roleName)
-    return [backendless throwFault:FAULT_NO_ROLE_NAME];
-    
+        return [backendless throwFault:FAULT_NO_ROLE_NAME];
     if (![self isUrlValid:url])
         return [backendless throwFault:FAULT_NO_URL];
-    
     NSArray *args = @[roleName, [FileRolePermission grant:url operation:operation]];
     return [invoker invokeSync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ROLE_PERMISSION args:args];
 }
 
 -(id)denyForRole:(NSString *)roleName url:(NSString *)url operation:(FilePermissionOperation)operation {
-    
     if (!roleName)
-    return [backendless throwFault:FAULT_NO_ROLE_NAME];
-    
+        return [backendless throwFault:FAULT_NO_ROLE_NAME];
     if (![self isUrlValid:url])
         return [backendless throwFault:FAULT_NO_URL];
-    
     NSArray *args = @[roleName, [FileRolePermission deny:url operation:operation]];
     return [invoker invokeSync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ROLE_PERMISSION args:args];
 }
 
 -(id)grantForAllUsers:(NSString *)url operation:(FilePermissionOperation)operation {
-    
     if (![self isUrlValid:url])
         return [backendless throwFault:FAULT_NO_URL];
-    
     NSArray *args = @[[FileUserPermission grant:url operation:operation]];
     return [invoker invokeSync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_USER_PERMISSION args:args];
 }
@@ -209,141 +192,91 @@ static NSString *_DENY = @"DENY";
 }
 
 -(id)grantForAllRoles:(NSString *)url operation:(FilePermissionOperation)operation {
-    
     if (![self isUrlValid:url])
         return [backendless throwFault:FAULT_NO_URL];
-    
     NSArray *args = @[[FileRolePermission grant:url operation:operation]];
     return [invoker invokeSync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_ROLE_PERMISSION args:args];
 }
 
 -(id)denyForAllRoles:(NSString *)url operation:(FilePermissionOperation)operation {
-    
     if (![self isUrlValid:url])
         return [backendless throwFault:FAULT_NO_URL];
-    
     NSArray *args = @[[FileRolePermission deny:url operation:operation]];
     return [invoker invokeSync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_ROLE_PERMISSION args:args];
-}
-
-// async methods with responder
-
--(void)grantForUser:(NSString *)userId url:(NSString *)url operation:(FilePermissionOperation)operation responder:(id <IResponder>)responder {
-    
-    if (!userId)
-        return [responder errorHandler:FAULT_NO_USER_ID];
-    
-    if (![self isUrlValid:url])
-        return [responder errorHandler:FAULT_NO_URL];
-    
-    NSArray *args = @[userId, [FileUserPermission grant:url operation:operation]];
-    return [invoker invokeAsync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_USER_PERMISSION args:args responder:responder];
-}
-
--(void)denyForUser:(NSString *)userId url:(NSString *)url operation:(FilePermissionOperation)operation responder:(id <IResponder>)responder {
-    
-    if (!userId)
-        return [responder errorHandler:FAULT_NO_USER_ID];
-    
-    if (![self isUrlValid:url])
-        return [responder errorHandler:FAULT_NO_URL];
-    
-    NSArray *args = @[userId, [FileUserPermission deny:url operation:operation]];
-    return [invoker invokeAsync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_USER_PERMISSION args:args responder:responder];
-}
-
--(void)grantForRole:(NSString *)roleName url:(NSString *)url operation:(FilePermissionOperation)operation responder:(id <IResponder>)responder {
-    
-    if (!roleName)
-        return [responder errorHandler:FAULT_NO_ROLE_NAME];
-    
-    if (![self isUrlValid:url])
-        return [responder errorHandler:FAULT_NO_URL];
-    
-    NSArray *args = @[roleName, [FileRolePermission grant:url operation:operation]];
-    return [invoker invokeAsync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ROLE_PERMISSION args:args responder:responder];
-}
-
--(void)denyForRole:(NSString *)roleName url:(NSString *)url operation:(FilePermissionOperation)operation responder:(id <IResponder>)responder {
-    
-    if (!roleName)
-        return [responder errorHandler:FAULT_NO_ROLE_NAME];
-    
-    if (![self isUrlValid:url])
-        return [responder errorHandler:FAULT_NO_URL];
-    
-    NSArray *args = @[roleName, [FileRolePermission deny:url operation:operation]];
-    return [invoker invokeAsync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ROLE_PERMISSION args:args responder:responder];
-}
-
--(void)grantForAllUsers:(NSString *)url operation:(FilePermissionOperation)operation responder:(id <IResponder>)responder {
-    
-    if (![self isUrlValid:url])
-        return [responder errorHandler:FAULT_NO_URL];
-    
-    NSArray *args = @[[FileUserPermission grant:url operation:operation]];
-    return [invoker invokeAsync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_USER_PERMISSION args:args responder:responder];
-}
-
--(void)denyForAllUsers:(NSString *)url operation:(FilePermissionOperation)operation responder:(id <IResponder>)responder {
-    
-    if (![self isUrlValid:url])
-        return [responder errorHandler:FAULT_NO_URL];
-    
-    NSArray *args = @[[FileUserPermission deny:url operation:operation]];
-    return [invoker invokeAsync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_USER_PERMISSION args:args responder:responder];
-}
-
--(void)grantForAllRoles:(NSString *)url operation:(FilePermissionOperation)operation responder:(id <IResponder>)responder {
-    
-    if (![self isUrlValid:url])
-        return [responder errorHandler:FAULT_NO_URL];
-    
-    NSArray *args = @[[FileRolePermission grant:url operation:operation]];
-    return [invoker invokeAsync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_ROLE_PERMISSION args:args responder:responder];
-}
-
--(void)denyForAllRoles:(NSString *)url operation:(FilePermissionOperation)operation responder:(id <IResponder>)responder {
-    
-    if (![self isUrlValid:url])
-        return [responder errorHandler:FAULT_NO_URL];
-    
-    NSArray *args = @[[FileRolePermission deny:url operation:operation]];
-    return [invoker invokeAsync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_ROLE_PERMISSION args:args responder:responder];
 }
 
 // async methods with block-based callbacks
 
 -(void)grantForUser:(NSString *)userId url:(NSString *)url operation:(FilePermissionOperation)operation response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self grantForUser:userId url:url operation:operation responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!userId)
+        return [responder errorHandler:FAULT_NO_USER_ID];
+    if (![self isUrlValid:url])
+        return [responder errorHandler:FAULT_NO_URL];
+    NSArray *args = @[userId, [FileUserPermission grant:url operation:operation]];
+    return [invoker invokeAsync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_USER_PERMISSION args:args responder:responder];
 }
 
 -(void)denyForUser:(NSString *)userId url:(NSString *)url operation:(FilePermissionOperation)operation response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self denyForUser:userId url:url operation:operation responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!userId)
+        return [responder errorHandler:FAULT_NO_USER_ID];
+    if (![self isUrlValid:url])
+        return [responder errorHandler:FAULT_NO_URL];
+    NSArray *args = @[userId, [FileUserPermission deny:url operation:operation]];
+    return [invoker invokeAsync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_USER_PERMISSION args:args responder:responder];
 }
 
 -(void)grantForRole:(NSString *)roleName url:(NSString *)url operation:(FilePermissionOperation)operation response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self grantForRole:roleName url:url operation:operation responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!roleName)
+        return [responder errorHandler:FAULT_NO_ROLE_NAME];
+    if (![self isUrlValid:url])
+        return [responder errorHandler:FAULT_NO_URL];
+    NSArray *args = @[roleName, [FileRolePermission grant:url operation:operation]];
+    return [invoker invokeAsync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ROLE_PERMISSION args:args responder:responder];
 }
 
 -(void)denyForRole:(NSString *)roleName url:(NSString *)url operation:(FilePermissionOperation)operation response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self denyForRole:roleName url:url operation:operation responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!roleName)
+        return [responder errorHandler:FAULT_NO_ROLE_NAME];
+    if (![self isUrlValid:url])
+        return [responder errorHandler:FAULT_NO_URL];
+    NSArray *args = @[roleName, [FileRolePermission deny:url operation:operation]];
+    return [invoker invokeAsync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ROLE_PERMISSION args:args responder:responder];
 }
 
 -(void)grantForAllUsers:(NSString *)url operation:(FilePermissionOperation)operation response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self grantForAllUsers:url operation:operation responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (![self isUrlValid:url])
+        return [responder errorHandler:FAULT_NO_URL];
+    NSArray *args = @[[FileUserPermission grant:url operation:operation]];
+    return [invoker invokeAsync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_USER_PERMISSION args:args responder:responder];
 }
 
 -(void)denyForAllUsers:(NSString *)url operation:(FilePermissionOperation)operation response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self denyForAllUsers:url operation:operation responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (![self isUrlValid:url])
+        return [responder errorHandler:FAULT_NO_URL];
+    NSArray *args = @[[FileUserPermission deny:url operation:operation]];
+    return [invoker invokeAsync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_USER_PERMISSION args:args responder:responder];
 }
 
 -(void)grantForAllRoles:(NSString *)url operation:(FilePermissionOperation)operation response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self grantForAllRoles:url operation:operation responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (![self isUrlValid:url])
+        return [responder errorHandler:FAULT_NO_URL];
+    NSArray *args = @[[FileRolePermission grant:url operation:operation]];
+    return [invoker invokeAsync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_ROLE_PERMISSION args:args responder:responder];
 }
 
 -(void)denyForAllRoles:(NSString *)url operation:(FilePermissionOperation)operation response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self denyForAllRoles:url operation:operation responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (![self isUrlValid:url])
+        return [responder errorHandler:FAULT_NO_URL];
+    NSArray *args = @[[FileRolePermission deny:url operation:operation]];
+    return [invoker invokeAsync:SERVER_FILE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_ROLE_PERMISSION args:args responder:responder];
 }
 
 @end

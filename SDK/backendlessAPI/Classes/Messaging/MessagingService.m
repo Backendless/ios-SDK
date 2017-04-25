@@ -184,7 +184,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     [self.subscriptions release];
 #if _OLD_NOTIFICATION_
     [self.categories release];
-#endif    
+#endif
     [super dealloc];
 }
 
@@ -398,18 +398,6 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_POLL_MESSAGES args:args responder:responder];
 }
 
--(void)sendTextEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray<NSString*> *)recipients responder:(id <IResponder>)responder {
-    [self sendEmail:subject body:[BodyParts bodyText:messageBody html:nil] to:recipients attachment:nil responder:responder];
-}
-
--(void)sendHTMLEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray<NSString*> *)recipients responder:(id <IResponder>)responder {
-    [self sendEmail:subject body:[BodyParts bodyText:nil html:messageBody] to:recipients attachment:nil responder:responder];
-}
-
--(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients responder:(id <IResponder>)responder {
-    [self sendEmail:subject body:bodyParts to:recipients attachment:nil responder:responder];
-}
-
 -(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients attachment:(NSArray *)attachments responder:(id <IResponder>)responder {
     if (!bodyParts || ![bodyParts isBody])
         return [responder errorHandler:FAULT_NO_BODY];
@@ -531,15 +519,15 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 }
 
 -(void)sendTextEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray<NSString*> *)recipients response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self sendTextEmail:subject body:messageBody to:recipients responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    [self sendEmail:subject body:[BodyParts bodyText:messageBody html:nil] to:recipients attachment:nil responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 -(void)sendHTMLEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray<NSString*> *)recipients response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self sendHTMLEmail:subject body:messageBody to:recipients responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    [self sendEmail:subject body:[BodyParts bodyText:nil html:messageBody] to:recipients attachment:nil responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 -(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self sendEmail:subject body:bodyParts to:recipients responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    [self sendEmail:subject body:bodyParts to:recipients attachment:nil responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 -(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients attachment:(NSArray *)attachments response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -568,7 +556,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 #else
     NSArray *args = @[channelName, subscriptionOptions, deviceRegistration];
 #endif
-    return [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_POLLING_SUBSCRIBE args:args];    
+    return [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_POLLING_SUBSCRIBE args:args];
 }
 
 // async
