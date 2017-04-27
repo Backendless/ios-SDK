@@ -25,7 +25,6 @@ Pod::Spec.new do |s|
 
     pushd SDK/ios/backendless/
 	  ln -s backendless.a libbackendless.a
-	popd
-	
+	popd	
     CMD
 end
