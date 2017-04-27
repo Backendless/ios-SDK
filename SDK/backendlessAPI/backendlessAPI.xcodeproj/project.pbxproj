@@ -1980,6 +1980,7 @@
 		F9F0AF581CDBCAB500035C62 /* GeoPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D923A160B6A6800AFF3F6 /* GeoPoint.m */; };
 		F9F0AF591CDBCAB500035C62 /* BackendlessGeoQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3BF76161486B500409FF2 /* BackendlessGeoQuery.m */; };
 		F9F0AF5A1CDBCAB500035C62 /* ServerCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064CF1B02429100779BB1 /* ServerCallback.m */; };
+		F9F0AF5B1CDBCAB500035C62 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C058161AB6A500409FF2 /* MessagingService.m */; };
 		F9F0AF5C1CDBCAB500035C62 /* Logger.m in Sources */ = {isa = PBXBuildFile; fileRef = D35DC3401AD7E19800EF2A68 /* Logger.m */; };
 		F9F0AF5D1CDBCAB500035C62 /* DeviceRegistration.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C068161AB80C00409FF2 /* DeviceRegistration.m */; };
 		F9F0AF5E1CDBCAB500035C62 /* DeliveryOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C05C161AB72100409FF2 /* DeliveryOptions.m */; };
@@ -5728,6 +5729,7 @@
 				0F9AC9931E798C5D0087869F /* RTMPClient.m in Sources */,
 				0F9AC84E1E798C5C0087869F /* WeborbClient.m in Sources */,
 				F9F0AF5A1CDBCAB500035C62 /* ServerCallback.m in Sources */,
+				F9F0AF5B1CDBCAB500035C62 /* MessagingService.m in Sources */,
 				F9F0AF5C1CDBCAB500035C62 /* Logger.m in Sources */,
 				0F9ACAC41E798C5E0087869F /* NumberObject.m in Sources */,
 				F9F0AF5D1CDBCAB500035C62 /* DeviceRegistration.m in Sources */,
