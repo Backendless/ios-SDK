@@ -419,7 +419,7 @@
     [reader release];
     
     [DebLog log:ON_PRINT_RESPONSE text:@"HttpEngine -> sendRequest: (SYNC) type: %@, type.defaultAdapt = '%@', v3 = '%@'", type, [v3 class], v3];
-    
+     
     if (v3) {        
         if (idInfo) {
             
