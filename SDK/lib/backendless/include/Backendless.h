@@ -28,7 +28,6 @@
 #define TEST_MEDIA_INSTANCE 0
 
 // implementation options
-#define _IS_USERS_CLASS_ 0
 #define _USE_SAFARI_VC_ 1
 
 #import <Foundation/Foundation.h>

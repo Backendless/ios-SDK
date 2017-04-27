@@ -106,9 +106,6 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.exceptions.security.AuthorizationException" mapped:[AuthorizationException class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.exceptions.user.UserServiceException" mapped:[AuthorizationException class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.model.GeoPoint" mapped:[GeoPoint class]];
-#if !_IS_USERS_CLASS_
-        [[Types sharedInstance] addClientClassMapping:@"Users" mapped:[BackendlessUser class]];
-#endif
         
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
         self.iOS9above = [[[UIApplication sharedApplication] delegate] respondsToSelector:@selector(application:openURL:options:)];
@@ -145,32 +142,16 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 // sync methods with fault return (as exception)
 
 -(BackendlessUser *)registering:(BackendlessUser *)user {
-    
     if (!user)
         return [backendless throwFault:FAULT_NO_USER];
-    
     if (![user getProperties])
         return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
-    
     NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
 #if FILTRATION_USER_TOKEN_ON
     [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
 #endif
     NSArray *args = [NSArray arrayWithObjects:props, nil];
-    id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_REGISTER args:args];
-#if 1
-    return result;
-#else
-    if ([result isKindOfClass:[Fault class]]) {
-        return result;
-    }
-    
-    NSLog(@"$$$registering: result = %@", result);
-    
-    [user setProperties:result];
-    
-    return user;
-#endif
+    return [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_REGISTER args:args];
 }
 
 -(BackendlessUser *)registerUser:(BackendlessUser *)user {
@@ -183,24 +164,12 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
 #endif
     NSArray *args = [NSArray arrayWithObjects:props, nil];
-    id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_REGISTER args:args];
-#if 1
-    return result;
-#else
-    if ([result isKindOfClass:[Fault class]]) {
-        return result;
-    }
-    NSLog(@"$$$user register: result = %@", result);
-    [user setProperties:result];
-    return user;
-#endif
+    return [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_REGISTER args:args];
 }
 
 -(BackendlessUser *)update:(BackendlessUser *)user {
-    
     if (!user)
         return [backendless throwFault:FAULT_NO_USER];
-    
     NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
 #if FILTRATION_USER_TOKEN_ON
     [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
@@ -210,7 +179,6 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     if ([result isKindOfClass:[Fault class]]) {
         return result;
     }
-    
 #if PERSIST_CURRENTUSER_OFF
     [user setProperties:result];
 #else
@@ -220,12 +188,10 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     else {
         [user setProperties:result];
     }
-    
     if (_isStayLoggedIn && _currentUser && [user.objectId isEqualToString:_currentUser.objectId]) {
         [self updateCurrentUser:result];
     }
-#endif
-    
+#endif    
     return user;
 }
 
@@ -267,26 +233,15 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 }
 
 -(NSNumber *)isValidUserToken {
-    
     NSString *userToken = [backendless.headers valueForKey:BACKENDLESS_USER_TOKEN];
-    
     // http://bugs.backendless.com/browse/BKNDLSS-12841
     if (!_currentUser || !userToken)
-#if 1
         return @(NO);
-#else
-    return [backendless throwFault:FAULT_USER_IS_NOT_LOGGED_IN];
-#endif
-    
     NSArray *args = @[userToken];
-#if 0 // http://bugs.backendless.com/browse/BKNDLSS-11864
-    return [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_IS_VALID_USER_TOKEN args:args];
-#else
     BOOL throwException = invoker.throwException;
     invoker.throwException = NO;
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_IS_VALID_USER_TOKEN args:args];
     invoker.throwException = throwException;
-    
     if ([result isKindOfClass:[Fault class]]) {
         Fault *fault = (Fault *)result;
         if ([fault.faultCode isEqualToString:@"3048"]) {
@@ -296,7 +251,6 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
             @throw result;
     }
     return result;
-#endif
 }
 
 -(id)restorePassword:(NSString *)login {
@@ -431,26 +385,15 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 
 -(void)isValidUserToken:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     id <IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
-    
     NSString *userToken = [backendless.headers valueForKey:BACKENDLESS_USER_TOKEN];
-    
     if (!_currentUser || !userToken) {
-#if 1
         [responder responseHandler:@(NO)];
         return;
-#else
-        return [responder errorHandler:FAULT_USER_IS_NOT_LOGGED_IN];
-#endif
     }
     NSArray *args = @[userToken];
-#if 1
     Responder *_responder = [Responder responder:self selResponseHandler:nil selErrorHandler:@selector(onValidUserTokenFault:)];
     _responder.chained = responder;
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_IS_VALID_USER_TOKEN args:args responder:_responder];
-#else
-    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_IS_VALID_USER_TOKEN args:args responder:responder];
-#endif
-    
 }
 
 -(void)restorePassword:(NSString *)login response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -512,22 +455,18 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 // utilites
 
 -(id)handleOpenURL:(NSURL *)url {
-    
     [DebLog log:@"UserService -> handleOpenURL: url = '%@'", url];
-    
     NSString *scheme = [[NSString stringWithFormat:@"backendless%@", backendless.appID] uppercaseString];
     if (![[url.scheme uppercaseString] isEqualToString:scheme]) {
         [DebLog logY:@"UserService -> handleOpenURL: SCHEME IS WRONG = %@", url.scheme];
         return nil;
     }
-    
     NSString *absoluteString = [url.absoluteString stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@://", url.scheme] withString:@""];
     NSString *json = [absoluteString stringByRemovingPercentEncoding];
     if (!json) {
         json = [absoluteString stringByReplacingPercentEscapesUsingEncoding:NSISOLatin1StringEncoding];
     }
-    
-#if 1 // http://bugs.backendless.com/browse/BKNDLSS-13234
+    // http://bugs.backendless.com/browse/BKNDLSS-13234
     NSString *substr;
     NSUInteger index = json?json.length:0;
     while (index) {
@@ -536,20 +475,17 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
             break;
         json = [json substringToIndex:index];
     };
-#endif
-    
     if (!json) {
         [DebLog logY:@"UserService -> handleOpenURL: JSON IS BROKEN"];
         return nil;
     }
-    
     [DebLog log:@"UserService -> handleOpenURL: JSONObject = '%@'", json];
-    
     @try {
         NSError *error = nil;
         id userData = [NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding: NSUTF8StringEncoding] options:0 error:&error];
         if (error) {
             [DebLog logY:@"UserService -> handleOpenURL: ERROR = %@", error];
+            
 #if REPEAT_EASYLOGIN_ON && !_USE_SAFARI_VC_
             if (_easyLoginUrl) {
                 [self easyLoginResponder:_easyLoginUrl];
@@ -561,7 +497,6 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
         [DebLog log:@"UserService -> handleOpenURL: userData = '%@'", userData];
         return [self onLogin:userData];
     }
-    
     @catch (NSException *exception) {
         [DebLog logY:@"UserService -> handleOpenURL: EXCEPTION = %@", exception];
         return nil;
@@ -623,9 +558,6 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 }
 
 -(BOOL)setPersistentUser {
-#if 0
-    return (_currentUser && _isStayLoggedIn) ? [AMFSerializer serializeToFile:[_currentUser getProperties] fileName:PERSIST_USER_FILE_NAME] : NO;
-#else
     if (_currentUser && _isStayLoggedIn) {
         
         NSMutableDictionary *properties = [NSMutableDictionary dictionaryWithDictionary:[_currentUser getProperties]];
@@ -636,8 +568,6 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
         return [AMFSerializer serializeToFile:properties fileName:PERSIST_USER_FILE_NAME];
     }
     return NO;
-    
-#endif
 }
 
 -(BOOL)resetPersistentUser {

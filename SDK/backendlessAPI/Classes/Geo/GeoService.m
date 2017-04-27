@@ -89,14 +89,8 @@ static NSString *METHOD_COUNT = @"count";
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.model.SearchMatchesResult" mapped:[SearchMatchesResult class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.NSArray" mapped:[NSArray class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.geofence.model.GeoFenceAMF" mapped:[GeoFence class]];
-#if !_IS_USERS_CLASS_
-        [[Types sharedInstance] addClientClassMapping:@"Users" mapped:[BackendlessUser class]];
-#endif
-        
         _presence = [Presence new];
-	
-    }
-	
+    }	
 	return self;
 }
 

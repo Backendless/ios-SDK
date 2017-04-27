@@ -13,8 +13,6 @@
  *******************************************************************************************************/
 #define __types [Types sharedInstance]
 
-#define TYPES_AMF_DESERIALIZE_POSTPROCESSOR_ON 0
-
 @interface Types : NSObject {
 	NSMutableDictionary	*abstractMappings;
 	NSMutableDictionary	*clientMappings;
