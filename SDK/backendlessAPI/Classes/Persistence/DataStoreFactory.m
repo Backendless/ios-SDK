@@ -32,14 +32,6 @@
 
 @implementation DataStoreFactory
 
--(id)init {
-    if (self = [super init]) {
-        _entityClass = nil;
-        [[Types sharedInstance] addClientClassMapping:@"Users" mapped:[BackendlessUser class]];
-    }
-    return self;
-}
-
 -(id)init:(Class)entityClass {
     if (self = [super init]) {
         _entityClass = [entityClass retain];
