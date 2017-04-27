@@ -36,6 +36,9 @@ pod 'Backendless', '4.0b4'
 `${PODS_ROOT}/Headers/Public/Backendless/Backendless-Bridging-Header.h`
 
 ## RELEASE HISTORY
+4.0b5 April 27, 2017
+* Bug fixes
+
 4.0b4 April 25, 2017
 * Fixed and cleaned up register device methods in Messaging
 * Removed unregister device methods with IResponder
