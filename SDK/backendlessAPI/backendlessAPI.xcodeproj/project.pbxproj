@@ -5899,6 +5899,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "backendless-fat-and-copy copy";
 				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "i386 x86_64 armv7 armv7s arm64";
