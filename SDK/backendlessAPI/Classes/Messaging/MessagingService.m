@@ -1064,7 +1064,8 @@ id result = nil;
     if ([result isKindOfClass:[Fault class]]) {
         return result;
     }
-    return (deviceRegistration.deviceId);
+    deviceRegistration.id = [NSString stringWithFormat:@"%@", result];
+    return deviceRegistration.deviceId;
 }
 
 -(DeviceRegistration *)getRegistration {
@@ -1726,6 +1727,7 @@ id result = nil;
 // callbacks
 
 -(id)onRegistering:(id)response {
+    deviceRegistration.id = [NSString stringWithFormat:@"%@", response];
     return deviceRegistration.deviceId;
 }
 
