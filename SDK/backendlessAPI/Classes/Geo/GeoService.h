@@ -68,7 +68,6 @@ typedef struct {
 -(void)getFencePoints:(NSString *)geoFenceName responder:(id<IResponder>)responder;
 -(void)getFencePoints:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query responder:(id<IResponder>)responder;
 -(void)relativeFind:(BackendlessGeoQuery *)query responder:(id<IResponder>)responder;
--(void)removePoint:(GeoPoint *)geoPoint responder:(id <IResponder>)responder;
 -(void)loadMetadata:(GeoPoint *)geoPoint responder:(id<IResponder>)responder;
 -(void)runOnEnterAction:(NSString *)geoFenceName responder:(id<IResponder>)responder;
 -(void)runOnEnterAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint responder:(id<IResponder>)responder;
