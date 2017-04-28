@@ -81,7 +81,7 @@ static NSString *METHOD_COUNT = @"count";
 @implementation GeoService
 
 -(id)init {
-	if ( (self=[super init]) ) {
+    if ( (self=[super init]) ) {
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.model.GeoCategory" mapped:[GeoCategory class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.model.GeoPoint" mapped:[GeoPoint class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.model.GeoCluster" mapped:[GeoCluster class]];
@@ -90,17 +90,17 @@ static NSString *METHOD_COUNT = @"count";
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.NSArray" mapped:[NSArray class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.geofence.model.GeoFenceAMF" mapped:[GeoFence class]];
         _presence = [Presence new];
-    }	
-	return self;
+    }
+    return self;
 }
 
 -(void)dealloc {
-	
-	[DebLog logN:@"DEALLOC GeoService"];
+    
+    [DebLog logN:@"DEALLOC GeoService"];
     
     [_presence release];
-    	
-	[super dealloc];
+    
+    [super dealloc];
 }
 
 
@@ -150,7 +150,7 @@ static NSString *METHOD_COUNT = @"count";
     if ([result isKindOfClass:[Fault class]]) {
         return result;
     }
-
+    
     if (![result isKindOfClass:[NSArray class]]) {
         
         NSLog(@"GeoService->getPoints: (ERROR) [%@]\n%@", [result class], result);
@@ -247,7 +247,7 @@ static NSString *METHOD_COUNT = @"count";
     id fault = nil;
     if ((fault = [self isFaultGeoPoint:geoPoint responder:nil]) || (fault = [self isFaultGeoPointId:geoPoint.objectId responder:nil]))
         return fault;
-
+    
     id query = [geoPoint isKindOfClass:[GeoCluster class]]? [(GeoCluster *)geoPoint geoQuery] : [NSNull null];
     NSArray *args = @[geoPoint.objectId, query];
     [geoPoint metadata:[invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_LOAD_METADATA args:args]];
@@ -321,7 +321,7 @@ static NSString *METHOD_COUNT = @"count";
     
     NSArray *args = @[query];
     return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_COUNT args:args];
-
+    
 }
 
 -(NSNumber *)getGeopointCount:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query {
@@ -418,7 +418,7 @@ static NSString *METHOD_COUNT = @"count";
     
     if ([self isFaultGeoPoint:geoPoint responder:responder] || [self isFaultGeoPointId:geoPoint.objectId responder:responder])
         return;
-
+    
     NSArray *args = [NSArray arrayWithObjects:geoPoint.objectId, nil];
     [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_DELETE_GEOPOINT args:args responder:responder];
 }
@@ -779,11 +779,11 @@ static NSString *METHOD_COUNT = @"count";
     
     NSArray *collection = response.response;
     BackendlessGeoQuery *geoQuery = response.context;
-//    collection.query = geoQuery;
+    //    collection.query = geoQuery;
     [collection type:[GeoPoint class]];
     
     [self setReferenceToCluster:collection];
-
+    
     return collection;
 }
 
@@ -796,7 +796,7 @@ static NSString *METHOD_COUNT = @"count";
 }
 
 -(id)getGeoFences:(ResponseContext *)response {
-
+    
     id geoFences = response.response;
     id <ICallback> callback = response.context;
     [self addFenceMonitoring:callback geoFences:geoFences];

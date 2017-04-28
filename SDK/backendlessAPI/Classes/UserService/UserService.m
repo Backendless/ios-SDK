@@ -191,7 +191,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     if (_isStayLoggedIn && _currentUser && [user.objectId isEqualToString:_currentUser.objectId]) {
         [self updateCurrentUser:result];
     }
-#endif    
+#endif
     return user;
 }
 
@@ -737,33 +737,12 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 @implementation UserService (SafariVC)
 
 -(UIViewController *)getCurrentViewController {
-    
-    
-    /*
-     // source: Parse -> PFAlertView.m
-     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
-     UIViewController *viewController = keyWindow.rootViewController;
-     while (viewController.presentedViewController) {
-     viewController = viewController.presentedViewController;
-     }
-     return viewController;
-     */
-    
     UIViewController *WindowRootVC = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     UIViewController *currentViewController = [self findTopViewController:WindowRootVC];
-    
     return currentViewController;
 }
 
 -(UIViewController *)findTopViewController:(UIViewController *)inController {
-    /* if ur using any Customs classes, do like this.
-     * Here SlideNavigationController is a subclass of UINavigationController.
-     * And ensure you check the custom classes before native controllers , if u have any in your hierarchy.
-     if ([inController isKindOfClass:[SlideNavigationController class]])
-     {
-     return [self findTopViewController:[inController visibleViewController]];
-     }
-     else */
     if ([inController isKindOfClass:[UITabBarController class]]) {
         return [self findTopViewController:[(UITabBarController *)inController selectedViewController]];
     }
@@ -786,4 +765,3 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 @end
 #endif
 #endif
-

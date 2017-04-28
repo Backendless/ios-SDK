@@ -113,7 +113,7 @@ static NSString *_SERVER_PERSISTENCE_SERVICE_PATH = @"com.backendless.services.p
 
 -(NSArray *)find:(DataQueryBuilder *)queryBuilder {
     NSArray *args = @[_tableName, [queryBuilder build]];
-    id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:@"" args:args];
+    id result = [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:@"find" args:args];
     if ([result isKindOfClass:[Fault class]]) {
         return result;
     }

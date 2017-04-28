@@ -14,14 +14,14 @@
 #define __types [Types sharedInstance]
 
 @interface Types : NSObject {
-	NSMutableDictionary	*abstractMappings;
-	NSMutableDictionary	*clientMappings;
-	NSMutableDictionary	*serverMappings;
+    NSMutableDictionary	*abstractMappings;
+    NSMutableDictionary	*clientMappings;
+    NSMutableDictionary	*serverMappings;
 }
 
 @property (nonatomic, retain) NSString *swiftClassPrefix;
 
-// Singleton accessor:  this is how you should ALWAYS get a reference to the class instance.  Never init your own. 
+// Singleton accessor:  this is how you should ALWAYS get a reference to the class instance.  Never init your own.
 +(Types *)sharedInstance;
 
 // type mapping
@@ -89,4 +89,3 @@
 -(BOOL)replaceProperties:(NSArray *)names;
 -(BOOL)replaceAllProperties;
 @end
-
