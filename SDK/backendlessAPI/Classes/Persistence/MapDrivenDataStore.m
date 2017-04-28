@@ -107,7 +107,7 @@ static NSString *_SERVER_PERSISTENCE_SERVICE_PATH = @"com.backendless.services.p
 }
 
 -(NSArray *)find {
-    NSArray *args = @[_tableName, [DataQueryBuilder new]];
+    NSArray *args = @[_tableName, [DataQueryBuilder new]];  
     return [invoker invokeSync:_SERVER_PERSISTENCE_SERVICE_PATH method:@"find" args:args];
 }
 
