@@ -2423,7 +2423,6 @@
 		D3FB9B7219867F0E00A13FB6 /* AtomicCountersFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtomicCountersFactory.h; sourceTree = "<group>"; };
 		D3FB9B7319867F0E00A13FB6 /* AtomicCountersFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtomicCountersFactory.m; sourceTree = "<group>"; };
 		D3FB9B7A1986818F00A13FB6 /* IAtomicCounters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAtomicCounters.h; sourceTree = "<group>"; };
-		F90F2B5E1BB2DF9C004F8D33 /* Update Project with Backendless SDK for iOS9.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = "Update Project with Backendless SDK for iOS9.pdf"; path = "../../Update Project with Backendless SDK for iOS9.pdf"; sourceTree = "<group>"; };
 		F918412C1638281600D36A61 /* FileService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileService.h; sourceTree = "<group>"; };
 		F918412D1638281600D36A61 /* FileService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileService.m; sourceTree = "<group>"; };
 		F9184132163AB29600D36A61 /* BackendlessFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackendlessFile.h; sourceTree = "<group>"; };
@@ -2447,7 +2446,6 @@
 		F91B48191603340A00012DFC /* BackendlessEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackendlessEntity.h; sourceTree = "<group>"; };
 		F91B481A1603340A00012DFC /* BackendlessEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackendlessEntity.m; sourceTree = "<group>"; };
 		F91B48291603649C00012DFC /* IDataStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDataStore.h; sourceTree = "<group>"; };
-		F9356C701B6FA479009A01D9 /* getting-started.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = "getting-started.pdf"; path = "../getting-started.pdf"; sourceTree = "<group>"; };
 		F94487611B68EBA400EB12A5 /* Backendless-With-Media-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Backendless-With-Media-Bridging-Header.h"; sourceTree = "<group>"; };
 		F96B1C5E1DD3A23C00A4B362 /* PagedQueryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagedQueryBuilder.h; sourceTree = "<group>"; };
 		F96B1C5F1DD3A23C00A4B362 /* PagedQueryBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PagedQueryBuilder.m; sourceTree = "<group>"; };
@@ -3154,8 +3152,6 @@
 			isa = PBXGroup;
 			children = (
 				D30A5D7819B9D03100C0BA44 /* README.md */,
-				F9356C701B6FA479009A01D9 /* getting-started.pdf */,
-				F90F2B5E1BB2DF9C004F8D33 /* Update Project with Backendless SDK for iOS9.pdf */,
 				F9F26B551D8C3A1E00B9EA82 /* ios */,
 				F91B47C415FE380C00012DFC /* lib */,
 				F98A7EBE1B307017007635B6 /* osx */,

@@ -23,6 +23,7 @@
 #include "Responder.h"
 #include "Backendless.h"
 #import "ObjectProperty.h"
+#import "AuthorizationException.h"
 
 @interface DataStoreFactory () {
     Class _entityClass;
@@ -31,16 +32,10 @@
 
 @implementation DataStoreFactory
 
--(id)init {
-    if (self = [super init]) {
-        _entityClass = nil;
-    }
-    return self;
-}
-
 -(id)init:(Class)entityClass {
     if (self = [super init]) {
         _entityClass = [entityClass retain];
+        [[Types sharedInstance] addClientClassMapping:@"Users" mapped:[BackendlessUser class]];
     }
     return self;
 }

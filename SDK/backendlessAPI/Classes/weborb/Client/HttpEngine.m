@@ -86,43 +86,43 @@
 
 @implementation HttpEngine
 
--(id)init {	
-	if ( (self=[super init]) ) {
+-(id)init {
+    if ( (self=[super init]) ) {
         asyncResponses = [[NSMutableArray alloc] init];
         isPolling = NO;
-	}
-	
-	return self;
+    }
+    
+    return self;
 }
 
--(id)initWithUrl:(NSString *)url {	
-	if ( (self=[super initWithUrl:url]) ) {
+-(id)initWithUrl:(NSString *)url {
+    if ( (self=[super initWithUrl:url]) ) {
         asyncResponses = [[NSMutableArray alloc] init];
         isPolling = NO;
-	}
-	
-	return self;
+    }
+    
+    return self;
 }
 
--(id)initWithUrl:(NSString *)url info:(IdInfo *)info {	
-	if ( (self=[super initWithUrl:url info:info]) ) {
+-(id)initWithUrl:(NSString *)url info:(IdInfo *)info {
+    if ( (self=[super initWithUrl:url info:info]) ) {
         asyncResponses = [[NSMutableArray alloc] init];
         isPolling = NO;
-	}
-	
-	return self;
+    }
+    
+    return self;
 }
 
 -(void)dealloc {
-	
-	[DebLog logN:@"DEALLOC HttpEngine"];
+    
+    [DebLog logN:@"DEALLOC HttpEngine"];
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     
     [asyncResponses removeAllObjects];
     [asyncResponses release];
-	
-	[super dealloc];
+    
+    [super dealloc];
 }
 
 
@@ -141,20 +141,20 @@
             [headersArray addObject:[MHeader headerWithObject:obj name:headerName]];
         }
     }
-
+    
     NSString *null = @"null";
     Body *body = [Body bodyWithObject:nil serviceURI:null responseURI:null length:-1];
     NSMutableArray *bodiesArray = [NSMutableArray arrayWithObjects:body, nil];
     
     Request *request = [Request request:(float)AMF3 headers:headersArray bodies:bodiesArray];
-    [request setResponseBodyData:[NSArray arrayWithObjects:v3Msg, nil]];    
+    [request setResponseBodyData:[NSArray arrayWithObjects:v3Msg, nil]];
     BinaryStream *data = [AMFSerializer serializeToBytes:request];
     
 #if ON_PRINT_REQUEST
     [DebLog logY:@"HttpEngine -> createRequest: clientId = '%@'\n%@", v3Msg.clientId, request];
     [data print:YES];
 #endif
-
+    
     return [NSData dataWithBytes:data.buffer length:data.size];
 }
 
@@ -175,7 +175,7 @@
 -(void)processAsyncAMFResponse:(AsyncHttpResponse *)async {
     
     id <IResponder> responder = (async.responder) ? async.responder : _responder;
-   
+    
     int statusCode = [async.responseUrl statusCode];
     if (statusCode != 200) {
         
@@ -196,7 +196,7 @@
         NSString *body = [[[NSString alloc] initWithData:async.receivedData encoding:NSUTF8StringEncoding] autorelease];
         
         [DebLog log:@"HttpEngine -> processAsyncAMFResponse: response with *** INVALID 'Content-Type' = '%@', body = '%@'", contentType, body];
-
+        
         Fault *fault = [Fault fault:@"HttpEngine: INVALID response 'Content-Type'" detail:contentType faultCode:@"9000"];
         [responder errorHandler:fault];
         
@@ -204,8 +204,8 @@
         [async release];
         return;
     }
-
-    FlashorbBinaryReader *reader = [[FlashorbBinaryReader alloc] 
+    
+    FlashorbBinaryReader *reader = [[FlashorbBinaryReader alloc]
                                     initWithStream:(char *)[async.receivedData bytes] andSize:[async.receivedData length]];
     
     [DebLog log:ON_PRINT_RESPONSE text:@"HttpEngine -> processAsyncAMFResponse: (ASYNC RESPONSE)\n"];
@@ -228,19 +228,19 @@
                 idInfo.dsId = (NSString *)v3.headers[@"DSId"];
             if (!idInfo.clientId)
                 idInfo.clientId = (NSString *)v3.clientId;
-        
+            
             [DebLog logN:@"@@@@@ idInfo: dsId = '%@', clientId = '%@', destination = '%@'", idInfo.dsId, idInfo.clientId, idInfo.destination];
         }
-    
-        if (v3.isError) {
         
+        if (v3.isError) {
+            
             //typing and sent to delegate
             ErrMessage *result = (ErrMessage *)v3;
             Fault *fault = [Fault fault:result.faultString detail:result.faultDetail faultCode:result.faultCode];
             [responder errorHandler:fault];
         }
         else {
-
+            
             id result = v3.body.body;
             
             [DebLog log:_ON_HEADERS_LOG_ text:@"HttpEngine -> processAsyncAMFResponse: v3.headers = %@\n", v3.headers];
@@ -261,15 +261,15 @@
     if (!result)
         return;
     
-    NSArray *arr = ([result isKindOfClass:[ArrayType class]]) ? [(ArrayType *)result getArray] : 
-                    ([result isKindOfClass:[NSArray class]]) ? (NSArray *)result : nil; 
+    NSArray *arr = ([result isKindOfClass:[ArrayType class]]) ? [(ArrayType *)result getArray] :
+    ([result isKindOfClass:[NSArray class]]) ? (NSArray *)result : nil;
     
     if (!arr)
         return;
     
     [DebLog logN:@"HttpEngine -> pollingResponse: async array count = %d", arr.count];
     
-    for (id async in arr) {        
+    for (id async in arr) {
         if ([async isMemberOfClass:[AsyncMessage class]])
             [self receivedMessage:async];
     }
@@ -289,7 +289,7 @@
     
     //printf("\n############################################### NEW POLLING #################################################\n\n");
     
-    [DebLog logN:@"HttpEngine -> receiveMessages: obj = %@", obj];      
+    [DebLog logN:@"HttpEngine -> receiveMessages: obj = %@", obj];
     
     [self sendRequest:[Subscription getCommandMessage:@"2" subTopic:subTopic selector:selector idInfo:idInfo] responder:
      [Responder responder:self selResponseHandler:@selector(pollingResponse:) selErrorHandler:@selector(pollingError:)] repeated:NO];
@@ -321,7 +321,7 @@
     [webReq setHTTPBody:[self createRequest:v3Msg]];
     
     [DebLog logN:@"HttpEngine -> httpPostRequest: url: %@,  headers: %@", url, [webReq allHTTPHeaderFields]];
-
+    
     return webReq;
 }
 
@@ -374,9 +374,9 @@
         receivedData = [NSURLConnection sendSynchronousRequest:request returningResponse:&responseUrl error:&error];
     }
 #endif
-
+    
     [self setNetworkActivityIndicatorOn:NO];
-
+    
     if (!receivedData) {
         Fault *fault = (error) ? [Fault fault:[error  domain] detail:[error localizedDescription] faultCode:[NSString stringWithFormat:@"%ld",(long)[error code]]] : UNKNOWN_FAULT;
         [DebLog log:@"HttpEngine -> sendRequest: (SYNC) %@", fault];
@@ -391,7 +391,7 @@
         NSString *code = [NSString stringWithFormat:@"%d", statusCode];
         NSString *detail = [NSHTTPURLResponse localizedStringForStatusCode:statusCode];
         return [Fault fault:detail detail:detail faultCode:code];
-   }
+    }
     
     NSString *contentType = [[responseUrl allHeaderFields] valueForKey:@"Content-Type"];
     if (!(contentType) || ![contentType isEqualToString:@"application/x-amf"]) {
@@ -399,7 +399,7 @@
         NSString *body = [[[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding] autorelease];
         
         [DebLog log:@"HttpEngine -> sendRequest: (SYNC) response with *** INVALID 'Content-Type' = '%@', body = '%@'", contentType, body];
-       
+        
         return [Fault fault:@"HttpEngine: INVALID response 'Content-Type'" detail:contentType faultCode:@"9000"];
     }
     
@@ -420,7 +420,7 @@
     
     [DebLog log:ON_PRINT_RESPONSE text:@"HttpEngine -> sendRequest: (SYNC) type: %@, type.defaultAdapt = '%@', v3 = '%@'", type, [v3 class], v3];
     
-    if (v3) {        
+    if (v3) {
         if (idInfo) {
             
             if (!idInfo.dsId && v3.headers)
@@ -432,7 +432,7 @@
         }
         
         if (v3.isError) {
-                        
+            
             //typing and sent to delegate
             ErrMessage *result = (ErrMessage *)v3;
             
@@ -503,7 +503,7 @@
     
     [super onSubscribed:_subTopic selector:_selector responder:responder];
     
-    if (isPolling) 
+    if (isPolling)
         return;
     
     [self receiveMessages:nil];
@@ -514,7 +514,7 @@
     
     [DebLog logN:@"HttpEngine -> onUnsubscribed"];
     
-    if (!isPolling) 
+    if (!isPolling)
         return;
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
@@ -550,13 +550,13 @@
     int statusCode = [responseUrl  statusCode];
     [DebLog logY:@"HttpEngine ->connection didReceiveResponse: statusCode=%d ('%@')\nheaders:\n%@", statusCode, [NSHTTPURLResponse localizedStringForStatusCode:statusCode], [responseUrl  allHeaderFields]];
 #endif
-    // connection is starting, clear buffer 
+    // connection is starting, clear buffer
     [async.receivedData setLength:0];
     // save response url
     async.responseUrl = responseUrl;
 }
 
--(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data { 
+-(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
     
     AsyncHttpResponse *async = [self asyncHttpResponse:connection];
     if (!async)
@@ -564,7 +564,7 @@
     
     [DebLog logN:@"HttpEngine ->connection didReceiveData: length = %d", [data length]];
     
-    // data is arriving, add it to the buffer 
+    // data is arriving, add it to the buffer
     [async.receivedData appendData:data];
 }
 
@@ -576,8 +576,8 @@
     if (!async)
         return;
     
-    // something went wrong, release connection 
-    [connection release]; 
+    // something went wrong, release connection
+    [connection release];
     connection = nil;
     
 #if REPEAT_REQUEST_ON
@@ -589,7 +589,7 @@
         return;
     }
 #endif
-
+    
     Fault *fault = (error) ? [Fault fault:[error domain] detail:[error localizedDescription] faultCode:[NSString stringWithFormat:@"%ld",(long)[error code]]] : UNKNOWN_FAULT;
     [async.responder errorHandler:fault];
     
@@ -598,7 +598,7 @@
     [async release];
 }
 
--(void)connectionDidFinishLoading:(NSURLConnection *)connection { 
+-(void)connectionDidFinishLoading:(NSURLConnection *)connection {
     
     [self setNetworkActivityIndicatorOn:NO];
     
@@ -626,4 +626,3 @@
 }
 
 @end
-

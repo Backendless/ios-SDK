@@ -83,72 +83,6 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 -(id)createResponse:(ResponseContext *)response;
 @end
 
-#if _IS_USERS_CLASS_
-@interface Users : BackendlessUser
-@end
-
-@implementation Users
-@end
-
-@implementation Users (AMF)
-
-// overrided method MUST return 'self' to avoid a deserialization breaking
--(id)onAMFDeserialize {
-#if 1 // http://bugs.backendless.com/browse/BKNDLSS-11933
-#if 1 // avoid to update self to self (self relation) - app crash appears in this case
-    NSDictionary *data = [Types propertyDictionary:self];
-    NSArray *props = [data allKeys];
-    for (NSString *prop in props) {
-        id value = data[prop];
-        if (value != self) {
-            [self setProperty:prop object:value];
-        }
-    }
-    return self;
-#else
-    [self setProperties:[Types propertyDictionary:self]];
-    return self;
-#endif
-#else
-    BackendlessUser *user = [BackendlessUser new];
-    NSMutableDictionary *properties = [NSMutableDictionary dictionaryWithDictionary:[Types propertyDictionary:self]];
-    [DebLog log:@"Users -> onAMFDeserialize: BackendlessUser.properties = %@", properties];
-    [user setProperties:properties];
-    return user;
-#endif
-}
-@end
-#endif
-
-#if TYPES_AMF_DESERIALIZE_POSTPROCESSOR_ON
-@implementation Types (AMF)
-
-+(id)pastAMFDeserialize:(id)obj {
-    if (![obj isKindOfClass:[BackendlessUser class]]) {
-        return obj;
-    }
-    BackendlessUser *user = (BackendlessUser *)obj;
-    
-#if 0 // avoid to update self to self (self relation) - app crash appears in this case ( http://bugs.backendless.com/browse/BKNDLSS-11933 )
-    NSDictionary *data = [Types propertyDictionary:user];
-    NSArray *props = [data allKeys];
-    for (NSString *prop in props) {
-        id value = data[prop];
-        if (value != user) {
-            [user setProperty:prop object:value];
-        }
-    }
-    return user;
-#else
-    NSDictionary *props = [Types propertyDictionary:user];
-    //[user replaceAllProperties]; // http://bugs.backendless.com/browse/BKNDLSS-12973
-    [user setProperties:props];
-    return user;
-#endif
-}
-@end
-#endif
-
 @implementation BackendlessUser (AMF)
 
 -(id)onAMFSerialize {
@@ -195,9 +129,6 @@ NSString *LOAD_ALL_RELATIONS = @"*";
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.QueryOptions" mapped:[QueryOptions class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.model.GeoPoint" mapped:[GeoPoint class]];
         [[Types sharedInstance] addClientClassMapping:@"java.lang.ClassCastException" mapped:[ClassCastException class]];
-#if !_IS_USERS_CLASS_
-        [[Types sharedInstance] addClientClassMapping:@"Users" mapped:[BackendlessUser class]];
-#endif
         _permissions = [DataPermission new];
     }
     return self;
@@ -216,6 +147,9 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     if ([className containsString:@"."]) {
         NSArray *Array = [className componentsSeparatedByString:@"."];
         className = [Array lastObject];
+    }
+    if ([className isEqualToString: @"BackendlessUser"]) {
+        className = @"Users";
     }
     return className;
 }

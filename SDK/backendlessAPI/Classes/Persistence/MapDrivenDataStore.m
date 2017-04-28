@@ -25,6 +25,7 @@
 #include "Responder.h"
 #import "ObjectProperty.h"
 #import "ClassCastException.h"
+#import "ObjectSerializer.h"
 
 #define FAULT_NO_ENTITY [Fault fault:@"Entity is missing or null" detail:@"Entity is missing or null" faultCode:@"1900"]
 #define FAULT_OBJECT_ID_IS_NOT_EXIST [Fault fault:@"objectId is missing or null" detail:@"objectId is missing or null" faultCode:@"1901"]
@@ -72,9 +73,6 @@ static NSString *_SERVER_PERSISTENCE_SERVICE_PATH = @"com.backendless.services.p
     [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.ObjectProperty" mapped:[ObjectProperty class]];
     [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.model.GeoPoint" mapped:[GeoPoint class]];
     [[Types sharedInstance] addClientClassMapping:@"java.lang.ClassCastException" mapped:[ClassCastException class]];
-#if !_IS_USERS_CLASS_
-    [[Types sharedInstance] addClientClassMapping:@"Users" mapped:[BackendlessUser class]];
-#endif
 }
 
 -(NSArray *)fixClassCollection:(NSArray *)bc {
@@ -232,7 +230,7 @@ static NSString *_SERVER_PERSISTENCE_SERVICE_PATH = @"com.backendless.services.p
 
 -(void)find:(DataQueryBuilder *)queryBuilder response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
-    NSArray *args = @[_tableName, queryBuilder];
+    NSArray *args = @[_tableName, [queryBuilder build]];
     [invoker invokeAsync:_SERVER_PERSISTENCE_SERVICE_PATH method:@"find" args:args responder:chainedResponder];
 }
 
