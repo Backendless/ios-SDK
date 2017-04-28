@@ -239,7 +239,8 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     if ([result isKindOfClass:[Fault class]]) {
         return result;
     }
-    return (deviceRegistration.deviceId);
+    deviceRegistration.id = [NSString stringWithFormat:@"%@", result];
+    return deviceRegistration.deviceId;
 }
 
 -(DeviceRegistration *)getRegistration:(NSString *)deviceId {
@@ -576,6 +577,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 // callbacks
 
 -(id)onRegistering:(id)response {
+    deviceRegistration.id = [NSString stringWithFormat:@"%@", response];
     return deviceRegistration.deviceId;
 }
 
