@@ -106,7 +106,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
         });
     }
     return UUID;
-#else // use UICKeyChainStore 
+#else // use UICKeyChainStore
     UICKeyChainStore *keychainStore = [UICKeyChainStore keyChainStore];
     NSString *bundleId = [[NSBundle mainBundle] bundleIdentifier];
     NSString *UUID = [UICKeyChainStore stringForKey:bundleId service:kBackendlessApplicationUUIDKey];
@@ -162,7 +162,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 #endif
 
 -(id)init {
-	
+    
     if ( (self=[super init]) ) {
         
         self.pollingFrequencyMs = POLLING_INTERVAL;
@@ -181,7 +181,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
         deviceRegistration = [DeviceRegistration new];
         
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-
+        
 #if _OLD_NOTIFICATION_
         // if >= iOS8
         if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
@@ -204,7 +204,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
         deviceRegistration.deviceId = deviceId ? deviceId : [backendless GUIDString];
         deviceRegistration.os = @"IOS";
         deviceRegistration.osVersion = device.systemVersion;
-
+        
 #else   // OSX
         deviceRegistration.os = @"OSX";
         NSString *deviceId = [self serialNumber];
@@ -212,22 +212,22 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 #endif
         
         [DebLog log:@"MessagingService -> init: deviceToken = %@, deviceId = %@, os = %@, osVersion = %@", deviceRegistration.deviceToken, deviceRegistration.deviceId, deviceRegistration.os, deviceRegistration.osVersion];
-	}
-	
-	return self;
+    }
+    
+    return self;
 }
 
 -(void)dealloc {
-	
-	[DebLog logN:@"DEALLOC MessagingService"];
+    
+    [DebLog logN:@"DEALLOC MessagingService"];
     
     [deviceRegistration release];
     [self.subscriptions release];
 #if _OLD_NOTIFICATION_
     [self.categories release];
 #endif
-	
-	[super dealloc];
+    
+    [super dealloc];
 }
 
 
@@ -587,7 +587,6 @@ id result = nil;
 #endif
 
 -(NSString *)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration token:(NSData *)deviceToken error:(Fault **)fault {
-    
     id result = nil;
     @try {
         result = [self registerDevice:channels expiration:expiration token:deviceToken];
@@ -605,7 +604,6 @@ id result = nil;
 }
 
 -(NSString *)registerDeviceToken:(NSData *)deviceToken error:(Fault **)fault {
-    
     id result = nil;
     @try {
         result = [self registerDeviceToken:deviceToken];
@@ -619,11 +617,10 @@ id result = nil;
             return nil;
         }
         return result;
-    }    
+    }
 }
 
 -(NSString *)registerDeviceExpiration:(NSDate *)expiration error:(Fault **)fault {
-    
     id result = nil;
     @try {
         result = [self registerDeviceExpiration:expiration];
@@ -641,7 +638,6 @@ id result = nil;
 }
 
 -(NSString *)registerDevice:(NSArray<NSString*> *)channels error:(Fault **)fault {
-    
     id result = nil;
     @try {
         result = [self registerDevice:channels];
@@ -659,7 +655,6 @@ id result = nil;
 }
 
 -(NSString *)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration error:(Fault **)fault {
-    
     id result = nil;
     @try {
         result = [self registerDevice:channels expiration:expiration];
@@ -677,7 +672,6 @@ id result = nil;
 }
 
 -(NSString *)registerDeviceError:(Fault **)fault {
-    
     id result = nil;
     @try {
         result = [self registerDevice];
@@ -1155,28 +1149,25 @@ id result = nil;
 }
 
 -(NSString *)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration {
-   
+    
     deviceRegistration.channels = channels;
     deviceRegistration.expiration = expiration;
     return [self registerDevice];
 }
 
 -(NSString *)registerDevice {
-
     if (!deviceRegistration.deviceToken) {
         [DebLog logY:@"MessagingService -> registerDevice (ERROR): deviceToken is not exist"];
         return [backendless throwFault:FAULT_NO_DEVICE_TOKEN];
     }
-
     [DebLog log:@"MessagingService -> registerDevice (SYNC): %@", deviceRegistration];
-    
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, deviceRegistration, nil];
     id result = [invoker invokeSync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_REGISTER_DEVICE args:args];
     if ([result isKindOfClass:[Fault class]]) {
         return result;
     }
-    
-    return (deviceRegistration.id = [NSString stringWithFormat:@"%@", result]);
+    deviceRegistration.id = [NSString stringWithFormat:@"%@", result];
+    return deviceRegistration.deviceId;
 }
 
 -(DeviceRegistration *)getRegistration {
@@ -1369,14 +1360,11 @@ id result = nil;
 }
 
 -(void)registerDeviceAsync:(id<IResponder>)responder {
-
     if (!deviceRegistration.deviceToken) {
         [DebLog logY:@"MessagingService -> registerDeviceASync (ERROR): deviceToken is not exist"];
         return [responder errorHandler:FAULT_NO_DEVICE_TOKEN];
     }
-
     [DebLog log:@"MessagingService -> registerDeviceAsync (ASYNC): %@", deviceRegistration];
-    
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, deviceRegistration, nil];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onRegistering:) selErrorHandler:nil];
     _responder.chained = responder;
@@ -1444,7 +1432,7 @@ id result = nil;
     if (!channelName)
         return [responder errorHandler:FAULT_NO_CHANNEL];
     
-    if (!message) 
+    if (!message)
         return [responder errorHandler:FAULT_NO_MESSAGE];
     
     NSMutableArray *args = [NSMutableArray arrayWithObjects:backendless.appID, backendless.versionNum, channelName, message, publishOptions?publishOptions:[NSNull null], nil];
@@ -1455,7 +1443,7 @@ id result = nil;
 
 -(void)cancel:(NSString *)messageId responder:(id <IResponder>)responder {
     
-    if (!messageId) 
+    if (!messageId)
         return [responder errorHandler:FAULT_NO_MESSAGE_ID];
     
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, messageId, nil];
@@ -1491,10 +1479,10 @@ id result = nil;
 
 -(void)pollMessages:(NSString *)channelName subscriptionId:(NSString *)subscriptionId responder:(id <IResponder>)responder {
     
-    if (!channelName) 
+    if (!channelName)
         return [responder errorHandler:FAULT_NO_CHANNEL];
-     
-    if (!subscriptionId) 
+    
+    if (!subscriptionId)
         return [responder errorHandler:FAULT_NO_SUBSCRIPTION_ID];
     
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, channelName, subscriptionId, nil];
@@ -1531,7 +1519,7 @@ id result = nil;
 }
 
 -(void)registerDeviceToken:(NSData *)deviceToken response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self registerDeviceToken:deviceToken responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];    
+    [self registerDeviceToken:deviceToken responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 -(void)registerDeviceExpiration:(NSDate *)expiration response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -1579,7 +1567,7 @@ id result = nil;
 }
 
 -(void)publish:(id)message publishOptions:(PublishOptions *)publishOptions deliveryOptions:(DeliveryOptions *)deliveryOptions response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self publish:message publishOptions:publishOptions deliveryOptions:deliveryOptions responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];    
+    [self publish:message publishOptions:publishOptions deliveryOptions:deliveryOptions responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 -(void)publish:(NSString *)channelName message:(id)message response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -1704,12 +1692,12 @@ id result = nil;
              [self.pushReceiver didRegisterForRemoteNotificationsWithDeviceId:deviceRegistrationId fault:nil];
          }
      }
-    error:^(Fault *fault) {
-        [DebLog log:@"MessagingService -> application:didRegisterForRemoteNotificationsWithDeviceToken: %@", fault];
-            if ([self.pushReceiver respondsToSelector:@selector(didRegisterForRemoteNotificationsWithDeviceId:fault:)]) {
-                [self.pushReceiver didRegisterForRemoteNotificationsWithDeviceId:nil fault:fault];
-            }
-    }];
+                        error:^(Fault *fault) {
+                            [DebLog log:@"MessagingService -> application:didRegisterForRemoteNotificationsWithDeviceToken: %@", fault];
+                            if ([self.pushReceiver respondsToSelector:@selector(didRegisterForRemoteNotificationsWithDeviceId:fault:)]) {
+                                [self.pushReceiver didRegisterForRemoteNotificationsWithDeviceId:nil fault:fault];
+                            }
+                        }];
 #else // sync
     @try {
         NSString *deviceRegistrationId = [self registerDeviceToken:deviceToken];
@@ -1841,7 +1829,8 @@ id result = nil;
 // callbacks
 
 -(id)onRegistering:(id)response {
-    return (deviceRegistration.id = [NSString stringWithFormat:@"%@", response]);
+    deviceRegistration.id = [NSString stringWithFormat:@"%@", response];
+    return deviceRegistration.deviceId;
 }
 
 -(id)onUnregistering:(id)response {
