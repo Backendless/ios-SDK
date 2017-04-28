@@ -104,6 +104,12 @@
 -(id)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients attachment:(NSArray *)attachments;
 
 // sync methods with fault option
+-(NSString *)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration token:(NSData *)deviceToken error:(Fault **)fault;
+-(NSString *)registerDeviceToken:(NSData *)deviceToken error:(Fault **)fault;
+-(NSString *)registerDeviceExpiration:(NSDate *)expiration error:(Fault **)fault;
+-(NSString *)registerDevice:(NSArray<NSString*> *)channels error:(Fault **)fault;
+-(NSString *)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration error:(Fault **)fault;
+-(NSString *)registerDeviceError:(Fault **)fault;
 -(DeviceRegistration *)getRegistrationError:(Fault **)fault;
 -(DeviceRegistration *)getRegistration:(NSString *)deviceId error:(Fault **)fault;
 -(BOOL)unregisterDeviceError:(Fault **)fault;
