@@ -37,7 +37,8 @@ pod 'Backendless', '4.0b6'
 
 ## RELEASE HISTORY
 4.0b6 April 28, 2017
-* Bug fixes
+* Fixed problem with MessagingService.m reported as an excluded class in a build for a device
+* Made changes in BackendlessUser so that it is represented as a dictionary in the dictionary-based data retrieval
 
 4.0b5 April 28, 2017
 * Bug fixes
