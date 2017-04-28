@@ -62,7 +62,6 @@ typedef struct {
 // async methods with responder
 -(void)addCategory:(NSString *)categoryName responder:(id <IResponder>)responder;
 -(void)deleteCategory:(NSString *)categoryName responder:(id <IResponder>)responder;
--(void)savePoint:(GeoPoint *)geoPoint responder:(id <IResponder>)responder;
 -(void)getCategories:(id <IResponder>)responder;
 -(void)getPoints:(BackendlessGeoQuery *)query responder:(id <IResponder>)responder;
 -(void)getClusterPoints:(GeoCluster *)geoCluster responder:(id <IResponder>)responder;
@@ -115,7 +114,6 @@ typedef struct {
 -(void)startGeofenceMonitoring:(NSString *)geofenceName callback:(id <IGeofenceCallback>)callback response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
 
 -(void)stopGeofenceMonitoring;
--(void)stopGeofenceMonitoring:(NSString *)geofenceName;    
-
+-(void)stopGeofenceMonitoring:(NSString *)geofenceName;
 
 @end
