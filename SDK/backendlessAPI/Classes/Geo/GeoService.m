@@ -287,13 +287,6 @@ static NSString *METHOD_COUNT = @"count";
 
 // async methods with responder
 
--(void)addCategory:(NSString *)categoryName responder:(id <IResponder>)responder {
-    if ([self isFaultAddCategoryName:categoryName responder:responder])
-        return;
-    NSArray *args = [NSArray arrayWithObjects:categoryName, nil];
-    [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_ADD_CATEGORY args:args responder:responder];
-}
-
 -(void)deleteCategory:(NSString *)categoryName responder:(id <IResponder>)responder {
     if ([self isFaultRemoveCategoryName:categoryName responder:responder])
         return;
@@ -417,7 +410,11 @@ static NSString *METHOD_COUNT = @"count";
 // async methods with block-based callbacks
 
 -(void)addCategory:(NSString *)categoryName response:(void(^)(GeoCategory *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self addCategory:categoryName responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if ([self isFaultAddCategoryName:categoryName responder:responder])
+        return;
+    NSArray *args = [NSArray arrayWithObjects:categoryName, nil];
+    [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_ADD_CATEGORY args:args responder:responder];
 }
 
 -(void)deleteCategory:(NSString *)categoryName response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
