@@ -586,114 +586,6 @@ id result = nil;
 
 #endif
 
--(NSString *)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration token:(NSData *)deviceToken error:(Fault **)fault {
-    
-    id result = nil;
-    @try {
-        result = [self registerDevice:channels expiration:expiration token:deviceToken];
-    }
-    @catch (Fault *fault) {
-        result = fault;
-    }
-    @finally {
-        if ([result isKindOfClass:Fault.class]) {
-            if (fault)(*fault) = result;
-            return nil;
-        }
-        return result;
-    }
-}
-
--(NSString *)registerDeviceToken:(NSData *)deviceToken error:(Fault **)fault {
-    
-    id result = nil;
-    @try {
-        result = [self registerDeviceToken:deviceToken];
-    }
-    @catch (Fault *fault) {
-        result = fault;
-    }
-    @finally {
-        if ([result isKindOfClass:Fault.class]) {
-            if (fault)(*fault) = result;
-            return nil;
-        }
-        return result;
-    }    
-}
-
--(NSString *)registerDeviceExpiration:(NSDate *)expiration error:(Fault **)fault {
-    
-    id result = nil;
-    @try {
-        result = [self registerDeviceExpiration:expiration];
-    }
-    @catch (Fault *fault) {
-        result = fault;
-    }
-    @finally {
-        if ([result isKindOfClass:Fault.class]) {
-            if (fault)(*fault) = result;
-            return nil;
-        }
-        return result;
-    }
-}
-
--(NSString *)registerDevice:(NSArray<NSString*> *)channels error:(Fault **)fault {
-    
-    id result = nil;
-    @try {
-        result = [self registerDevice:channels];
-    }
-    @catch (Fault *fault) {
-        result = fault;
-    }
-    @finally {
-        if ([result isKindOfClass:Fault.class]) {
-            if (fault)(*fault) = result;
-            return nil;
-        }
-        return result;
-    }
-}
-
--(NSString *)registerDevice:(NSArray<NSString*> *)channels expiration:(NSDate *)expiration error:(Fault **)fault {
-    
-    id result = nil;
-    @try {
-        result = [self registerDevice:channels expiration:expiration];
-    }
-    @catch (Fault *fault) {
-        result = fault;
-    }
-    @finally {
-        if ([result isKindOfClass:Fault.class]) {
-            if (fault)(*fault) = result;
-            return nil;
-        }
-        return result;
-    }
-}
-
--(NSString *)registerDeviceError:(Fault **)fault {
-    
-    id result = nil;
-    @try {
-        result = [self registerDevice];
-    }
-    @catch (Fault *fault) {
-        result = fault;
-    }
-    @finally {
-        if ([result isKindOfClass:Fault.class]) {
-            if (fault)(*fault) = result;
-            return nil;
-        }
-        return result;
-    }
-}
-
 -(DeviceRegistration *)getRegistrationError:(Fault **)fault {
     
     id result = nil;
@@ -1162,21 +1054,17 @@ id result = nil;
 }
 
 -(NSString *)registerDevice {
-
     if (!deviceRegistration.deviceToken) {
         [DebLog logY:@"MessagingService -> registerDevice (ERROR): deviceToken is not exist"];
         return [backendless throwFault:FAULT_NO_DEVICE_TOKEN];
     }
-
     [DebLog log:@"MessagingService -> registerDevice (SYNC): %@", deviceRegistration];
-    
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, deviceRegistration, nil];
     id result = [invoker invokeSync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_REGISTER_DEVICE args:args];
     if ([result isKindOfClass:[Fault class]]) {
         return result;
     }
-    
-    return (deviceRegistration.id = [NSString stringWithFormat:@"%@", result]);
+    return (deviceRegistration.deviceId);
 }
 
 -(DeviceRegistration *)getRegistration {
@@ -1369,14 +1257,11 @@ id result = nil;
 }
 
 -(void)registerDeviceAsync:(id<IResponder>)responder {
-
     if (!deviceRegistration.deviceToken) {
         [DebLog logY:@"MessagingService -> registerDeviceASync (ERROR): deviceToken is not exist"];
         return [responder errorHandler:FAULT_NO_DEVICE_TOKEN];
     }
-
     [DebLog log:@"MessagingService -> registerDeviceAsync (ASYNC): %@", deviceRegistration];
-    
     NSArray *args = [NSArray arrayWithObjects:backendless.appID, backendless.versionNum, deviceRegistration, nil];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onRegistering:) selErrorHandler:nil];
     _responder.chained = responder;
@@ -1841,7 +1726,7 @@ id result = nil;
 // callbacks
 
 -(id)onRegistering:(id)response {
-    return (deviceRegistration.id = [NSString stringWithFormat:@"%@", response]);
+    return deviceRegistration.deviceId;
 }
 
 -(id)onUnregistering:(id)response {
