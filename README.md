@@ -39,6 +39,9 @@ pod 'Backendless', '4.0b6'
 4.0b6 April 28, 2017
 * Bug fixes
 
+4.0b5 April 28, 2017
+* Bug fixes
+
 4.0b4 April 25, 2017
 * Fixed and cleaned up register device methods in Messaging
 * Removed unregister device methods with IResponder
