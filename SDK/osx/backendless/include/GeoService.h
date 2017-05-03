@@ -60,7 +60,6 @@ typedef struct {
 -(NSNumber *)getGeopointCount:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query;
 
 // async methods with responder
--(void)deleteCategory:(NSString *)categoryName responder:(id <IResponder>)responder;
 -(void)getCategories:(id <IResponder>)responder;
 -(void)getPoints:(BackendlessGeoQuery *)query responder:(id <IResponder>)responder;
 -(void)getClusterPoints:(GeoCluster *)geoCluster responder:(id <IResponder>)responder;

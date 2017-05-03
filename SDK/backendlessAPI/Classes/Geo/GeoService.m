@@ -287,13 +287,6 @@ static NSString *METHOD_COUNT = @"count";
 
 // async methods with responder
 
--(void)deleteCategory:(NSString *)categoryName responder:(id <IResponder>)responder {
-    if ([self isFaultRemoveCategoryName:categoryName responder:responder])
-        return;
-    NSArray *args = [NSArray arrayWithObjects:categoryName, nil];
-    [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_DELETE_CATEGORY args:args responder:responder];
-}
-
 -(void)getCategories:(id <IResponder>)responder {
     [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_CATEGORIES args:@[] responder:responder];
 }
@@ -418,7 +411,11 @@ static NSString *METHOD_COUNT = @"count";
 }
 
 -(void)deleteCategory:(NSString *)categoryName response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self deleteCategory:categoryName responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if ([self isFaultRemoveCategoryName:categoryName responder:responder])
+        return;
+    NSArray *args = [NSArray arrayWithObjects:categoryName, nil];
+    [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_DELETE_CATEGORY args:args responder:responder];
 }
 
 -(void)savePoint:(GeoPoint *)geoPoint response:(void(^)(GeoPoint *))responseBlock error:(void(^)(Fault *))errorBlock {
