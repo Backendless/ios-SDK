@@ -26,6 +26,7 @@
 #import "Backendless.h"
 #import "Invoker.h"
 #import "BackendlessGeoQuery.h"
+#import "ProtectedBackendlessGeoQuery.h"
 #import "LocationTracker.h"
 #import "GeoFence.h"
 #import "GeoFenceMonitoring.h"
@@ -134,7 +135,7 @@ static NSString *METHOD_COUNT = @"count";
     return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_CATEGORIES args:@[]];
 }
 
--(NSArray *)getPoints:(BackendlessGeoQuery *)query {
+-(NSArray<GeoPoint *> *)getPoints:(BackendlessGeoQuery *)query {
     NSArray *args = [NSArray arrayWithObjects:query, nil];
     id result = [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_POINTS args:args];
     if ([result isKindOfClass:[Fault class]]) {
@@ -144,9 +145,8 @@ static NSString *METHOD_COUNT = @"count";
         NSLog(@"GeoService->getPoints: (ERROR) [%@]\n%@", [result class], result);
         return nil;
     }
-    NSArray *collection = result;
-    [collection type:[GeoPoint class]];
-    [self setReferenceToCluster:collection];
+    NSArray<GeoPoint *> *collection = result;
+    [self setReferenceToCluster:collection geoQuery:query];
     return collection;
 }
 
@@ -201,6 +201,15 @@ static NSString *METHOD_COUNT = @"count";
     [collection type:[GeoPoint class]];
     [self setReferenceToCluster:collection];
     return collection;
+}
+
+-(void)setReferenceToCluster:(NSArray<GeoPoint *> *)collection geoQuery:(BackendlessGeoQuery *)geoQuery {
+    BackendlessGeoQuery *protectedQuery = [[ProtectedBackendlessGeoQuery alloc] initWithQuery:geoQuery];
+    for(GeoPoint *geoPoint in collection) {
+        if ([geoPoint isKindOfClass:[GeoCluster class]]) {
+            [(GeoCluster *)geoPoint setGeoQuery:protectedQuery];
+        }
+    }
 }
 
 -(id)removePoint:(GeoPoint *)geoPoint {
@@ -286,14 +295,6 @@ static NSString *METHOD_COUNT = @"count";
 }
 
 // async methods with responder
-
--(void)getPoints:(BackendlessGeoQuery *)query responder:(id <IResponder>)responder {
-    NSArray *args = [NSArray arrayWithObjects:query, nil];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(getResponse:) selErrorHandler:@selector(getError:)];
-    _responder.chained = responder;
-    _responder.context = query;
-    [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_POINTS args:args responder:_responder];
-}
 
 -(void)getClusterPoints:(GeoCluster *)geoCluster responder:(id <IResponder>)responder {
     NSArray *args = @[geoCluster.objectId, geoCluster.geoQuery];
@@ -410,8 +411,13 @@ static NSString *METHOD_COUNT = @"count";
     [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_CATEGORIES args:@[] responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)getPoints:(BackendlessGeoQuery *)query response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self getPoints:query responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+-(void)getPoints:(BackendlessGeoQuery *)query response:(void(^)(NSArray<GeoPoint *> *))responseBlock error:(void(^)(Fault *))errorBlock {
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    NSArray *args = [NSArray arrayWithObjects:query, nil];
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(getResponse:) selErrorHandler:@selector(getError:)];
+    _responder.chained = responder;
+    _responder.context = query;
+    [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_POINTS args:args responder:_responder];
 }
 
 -(void)getClusterPoints:(GeoCluster *)geoCluster response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -467,7 +473,7 @@ static NSString *METHOD_COUNT = @"count";
 }
 
 -(void)getGeopointCount:(BackendlessGeoQuery *)query response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
-    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];    
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!query)
         return [responder errorHandler:FAULT_GEO_QUERY_IS_NULL];
     NSArray *args = @[query];
@@ -644,11 +650,9 @@ static NSString *METHOD_COUNT = @"count";
 #pragma mark Callback Methods
 
 -(id)getResponse:(ResponseContext *)response {
-    NSArray *collection = response.response;
+    NSArray<GeoPoint *> *collection = response.response;
     BackendlessGeoQuery *geoQuery = response.context;
-    //    collection.query = geoQuery;
-    [collection type:[GeoPoint class]];
-    [self setReferenceToCluster:collection];
+    [self setReferenceToCluster:collection geoQuery:geoQuery];
     return collection;
 }
 
@@ -659,7 +663,7 @@ static NSString *METHOD_COUNT = @"count";
     return geoPoint;
 }
 
--(id)getGeoFences:(ResponseContext *)response {    
+-(id)getGeoFences:(ResponseContext *)response {
     id geoFences = response.response;
     id <ICallback> callback = response.context;
     [self addFenceMonitoring:callback geoFences:geoFences];

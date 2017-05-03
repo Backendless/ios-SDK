@@ -43,7 +43,7 @@ typedef struct {
 -(id)deleteCategory:(NSString *)categoryName;
 -(GeoPoint *)savePoint:(GeoPoint *)geoPoint;
 -(NSArray<GeoCategory *> *)getCategories;
--(NSArray *)getPoints:(BackendlessGeoQuery *)query;
+-(NSArray<GeoPoint *> *)getPoints:(BackendlessGeoQuery *)query;
 -(NSArray *)getClusterPoints:(GeoCluster *)geoCluster;
 -(NSArray *)getFencePoints:(NSString *)geoFenceName;
 -(NSArray *)getFencePoints:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query;
@@ -60,7 +60,6 @@ typedef struct {
 -(NSNumber *)getGeopointCount:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query;
 
 // async methods with responder
--(void)getPoints:(BackendlessGeoQuery *)query responder:(id <IResponder>)responder;
 -(void)getClusterPoints:(GeoCluster *)geoCluster responder:(id <IResponder>)responder;
 -(void)getFencePoints:(NSString *)geoFenceName responder:(id<IResponder>)responder;
 -(void)getFencePoints:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query responder:(id<IResponder>)responder;
@@ -78,7 +77,7 @@ typedef struct {
 -(void)deleteCategory:(NSString *)categoryName response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)savePoint:(GeoPoint *)geoPoint response:(void(^)(GeoPoint *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getCategories:(void(^)(NSArray<GeoCategory *> *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)getPoints:(BackendlessGeoQuery *)query response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)getPoints:(BackendlessGeoQuery *)query response:(void(^)(NSArray<GeoPoint *> *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getClusterPoints:(GeoCluster *)geoCluster response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getFencePoints:(NSString *)geoFenceName response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getFencePoints:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
