@@ -72,8 +72,6 @@ typedef struct {
 -(void)runOnStayAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint responder:(id<IResponder>)responder;
 -(void)runOnExitAction:(NSString *)geoFenceName responder:(id<IResponder>)responder;
 -(void)runOnExitAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint responder:(id<IResponder>)responder;
--(void)getGeopointCount:(BackendlessGeoQuery *)query responder:(id <IResponder>)responder;
--(void)getGeopointCount:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query responder:(id <IResponder>)responder;
 
 // async methods with block-based callbacks
 -(void)addCategory:(NSString *)categoryName response:(void(^)(GeoCategory *))responseBlock error:(void(^)(Fault *))errorBlock;
