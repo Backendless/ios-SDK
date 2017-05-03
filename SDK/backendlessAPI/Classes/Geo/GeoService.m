@@ -287,10 +287,6 @@ static NSString *METHOD_COUNT = @"count";
 
 // async methods with responder
 
--(void)getCategories:(id <IResponder>)responder {
-    [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_CATEGORIES args:@[] responder:responder];
-}
-
 -(void)getPoints:(BackendlessGeoQuery *)query responder:(id <IResponder>)responder {
     NSArray *args = [NSArray arrayWithObjects:query, nil];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(getResponse:) selErrorHandler:@selector(getError:)];
@@ -427,7 +423,7 @@ static NSString *METHOD_COUNT = @"count";
 }
 
 -(void)getCategories:(void(^)(NSArray<NSString *> *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self getCategories:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_CATEGORIES args:@[] responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 -(void)getPoints:(BackendlessGeoQuery *)query response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
