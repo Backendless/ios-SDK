@@ -42,7 +42,7 @@ typedef struct {
 -(GeoCategory *)addCategory:(NSString *)categoryName;
 -(id)deleteCategory:(NSString *)categoryName;
 -(GeoPoint *)savePoint:(GeoPoint *)geoPoint;
--(NSArray<NSString *> *)getCategories;
+-(NSArray<GeoCategory *> *)getCategories;
 -(NSArray *)getPoints:(BackendlessGeoQuery *)query;
 -(NSArray *)getClusterPoints:(GeoCluster *)geoCluster;
 -(NSArray *)getFencePoints:(NSString *)geoFenceName;
@@ -79,7 +79,7 @@ typedef struct {
 -(void)addCategory:(NSString *)categoryName response:(void(^)(GeoCategory *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)deleteCategory:(NSString *)categoryName response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)savePoint:(GeoPoint *)geoPoint response:(void(^)(GeoPoint *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)getCategories:(void(^)(NSArray<NSString *> *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)getCategories:(void(^)(NSArray<GeoCategory *> *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getPoints:(BackendlessGeoQuery *)query response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getClusterPoints:(GeoCluster *)geoCluster response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getFencePoints:(NSString *)geoFenceName response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;

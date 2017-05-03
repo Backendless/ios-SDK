@@ -130,7 +130,7 @@ static NSString *METHOD_COUNT = @"count";
     return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:geoPoint.objectId?METHOD_UPDATE_POINT:METHOD_ADD_POINT args:args];
 }
 
--(NSArray<NSString *> *)getCategories {
+-(NSArray<GeoCategory *> *)getCategories {
     return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_CATEGORIES args:@[]];
 }
 
@@ -422,7 +422,7 @@ static NSString *METHOD_COUNT = @"count";
     [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:geoPoint.objectId?METHOD_UPDATE_POINT:METHOD_ADD_POINT args:args responder:responder];
 }
 
--(void)getCategories:(void(^)(NSArray<NSString *> *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)getCategories:(void(^)(NSArray<GeoCategory *> *))responseBlock error:(void(^)(Fault *))errorBlock {
     [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_CATEGORIES args:@[] responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
