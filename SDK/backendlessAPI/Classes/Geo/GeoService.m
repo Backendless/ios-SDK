@@ -150,7 +150,7 @@ static NSString *METHOD_COUNT = @"count";
     return collection;
 }
 
--(NSArray *)getClusterPoints:(GeoCluster *)geoCluster {
+-(NSArray<GeoPoint *> *)getClusterPoints:(GeoCluster *)geoCluster {
     NSArray *args = @[geoCluster.objectId, geoCluster.geoQuery];
     id result = [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_LOAD_GEOPOINTS args:args];
     if ([result isKindOfClass:[Fault class]]) {
@@ -161,8 +161,7 @@ static NSString *METHOD_COUNT = @"count";
         NSLog(@"GeoService->getCluster: (ERROR) [%@]\n%@", [result class], result);
         return nil;
     }
-    NSArray *collection = result;
-    [collection type:[GeoPoint class]];
+    NSArray<GeoPoint *> *collection = result;
     return collection;
 }
 
@@ -296,14 +295,6 @@ static NSString *METHOD_COUNT = @"count";
 
 // async methods with responder
 
--(void)getClusterPoints:(GeoCluster *)geoCluster responder:(id <IResponder>)responder {
-    NSArray *args = @[geoCluster.objectId, geoCluster.geoQuery];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(getResponse:) selErrorHandler:@selector(getError:)];
-    _responder.chained = responder;
-    _responder.context = geoCluster.geoQuery;
-    [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_LOAD_GEOPOINTS args:args responder:_responder];
-}
-
 -(void)getFencePoints:(NSString *)geoFenceName responder:(id<IResponder>)responder {
     [self getFencePoints:geoFenceName query:nil responder:responder];
 }
@@ -420,8 +411,13 @@ static NSString *METHOD_COUNT = @"count";
     [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_POINTS args:args responder:_responder];
 }
 
--(void)getClusterPoints:(GeoCluster *)geoCluster response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self getClusterPoints:geoCluster responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+-(void)getClusterPoints:(GeoCluster *)geoCluster response:(void(^)(NSArray<GeoPoint *> *))responseBlock error:(void(^)(Fault *))errorBlock {
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    NSArray *args = @[geoCluster.objectId, geoCluster.geoQuery];
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(getResponse:) selErrorHandler:@selector(getError:)];
+    _responder.chained = responder;
+    _responder.context = geoCluster.geoQuery;
+    [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_LOAD_GEOPOINTS args:args responder:_responder];
 }
 
 -(void)getFencePoints:(NSString *)geoFenceName response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -492,15 +488,15 @@ static NSString *METHOD_COUNT = @"count";
 
 // utilites
 
--(GEO_RECT)geoRectangle:(GEO_POINT)center length:(double)length widht:(double)widht {
+-(GEO_RECT)geoRectangle:(GEO_POINT)center length:(double)length width:(double)width {
     GEO_RECT rect;
     
-    double value =  center.latitude + widht/2;
+    double value =  center.latitude + width/2;
     rect.nordWest.latitude = (value > 90.0) ? 180.0 - value : value;
     value =  center.longitude - length/2;
     rect.nordWest.longitude = (value < -180.0) ? 360.0 + value : value;
     
-    value =  center.latitude - widht/2;
+    value =  center.latitude - width/2;
     rect.southEast.latitude = (value < -90.0) ? -(value + 180.0) : value;
     value =  center.longitude + length/2;
     rect.southEast.longitude = (value > 180.0) ? value - 360.0 : value;
