@@ -59,18 +59,6 @@ typedef struct {
 -(NSNumber *)getGeopointCount:(BackendlessGeoQuery *)query;
 -(NSNumber *)getGeopointCount:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query;
 
-// async methods with responder
--(void)getFencePoints:(NSString *)geoFenceName responder:(id<IResponder>)responder;
--(void)getFencePoints:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query responder:(id<IResponder>)responder;
--(void)relativeFind:(BackendlessGeoQuery *)query responder:(id<IResponder>)responder;
--(void)loadMetadata:(GeoPoint *)geoPoint responder:(id<IResponder>)responder;
--(void)runOnEnterAction:(NSString *)geoFenceName responder:(id<IResponder>)responder;
--(void)runOnEnterAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint responder:(id<IResponder>)responder;
--(void)runOnStayAction:(NSString *)geoFenceName responder:(id<IResponder>)responder;
--(void)runOnStayAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint responder:(id<IResponder>)responder;
--(void)runOnExitAction:(NSString *)geoFenceName responder:(id<IResponder>)responder;
--(void)runOnExitAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint responder:(id<IResponder>)responder;
-
 // async methods with block-based callbacks
 -(void)addCategory:(NSString *)categoryName response:(void(^)(GeoCategory *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)deleteCategory:(NSString *)categoryName response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
@@ -95,16 +83,10 @@ typedef struct {
 -(GEO_RECT)geoRectangle:(GEO_POINT)center length:(double)length width:(double)width;
 
 // geo fence monitoring
--(void)startGeofenceMonitoringGeoPoint:(GeoPoint *)geoPoint responder:(id <IResponder>)responder;
--(void)startGeofenceMonitoring:(id <IGeofenceCallback>)callback responder:(id <IResponder>)responder;
--(void)startGeofenceMonitoringGeoPoint:(NSString *)geofenceName geoPoint:(GeoPoint *)geoPoint responder:(id <IResponder>)responder;
--(void)startGeofenceMonitoring:(NSString *)geofenceName callback:(id <IGeofenceCallback>)callback responder:(id <IResponder>)responder;
-
 -(void)startGeofenceMonitoringGeoPoint:(GeoPoint *)geoPoint response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
 -(void)startGeofenceMonitoring:(id <IGeofenceCallback>)callback response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
 -(void)startGeofenceMonitoringGeoPoint:(NSString *)geofenceName geoPoint:(GeoPoint *)geoPoint response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
 -(void)startGeofenceMonitoring:(NSString *)geofenceName callback:(id <IGeofenceCallback>)callback response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
-
 -(void)stopGeofenceMonitoring;
 -(void)stopGeofenceMonitoring:(NSString *)geofenceName;
 
