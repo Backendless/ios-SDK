@@ -115,7 +115,7 @@ static NSString *METHOD_COUNT = @"count";
     return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_ADD_CATEGORY args:args];
 }
 
--(id)deleteCategory:(NSString *)categoryName {
+-(NSNumber *)deleteCategory:(NSString *)categoryName {
     id fault = [self isFaultRemoveCategoryName:categoryName responder:nil];
     if (fault)
         return fault;
@@ -314,7 +314,7 @@ static NSString *METHOD_COUNT = @"count";
     [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_ADD_CATEGORY args:args responder:responder];
 }
 
--(void)deleteCategory:(NSString *)categoryName response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)deleteCategory:(NSString *)categoryName response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if ([self isFaultRemoveCategoryName:categoryName responder:responder])
         return;

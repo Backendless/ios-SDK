@@ -40,7 +40,7 @@ typedef struct {
 
 // sync methods with fault return (as exception)
 -(GeoCategory *)addCategory:(NSString *)categoryName;
--(id)deleteCategory:(NSString *)categoryName;
+-(NSNumber *)deleteCategory:(NSString *)categoryName;
 -(GeoPoint *)savePoint:(GeoPoint *)geoPoint;
 -(NSArray<GeoCategory *> *)getCategories;
 -(NSArray<GeoPoint *> *)getPoints:(BackendlessGeoQuery *)query;
@@ -61,7 +61,7 @@ typedef struct {
 
 // async methods with block-based callbacks
 -(void)addCategory:(NSString *)categoryName response:(void(^)(GeoCategory *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)deleteCategory:(NSString *)categoryName response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)deleteCategory:(NSString *)categoryName response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)savePoint:(GeoPoint *)geoPoint response:(void(^)(GeoPoint *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getCategories:(void(^)(NSArray<GeoCategory *> *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getPoints:(BackendlessGeoQuery *)query response:(void(^)(NSArray<GeoPoint *> *))responseBlock error:(void(^)(Fault *))errorBlock;
