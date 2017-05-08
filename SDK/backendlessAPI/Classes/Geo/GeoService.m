@@ -227,7 +227,7 @@ static NSString *METHOD_COUNT = @"count";
     return geoPoint;
 }
 
--(id)runOnEnterAction:(NSString *)geoFenceName {
+-(NSNumber *)runOnEnterAction:(NSString *)geoFenceName {
     id fault = nil;
     if ((fault = [self isFaultGeoFenceName:geoFenceName responder:nil]))
         return fault;
@@ -235,7 +235,7 @@ static NSString *METHOD_COUNT = @"count";
     return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_RUN_ON_ENTER_ACTION args:args];
 }
 
--(id)runOnEnterAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint {
+-(NSNumber *)runOnEnterAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint {
     id fault = nil;
     if ((fault = [self isFaultGeoFenceName:geoFenceName responder:nil]) || (fault = [self isFaultGeoPoint:geoPoint responder:nil]))
         return fault;
@@ -243,7 +243,7 @@ static NSString *METHOD_COUNT = @"count";
     return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_RUN_ON_ENTER_ACTION args:args];
 }
 
--(id)runOnStayAction:(NSString *)geoFenceName {
+-(NSNumber *)runOnStayAction:(NSString *)geoFenceName {
     id fault = nil;
     if ((fault = [self isFaultGeoFenceName:geoFenceName responder:nil]))
         return fault;
@@ -251,7 +251,7 @@ static NSString *METHOD_COUNT = @"count";
     return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_RUN_ON_STAY_ACTION args:args];
 }
 
--(id)runOnStayAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint {
+-(NSNumber *)runOnStayAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint {
     id fault = nil;
     if ((fault = [self isFaultGeoFenceName:geoFenceName responder:nil]) || (fault = [self isFaultGeoPoint:geoPoint responder:nil]))
         return fault;
@@ -259,7 +259,7 @@ static NSString *METHOD_COUNT = @"count";
     return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_RUN_ON_STAY_ACTION args:args];
 }
 
--(id)runOnExitAction:(NSString *)geoFenceName {
+-(NSNumber *)runOnExitAction:(NSString *)geoFenceName {
     id fault = nil;
     if ((fault = [self isFaultGeoFenceName:geoFenceName responder:nil]))
         return fault;
@@ -267,7 +267,7 @@ static NSString *METHOD_COUNT = @"count";
     return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_RUN_ON_EXIT_ACTION args:args];
 }
 
--(id)runOnExitAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint {
+-(NSNumber *)runOnExitAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint {
     id fault = nil;
     if ((fault = [self isFaultGeoFenceName:geoFenceName responder:nil]) || (fault = [self isFaultGeoPoint:geoPoint responder:nil]))
         return fault;

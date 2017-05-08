@@ -50,12 +50,12 @@ typedef struct {
 -(NSArray *)relativeFind:(BackendlessGeoQuery *)query;
 -(id)removePoint:(GeoPoint *)geoPoint;
 -(GeoPoint *)loadMetadata:(GeoPoint *)geoPoint;
--(id)runOnEnterAction:(NSString *)geoFenceName;
--(id)runOnEnterAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint;
--(id)runOnStayAction:(NSString *)geoFenceName;
--(id)runOnStayAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint;
--(id)runOnExitAction:(NSString *)geoFenceName;
--(id)runOnExitAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint;
+-(NSNumber *)runOnEnterAction:(NSString *)geoFenceName;
+-(NSNumber *)runOnEnterAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint;
+-(NSNumber *)runOnStayAction:(NSString *)geoFenceName;
+-(NSNumber *)runOnStayAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint;
+-(NSNumber *)runOnExitAction:(NSString *)geoFenceName;
+-(NSNumber *)runOnExitAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint;
 -(NSNumber *)getGeopointCount:(BackendlessGeoQuery *)query;
 -(NSNumber *)getGeopointCount:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query;
 
