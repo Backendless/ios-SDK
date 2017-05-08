@@ -25,23 +25,19 @@
 @implementation GeoCategory
 
 -(id)init {
-	if ( (self=[super init]) ) {
-        _id = nil;
+	if (self = [super init]) {
+        _objectId = nil;
         _name = nil;
         _size = nil;
 	}
-	
 	return self;
 }
 
 -(void)dealloc {
-	
 	[DebLog logN:@"DEALLOC GeoCategory"];
-    
-    [_id release];
+    [_objectId release];
     [_name release];
     [_size release];
-	
 	[super dealloc];
 }
 
@@ -54,7 +50,7 @@
 }
 
 -(NSString *)description {
-    return [NSString stringWithFormat:@"GeoCategory: id:%@, name:%@, size:%@", _id, _name, _size];
+    return [NSString stringWithFormat:@"GeoCategory: id:%@, name:%@, size:%@", _objectId, _name, _size];
 }
 
 @end

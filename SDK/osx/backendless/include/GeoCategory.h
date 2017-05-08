@@ -23,7 +23,7 @@
 
 @interface GeoCategory : NSObject
 
-@property (strong, nonatomic) NSString *id;
+@property (strong, nonatomic) NSString *objectId;
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSNumber *size;
 
