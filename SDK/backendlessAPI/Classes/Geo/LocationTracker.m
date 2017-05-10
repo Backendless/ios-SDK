@@ -49,10 +49,8 @@
 }
 
 -(id)init {
-    if ( (self=[super init]) ) {
-        
+    if (self = [super init]) {
         _locationListeners = [HashMap new];
-        
         _monitoringSignificantLocationChanges = YES;
         _distanceFilter = kCLDistanceFilterNone;
         _desiredAccuracy = kCLLocationAccuracyBest;
@@ -67,12 +65,9 @@
 }
 
 -(void)dealloc {
-    
     [DebLog logN:@"DEALLOC LocationTracker"];
-    
     [_locationListeners release];
     [_locationManager release];
-    
     [super dealloc];
 }
 
@@ -93,11 +88,9 @@
 
 #endif
 
--(void)setMonitoringSignificantLocationChanges:(BOOL)monitoringSignificantLocationChanges {
-    
+-(void)setMonitoringSignificantLocationChanges:(BOOL)monitoringSignificantLocationChanges {    
     if (_monitoringSignificantLocationChanges == monitoringSignificantLocationChanges)
         return;
-    
     _monitoringSignificantLocationChanges?[_locationManager stopMonitoringSignificantLocationChanges]:[_locationManager stopUpdatingLocation];
     _monitoringSignificantLocationChanges = monitoringSignificantLocationChanges;
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
@@ -146,8 +139,7 @@
     return [_locationListeners del:name];
 }
 
--(void)startLocationManager {
-    
+-(void)startLocationManager {    
     _locationManager = [CLLocationManager new];
     _locationManager.delegate = self;
     _locationManager.distanceFilter = _distanceFilter;
@@ -159,7 +151,6 @@
     if (iOSVersion >= 8.0)
         [_locationManager requestAlwaysAuthorization];
 #endif
-    
     _monitoringSignificantLocationChanges?[_locationManager startMonitoringSignificantLocationChanges]:[_locationManager startUpdatingLocation];
 }
 
@@ -171,7 +162,6 @@
 #pragma mark Private Methods
 
 -(void)onLocationChanged:(CLLocation *)location {
-    
     NSArray *listeners = [_locationListeners values];
     for (id <ILocationTrackerListener> listener in listeners) {
         if ([listener respondsToSelector:@selector(onLocationChanged:)]) {
@@ -181,7 +171,6 @@
 }
 
 -(void)onLocationFailed:(NSError *)error {
-    
     NSArray *listeners = [_locationListeners values];
     for (id <ILocationTrackerListener> listener in listeners) {
         if ([listener respondsToSelector:@selector(onLocationFailed:)]) {
@@ -191,7 +180,6 @@
 }
 
 -(void)makeForegroundUpdateLocations:(CLLocation *)location {
-    
     // Start the long-running task and return immediately.
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self onLocationChanged:location];
