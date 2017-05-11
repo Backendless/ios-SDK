@@ -36,10 +36,6 @@
 -(id)remove;
 
 // async methods with responder
--(void)put:(id)entity responder:(id<IResponder>)responder;
--(void)put:(id)entity timeToLive:(int)seconds responder:(id<IResponder>)responder;
--(void)getToResponder:(id<IResponder>)responder;
--(void)containsToResponder:(id<IResponder>)responder;
 -(void)expireIn:(int)seconds responder:(id<IResponder>)responder;
 -(void)expireAt:(NSDate *)timestamp responder:(id<IResponder>)responder;
 -(void)removeToResponder:(id<IResponder>)responder;

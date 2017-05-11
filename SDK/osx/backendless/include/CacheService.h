@@ -37,7 +37,6 @@
 -(id)remove:(NSString *)key;
 
 // async methods with responder
--(void)contains:(NSString *)key responder:(id<IResponder>)responder;
 -(void)expireIn:(NSString *)key timeToLive:(int)seconds responder:(id<IResponder>)responder;
 -(void)expireAt:(NSString *)key timestamp:(NSDate *)timestamp responder:(id<IResponder>)responder;
 -(void)remove:(NSString *)key responder:(id<IResponder>)responder;
