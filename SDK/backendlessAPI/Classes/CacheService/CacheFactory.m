@@ -111,14 +111,6 @@
 
 // async methods with responder
 
--(void)expireIn:(int)seconds responder:(id<IResponder>)responder {
-    [backendless.cache expireIn:_key timeToLive:seconds responder:responder];
-}
-
--(void)expireAt:(NSDate *)timestamp responder:(id<IResponder>)responder {
-    [backendless.cache expireAt:_key timestamp:timestamp responder:responder];
-}
-
 -(void)removeToResponder:(id<IResponder>)responder {
     [backendless.cache remove:_key responder:responder];
 }

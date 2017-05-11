@@ -36,8 +36,6 @@
 -(id)remove;
 
 // async methods with responder
--(void)expireIn:(int)seconds responder:(id<IResponder>)responder;
--(void)expireAt:(NSDate *)timestamp responder:(id<IResponder>)responder;
 -(void)removeToResponder:(id<IResponder>)responder;
 
 // async methods with block-based callback

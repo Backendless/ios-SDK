@@ -99,20 +99,16 @@ static NSString *METHOD_DELETE = @"delete";
 }
 
 -(id)expireIn:(NSString *)key timeToLive:(int)seconds {
-    
     if (!key)
         return [backendless throwFault:FAULT_NO_KEY];
-    
     NSNumber *time = [NSNumber numberWithInt:((seconds > 0) && (seconds <= 7200))?seconds:0];
     NSArray *args = @[key, time];
     return [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_EXPIRE_IN args:args];
 }
 
 -(id)expireAt:(NSString *)key timestamp:(NSDate *)timestamp {
-    
     if (!key)
-        return [backendless throwFault:FAULT_NO_KEY];
-    
+        return [backendless throwFault:FAULT_NO_KEY];    
     NSArray *args = @[key, timestamp];
     return [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_EXPIRE_AT args:args];
 }
@@ -128,24 +124,6 @@ static NSString *METHOD_DELETE = @"delete";
 
 // async methods with responder
 
--(void)expireIn:(NSString *)key timeToLive:(int)seconds responder:(id<IResponder>)responder {
-    
-    if (!key)
-        return [responder errorHandler:FAULT_NO_KEY];
-    
-    NSNumber *time = [NSNumber numberWithInt:((seconds > 0) && (seconds <= 7200))?seconds:0];
-    NSArray *args = @[key, time];
-    [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_EXPIRE_IN args:args responder:responder];
-}
-
--(void)expireAt:(NSString *)key timestamp:(NSDate *)timestamp responder:(id<IResponder>)responder {
-    
-    if (!key)
-        return [responder errorHandler:FAULT_NO_KEY];
-    
-    NSArray *args = @[key, timestamp];
-    [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_EXPIRE_AT args:args responder:responder];
-}
 
 -(void)remove:(NSString *)key responder:(id<IResponder>)responder {
     
@@ -194,11 +172,20 @@ static NSString *METHOD_DELETE = @"delete";
 }
 
 -(void)expireIn:(NSString *)key timeToLive:(int)seconds response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
-    [self expireIn:key timeToLive:seconds responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!key)
+        return [responder errorHandler:FAULT_NO_KEY];
+    NSNumber *time = [NSNumber numberWithInt:((seconds > 0) && (seconds <= 7200))?seconds:0];
+    NSArray *args = @[key, time];
+    [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_EXPIRE_IN args:args responder:responder];
 }
 
--(void)expireAt:(NSString *)key timestamp:(NSDate *)timestamp response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
-    [self expireAt:key timestamp:timestamp responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+-(void)expireAt:(NSString *)key timestamp:(NSDate *)timestamp response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {    
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!key)
+        return [responder errorHandler:FAULT_NO_KEY];
+    NSArray *args = @[key, timestamp];
+    [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_EXPIRE_AT args:args responder:responder];
 }
 
 -(void)remove:(NSString *)key response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
