@@ -114,24 +114,10 @@ static NSString *METHOD_DELETE = @"delete";
 }
 
 -(id)remove:(NSString *)key {
-    
     if (!key)
-        return [backendless throwFault:FAULT_NO_KEY];
-    
+        return [backendless throwFault:FAULT_NO_KEY];    
     NSArray *args = @[key];
     return [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_DELETE args:args];
-}
-
-// async methods with responder
-
-
--(void)remove:(NSString *)key responder:(id<IResponder>)responder {
-    
-    if (!key)
-        return [responder errorHandler:FAULT_NO_KEY];
-    
-    NSArray *args = @[key];
-    [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_DELETE args:args responder:responder];
 }
 
 // async methods with block-based callbacks
@@ -189,7 +175,11 @@ static NSString *METHOD_DELETE = @"delete";
 }
 
 -(void)remove:(NSString *)key response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
-    [self remove:key responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!key)
+        return [responder errorHandler:FAULT_NO_KEY];
+    NSArray *args = @[key];
+    [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_DELETE args:args responder:responder];
 }
 
 // ICacheService factory

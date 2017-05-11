@@ -35,9 +35,6 @@
 -(id)expireAt:(NSDate *)timestamp;
 -(id)remove;
 
-// async methods with responder
--(void)removeToResponder:(id<IResponder>)responder;
-
 // async methods with block-based callback
 -(void)put:(id)entity response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
 -(void)put:(id)entity timeToLive:(int)seconds response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;

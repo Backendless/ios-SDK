@@ -109,12 +109,6 @@
     return [backendless.cache remove:_key];
 }
 
-// async methods with responder
-
--(void)removeToResponder:(id<IResponder>)responder {
-    [backendless.cache remove:_key responder:responder];
-}
-
 // async methods with block-based callback
 
 -(void)put:(id)entity response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
