@@ -207,20 +207,6 @@
         [self onLocationFailed:error];
     });
 }
-
--(void)applicationDidEnterBackground {
-    [DebLog log:@"LocationTracker -> applicationDidEnterBackground"];
-    _monitoringSignificantLocationChanges?[_locationManager stopMonitoringSignificantLocationChanges]:[_locationManager stopUpdatingLocation];
-    if (iOSVersion >= 8.0)
-        [_locationManager requestAlwaysAuthorization];
-    _monitoringSignificantLocationChanges?[_locationManager startMonitoringSignificantLocationChanges]:[_locationManager startUpdatingLocation];
-}
-
--(void)applicationDidBecomeActive {
-    [DebLog log:@"LocationTracker -> applicationDidBecomeActive"];
-    _monitoringSignificantLocationChanges?[_locationManager stopMonitoringSignificantLocationChanges]:[_locationManager stopUpdatingLocation];
-    [self startLocationManager];
-}
 #endif
 
 -(NSString *)GUIDString {
