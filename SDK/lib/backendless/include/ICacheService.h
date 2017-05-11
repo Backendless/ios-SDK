@@ -21,7 +21,6 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol IResponder;
 @class Fault;
 
 @protocol ICacheService <NSObject>

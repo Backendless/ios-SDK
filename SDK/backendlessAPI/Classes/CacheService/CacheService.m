@@ -45,17 +45,13 @@ static NSString *METHOD_DELETE = @"delete";
 @implementation CacheService
 
 -(id)init {
-	if ( (self=[super init]) ) {
-        
+	if (self=[super init]) {
 	}
-	
 	return self;
 }
 
 -(void)dealloc {
-	
 	[DebLog logN:@"DEALLOC CacheService"];
-	
 	[super dealloc];
 }
 
@@ -198,18 +194,14 @@ static NSString *METHOD_DELETE = @"delete";
 // callbacks
 
 -(id)onGet:(id)response {
-    
     if (![response isKindOfClass:[NSData class]]) {
         [DebLog logY:@"CacheService -> onGet: (ERROR) response = %@\n backendless.headers = %@", response, backendless.headers];
         return nil;
     }
-    
     NSData *data = (NSData *)response;
     BinaryStream *stream = [BinaryStream streamWithStream:(char *)[data bytes] andSize:data.length];
     id obj = [AMFSerializer deserializeFromBytes:stream];
-    
-    [DebLog log:@"CacheService -> onGet: obj = %@\n backendless.headers = %@", obj, backendless.headers];
-    
+    [DebLog log:@"CacheService -> onGet: obj = %@\n backendless.headers = %@", obj, backendless.headers];    
     return  [(NSObject *)obj isKindOfClass:[NSNull class]]?nil:obj;
 }
 

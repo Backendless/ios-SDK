@@ -37,7 +37,6 @@
         _key = @"DEFAULT_KEY";
         _entityClass = nil;
 	}
-	
 	return self;
 }
 
@@ -46,7 +45,6 @@
         _key = [key retain];
         _entityClass = [entityClass retain];
 	}
-	
 	return self;
 }
 
@@ -59,12 +57,9 @@
 }
 
 -(void)dealloc {
-	
 	[DebLog logN:@"DEALLOC CacheFactory"];
-    
     [_key release];
     [_entityClass release];
-	
 	[super dealloc];
 }
 
