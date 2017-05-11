@@ -80,17 +80,14 @@ static NSString *METHOD_DELETE = @"delete";
 }
 
 -(id)get:(NSString *)key {
-    
     if (!key)
         return [backendless throwFault:FAULT_NO_KEY];
-    
     NSArray *args = @[key];
     id result = [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_GET_BYTES args:args];
     if ([result isKindOfClass:Fault.class])
         return result;
     if (![result isKindOfClass:NSData.class])
-        return [backendless throwFault:FAULT_NO_RESULT];
-    
+        return [backendless throwFault:FAULT_NO_RESULT];    
     return [self onGet:result];
 }
 
@@ -145,17 +142,6 @@ static NSString *METHOD_DELETE = @"delete";
     [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_PUT_BYTES args:args responder:responder];
 }
 
--(void)get:(NSString *)key responder:(id<IResponder>)responder {
-    
-    if (!key)
-        return [responder errorHandler:FAULT_NO_KEY];
-    
-    NSArray *args = @[key];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onGet:) selErrorHandler:nil];
-    _responder.chained = responder;
-    [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_GET_BYTES args:args responder:_responder];
-}
-
 -(void)contains:(NSString *)key responder:(id<IResponder>)responder {
     
     if (!key)
@@ -204,7 +190,13 @@ static NSString *METHOD_DELETE = @"delete";
 }
 
 -(void)get:(NSString *)key response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
-    [self get:key responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!key)
+        return [responder errorHandler:FAULT_NO_KEY];    
+    NSArray *args = @[key];
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onGet:) selErrorHandler:nil];
+    _responder.chained = responder;
+    [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_GET_BYTES args:args responder:_responder];
 }
 
 -(void)contains:(NSString *)key response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
