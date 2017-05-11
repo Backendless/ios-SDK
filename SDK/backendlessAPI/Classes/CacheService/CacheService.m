@@ -68,13 +68,10 @@ static NSString *METHOD_DELETE = @"delete";
 }
 
 -(id)put:(NSString *)key object:(id)entity timeToLive:(int)seconds {
-    
     if (!key)
         return [backendless throwFault:FAULT_NO_KEY];
-    
     if (!entity)
-        return [backendless throwFault:FAULT_NO_ENTITY];
-    
+        return [backendless throwFault:FAULT_NO_ENTITY];    
     BinaryStream *stream = [AMFSerializer serializeToBytes:entity];
     NSData *data = [NSData dataWithBytes:stream.buffer length:stream.size];
     NSNumber *time = [NSNumber numberWithInt:((seconds > 0) && (seconds <= 7200))?seconds:0];
@@ -136,17 +133,11 @@ static NSString *METHOD_DELETE = @"delete";
 
 // async methods with responder
 
--(void)put:(NSString *)key object:(id)entity responder:(id<IResponder>)responder {
-    [self put:key object:entity timeToLive:0 responder:responder];
-}
-
 -(void)put:(NSString *)key object:(id)entity timeToLive:(int)seconds responder:(id<IResponder>)responder {
-    
     if (!key)
         return [responder errorHandler:FAULT_NO_KEY];
     if (!entity)
-        return [responder errorHandler:FAULT_NO_ENTITY];
-    
+        return [responder errorHandler:FAULT_NO_ENTITY];    
     BinaryStream *stream = [AMFSerializer serializeToBytes:entity];
     NSData *data = [NSData dataWithBytes:stream.buffer length:stream.size];
     NSNumber *time = [NSNumber numberWithInt:((seconds > 0) && (seconds <= 7200))?seconds:0];
