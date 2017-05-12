@@ -37,7 +37,6 @@
         _key = @"DEFAULT_KEY";
         _entityClass = nil;
 	}
-	
 	return self;
 }
 
@@ -46,7 +45,6 @@
         _key = [key retain];
         _entityClass = [entityClass retain];
 	}
-	
 	return self;
 }
 
@@ -59,12 +57,9 @@
 }
 
 -(void)dealloc {
-	
 	[DebLog logN:@"DEALLOC CacheFactory"];
-    
     [_key release];
     [_entityClass release];
-	
 	[super dealloc];
 }
 
@@ -84,8 +79,7 @@
     return [self put:entity timeToLive:0];
 }
 
--(id)put:(id)entity timeToLive:(int)seconds {
-    
+-(id)put:(id)entity timeToLive:(int)seconds {    
     Fault *fault = [self entityValidation:entity];
     return fault? fault : [backendless.cache put:_key object:entity timeToLive:seconds];
 }
@@ -110,37 +104,6 @@
     return [backendless.cache remove:_key];
 }
 
-// async methods with responder
-
--(void)put:(id)entity responder:(id<IResponder>)responder {
-    [self put:entity timeToLive:0 responder:responder];
-}
-
--(void)put:(id)entity timeToLive:(int)seconds responder:(id<IResponder>)responder {
-    Fault *noValid = [self entityValidation:entity];
-    noValid ? [responder errorHandler:noValid] : [backendless.cache put:_key object:entity timeToLive:seconds responder:responder];
-}
-
--(void)getToResponder:(id<IResponder>)responder {
-    [backendless.cache get:_key responder:responder];
-}
-
--(void)containsToResponder:(id<IResponder>)responder {
-    [backendless.cache contains:_key responder:responder];
-}
-
--(void)expireIn:(int)seconds responder:(id<IResponder>)responder {
-    [backendless.cache expireIn:_key timeToLive:seconds responder:responder];
-}
-
--(void)expireAt:(NSDate *)timestamp responder:(id<IResponder>)responder {
-    [backendless.cache expireAt:_key timestamp:timestamp responder:responder];
-}
-
--(void)removeToResponder:(id<IResponder>)responder {
-    [backendless.cache remove:_key responder:responder];
-}
-
 // async methods with block-based callback
 
 -(void)put:(id)entity response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
@@ -148,7 +111,9 @@
 }
 
 -(void)put:(id)entity timeToLive:(int)seconds response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
-    [self put:entity timeToLive:seconds responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id<IResponder> responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    Fault *noValid = [self entityValidation:entity];
+    noValid ? [responder errorHandler:noValid] : [backendless.cache put:_key object:entity timeToLive:seconds response:responseBlock error:errorBlock];
 }
 
 -(void)get:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {

@@ -45,17 +45,13 @@ static NSString *METHOD_DELETE = @"delete";
 @implementation CacheService
 
 -(id)init {
-	if ( (self=[super init]) ) {
-        
+	if (self=[super init]) {
 	}
-	
 	return self;
 }
 
 -(void)dealloc {
-	
 	[DebLog logN:@"DEALLOC CacheService"];
-	
 	[super dealloc];
 }
 
@@ -68,13 +64,10 @@ static NSString *METHOD_DELETE = @"delete";
 }
 
 -(id)put:(NSString *)key object:(id)entity timeToLive:(int)seconds {
-    
     if (!key)
         return [backendless throwFault:FAULT_NO_KEY];
-    
     if (!entity)
-        return [backendless throwFault:FAULT_NO_ENTITY];
-    
+        return [backendless throwFault:FAULT_NO_ENTITY];    
     BinaryStream *stream = [AMFSerializer serializeToBytes:entity];
     NSData *data = [NSData dataWithBytes:stream.buffer length:stream.size];
     NSNumber *time = [NSNumber numberWithInt:((seconds > 0) && (seconds <= 7200))?seconds:0];
@@ -83,70 +76,58 @@ static NSString *METHOD_DELETE = @"delete";
 }
 
 -(id)get:(NSString *)key {
-    
     if (!key)
         return [backendless throwFault:FAULT_NO_KEY];
-    
     NSArray *args = @[key];
     id result = [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_GET_BYTES args:args];
     if ([result isKindOfClass:Fault.class])
         return result;
     if (![result isKindOfClass:NSData.class])
-        return [backendless throwFault:FAULT_NO_RESULT];
-    
+        return [backendless throwFault:FAULT_NO_RESULT];    
     return [self onGet:result];
 }
 
 -(NSNumber *)contains:(NSString *)key {
-    
     if (!key)
         return [backendless throwFault:FAULT_NO_KEY];
-    
     NSArray *args = @[key];
     return [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_CONTAINS_KEY args:args];
 }
 
 -(id)expireIn:(NSString *)key timeToLive:(int)seconds {
-    
     if (!key)
         return [backendless throwFault:FAULT_NO_KEY];
-    
     NSNumber *time = [NSNumber numberWithInt:((seconds > 0) && (seconds <= 7200))?seconds:0];
     NSArray *args = @[key, time];
     return [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_EXPIRE_IN args:args];
 }
 
 -(id)expireAt:(NSString *)key timestamp:(NSDate *)timestamp {
-    
     if (!key)
-        return [backendless throwFault:FAULT_NO_KEY];
-    
+        return [backendless throwFault:FAULT_NO_KEY];    
     NSArray *args = @[key, timestamp];
     return [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_EXPIRE_AT args:args];
 }
 
 -(id)remove:(NSString *)key {
-    
     if (!key)
-        return [backendless throwFault:FAULT_NO_KEY];
-    
+        return [backendless throwFault:FAULT_NO_KEY];    
     NSArray *args = @[key];
     return [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_DELETE args:args];
 }
 
-// async methods with responder
+// async methods with block-based callbacks
 
--(void)put:(NSString *)key object:(id)entity responder:(id<IResponder>)responder {
-    [self put:key object:entity timeToLive:0 responder:responder];
+-(void)put:(NSString *)key object:(id)entity response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+    [self put:key object:entity timeToLive:0 response:responseBlock error:errorBlock];
 }
 
--(void)put:(NSString *)key object:(id)entity timeToLive:(int)seconds responder:(id<IResponder>)responder {
-    
+-(void)put:(NSString *)key object:(id)entity timeToLive:(int)seconds response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!key)
         return [responder errorHandler:FAULT_NO_KEY];
     if (!entity)
         return [responder errorHandler:FAULT_NO_ENTITY];
-    
     BinaryStream *stream = [AMFSerializer serializeToBytes:entity];
     NSData *data = [NSData dataWithBytes:stream.buffer length:stream.size];
     NSNumber *time = [NSNumber numberWithInt:((seconds > 0) && (seconds <= 7200))?seconds:0];
@@ -154,82 +135,47 @@ static NSString *METHOD_DELETE = @"delete";
     [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_PUT_BYTES args:args responder:responder];
 }
 
--(void)get:(NSString *)key responder:(id<IResponder>)responder {
-    
+-(void)get:(NSString *)key response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!key)
-        return [responder errorHandler:FAULT_NO_KEY];
-    
+        return [responder errorHandler:FAULT_NO_KEY];    
     NSArray *args = @[key];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onGet:) selErrorHandler:nil];
     _responder.chained = responder;
     [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_GET_BYTES args:args responder:_responder];
 }
 
--(void)contains:(NSString *)key responder:(id<IResponder>)responder {
-    
+-(void)contains:(NSString *)key response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!key)
         return [responder errorHandler:FAULT_NO_KEY];
-    
     NSArray *args = @[key];
     [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_CONTAINS_KEY args:args responder:responder];
 }
 
--(void)expireIn:(NSString *)key timeToLive:(int)seconds responder:(id<IResponder>)responder {
-    
+-(void)expireIn:(NSString *)key timeToLive:(int)seconds response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!key)
         return [responder errorHandler:FAULT_NO_KEY];
-    
     NSNumber *time = [NSNumber numberWithInt:((seconds > 0) && (seconds <= 7200))?seconds:0];
     NSArray *args = @[key, time];
     [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_EXPIRE_IN args:args responder:responder];
 }
 
--(void)expireAt:(NSString *)key timestamp:(NSDate *)timestamp responder:(id<IResponder>)responder {
-    
+-(void)expireAt:(NSString *)key timestamp:(NSDate *)timestamp response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {    
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!key)
         return [responder errorHandler:FAULT_NO_KEY];
-    
     NSArray *args = @[key, timestamp];
     [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_EXPIRE_AT args:args responder:responder];
 }
 
--(void)remove:(NSString *)key responder:(id<IResponder>)responder {
-    
+-(void)remove:(NSString *)key response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!key)
         return [responder errorHandler:FAULT_NO_KEY];
-    
     NSArray *args = @[key];
     [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_DELETE args:args responder:responder];
-}
-
-// async methods with block-based callbacks
-
--(void)put:(NSString *)key object:(id)entity response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
-    [self put:key object:entity timeToLive:0 responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
-}
-
--(void)put:(NSString *)key object:(id)entity timeToLive:(int)seconds response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
-    [self put:key object:entity timeToLive:seconds responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
-}
-
--(void)get:(NSString *)key response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
-    [self get:key responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
-}
-
--(void)contains:(NSString *)key response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
-    [self contains:key responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
-}
-
--(void)expireIn:(NSString *)key timeToLive:(int)seconds response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
-    [self expireIn:key timeToLive:seconds responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
-}
-
--(void)expireAt:(NSString *)key timestamp:(NSDate *)timestamp response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
-    [self expireAt:key timestamp:timestamp responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
-}
-
--(void)remove:(NSString *)key response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
-    [self remove:key responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 // ICacheService factory
@@ -248,18 +194,14 @@ static NSString *METHOD_DELETE = @"delete";
 // callbacks
 
 -(id)onGet:(id)response {
-    
     if (![response isKindOfClass:[NSData class]]) {
         [DebLog logY:@"CacheService -> onGet: (ERROR) response = %@\n backendless.headers = %@", response, backendless.headers];
         return nil;
     }
-    
     NSData *data = (NSData *)response;
     BinaryStream *stream = [BinaryStream streamWithStream:(char *)[data bytes] andSize:data.length];
     id obj = [AMFSerializer deserializeFromBytes:stream];
-    
-    [DebLog log:@"CacheService -> onGet: obj = %@\n backendless.headers = %@", obj, backendless.headers];
-    
+    [DebLog log:@"CacheService -> onGet: obj = %@\n backendless.headers = %@", obj, backendless.headers];    
     return  [(NSObject *)obj isKindOfClass:[NSNull class]]?nil:obj;
 }
 

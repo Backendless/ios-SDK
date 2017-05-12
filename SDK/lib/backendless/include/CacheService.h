@@ -22,7 +22,6 @@
 #import <Foundation/Foundation.h>
 #import "ICacheService.h"
 
-@protocol IResponder;
 @class Fault;
 
 @interface CacheService : NSObject
@@ -35,15 +34,6 @@
 -(id)expireIn:(NSString *)key timeToLive:(int)seconds;
 -(id)expireAt:(NSString *)key timestamp:(NSDate *)timestamp;
 -(id)remove:(NSString *)key;
-
-// async methods with responder
--(void)put:(NSString *)key object:(id)entity responder:(id<IResponder>)responder;
--(void)put:(NSString *)key object:(id)entity timeToLive:(int)seconds responder:(id<IResponder>)responder;
--(void)get:(NSString *)key responder:(id<IResponder>)responder;
--(void)contains:(NSString *)key responder:(id<IResponder>)responder;
--(void)expireIn:(NSString *)key timeToLive:(int)seconds responder:(id<IResponder>)responder;
--(void)expireAt:(NSString *)key timestamp:(NSDate *)timestamp responder:(id<IResponder>)responder;
--(void)remove:(NSString *)key responder:(id<IResponder>)responder;
 
 // async methods with block-based callbacks
 -(void)put:(NSString *)key object:(id)entity response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
