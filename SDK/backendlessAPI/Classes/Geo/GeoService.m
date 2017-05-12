@@ -291,19 +291,6 @@ static NSString *METHOD_COUNT = @"count";
     return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_COUNT args:args];
 }
 
-// async methods with responder
-
--(void)getFencePoints:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query responder:(id<IResponder>)responder {
-    if ([self isFaultGeoFenceName:geoFenceName responder:responder])
-        return;
-    BackendlessGeoQuery *geoQuery = query?query:[BackendlessGeoQuery query];
-    NSArray *args = @[geoFenceName, geoQuery];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(getResponse:) selErrorHandler:@selector(getError:)];
-    _responder.chained = responder;
-    _responder.context = geoQuery;
-    [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_POINTS args:args responder:_responder];
-}
-
 // async methods with block-based callbacks
 
 -(void)addCategory:(NSString *)categoryName response:(void(^)(GeoCategory *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -353,11 +340,19 @@ static NSString *METHOD_COUNT = @"count";
 }
 
 -(void)getFencePoints:(NSString *)geoFenceName response:(void(^)(NSArray<GeoPoint *> *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self getFencePoints:geoFenceName query:nil responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    [self getFencePoints:geoFenceName query:nil response:responseBlock error:errorBlock];
 }
 
 -(void)getFencePoints:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query response:(void(^)(NSArray<GeoPoint *> *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self getFencePoints:geoFenceName query:query responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if ([self isFaultGeoFenceName:geoFenceName responder:responder])
+        return;
+    BackendlessGeoQuery *geoQuery = query?query:[BackendlessGeoQuery query];
+    NSArray *args = @[geoFenceName, geoQuery];
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(getResponse:) selErrorHandler:@selector(getError:)];
+    _responder.chained = responder;
+    _responder.context = geoQuery;
+    [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_POINTS args:args responder:_responder];
 }
 
 -(void)relativeFind:(BackendlessGeoQuery *)query response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -398,7 +393,7 @@ static NSString *METHOD_COUNT = @"count";
     [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_RUN_ON_ENTER_ACTION args:args responder:responder];
 }
 
--(void)runOnEnterAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {    
+-(void)runOnEnterAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if ([self isFaultGeoFenceName:geoFenceName responder:responder] || [self isFaultGeoPoint:geoPoint responder:responder])
         return;
@@ -407,7 +402,7 @@ static NSString *METHOD_COUNT = @"count";
 }
 
 -(void)runOnStayAction:(NSString *)geoFenceName response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
-    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];    
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if ([self isFaultGeoFenceName:geoFenceName responder:responder])
         return;
     NSArray *args = @[geoFenceName];
