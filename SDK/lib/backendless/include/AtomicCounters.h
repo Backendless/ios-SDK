@@ -38,17 +38,6 @@
 -(NSNumber *)compareAndSet:(NSString *)counterName expected:(long)expected updated:(long)updated;
 -(id)reset:(NSString *)counterName;
 
-// async methods with responder
--(void)get:(NSString *)counterName responder:(id<IResponder>)responder;
--(void)getAndIncrement:(NSString *)counterName responder:(id<IResponder>)responder;
--(void)incrementAndGet:(NSString *)counterName responder:(id<IResponder>)responder;
--(void)getAndDecrement:(NSString *)counterName responder:(id<IResponder>)responder;
--(void)decrementAndGet:(NSString *)counterName responder:(id<IResponder>)responder;
--(void)addAndGet:(NSString *)counterName value:(long)value responder:(id<IResponder>)responder;
--(void)getAndAdd:(NSString *)counterName value:(long)value responder:(id<IResponder>)responder;
--(void)compareAndSet:(NSString *)counterName expected:(long)expected updated:(long)updated responder:(id<IResponder>)responder;
--(void)reset:(NSString *)counterName responder:(id<IResponder>)responder;
-
 // async methods with block-based callbacks
 -(void)get:(NSString *)counterName response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
 -(void)getAndIncrement:(NSString *)counterName response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
