@@ -31,13 +31,17 @@ static NSString *METHOD_DISPATCH_EVENT = @"dispatchEvent";
 @implementation Events
 
 -(id)init {
-	if (self = [super init]) {
+	if ( (self=[super init]) ) {
+        
 	}
+	
 	return self;
 }
 
 -(void)dealloc {
-	[DebLog logN:@"DEALLOC Events"];	
+	
+	[DebLog logN:@"DEALLOC Events"];
+	
 	[super dealloc];
 }
 
@@ -47,15 +51,22 @@ static NSString *METHOD_DISPATCH_EVENT = @"dispatchEvent";
 // sync methods with fault return (as exception)
 
 -(NSDictionary *)dispatch:(NSString *)name args:(NSDictionary *)eventArgs {
+    
     NSArray *args = @[name, eventArgs];
     return [invoker invokeSync:SERVER_EVENTS_PATH method:METHOD_DISPATCH_EVENT args:args];
+}
+
+// async methods with responder
+
+-(void)dispatch:(NSString *)name args:(NSDictionary *)eventArgs responder:(id<IResponder>)responder {
+    NSArray *args = @[name, eventArgs];
+    [invoker invokeAsync:SERVER_EVENTS_PATH method:METHOD_DISPATCH_EVENT args:args responder:responder];
 }
 
 // async methods with block-based callbacks
 
 -(void)dispatch:(NSString *)name args:(NSDictionary *)eventArgs response:(void (^)(NSDictionary *))responseBlock error:(void (^)(Fault *))errorBlock {
-    NSArray *args = @[name, eventArgs];
-    [invoker invokeAsync:SERVER_EVENTS_PATH method:METHOD_DISPATCH_EVENT args:args responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    [self dispatch:name args:eventArgs responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 @end

@@ -356,6 +356,20 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     return [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_MESSAGE_STATUS args:args];
 }
 
+// async methods with responder
+
+-(void)registerDeviceAsync:(id<IResponder>)responder {
+    if (!deviceRegistration.deviceToken) {
+        [DebLog logY:@"MessagingService -> registerDeviceASync (ERROR): deviceToken is not exist"];
+        return [responder errorHandler:FAULT_NO_DEVICE_TOKEN];
+    }
+    [DebLog log:@"MessagingService -> registerDeviceAsync (ASYNC): %@", deviceRegistration];
+    NSArray *args = [NSArray arrayWithObjects:deviceRegistration, nil];
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onRegistering:) selErrorHandler:nil];
+    _responder.chained = responder;
+    [invoker invokeAsync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_REGISTER_DEVICE args:args responder:_responder];
+}
+
 -(void)unregisterDeviceAsync:(NSString *)deviceId responder:(id<IResponder>)responder {
     if (!deviceId)
         return [responder errorHandler:FAULT_NO_DEVICE_ID];
@@ -396,38 +410,28 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 
 // async methods with block-based callbacks
 
-//-(void)registerDeviceAsync:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
-//    [self registerDeviceAsync:responseBlock error:errorBlock];
-//}
-
--(void)registerDeviceAsync:(void (^)(NSString *))responseBlock error:(void (^)(Fault *))errorBlock {
-    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
-    if (!deviceRegistration.deviceToken) {
-        [DebLog logY:@"MessagingService -> registerDeviceASync (ERROR): deviceToken is not exist"];
-        return [responder errorHandler:FAULT_NO_DEVICE_TOKEN];
-    }
-    [DebLog log:@"MessagingService -> registerDeviceAsync (ASYNC): %@", deviceRegistration];
-    NSArray *args = [NSArray arrayWithObjects:deviceRegistration, nil];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onRegistering:) selErrorHandler:nil];
-    _responder.chained = responder;
-    [invoker invokeAsync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_REGISTER_DEVICE args:args responder:_responder];
+-(void)registerDeviceAsync:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self registerDeviceAsync:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 -(void)registerDevice:(NSData *)deviceToken response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
     deviceRegistration.deviceToken = [self deviceTokenAsString:deviceToken];
-    [self registerDeviceAsync:responseBlock error:errorBlock];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    [self registerDeviceAsync:responder];
 }
 
 -(void)registerDevice:(NSData *)deviceToken channels:(NSArray<NSString *> *)channels response:(void (^)(NSString *))responseBlock error:(void (^)(Fault *))errorBlock {
     deviceRegistration.deviceToken = [self deviceTokenAsString:deviceToken];
     deviceRegistration.channels = channels;
-    [self registerDeviceAsync:responseBlock error:errorBlock];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    [self registerDeviceAsync:responder];
 }
 
 -(void)registerDevice:(NSData *)deviceToken expiration:(NSDate *)expiration response:(void (^)(NSString *))responseBlock error:(void (^)(Fault *))errorBlock {
     deviceRegistration.deviceToken = [self deviceTokenAsString:deviceToken];
     deviceRegistration.expiration = expiration;
-    [self registerDeviceAsync:responseBlock error:errorBlock];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    [self registerDeviceAsync:responder];
 }
 
 -(void)registerDevice:(NSData *)deviceToken channels:(NSArray<NSString *> *)channels expiration:(NSDate *)expiration response:(void (^)(NSString *))responseBlock error:(void (^)(Fault *))errorBlock {
