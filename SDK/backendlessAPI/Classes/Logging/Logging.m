@@ -28,7 +28,6 @@
 @interface Logging () {
     NSMutableDictionary *loggers;
 }
-
 @end
 
 @implementation Logging
@@ -41,12 +40,9 @@
 }
 
 -(void)dealloc {
-    
     [DebLog logN:@"DEALLOC Logging"];
-    
     [loggers removeAllObjects];
     [loggers release];
-    
     [super dealloc];
 }
 
@@ -70,8 +66,7 @@
     Logger *logger = loggers[loggerName];
     if (!logger) {
         loggers[loggerName] = logger = [Logger logger:loggerName];
-    }
-    
+    }    
     return logger;
 }
 
