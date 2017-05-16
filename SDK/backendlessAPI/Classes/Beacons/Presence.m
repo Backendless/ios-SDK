@@ -26,48 +26,26 @@
 @implementation Presence
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 
-// async methods with responder
-
--(void)startMonitoring:(id<IResponder>)responder {
-    [self startMonitoring:BEACON_DEFAULT_DISCOVERY responder:responder];
-}
-
--(void)startMonitoring:(BOOL)runDiscovery responder:(id<IResponder>)responder {
-    [self startMonitoring:runDiscovery frequency:BEACON_DEFAULT_FREQUENCY responder:responder];
-}
-
--(void)startMonitoring:(BOOL)runDiscovery frequency:(int)frequency responder:(id<IResponder>)responder {
-    [self startMonitoring:runDiscovery frequency:frequency listener:nil responder:responder];
-}
-
--(void)startMonitoring:(BOOL)runDiscovery frequency:(int)frequency listener:(id<IPresenceListener>)listener responder:(id<IResponder>)responder {
-    [self startMonitoring:runDiscovery frequency:frequency listener:listener distanceChange:BEACON_DEFAUTL_DISTANCE_CHANGE responder:responder];
-}
-
--(void)startMonitoring:(BOOL)runDiscovery frequency:(int)frequency listener:(id<IPresenceListener>)listener distanceChange:(double)distanceChange responder:(id<IResponder>)responder {
-    [[BeaconTracker sharedInstance] startMonitoring:runDiscovery frequency:frequency listener:listener distanceChange:distanceChange responder:responder];
-}
-
 // async methods with block-based callbacks
 
 -(void)startMonitoring:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self startMonitoring:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    [self startMonitoring:BEACON_DEFAULT_DISCOVERY frequency:BEACON_DEFAULT_FREQUENCY listener:nil distanceChange:BEACON_DEFAUTL_DISTANCE_CHANGE response:responseBlock error:errorBlock];
 }
 
 -(void)startMonitoring:(BOOL)runDiscovery response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self startMonitoring:runDiscovery responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    [self startMonitoring:runDiscovery frequency:BEACON_DEFAULT_FREQUENCY listener:nil distanceChange:BEACON_DEFAUTL_DISTANCE_CHANGE response:responseBlock error:errorBlock];
 }
 
 -(void)startMonitoring:(BOOL)runDiscovery frequency:(int)frequency response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self startMonitoring:runDiscovery frequency:frequency responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    [self startMonitoring:runDiscovery frequency:frequency listener:nil distanceChange:BEACON_DEFAUTL_DISTANCE_CHANGE response:responseBlock error:errorBlock];
 }
 
 -(void)startMonitoring:(BOOL)runDiscovery frequency:(int)frequency listener:(id<IPresenceListener>)listener response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self startMonitoring:runDiscovery frequency:frequency listener:listener responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    [self startMonitoring:runDiscovery frequency:frequency listener:listener distanceChange:BEACON_DEFAUTL_DISTANCE_CHANGE response:responseBlock error:errorBlock];
 }
 
 -(void)startMonitoring:(BOOL)runDiscovery frequency:(int)frequency listener:(id<IPresenceListener>)listener distanceChange:(double)distanceChange response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self startMonitoring:runDiscovery frequency:frequency listener:listener distanceChange:distanceChange responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    [[BeaconTracker sharedInstance] startMonitoring:runDiscovery frequency:frequency listener:listener distanceChange:distanceChange responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 // sync methods
