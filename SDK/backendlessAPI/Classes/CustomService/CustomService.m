@@ -36,6 +36,7 @@ static NSString *METHOD_DISPATCH_SERVICE = @"dispatchService";
 
 // sync methods with fault return (as exception)
 -(id)invoke:(NSString *)serviceName serviceVersion:(NSString *)serviceVersion method:(NSString *)method args:(NSArray *)args {
+    
     if (!serviceName) {
         return [backendless throwFault:FAULT_NO_SERVICE];
     } if (!method) {
@@ -43,21 +44,28 @@ static NSString *METHOD_DISPATCH_SERVICE = @"dispatchService";
     } if (!serviceVersion) {
         return [backendless throwFault:FAULT_NO_SERVICE_VERSION];
     }
+    
     NSArray *_args = @[serviceName, serviceVersion, method, args?args:@[]];
     return [invoker invokeSync:SERVER_CUSTOM_SERVICE_PATH method:METHOD_DISPATCH_SERVICE args:_args];
 }
 
-// async methods with block-based callbacks
--(void)invoke:(NSString *)serviceName serviceVersion:(NSString *)serviceVersion method:(NSString *)method args:(NSArray *)args response:(void(^)(id))responseBlock error:(void(^)(Fault *fault))errorBlock {
-    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+// async methods with responder
+-(void)invoke:(NSString *)serviceName serviceVersion:(NSString *)serviceVersion method:(NSString *)method args:(NSArray *)args responder:(id <IResponder>)responder {
+    
     if (!serviceName)
         return [responder errorHandler:FAULT_NO_SERVICE];
     if (!method)
         return [responder errorHandler:FAULT_NO_SERVICE_METHOD];
     if (!serviceVersion)
         return [responder errorHandler:FAULT_NO_SERVICE_VERSION];
+    
     NSArray *_args = @[serviceName, serviceVersion, method, args?args:@[]];
     [invoker invokeAsync:SERVER_CUSTOM_SERVICE_PATH method:METHOD_DISPATCH_SERVICE args:_args responder:responder];
+}
+
+// async methods with block-based callbacks
+-(void)invoke:(NSString *)serviceName serviceVersion:(NSString *)serviceVersion method:(NSString *)method args:(NSArray *)args response:(void(^)(id))responseBlock error:(void(^)(Fault *fault))errorBlock {
+    [self invoke:serviceName serviceVersion:serviceVersion method:method args:args responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 @end

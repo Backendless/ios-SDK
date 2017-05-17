@@ -37,17 +37,6 @@
 -(NSNumber *)compareAndSet:(long)expected updated:(long)updated;
 -(id)reset;
 
-// async methods with responder
--(void)getToResponder:(id<IResponder>)responder;
--(void)getAndIncrementToResponder:(id<IResponder>)responder;
--(void)incrementAndGetToResponder:(id<IResponder>)responder;
--(void)getAndDecrementToResponder:(id<IResponder>)responder;
--(void)decrementAndGetToResponder:(id<IResponder>)responder;
--(void)addAndGet:(long)value responder:(id<IResponder>)responder;
--(void)getAndAdd:(long)value responder:(id<IResponder>)responder;
--(void)compareAndSet:(long)expected updated:(long)updated responder:(id<IResponder>)responder;
--(void)resetToResponder:(id<IResponder>)responder;
-
 // async methods with block-based callback
 -(void)get:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
 -(void)getAndIncrement:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;

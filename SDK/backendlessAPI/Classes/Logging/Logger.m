@@ -30,20 +30,15 @@
 @implementation Logger
 
 -(id)init {
-    
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         _name = nil;
     }
-    
     return self;
 }
 
 -(void)dealloc {
-    
     [DebLog logN:@"DEALLOC Logger"];
-    
-    [_name release];
-    
+    [_name release];    
     [super dealloc];
 }
 

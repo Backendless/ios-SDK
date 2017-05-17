@@ -99,44 +99,6 @@
     return [backendless.counters reset:_name];
 }
 
-// async methods with responder
-
--(void)getToResponder:(id<IResponder>)responder {
-    [backendless.counters get:_name responder:responder];
-}
-
--(void)getAndIncrementToResponder:(id<IResponder>)responder {
-    [backendless.counters getAndIncrement:_name responder:responder];
-}
-
--(void)incrementAndGetToResponder:(id<IResponder>)responder {
-    [backendless.counters incrementAndGet:_name responder:responder];
-}
-
--(void)getAndDecrementToResponder:(id<IResponder>)responder {
-    [backendless.counters getAndDecrement:_name responder:responder];
-}
-
--(void)decrementAndGetToResponder:(id<IResponder>)responder {
-    [backendless.counters decrementAndGet:_name responder:responder];
-}
-
--(void)addAndGet:(long)value responder:(id<IResponder>)responder {
-    [backendless.counters addAndGet:_name value:value responder:responder];
-}
-
--(void)getAndAdd:(long)value responder:(id<IResponder>)responder {
-    [backendless.counters getAndAdd:_name value:value responder:responder];
-}
-
--(void)compareAndSet:(long)expected updated:(long)updated responder:(id<IResponder>)responder {
-    [backendless.counters compareAndSet:_name expected:expected updated:updated responder:responder];
-}
-
--(void)resetToResponder:(id<IResponder>)responder {
-    [backendless.counters reset:_name responder:responder];
-}
-
 // async methods with block-based callback
 
 -(void)get:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
