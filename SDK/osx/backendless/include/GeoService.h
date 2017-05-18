@@ -32,7 +32,7 @@ typedef struct {
 } GEO_RECT;
 
 @class GeoPoint, BackendlessGeoQuery, GeoCategory, Fault;
-@protocol IResponder, IGeofenceCallback;
+@protocol IGeofenceCallback;
 
 @interface GeoService : NSObject
 
@@ -79,6 +79,7 @@ typedef struct {
 -(void)runOnExitAction:(NSString *)geoFenceName geoPoint:(GeoPoint *)geoPoint response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getGeopointCount:(BackendlessGeoQuery *)query response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getGeopointCount:(NSString *)geoFenceName query:(BackendlessGeoQuery *)query response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
+
 // utilites
 -(GEO_RECT)geoRectangle:(GEO_POINT)center length:(double)length width:(double)width;
 
