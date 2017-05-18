@@ -1,7 +1,7 @@
 Backendless SDK for iOS (http://backendless.com)
 ---
 
-# Version 4.0 Beta 6
+# Version 4.0 Beta 7
 The source code for version 4.0 is currently available in a separate branch of this repository: https://github.com/Backendless/ios-SDK/tree/4.0
 > For the instructions for version 3.x of the library, see [Backendless 3.x Getting Started Guide](https://backendless.com/mobile-developers/quick-start-guide-for-ios/ "Backendless 3.x Getting Started Guide")
 
@@ -29,7 +29,7 @@ To create a new project with CocoaPods, follow the instructions below:
 3. Create a Podfile. This can be done by running `pod init`.
 4. Open your Podfile with a text editor, and add the following
 ```
-pod 'Backendless', '4.0b6'
+pod 'Backendless', '4.0b7'
 ```
 5. Save Podfile, return to Terminal window and run `pod install`. Once all of the pod data is downloaded, Xcode project workspace file will be created. This is the file you must open when working on your app.
 6. Open .xcworkspace file to launch your project.
@@ -37,6 +37,14 @@ pod 'Backendless', '4.0b6'
 `${PODS_ROOT}/Headers/Public/Backendless/Backendless-Bridging-Header.h`
 
 ## RELEASE HISTORY
+4.0b7 May 19, 2017
+* RegisterDevice now returns deviceId instead of registrationId 
+* Geolocation API cleanup - removed methods with the IResponder (async) and Fault (sync) arguments
+* Removed AppDelegate methods from LocationTracker
+* Caching API cleanup -  removed methods with the IResponder (async) and Fault (sync) arguments
+* Atomic Counters API cleanup -  removed methods with the IResponder (async) and Fault (sync) arguments
+* Fixed warnings in the library build
+
 4.0b6 April 28, 2017
 * Fixed problem with MessagingService.m reported as an excluded class in a build for a device
 * Made changes in BackendlessUser so that it is represented as a dictionary in the dictionary-based data retrieval
