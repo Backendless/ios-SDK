@@ -61,7 +61,7 @@
     }
     else {
         
-        [writer beginWriteNamedObject:className fields:fields.count];
+        [writer beginWriteNamedObject:className fields:(int)fields.count];
         
         if (!className) {
             [cache addToTraitsCache:traitsClassId];

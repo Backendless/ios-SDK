@@ -891,20 +891,11 @@
         
         //
         if (useSSL) {
-            
-            NSDictionary *settings = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                      // ssl
-                                      [NSNumber numberWithBool:NO], kCFStreamSSLAllowsExpiredCertificates,
-                                      [NSNumber numberWithBool:NO], kCFStreamSSLAllowsExpiredRoots,
-                                      [NSNumber numberWithBool:YES], kCFStreamSSLAllowsAnyRoot,
-                                      kCFNull, kCFStreamSSLPeerName,
-                                      kCFStreamSocketSecurityLevelNegotiatedSSL, kCFStreamSSLLevel,
-                                      // background
-                                      kCFStreamNetworkServiceTypeBackground, kCFStreamNetworkServiceType,
-                                      nil];
-            
-            CFReadStreamSetProperty((CFReadStreamRef)inputStream, kCFStreamPropertySSLSettings, (CFTypeRef)settings);
-            CFWriteStreamSetProperty((CFWriteStreamRef)outputStream, kCFStreamPropertySSLSettings, (CFTypeRef)settings);
+            NSDictionary *settings = @{// ssl
+                                       (NSString *)kCFStreamSSLPeerName:(id)kCFNull,
+                                       (NSString *)kCFStreamSSLLevel:(NSString *)kCFStreamSocketSecurityLevelNegotiatedSSL,
+                                       // background
+                                       (NSString *)kCFStreamNetworkServiceType:(NSString *)kCFStreamNetworkServiceTypeBackground};
             
             [DebLog log:@"Socket use the options:\n %@", settings];
         }
@@ -1071,11 +1062,6 @@
 	if (lengthHandshake < 2*HANDSHAKE_SIZE) 
 		return;
     
-    //[self printHandshake];
-    
-    // CHECK THE WEBORB SIGN
-    [self checkServer];
-	
 	[self sendSecondHandshake];
 	state = STATE_CONNECT;	
 	
@@ -1118,7 +1104,7 @@
         }
         
         if (bufferSize <= 0) {
-            bufferSize = chunk.size;
+            bufferSize = (int)chunk.size;
             outputSize = 0;
             [DebLog logN:@"sendChunk -> started ( out %d, rest %d ) bytes ---->", outputSize, bufferSize];
         }
@@ -1126,7 +1112,7 @@
         // single transaction is limited by RTMP_TRANSACTION_SIZE
         int size = (bufferSize < RTMP_TRANSACTION_SIZE) ? bufferSize : RTMP_TRANSACTION_SIZE;
         memmove(outputBuffer, &chunk.buffer[outputSize], size);
-        int result = [outputStream write:outputBuffer maxLength:size];
+        int result = (int)[outputStream write:outputBuffer maxLength:size];
         if (result < 0) {
             NSError *error = [outputStream streamError];
             [DebLog logY:@"RTMPClient -> sendChunk: result = %d (error code = %d <%@>)", result, [error code], [error localizedDescription]];
@@ -1181,7 +1167,7 @@
 -(void)errorOccured:(NSError *)error {
     
 	[self eraseSocket];
-    [self connectFailedEvent:[error code] description:[error localizedDescription]];
+    [self connectFailedEvent:(int)[error code] description:[error localizedDescription]];
 }
 
 -(void)endEncountered {

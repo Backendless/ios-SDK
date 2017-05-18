@@ -57,7 +57,6 @@ static NSString *METHOD_REMOVE = @"remove";
 static NSString *METHOD_FIND = @"find";
 static NSString *METHOD_FINDBYID = @"findById";
 static NSString *METHOD_LOAD = @"loadRelations";
-static NSString *METHOD_CALL_STORED_VIEW = @"callStoredView";
 static NSString *METHOD_CALL_STORED_PROCEDURE = @"callStoredProcedure";
 static NSString *METHOD_COUNT = @"count";
 static NSString *DELETE_RELATION = @"deleteRelation";
@@ -75,10 +74,8 @@ NSString *LOAD_ALL_RELATIONS = @"*";
 -(NSString *)objectClassName:(id)object;
 -(NSDictionary *)propertyDictionary:(id)object;
 -(id)propertyObject:(id)object;
--(NSArray *)getAsCollection:(id)data queryBuilder:(DataQueryBuilder *)queryBuilder;
 -(id)setRelations:(NSArray *)relations object:(id)object response:(id)response;
 // callbacks
--(id)setCurrentPageSize:(ResponseContext *)collection;
 -(id)loadRelations:(ResponseContext *)response;
 -(id)createResponse:(ResponseContext *)response;
 @end
@@ -414,6 +411,24 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args];
 }
 
+-(id)findByObject:(NSString *)className keys:(NSDictionary *)props relations:(NSArray *)relations {
+    if (!className)
+        return [backendless throwFault:FAULT_NO_ENTITY];
+    if (!props)
+        return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
+    NSArray *args = @[className, props, relations];
+    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args];
+}
+
+-(id)findByObject:(NSString *)className keys:(NSDictionary *)props relations:(NSArray *)relations relationsDepth:(int)relationsDepth {
+    if (!className)
+        return [backendless throwFault:FAULT_NO_ENTITY];
+    if (!props)
+        return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
+    NSArray *args = @[className, props, relations, @(relationsDepth)];
+    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args];
+}
+
 -(id)findById:(NSString *)entityName objectId:(NSString *)objectId {
     if (!entityName) {
         return [backendless throwFault:FAULT_NO_ENTITY];
@@ -479,15 +494,6 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     }
     NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], sid, nil];
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_REMOVE args:args];
-}
-
--(NSArray *)getView:(NSString *)viewName queryBuilder:(DataQueryBuilder *)queryBuilder {
-    if (!viewName) {
-        return [backendless throwFault:FAULT_NAME_IS_NULL];
-    }
-    NSArray *args = @[viewName, [queryBuilder build]];
-    id result = [backendlessCache invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_CALL_STORED_VIEW args:args];
-    return [result isKindOfClass:[Fault class]] ? result : [self getAsCollection:result queryBuilder:queryBuilder];
 }
 
 -(NSArray *)callStoredProcedure:(NSString *)spName arguments:(NSDictionary *)arguments {
@@ -911,19 +917,6 @@ NSString *LOAD_ALL_RELATIONS = @"*";
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_REMOVE args:args responder:chainedResponder];
 }
 
--(void)getView:(NSString *)viewName queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
-    Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
-    if (!viewName) {
-        return [chainedResponder errorHandler:FAULT_NAME_IS_NULL];
-    }
-    BackendlessDataQuery *dataQuery = [queryBuilder build];
-    NSArray *args = @[viewName, dataQuery];
-    Responder *_responder = [Responder responder:chainedResponder selResponseHandler:@selector(setCurrentPageSize:) selErrorHandler:nil];
-    _responder.context = dataQuery;
-    _responder.chained = chainedResponder;
-    [backendlessCache invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_CALL_STORED_VIEW args:args responder:_responder];
-}
-
 -(void)callStoredProcedure:(NSString *)spName arguments:(NSDictionary *)arguments response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!spName) {
@@ -1225,19 +1218,6 @@ id get_object_id(id self, SEL _cmd) {
     return object;
 }
 
--(NSArray *)getAsCollection:(id)data queryBuilder:(DataQueryBuilder *)queryBuilder {
-    NSArray *collection = nil;
-    if ([data isKindOfClass:[NSArray class]]) {
-        collection = data;
-    }
-    else if ([data isKindOfClass:[NSDictionary class]]) {
-        collection = [[NSArray new] autorelease];
-        [collection resolveProperties:data];
-    }
-    [DebLog logN:@"PersistenceService -> getAsCollection: %@ -> \n%@", data, collection];
-    return collection;
-}
-
 -(id)setRelations:(NSArray *)relations object:(id)object response:(id)response {
 #if 0
     for (NSString *propertyName in relations) {
@@ -1259,10 +1239,6 @@ id get_object_id(id self, SEL _cmd) {
     }
     
 #pragma mark Callback Methods
-    
-    -(id)setCurrentPageSize:(ResponseContext *)response {
-        return [self getAsCollection:response.response query:response.context];
-    }
     
     -(id)loadRelations:(ResponseContext *)response {
         NSArray *relations = [response.context valueForKey:@"relations"];

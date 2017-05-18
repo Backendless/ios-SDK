@@ -51,7 +51,7 @@
 		return;
 	
 	NSArray *arrayObj = [obj isKindOfClass:[NSSet class]] ? [obj allObjects] : (NSArray *)obj;
-	int length = [arrayObj count];
+	int length = (int)[arrayObj count];
 	
 	[writer beginWriteArray:length];
 	

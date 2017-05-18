@@ -295,7 +295,7 @@
             case CLIENT_UPDATE_ATTRIBUTE: {
                 [outBuf writeChar:(char)type];
                 NSString *key = [evt getKey];
-                [outBuf writeInt:key.length+2];
+                [outBuf writeInt:(int)key.length+2];
                 [outBuf writeString:key];
                 break;
             }
@@ -365,7 +365,7 @@
                 [outBuf writeChar:(char)type];
                 NSString *status = [evt getKey];
                 NSString *message = (NSString *)[evt getValue];
-                [outBuf writeInt:(message.length + status.length+4)];
+                [outBuf writeInt:((int)message.length + (int)status.length+4)];
                 [outBuf writeString:message];
                 [outBuf writeString:status];
                 break;

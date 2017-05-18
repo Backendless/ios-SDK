@@ -173,7 +173,7 @@
 
 -(int)pendingSize {
     int headerSize = header.size;
-    int dataSize = data.size;
+    int dataSize = (int)data.size;
 	return headerSize - dataSize;
 }
 
@@ -223,7 +223,7 @@
 		return;
 	
 	[data seek:4];
-	unsigned int size = data.size - [self headerSize];
+	unsigned int size = (int)data.size - [self headerSize];
 	[data writeUInt24:size];
 	
 	if ([DebLog getIsActive]) {

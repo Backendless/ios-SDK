@@ -99,9 +99,9 @@
         return;
 
     if (className)
-        [writer beginWriteNamedObject:className fields:[objectFields count]];
+        [writer beginWriteNamedObject:className fields:(int)[objectFields count]];
     else 
-        [writer beginWriteObject:[objectFields count]];
+        [writer beginWriteObject:(int)[objectFields count]];
     
     NSArray *fields = [objectFields allKeys];
     for (NSString *fieldName in fields) {

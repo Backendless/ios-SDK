@@ -174,7 +174,7 @@
 }
 
 -(int)getPropertyCount {
-    return props.count;
+    return (int)props.count;
 }
 
 -(NSString *)getProperty:(int)index {

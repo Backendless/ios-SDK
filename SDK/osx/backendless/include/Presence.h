@@ -26,12 +26,6 @@
 
 @interface Presence : NSObject
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-// async methods with responder
--(void)startMonitoring:(id<IResponder>)responder;
--(void)startMonitoring:(BOOL)runDiscovery responder:(id<IResponder>)responder;
--(void)startMonitoring:(BOOL)runDiscovery frequency:(int)frequency responder:(id<IResponder>)responder;
--(void)startMonitoring:(BOOL)runDiscovery frequency:(int)frequency listener:(id<IPresenceListener>)listener responder:(id<IResponder>)responder;
--(void)startMonitoring:(BOOL)runDiscovery frequency:(int)frequency listener:(id<IPresenceListener>)listener distanceChange:(double)distanceChange responder:(id<IResponder>)responder;
 
 // async methods with block-based callbacks
 -(void)startMonitoring:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
@@ -42,5 +36,6 @@
 
 // sync methods
 -(void)stopMonitoring;
+
 #endif
 @end

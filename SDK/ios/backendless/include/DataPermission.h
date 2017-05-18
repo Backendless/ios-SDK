@@ -28,7 +28,6 @@ typedef enum {
 } DataPermissionOperation;
 
 @class Fault;
-@protocol IResponder;
 
 @interface DataPermission : NSObject
 
@@ -41,16 +40,6 @@ typedef enum {
 -(id)denyForAllUsers:(id)entity operation:(DataPermissionOperation)operation;
 -(id)grantForAllRoles:(id)entity operation:(DataPermissionOperation)operation;
 -(id)denyForAllRoles:(id)entity operation:(DataPermissionOperation)operation;
-
-// async methods with responder
--(void)grantForUser:(NSString *)userId entity:(id)entity operation:(DataPermissionOperation)operation responder:(id <IResponder>)responder;
--(void)denyForUser:(NSString *)userId entity:(id)entity operation:(DataPermissionOperation)operation responder:(id <IResponder>)responder;
--(void)grantForRole:(NSString *)roleName entity:(id)entity operation:(DataPermissionOperation)operation responder:(id <IResponder>)responder;
--(void)denyForRole:(NSString *)roleName entity:(id)entity operation:(DataPermissionOperation)operation responder:(id <IResponder>)responder;
--(void)grantForAllUsers:(id)entity operation:(DataPermissionOperation)operation responder:(id <IResponder>)responder;
--(void)denyForAllUsers:(id)entity operation:(DataPermissionOperation)operation responder:(id <IResponder>)responder;
--(void)grantForAllRoles:(id)entity operation:(DataPermissionOperation)operation responder:(id <IResponder>)responder;
--(void)denyForAllRoles:(id)entity operation:(DataPermissionOperation)operation responder:(id <IResponder>)responder;
 
 // async methods with block-based callbacks
 -(void)grantForUser:(NSString *)userId entity:(id)entity operation:(DataPermissionOperation)operation response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;

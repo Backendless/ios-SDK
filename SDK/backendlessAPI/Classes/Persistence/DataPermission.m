@@ -54,230 +54,163 @@ static NSString *_DENY = @"DENY";
     return [objectId isKindOfClass:[NSString class]]?objectId:object;
 }
 
-
 #pragma mark -
 #pragma mark Public Methods
 
 // sync methods with fault return (as exception)
 
 -(id)grantForUser:(NSString *)userId entity:(id)entity operation:(DataPermissionOperation)operation {
-    
     if (!userId)
         return [backendless throwFault:FAULT_NO_USER_ID];
-    
     id sid = [self getEntityId:entity];
     if (!sid)
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
-    
     NSArray *args = @[[backendless.data objectClassName:entity], userId, sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
     return [invoker invokeSync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_USER_PERMISSION args:args];
 }
 
 -(id)denyForUser:(NSString *)userId entity:(id)entity operation:(DataPermissionOperation)operation {
-    
     if (!userId)
         return [backendless throwFault:FAULT_NO_USER_ID];
-    
     id sid = [self getEntityId:entity];
     if (!sid)
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
-    
     NSArray *args = @[[backendless.data objectClassName:entity], userId, sid, DATA_PERMISSION_OPERATION[operation], _DENY];
     return [invoker invokeSync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_USER_PERMISSION args:args];
 }
 
 -(id)grantForRole:(NSString *)roleName entity:(id)entity operation:(DataPermissionOperation)operation {
-    
     if (!roleName)
         return [backendless throwFault:FAULT_NO_ROLE_NAME];
-    
     id sid = [self getEntityId:entity];
     if (!sid)
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
-    
     NSArray *args = @[[backendless.data objectClassName:entity], roleName, sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
     return [invoker invokeSync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ROLE_PERMISSION args:args];
 }
 
 -(id)denyForRole:(NSString *)roleName entity:(id)entity operation:(DataPermissionOperation)operation {
-    
     if (!roleName)
         return [backendless throwFault:FAULT_NO_ROLE_NAME];
-    
     id sid = [self getEntityId:entity];
     if (!sid)
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
-    
     NSArray *args = @[[backendless.data objectClassName:entity], roleName, sid, DATA_PERMISSION_OPERATION[operation], _DENY];
     return [invoker invokeSync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ROLE_PERMISSION args:args];
 }
 
 -(id)grantForAllUsers:(id)entity operation:(DataPermissionOperation)operation {
-    
     id sid = [self getEntityId:entity];
     if (!sid)
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
-    
     NSArray *args = @[[backendless.data objectClassName:entity], sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
     return [invoker invokeSync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_USER_PERMISSION args:args];
 }
 
 -(id)denyForAllUsers:(id)entity operation:(DataPermissionOperation)operation {
-    
     id sid = [self getEntityId:entity];
     if (!sid)
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
-    
     NSArray *args = @[[backendless.data objectClassName:entity], sid, DATA_PERMISSION_OPERATION[operation], _DENY];
     return [invoker invokeSync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_USER_PERMISSION args:args];
 }
 
 -(id)grantForAllRoles:(id)entity operation:(DataPermissionOperation)operation {
-    
     id sid = [self getEntityId:entity];
     if (!sid)
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
-    
     NSArray *args = @[[backendless.data objectClassName:entity], sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
     return [invoker invokeSync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_ROLE_PERMISSION args:args];
 }
 
 -(id)denyForAllRoles:(id)entity operation:(DataPermissionOperation)operation {
-    
     id sid = [self getEntityId:entity];
     if (!sid)
-        return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
-    
+        return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];    
     NSArray *args = @[[backendless.data objectClassName:entity], sid, DATA_PERMISSION_OPERATION[operation], _DENY];
     return [invoker invokeSync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_ROLE_PERMISSION args:args];
-}
-
-// async methods with responder
-
--(void)grantForUser:(NSString *)userId entity:(id)entity operation:(DataPermissionOperation)operation responder:(id <IResponder>)responder {
-    
-    if (!userId)
-        return [responder errorHandler:FAULT_NO_USER_ID];
-    
-    id sid = [self getEntityId:entity];
-    if (!sid)
-        return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
-    
-    NSArray *args = @[[backendless.data objectClassName:entity], userId, sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
-    return [invoker invokeAsync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_USER_PERMISSION args:args responder:responder];
-}
-
--(void)denyForUser:(NSString *)userId entity:(id)entity operation:(DataPermissionOperation)operation responder:(id <IResponder>)responder {
-    
-    if (!userId)
-        return [responder errorHandler:FAULT_NO_USER_ID];
-    
-    id sid = [self getEntityId:entity];
-    if (!sid)
-        return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
-    
-    NSArray *args = @[[backendless.data objectClassName:entity], userId, sid, DATA_PERMISSION_OPERATION[operation], _DENY];
-    return [invoker invokeAsync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_USER_PERMISSION args:args responder:responder];
-}
-
--(void)grantForRole:(NSString *)roleName entity:(id)entity operation:(DataPermissionOperation)operation responder:(id <IResponder>)responder {
-    
-    if (!roleName)
-        return [responder errorHandler:FAULT_NO_ROLE_NAME];
-    
-    id sid = [self getEntityId:entity];
-    if (!sid)
-        return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
-    
-    NSArray *args = @[[backendless.data objectClassName:entity], roleName, sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
-    return [invoker invokeAsync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ROLE_PERMISSION args:args responder:responder];
-}
-
--(void)denyForRole:(NSString *)roleName entity:(id)entity operation:(DataPermissionOperation)operation responder:(id <IResponder>)responder {
-    
-    if (!roleName)
-        return [responder errorHandler:FAULT_NO_ROLE_NAME];
-    
-    id sid = [self getEntityId:entity];
-    if (!sid)
-        return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
-    
-    NSArray *args = @[[backendless.data objectClassName:entity], roleName, sid, DATA_PERMISSION_OPERATION[operation], _DENY];
-    return [invoker invokeAsync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ROLE_PERMISSION args:args responder:responder];
-}
-
--(void)grantForAllUsers:(id)entity operation:(DataPermissionOperation)operation responder:(id <IResponder>)responder {
-    
-    id sid = [self getEntityId:entity];
-    if (!sid)
-        return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
-    
-    NSArray *args = @[[backendless.data objectClassName:entity], sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
-    return [invoker invokeAsync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_USER_PERMISSION args:args responder:responder];
-}
-
--(void)denyForAllUsers:(id)entity operation:(DataPermissionOperation)operation responder:(id <IResponder>)responder {
-    
-    id sid = [self getEntityId:entity];
-    if (!sid)
-        return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
-    
-    NSArray *args = @[[backendless.data objectClassName:entity], sid, DATA_PERMISSION_OPERATION[operation], _DENY];
-    return [invoker invokeAsync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_USER_PERMISSION args:args responder:responder];
-}
-
--(void)grantForAllRoles:(id)entity operation:(DataPermissionOperation)operation responder:(id <IResponder>)responder {
-    
-    id sid = [self getEntityId:entity];
-    if (!sid)
-        return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
-    
-    NSArray *args = @[[backendless.data objectClassName:entity], sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
-    return [invoker invokeAsync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_ROLE_PERMISSION args:args responder:responder];
-}
-
--(void)denyForAllRoles:(id)entity operation:(DataPermissionOperation)operation responder:(id <IResponder>)responder {
-    
-    id sid = [self getEntityId:entity];
-    if (!sid)
-        return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
-    
-    NSArray *args = @[[backendless.data objectClassName:entity], sid, DATA_PERMISSION_OPERATION[operation], _DENY];
-    return [invoker invokeAsync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_ROLE_PERMISSION args:args responder:responder];
 }
 
 // async methods with block-based callbacks
 
 -(void)grantForUser:(NSString *)userId entity:(id)entity operation:(DataPermissionOperation)operation response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self grantForUser:userId entity:entity operation:operation responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!userId)
+        return [responder errorHandler:FAULT_NO_USER_ID];
+    id sid = [self getEntityId:entity];
+    if (!sid)
+        return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
+    NSArray *args = @[[backendless.data objectClassName:entity], userId, sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
+    return [invoker invokeAsync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_USER_PERMISSION args:args responder:responder];
 }
 
 -(void)denyForUser:(NSString *)userId entity:(id)entity operation:(DataPermissionOperation)operation response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self denyForUser:userId entity:entity operation:operation responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!userId)
+        return [responder errorHandler:FAULT_NO_USER_ID];
+    id sid = [self getEntityId:entity];
+    if (!sid)
+        return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
+    NSArray *args = @[[backendless.data objectClassName:entity], userId, sid, DATA_PERMISSION_OPERATION[operation], _DENY];
+    return [invoker invokeAsync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_USER_PERMISSION args:args responder:responder];
 }
 
 -(void)grantForRole:(NSString *)roleName entity:(id)entity operation:(DataPermissionOperation)operation response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self grantForRole:roleName entity:entity operation:operation responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!roleName)
+        return [responder errorHandler:FAULT_NO_ROLE_NAME];
+    id sid = [self getEntityId:entity];
+    if (!sid)
+        return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
+    NSArray *args = @[[backendless.data objectClassName:entity], roleName, sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
+    return [invoker invokeAsync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ROLE_PERMISSION args:args responder:responder];
 }
 
 -(void)denyForRole:(NSString *)roleName entity:(id)entity operation:(DataPermissionOperation)operation response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self denyForRole:roleName entity:entity operation:operation responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!roleName)
+        return [responder errorHandler:FAULT_NO_ROLE_NAME];
+    id sid = [self getEntityId:entity];
+    if (!sid)
+        return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
+    NSArray *args = @[[backendless.data objectClassName:entity], roleName, sid, DATA_PERMISSION_OPERATION[operation], _DENY];
+    return [invoker invokeAsync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ROLE_PERMISSION args:args responder:responder];
 }
 
 -(void)grantForAllUsers:(id)entity operation:(DataPermissionOperation)operation response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self grantForAllUsers:entity operation:operation responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    id sid = [self getEntityId:entity];
+    if (!sid)
+        return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
+    NSArray *args = @[[backendless.data objectClassName:entity], sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
+    return [invoker invokeAsync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_USER_PERMISSION args:args responder:responder];
 }
 
 -(void)denyForAllUsers:(id)entity operation:(DataPermissionOperation)operation response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self denyForAllUsers:entity operation:operation responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    id sid = [self getEntityId:entity];
+    if (!sid)
+        return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
+    NSArray *args = @[[backendless.data objectClassName:entity], sid, DATA_PERMISSION_OPERATION[operation], _DENY];
+    return [invoker invokeAsync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_USER_PERMISSION args:args responder:responder];
 }
 
 -(void)grantForAllRoles:(id)entity operation:(DataPermissionOperation)operation response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self grantForAllRoles:entity operation:operation responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    id sid = [self getEntityId:entity];
+    if (!sid)
+        return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
+    NSArray *args = @[[backendless.data objectClassName:entity], sid, DATA_PERMISSION_OPERATION[operation], _GRANT];
+    return [invoker invokeAsync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_ROLE_PERMISSION args:args responder:responder];
 }
 
 -(void)denyForAllRoles:(id)entity operation:(DataPermissionOperation)operation response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self denyForAllRoles:entity operation:operation responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    id sid = [self getEntityId:entity];
+    if (!sid)
+        return [responder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];    
+    NSArray *args = @[[backendless.data objectClassName:entity], sid, DATA_PERMISSION_OPERATION[operation], _DENY];
+    return [invoker invokeAsync:SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH method:METHOD_UPDATE_ALL_ROLE_PERMISSION args:args responder:responder];
 }
 
 @end

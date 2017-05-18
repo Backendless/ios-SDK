@@ -108,7 +108,7 @@
     
     printf("\n\n");
 #else
-    [self print:visable start:0 finish:(size-1)];
+    [self print:visable start:0 finish:((int)size-1)];
 #endif
 }
 
@@ -118,7 +118,7 @@
         return;
     
     if (finish >= size)
-        finish = size - 1;
+        finish = (int)size - 1;
     
     if ((start > finish) || (start >= size)) {
         printf("print ERROR size: %zu, start: %d, finish: %d\n", size, start, finish);
@@ -166,7 +166,7 @@
 		return;
 	
 	for (int i = 0; i < length/2; i++) {
-        int pos = length-i-1;
+        int pos = (int)length-i-1;
 		char chr = stream[i];
 		stream[i] = stream[pos];
 		stream[pos] = chr;
@@ -206,12 +206,12 @@
 }
 
 -(BOOL)extendTo:(size_t)length {
-    int ext = buffer ? length - (size - position) : length;
+    int ext = buffer ? (int)length - (int)(size - position) : (int)length;
 	return (!buffer || (ext > 0)) ? [self extend:ext] : YES;
 }
 
 -(int)remaining {
-	int remain = buffer ? size - position : 0;
+	int remain = buffer ? (int)size - (int)position : 0;
 	return (remain > 0) ? remain : 0;
 }
 
@@ -229,7 +229,7 @@
 }
 
 -(BOOL)end {
-	return [self seek:size];
+	return [self seek:(uint)size];
 }
 
 -(BOOL)next {
@@ -266,7 +266,7 @@
     memmove(buffer, &buffer[position], size);
 	position = 0;
 	
-	return size;
+	return (int)size;
 }
 
 -(int)trunc {
@@ -281,7 +281,7 @@
     if (shift > 0) {
         size_t _size = size - 1;
         [self extendTo:shift];
-        for (int i = _size; i >= position; i--) 
+        for (int i = (int)_size; i >= (int)position; i--)
             buffer[i+shift] = buffer[i];	
     }
     else {
@@ -295,7 +295,7 @@
 
 -(BOOL)append:(char *)buf length:(size_t)length {
 	
-    int bound = size;
+    int bound = (int)size;
 	if (!buf || !length || ![self extend:length])
 		return NO;
 
@@ -403,7 +403,7 @@
 		return 0;
     }
 	
-    int len = (size - position > length) ? length : (size - position);
+    int len = (int)(size - position > length) ? (int)length : (int)(size - position);
     memmove(buf, &buffer[position], len);
 	position += len;
     error = 0;

@@ -130,7 +130,7 @@
 	
     [DebLog log:@"FlashorbBinaryWriter -> writeLongString: str.lenght = %d, len = %d", str.length, len];
     
-	return (len) ? [self writeUInteger:len] && [self write:(char *)cstr length:len] : NO;
+	return (unsigned int)(len) ? [self writeUInteger:(unsigned int)len] && [self write:(char *)cstr length:len] : NO;
 }
 
 -(BOOL)writeStringEx:(NSString *)str {
@@ -143,7 +143,7 @@
 	
     [DebLog logN:@"FlashorbBinaryWriter -> writeStringEx: str.lenght = %d, len = %d", str.length, len];
     
-	return (len) ? [self writeVarInt:((len << 1)|0x1)] && [self write:(char *)cstr length:len] : NO;
+	return (len) ? [self writeVarInt:(int)((len << 1)|0x1)] && [self write:(char *)cstr length:len] : NO;
 }
 
 @end
