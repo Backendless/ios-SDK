@@ -1,7 +1,7 @@
 Backendless SDK for iOS (http://backendless.com)
 ---
 
-# Version 4.0 Beta 6
+# Version 4.0 Beta 7
 > For the instructions for version 3.x of the library, see [Backendless 3.x Getting Started Guide](https://backendless.com/mobile-developers/quick-start-guide-for-ios/ "Backendless 3.x Getting Started Guide")
 
 ## GETTING STARTED WITH BACKENDLESS
@@ -36,6 +36,14 @@ pod 'Backendless', '4.0b6'
 `${PODS_ROOT}/Headers/Public/Backendless/Backendless-Bridging-Header.h`
 
 ## RELEASE HISTORY
+4.0b7 May 19, 2017
+* RegisterDevice now returns deviceId instead of registrationId 
+* Geolocation API cleanup - removed methods with the IResponder (async) and Fault (sync) arguments
+* Removed AppDelegate methods from LocationTracker
+* Caching API cleanup -  removed methods with the IResponder (async) and Fault (sync) arguments
+* Atomic Counters API cleanup -  removed methods with the IResponder (async) and Fault (sync) arguments
+* Fixed warnings in the library build
+
 4.0b6 April 28, 2017
 * Fixed problem with MessagingService.m reported as an excluded class in a build for a device
 * Made changes in BackendlessUser so that it is represented as a dictionary in the dictionary-based data retrieval
