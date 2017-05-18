@@ -21,8 +21,7 @@
 
 #define POLLING_INTERVAL 5000
 
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-#else
+#if !TARGET_OS_IPHONE && !TARGET_IPHONE_SIMULATOR
 #import <IOKit/IOKitLib.h>
 #endif
 
@@ -72,15 +71,11 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 -(NSString *)serialNumber;
 @end
 
-
 @implementation MessagingService
 @synthesize pollingFrequencyMs;
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-- (NSString *)serialNumber
-{
-#if 1 // store in keychain
-#if 1 // use KeychainDataStore
+- (NSString *)serialNumber {
     KeychainDataStore *keychainStore = [[KeychainDataStore alloc] initWithService:kBackendlessApplicationUUIDKey withGroup:nil];
     NSString *bundleId = [[NSBundle mainBundle] bundleIdentifier];
     NSData *data = [keychainStore get:bundleId];
@@ -91,45 +86,18 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
         CFRelease(uuid);
         [keychainStore save:bundleId data:[UUID dataUsingEncoding:NSUTF8StringEncoding]];
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self unregisterDeviceAsync:[[UIDevice currentDevice].identifierForVendor UUIDString] responder:nil];
+            [self unregisterDevice:[[UIDevice currentDevice].identifierForVendor UUIDString] response:nil error:nil];
         });
     }
     return UUID;
-#else // use UICKeyChainStore
-    UICKeyChainStore *keychainStore = [UICKeyChainStore keyChainStore];
-    NSString *bundleId = [[NSBundle mainBundle] bundleIdentifier];
-    NSString *UUID = [UICKeyChainStore stringForKey:bundleId service:kBackendlessApplicationUUIDKey];
-    if (!UUID) {
-        CFUUIDRef uuid = CFUUIDCreate(NULL);
-        UUID = (NSString *)CFUUIDCreateString(NULL, uuid);
-        CFRelease(uuid);
-        [UICKeyChainStore setString:UUID forKey:bundleId service:kBackendlessApplicationUUIDKey];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self unregisterDeviceAsync:[[UIDevice currentDevice].identifierForVendor UUIDString] responder:nil];
-        });
-    }
-    return UUID;
-#endif
-#else // store in NSUserDefaults (NOT USEFUL: changes after app was removed)
-    NSString *UUID = [[NSUserDefaults standardUserDefaults] objectForKey:kBackendlessApplicationUUIDKey];
-    if (!UUID) {
-        CFUUIDRef uuid = CFUUIDCreate(NULL);
-        UUID = (NSString *)CFUUIDCreateString(NULL, uuid);
-        CFRelease(uuid);
-        [[NSUserDefaults standardUserDefaults] setObject:UUID forKey:kBackendlessApplicationUUIDKey];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
-    return UUID;
-#endif
 }
+
 #else // OSX
 -(NSString *)serialNumber {
     io_service_t    platformExpert = IOServiceGetMatchingService(kIOMasterPortDefault, IOServiceMatching("IOPlatformExpertDevice"));
     CFStringRef serialNumberAsCFString = NULL;
     if (platformExpert) {
-        serialNumberAsCFString = IORegistryEntryCreateCFProperty(platformExpert,
-                                                                 CFSTR(kIOPlatformSerialNumberKey),
-                                                                 kCFAllocatorDefault, 0);
+        serialNumberAsCFString = IORegistryEntryCreateCFProperty(platformExpert, CFSTR(kIOPlatformSerialNumberKey), kCFAllocatorDefault, 0);
         IOObjectRelease(platformExpert);
     }
     NSString *serialNumberAsNSString = nil;
@@ -145,9 +113,6 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     if (self = [super init]) {
         self.pollingFrequencyMs = POLLING_INTERVAL;
         _subscriptions = [HashMap new];
-#if _OLD_NOTIFICATION_
-        self.categories = nil;
-#endif
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.management.DeviceRegistrationDto" mapped:[DeviceRegistration class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.messaging.Message" mapped:[Message class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.messaging.MessageStatus" mapped:[MessageStatus class]];
@@ -158,11 +123,8 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
         
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
         UIDevice *device = [UIDevice currentDevice];
-#if 1   // use generated UUID which is saved in keychain with bundleId as key
+        // use generated UUID which is saved in keychain with bundleId as key
         NSString *deviceId = [self serialNumber];
-#else   // use device.identifierForVendor as UUID ( !!! NOT USEFUL: cause of additional registration after app was removed !!! )
-        NSString *deviceId = [device.identifierForVendor UUIDString];
-#endif
         deviceRegistration.deviceToken = device.name;
         deviceRegistration.deviceId = deviceId ? deviceId : [backendless GUIDString];
         deviceRegistration.os = @"IOS";
@@ -182,9 +144,6 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     [DebLog logN:@"DEALLOC MessagingService"];
     [deviceRegistration release];
     [self.subscriptions release];
-#if _OLD_NOTIFICATION_
-    [self.categories release];
-#endif
     [super dealloc];
 }
 
@@ -356,9 +315,10 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     return [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_MESSAGE_STATUS args:args];
 }
 
-// async methods with responder
+// async methods with block-based callbacks
 
--(void)registerDeviceAsync:(id<IResponder>)responder {
+-(void)registerDeviceAsync:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!deviceRegistration.deviceToken) {
         [DebLog logY:@"MessagingService -> registerDeviceASync (ERROR): deviceToken is not exist"];
         return [responder errorHandler:FAULT_NO_DEVICE_TOKEN];
@@ -370,68 +330,21 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     [invoker invokeAsync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_REGISTER_DEVICE args:args responder:_responder];
 }
 
--(void)unregisterDeviceAsync:(NSString *)deviceId responder:(id<IResponder>)responder {
-    if (!deviceId)
-        return [responder errorHandler:FAULT_NO_DEVICE_ID];
-    NSArray *args = [NSArray arrayWithObjects:deviceId, nil];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onUnregistering:) selErrorHandler:nil];
-    _responder.chained = responder;
-    [invoker invokeAsync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_UNREGISTER_DEVICE args:args responder:_responder];
-}
-
--(void)publish:(NSString *)channelName message:(id)message publishOptions:(PublishOptions *)publishOptions deliveryOptions:(DeliveryOptions *)deliveryOptions responder:(id <IResponder>)responder {
-    if (!channelName)
-        return [responder errorHandler:FAULT_NO_CHANNEL];
-    if (!message)
-        return [responder errorHandler:FAULT_NO_MESSAGE];
-    NSMutableArray *args = [NSMutableArray arrayWithObjects:channelName, message, publishOptions?publishOptions:[NSNull null], nil];
-    if (deliveryOptions)
-        [args addObject:deliveryOptions];
-    [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_PUBLISH args:args responder:responder];
-}
-
--(void)pollMessages:(NSString *)channelName subscriptionId:(NSString *)subscriptionId responder:(id <IResponder>)responder {
-    if (!channelName)
-        return [responder errorHandler:FAULT_NO_CHANNEL];
-    if (!subscriptionId)
-        return [responder errorHandler:FAULT_NO_SUBSCRIPTION_ID];
-    NSArray *args = [NSArray arrayWithObjects:channelName, subscriptionId, nil];
-    [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_POLL_MESSAGES args:args responder:responder];
-}
-
--(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients attachment:(NSArray *)attachments responder:(id <IResponder>)responder {
-    if (!bodyParts || ![bodyParts isBody])
-        return [responder errorHandler:FAULT_NO_BODY];
-    if (!recipients || !recipients.count)
-        return [responder errorHandler:FAULT_NO_RECIPIENT];
-    NSArray *args = @[(subject)?subject:@"", bodyParts, recipients, (attachments)?attachments:@[]];
-    [invoker invokeAsync:SERVER_MAIL_SERVICE_PATH method:METHOD_SEND_EMAIL args:args responder:responder];
-}
-
-// async methods with block-based callbacks
-
--(void)registerDeviceAsync:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self registerDeviceAsync:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
-}
-
 -(void)registerDevice:(NSData *)deviceToken response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
     deviceRegistration.deviceToken = [self deviceTokenAsString:deviceToken];
-    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
-    [self registerDeviceAsync:responder];
+    [self registerDeviceAsync:responseBlock error:errorBlock];
 }
 
 -(void)registerDevice:(NSData *)deviceToken channels:(NSArray<NSString *> *)channels response:(void (^)(NSString *))responseBlock error:(void (^)(Fault *))errorBlock {
     deviceRegistration.deviceToken = [self deviceTokenAsString:deviceToken];
     deviceRegistration.channels = channels;
-    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
-    [self registerDeviceAsync:responder];
+    [self registerDeviceAsync:responseBlock error:errorBlock];
 }
 
 -(void)registerDevice:(NSData *)deviceToken expiration:(NSDate *)expiration response:(void (^)(NSString *))responseBlock error:(void (^)(Fault *))errorBlock {
     deviceRegistration.deviceToken = [self deviceTokenAsString:deviceToken];
     deviceRegistration.expiration = expiration;
-    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
-    [self registerDeviceAsync:responder];
+    [self registerDeviceAsync:responseBlock error:errorBlock];
 }
 
 -(void)registerDevice:(NSData *)deviceToken channels:(NSArray<NSString *> *)channels expiration:(NSDate *)expiration response:(void (^)(NSString *))responseBlock error:(void (^)(Fault *))errorBlock {
@@ -450,31 +363,41 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 }
 
 -(void)unregisterDevice:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self unregisterDeviceAsync:deviceRegistration.deviceId responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    [self unregisterDevice:deviceRegistration.deviceId response:responseBlock error:errorBlock];
 }
 
 -(void)unregisterDevice:(NSString *)deviceId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self unregisterDeviceAsync:deviceId responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!deviceId)
+        return [responder errorHandler:FAULT_NO_DEVICE_ID];
+    NSArray *args = [NSArray arrayWithObjects:deviceId, nil];
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onUnregistering:) selErrorHandler:nil];
+    _responder.chained = responder;
+    [invoker invokeAsync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_UNREGISTER_DEVICE args:args responder:_responder];
 }
 
 -(void)publish:(NSString *)channelName message:(id)message response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock {
-    Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
-    [self publish:channelName message:message publishOptions:nil deliveryOptions:nil responder:chainedResponder];
+    [self publish:channelName message:message publishOptions:nil deliveryOptions:nil response:responseBlock error:errorBlock];
 }
 
 -(void)publish:(NSString *)channelName message:(id)message publishOptions:(PublishOptions *)publishOptions response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock {
-    Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
-    [self publish:channelName message:message publishOptions:publishOptions deliveryOptions:nil responder:chainedResponder];
+    [self publish:channelName message:message publishOptions:publishOptions deliveryOptions:nil response:responseBlock error:errorBlock];
 }
 
 -(void)publish:(NSString *)channelName message:(id)message deliveryOptions:(DeliveryOptions *)deliveryOptions response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock {
-    Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
-    [self publish:channelName message:message publishOptions:nil deliveryOptions:deliveryOptions responder:chainedResponder];
+    [self publish:channelName message:message publishOptions:nil deliveryOptions:deliveryOptions response:responseBlock error:errorBlock];
 }
 
 -(void)publish:(NSString *)channelName message:(id)message publishOptions:(PublishOptions *)publishOptions deliveryOptions:(DeliveryOptions *)deliveryOptions response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock {
-    Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
-    [self publish:channelName message:message publishOptions:publishOptions deliveryOptions:deliveryOptions responder:chainedResponder];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!channelName)
+        return [responder errorHandler:FAULT_NO_CHANNEL];
+    if (!message)
+        return [responder errorHandler:FAULT_NO_MESSAGE];
+    NSMutableArray *args = [NSMutableArray arrayWithObjects:channelName, message, publishOptions?publishOptions:[NSNull null], nil];
+    if (deliveryOptions)
+        [args addObject:deliveryOptions];
+    [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_PUBLISH args:args responder:responder];
 }
 
 -(void)cancel:(NSString *)messageId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -515,23 +438,35 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 }
 
 -(void)pollMessages:(NSString *)channelName subscriptionId:(NSString *)subscriptionId response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self pollMessages:channelName subscriptionId:subscriptionId responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!channelName)
+        return [responder errorHandler:FAULT_NO_CHANNEL];
+    if (!subscriptionId)
+        return [responder errorHandler:FAULT_NO_SUBSCRIPTION_ID];
+    NSArray *args = [NSArray arrayWithObjects:channelName, subscriptionId, nil];
+    [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_POLL_MESSAGES args:args responder:responder];
 }
 
 -(void)sendTextEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray<NSString*> *)recipients response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self sendEmail:subject body:[BodyParts bodyText:messageBody html:nil] to:recipients attachment:nil responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    [self sendEmail:subject body:[BodyParts bodyText:messageBody html:nil] to:recipients attachment:nil response:responseBlock error:errorBlock];
 }
 
 -(void)sendHTMLEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray<NSString*> *)recipients response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self sendEmail:subject body:[BodyParts bodyText:nil html:messageBody] to:recipients attachment:nil responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    [self sendEmail:subject body:[BodyParts bodyText:nil html:messageBody] to:recipients attachment:nil response:responseBlock error:errorBlock];
 }
 
 -(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self sendEmail:subject body:bodyParts to:recipients attachment:nil responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    [self sendEmail:subject body:bodyParts to:recipients attachment:nil response:responseBlock error:errorBlock];
 }
 
 -(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients attachment:(NSArray *)attachments response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self sendEmail:subject body:bodyParts to:recipients attachment:attachments responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!bodyParts || ![bodyParts isBody])
+        return [responder errorHandler:FAULT_NO_BODY];
+    if (!recipients || !recipients.count)
+        return [responder errorHandler:FAULT_NO_RECIPIENT];
+    NSArray *args = @[(subject)?subject:@"", bodyParts, recipients, (attachments)?attachments:@[]];
+    [invoker invokeAsync:SERVER_MAIL_SERVICE_PATH method:METHOD_SEND_EMAIL args:args responder:responder];
 }
 
 -(void)getMessageStatus:(NSString*)messageId response:(void(^)(MessageStatus*))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -551,11 +486,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
         return [backendless throwFault:FAULT_NO_CHANNEL];
     if (!subscriptionOptions)
         subscriptionOptions = [SubscriptionOptions new];
-#if !BACKENDLESS_VERSION_2_1_0
     NSArray *args = @[channelName, subscriptionOptions];
-#else
-    NSArray *args = @[channelName, subscriptionOptions, deviceRegistration];
-#endif
     return [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_POLLING_SUBSCRIBE args:args];
 }
 
@@ -565,11 +496,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
         return [responder errorHandler:FAULT_NO_CHANNEL];
     if (!subscriptionOptions)
         subscriptionOptions = [SubscriptionOptions new];
-#if !BACKENDLESS_VERSION_2_1_0
     NSArray *args = @[channelName, subscriptionOptions];
-#else
-    NSArray *args = @[channelName, subscriptionOptions, deviceRegistration];
-#endif
     [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_POLLING_SUBSCRIBE args:args responder:responder];
 }
 
