@@ -70,23 +70,17 @@ static NSString *METHOD_COUNT = @"count";
         responseUrl = nil;
         responder = nil;
     }
-    
     return self;
 }
 
 -(void)dealloc {
-    
     [DebLog logN:@"DEALLOC AsyncResponse"];
-    
     [receivedData release];
     [responseUrl release];
     [responder release];
-    
     [super dealloc];
 }
-
 @end
-
 
 #pragma mark -
 #pragma mark FileService Class
@@ -102,33 +96,24 @@ static NSString *METHOD_COUNT = @"count";
 @implementation FileService
 
 -(id)init {
-    if ( (self=[super init]) ) {
-        
+    if (self=[super init]) {
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.NSArray" mapped:[NSArray class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.management.files.FileDetailedInfo" mapped:BEFileInfo.class];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.management.files.FileInfo" mapped:BEFileInfo.class];
-        
         asyncResponses = [NSMutableArray new];
         _permissions = [FilePermission new];
     }
-    
     return self;
 }
 
 -(void)dealloc {
-    
     [DebLog log:@"DEALLOC FileService"];
-    
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
-    
     [asyncResponses removeAllObjects];
     [asyncResponses release];
-    
     [_permissions release];
-    
     [super dealloc];
 }
-
 
 #pragma mark -
 #pragma mark Public Methods
@@ -170,13 +155,10 @@ static NSString *METHOD_COUNT = @"count";
 }
 
 -(BackendlessFile *)saveFile:(NSString *)filePathName content:(NSData *)content overwriteIfExist:(BOOL)overwrite {
-    
     if (!filePathName || !filePathName.length)
         return [backendless throwFault:FAULT_NO_FILE_NAME];
-    
     if (!content || !content.length)
         return [backendless throwFault:FAULT_NO_FILE_DATA];
-    
     NSArray *args = @[filePathName, content, @(overwrite)];
     NSString *receiveUrl = [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_SAVE_FILE args:args];
     return [BackendlessFile file:receiveUrl];
@@ -245,51 +227,6 @@ static NSString *METHOD_COUNT = @"count";
     return [self getFileCount:path pattern:@"*"];
 }
 
-// async methods with responder
-
--(void)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content overwriteIfExist:(BOOL)overwrite responder:(id <IResponder>)responder {
-    if (!path || !path.length)
-        return [responder errorHandler:FAULT_NO_DIRECTORY_PATH];
-    if (!fileName || !fileName.length)
-        return [responder errorHandler:FAULT_NO_FILE_NAME];
-    if (!content|| !content.length)
-        return [responder errorHandler:FAULT_NO_FILE_DATA];
-    NSArray *args = @[path, fileName, content, @(overwrite)];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(saveFileResponse:) selErrorHandler:nil];
-    _responder.chained = responder;
-    [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_SAVE_FILE args:args responder:_responder];
-}
-
--(void)saveFile:(NSString *)filePathName content:(NSData *)content overwriteIfExist:(BOOL)overwrite responder:(id <IResponder>)responder {
-    if (!filePathName || !filePathName.length)
-        return [responder errorHandler:FAULT_NO_FILE_NAME];
-    if (!content|| !content.length)
-        return [responder errorHandler:FAULT_NO_FILE_DATA];
-    NSArray *args = @[filePathName, content, @(overwrite)];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(saveFileResponse:) selErrorHandler:nil];
-    _responder.chained = responder;
-    [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_SAVE_FILE args:args responder:_responder];
-}
-
--(void)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive pagesize:(int)pagesize offset:(int)offset responder:(id <IResponder>)responder {
-    if (!path || !path.length)
-        return [responder errorHandler:FAULT_NO_FILE_NAME];
-    NSArray *args = @[path, pattern, @(recursive), @(pagesize), @(offset)];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(getListing:) selErrorHandler:nil];
-    _responder.chained = responder;
-    _responder.context = [BackendlessSimpleQuery query:pagesize offset:offset];
-    [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_LISTING args:args responder:_responder];
-}
-
--(void)getFileCount:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive countDirectories:(BOOL)countDirectories responder:(id <IResponder>)responder {
-    if (!path || !path.length)
-        return [responder errorHandler:FAULT_NO_DIRECTORY_PATH];
-    if (!pattern || !pattern.length)
-        return [responder errorHandler:FAULT_NO_PATTERN];
-    NSArray *args = @[path, pattern, @(recursive), @(countDirectories)];
-    [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_COUNT args:args responder:responder];
-}
-
 // async methods with block-base callbacks
 
 -(void)remove:(NSString *)fileURL response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -309,19 +246,37 @@ static NSString *METHOD_COUNT = @"count";
 }
 
 -(void)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self saveFile:path fileName:fileName content:content overwriteIfExist:NO responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    [self saveFile:path fileName:fileName content:content overwriteIfExist:NO response:responseBlock error:errorBlock];
 }
 
 -(void)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content overwriteIfExist:(BOOL)overwrite response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self saveFile:path fileName:fileName content:content overwriteIfExist:overwrite responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!path || !path.length)
+        return [responder errorHandler:FAULT_NO_DIRECTORY_PATH];
+    if (!fileName || !fileName.length)
+        return [responder errorHandler:FAULT_NO_FILE_NAME];
+    if (!content|| !content.length)
+        return [responder errorHandler:FAULT_NO_FILE_DATA];
+    NSArray *args = @[path, fileName, content, @(overwrite)];
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(saveFileResponse:) selErrorHandler:nil];
+    _responder.chained = responder;
+    [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_SAVE_FILE args:args responder:_responder];
 }
 
 -(void)saveFile:(NSString *)filePathName content:(NSData *)content response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self saveFile:filePathName content:content overwriteIfExist:NO responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    [self saveFile:filePathName content:content overwriteIfExist:NO response:responseBlock error:errorBlock];
 }
 
 -(void)saveFile:(NSString *)filePathName content:(NSData *)content overwriteIfExist:(BOOL)overwrite response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self saveFile:filePathName content:content overwriteIfExist:overwrite responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!filePathName || !filePathName.length)
+        return [responder errorHandler:FAULT_NO_FILE_NAME];
+    if (!content|| !content.length)
+        return [responder errorHandler:FAULT_NO_FILE_DATA];
+    NSArray *args = @[filePathName, content, @(overwrite)];
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(saveFileResponse:) selErrorHandler:nil];
+    _responder.chained = responder;
+    [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_SAVE_FILE args:args responder:_responder];
 }
 
 -(void)renameFile:(NSString *)oldPathName newName:(NSString *)newName response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -351,11 +306,18 @@ static NSString *METHOD_COUNT = @"count";
 }
 
 -(void)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self listing:path pattern:pattern recursive:recursive pagesize:DEFAULT_PAGE_SIZE offset:DEFAULT_OFFSET responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    [self listing:path pattern:pattern recursive:recursive pagesize:DEFAULT_PAGE_SIZE offset:DEFAULT_OFFSET response:responseBlock error:errorBlock];
 }
 
 -(void)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive pagesize:(int)pagesize offset:(int)offset response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self listing:path pattern:pattern recursive:recursive pagesize:pagesize offset:offset responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!path || !path.length)
+        return [responder errorHandler:FAULT_NO_FILE_NAME];
+    NSArray *args = @[path, pattern, @(recursive), @(pagesize), @(offset)];
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(getListing:) selErrorHandler:nil];
+    _responder.chained = responder;
+    _responder.context = [BackendlessSimpleQuery query:pagesize offset:offset];
+    [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_LISTING args:args responder:_responder];
 }
 
 -(void)exists:(NSString *)path response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -367,21 +329,26 @@ static NSString *METHOD_COUNT = @"count";
 }
 
 -(void)getFileCount:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive countDirectories:(BOOL)countDirectories response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self getFileCount:path pattern:pattern recursive:recursive countDirectories:countDirectories responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!path || !path.length)
+        return [responder errorHandler:FAULT_NO_DIRECTORY_PATH];
+    if (!pattern || !pattern.length)
+        return [responder errorHandler:FAULT_NO_PATTERN];
+    NSArray *args = @[path, pattern, @(recursive), @(countDirectories)];
+    [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_COUNT args:args responder:responder];
 }
 
 -(void)getFileCount:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self getFileCount:path pattern:pattern recursive:recursive countDirectories:NO responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    [self getFileCount:path pattern:pattern recursive:recursive countDirectories:NO response:responseBlock error:errorBlock];
 }
 
 -(void)getFileCount:(NSString *)path pattern:(NSString *)pattern response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self getFileCount:path pattern:pattern recursive:NO countDirectories:NO responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    [self getFileCount:path pattern:pattern recursive:NO countDirectories:NO response:responseBlock error:errorBlock];
 }
 
 -(void)getFileCount:(NSString *)path response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self getFileCount:path pattern:@"*" recursive:NO countDirectories:NO responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    [self getFileCount:path pattern:@"*" recursive:NO countDirectories:NO response:responseBlock error:errorBlock];
 }
-
 
 #pragma mark -
 #pragma mark Private Methods
@@ -393,72 +360,53 @@ static NSString *METHOD_COUNT = @"count";
 }
 
 -(id)getListing:(ResponseContext *)response {
-    
     NSArray *collection = (NSArray *)response.response;
-    //collection.query = response.context;
     return collection;
 }
 
 -(AsyncResponse *)asyncHttpResponse:(NSURLConnection *)connection {
-    
     for (AsyncResponse *async in asyncResponses)
         if (async.connection == connection)
             return async;
-    
     return nil;
 }
 
 -(void)processAsyncResponse:(NSURLConnection *)connection {
-    
     AsyncResponse *async = [self asyncHttpResponse:connection];
-    
     // all done, release connection, we are ready to rock and roll
     [connection release];
     connection = nil;
-    
     if (!async)
         return;
-    
     if (async.responder) {
-        
         NSInteger statusCode = [async.responseUrl statusCode];
-        
         [DebLog log:@"FileService -> processAsyncResponse: HTTP status code: %@", @(statusCode)];
-        
         if ((statusCode == 200) && async.receivedData && [async.receivedData length]) {
-            
             NSString *path = [[[NSString alloc] initWithData:async.receivedData encoding:NSUTF8StringEncoding] autorelease];
             path = [path stringByReplacingOccurrencesOfString:@"{\"fileURL\":\"" withString:@""];
             path = [path stringByReplacingOccurrencesOfString:@"\"}" withString:@""];
             [async.responder responseHandler:[BackendlessFile file:path]];
         }
         else {
-            
             Fault *fault = [Fault fault:[NSString stringWithFormat:@"HTTP %@", @(statusCode)] detail:[NSHTTPURLResponse localizedStringForStatusCode:statusCode] faultCode:[NSString stringWithFormat:@"%@", @(statusCode)]];
             [async.responder errorHandler:fault];
         }
     }
-    
     // clean up received data
     [asyncResponses removeObject:async];
     [async release];
 }
 
-
 #pragma mark -
 #pragma mark NSURLConnection Delegate Methods
 
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    
     NSHTTPURLResponse *responseUrl = [(NSHTTPURLResponse *)response copy];
     NSInteger statusCode = [responseUrl  statusCode];
-    [DebLog logN:@"FileService -> connection didReceiveResponse: statusCode=%@ ('%@')\nheaders:\n%@", @(statusCode) ,
-     [NSHTTPURLResponse localizedStringForStatusCode:statusCode], [responseUrl  allHeaderFields]];
-    
+    [DebLog logN:@"FileService -> connection didReceiveResponse: statusCode=%@ ('%@')\nheaders:\n%@", @(statusCode), [NSHTTPURLResponse localizedStringForStatusCode:statusCode], [responseUrl  allHeaderFields]];
     AsyncResponse *async = [self asyncHttpResponse:connection];
     if (!async)
         return;
-    
     // connection is starting, clear buffer
     [async.receivedData setLength:0];
     // save response url
@@ -466,42 +414,31 @@ static NSString *METHOD_COUNT = @"count";
 }
 
 -(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    
     [DebLog logN:@"FileService -> connection didReceiveData: length = %@", @([data length])];
-    
     AsyncResponse *async = [self asyncHttpResponse:connection];
     if (!async)
         return;
-    
     // data is arriving, add it to the buffer
     [async.receivedData appendData:data];
 }
 
 -(void)connection:(NSURLConnection*)connection didFailWithError:(NSError *)error {
-    
     [DebLog logN:@"FileService -> connection didFailWithError: '%@'", error];
-    
     AsyncResponse *async = [self asyncHttpResponse:connection];
-    
     // something went wrong, release connection
     [connection release];
     connection = nil;
-    
     if (!async)
         return;
-    
     Fault *fault = [Fault fault:[error domain] detail:[error localizedDescription]];
     [async.responder errorHandler:fault];
-    
     // clean up received data
     [asyncResponses removeObject:async];
     [async release];
 }
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    
     [DebLog logN:@"FileService -> connectionDidFinishLoading"];
-    
     // receivedData processing
     [self performSelector:@selector(processAsyncResponse:) withObject:connection afterDelay:0.0f];
 }
