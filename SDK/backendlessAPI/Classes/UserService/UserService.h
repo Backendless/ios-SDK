@@ -22,7 +22,6 @@
 #import <Foundation/Foundation.h>
 
 @class BackendlessUser, Fault, UserProperty;
-@protocol IResponder;
 // FB
 @class FBSDKAccessToken;
 
@@ -48,11 +47,6 @@
 -(BackendlessUser *)loginWithFacebookSDK:(NSString *)userId tokenString:(NSString *)tokenString expirationDate:(NSDate *)expirationDate fieldsMapping:(id)fieldsMapping;
 -(BackendlessUser *)loginWithGoogleSDK:(NSString *)idToken accessToken:(NSString *)accessToken;
 -(id)resendEmailConfirmation:(NSString *)email;
-
-// async methods with responder
--(void)findById:(NSString *)objectId responder:(id <IResponder>)responder;
--(void)describeUserClass:(id <IResponder>)responder;
--(void)resendEmailConfirmation:(NSString *)email responder:(id <IResponder>)responder;
 
 // async methods with block-based callbacks
 -(void)registering:(BackendlessUser *)user response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock __attribute__((deprecated("Replaced by the registerUser method")));
