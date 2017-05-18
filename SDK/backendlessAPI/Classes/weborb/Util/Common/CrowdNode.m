@@ -77,7 +77,7 @@
 }
 
 -(int)count {
-	return node.count;
+	return (int)node.count;
 }
 
 -(NSArray *)keys {

@@ -581,7 +581,7 @@
 	NSString *action = [decoder deserialize];
     if (action) {
         NSArray *arr = [action componentsSeparatedByString:@"."];
-        int count = arr.count;
+        int count = (int)arr.count;
         if (count > 1) {
             serviceName  = [arr objectAtIndex:0];
             for (int i = 1; i < count-1; i++)

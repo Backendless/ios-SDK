@@ -73,8 +73,9 @@
 }
 
 -(int)getBodyCount {
-    return bodyParts.count;
+    return (int)bodyParts.count;
 }
+
 -(NSString *)getRequestURI {
     Body *body = [bodyParts objectAtIndex:currentBody];
     return body.serviceUri;    

@@ -24,4 +24,6 @@
 
 @interface DataStoreFactory : NSObject <IDataStore>
 +(id <IDataStore>)createDataStore:(Class)entityClass;
+-(NSNumber *)removeById:(NSString *)objectId;
+-(void)removeById:(NSString *)objectId response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 @end

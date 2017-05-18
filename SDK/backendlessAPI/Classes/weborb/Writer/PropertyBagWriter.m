@@ -40,7 +40,7 @@
 	NSMutableDictionary *propertyBag = object.properties;
     NSArray *keys = [propertyBag allKeys];
 	
-	[writer beginWriteObject:[propertyBag count]];
+	[writer beginWriteObject:(int)[propertyBag count]];
 	for (NSString *key in keys) {
 		[writer writeFieldName:key];
 		[writer endWriteFieldValue];

@@ -34,6 +34,5 @@
 -(void)remove;
 
 // async
--(void)removeWithResponder:(id <IResponder>)responder;
 -(void)remove:(void(^)(id))responseBlock error:(void(^)(id))errorBlock;
 @end

@@ -244,11 +244,11 @@
     // fix header 
     Packet *chunk = [Packet packet];
     chunk.header = packet.header;
-    chunk.header.size = size;
+    chunk.header.size = (int)size;
    
     for (int i = 0; i < n; i++) {
         int start = i * writeChunkSize;
-        int len = size - start;
+        int len = (int)size - start;
         if (len > writeChunkSize) len = writeChunkSize;
         
         int begin = chunk.data.position;
@@ -335,7 +335,7 @@
     }
     else {
         
-        breakChunkSize = len - chunk.size;
+        breakChunkSize = len - (int)chunk.size;
         if (breakChunkSize) {
             // it's fragmental chunk: wait next partition
             [DebLog logN:@"RTMProtocol -> readingData: (%@) fragmental chunk: breakChunkSize = %d", part, breakChunkSize];

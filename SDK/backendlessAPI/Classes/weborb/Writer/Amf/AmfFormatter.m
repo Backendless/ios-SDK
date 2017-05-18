@@ -152,7 +152,7 @@
 -(void)writeData:(NSData *)data {
 	[writer writeByte:V3_DATATYPE];
 	[writer writeByte:BYTEARRAY_DATATYPE_V3];
-	[writer writeVarInt:((data.length << 1)|0x1)];
+	[writer writeVarInt:(int)((data.length << 1)|0x1)];
 	[writer write:(char *)data.bytes length:data.length];
 }
 

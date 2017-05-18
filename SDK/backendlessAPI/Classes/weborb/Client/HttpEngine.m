@@ -176,7 +176,7 @@
     
     id <IResponder> responder = (async.responder) ? async.responder : _responder;
     
-    int statusCode = [async.responseUrl statusCode];
+    int statusCode = (int)[async.responseUrl statusCode];
     if (statusCode != 200) {
         
         [DebLog log:@"HttpEngine -> sendRequest: (SYNC) response with *** INVALID statusCode = '%d'", statusCode];
@@ -383,7 +383,7 @@
         return fault;
     }
     
-    int statusCode = [responseUrl statusCode];
+    int statusCode = (int)[responseUrl statusCode];
     if (statusCode != 200) {
         
         [DebLog log:@"HttpEngine -> sendRequest: (SYNC) response with *** INVALID statusCode = '%d'", statusCode];
