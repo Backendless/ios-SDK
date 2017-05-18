@@ -19,9 +19,6 @@
  *  ********************************************************************************************************************
  */
 
-#define PERSIST_CURRENTUSER_OFF 0
-#define REPEAT_EASYLOGIN_ON 0
-
 #import "UserService.h"
 #import "DEBUG.h"
 #import "Types.h"
@@ -429,7 +426,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     }
 }
 
--(void)handleOpenURL:(NSURL *)url completion:(void(^)(BackendlessUser *))completion {    
+-(void)handleOpenURL:(NSURL *)url completion:(void(^)(BackendlessUser *))completion {
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 #if _USE_SAFARI_VC_
     if (self.iOS9above) {
