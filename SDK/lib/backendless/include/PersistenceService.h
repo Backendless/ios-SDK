@@ -26,12 +26,9 @@
 #import "DataQueryBuilder.h"
 
 #define PERSIST_OBJECT_ID @"objectId"
-#define PERSIST_CLASS(CLASS) [backendless.persistenceService of:[CLASS class]]
-
-extern NSString *LOAD_ALL_RELATIONS;
 
 @class QueryOptions, Fault, ObjectProperty;
-@protocol IResponder, IDataStore;
+@protocol IDataStore;
 
 @interface PersistenceService : NSObject
 
@@ -68,7 +65,6 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(NSArray *)callStoredProcedure:(NSString *)spName arguments:(NSDictionary *)arguments;
 -(NSNumber *)getObjectCount:(Class)entity;
 -(NSNumber *)getObjectCount:(Class)entity queryBuilder:(DataQueryBuilder *)queryBuilder;
-//
 -(NSNumber *)setRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects;
 -(NSNumber *)setRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause;
 -(NSNumber *)addRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects;
@@ -106,7 +102,6 @@ extern NSString *LOAD_ALL_RELATIONS;
 -(void)callStoredProcedure:(NSString *)spName arguments:(NSDictionary *)arguments response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getObjectCount:(Class)entity response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getObjectCount:(Class)entity queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
-//
 -(void)setRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)setRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)addRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;

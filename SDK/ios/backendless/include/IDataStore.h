@@ -31,10 +31,9 @@
 // sync methods with fault return (as exception)
 -(id)save:(id)entity;
 -(NSNumber *)remove:(id)entity;
+-(NSNumber *)removeById:(NSString *)objectId;
 -(NSArray *)find;
 -(NSArray *)find:(DataQueryBuilder *)queryBuilder;
-
-// ****************************************************************
 
 -(id)findFirst;
 -(id)findFirst:(DataQueryBuilder *)queryBuilder;
@@ -44,7 +43,7 @@
 -(id)findById:(id)objectId queryBuilder:(DataQueryBuilder *)queryBuilder;
 -(NSNumber *)getObjectCount;
 -(NSNumber *)getObjectCount:(DataQueryBuilder *)queryBuilder;
-//
+
 -(NSNumber *)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects;
 -(NSNumber *)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause;
 -(NSNumber *)addRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects;
@@ -57,6 +56,7 @@
 // async methods with block-based callbacks
 -(void)save:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)remove:(id)entity response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)removeById:(NSString *)objectId response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)find:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)find:(DataQueryBuilder *)queryBuilder response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)findFirst:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
@@ -67,7 +67,7 @@
 -(void)findById:(id)objectId queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getObjectCount:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getObjectCount:(DataQueryBuilder *)queryBuilder response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
-//
+
 -(void)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)addRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
