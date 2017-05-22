@@ -37,6 +37,10 @@ pod 'Backendless', '4.0b7'
 `${PODS_ROOT}/Headers/Public/Backendless/Backendless-Bridging-Header.h`
 
 ## RELEASE HISTORY
+4.0b8 May 22, 2017
+* Restored removeById method in IDataStore
+* IDataStore, MapDrivenDataStore, DataStoreFactory and PersistenceService cleanup
+
 4.0b7 May 19, 2017
 * RegisterDevice now returns deviceId instead of registrationId 
 * Geolocation API cleanup - removed methods with the IResponder (async) and Fault (sync) arguments
