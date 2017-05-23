@@ -33,19 +33,19 @@
 @implementation CacheFactory
 
 -(id)init {
-	if ( (self=[super init]) ) {
+    if ( (self=[super init]) ) {
         _key = @"DEFAULT_KEY";
         _entityClass = nil;
-	}
-	return self;
+    }
+    return self;
 }
 
 -(id)init:(NSString *)key type:(Class)entityClass {
-	if ( (self=[super init]) ) {
+    if ( (self=[super init]) ) {
         _key = [key retain];
         _entityClass = [entityClass retain];
-	}
-	return self;
+    }
+    return self;
 }
 
 +(id <ICacheService>)create:(NSString *)key {
@@ -57,10 +57,10 @@
 }
 
 -(void)dealloc {
-	[DebLog logN:@"DEALLOC CacheFactory"];
+    [DebLog logN:@"DEALLOC CacheFactory"];
     [_key release];
     [_entityClass release];
-	[super dealloc];
+    [super dealloc];
 }
 
 #pragma mark -
@@ -75,13 +75,13 @@
 
 // sync methods with fault return (as exception)
 
--(id)put:(id)entity {
-    return [self put:entity timeToLive:0];
+-(void)put:(id)entity {
+    [self put:entity timeToLive:0];
 }
 
--(id)put:(id)entity timeToLive:(int)seconds {    
+-(void)put:(id)entity timeToLive:(int)seconds {
     Fault *fault = [self entityValidation:entity];
-    return fault? fault : [backendless.cache put:_key object:entity timeToLive:seconds];
+    fault ? [backendless throwFault:fault] : [backendless.cache put:_key object:entity timeToLive:seconds];
 }
 
 -(id)get {

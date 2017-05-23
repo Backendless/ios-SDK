@@ -26,8 +26,8 @@
 @protocol ICacheService <NSObject>
 
 // sync methods with fault return (as exception)
--(id)put:(id)entity;
--(id)put:(id)entity timeToLive:(int)seconds;
+-(void)put:(id)entity;
+-(void)put:(id)entity timeToLive:(int)seconds;
 -(id)get;
 -(NSNumber *)contains;
 -(id)expireIn:(int)seconds;
