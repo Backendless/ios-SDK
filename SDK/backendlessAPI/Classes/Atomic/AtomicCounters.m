@@ -42,17 +42,13 @@ static NSString *METHOD_RESET = @"reset";
 @implementation AtomicCounters
 
 -(id)init {
-    if ( (self=[super init]) ) {
-        
+    if (self=[super init]) {
     }
-    
     return self;
 }
 
 -(void)dealloc {
-    
     [DebLog logN:@"DEALLOC AtomicCounters"];
-    
     [super dealloc];
 }
 
@@ -61,82 +57,64 @@ static NSString *METHOD_RESET = @"reset";
 // sync methods with fault return (as exception)
 
 -(NSNumber *)get:(NSString *)counterName {
-    
     if (!counterName)
         return [backendless throwFault:FAULT_NO_NAME];
-    
     NSArray *args = @[counterName];
     return [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET args:args];
 }
 
 -(NSNumber *)getAndIncrement:(NSString *)counterName {
-    
     if (!counterName)
         return [backendless throwFault:FAULT_NO_NAME];
-    
     NSArray *args = @[counterName];
     return [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET_AND_INCREMENT args:args];
 }
 
 -(NSNumber *)incrementAndGet:(NSString *)counterName {
-    
     if (!counterName)
         return [backendless throwFault:FAULT_NO_NAME];
-    
     NSArray *args = @[counterName];
     return [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_INCREMENT_AND_GET args:args];
 }
 
 -(NSNumber *)getAndDecrement:(NSString *)counterName {
-    
     if (!counterName)
         return [backendless throwFault:FAULT_NO_NAME];
-    
     NSArray *args = @[counterName];
     return [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET_AND_DECREMENT args:args];
 }
 
 -(NSNumber *)decrementAndGet:(NSString *)counterName {
-    
     if (!counterName)
         return [backendless throwFault:FAULT_NO_NAME];
-    
     NSArray *args = @[counterName];
     return [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_DECREMENT_AND_GET args:args];
 }
 
--(NSNumber *)addAndGet:(NSString *)counterName value:(long)value {
-    
+-(NSNumber *)addAndGet:(NSString *)counterName value:(NSNumber *)value {
     if (!counterName)
         return [backendless throwFault:FAULT_NO_NAME];
-    
-    NSArray *args = @[counterName, [NSNumber numberWithLong:value]];
+    NSArray *args = @[counterName, value];
     return [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_ADD_AND_GET args:args];
 }
 
--(NSNumber *)getAndAdd:(NSString *)counterName value:(long)value {
-    
+-(NSNumber *)getAndAdd:(NSString *)counterName value:(NSNumber *)value {
     if (!counterName)
         return [backendless throwFault:FAULT_NO_NAME];
-    
-    NSArray *args = @[counterName, [NSNumber numberWithLong:value]];
+    NSArray *args = @[counterName, value];
     return [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET_AND_ADD args:args];
 }
 
--(NSNumber *)compareAndSet:(NSString *)counterName expected:(long)expected updated:(long)updated {
-    
+-(NSNumber *)compareAndSet:(NSString *)counterName expected:(NSNumber *)expected updated:(NSNumber *)updated {
     if (!counterName)
         return [backendless throwFault:FAULT_NO_NAME];
-    
-    NSArray *args = @[counterName, [NSNumber numberWithLong:expected], [NSNumber numberWithLong:updated]];
+    NSArray *args = @[counterName, expected, updated];
     return [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_COMPARE_AND_SET args:args];
 }
 
 -(id)reset:(NSString *)counterName  {
-    
     if (!counterName)
         return [backendless throwFault:FAULT_NO_NAME];
-    
     NSArray *args = @[counterName];
     return [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_RESET args:args];
 }
@@ -183,27 +161,27 @@ static NSString *METHOD_RESET = @"reset";
     [invoker invokeAsync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_DECREMENT_AND_GET args:args responder:responder];
 }
 
--(void)addAndGet:(NSString *)counterName value:(long)value response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)addAndGet:(NSString *)counterName value:(NSNumber *)value response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
     id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!counterName)
         return [responder errorHandler:FAULT_NO_NAME];
-    NSArray *args = @[counterName, [NSNumber numberWithLong:value]];
+    NSArray *args = @[counterName, value];
     [invoker invokeAsync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_ADD_AND_GET args:args responder:responder];
 }
 
--(void)getAndAdd:(NSString *)counterName value:(long)value response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)getAndAdd:(NSString *)counterName value:(NSNumber *)value response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
     id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!counterName)
         return [responder errorHandler:FAULT_NO_NAME];
-    NSArray *args = @[counterName, [NSNumber numberWithLong:value]];
+    NSArray *args = @[counterName, value];
     [invoker invokeAsync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET_AND_ADD args:args responder:responder];
 }
 
--(void)compareAndSet:(NSString *)counterName expected:(long)expected updated:(long)updated response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)compareAndSet:(NSString *)counterName expected:(NSNumber *)expected updated:(NSNumber *)updated response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
     id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!counterName)
         return [responder errorHandler:FAULT_NO_NAME];
-    NSArray *args = @[counterName, [NSNumber numberWithLong:expected], [NSNumber numberWithLong:updated]];
+    NSArray *args = @[counterName, expected, updated];
     [invoker invokeAsync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_COMPARE_AND_SET args:args responder:responder];
 }
 
