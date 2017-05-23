@@ -27,8 +27,8 @@
 @interface CacheService : NSObject
 
 // sync methods with fault return (as exception)
--(id)put:(NSString *)key object:(id)entity;
--(id)put:(NSString *)key object:(id)entity timeToLive:(int)seconds;
+-(void)put:(NSString *)key object:(id)entity;
+-(void)put:(NSString *)key object:(id)entity timeToLive:(int)seconds;
 -(id)get:(NSString *)key;
 -(NSNumber *)contains:(NSString *)key;
 -(id)expireIn:(NSString *)key timeToLive:(int)seconds;

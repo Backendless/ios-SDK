@@ -45,34 +45,34 @@ static NSString *METHOD_DELETE = @"delete";
 @implementation CacheService
 
 -(id)init {
-	if (self=[super init]) {
-	}
-	return self;
+    if (self=[super init]) {
+    }
+    return self;
 }
 
 -(void)dealloc {
-	[DebLog logN:@"DEALLOC CacheService"];
-	[super dealloc];
+    [DebLog logN:@"DEALLOC CacheService"];
+    [super dealloc];
 }
 
 #pragma mark Public Methods
 
 // sync methods with fault return (as exception)
 
--(id)put:(NSString *)key object:(id)entity {
-    return [self put:key object:entity timeToLive:0];
+-(void)put:(NSString *)key object:(id)entity {
+    [self put:key object:entity timeToLive:0];
 }
 
--(id)put:(NSString *)key object:(id)entity timeToLive:(int)seconds {
+-(void)put:(NSString *)key object:(id)entity timeToLive:(int)seconds {
     if (!key)
-        return [backendless throwFault:FAULT_NO_KEY];
+        [backendless throwFault:FAULT_NO_KEY];
     if (!entity)
-        return [backendless throwFault:FAULT_NO_ENTITY];    
+        [backendless throwFault:FAULT_NO_ENTITY];
     BinaryStream *stream = [AMFSerializer serializeToBytes:entity];
     NSData *data = [NSData dataWithBytes:stream.buffer length:stream.size];
     NSNumber *time = [NSNumber numberWithInt:((seconds > 0) && (seconds <= 7200))?seconds:0];
     NSArray *args = @[key, data, time];
-    return [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_PUT_BYTES args:args];
+    [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_PUT_BYTES args:args];
 }
 
 -(id)get:(NSString *)key {
@@ -83,7 +83,7 @@ static NSString *METHOD_DELETE = @"delete";
     if ([result isKindOfClass:Fault.class])
         return result;
     if (![result isKindOfClass:NSData.class])
-        return [backendless throwFault:FAULT_NO_RESULT];    
+        return [backendless throwFault:FAULT_NO_RESULT];
     return [self onGet:result];
 }
 
@@ -104,14 +104,14 @@ static NSString *METHOD_DELETE = @"delete";
 
 -(id)expireAt:(NSString *)key timestamp:(NSDate *)timestamp {
     if (!key)
-        return [backendless throwFault:FAULT_NO_KEY];    
+        return [backendless throwFault:FAULT_NO_KEY];
     NSArray *args = @[key, timestamp];
     return [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_EXPIRE_AT args:args];
 }
 
 -(id)remove:(NSString *)key {
     if (!key)
-        return [backendless throwFault:FAULT_NO_KEY];    
+        return [backendless throwFault:FAULT_NO_KEY];
     NSArray *args = @[key];
     return [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_DELETE args:args];
 }
@@ -138,7 +138,7 @@ static NSString *METHOD_DELETE = @"delete";
 -(void)get:(NSString *)key response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
     id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!key)
-        return [responder errorHandler:FAULT_NO_KEY];    
+        return [responder errorHandler:FAULT_NO_KEY];
     NSArray *args = @[key];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onGet:) selErrorHandler:nil];
     _responder.chained = responder;
@@ -162,7 +162,7 @@ static NSString *METHOD_DELETE = @"delete";
     [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_EXPIRE_IN args:args responder:responder];
 }
 
--(void)expireAt:(NSString *)key timestamp:(NSDate *)timestamp response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {    
+-(void)expireAt:(NSString *)key timestamp:(NSDate *)timestamp response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
     id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!key)
         return [responder errorHandler:FAULT_NO_KEY];
@@ -201,7 +201,7 @@ static NSString *METHOD_DELETE = @"delete";
     NSData *data = (NSData *)response;
     BinaryStream *stream = [BinaryStream streamWithStream:(char *)[data bytes] andSize:data.length];
     id obj = [AMFSerializer deserializeFromBytes:stream];
-    [DebLog log:@"CacheService -> onGet: obj = %@\n backendless.headers = %@", obj, backendless.headers];    
+    [DebLog log:@"CacheService -> onGet: obj = %@\n backendless.headers = %@", obj, backendless.headers];
     return  [(NSObject *)obj isKindOfClass:[NSNull class]]?nil:obj;
 }
 
