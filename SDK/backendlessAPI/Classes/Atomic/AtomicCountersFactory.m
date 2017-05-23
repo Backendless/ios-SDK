@@ -83,15 +83,15 @@
     return [backendless.counters decrementAndGet:_name];
 }
 
--(NSNumber *)addAndGet:(long)value {
+-(NSNumber *)addAndGet:(NSNumber *)value {
     return [backendless.counters addAndGet:_name value:value];
 }
 
--(NSNumber *)getAndAdd:(long)value {
+-(NSNumber *)getAndAdd:(NSNumber *)value {
     return [backendless.counters getAndAdd:_name value:value];
 }
 
--(NSNumber *)compareAndSet:(long)expected updated:(long)updated  {
+-(NSNumber *)compareAndSet:(NSNumber *)expected updated:(NSNumber *)updated  {
     return [backendless.counters compareAndSet:_name expected:expected updated:updated];
 }
 
@@ -121,15 +121,15 @@
     [backendless.counters decrementAndGet:_name response:responseBlock error:errorBlock];
 }
 
--(void)addAndGet:(long)value response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)addAndGet:(NSNumber *)value response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
     [backendless.counters addAndGet:_name value:value response:responseBlock error:errorBlock];
 }
 
--(void)getAndAdd:(long)value response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)getAndAdd:(NSNumber *)value response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
     [backendless.counters getAndAdd:_name value:value response:responseBlock error:errorBlock];
 }
 
--(void)compareAndSet:(long)expected updated:(long)updated response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)compareAndSet:(NSNumber *)expected updated:(NSNumber *)updated response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
     [backendless.counters compareAndSet:_name expected:expected updated:updated response:responseBlock error:errorBlock];
 }
 

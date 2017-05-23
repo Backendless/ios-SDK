@@ -32,9 +32,9 @@
 -(NSNumber *)incrementAndGet;
 -(NSNumber *)getAndDecrement;
 -(NSNumber *)decrementAndGet;
--(NSNumber *)addAndGet:(long)value;
--(NSNumber *)getAndAdd:(long)value;
--(NSNumber *)compareAndSet:(long)expected updated:(long)updated;
+-(NSNumber *)addAndGet:(NSNumber *)value;
+-(NSNumber *)getAndAdd:(NSNumber *)value;
+-(NSNumber *)compareAndSet:(NSNumber *)expected updated:(NSNumber *)updated;
 -(id)reset;
 
 // async methods with block-based callback
@@ -43,9 +43,9 @@
 -(void)incrementAndGet:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
 -(void)getAndDecrement:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
 -(void)decrementAndGet:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
--(void)addAndGet:(long)value response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
--(void)getAndAdd:(long)value response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
--(void)compareAndSet:(long)expected updated:(long)updated response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
+-(void)addAndGet:(NSNumber *)value response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
+-(void)getAndAdd:(NSNumber *)value response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
+-(void)compareAndSet:(NSNumber *)expected updated:(NSNumber *)updated response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
 -(void)reset:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
 
 @end

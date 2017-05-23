@@ -22,7 +22,6 @@
 #import <Foundation/Foundation.h>
 #import "IAtomicCounters.h"
 
-@protocol IResponder;
 @class Fault;
 
 @interface AtomicCounters : NSObject
@@ -33,9 +32,9 @@
 -(NSNumber *)incrementAndGet:(NSString *)counterName;
 -(NSNumber *)getAndDecrement:(NSString *)counterName;
 -(NSNumber *)decrementAndGet:(NSString *)counterName;
--(NSNumber *)addAndGet:(NSString *)counterName value:(long)value;
--(NSNumber *)getAndAdd:(NSString *)counterName value:(long)value;
--(NSNumber *)compareAndSet:(NSString *)counterName expected:(long)expected updated:(long)updated;
+-(NSNumber *)addAndGet:(NSString *)counterName value:(NSNumber *)value;
+-(NSNumber *)getAndAdd:(NSString *)counterName value:(NSNumber *)value;
+-(NSNumber *)compareAndSet:(NSString *)counterName expected:(NSNumber *)expected updated:(NSNumber *)updated;
 -(id)reset:(NSString *)counterName;
 
 // async methods with block-based callbacks
@@ -44,9 +43,9 @@
 -(void)incrementAndGet:(NSString *)counterName response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
 -(void)getAndDecrement:(NSString *)counterName response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
 -(void)decrementAndGet:(NSString *)counterName response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
--(void)addAndGet:(NSString *)counterName value:(long)value response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
--(void)getAndAdd:(NSString *)counterName value:(long)value response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
--(void)compareAndSet:(NSString *)counterName expected:(long)expected updated:(long)updated response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
+-(void)addAndGet:(NSString *)counterName value:(NSNumber *)value response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
+-(void)getAndAdd:(NSString *)counterName value:(NSNumber *)value response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
+-(void)compareAndSet:(NSString *)counterName expected:(NSNumber *)expected updated:(NSNumber *)updated response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
 -(void)reset:(NSString *)counterName response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
 
 // IAtomicCounters factory
