@@ -100,16 +100,9 @@
 }
 
 -(void)addObject:(id <IAdaptingType>)key type:(Class)type object:(id)value {
-    
-#if 0
-    [DebLog logY:@"ReaderReferenceCache -> addObject: (!!! BLOCKED !!!) key=%@, type=%@, value=%@", [self objectKey:key], type, value];
-    return;
-#endif
-   
     if (!key || !type) {
         return;
-    }
-    
+    }    
 #if _OLD_
     NSMutableDictionary *dict = [cache objectForObjectKey:key];
     if (!dict) {

@@ -85,7 +85,7 @@
     return [backendless.persistenceService first:_entityClass];
 }
 
-- (id)findFirst:(DataQueryBuilder *)queryBuilder {
+-(id)findFirst:(DataQueryBuilder *)queryBuilder {
     return [backendless.persistenceService first:_entityClass queryBuilder:queryBuilder];
 }
 

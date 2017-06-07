@@ -40,4 +40,5 @@
 -(instancetype)addListRelated:(NSArray<NSString *> *)related;
 -(int)getRelationsDepth;
 -(instancetype)setRelationsDepth:(int)relationsDepth;
+
 @end

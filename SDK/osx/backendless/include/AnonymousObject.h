@@ -9,13 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "ICacheableAdaptingType.h"
 
-#define AUTORELEASED_ANONYMOUS_OBJECT 1
-
 @interface AnonymousObject : NSObject <ICacheableAdaptingType> {
 	NSMutableDictionary	*properties;
 }
+
 @property (nonatomic, assign) NSMutableDictionary *properties;
 
 +(id)objectType;
 +(id)objectType:(NSMutableDictionary *)dictionary;
+
 @end

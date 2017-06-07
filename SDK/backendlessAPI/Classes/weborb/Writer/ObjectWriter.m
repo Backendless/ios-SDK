@@ -21,15 +21,15 @@
 #pragma mark Public Methods
 
 +(id)writer {
-	return [[ObjectWriter new] autorelease];
+    return [[ObjectWriter new] autorelease];
 }
 
 -(void)write:(id)obj format:(IProtocolFormatter *)writer {
-	
-	[DebLog log:_ON_WRITERS_LOG_ text:@"ObjectWriter -> write:%@ format:%@", obj, writer];
-	
-	if (!obj || !writer)
-		return;
+    
+    [DebLog log:_ON_WRITERS_LOG_ text:@"ObjectWriter -> write:%@ format:%@", obj, writer];
+    
+    if (!obj || !writer)
+        return;
     
     // serialization preprocessor
     if ([obj isKindOfClass:[V3Message class]]) {
@@ -39,27 +39,18 @@
     else {
         obj = [obj onAMFSerialize];
     }
-    
-#if 1
-    
     if (!obj)
         return;
     
     // if onAMFSerialize changed the original obj type to another type
-#if 0
-    id <ITypeWriter> typeWriter  = [[MessageWriter sharedInstance] getStandardTypeWriter:[obj class]];
-#else
     id <ITypeWriter> typeWriter  = [[MessageWriter sharedInstance] getWriter:[obj class] format:writer withInterfaces:YES];
-#endif
     if (typeWriter) {
         [DebLog log:_ON_WRITERS_LOG_ text:@"ObjectWriter -> write: (*** CHANGED ***) '%@' >> typeWriter:%@", [obj class], typeWriter];
         [typeWriter write:obj format:writer];
         return;
     }
-#endif
     
-#if 1 // NSNumber correction bridged from swift Bool on 32-bit device/simulator
-    
+    // NSNumber correction bridged from swift Bool on 32-bit device/simulator    
     NSMutableDictionary *objectFields = [NSMutableDictionary dictionaryWithDictionary:[Types propertyDictionary:obj]];
     NSDictionary *attrs = [Types propertyKeysWithAttributes:obj];
     NSArray *props = [objectFields allKeys];
@@ -75,16 +66,13 @@
             }
         }
     }
-#else
-    NSDictionary *objectFields = [Types propertyDictionary:obj];
-#endif
-
+    
     NSString *className = [__types objectMappedClassName:obj];
     
     [DebLog log:_ON_WRITERS_LOG_ text:@"ObjectWriter -> write: className = '%@'", className];
     
     id <IObjectSerializer> serializer = [writer getObjectSerializer];
-    [serializer writeObject:className fields:objectFields format:writer];    
+    [serializer writeObject:className fields:objectFields format:writer];
 }
 
 -(char)propertyCode:(NSString *)attributes {

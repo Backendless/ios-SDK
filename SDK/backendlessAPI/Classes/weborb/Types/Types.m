@@ -15,43 +15,43 @@
 @implementation Types
 @synthesize swiftClassPrefix;
 
-// Singleton accessor:  this is how you should ALWAYS get a reference to the class instance.  Never init your own. 
+// Singleton accessor:  this is how you should ALWAYS get a reference to the class instance.  Never init your own.
 +(Types *)sharedInstance {
-	static Types *sharedTypes;
-	@synchronized(self)
-	{
-		if (!sharedTypes)
-			sharedTypes = [[Types alloc] init];
-	}
-	return sharedTypes;
+    static Types *sharedTypes;
+    @synchronized(self)
+    {
+        if (!sharedTypes)
+            sharedTypes = [[Types alloc] init];
+    }
+    return sharedTypes;
 }
 
--(id)init {	
-	if (self = [super init]) {
-		abstractMappings = [[NSMutableDictionary alloc] init];
-		clientMappings = [[NSMutableDictionary alloc] init];
-		serverMappings = [[NSMutableDictionary alloc] init];
+-(id)init {
+    if (self = [super init]) {
+        abstractMappings = [[NSMutableDictionary alloc] init];
+        clientMappings = [[NSMutableDictionary alloc] init];
+        serverMappings = [[NSMutableDictionary alloc] init];
         self.swiftClassPrefix = [Types targetName];
-	}
-	return self;
+    }
+    return self;
 }
 
 -(void)dealloc {
-	
-	[DebLog logN:@"DEALLOC Types"];
-
+    
+    [DebLog logN:@"DEALLOC Types"];
+    
     [self.swiftClassPrefix release];
-	
-	[abstractMappings removeAllObjects];
-	[abstractMappings release];
-	
-	[clientMappings removeAllObjects];
-	[clientMappings release];
-	
-	[serverMappings removeAllObjects];
-	[serverMappings release];
-	
-	[super dealloc];
+    
+    [abstractMappings removeAllObjects];
+    [abstractMappings release];
+    
+    [clientMappings removeAllObjects];
+    [clientMappings release];
+    
+    [serverMappings removeAllObjects];
+    [serverMappings release];
+    
+    [super dealloc];
 }
 
 
@@ -127,11 +127,7 @@
         return;
     
     [clientMappings setObject:mappedServerType forKey:clientClass];
-#if 0
-    [serverMappings setObject:clientClass forKey:[NSString stringWithUTF8String:class_getName(mappedServerType)]];
-#else
     [serverMappings setObject:clientClass forKey:[Types typeClassName:mappedServerType]];
-#endif
 }
 
 -(Class)getServerTypeForClientClass:(NSString *)clientClass {
@@ -169,11 +165,7 @@
 }
 
 +(NSString *)insideTypeClassName:(Class)type {
-#if 1
     return type ? [NSString stringWithUTF8String:class_getName(type)] : nil;
-#else
-    return type ? NSStringFromClass(type) : nil;
-#endif
 }
 
 -(id)classInstance:(Class)type {
@@ -225,7 +217,7 @@
     
     NSMutableArray *attrs = [NSMutableArray array];
     
-    Class class = [obj class];    
+    Class class = [obj class];
     while (class != [NSObject class]) {
         
         unsigned int outCount;
@@ -239,7 +231,7 @@
         
         class = [class superclass];
     }
-
+    
     // remove iOS8 "additional" properties
     [attrs removeObject:@"hash"];
     [attrs removeObject:@"superclass"];
@@ -247,12 +239,7 @@
     [attrs removeObject:@"debugDescription"];
     
     //NSLog(@"Types -> propertyKeys: <%@> count=%lu\n%@", [obj class], (unsigned long)attrs.count, attrs);
-    
-#if 1
     return [NSArray arrayWithArray:attrs];
-#else
-    return attrs;
-#endif
 }
 
 +(NSArray *)propertyAttributes:(id)obj {
@@ -278,11 +265,7 @@
     }
     
     //NSLog(@"propertyAttributes: count=%d", attrs.count);
-#if 1
     return [NSArray arrayWithArray:attrs];
-#else
-    return attrs;
-#endif
 }
 
 +(NSDictionary *)propertyKeysWithAttributes:(id)obj {
@@ -310,12 +293,7 @@
     }
     
     //NSLog(@"propertyKeysWithAttributes: count=%d", dict.count);
-#if 1
     return [NSDictionary dictionaryWithDictionary:dict];
-#else
-    return dict;
-#endif
-    
 }
 
 +(NSDictionary *)propertyDictionary:(id)obj {
@@ -341,21 +319,16 @@
         [prefix appendString:items[i]];
     }
     // https://developer.apple.com/library/ios/documentation/Swift/Conceptual/BuildingCocoaApps/MixandMatch.html#//apple_ref/doc/uid/TP40014216-CH10-ID138
-#if 0 // need iOS 8>
-    if ([@"0123456789" containsString:[prefix substringWithRange:NSMakeRange(0, 1)]]) {
-#else
     if ([@"0123456789" rangeOfString:[prefix substringWithRange:NSMakeRange(0, 1)]].length) {
-#endif
         [prefix replaceCharactersInRange:NSMakeRange(0, 1) withString:@"_"];
     }
+    
+    NSArray *parts = [prefix componentsSeparatedByString:@"_0x0"];
+    if (parts.count > 1) {
+        prefix = parts[0];
+    }
 
-#if 1 // http://support.backendless.com/topic/getting-crash-when-updating-a-record-in-backendless
-        NSArray *parts = [prefix componentsSeparatedByString:@"_0x0"];
-        if (parts.count > 1) {
-            prefix = parts[0];
-        }
-#endif
-        
+    
     self.swiftClassPrefix = prefix;
     //NSLog(@"Types.swiftClassPrefix = '%@'", self.swiftClassPrefix);
 }
@@ -363,13 +336,9 @@
 
 +(NSString *)targetName {
     NSString *data = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
-#if 0
-    return [data stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
-#else
     NSMutableCharacterSet *charSet = [NSMutableCharacterSet punctuationCharacterSet];
     [charSet addCharactersInString:@"~`$^+=|<> "];
     return [[data componentsSeparatedByCharactersInSet:charSet] componentsJoinedByString:@"_"];
-#endif
 }
 
 +(NSDictionary *)getInfoPlist {
@@ -383,15 +352,8 @@
     if (!plistXML) {
         return nil;
     }
-
-#if 0
-    NSString *errorDesc = nil;
-    NSDictionary *result = (NSDictionary *)[NSPropertyListSerialization propertyListFromData:plistXML
-                                                                            mutabilityOption:NSPropertyListMutableContainersAndLeaves format:&format errorDescription:&errorDesc];
     
-    if (!result)
-        NSLog(@"Error reading plist: %@, format: %ld", errorDesc, (long)format);
-#else
+
     NSError *error = nil;
     NSDictionary *result = (NSDictionary *)[NSPropertyListSerialization propertyListWithData:plistXML
                                                                                      options:NSPropertyListMutableContainersAndLeaves
@@ -400,7 +362,6 @@
     if (!result)
         NSLog(@"Error reading plist: %@, format: %ld", error, (long)format);
     
-#endif
     
     //NSLog(@"Types->getInfoPlist: %@", result);
     
@@ -454,7 +415,7 @@
 
 -(id)objectForObjectKey:(id)objectKey {
     return [self valueForKey:[Types objectClassName:objectKey]];
-
+    
 }
 
 @end
@@ -476,13 +437,13 @@
 @implementation NSObject (AMF)
 
 -(id)onAMFSerialize {
-	[DebLog logN:@"NSObject (AMF) -> onAMFSerialize: <%@>", [self class]];
+    [DebLog logN:@"NSObject (AMF) -> onAMFSerialize: <%@>", [self class]];
     return self;
 }
 
-// overrided method MUST return 'self' to avoid a deserialization breaking 
+// overrided method MUST return 'self' to avoid a deserialization breaking
 -(id)onAMFDeserialize {
-	[DebLog logN:@"NSObject (AMF) -> onAMFDeserialize: <%@>", [self class]];
+    [DebLog logN:@"NSObject (AMF) -> onAMFDeserialize: <%@>", [self class]];
     return self;
 }
 
@@ -571,7 +532,7 @@
 -(BOOL)resolveProperty:(NSString *)name value:(id)value {
     
     if ([self resolveProperty:name]) {
-       
+        
         @try {
             [self setValue:value forKey:name];
             [DebLog logN:@"Types::NSObject(Properties) -> resolveProperty: RESOLVE PROPERTY '%@' = %@", name, value];
