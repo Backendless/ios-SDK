@@ -62,17 +62,17 @@ static NSString *_defaultService;
 
 #pragma mark -
 
-- (instancetype)init
+-(instancetype)init
 {
     return [self initWithService:[self.class defaultService] accessGroup:nil];
 }
 
-- (instancetype)initWithService:(NSString *)service
+-(instancetype)initWithService:(NSString *)service
 {
     return [self initWithService:service accessGroup:nil];
 }
 
-- (instancetype)initWithService:(NSString *)service accessGroup:(NSString *)accessGroup
+-(instancetype)initWithService:(NSString *)service accessGroup:(NSString *)accessGroup
 {
     self = [super init];
     if (self) {
@@ -91,12 +91,12 @@ static NSString *_defaultService;
 
 #pragma mark -
 
-- (instancetype)initWithServer:(NSURL *)server protocolType:(UICKeyChainStoreProtocolType)protocolType
+-(instancetype)initWithServer:(NSURL *)server protocolType:(UICKeyChainStoreProtocolType)protocolType
 {
     return [self initWithServer:server protocolType:protocolType authenticationType:UICKeyChainStoreAuthenticationTypeDefault];
 }
 
-- (instancetype)initWithServer:(NSURL *)server protocolType:(UICKeyChainStoreProtocolType)protocolType authenticationType:(UICKeyChainStoreAuthenticationType)authenticationType
+-(instancetype)initWithServer:(NSURL *)server protocolType:(UICKeyChainStoreProtocolType)protocolType authenticationType:(UICKeyChainStoreAuthenticationType)authenticationType
 {
     self = [super init];
     if (self) {
@@ -114,7 +114,7 @@ static NSString *_defaultService;
 
 #pragma mark -
 
-- (void)commonInit
+-(void)commonInit
 {
     _accessibility = UICKeyChainStoreAccessibilityAfterFirstUnlock;
 }
@@ -356,7 +356,7 @@ static NSString *_defaultService;
 
 #pragma mark -
 
-- (BOOL)contains:(NSString *)key
+-(BOOL)contains:(NSString *)key
 {
     NSMutableDictionary *query = [self query];
     query[(__bridge __strong id)kSecAttrAccount] = key;
@@ -367,12 +367,12 @@ static NSString *_defaultService;
 
 #pragma mark -
 
-- (NSString *)stringForKey:(id)key
+-(NSString *)stringForKey:(id)key
 {
     return [self stringForKey:key error:nil];
 }
 
-- (NSString *)stringForKey:(id)key error:(NSError *__autoreleasing *)error
+-(NSString *)stringForKey:(id)key error:(NSError *__autoreleasing *)error
 {
     NSData *data = [self dataForKey:key error:error];
     if (data) {
@@ -392,37 +392,37 @@ static NSString *_defaultService;
 
 #pragma mark -
 
-- (BOOL)setString:(NSString *)string forKey:(NSString *)key
+-(BOOL)setString:(NSString *)string forKey:(NSString *)key
 {
     return [self setString:string forKey:key genericAttribute:nil label:nil comment:nil error:nil];
 }
 
-- (BOOL)setString:(NSString *)string forKey:(NSString *)key error:(NSError *__autoreleasing *)error
+-(BOOL)setString:(NSString *)string forKey:(NSString *)key error:(NSError *__autoreleasing *)error
 {
     return [self setString:string forKey:key genericAttribute:nil label:nil comment:nil error:error];
 }
 
-- (BOOL)setString:(NSString *)string forKey:(NSString *)key genericAttribute:(id)genericAttribute
+-(BOOL)setString:(NSString *)string forKey:(NSString *)key genericAttribute:(id)genericAttribute
 {
     return [self setString:string forKey:key genericAttribute:genericAttribute label:nil comment:nil error:nil];
 }
 
-- (BOOL)setString:(NSString *)string forKey:(NSString *)key genericAttribute:(id)genericAttribute error:(NSError * __autoreleasing *)error
+-(BOOL)setString:(NSString *)string forKey:(NSString *)key genericAttribute:(id)genericAttribute error:(NSError * __autoreleasing *)error
 {
     return [self setString:string forKey:key genericAttribute:genericAttribute label:nil comment:nil error:error];
 }
 
-- (BOOL)setString:(NSString *)string forKey:(NSString *)key label:(NSString *)label comment:(NSString *)comment
+-(BOOL)setString:(NSString *)string forKey:(NSString *)key label:(NSString *)label comment:(NSString *)comment
 {
     return [self setString:string forKey:key genericAttribute:nil label:label comment:comment error:nil];
 }
 
-- (BOOL)setString:(NSString *)string forKey:(NSString *)key label:(NSString *)label comment:(NSString *)comment error:(NSError *__autoreleasing *)error
+-(BOOL)setString:(NSString *)string forKey:(NSString *)key label:(NSString *)label comment:(NSString *)comment error:(NSError *__autoreleasing *)error
 {
     return [self setString:string forKey:key genericAttribute:nil label:label comment:comment error:error];
 }
 
-- (BOOL)setString:(NSString *)string forKey:(NSString *)key genericAttribute:(id)genericAttribute label:(NSString *)label comment:(NSString *)comment error:(NSError *__autoreleasing *)error
+-(BOOL)setString:(NSString *)string forKey:(NSString *)key genericAttribute:(id)genericAttribute label:(NSString *)label comment:(NSString *)comment error:(NSError *__autoreleasing *)error
 {
     if (!string) {
         return [self removeItemForKey:key error:error];
@@ -440,12 +440,12 @@ static NSString *_defaultService;
 
 #pragma mark -
 
-- (NSData *)dataForKey:(NSString *)key
+-(NSData *)dataForKey:(NSString *)key
 {
     return [self dataForKey:key error:nil];
 }
 
-- (NSData *)dataForKey:(NSString *)key error:(NSError *__autoreleasing *)error
+-(NSData *)dataForKey:(NSString *)key error:(NSError *__autoreleasing *)error
 {
     NSMutableDictionary *query = [self query];
     query[(__bridge __strong id)kSecMatchLimit] = (__bridge id)kSecMatchLimitOne;
@@ -481,37 +481,37 @@ static NSString *_defaultService;
 
 #pragma mark -
 
-- (BOOL)setData:(NSData *)data forKey:(NSString *)key
+-(BOOL)setData:(NSData *)data forKey:(NSString *)key
 {
     return [self setData:data forKey:key genericAttribute:nil label:nil comment:nil error:nil];
 }
 
-- (BOOL)setData:(NSData *)data forKey:(NSString *)key error:(NSError *__autoreleasing *)error
+-(BOOL)setData:(NSData *)data forKey:(NSString *)key error:(NSError *__autoreleasing *)error
 {
     return [self setData:data forKey:key genericAttribute:nil label:nil comment:nil error:error];
 }
 
-- (BOOL)setData:(NSData *)data forKey:(NSString *)key genericAttribute:(id)genericAttribute
+-(BOOL)setData:(NSData *)data forKey:(NSString *)key genericAttribute:(id)genericAttribute
 {
     return [self setData:data forKey:key genericAttribute:genericAttribute label:nil comment:nil error:nil];
 }
 
-- (BOOL)setData:(NSData *)data forKey:(NSString *)key genericAttribute:(id)genericAttribute error:(NSError * __autoreleasing *)error
+-(BOOL)setData:(NSData *)data forKey:(NSString *)key genericAttribute:(id)genericAttribute error:(NSError * __autoreleasing *)error
 {
     return [self setData:data forKey:key genericAttribute:genericAttribute label:nil comment:nil error:error];
 }
 
-- (BOOL)setData:(NSData *)data forKey:(NSString *)key label:(NSString *)label comment:(NSString *)comment
+-(BOOL)setData:(NSData *)data forKey:(NSString *)key label:(NSString *)label comment:(NSString *)comment
 {
     return [self setData:data forKey:key genericAttribute:nil label:label comment:comment error:nil];
 }
 
-- (BOOL)setData:(NSData *)data forKey:(NSString *)key label:(NSString *)label comment:(NSString *)comment error:(NSError *__autoreleasing *)error
+-(BOOL)setData:(NSData *)data forKey:(NSString *)key label:(NSString *)label comment:(NSString *)comment error:(NSError *__autoreleasing *)error
 {
     return [self setData:data forKey:key genericAttribute:nil label:label comment:comment error:error];
 }
 
-- (BOOL)setData:(NSData *)data forKey:(NSString *)key genericAttribute:(id)genericAttribute label:(NSString *)label comment:(NSString *)comment error:(NSError *__autoreleasing *)error
+-(BOOL)setData:(NSData *)data forKey:(NSString *)key genericAttribute:(id)genericAttribute label:(NSString *)label comment:(NSString *)comment error:(NSError *__autoreleasing *)error
 {
     if (!key) {
         NSError *e = [self.class argumentError:NSLocalizedString(@"the key must not to be nil", nil)];
@@ -699,12 +699,12 @@ static NSString *_defaultService;
 
 #pragma mark -
 
-- (BOOL)removeItemForKey:(NSString *)key
+-(BOOL)removeItemForKey:(NSString *)key
 {
     return [self removeItemForKey:key error:nil];
 }
 
-- (BOOL)removeItemForKey:(NSString *)key error:(NSError *__autoreleasing *)error
+-(BOOL)removeItemForKey:(NSString *)key error:(NSError *__autoreleasing *)error
 {
     NSMutableDictionary *query = [self query];
     query[(__bridge __strong id)kSecAttrAccount] = key;
@@ -723,12 +723,12 @@ static NSString *_defaultService;
 
 #pragma mark -
 
-- (BOOL)removeAllItems
+-(BOOL)removeAllItems
 {
     return [self removeAllItemsWithError:nil];
 }
 
-- (BOOL)removeAllItemsWithError:(NSError *__autoreleasing *)error
+-(BOOL)removeAllItemsWithError:(NSError *__autoreleasing *)error
 {
     NSMutableDictionary *query = [self query];
 #if !TARGET_OS_IPHONE
@@ -749,12 +749,12 @@ static NSString *_defaultService;
 
 #pragma mark -
 
-- (NSString *)objectForKeyedSubscript:(NSString <NSCopying> *)key
+-(NSString *)objectForKeyedSubscript:(NSString <NSCopying> *)key
 {
     return [self stringForKey:key];
 }
 
-- (void)setObject:(NSString *)obj forKeyedSubscript:(NSString <NSCopying> *)key
+-(void)setObject:(NSString *)obj forKeyedSubscript:(NSString <NSCopying> *)key
 {
     if (!obj) {
         [self removeItemForKey:key];
@@ -765,7 +765,7 @@ static NSString *_defaultService;
 
 #pragma mark -
 
-- (NSArray UIC_KEY_TYPE *)allKeys
+-(NSArray UIC_KEY_TYPE *)allKeys
 {
     NSArray *items = [self.class prettify:[self itemClassObject] items:[self items]];
     NSMutableArray *keys = [[NSMutableArray alloc] init];
@@ -846,12 +846,12 @@ static NSString *_defaultService;
     return nil;
 }
 
-- (NSArray *)allItems
+-(NSArray *)allItems
 {
     return [self.class prettify:[self itemClassObject] items:[self items]];
 }
 
-- (NSArray *)items
+-(NSArray *)items
 {
     NSMutableDictionary *query = [self query];
     query[(__bridge __strong id)kSecMatchLimit] = (__bridge id)kSecMatchLimitAll;
@@ -935,7 +935,7 @@ static NSString *_defaultService;
 
 #pragma mark -
 
-- (void)setSynchronizable:(BOOL)synchronizable
+-(void)setSynchronizable:(BOOL)synchronizable
 {
     _synchronizable = synchronizable;
     if (_authenticationPolicy) {
@@ -943,7 +943,7 @@ static NSString *_defaultService;
     }
 }
 
-- (void)setAccessibility:(UICKeyChainStoreAccessibility)accessibility authenticationPolicy:(UICKeyChainStoreAuthenticationPolicy)authenticationPolicy
+-(void)setAccessibility:(UICKeyChainStoreAccessibility)accessibility authenticationPolicy:(UICKeyChainStoreAuthenticationPolicy)authenticationPolicy
 {
     _accessibility = accessibility;
     _authenticationPolicy = authenticationPolicy;
@@ -955,7 +955,7 @@ static NSString *_defaultService;
 #pragma mark -
 
 #if TARGET_OS_IOS
-- (void)sharedPasswordWithCompletion:(void (^)(NSString *account, NSString *password, NSError *error))completion
+-(void)sharedPasswordWithCompletion:(void (^)(NSString *account, NSString *password, NSError *error))completion
 {
     NSString *domain = self.server.host;
     if (domain.length > 0) {
@@ -981,7 +981,7 @@ static NSString *_defaultService;
     }
 }
 
-- (void)sharedPasswordForAccount:(NSString *)account completion:(void (^)(NSString *password, NSError *error))completion
+-(void)sharedPasswordForAccount:(NSString *)account completion:(void (^)(NSString *password, NSError *error))completion
 {
     NSString *domain = self.server.host;
     if (domain.length > 0) {
@@ -1006,7 +1006,7 @@ static NSString *_defaultService;
     }
 }
 
-- (void)setSharedPassword:(NSString *)password forAccount:(NSString *)account completion:(void (^)(NSError *error))completion
+-(void)setSharedPassword:(NSString *)password forAccount:(NSString *)account completion:(void (^)(NSError *error))completion
 {
     NSString *domain = self.server.host;
     if (domain.length > 0) {
@@ -1023,7 +1023,7 @@ static NSString *_defaultService;
     }
 }
 
-- (void)removeSharedPasswordForAccount:(NSString *)account completion:(void (^)(NSError *error))completion
+-(void)removeSharedPasswordForAccount:(NSString *)account completion:(void (^)(NSError *error))completion
 {
     [self setSharedPassword:nil forAccount:account completion:completion];
 }
@@ -1076,7 +1076,7 @@ static NSString *_defaultService;
 
 #pragma mark -
 
-- (NSString *)description
+-(NSString *)description
 {
     NSArray *items = [self allItems];
     if (items.count == 0) {
@@ -1090,14 +1090,14 @@ static NSString *_defaultService;
     return description.copy;
 }
 
-- (NSString *)debugDescription
+-(NSString *)debugDescription
 {
     return [NSString stringWithFormat:@"%@", [self items]];
 }
 
 #pragma mark -
 
-- (NSMutableDictionary *)query
+-(NSMutableDictionary *)query
 {
     NSMutableDictionary *query = [[NSMutableDictionary alloc] init];
     
@@ -1144,7 +1144,7 @@ static NSString *_defaultService;
     return query;
 }
 
-- (NSMutableDictionary *)attributesWithKey:(NSString *)key value:(NSData *)value error:(NSError *__autoreleasing *)error
+-(NSMutableDictionary *)attributesWithKey:(NSString *)key value:(NSData *)value error:(NSError *__autoreleasing *)error
 {
     NSMutableDictionary *attributes;
     
@@ -1215,7 +1215,7 @@ static NSString *_defaultService;
 
 #pragma mark -
 
-- (CFTypeRef)itemClassObject
+-(CFTypeRef)itemClassObject
 {
     switch (_itemClass) {
         case UICKeyChainStoreItemClassGenericPassword:
@@ -1227,7 +1227,7 @@ static NSString *_defaultService;
     }
 }
 
-- (CFTypeRef)protocolTypeObject
+-(CFTypeRef)protocolTypeObject
 {
     switch (_protocolType) {
         case UICKeyChainStoreProtocolTypeFTP:
@@ -1293,7 +1293,7 @@ static NSString *_defaultService;
     }
 }
 
-- (CFTypeRef)authenticationTypeObject
+-(CFTypeRef)authenticationTypeObject
 {
     switch (_authenticationType) {
         case UICKeyChainStoreAuthenticationTypeNTLM:
@@ -1317,7 +1317,7 @@ static NSString *_defaultService;
     }
 }
 
-- (CFTypeRef)accessibilityObject
+-(CFTypeRef)accessibilityObject
 {
     switch (_accessibility) {
         case UICKeyChainStoreAccessibilityWhenUnlocked:
@@ -1378,12 +1378,12 @@ static NSString *_defaultService;
 
 @implementation UICKeyChainStore (Deprecation)
 
-- (void)synchronize
+-(void)synchronize
 {
     // Deprecated, calling this method is no longer required
 }
 
-- (BOOL)synchronizeWithError:(NSError *__autoreleasing *)error
+-(BOOL)synchronizeWithError:(NSError *__autoreleasing *)error
 {
     // Deprecated, calling this method is no longer required
     return true;

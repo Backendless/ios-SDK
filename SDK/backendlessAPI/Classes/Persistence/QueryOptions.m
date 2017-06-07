@@ -26,16 +26,11 @@
 @implementation QueryOptions
 
 -(id)init {
-	if ( (self=[super init]) ) {
-#if 0 // http://bugs.backendless.com/browse/BKNDLSS-13002
-        self.sortBy = nil;
-#else
+    if (self = [super init]) {
         self.sortBy = [[[NSMutableArray alloc] initWithArray:@[@"objectId"]] autorelease];
-#endif
         self.related = nil;
-	}
-	
-	return self;
+    }    
+    return self;
 }
 
 +(instancetype)query {
@@ -44,13 +39,13 @@
 
 
 -(void)dealloc {
-	
-	[DebLog logN:@"DEALLOC QueryOptions"];
+    
+    [DebLog logN:@"DEALLOC QueryOptions"];
     
     [self.sortBy release];
     [self.related release];
-	
-	[super dealloc];
+    
+    [super dealloc];
 }
 
 #pragma mark -
@@ -83,7 +78,7 @@
     query.sortBy = self.sortBy ? [[[NSMutableArray alloc] initWithArray:self.sortBy] autorelease] : nil;
     query.related = self.related ? [[[NSMutableArray alloc] initWithArray:self.related] autorelease] : nil;
     
-    return query;    
+    return query;
 }
 
 -(NSString *)description {

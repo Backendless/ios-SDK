@@ -111,14 +111,14 @@
     }
 }
 
-- (void)startMonitoringBeacon:(BackendlessBeacon *)beacon {
+-(void)startMonitoringBeacon:(BackendlessBeacon *)beacon {
     NSLog(@"startMonitoringBeacon: %@", beacon);
     CLBeaconRegion *beaconRegion = [self beaconRegion:beacon];
     [self.locationManager startMonitoringForRegion:beaconRegion];
     [self.locationManager startRangingBeaconsInRegion:beaconRegion];
 }
 
-- (void)stopMonitoringBeacon:(BackendlessBeacon *)beacon {
+-(void)stopMonitoringBeacon:(BackendlessBeacon *)beacon {
     NSLog(@"stopMonitoringBeacon: %@", beacon);
     CLBeaconRegion *beaconRegion = [self beaconRegion:beacon];
     [self.locationManager stopMonitoringForRegion:beaconRegion];
@@ -136,36 +136,16 @@
     
     if (frequency < 0 || distanceChange < 0)
         return [responder errorHandler:FAULT_INVALID_MONITORING_POLICY];
-
+    
     _discovery = runDiscovery;
     _frequency = frequency;
     _listener = listener;
     _distanceChange = distanceChange;
-
-#if !BEACON_DEBUGGING
-    [backendless.customService
-     invoke:BEACON_SERVICE_NAME
-     serviceVersion:BEACON_SERVICE_VERSION
-     method:@"getenabled"
-     args:@[]
-     response:^(BeaconsInfo *response) {
-         self.beaconMonitor = [BeaconMonitoring beaconMonitoring:_discovery timeFrequency:_frequency monitoredBeacons:response.beacons];
-         
-         for (BackendlessBeacon *beacon in response.beacons)
-             [self startMonitoringBeacon:beacon];
-
-         [responder responseHandler:nil];
-     }
-     error:^(Fault *fault) {
-         [responder errorHandler:fault];
-     }
-     ];
-#else
+    
     BackendlessBeacon *beacon = [BackendlessBeacon new];
     self.beaconMonitor = [BeaconMonitoring beaconMonitoring:_discovery timeFrequency:_frequency monitoredBeacons:[NSSet setWithObject:beacon]];
     [self startMonitoringBeacon:beacon];
     [responder responseHandler:nil];
-#endif
 }
 
 -(void)stopMonitoring {
@@ -181,13 +161,13 @@
     _beaconMonitor = nil;
     
 }
-    
+
 #pragma mark - CLLocationManagerDelegate
-    
+
 -(void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
     [DebLog log:@"locationManager:monitoringDidFailForRegion:withError: %@", error];
 }
-    
+
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     [DebLog log:@"locationManager:didFailWithError: %@", error];
 }

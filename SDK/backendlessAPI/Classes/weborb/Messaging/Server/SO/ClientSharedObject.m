@@ -44,11 +44,7 @@
 }
 
 -(void)notifyModified {
-    
-#if 1
     [self updateVersion];
-#endif
-    
     SharedObjectMessage *syncOwner = [[[SharedObjectMessage alloc] 
                                        initWithName:name version:version persistent:[self isPersistentObject]] autorelease];
     [syncOwner addEvents:[ownerMessage getEvents]];
@@ -121,9 +117,8 @@
     
     id <ISharedObjectMessage> msg = (id <ISharedObjectMessage>)e;
     NSArray *events = [msg getEvents];
-#if 1
     version = [msg getVersion];
-#endif
+
     
     [DebLog log:@"ClientSharedObject -> dispatchEvent: msg.name = %@, msg.type = %d, msg.events.count = %d", [msg getName], (int)[msg getType], events.count];
     

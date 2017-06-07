@@ -103,15 +103,15 @@ extern NSString *kBEReachabilityChangedNotification;
 /*!
  * Start listening for reachability notifications on the current run loop.
  */
-- (BOOL)startNotifier;
-- (void)stopNotifier;
+-(BOOL)startNotifier;
+-(void)stopNotifier;
 
-- (BENetworkStatus)currentReachabilityStatus;
+-(BENetworkStatus)currentReachabilityStatus;
 
 /*!
  * WWAN may be available, but not active until a connection has been established. WiFi may require a connection for VPN on Demand.
  */
-- (BOOL)connectionRequired;
+-(BOOL)connectionRequired;
 
 @end
 

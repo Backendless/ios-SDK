@@ -28,7 +28,6 @@
 		return;
     
 	NSNumber *data = (NSNumber *)obj;
-#if 1
     char dataType = [data objCType][0];
     
     [DebLog log:_ON_WRITERS_LOG_ text:@"NumberWriter  ----  NSNumber->objCType: '%c', data = %@ [%@]", dataType, data, [self isBoolNumber:data]?@"BOOL":@"NUM"];
@@ -43,22 +42,6 @@
                 [writer writeDouble:[data doubleValue]];
             else
                 [writer writeInteger:[data doubleValue]];
-#else
-	NSString *dataType = [NSString stringWithUTF8String:[data objCType]];
-    
-	[DebLog log:_ON_WRITERS_LOG_ text:@"NumberWriter  ----  NSNumber->objCType: '%@', data = %@ [%@]", dataType, data, [self isBoolNumber:data]?@"BOOL":@"NUM"];
-	
-	if ([dataType compare:@"c"] == NSOrderedSame)
-		[writer writeBoolean:[data boolValue]];
-	else 
-        if ([dataType compare:@"f"] == NSOrderedSame) 
-            [writer writeDouble:[[NSString stringWithFormat:@"%g", [data floatValue]] doubleValue]];
-        else 
-            if ([dataType compare:@"d"] == NSOrderedSame)
-                [writer writeDouble:[data doubleValue]];
-            else
-                [writer writeInteger:[data doubleValue]];
-#endif
 }
 
 -(BOOL)isBoolNumber:(NSNumber *)num {

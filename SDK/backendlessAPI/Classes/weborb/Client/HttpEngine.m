@@ -293,15 +293,11 @@
     
     [self sendRequest:[Subscription getCommandMessage:@"2" subTopic:subTopic selector:selector idInfo:idInfo] responder:
      [Responder responder:self selResponseHandler:@selector(pollingResponse:) selErrorHandler:@selector(pollingError:)] repeated:NO];
-    
-#if 1
+
     dispatch_time_t interval = dispatch_time(DISPATCH_TIME_NOW, 1ull*NSEC_PER_SEC*3);
     dispatch_after(interval, dispatch_get_main_queue(), ^{
         [self receiveMessages:obj];
     });
-#else
-    [self performSelector:@selector(receiveMessages:) withObject:obj afterDelay:POLLING_INTERVAL];
-#endif
 }
 
 -(NSURLRequest *)httpPostRequest:(V3Message *)v3Msg {
@@ -328,11 +324,6 @@
 -(BOOL)isNSURLErrorDomain:(NSError *)error {
     
     if (error && [error.domain isEqualToString:@"NSURLErrorDomain"]) {
-        
-#if 0 // TEMP check
-        if (error.code == -1009)
-            return YES;
-#endif
         
         const NSInteger errorCodes[] = {-1001, -1003, -1004, -1005};
         for (int i = 0; i < 4; i++) {
@@ -543,13 +534,8 @@
     
     AsyncHttpResponse *async = [self asyncHttpResponse:connection];
     if (!async)
-        return;
-    
+        return;    
     NSHTTPURLResponse *responseUrl = (NSHTTPURLResponse *)response;
-#if 0
-    int statusCode = [responseUrl  statusCode];
-    [DebLog logY:@"HttpEngine ->connection didReceiveResponse: statusCode=%d ('%@')\nheaders:\n%@", statusCode, [NSHTTPURLResponse localizedStringForStatusCode:statusCode], [responseUrl  allHeaderFields]];
-#endif
     // connection is starting, clear buffer
     [async.receivedData setLength:0];
     // save response url

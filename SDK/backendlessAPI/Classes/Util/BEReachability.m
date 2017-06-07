@@ -192,7 +192,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 #pragma mark - Start and stop notifier
 
-- (BOOL)startNotifier
+-(BOOL)startNotifier
 {
 	BOOL returnValue = NO;
 	SCNetworkReachabilityContext context = {0, (__bridge void *)(self), NULL, NULL, NULL};
@@ -209,7 +209,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 }
 
 
-- (void)stopNotifier
+-(void)stopNotifier
 {
 	if (reachabilityRef != NULL)
 	{
@@ -218,7 +218,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 }
 
 
-- (void)dealloc
+-(void)dealloc
 {
 	[self stopNotifier];
 	if (reachabilityRef != NULL)
@@ -231,7 +231,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 #pragma mark - Network Flag Handling
 
-- (BENetworkStatus)localWiFiStatusForFlags:(SCNetworkReachabilityFlags)flags
+-(BENetworkStatus)localWiFiStatusForFlags:(SCNetworkReachabilityFlags)flags
 {
 	BOOL returnValue = beNotReachable;
 
@@ -244,7 +244,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 }
 
 
-- (BENetworkStatus)networkStatusForFlags:(SCNetworkReachabilityFlags)flags
+-(BENetworkStatus)networkStatusForFlags:(SCNetworkReachabilityFlags)flags
 {
 	if ((flags & kSCNetworkReachabilityFlagsReachable) == 0)
 	{
@@ -290,7 +290,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 }
 
 
-- (BOOL)connectionRequired
+-(BOOL)connectionRequired
 {
 	NSAssert(reachabilityRef != NULL, @"connectionRequired called with NULL reachabilityRef");
 	SCNetworkReachabilityFlags flags;
@@ -304,7 +304,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 }
 
 
-- (BENetworkStatus)currentReachabilityStatus
+-(BENetworkStatus)currentReachabilityStatus
 {
 	NSAssert(reachabilityRef != NULL, @"currentNetworkStatus called with NULL reachabilityRef");
 	BENetworkStatus returnValue = beNotReachable;

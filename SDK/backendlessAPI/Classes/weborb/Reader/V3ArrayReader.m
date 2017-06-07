@@ -36,14 +36,10 @@
    
     int refId = [reader readVarInteger];
     if ((refId & 0x1) == 0) {
-#if 1
         refId = refId >> 1;
         id <IAdaptingType> ref = [parseContext getReference:refId];
         [DebLog log:_ON_READERS_LOG_ text:@"V3ArrayReader -> read: (+++++ REFERENCE) refId=%d -> %@", refId, ref];
         return ref;
-#else
-        return [parseContext getReference:(refId >> 1)];
-#endif
     }
 	
 	int arraySize = (refId >> 1);

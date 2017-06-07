@@ -432,18 +432,14 @@
         unsigned int length = [input readUInteger];
         
         [DebLog log:_ON_DECODER_LOG_ text:@"(2) decodeSharedObject: type = %d, length = %d", (int)type, length];
-#if 1
         if (type > CLIENT_INITIAL_DATA) {
             [DebLog logY:@"(!!! ERROR !!!) decodeSharedObject: WRONG type = %d", (int)type];
             return so;
         }
-#endif
-#if 1
         if (length > [input remaining]) {
             [DebLog logY:@"(!!! ERROR !!!) decodeSharedObject: WRONG length = %d > %d", length, [input remaining]];
             return so;
         }
-#endif
         
         switch (type) {
             case CLIENT_CLEAR_DATA:
@@ -540,12 +536,10 @@
                     [(NSMutableArray *)value addObject:(obj)?obj:[NSNull null]];
                    
                     [DebLog log:_ON_DECODER_LOG_ text:@"(default (3)) decodeSharedObject: obj = %@, position = %d", obj, input.position];
-#if 1
                     if (input.position == pos) {
                         [DebLog logY:@"(!!! ERROR !!!) decodeSharedObject: !!! default CYCLING"];
                         return so;
                     }
-#endif
                 }
                 break;
             }

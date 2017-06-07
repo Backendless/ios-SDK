@@ -15,6 +15,5 @@
     Class               mappedType;
 
 }
-
 +(id)objectType:(NSString *)name withObject:(id <IAdaptingType>)object;
 @end

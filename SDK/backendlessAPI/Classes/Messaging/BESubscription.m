@@ -104,11 +104,9 @@
 
 
 -(void)cancel {
-    
 #if !_BY_DISPATCH_TIME_
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
 #endif
-    
     if (_deliveryMethod == DELIVERY_PUSH) {
         [backendless.messaging.subscriptions pop:_channelName withObject:self];
     }

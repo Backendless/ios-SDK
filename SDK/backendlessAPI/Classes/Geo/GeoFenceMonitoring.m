@@ -270,13 +270,9 @@ static NSString *GEOFENCES_MONITORING = @"Cannot start geofence monitoring for a
 }
 
 -(BOOL)isPointInFence:(GeoPoint *)geoPoint geoFence:(GeoFence *)geoFence {
-    
-#if 1
     if (![self isDefiniteRect:geoFence.nwPoint se:geoFence.sePoint]) {
         [self definiteRect:geoFence];
-    }
-#endif
-    
+    }    
     [DebLog log:@"GeoFenceMonitoring -> isPointInFence: %@\n%@", geoPoint, geoFence];
     
     if ( ![GeoMath isPointInRectangular:geoPoint nw:geoFence.nwPoint se:geoFence.sePoint] ) {

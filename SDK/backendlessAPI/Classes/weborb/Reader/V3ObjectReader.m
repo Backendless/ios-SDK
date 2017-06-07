@@ -75,10 +75,9 @@
     if (!classInfo)
         return nil;
 
-#if 1 // log mapped type
+    // log mapped type
     Class mappedType = [[Types sharedInstance] getServerTypeForClientClass:classInfo.className];
     [DebLog log:_ON_READERS_LOG_ text:@" ***** V3ObjectReader -> read: mappedType = '%@' -> className = '%@'\n%@ [count=%d]", mappedType, classInfo.className, classInfo.props, [classInfo getPropertyCount]];
-#endif
     
     if (classInfo.externalizable) {
        
@@ -125,14 +124,7 @@
                 [DebLog log:_ON_READERS_LOG_ text:@"V3ObjectReader -> read: (2) { '%@':%@ <%@> }", propName, obj, [obj class]];
                 [props setObject:obj forKey:propName];
             }
-        }
-        
-#if 0 // ____________________ PROPERTIES CORRECTION _________________________________________
-        //[props removeObjectForKey:@"rootCause"];
-        //[props removeObjectForKey:@"cause"];
-        //[props removeObjectForKey:@"stackTrace"];
-#endif // ___________________________________________________________________________________
-        
+        }        
         [DebLog log:_ON_READERS_LOG_ text:@"V3ObjectReader -> read: type=%@ propCount=%d\nprops=%@", [returnValue class], propCount, props];
         
         return returnValue;
