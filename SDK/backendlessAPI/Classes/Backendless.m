@@ -62,9 +62,6 @@ static NSString *API_KEY_HEADER_KEY = @"API-key";
 }
 
 -(id)init {
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-    [BEMapView class];
-#endif
     if (self=[super init]) {
         _hostURL = [BACKENDLESS_HOST_URL retain];
         _appID = nil;

@@ -29,7 +29,6 @@
 #import <Foundation/Foundation.h>
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-#import "BEMapView.h"
 #if _USE_SAFARI_VC_
 #import <SafariServices/SafariServices.h>
 #endif

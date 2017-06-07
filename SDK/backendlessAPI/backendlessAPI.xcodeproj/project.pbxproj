@@ -1446,22 +1446,6 @@
 		1C7BB5081A2E092900D3C2C1 /* BackendlessCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1398C17D7240A00D1AC4C /* BackendlessCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C7BB5091A2E092900D3C2C1 /* BackendlessCacheData.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1398E17D7240A00D1AC4C /* BackendlessCacheData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C7BB50A1A2E092900D3C2C1 /* BackendlessCacheKey.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1399017D7240A00D1AC4C /* BackendlessCacheKey.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A539D321EE6FEC20066A016 /* BEAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A8FD41EE6C8D70008CED5 /* BEAnnotation.m */; };
-		5A539D331EE6FECA0066A016 /* BEAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A8FD31EE6C8D70008CED5 /* BEAnnotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A539D341EE6FED30066A016 /* BEAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A8FD31EE6C8D70008CED5 /* BEAnnotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A539D351EE6FEDE0066A016 /* BEAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A8FD41EE6C8D70008CED5 /* BEAnnotation.m */; };
-		5A539D361EE6FEE20066A016 /* BEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A8FD21EE6C8070008CED5 /* BEMapView.m */; };
-		5A539D371EE6FEE70066A016 /* BEMapView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A8FD11EE6C8070008CED5 /* BEMapView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A539D391EE6FF3B0066A016 /* BEAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A8FD31EE6C8D70008CED5 /* BEAnnotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A539D3A1EE6FF470066A016 /* BEAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A8FD41EE6C8D70008CED5 /* BEAnnotation.m */; };
-		5A539D3B1EE6FF590066A016 /* BEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A8FD21EE6C8070008CED5 /* BEMapView.m */; };
-		5A539D3D1EE6FF620066A016 /* BEMapView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A8FD11EE6C8070008CED5 /* BEMapView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A539D3E1EE6FF6C0066A016 /* BEAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A8FD31EE6C8D70008CED5 /* BEAnnotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A539D3F1EE6FF950066A016 /* BEAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A8FD41EE6C8D70008CED5 /* BEAnnotation.m */; };
-		5ABE3DCA1EE6E7D70024F068 /* BEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A8FD21EE6C8070008CED5 /* BEMapView.m */; };
-		5ABE3DCB1EE6E7DE0024F068 /* BEMapView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A8FD11EE6C8070008CED5 /* BEMapView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5ABE3DCF1EE6E80E0024F068 /* BEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A8FD21EE6C8070008CED5 /* BEMapView.m */; };
-		5ABE3DD01EE6E81A0024F068 /* BEMapView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A8FD11EE6C8070008CED5 /* BEMapView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AF2B7281EB2136300D54442 /* MessagingService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AFFBF7A1EB211EC0099A72F /* MessagingService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AF2B7291EB2137200D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; };
 		5AF2B72A1EB2137A00D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; };
@@ -2376,10 +2360,6 @@
 		0F9AC8111E798C5C0087869F /* V3ReferenceCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = V3ReferenceCache.h; sourceTree = "<group>"; };
 		0F9AC8121E798C5C0087869F /* V3ReferenceCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = V3ReferenceCache.m; sourceTree = "<group>"; };
 		1C7BB5101A2E092900D3C2C1 /* libbackendless-mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libbackendless-mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5A8A8FD11EE6C8070008CED5 /* BEMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEMapView.h; sourceTree = "<group>"; };
-		5A8A8FD21EE6C8070008CED5 /* BEMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEMapView.m; sourceTree = "<group>"; };
-		5A8A8FD31EE6C8D70008CED5 /* BEAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEAnnotation.h; sourceTree = "<group>"; };
-		5A8A8FD41EE6C8D70008CED5 /* BEAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEAnnotation.m; sourceTree = "<group>"; };
 		5AFFBF7A1EB211EC0099A72F /* MessagingService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagingService.h; sourceTree = "<group>"; };
 		5AFFBF7B1EB211EC0099A72F /* MessagingService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagingService.m; sourceTree = "<group>"; };
 		84B027E41DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadRelationsQueryBuilder.h; sourceTree = "<group>"; };
@@ -3257,10 +3237,6 @@
 		F91B47E315FF448F00012DFC /* Geo */ = {
 			isa = PBXGroup;
 			children = (
-				5A8A8FD31EE6C8D70008CED5 /* BEAnnotation.h */,
-				5A8A8FD41EE6C8D70008CED5 /* BEAnnotation.m */,
-				5A8A8FD11EE6C8070008CED5 /* BEMapView.h */,
-				5A8A8FD21EE6C8070008CED5 /* BEMapView.m */,
 				F99D923C160B6A7F00AFF3F6 /* GeoService.h */,
 				F99D923D160B6A7F00AFF3F6 /* GeoService.m */,
 				F99D9236160B6A5500AFF3F6 /* GeoCategory.h */,
@@ -3965,12 +3941,10 @@
 				F96B1C7B1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */,
 				84B027E71DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h in Headers */,
 				F96B1C611DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */,
-				5ABE3DD01EE6E81A0024F068 /* BEMapView.h in Headers */,
 				91F1399517D7240A00D1AC4C /* AbstractQuery.h in Headers */,
 				91F139A917D7240A00D1AC4C /* BackendlessCachePolicy.h in Headers */,
 				91F139AE17D7240A00D1AC4C /* BackendlessCacheProtocol.h in Headers */,
 				5AF2B72B1EB2138500D54442 /* MessagingService.h in Headers */,
-				5A539D331EE6FECA0066A016 /* BEAnnotation.h in Headers */,
 				91F139B217D724C700D1AC4C /* QueryOptions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4201,13 +4175,11 @@
 				91F139A517D7240A00D1AC4C /* BackendlessCacheKey.h in Headers */,
 				F96B1C7C1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */,
 				F96B1C6E1DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */,
-				5A539D371EE6FEE70066A016 /* BEMapView.h in Headers */,
 				84B027E81DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h in Headers */,
 				F96B1C621DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */,
 				91F1399617D7240A00D1AC4C /* AbstractQuery.h in Headers */,
 				91F139AA17D7240A00D1AC4C /* BackendlessCachePolicy.h in Headers */,
 				91F139AF17D7240A00D1AC4C /* BackendlessCacheProtocol.h in Headers */,
-				5A539D341EE6FED30066A016 /* BEAnnotation.h in Headers */,
 				91F139B317D724C700D1AC4C /* QueryOptions.h in Headers */,
 				5AF2B72C1EB2138F00D54442 /* MessagingService.h in Headers */,
 			);
@@ -4442,10 +4414,8 @@
 				F9F0AF191CDBCA3900035C62 /* HashMap.h in Headers */,
 				F9F0AF261CDBCA3900035C62 /* AbstractQuery.h in Headers */,
 				F9F0AF271CDBCA3900035C62 /* BackendlessCachePolicy.h in Headers */,
-				5A539D391EE6FF3B0066A016 /* BEAnnotation.h in Headers */,
 				F9F0AF291CDBCA3900035C62 /* BackendlessCacheProtocol.h in Headers */,
 				5AF2B72F1EB213B300D54442 /* MessagingService.h in Headers */,
-				5ABE3DCB1EE6E7DE0024F068 /* BEMapView.h in Headers */,
 				F9F0AF2A1CDBCA3900035C62 /* QueryOptions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4672,7 +4642,6 @@
 				F96B1C701DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */,
 				F9F0AFD01CDBCAB500035C62 /* DataPermission.h in Headers */,
 				F96B1C641DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */,
-				5A539D3E1EE6FF6C0066A016 /* BEAnnotation.h in Headers */,
 				F96B1C7E1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */,
 				84B027EA1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h in Headers */,
 				F9F0AFD11CDBCAB500035C62 /* FilePermission.h in Headers */,
@@ -4680,7 +4649,6 @@
 				F9F0AFD31CDBCAB500035C62 /* HashMap.h in Headers */,
 				F9F0AFE11CDBCAB500035C62 /* AbstractQuery.h in Headers */,
 				F9F0AFE21CDBCAB500035C62 /* BackendlessCachePolicy.h in Headers */,
-				5A539D3D1EE6FF620066A016 /* BEMapView.h in Headers */,
 				F9F0AFE41CDBCAB500035C62 /* BackendlessCacheProtocol.h in Headers */,
 				5AF2B7301EB213BD00D54442 /* MessagingService.h in Headers */,
 				F9F0AFE51CDBCAB500035C62 /* QueryOptions.h in Headers */,
@@ -5101,8 +5069,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5A539D321EE6FEC20066A016 /* BEAnnotation.m in Sources */,
-				5ABE3DCF1EE6E80E0024F068 /* BEMapView.m in Sources */,
 				5AF2B72A1EB2137A00D54442 /* MessagingService.m in Sources */,
 				0F9ACB751E798C5E0087869F /* Types.m in Sources */,
 				0F9ACAFD1E798C5E0087869F /* StringType.m in Sources */,
@@ -5294,8 +5260,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5A539D361EE6FEE20066A016 /* BEMapView.m in Sources */,
-				5A539D351EE6FEDE0066A016 /* BEAnnotation.m in Sources */,
 				5AF2B72D1EB213A400D54442 /* MessagingService.m in Sources */,
 				0F9ACB761E798C5E0087869F /* Types.m in Sources */,
 				0F9ACAFE1E798C5E0087869F /* StringType.m in Sources */,
@@ -5487,8 +5451,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5A539D3A1EE6FF470066A016 /* BEAnnotation.m in Sources */,
-				5ABE3DCA1EE6E7D70024F068 /* BEMapView.m in Sources */,
 				5AF2B72E1EB213AC00D54442 /* MessagingService.m in Sources */,
 				84B027EE1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */,
 				F9B360C51D65A7BD00818EEF /* UICKeyChainStore.m in Sources */,
@@ -5680,8 +5642,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5A539D3F1EE6FF950066A016 /* BEAnnotation.m in Sources */,
-				5A539D3B1EE6FF590066A016 /* BEMapView.m in Sources */,
 				5AF2B7311EB213C600D54442 /* MessagingService.m in Sources */,
 				84B027EF1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */,
 				F9B360C61D65A7D000818EEF /* UICKeyChainStore.m in Sources */,
