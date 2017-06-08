@@ -62,7 +62,7 @@
 -(NSNumber *)remove:(id)entity {
     NSString *objectId = [backendless.persistenceService getObjectId:entity];
     if ([objectId isKindOfClass:[NSString class]]) {
-        return [backendless.persistenceService remove:[entity class] sid:objectId];
+        return [backendless.persistenceService remove:[entity class] objectId:objectId];
     }
     else {
         return [backendless.persistenceService remove:entity];
@@ -70,7 +70,7 @@
 }
 
 -(NSNumber *)removeById:(NSString *)objectId {
-    return [backendless.persistenceService remove:_entityClass sid:objectId];
+    return [backendless.persistenceService remove:_entityClass objectId:objectId];
 }
 
 -(NSArray *)find {
@@ -162,7 +162,7 @@
 -(void)remove:(id)entity response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     NSString *objectId = [backendless.persistenceService getObjectId:entity];
     if ([objectId isKindOfClass:[NSString class]]) {
-        [backendless.persistenceService remove:[entity class] sid:objectId response:responseBlock error:errorBlock];
+        [backendless.persistenceService remove:[entity class] objectId:objectId response:responseBlock error:errorBlock];
     }
     else {
         [backendless.persistenceService remove:entity response:responseBlock error:errorBlock];
@@ -170,7 +170,7 @@
 }
 
 -(void)removeById:(NSString *)objectId response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [backendless.persistenceService remove:_entityClass sid:objectId response:responseBlock error:errorBlock];
+    [backendless.persistenceService remove:_entityClass objectId:objectId response:responseBlock error:errorBlock];
 }
 
 -(void)find:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -199,7 +199,7 @@
 
 -(void)findById:(id)objectId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     if ([objectId isKindOfClass:[NSString class]]) {
-        [backendless.persistenceService findByClassId:_entityClass sid:objectId response:responseBlock error:errorBlock];
+        [backendless.persistenceService findByClassId:_entityClass objectId:objectId response:responseBlock error:errorBlock];
     }
     else {
         if ([objectId isKindOfClass:[NSDictionary class]]) {

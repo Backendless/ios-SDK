@@ -168,11 +168,11 @@ static NSString *ADD_RELATION = @"addRelation";
     return result;
 }
 
--(NSDictionary *)update:(NSString *)entityName entity:(NSDictionary *)entity sid:(NSString *)sid {
+-(NSDictionary *)update:(NSString *)entityName entity:(NSDictionary *)entity objectId:(NSString *)objectId {
     if (!entity || !entityName) {
         return [backendless throwFault:FAULT_NO_ENTITY];
     }
-    if (!sid) {
+    if (!objectId) {
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     }
     NSArray *args = [NSArray arrayWithObjects:entityName, entity, nil];
@@ -426,14 +426,14 @@ static NSString *ADD_RELATION = @"addRelation";
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_REMOVE args:args];
 }
 
--(NSNumber *)remove:(Class)entity sid:(NSString *)sid {
+-(NSNumber *)remove:(Class)entity objectId:(NSString *)objectId {
     if (!entity) {
         return [backendless throwFault:FAULT_NO_ENTITY];
     }
-    if (!sid) {
+    if (!objectId) {
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     }
-    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], sid, nil];
+    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], objectId, nil];
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_REMOVE args:args];
 }
 
@@ -554,12 +554,12 @@ static NSString *ADD_RELATION = @"addRelation";
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_CREATE args:args responder:chainedResponder];
 }
 
--(void)update:(NSString *)entityName entity:(NSDictionary *)entity sid:(NSString *)sid response:(void(^)(NSDictionary *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)update:(NSString *)entityName entity:(NSDictionary *)entity objectId:(NSString *)objectId response:(void(^)(NSDictionary *))responseBlock error:(void(^)(Fault *))errorBlock {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!entity || !entityName) {
         return [chainedResponder errorHandler:FAULT_NO_ENTITY];
     }
-    if (!sid) {
+    if (!objectId) {
         return [chainedResponder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     }
     NSArray *args = [NSArray arrayWithObjects:entityName, entity, nil];
@@ -775,16 +775,16 @@ static NSString *ADD_RELATION = @"addRelation";
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder];
 }
 
--(void)findByClassId:(Class)entity sid:(NSString *)sid response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)findByClassId:(Class)entity objectId:(NSString *)objectId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!entity) {
         return [chainedResponder errorHandler:FAULT_NO_ENTITY];
     }
-    if (!sid) {
+    if (!objectId) {
         return [chainedResponder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     }
     [self prepareClass:entity];
-    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], sid, nil];
+    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], objectId, nil];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder];
 }
 
@@ -810,16 +810,16 @@ static NSString *ADD_RELATION = @"addRelation";
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_REMOVE args:args responder:chainedResponder];
 }
 
--(void)remove:(Class)entity sid:(NSString *)sid response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)remove:(Class)entity objectId:(NSString *)objectId response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!entity) {
         return [chainedResponder errorHandler:FAULT_NO_ENTITY];
     }
-    if (!sid) {
+    if (!objectId) {
         return [chainedResponder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     }
     [self prepareClass:entity];
-    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], sid, nil];
+    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], objectId, nil];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_REMOVE args:args responder:chainedResponder];
 }
 
