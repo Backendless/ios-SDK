@@ -38,7 +38,7 @@ pod 'Backendless', '4.0b9'
 
 ## RELEASE HISTORY
 4.0b9 June 8, 2017
-* sid parameter changed to objectId in the PersistenceService class
+* sid parameter changed to objectId in the PersistenceService class methods
 * SDK cleanup
 
 4.0b8 May 22, 2017
