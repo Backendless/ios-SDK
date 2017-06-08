@@ -22,7 +22,6 @@
 // applications & services deployment
 #define OLD_ASYNC_WITH_FAULT 0
 #define OLD_MEDIA_APP 0
-#define TEST_MEDIA_INSTANCE 0
 
 // implementation options
 #define _USE_SAFARI_VC_ 1
@@ -35,14 +34,12 @@
 #endif
 #endif
 
-// CommLibiOS
 #import "DEBUG.h"
 #import "Types.h"
 #import "Responder.h"
 #import "AMFSerializer.h"
 #import "BinaryCodec.h"
 
-// backendless
 #import "HashMap.h"
 #import "AbstractProperty.h"
 #import "BackendlessUser.h"

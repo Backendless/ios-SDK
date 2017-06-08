@@ -75,7 +75,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 @synthesize pollingFrequencyMs;
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-- (NSString *)serialNumber {
+-(NSString *)serialNumber {
     KeychainDataStore *keychainStore = [[KeychainDataStore alloc] initWithService:kBackendlessApplicationUUIDKey withGroup:nil];
     NSString *bundleId = [[NSBundle mainBundle] bundleIdentifier];
     NSData *data = [keychainStore get:bundleId];
@@ -180,7 +180,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     return [self registerDevice];
 }
 
-- (NSString *)registerDevice:(NSData *)deviceToken channels:(NSArray<NSString *> *)channels expiration:(NSDate *)expiration {
+-(NSString *)registerDevice:(NSData *)deviceToken channels:(NSArray<NSString *> *)channels expiration:(NSDate *)expiration {
     deviceRegistration.deviceToken = [self deviceTokenAsString:deviceToken];
     deviceRegistration.channels = channels;
     deviceRegistration.expiration = expiration;

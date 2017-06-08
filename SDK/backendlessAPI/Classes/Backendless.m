@@ -34,25 +34,14 @@
 // backendless default url
 static NSString *BACKENDLESS_HOST_URL = @"https://api.backendless.com";
 // wowza hardcorded url
-#if !TEST_MEDIA_INSTANCE // work
 static NSString *BACKENDLESS_MEDIA_URL = @"rtmp://media.backendless.com:1935/mediaApp";
-#else // test
-static NSString *BACKENDLESS_MEDIA_URL = @"rtmp://10.0.1.33:1935/live"; 
-#endif
 
 static NSString *APP_TYPE = @"IOS";
 static NSString *APP_ID_HEADER_KEY = @"application-id";
 static NSString *API_KEY_HEADER_KEY = @"API-key";
-#if 0
-static NSString *APP_TYPE_HEADER_KEY = @"application-type";
-static NSString *API_VERSION_HEADER_KEY = @"api-version";
-static NSString *UISTATE_HEADER_KEY = @"uiState";
-#endif
 
-@interface Backendless () {
-}
+@interface Backendless ()
 @property (nonatomic, strong) BEReachability *hostReachability;
-
 @end
 
 @implementation Backendless
@@ -64,47 +53,36 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 
 // Singleton accessor:  this is how you should ALWAYS get a reference to the class instance.  Never init your own.
 +(Backendless *)sharedInstance {
-	static Backendless *sharedBackendless;
-	@synchronized(self)
-	{
-		if (!sharedBackendless)
-			sharedBackendless = [Backendless new];
-	}
-	return sharedBackendless;
+    static Backendless *sharedBackendless;
+    @synchronized(self) {
+        if (!sharedBackendless)
+            sharedBackendless = [Backendless new];
+    }
+    return sharedBackendless;
 }
 
 -(id)init {
-	
-    if ( (self=[super init]) ) {
+    if (self=[super init]) {
         _hostURL = [BACKENDLESS_HOST_URL retain];
         _appID = nil;
         _apiKey = nil;
         _headers = [NSMutableDictionary new];
-        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kBEReachabilityChangedNotification object:nil];
-        
         self.hostReachability = [BEReachability reachabilityWithHostName:_hostURL];
         [self.hostReachability startNotifier];
-	}
-	return self;
+    }
+    return self;
 }
 
 -(void)dealloc {
-	
-	[DebLog logN:@"DEALLOC Backendless"];
-    
+    [DebLog logN:@"DEALLOC Backendless"];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kBEReachabilityChangedNotification object:nil];
-    
     [_reachabilityDelegate release];
     [_hostReachability release];
-    
     [_hostURL release];
-    
     [_headers removeAllObjects];
     [_headers release];
-    
     [_appConf release];
-   
     // services
     [_userService release];
     [_persistenceService release];
@@ -117,14 +95,12 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     [_cache release];
     [_counters release];
     [_logging release];
-	
-	[super dealloc];
+    [super dealloc];
 }
 
 #pragma mark - service getters
 
 -(UserService *)userService {
-    
     if (!_userService) {
         _userService = [UserService new];
         [_userService getPersistentUser];
@@ -133,17 +109,14 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 }
 
 -(PersistenceService *)persistenceService {
-    
     if (!_persistenceService) {
         _persistenceService = [PersistenceService new];
         _data = _persistenceService;
-        
     }
     return _persistenceService;
 }
 
 -(PersistenceService *)data {
-    
     if (!_persistenceService) {
         _persistenceService = [PersistenceService new];
         _data = _persistenceService;
@@ -153,7 +126,6 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 }
 
 -(MessagingService *)messagingService {
-    
     if (!_messagingService) {
         _messagingService = [MessagingService new];
         _messaging = _messagingService;
@@ -162,7 +134,6 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 }
 
 -(MessagingService *)messaging {
-    
     if (!_messagingService) {
         _messagingService = [MessagingService new];
         _messaging = _messagingService;
@@ -171,7 +142,6 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 }
 
 -(GeoService *)geoService {
-    
     if (!_geoService) {
         _geoService = [GeoService new];
         _geo = _geoService;
@@ -180,7 +150,6 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 }
 
 -(GeoService *)geo {
-    
     if (!_geoService) {
         _geoService = [GeoService new];
         _geo = _geoService;
@@ -189,7 +158,6 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 }
 
 -(FileService *)fileService {
-    
     if (!_fileService) {
         _fileService = [FileService new];
         _file = _fileService;
@@ -198,7 +166,6 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 }
 
 -(FileService *)file {
-    
     if (!_fileService) {
         _fileService = [FileService new];
         _file = _fileService;
@@ -206,18 +173,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     return _file;
 }
 
-#if 0
--(MediaService *)mediaService {
-    
-    if (!_mediaService) {
-        _mediaService = [[NSClassFromString(@"MediaService") alloc] init];
-    }
-    return _mediaService;
-}
-#endif
-
 -(CustomService *)customService {
-    
     if (!_customService) {
         _customService = [CustomService new];
     }
@@ -225,7 +181,6 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 }
 
 -(Events *)events {
-    
     if (!_events) {
         _events = [Events new];
     }
@@ -233,7 +188,6 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 }
 
 -(CacheService *)cache {
-    
     if (!_cache) {
         _cache = [CacheService new];
     }
@@ -241,7 +195,6 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 }
 
 -(AtomicCounters *)counters {
-    
     if (!_counters) {
         _counters = [AtomicCounters new];
     }
@@ -249,7 +202,6 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 }
 
 -(Logging *)logging {
-    
     if (!_logging) {
         _logging = [Logging new];
     }
@@ -258,15 +210,13 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 
 #pragma mark - reachability
 
--(NSInteger)getConnectionStatus
-{
+-(NSInteger)getConnectionStatus {
     return _hostReachability.currentReachabilityStatus;
 }
 
--(void)reachabilityChanged:(NSNotification *)note
-{
-	BEReachability* reachability = [note object];
-	NSParameterAssert([reachability isKindOfClass:[BEReachability class]]);
+-(void)reachabilityChanged:(NSNotification *)note {
+    BEReachability* reachability = [note object];
+    NSParameterAssert([reachability isKindOfClass:[BEReachability class]]);
     
     BENetworkStatus netStatus = [reachability currentReachabilityStatus];
     BOOL connectionRequired = [reachability connectionRequired];
@@ -283,10 +233,8 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 }
 
 -(void)setHostUrl:(NSString *)hostURL {
-    
     if ([_hostURL isEqualToString:hostURL])
         return;
-    
     [_hostURL release];
     _hostURL = [hostURL retain];
     [invoker setup];
@@ -297,10 +245,8 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 }
 
 -(void)setAppId:(NSString *)appID {
-    
     if ([_appID isEqualToString:appID])
         return;
-    
     [_appID release];
     _appID = [appID retain];
     [invoker setup];
@@ -311,10 +257,8 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 }
 
 -(void)setAPIKey:(NSString *)apiKey {
-    
     if ([_apiKey isEqualToString:apiKey])
         return;
-    
     [_apiKey release];
     _apiKey = [apiKey retain];
     [invoker setup];
@@ -331,31 +275,24 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
  @param apiKey a Backendless application API key, which could be retrieved at the Backendless console
  */
 -(void)initApp:(NSString *)applicationId APIKey:(NSString *)apiKey {
-    
     // get swift class prefix from caller class (usually AppDelegate)
     [__types makeSwiftClassPrefix:[NSThread callStackSymbols][1]];
-    
     [_appID release];
     _appID = [applicationId retain];
     [_apiKey release];
     _apiKey = [apiKey retain];
-    
     BOOL isStayLoggedIn = backendless.userService.isStayLoggedIn;
-    
     [DebLog log:@"Backendless -> initApp: isStayLoggedIn = %@\ncurrentUser = %@\nheaders = \n%@", isStayLoggedIn?@"YES":@"NO", backendless.userService.currentUser, _headers];
-    
-    [invoker setup];    
+    [invoker setup];
 }
 
 -(void)initApp:(NSString *)plist {
-    
     NSString *dataPath = [[NSBundle bundleForClass:[self class]] pathForResource:plist ofType:@"plist"];
     _appConf = (dataPath) ? [[NSDictionary dictionaryWithContentsOfFile:dataPath] retain] : nil;
     if (!self.appConf) {
         [DebLog log:@"Backendless -> initApp: file '%@.plist' is not found", plist];
         return;
     }
-    
     [DebLog setIsActive:[_appConf[BACKENDLESS_DEBLOG_ON] boolValue]];
     [backendless initApp:_appConf[BACKENDLESS_APP_ID] APIKey:_appConf[BACKENDLESS_API_KEY]];
 }
@@ -365,7 +302,6 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 }
 
 -(void)initAppFault {
-    
     NSString *value;
     if (!(value = [self getHostUrl]) || !value.length)
         [self throwFault:[Fault fault:MISSING_SERVER_URL faultCode:@"0001"]];
@@ -390,11 +326,9 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 }
 
 -(NSString *)GUIDString {
-    
     CFUUIDRef theUUID = CFUUIDCreate(NULL);
     CFStringRef string = CFUUIDCreateString(NULL, theUUID);
     CFRelease(theUUID);
-    
     return [(NSString *)string autorelease];
 }
 
@@ -403,17 +337,9 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 // Generates a random string of up to 4000 characters in length. Generates a random length up to 4000 if numCharacters is set to 0
 -(NSString *)randomString:(int)numCharacters {
     static char const possibleChars[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-#if 1
     int len = (numCharacters > _RANDOM_MAX_LENGTH || numCharacters == 0)? (int)rand() % (_RANDOM_MAX_LENGTH) : numCharacters;
-#else
-    int len;
-    if (numCharacters > _RANDOM_MAX_LENGTH || numCharacters == 0)
-        len = (int)rand() % (_RANDOM_MAX_LENGTH);
-    else
-        len = numCharacters;
-#endif
     unichar characters[len];
-    for( int i=0; i < len; ++i ) {
+    for(int i = 0; i < len; ++i) {
         characters[i] = possibleChars[arc4random_uniform(sizeof(possibleChars)-1)];
     }
     return [NSString stringWithCharacters:characters length:len] ;
@@ -457,11 +383,9 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
 #pragma mark - hardware
 
 -(BOOL)is64bitSimulator {
-    
     BOOL is64bitSimulator = NO;
-
-#if TARGET_IPHONE_SIMULATOR
     
+#if TARGET_IPHONE_SIMULATOR
     /* Setting up the mib (Management Information Base) which is an array of integers where each
      * integer specifies how the data will be gathered.  Here we are setting the MIB
      * block to lookup the information on all the BSD processes on the system.  Also note that
@@ -473,7 +397,6 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     mib[0] = CTL_KERN;
     mib[1] = KERN_PROC;
     mib[2] = KERN_PROC_ALL;
-    
     long numberOfRunningProcesses = 0;
     struct kinfo_proc* BSDProcessInformationStructure = NULL;
     size_t sizeOfBufferRequired = 0;
@@ -486,8 +409,7 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
     BOOL successfullyGotProcessInformation = NO;
     int error = 0;
     
-    while (successfullyGotProcessInformation == NO)
-    {
+    while (successfullyGotProcessInformation == NO) {
         /* Now that we have the MIB for looking up process information we will pass it to sysctl to get the
          * information we want on BSD processes.  However, before we do this we must know the size of the buffer to
          * allocate to accomidate the return value.  We can get the size of the data to allocate also using the
@@ -544,13 +466,11 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
          *     zero on no error and -1 on error.  The errno UNIX variable will be set on error.
          */
         error = sysctl(mib, 3, BSDProcessInformationStructure, &sizeOfBufferRequired, NULL, 0);
-        if (error == 0)
-        {
+        if (error == 0) {
             //Here we successfully got the process information.  Thus set the variable to end this sysctl calling loop
             successfullyGotProcessInformation = YES;
         }
-        else
-        {
+        else {
             /* failed getting process information we will try again next time around the loop.  Note this is caused
              * by the fact the process list changed between getting the size of the buffer and actually filling
              * the buffer (something which will happen from time to time since the process list is dynamic).
@@ -567,60 +487,47 @@ static NSString *UISTATE_HEADER_KEY = @"uiState";
      * the number of processes running because there is a kinfo_proc structure for each process.
      */
     numberOfRunningProcesses = sizeOfBufferRequired / sizeof(struct kinfo_proc);
-    for (int i = 0; i < numberOfRunningProcesses; i++)
-    {
+    for (int i = 0; i < numberOfRunningProcesses; i++) {
         //Getting name of process we are examining
         const char *name = BSDProcessInformationStructure[i].kp_proc.p_comm;
-        
-        if(strcmp(name, "SimulatorBridge") == 0)
-        {
+        if(strcmp(name, "SimulatorBridge") == 0) {
             int p_flag = BSDProcessInformationStructure[i].kp_proc.p_flag;
             is64bitSimulator = (p_flag & P_LP64) == P_LP64;
             break;
         }
     }
-    
     free(BSDProcessInformationStructure);
 #endif
-    
     return is64bitSimulator;
 }
 
 -(BOOL)is64bitHardware {
-    
 #if __LP64__
     // The app has been compiled for 64-bit intel and runs as 64-bit intel
     return YES;
 #endif
-    
     // Use some static variables to avoid performing the tasks several times.
     static BOOL sHardwareChecked = NO;
     static BOOL sIs64bitHardware = NO;
-    
-    if(!sHardwareChecked)
-    {
+    if(!sHardwareChecked) {
         sHardwareChecked = YES;
         
 #if TARGET_IPHONE_SIMULATOR
         // The app was compiled as 32-bit for the iOS Simulator.
         // We check if the Simulator is a 32-bit or 64-bit simulator using the function is64bitSimulator()
         // See http://blog.timac.org/?p=886
-        sIs64bitHardware = [self is64bitSimulator]; //is64bitSimulator();
+        sIs64bitHardware = [self is64bitSimulator]; // is64bitSimulator();
 #else
         // The app runs on a real iOS device: ask the kernel for the host info.
         struct host_basic_info host_basic_info;
         unsigned int count;
         kern_return_t returnValue = host_info(mach_host_self(), HOST_BASIC_INFO, (host_info_t)(&host_basic_info), &count);
-        if(returnValue != KERN_SUCCESS)
-        {
+        if(returnValue != KERN_SUCCESS) {
             sIs64bitHardware = NO;
         }
-        
         sIs64bitHardware = (host_basic_info.cpu_type == CPU_TYPE_ARM64);
-        
 #endif // TARGET_IPHONE_SIMULATOR
     }
-    
     return sIs64bitHardware;
 }
 

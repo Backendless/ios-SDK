@@ -56,7 +56,6 @@
     return [self defaultAdapt:[ReaderReferenceCache cache]];  
 }
 
-#if 1 // !!! NEW !!!
 -(id)defaultAdapt:(ReaderReferenceCache *)refCache {
     
     [DebLog log:_ON_READERS_LOG_ text:@"ArrayType -> defaultAdapt (2) refCache = %@", refCache];
@@ -95,37 +94,6 @@
     
     return array;
 }
-
-#else // !!! OLD !!!
--(id)defaultAdapt:(ReaderReferenceCache *)refCache {
-  	
-	[DebLog log:_ON_READERS_LOG_ text:@"ArrayType -> defaultAdapt (2) refCache = %@", refCache];
-    
-    if ([refCache hasObject:self])
-        return [refCache getObject:self];
-    
-    NSMutableArray *array = [NSMutableArray array];
-    [refCache addObject:self object:array];
-    
-    for (id obj in arrayObject) {
-        
-        if ([obj conformsToProtocol:@protocol(ICacheableAdaptingType)]) {
-            id val = [obj defaultAdapt];
-            [refCache addObject:obj object:val];
-            obj = val;
-        }
-        else {
-            if ([obj conformsToProtocol:@protocol(IAdaptingType)])
-                obj  = [obj defaultAdapt];
-        }
-        
-        if (!obj) obj = [NSNull null];
-        [array addObject:obj];
-    }
-  
-    return array;
-}
-#endif
 
 -(id)adapt:(Class)type {
 	

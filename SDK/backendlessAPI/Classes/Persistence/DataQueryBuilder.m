@@ -21,26 +21,22 @@
 @implementation DataQueryBuilder
 
 -(instancetype)init {
-    if ( (self=[super init]) ) {
+    if (self=[super init]) {
         _pagedQueryBuilder = [[PagedQueryBuilder alloc] init:self];
         _queryOptionsBuilder = [[QueryOptionsBuilder alloc] init:self];
         _properties = [NSMutableArray new];
         _whereClause = nil;
     }
-    
     return self;
 }
 
 -(void)dealloc {
-    
     [DebLog logN:@"DEALLOC DataQueryBuilder"];
-    
     [_pagedQueryBuilder release];
     [_queryOptionsBuilder release];
     [_properties removeAllObjects];
     [_properties release];
     [_whereClause release];
-    
     [super dealloc];
 }
 
@@ -48,25 +44,20 @@
 #pragma mark Public Methods
 
 -(BackendlessDataQuery *)build {
-    
     BackendlessDataQuery *dataQuery = [BackendlessDataQuery new];
     dataQuery = [_pagedQueryBuilder build];
     dataQuery.queryOptions = [_queryOptionsBuilder build];
     dataQuery.properties = _properties ? [[[NSMutableArray alloc] initWithArray:_properties] autorelease]: nil;
     dataQuery.whereClause = _whereClause.copy;
-    
     return dataQuery;
 }
 
-
 -(instancetype)setPageSize:(int)pageSize {
-    
     [_pagedQueryBuilder setPageSize:pageSize];
     return self;
 }
 
 -(instancetype)setOffset:(int)offset {
-    
     [_pagedQueryBuilder setOffset:offset];
     return self;
 }
@@ -75,7 +66,6 @@
  * Updates offset to point at next data page by adding pageSize.
  */
 -(instancetype)prepareNextPage {
-    
     [_pagedQueryBuilder prepareNextPage];
     return self;
 }
@@ -84,11 +74,9 @@
  * Updates offset to point at previous data page by subtracting pageSize.
  */
 -(instancetype)preparePreviousPage {
-    
     [_pagedQueryBuilder preparePreviousPage];
     return self;
 }
-
 
 -(NSMutableArray<NSString*> *)getProperties {
     return _properties;
@@ -107,7 +95,6 @@
 }
 
 -(instancetype)addProperties:(NSArray<NSString *> *)properties {
-    
     if (properties) {
         [_properties addObjectsFromArray:properties];
     }
@@ -128,19 +115,16 @@
 }
 
 -(instancetype)setSortBy:(NSArray<NSString *> *)sortBy {
-    
     [_queryOptionsBuilder setSortBy:sortBy];
     return self;
 }
 
 -(instancetype)addSortBy:(NSString *)sortBy {
-    
     [_queryOptionsBuilder addSortBy:sortBy];
     return self;
 }
 
 -(instancetype)addListSortBy:(NSArray<NSString *> *)sortBy {
-    
     [_queryOptionsBuilder addListSortBy:sortBy];
     return self;
 }
@@ -150,19 +134,16 @@
 }
 
 -(instancetype)setRelated:(NSArray<NSString *> *)related {
-    
     [_queryOptionsBuilder setRelated:related];
     return self;
 }
 
 -(instancetype)addRelated:(NSString *)related {
-    
     [_queryOptionsBuilder addRelated:related];
     return self;
 }
 
 -(instancetype)addListRelated:(NSArray<NSString *> *)related {
-    
     [_queryOptionsBuilder addListRelated:related];
     return self;
 }
@@ -172,7 +153,6 @@
 }
 
 -(instancetype)setRelationsDepth:(int)relationsDepth {
-    
     [_queryOptionsBuilder setRelationsDepth:relationsDepth];
     return self;
 }

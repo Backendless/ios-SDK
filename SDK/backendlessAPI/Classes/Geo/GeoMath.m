@@ -54,7 +54,7 @@ static const double EARTH_RADIUS = 6378100.0; //meters
     
     if ( littleRadius > r )
     {
-        westLong = longitude - (180 * r) / littleRadius;
+        westLong = longitude -(180 * r) / littleRadius;
         eastLong = 2 * longitude - westLong;
         
         westLong = [GeoMath updateDegree:westLong];

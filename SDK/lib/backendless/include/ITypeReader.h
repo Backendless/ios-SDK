@@ -12,12 +12,7 @@
 
 #define _ADAPT_DURING_PARSING_ 0
 #define _ON_RESOLVING_ABSENT_PROPERTY_ 1
-
-#if 1
 #define _ON_READERS_LOG_ NO
-#else
-#define _ON_READERS_LOG_ [DebLog getIsActive]
-#endif
 
 @protocol ITypeReader <NSObject>
 -(id <IAdaptingType>)read:(FlashorbBinaryReader *)reader context:(ParseContext *)parseContext;
