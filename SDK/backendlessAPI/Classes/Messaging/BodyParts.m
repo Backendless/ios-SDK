@@ -24,12 +24,10 @@
 @implementation BodyParts
 
 -(id)initWithText:(NSString *)text html:(NSString *)html {
-    
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         self.textMessage = text;
         self.htmlMessage = html;
-    }
-    
+    }    
     return self;
 }
 

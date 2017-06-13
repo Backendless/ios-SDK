@@ -23,10 +23,9 @@
 #import "DEBUG.h"
 
 @implementation DeviceRegistration
-
 -(id)init {
 	
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         _id = nil;
         _deviceToken = nil;
         _deviceId = nil;
@@ -35,14 +34,11 @@
         _expiration = nil;
         _channels = nil;
 	}
-	
 	return self;
 }
 
 -(void)dealloc {
-	
 	[DebLog logN:@"DEALLOC DeviceRegistration"];
-    
     [_id release];
     [_deviceToken release];
     [_deviceId release];
@@ -50,7 +46,6 @@
     [_osVersion release];
     [_expiration release];
     [_channels release];
-	
 	[super dealloc];
 }
 
@@ -58,15 +53,12 @@
 #pragma mark Public Methods
 
 -(BOOL)addChannel:(NSString *)channel {
-    
     if (!channel) {
         return NO;
     }
-    
     NSMutableArray *array = _channels ? [[NSMutableArray alloc] initWithArray:_channels] : [NSMutableArray new];
     [array addObject:channel];
-    self.channels = array;
-    
+    self.channels = array;    
     return YES;
 }
 

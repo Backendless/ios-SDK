@@ -25,28 +25,23 @@
 @implementation Message
 
 -(id)init {
-	
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         _messageId = nil;
         _headers= nil;
         _data = nil;
         _publisherId = nil;
         _timestamp = nil;
-	}
-	
+    }
 	return self;
 }
 
 -(void)dealloc {
-	
 	[DebLog logN:@"DEALLOC Message"];
-    
     [_messageId release];
     [_headers release];
     [_data release];
     [_publisherId release];
     [_timestamp release];
-	
 	[super dealloc];
 }
 

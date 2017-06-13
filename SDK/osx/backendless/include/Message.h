@@ -30,4 +30,5 @@
 @property (strong, nonatomic) NSNumber *timestamp;
 
 -(long)valTimestamp;
+
 @end

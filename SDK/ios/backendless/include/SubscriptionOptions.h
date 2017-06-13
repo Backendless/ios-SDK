@@ -36,4 +36,5 @@ typedef enum {
 +(id)subscriptionOptionsWithDeliveryMethod:(DeliveryMethodEnum)deliveryMethod;
 -(DeliveryMethodEnum)valDeliveryMethod;
 -(void)deliveryMethod:(DeliveryMethodEnum)deliveryMethod;
+
 @end

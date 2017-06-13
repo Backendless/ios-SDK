@@ -27,7 +27,7 @@
 @class MessageStatus, PublishOptions, DeliveryOptions, SubscriptionOptions, BESubscription, BodyParts, Message, Fault;
 
 @interface MessagingService : NSObject
-@property (nonatomic) uint pollingFrequencyMs;
+@property (nonatomic) uint pollingFrequencySec;
 @property (strong, nonatomic, readonly) HashMap *subscriptions;
 
 // sync methods with fault return (as exception)
