@@ -31,14 +31,14 @@
 @property (strong, nonatomic) NSString *channelName;
 @property (strong, nonatomic) id <IResponder> responder;
 @property DeliveryMethodEnum deliveryMethod;
-@property (strong, nonatomic) NSTimer *pollingTimer;
 
 -(id)initWithChannelName:(NSString *)channelName responder:(id <IResponder>)subscriptionResponder;
 -(id)initWithChannelName:(NSString *)channelName response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 +(id)subscription:(NSString *)channelName responder:(id <IResponder>)subscriptionResponder;
 +(id)subscription:(NSString *)channelName response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
-
 -(uint)getPollingInterval;
 -(void)cancel;
+-(void)startPollingSync;
+-(void)startPollingAsync;
 
 @end

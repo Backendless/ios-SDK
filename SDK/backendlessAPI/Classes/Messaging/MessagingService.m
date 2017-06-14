@@ -43,6 +43,8 @@
 #define FAULT_NO_BODY [Fault fault:@"Message body is not set for email" detail:@"Message body is not set for email" faultCode:@"5906"]
 #define FAULT_NO_RECIPIENT [Fault fault:@"No recipient is set for email" detail:@"No recipient is set for email" faultCode:@"5907"]
 
+#define DEFAULT_POLLING_INTERVAL 5
+
 // Default channel name
 static  NSString *DEFAULT_CHANNEL_NAME = @"default";
 // SERVICE NAME
@@ -110,7 +112,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 
 -(id)init {
     if (self = [super init]) {
-        self.pollingFrequencySec = 5;
+        self.pollingFrequencySec = DEFAULT_POLLING_INTERVAL;
         _subscriptions = [HashMap new];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.management.DeviceRegistrationDto" mapped:[DeviceRegistration class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.messaging.Message" mapped:[Message class]];
@@ -274,15 +276,8 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     if ([result isKindOfClass:[Fault class]])
         return result;
     subscription.subscriptionId = result;
-    subscription.pollingTimer = [NSTimer scheduledTimerWithTimeInterval:[subscription getPollingInterval] target:self selector:NSSelectorFromString(@"getMessagesFromSubscriptionSync:") userInfo:subscription repeats: YES];
-    [subscription.pollingTimer fire];
+    [subscription startPollingSync];
     return subscription;
-}
-
--(void)getMessagesFromSubscriptionSync:(NSTimer *)timer {
-    BESubscription *subscription = [timer userInfo];
-    NSArray<Message *> *messages = [backendless.messaging pollMessages:subscription.channelName subscriptionId:subscription.subscriptionId];
-    [subscription.responder responseHandler:messages];
 }
 
 -(NSArray *)pollMessages:(NSString *)channelName subscriptionId:(NSString *)subscriptionId {
@@ -438,24 +433,11 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
         return [responder errorHandler:FAULT_NO_CHANNEL];
     subscription.deliveryMethod = [subscriptionOptions valDeliveryMethod];
     subscriptionOptions.deviceId = deviceRegistration.deviceId;
-    subscription.pollingTimer = [NSTimer scheduledTimerWithTimeInterval:[subscription getPollingInterval] target:self selector:NSSelectorFromString(@"getMessagesFromSubscriptionAsync:") userInfo:subscription repeats: YES];
-    [subscription.pollingTimer fire];
+    [subscription startPollingAsync];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onSubscribe:) selErrorHandler:nil];
     _responder.context = [subscription retain];
     _responder.chained = responder;
     [self subscribeForPollingAccess:subscription.channelName subscriptionOptions:subscriptionOptions responder:_responder];
-}
-
-- (void)getMessagesFromSubscriptionAsync:(NSTimer *)timer {
-    BESubscription *subscription = [timer userInfo];
-    [backendless.messaging pollMessages:subscription.channelName
-                         subscriptionId:subscription.subscriptionId
-                               response:^(NSArray<Message *> *messages) {
-                                   [subscription.responder responseHandler:messages];
-                               }
-                                  error:^(Fault *fault) {
-                                      [DebLog log:@"MessagingService -> getMessagesFromSubscriptionAsync Error: %@", deviceRegistration];
-                                  }];
 }
 
 -(void)pollMessages:(NSString *)channelName subscriptionId:(NSString *)subscriptionId response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {

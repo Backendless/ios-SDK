@@ -27,6 +27,7 @@
 
 @interface BESubscription () {
     uint pollingInterval;
+    NSTimer *pollingTimer;
 }
 @end
 
@@ -95,16 +96,39 @@
     [_subscriptionId release];
     _subscriptionId = nil;
     [_channelName release];
-    _channelName = nil;    
+    _channelName = nil;
     [_responder release];
     _responder = nil;
-    [_pollingTimer invalidate];
-    [_pollingTimer release];
-    _pollingTimer = nil;
+    if (pollingTimer) {
+        [pollingTimer invalidate];
+        pollingTimer = nil;
+    }
 }
 
--(NSString *)description {
-    return [NSString stringWithFormat:@"<Subscription> subscriptionId: %@, channelName: %@, responder: %@", _subscriptionId, _channelName, _responder];
+-(void)startPollingSync {
+    pollingTimer = [NSTimer scheduledTimerWithTimeInterval:[self getPollingInterval] target:self selector:NSSelectorFromString(@"getMessagesFromSubscriptionSync:") userInfo:nil repeats: YES];
+    [pollingTimer fire];
+}
+
+-(void)getMessagesFromSubscriptionSync:(NSTimer *)timer {
+    NSArray<Message *> *messages = [backendless.messaging pollMessages:self.channelName subscriptionId:self.subscriptionId];
+    [self.responder responseHandler:messages];
+}
+
+-(void)startPollingAsync {
+    pollingTimer = [NSTimer scheduledTimerWithTimeInterval:[self getPollingInterval] target:self selector:NSSelectorFromString(@"getMessagesFromSubscriptionAsync:") userInfo:nil repeats: YES];
+    [pollingTimer fire];
+}
+
+-(void)getMessagesFromSubscriptionAsync:(NSTimer *)timer {
+    [backendless.messaging pollMessages:self.channelName
+                         subscriptionId:self.subscriptionId
+                               response:^(NSArray<Message *> *messages) {
+                                   [self.responder responseHandler:messages];
+                               }
+                                  error:^(Fault *fault) {
+                                      [DebLog log:@"MessagingService -> getMessagesFromSubscriptionAsync Error: %@", fault];
+                                  }];
 }
 
 @end
