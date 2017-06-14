@@ -38,7 +38,6 @@
 +(id)subscription:(NSString *)channelName response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(uint)getPollingInterval;
 -(void)cancel;
--(void)startPollingSync;
--(void)startPollingAsync;
+-(void)startPolling;
 
 @end

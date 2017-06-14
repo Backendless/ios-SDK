@@ -276,7 +276,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     if ([result isKindOfClass:[Fault class]])
         return result;
     subscription.subscriptionId = result;
-    [subscription startPollingSync];
+    [subscription startPolling];
     return subscription;
 }
 
@@ -433,7 +433,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
         return [responder errorHandler:FAULT_NO_CHANNEL];
     subscription.deliveryMethod = [subscriptionOptions valDeliveryMethod];
     subscriptionOptions.deviceId = deviceRegistration.deviceId;
-    [subscription startPollingAsync];
+    [subscription startPolling];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onSubscribe:) selErrorHandler:nil];
     _responder.context = [subscription retain];
     _responder.chained = responder;

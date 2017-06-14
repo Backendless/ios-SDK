@@ -105,22 +105,12 @@
     }
 }
 
--(void)startPollingSync {
-    pollingTimer = [NSTimer scheduledTimerWithTimeInterval:[self getPollingInterval] target:self selector:NSSelectorFromString(@"getMessagesFromSubscriptionSync:") userInfo:nil repeats: YES];
+-(void)startPolling {
+    pollingTimer = [NSTimer scheduledTimerWithTimeInterval:[self getPollingInterval] target:self selector:NSSelectorFromString(@"getMessagesFromSubscription:") userInfo:nil repeats: YES];
     [pollingTimer fire];
 }
 
--(void)getMessagesFromSubscriptionSync:(NSTimer *)timer {
-    NSArray<Message *> *messages = [backendless.messaging pollMessages:self.channelName subscriptionId:self.subscriptionId];
-    [self.responder responseHandler:messages];
-}
-
--(void)startPollingAsync {
-    pollingTimer = [NSTimer scheduledTimerWithTimeInterval:[self getPollingInterval] target:self selector:NSSelectorFromString(@"getMessagesFromSubscriptionAsync:") userInfo:nil repeats: YES];
-    [pollingTimer fire];
-}
-
--(void)getMessagesFromSubscriptionAsync:(NSTimer *)timer {
+-(void)getMessagesFromSubscription:(NSTimer *)timer {
     [backendless.messaging pollMessages:self.channelName
                          subscriptionId:self.subscriptionId
                                response:^(NSArray<Message *> *messages) {
