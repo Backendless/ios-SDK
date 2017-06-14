@@ -19,8 +19,6 @@
  *  ********************************************************************************************************************
  */
 
-#define POLLING_INTERVAL 5000
-
 #if !TARGET_OS_IPHONE && !TARGET_IPHONE_SIMULATOR
 #import <IOKit/IOKitLib.h>
 #endif
@@ -44,6 +42,8 @@
 #define FAULT_NO_SUBSCRIPTION_ID [Fault fault:@"Subscription ID is not set" detail:@"Subscription ID is not set" faultCode:@"5905"]
 #define FAULT_NO_BODY [Fault fault:@"Message body is not set for email" detail:@"Message body is not set for email" faultCode:@"5906"]
 #define FAULT_NO_RECIPIENT [Fault fault:@"No recipient is set for email" detail:@"No recipient is set for email" faultCode:@"5907"]
+
+#define DEFAULT_POLLING_INTERVAL 5
 
 // Default channel name
 static  NSString *DEFAULT_CHANNEL_NAME = @"default";
@@ -72,7 +72,8 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 @end
 
 @implementation MessagingService
-@synthesize pollingFrequencyMs;
+
+@synthesize pollingFrequencySec;
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 -(NSString *)serialNumber {
@@ -111,7 +112,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 
 -(id)init {
     if (self = [super init]) {
-        self.pollingFrequencyMs = POLLING_INTERVAL;
+        self.pollingFrequencySec = DEFAULT_POLLING_INTERVAL;
         _subscriptions = [HashMap new];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.management.DeviceRegistrationDto" mapped:[DeviceRegistration class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.messaging.Message" mapped:[Message class]];
@@ -274,7 +275,8 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     id result = [self subscribeForPollingAccess:subscription.channelName subscriptionOptions:subscriptionOptions];
     if ([result isKindOfClass:[Fault class]])
         return result;
-    subscription.subscriptionId = (NSString *)result;
+    subscription.subscriptionId = result;
+    [subscription startPolling];
     return subscription;
 }
 
@@ -431,6 +433,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
         return [responder errorHandler:FAULT_NO_CHANNEL];
     subscription.deliveryMethod = [subscriptionOptions valDeliveryMethod];
     subscriptionOptions.deviceId = deviceRegistration.deviceId;
+    [subscription startPolling];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onSubscribe:) selErrorHandler:nil];
     _responder.context = [subscription retain];
     _responder.chained = responder;

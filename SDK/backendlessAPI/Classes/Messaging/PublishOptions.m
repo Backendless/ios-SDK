@@ -29,24 +29,19 @@
 @implementation PublishOptions
 
 -(id)init {
-	
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         _publisherId = nil;
         _subtopic = nil;
         [self defaultHeaders];
 	}
-	
 	return self;
 }
 
 -(void)dealloc {
-	
 	[DebLog logN:@"DEALLOC PublishOptions"];
-    
     [_publisherId release];
     [_headers release];
     [_subtopic release];
-	
 	[super dealloc];
 }
 
@@ -63,27 +58,22 @@
 #pragma mark Public Methods
 
 -(BOOL)addHeader:(NSString *)key value:(NSString *)value {
-    
     if (!key || !value) {
         return NO;
     }
-    
     [_headers setValue:value forKey:key];
     return YES;
 }
 
 -(BOOL)removeHeader:(NSString *)key {
-    
     if (!key) {
         return NO;
     }
-    
     [_headers removeObjectForKey:key];
     return YES;
 }
 
--(void)assignHeaders:(NSDictionary *)headers {
-    
+-(void)assignHeaders:(NSDictionary *)headers {    
     if (headers) {
         self.headers = [NSMutableDictionary dictionaryWithDictionary:headers];
     }

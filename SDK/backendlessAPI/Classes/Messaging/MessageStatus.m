@@ -26,53 +26,43 @@
 @implementation MessageStatus
 
 -(id)init {
-	
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         _messageId = nil;
         _status = nil;
         _errorMessage = nil;
 	}
-	
 	return self;
 }
 
 -(id)initWithId:(NSString *)messageId {
-	
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         self.messageId = messageId;
         _status = nil;
         _errorMessage = nil;
 	}
-	
 	return self;
 }
 
 -(id)initWithId:(NSString *)messageId status:(PublishStatusEnum)status {
-	
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         self.messageId = messageId;
         [self status:status];
         _errorMessage = nil;
 	}
-	
 	return self;
 }
 
 -(id)initWithId:(NSString *)messageId status:(PublishStatusEnum)status errorMessage:(NSString *)errorMessage {
-	
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         self.messageId = messageId;
         [self status:status];
         self.errorMessage = errorMessage;
 	}
-	
 	return self;
 }
 
 -(void)dealloc {
-	
 	[DebLog logN:@"DEALLOC MessageStatus"];
-    
     [_messageId release];
     [_status release];
 	[_errorMessage release];

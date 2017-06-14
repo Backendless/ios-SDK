@@ -33,9 +33,7 @@
 @implementation DeliveryOptions
 
 -(id)init {
-	
-    if ( (self=[super init]) ) {
-        
+    if (self = [super init]) {
         [self pushPolicy:PUSH_ALSO];
         [self pushBroadcast:FOR_ALL];
         _pushSinglecast = nil;
@@ -43,21 +41,17 @@
         [self repeatEvery:0];
         _repeatExpiresAt = nil;
 	}
-	
 	return self;
 }
 
 -(void)dealloc {
-	
 	[DebLog logN:@"DEALLOC DeliveryOptions"];
-    
     [_pushPolicy release];
     [_pushBroadcast release];
     [_pushSinglecast release];
     [_publishAt release];
     [_repeatEvery release];
     [_repeatExpiresAt release];
-	
 	[super dealloc];
 }
 
@@ -65,7 +59,6 @@
 #pragma mark Public Methods
 
 +(id)deliveryOptionsForNotification:(PushPolicyEnum)pushPolice {
-    
     DeliveryOptions *deliveryOption = [[[DeliveryOptions alloc] init] autorelease];
     [deliveryOption pushPolicy:pushPolice];
     [deliveryOption pushBroadcast:FOR_ALL];
@@ -93,17 +86,14 @@
 }
 
 -(BOOL)repeatEvery:(long)repeatEvery {
-    
     if (repeatEvery < 0) {
         return NO;
     }
-    
     self.repeatEvery = [[NSNumber alloc] initWithLong:repeatEvery];
     return YES;    
 }
 
--(void)addSinglecast:(NSString *)device {
-    
+-(void)addSinglecast:(NSString *)device {    
     if (!_pushSinglecast) {
         self.pushSinglecast = [NSMutableArray new];
     }

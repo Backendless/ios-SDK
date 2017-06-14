@@ -32,10 +32,11 @@ typedef enum {
 @property (strong, nonatomic) NSString *messageId;
 @property (strong, nonatomic) NSNumber *status;
 @property (strong, nonatomic) NSString *errorMessage;
+
 -(id)initWithId:(NSString *)messageId;
 -(id)initWithId:(NSString *)messageId status:(PublishStatusEnum)status;
 -(id)initWithId:(NSString *)messageId status:(PublishStatusEnum)status errorMessage:(NSString *)errorMessage;
-
 -(PublishStatusEnum)valStatus;
 -(void)status:(PublishStatusEnum)status;
+
 @end

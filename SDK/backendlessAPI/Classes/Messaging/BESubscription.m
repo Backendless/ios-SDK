@@ -27,50 +27,44 @@
 
 @interface BESubscription () {
     uint pollingInterval;
+    NSTimer *pollingTimer;
 }
-
 @end
 
 
 @implementation BESubscription
 
 -(id)init {
-	
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         _subscriptionId = nil;
         _channelName = nil;
         _responder = nil;
         _deliveryMethod = DELIVERY_POLL;
-        pollingInterval = backendless.messagingService.pollingFrequencyMs;
-	}
-	
-	return self;
+        pollingInterval = backendless.messagingService.pollingFrequencySec;
+    }
+    return self;
 }
 
 -(id)initWithChannelName:(NSString *)channelName responder:(id <IResponder>)subscriptionResponder {
-	
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         self.subscriptionId = nil;
         self.channelName = channelName;
         self.responder = subscriptionResponder;
         _deliveryMethod = DELIVERY_POLL;
-        pollingInterval = backendless.messagingService.pollingFrequencyMs;
-	}
-	
-	return self;    
+        pollingInterval = backendless.messagingService.pollingFrequencySec;
+    }
+    return self;
 }
 
 -(id)initWithChannelName:(NSString *)channelName response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-	
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         self.subscriptionId = nil;
         self.channelName = channelName;
         self.responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
         _deliveryMethod = DELIVERY_POLL;
-        pollingInterval = backendless.messagingService.pollingFrequencyMs;
-	}
-	
-	return self;
+        pollingInterval = backendless.messagingService.pollingFrequencySec;
+    }
+    return self;
 }
 
 +(id)subscription:(NSString *)channelName responder:(id <IResponder>)subscriptionResponder {
@@ -81,14 +75,10 @@
     return [BESubscription subscription:channelName responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
-
 -(void)dealloc {
-	
-	[DebLog logN:@"DEALLOC Subscription"];
-    
+    [DebLog logN:@"DEALLOC Subscription"];
     [self cancel];
-	
-	[super dealloc];
+    [super dealloc];
 }
 
 #pragma mark -
@@ -98,31 +88,37 @@
     return pollingInterval;
 }
 
--(void)setPollingInterval:(uint)pollingIntervalMs {
-    pollingInterval = pollingIntervalMs;
-}
-
-
 -(void)cancel {
-#if !_BY_DISPATCH_TIME_
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
-#endif
     if (_deliveryMethod == DELIVERY_PUSH) {
         [backendless.messaging.subscriptions pop:_channelName withObject:self];
     }
-    
     [_subscriptionId release];
     _subscriptionId = nil;
-    
     [_channelName release];
     _channelName = nil;
-    
     [_responder release];
     _responder = nil;
+    if (pollingTimer) {
+        [pollingTimer invalidate];
+        pollingTimer = nil;
+    }
 }
 
--(NSString *)description {
-    return [NSString stringWithFormat:@"<Subscription> subscriptionId: %@, channelName: %@, responder: %@", _subscriptionId, _channelName, _responder];
+-(void)startPolling {
+    pollingTimer = [NSTimer scheduledTimerWithTimeInterval:[self getPollingInterval] target:self selector:NSSelectorFromString(@"getMessagesFromSubscription:") userInfo:nil repeats: YES];
+    [pollingTimer fire];
+}
+
+-(void)getMessagesFromSubscription:(NSTimer *)timer {
+    [backendless.messaging pollMessages:self.channelName
+                         subscriptionId:self.subscriptionId
+                               response:^(NSArray<Message *> *messages) {
+                                   [self.responder responseHandler:messages];
+                               }
+                                  error:^(Fault *fault) {
+                                      [DebLog log:@"MessagingService -> getMessagesFromSubscriptionAsync Error: %@", fault];
+                                  }];
 }
 
 @end

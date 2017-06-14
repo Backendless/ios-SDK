@@ -31,28 +31,23 @@
 @implementation SubscriptionOptions
 
 -(id)init {
-	
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         _subscriberId = nil;
         _subtopic = nil;
         _selector = nil;
         _deliveryMethod = DELIVERY_METHOD[DELIVERY_POLL];
         _deviceId = nil;
 	}
-	
 	return self;
 }
 
 -(void)dealloc {
-	
 	[DebLog logN:@"DEALLOC SubscriptionOptions"];
-    
     [_subscriberId release];
     [_subtopic release];
     [_selector release];
     [_deliveryMethod release];
-    [_deviceId release];
-	
+    [_deviceId release];	
 	[super dealloc];
 }
 
