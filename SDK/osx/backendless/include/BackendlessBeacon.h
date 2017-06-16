@@ -23,7 +23,6 @@
 #import <CoreLocation/CoreLocation.h>
 
 #define BEACON_SERVICE_NAME @"beacons"
-#define BEACON_SERVICE_VERSION @"1.0"
 
 #define BEACON_DISCOVERY @"beacon-discovery"
 #define BEACON_FREQUENCY @"beacon-frequency"

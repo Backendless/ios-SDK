@@ -26,9 +26,9 @@
 
 @interface CustomService : NSObject
 // sync methods with fault return (as exception)
--(id)invoke:(NSString *)serviceName serviceVersion:(NSString *)serviceVersion method:(NSString *)method args:(NSArray *)args;
+-(id)invoke:(NSString *)serviceName method:(NSString *)method args:(NSArray *)args;
 // async methods with responder
--(void)invoke:(NSString *)serviceName serviceVersion:(NSString *)serviceVersion method:(NSString *)method args:(NSArray *)args responder:(id<IResponder>)responder;
+-(void)invoke:(NSString *)serviceName method:(NSString *)method args:(NSArray *)args responder:(id<IResponder>)responder;
 // async methods with block-based callbacks
--(void)invoke:(NSString *)serviceName serviceVersion:(NSString *)serviceVersion method:(NSString *)method args:(NSArray *)args response:(void(^)(id))responseBlock error:(void(^)(Fault *fault))errorBlock;
+-(void)invoke:(NSString *)serviceName method:(NSString *)method args:(NSArray *)args response:(void(^)(id))responseBlock error:(void(^)(Fault *fault))errorBlock;
 @end

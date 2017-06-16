@@ -25,7 +25,6 @@
 
 #define FAULT_NO_SERVICE [Fault  fault:@"Service not found" detail:@"Service not found" faultCode:@"14001"]
 #define FAULT_NO_SERVICE_METHOD [Fault fault:@"Service method not found" detail:@"Service method not found" faultCode:@"14002"]
-#define FAULT_NO_SERVICE_VERSION [Fault fault:@"Service Version not found" detail:@"Service Version not found" faultCode:@"14019"]
 
 // SERVICE NAME
 static NSString *SERVER_CUSTOM_SERVICE_PATH = @"com.backendless.services.servercode.CustomServiceHandler";
@@ -35,37 +34,32 @@ static NSString *METHOD_DISPATCH_SERVICE = @"dispatchService";
 @implementation CustomService
 
 // sync methods with fault return (as exception)
--(id)invoke:(NSString *)serviceName serviceVersion:(NSString *)serviceVersion method:(NSString *)method args:(NSArray *)args {
-    
+-(id)invoke:(NSString *)serviceName method:(NSString *)method args:(NSArray *)args {
     if (!serviceName) {
         return [backendless throwFault:FAULT_NO_SERVICE];
-    } if (!method) {
-        return [backendless throwFault:FAULT_NO_SERVICE_METHOD];
-    } if (!serviceVersion) {
-        return [backendless throwFault:FAULT_NO_SERVICE_VERSION];
     }
-    
-    NSArray *_args = @[serviceName, serviceVersion, method, args?args:@[]];
+    if (!method) {
+        return [backendless throwFault:FAULT_NO_SERVICE_METHOD];
+    }
+    NSArray *_args = @[serviceName, method, args?args:@[]];
     return [invoker invokeSync:SERVER_CUSTOM_SERVICE_PATH method:METHOD_DISPATCH_SERVICE args:_args];
 }
 
 // async methods with responder
--(void)invoke:(NSString *)serviceName serviceVersion:(NSString *)serviceVersion method:(NSString *)method args:(NSArray *)args responder:(id <IResponder>)responder {
-    
-    if (!serviceName)
+-(void)invoke:(NSString *)serviceName method:(NSString *)method args:(NSArray *)args responder:(id <IResponder>)responder {
+    if (!serviceName) {
         return [responder errorHandler:FAULT_NO_SERVICE];
-    if (!method)
+    }
+    if (!method) {
         return [responder errorHandler:FAULT_NO_SERVICE_METHOD];
-    if (!serviceVersion)
-        return [responder errorHandler:FAULT_NO_SERVICE_VERSION];
-    
-    NSArray *_args = @[serviceName, serviceVersion, method, args?args:@[]];
+    }
+    NSArray *_args = @[serviceName, method, args?args:@[]];
     [invoker invokeAsync:SERVER_CUSTOM_SERVICE_PATH method:METHOD_DISPATCH_SERVICE args:_args responder:responder];
 }
 
 // async methods with block-based callbacks
--(void)invoke:(NSString *)serviceName serviceVersion:(NSString *)serviceVersion method:(NSString *)method args:(NSArray *)args response:(void(^)(id))responseBlock error:(void(^)(Fault *fault))errorBlock {
-    [self invoke:serviceName serviceVersion:serviceVersion method:method args:args responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+-(void)invoke:(NSString *)serviceName method:(NSString *)method args:(NSArray *)args response:(void(^)(id))responseBlock error:(void(^)(Fault *fault))errorBlock {
+    [self invoke:serviceName method:method args:args responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 @end
