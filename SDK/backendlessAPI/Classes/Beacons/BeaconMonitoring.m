@@ -24,27 +24,6 @@
 #import "BeaconsInfo.h"
 #import "BeaconTracker.h"
 
-/*
- 
- private Set<BackendlessBeacon> monitoredBeacons = new HashSet<BackendlessBeacon>();
- private volatile boolean discovery = false;
- private Set<BackendlessBeacon> discoveryBeacons = Collections.synchronizedSet( new HashSet<BackendlessBeacon>() );
- 
- public BeaconMonitoring( boolean runDiscovery, int timeFrequency )
- {
- this(runDiscovery, timeFrequency, null );
- }
- 
- public BeaconMonitoring( boolean runDiscovery, int timeFrequency, Set<BackendlessBeacon> monitoredBeacons )
- {
- if(monitoredBeacons == null)
- receiveBeaconsInfo();
- 
- this.discovery = runDiscovery;
- super.setTimeFrequency( timeFrequency );
- }
- */
-
 @interface BeaconMonitoring() {
     BOOL _set;
     BOOL _discovery;
@@ -57,8 +36,7 @@
 @implementation BeaconMonitoring
 
 -(id)init {
-    
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         _set = NO;
         _discovery = BEACON_DEFAULT_DISCOVERY;
         _timeFrequency = BEACON_DEFAULT_FREQUENCY;
@@ -70,8 +48,7 @@
 }
 
 -(id)init:(BOOL)runDiscovery timeFrequency:(int)timeFrequency {
-    
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         _set = NO;
         _discovery = runDiscovery;
         _timeFrequency = timeFrequency;
@@ -83,8 +60,7 @@
 }
 
 -(id)init:(BOOL)runDiscovery timeFrequency:(int)timeFrequency monitoredBeacons:(NSSet<BackendlessBeacon*> *)monitoredBeacons {
-    
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         _set = (BOOL)monitoredBeacons;
         _discovery = runDiscovery;
         _timeFrequency = timeFrequency;
@@ -104,53 +80,29 @@
 }
 
 -(void)dealloc {
-    
     [DebLog logN:@"DEALLOC BeaconMonitoring"];
-    
     [_discoveryBeacons release];
     [_monitoredBeacons release];
-    
     [super dealloc];
 }
 
 #pragma mark -
 #pragma mark Private Methods
 
-/*
- 
- @Override
- protected void calculate()
- {
- if( !discoveryBeacons.isEmpty() )
- {
- sendBeacons( new ArrayList<BackendlessBeacon>( discoveryBeacons ) );
- discoveryBeacons.clear();
- }
- 
- receiveBeaconsInfo();
- }
- */
-
 -(void)flush {
-    
     if (_discoveryBeacons.count) {
-        
         [self sendBeacons:_discoveryBeacons];
         [_discoveryBeacons removeAllObjects];
     }
-    
     if (!_set) {
-        [self receiveBeaconsInfo];        
+        [self receiveBeaconsInfo];
     }
 }
 
 -(void)flushBeacons {
-    
     [self flush];
-    
     if (_timeFrequency <= 0)
         return;
-    
     dispatch_time_t interval = dispatch_time(DISPATCH_TIME_NOW, 1ull*NSEC_PER_SEC*_timeFrequency);
     dispatch_after(interval, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self flushBeacons];
@@ -164,49 +116,13 @@
     return _monitoredBeacons;
 }
 
-/*
- 
- public void sendBeacons( List<BackendlessBeacon> discoveredBeacons )
- {
- Backendless.CustomService.invoke( BeaconConstants.SERVICE_NAME, BeaconConstants.SERVICE_VERSION, "beacons", new Object[] { discoveredBeacons }, (AsyncCallback) null );
- }
- 
- public void receiveBeaconsInfo()
- {
- Backendless.CustomService.invoke( BeaconConstants.SERVICE_NAME, BeaconConstants.SERVICE_VERSION, "getenabled", new Object[] { }, BeaconsInfo.class, new AsyncCallback<BeaconsInfo>()
- {
- @Override
- public void handleResponse( BeaconsInfo response )
- {
- writeLock.lock();
- monitoredBeacons = response.getBeacons();
- writeLock.unlock();
- 
- discovery = response.isDiscovery();
- }
- 
- @Override
- public void handleFault( BackendlessFault fault )
- {
- Backendless.Logging.getLogger( BeaconTracker.class ).error( fault.getCode() + " : " + fault.getMessage() );
- }
- } );
- }
- 
- public void sendEntered( BackendlessBeacon beacon, double distance )
- {
- Backendless.CustomService.invoke( BeaconConstants.SERVICE_NAME, BeaconConstants.SERVICE_VERSION, "proximity", new Object[] { beacon.getObjectId(), distance }, (AsyncCallback) null );
- }
- */
-
 -(void)sendBeacons:(NSSet<BackendlessBeacon*> *)discoveredBeacons {
-    [backendless.customService invoke:BEACON_SERVICE_NAME serviceVersion:BEACON_SERVICE_VERSION method:@"beacons" args:@[discoveredBeacons] responder:nil];
+    [backendless.customService invoke:BEACON_SERVICE_NAME method:@"beacons" args:@[discoveredBeacons] responder:nil];
 }
 
 -(void)receiveBeaconsInfo {
     [backendless.customService
      invoke:BEACON_SERVICE_NAME
-     serviceVersion:BEACON_SERVICE_VERSION
      method:@"getenabled"
      args:@[]
      response:^(BeaconsInfo *response) {
@@ -221,7 +137,7 @@
 
 -(void)sendEntered:(BackendlessBeacon *)beacon distance:(double)distance  {
     NSArray *args = @[beacon.objectId?beacon.objectId:[NSNull null], @(distance)];
-    [backendless.customService invoke:BEACON_SERVICE_NAME serviceVersion:BEACON_SERVICE_VERSION method:@"proximity" args:args responder:nil];
+    [backendless.customService invoke:BEACON_SERVICE_NAME method:@"proximity" args:args responder:nil];
 }
 
 #pragma mark -
