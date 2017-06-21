@@ -1,7 +1,7 @@
 Backendless SDK for iOS (http://backendless.com)
 ---
 
-# Version 4.0 Beta 11
+# Version 4.0 Beta 12
 > For the instructions for version 3.x of the library, see [Backendless 3.x Getting Started Guide](https://backendless.com/mobile-developers/quick-start-guide-for-ios/ "Backendless 3.x Getting Started Guide")
 
 ## GETTING STARTED WITH BACKENDLESS
@@ -28,7 +28,7 @@ To create a new project with CocoaPods, follow the instructions below:
 3. Create a Podfile. This can be done by running `pod init`.
 4. Open your Podfile with a text editor, and add the following
 ```
-pod 'Backendless', '4.0b11'
+pod 'Backendless', '4.0b12'
 ```
 5. Save Podfile, return to Terminal window and run `pod install` and `pod update`. Once all of the pod data is downloaded/updated, Xcode project workspace file will be created. This is the file you must open when working on your app.
 6. Open .xcworkspace file to launch your project.
@@ -36,6 +36,9 @@ pod 'Backendless', '4.0b11'
 `${PODS_ROOT}/Headers/Public/Backendless/Backendless-Bridging-Header.h`
 
 ## RELEASE HISTORY
+4.0b12 June 21, 2017
+* PushPolicyEnum changed to publishPolicy and now supports PUSH, PUBSUB and BOTH delivery options
+
 4.0b11 June 16, 2017
 * Removed version from hosted service invocation
 
