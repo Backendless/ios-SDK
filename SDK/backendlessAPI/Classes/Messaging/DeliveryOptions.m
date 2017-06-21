@@ -59,14 +59,14 @@
 #pragma mark -
 #pragma mark Public Methods
 
-+(id)deliveryOptionsForNotification:(publishPolicy)publishPolice {
++(id)deliveryOptionsForNotification:(PublishPolicyEnum)publishPolice {
     DeliveryOptions *deliveryOption = [[[DeliveryOptions alloc] init] autorelease];
     [deliveryOption publishPolicy:publishPolice];
     [deliveryOption pushBroadcast:FOR_ALL];
     return deliveryOption;
 }
 
--(void)publishPolicy:(publishPolicy)publishPolicy {
+-(void)publishPolicy:(PublishPolicyEnum)publishPolicy {
     self.publishPolicy = PUBLISH_POLICY[publishPolicy];
 }
 

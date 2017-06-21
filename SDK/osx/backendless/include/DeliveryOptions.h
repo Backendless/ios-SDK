@@ -25,7 +25,7 @@ typedef enum {
     PUSH,
     PUBSUB,
     BOTH,
-} publishPolicy;
+} PublishPolicyEnum;
 
 typedef enum {
     FOR_NONE = 0,
@@ -43,9 +43,9 @@ typedef enum {
 @property (strong, nonatomic) NSDate *publishAt;
 @property (strong, nonatomic) NSDate *repeatExpiresAt;
 
-+(id)deliveryOptionsForNotification:(publishPolicy)pushPolice;
++(id)deliveryOptionsForNotification:(PublishPolicyEnum)pushPolice;
 
--(void)publishPolicy:(publishPolicy)publishPolicy;
+-(void)publishPolicy:(PublishPolicyEnum)publishPolicy;
 -(UInt32)valPushBroadcast;
 -(void)pushBroadcast:(UInt32)pushBroadcast;
 -(long)valRepeatEvery;
