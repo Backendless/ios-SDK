@@ -22,10 +22,10 @@
 #import "DeliveryOptions.h"
 #import "DEBUG.h"
 
-#define PUSH_POLICY @[@"ONLY", @"ALSO", @"NONE"]
-
-@interface DeliveryOptions ()
-@property (strong, nonatomic) NSString *pushPolicy;
+@interface DeliveryOptions () {
+    NSArray *PUBLISH_POLICY;
+}
+@property (strong, nonatomic) NSString *publishPolicy;
 @property (strong, nonatomic) NSNumber *pushBroadcast;
 @property (strong, nonatomic) NSNumber *repeatEvery;
 @end
@@ -34,19 +34,20 @@
 
 -(id)init {
     if (self = [super init]) {
-        [self pushPolicy:PUSH_ALSO];
+        [self publishPolicy:BOTH];
         [self pushBroadcast:FOR_ALL];
         _pushSinglecast = nil;
         _publishAt = nil;
         [self repeatEvery:0];
         _repeatExpiresAt = nil;
+        PUBLISH_POLICY = @[@"PUSH", @"PUBSUB", @"BOTH"];
 	}
 	return self;
 }
 
 -(void)dealloc {
 	[DebLog logN:@"DEALLOC DeliveryOptions"];
-    [_pushPolicy release];
+    [_publishPolicy release];
     [_pushBroadcast release];
     [_pushSinglecast release];
     [_publishAt release];
@@ -58,19 +59,15 @@
 #pragma mark -
 #pragma mark Public Methods
 
-+(id)deliveryOptionsForNotification:(PushPolicyEnum)pushPolice {
++(id)deliveryOptionsForNotification:(PublishPolicyEnum)publishPolice {
     DeliveryOptions *deliveryOption = [[[DeliveryOptions alloc] init] autorelease];
-    [deliveryOption pushPolicy:pushPolice];
+    [deliveryOption publishPolicy:publishPolice];
     [deliveryOption pushBroadcast:FOR_ALL];
     return deliveryOption;
 }
 
--(PushPolicyEnum)valPushPolicy {
-    return (PushPolicyEnum)(_pushPolicy?[(NSArray *)PUSH_POLICY indexOfObject:_pushPolicy]:0);
-}
-
--(void)pushPolicy:(PushPolicyEnum)pushPolicy {
-    self.pushPolicy = PUSH_POLICY[pushPolicy];
+-(void)publishPolicy:(PublishPolicyEnum)publishPolicy {
+    self.publishPolicy = PUBLISH_POLICY[publishPolicy];
 }
 
 -(UInt32)valPushBroadcast {

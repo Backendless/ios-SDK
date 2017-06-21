@@ -22,9 +22,10 @@
 #import <Foundation/Foundation.h>
 
 typedef enum {
-    PUSH_ONLY,
-    PUSH_ALSO,
-} PushPolicyEnum;
+    PUSH,
+    PUBSUB,
+    BOTH,
+} PublishPolicyEnum;
 
 typedef enum {
     FOR_NONE = 0,
@@ -42,10 +43,9 @@ typedef enum {
 @property (strong, nonatomic) NSDate *publishAt;
 @property (strong, nonatomic) NSDate *repeatExpiresAt;
 
-+(id)deliveryOptionsForNotification:(PushPolicyEnum)pushPolice;
++(id)deliveryOptionsForNotification:(PublishPolicyEnum)pushPolice;
 
--(PushPolicyEnum)valPushPolicy;
--(void)pushPolicy:(PushPolicyEnum)pushPolicy;
+-(void)publishPolicy:(PublishPolicyEnum)publishPolicy;
 -(UInt32)valPushBroadcast;
 -(void)pushBroadcast:(UInt32)pushBroadcast;
 -(long)valRepeatEvery;
