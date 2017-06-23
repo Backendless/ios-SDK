@@ -46,7 +46,6 @@ static NSString *SERVER_USER_SERVICE_PATH = @"com.backendless.services.users.Use
 static NSString *METHOD_REGISTER = @"register";
 static NSString *METHOD_UPDATE = @"update";
 static NSString *METHOD_LOGIN = @"login";
-static NSString *METHOD_FIND_BY_ID = @"findById";
 static NSString *METHOD_LOGOUT = @"logout";
 static NSString *METHOD_RESTORE_PASSWORD = @"restorePassword";
 static NSString *METHOD_DESCRIBE_USER_CLASS = @"describeUserClass";
@@ -172,10 +171,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 }
 
 -(BackendlessUser *)findById:(NSString *)objectId {
-    if (!objectId || ![objectId length])
-        return [backendless throwFault:FAULT_NO_USER_ID];
-    NSArray *args = @[objectId, @[]];
-    return [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_FIND_BY_ID args:args];
+    return [[backendless.data of:[BackendlessUser class]] findById:objectId];
 }
 
 -(id)logout {
@@ -296,11 +292,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 }
 
 -(void)findById:(NSString *)objectId response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {
-    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
-    if (!objectId || ![objectId length])
-        return [responder errorHandler:FAULT_NO_USER_ID];
-    NSArray *args = @[objectId, @[]];
-    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_FIND_BY_ID args:args responder:responder];
+    [[backendless.data of:[BackendlessUser class]] findById:objectId response:responseBlock error:errorBlock];
 }
 
 -(void)logout:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -366,7 +358,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 }
 
 // methods of social easy logins
-// TWitter
+// Twitter
 -(void)easyLoginWithTwitterFieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping {
     id<IResponder>responder = nil;
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(easyLoginResponder:) selErrorHandler:@selector(easyLoginError:)];
