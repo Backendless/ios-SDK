@@ -28,32 +28,26 @@
 }
 @end
 
-
 @implementation BackendlessUser
 
 -(id)init {
-	if ( (self=[super init]) ) {
+    if ( (self=[super init]) ) {
         __properties = nil;
-	}
-	
-	return self;
+    }
+    return self;
 }
 
 -(id)initWithProperties:(NSDictionary<NSString*, id> *)props {
-	if ( (self=[super init]) ) {
+    if ( (self=[super init]) ) {
         __properties = (props) ? [[HashMap alloc] initWithNode:props] : nil;
-	}
-	
-	return self;
+    }
+    return self;
 }
 
 -(void)dealloc {
-	
-	[DebLog logN:@"DEALLOC BackendlessUser "];
-    
+    [DebLog logN:@"DEALLOC BackendlessUser "];
     [__properties release];
-	
-	[super dealloc];
+    [super dealloc];
 }
 
 #pragma mark -
@@ -109,35 +103,23 @@
 -(void)assignProperties:(NSDictionary<NSString*, id> *)props {
     [__properties release];
     __properties = (props) ? [[HashMap alloc] initWithNode:props] : nil;
-#if CURRENTUSER_PERSISTENCE_ON
-    [self persistCurrentUser];
-#endif
 }
 
 -(void)setProperties:(NSDictionary<NSString*, id> *)props {
     [__properties release];
     __properties = (props) ? [[HashMap alloc] initWithNode:props] : nil;
-#if CURRENTUSER_PERSISTENCE_ON
-    [self persistCurrentUser];
-#endif
 }
 
 -(void)addProperties:(NSDictionary<NSString*, id> *)props {
-    
     if (__properties) {
         NSArray *keys = [props allKeys];
         for (NSString *key in keys) {
             [__properties add:key withObject:props[key]];
         }
     }
-    else
-    {
+    else {
         __properties = (props) ? [[HashMap alloc] initWithNode:props] : nil;
     }
-    
-#if CURRENTUSER_PERSISTENCE_ON
-    [self persistCurrentUser];
-#endif
 }
 
 -(NSDictionary<NSString*, id> *)retrieveProperties {
@@ -156,53 +138,37 @@
 }
 
 -(id)getProperty:(NSString *)key {
-    return (__properties) ? [__properties get:key] : nil;
+    if (!__properties || [[__properties get:key] isKindOfClass:[NSNull class]])
+        return nil;
+    else
+        return [__properties get:key];
 }
 
 -(void)setProperty:(NSString *)key object:(id)value {
-    
     if (!__properties)
         __properties = [HashMap new];
-    
     [__properties push:key withObject:value];
-    
-#if CURRENTUSER_PERSISTENCE_ON
-    [self persistCurrentUser];
-#endif
 }
 
 -(void)removeProperty:(NSString *)key {
-    
     if (!__properties)
         return;
-    
     if ([__properties get:key]) {
         [__properties push:key withObject:nil];
     }
-    
-#if CURRENTUSER_PERSISTENCE_ON
-    [self persistCurrentUser];
-#endif
 }
 
 -(void)removeProperties:(NSArray<NSString*> *)keys {
-    
     if (!__properties)
         return;
-    
     for (NSString *key in keys) {
         if ([__properties get:key]) {
             [__properties push:key withObject:nil];
         }
     }
-    
-#if CURRENTUSER_PERSISTENCE_ON
-    [self persistCurrentUser];
-#endif
 }
 
 -(void)persistCurrentUser {
-    
     if (backendless.userService.isStayLoggedIn && backendless.userService.currentUser && [self.objectId isEqualToString:backendless.userService.currentUser.objectId]) {
         [backendless.userService setPersistentUser];
     }
