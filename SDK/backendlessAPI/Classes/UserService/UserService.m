@@ -118,17 +118,6 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 
 // sync methods with fault return (as exception)
 
--(BackendlessUser *)registering:(BackendlessUser *)user {
-    if (!user)
-        return [backendless throwFault:FAULT_NO_USER];
-    if (![user getProperties])
-        return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
-    NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
-    [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
-    NSArray *args = [NSArray arrayWithObjects:props, nil];
-    return [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_REGISTER args:args];
-}
-
 -(BackendlessUser *)registerUser:(BackendlessUser *)user {
     if (!user)
         return [backendless throwFault:FAULT_NO_USER];
@@ -245,17 +234,6 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 }
 
 // async methods with block-based callbacks
-
--(void)registering:(BackendlessUser *)user response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {
-    if (!user)
-        [backendless throwFault:FAULT_NO_USER];
-    if (![user getProperties])
-        [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
-    NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
-    [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
-    NSArray *args = [NSArray arrayWithObjects:props, nil];
-    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_REGISTER args:args responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
-}
 
 -(void)registerUser:(BackendlessUser *)user response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {
     if (!user)

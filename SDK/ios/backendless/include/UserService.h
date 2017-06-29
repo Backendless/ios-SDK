@@ -34,7 +34,6 @@
 -(BOOL)setStayLoggedIn:(BOOL)value;
 
 // sync methods with fault return  (as exception)
--(BackendlessUser *)registering:(BackendlessUser *)user __attribute__((deprecated("Replaced by the registerUser method")));
 -(BackendlessUser *)registerUser:(BackendlessUser *)user;
 -(BackendlessUser *)update:(BackendlessUser *)user;
 -(BackendlessUser *)login:(NSString *)login password:(NSString *)password;
@@ -49,7 +48,6 @@
 -(id)resendEmailConfirmation:(NSString *)email;
 
 // async methods with block-based callbacks
--(void)registering:(BackendlessUser *)user response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock __attribute__((deprecated("Replaced by the registerUser method")));
 -(void)registerUser:(BackendlessUser *)user response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)update:(BackendlessUser *)user response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)login:(NSString *)login password:(NSString *)password response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock;
