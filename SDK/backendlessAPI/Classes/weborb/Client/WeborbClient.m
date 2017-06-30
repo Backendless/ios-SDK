@@ -197,7 +197,7 @@
     return [engine invoke:className method:methodName args:args];
 }
 
-// asinc invokes
+// async invokes
 
 -(void)invoke:(NSString *)methodName args:(NSArray *)args responder:(id <IResponder>)responder {
     [self invoke:nil method:methodName args:args responder:responder];

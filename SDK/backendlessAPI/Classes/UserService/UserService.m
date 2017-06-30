@@ -58,7 +58,6 @@ static NSString *METHOD_USER_LOGIN_WITH_FACEBOOK_SDK = @"loginWithFacebook";
 static NSString *METHOD_USER_LOGIN_WITH_GOOGLEPLUS_SDK = @"loginWithGooglePlus";
 static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 
-
 @interface UserService ()
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 @property BOOL iOS9above;
@@ -73,6 +72,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 -(id)onUpdate:(ResponseContext *)response;
 -(id)onLogout:(id)response;
 -(id)onLogoutError:(Fault *)fault;
+
 @end
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
@@ -107,6 +107,22 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     [super dealloc];
 }
 
+-(BackendlessUser *)initWithDictionary:(NSDictionary *)dictionary {
+    BackendlessUser *user = [BackendlessUser new];
+    if ([dictionary isKindOfClass:[NSDictionary class]]) {
+        for (NSString *key in [dictionary allKeys]) {
+            id value = [dictionary valueForKey:key];
+            if (![value isEqual:[NSNull null]]) {
+                [user setProperty:key object:value];
+            }
+            else {
+                [user setProperty:key object:nil];
+            }
+        }
+    }
+    return user;
+}
+
 #pragma mark -
 #pragma mark Public Methods
 
@@ -126,7 +142,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
     [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
     NSArray *args = [NSArray arrayWithObjects:props, nil];
-    return [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_REGISTER args:args];
+    return [self initWithDictionary:[invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_REGISTER args:args]];
 }
 
 -(BackendlessUser *)update:(BackendlessUser *)user {
@@ -155,8 +171,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     if (!login || !password || ![login length] || ![password length])
         return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
     NSArray *args = [NSArray arrayWithObjects:login, password, nil];
-    id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_LOGIN args:args];
-    return [result isKindOfClass:[Fault class]] ? result : [self onLogin:result];
+    return [self initWithDictionary:[invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_LOGIN args:args]];
 }
 
 -(BackendlessUser *)findById:(NSString *)objectId {
@@ -243,7 +258,12 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
     [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
     NSArray *args = [NSArray arrayWithObjects:props, nil];
-    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_REGISTER args:args responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    
+    void(^wrappedBlock)(NSDictionary *) = ^(NSDictionary *regUserDict) {
+        responseBlock([self initWithDictionary:regUserDict]);
+    };
+    
+    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_REGISTER args:args responder:[ResponderBlocksContext responderBlocksContext:wrappedBlock error:errorBlock]];
 }
 
 -(void)update:(BackendlessUser *)user response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -260,10 +280,10 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 }
 
 -(void)login:(NSString *)login password:(NSString *)password response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {
-    Responder *responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!login || !password || ![login length] || ![password length])
-        return [responder errorHandler:FAULT_NO_USER_CREDENTIALS];
+        [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
     NSArray *args = [NSArray arrayWithObjects:login, password, nil];
+    Responder *responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onLogin:) selErrorHandler:nil];
     _responder.chained = responder;
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_LOGIN args:args responder:_responder];
@@ -355,7 +375,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 
 // utilites
 
--(id)handleOpenURL:(NSURL *)url {
+-(BackendlessUser *)handleOpenURL:(NSURL *)url {
     [DebLog log:@"UserService -> handleOpenURL: url = '%@'", url];
     NSString *scheme = [[NSString stringWithFormat:@"backendless%@", backendless.appID] uppercaseString];
     if (![[url.scheme uppercaseString] isEqualToString:scheme]) {

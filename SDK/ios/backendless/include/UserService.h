@@ -67,7 +67,7 @@
 -(void)easyLoginWithTwitterFieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 
 // utilites
--(id)handleOpenURL:(NSURL *)url;
+-(BackendlessUser *)handleOpenURL:(NSURL *)url;
 -(void)handleOpenURL:(NSURL *)url completion:(void(^)(BackendlessUser *))completion;
 
 // persistent user
