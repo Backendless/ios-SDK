@@ -37,7 +37,7 @@ pod 'Backendless', '4.0b14'
 
 ## RELEASE HISTORY
 4.0b14 June 30, 2017
-* User registration fixed (method for a Dictionary is used instead of one for BackendlessUser class fixed).
+* User registration fixed (method for a Dictionary is used instead of one for BackendlessUser class fixed)
 
 4.0b13 June 23, 2017
 * The findById method called in UserService returns BackendlessUser
