@@ -34,7 +34,7 @@
 
 @property (strong, nonatomic, readonly) DataPermission *permissions;
 
--(NSString *)getEntityName:(Class)entity;
+-(NSString *)getEntityName:(NSString *)entityName;
 
 // sync methods with fault return (as exception)
 -(NSArray<ObjectProperty*> *)describe:(NSString *)entityName;

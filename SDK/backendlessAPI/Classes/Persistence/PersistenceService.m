@@ -132,16 +132,15 @@ static NSString *ADD_RELATION = @"addRelation";
 
 #pragma mark Public Methods
 
--(NSString *)getEntityName:(Class)entity {
-    NSString *className = NSStringFromClass(entity);
-    if ([className containsString:@"."]) {
-        NSArray *Array = [className componentsSeparatedByString:@"."];
-        className = [Array lastObject];
+-(NSString *)getEntityName:(NSString *)entityName {
+    if ([entityName containsString:@"."]) {
+        NSArray *Array = [entityName componentsSeparatedByString:@"."];
+        entityName = [Array lastObject];
     }
-    if ([className isEqualToString: @"BackendlessUser"]) {
-        className = @"Users";
+    if ([entityName isEqualToString: @"BackendlessUser"]) {
+        entityName = @"Users";
     }
-    return className;
+    return entityName;
 }
 
 // sync methods with fault return  (as exception)
@@ -258,8 +257,8 @@ static NSString *ADD_RELATION = @"addRelation";
         return [backendless throwFault:FAULT_FIELD_IS_NULL];
     }
     [self prepareClass:entity];
-    NSString *className = [self getEntityName:(entity)];
-    NSArray *args = @[className, [queryBuilder build]];
+    NSString *className = [self typeClassName:entity];
+    NSArray *args = @[[self getEntityName:className], [queryBuilder build]];
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args];
 }
 
@@ -464,7 +463,7 @@ static NSString *ADD_RELATION = @"addRelation";
     if (!queryBuilder) {
         return [backendless throwFault:FAULT_FIELD_IS_NULL];
     }
-    NSString *className = [self getEntityName:(entity)];
+    NSString *className = [self getEntityName:NSStringFromClass(entity)];
     BackendlessDataQuery *dataQuery = [queryBuilder build];
     NSArray *args = @[className, dataQuery ? dataQuery:BACKENDLESS_DATA_QUERY];
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_COUNT args:args];
@@ -617,8 +616,9 @@ static NSString *ADD_RELATION = @"addRelation";
     if (!queryBuilder) {
         return [chainedResponder errorHandler: FAULT_FIELD_IS_NULL];
     }
-    NSString *className = [self getEntityName:(entity)];
-    NSArray *args = @[className, [queryBuilder build]];
+    [self prepareClass:entity];
+    NSString *className = [self typeClassName:entity];
+    NSArray *args = @[[self getEntityName:className], [queryBuilder build]];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args responder:chainedResponder];
 }
 
@@ -853,7 +853,7 @@ static NSString *ADD_RELATION = @"addRelation";
     if (!queryBuilder) {
         return [chainedResponder errorHandler: FAULT_FIELD_IS_NULL];
     }
-    NSString *className = [self getEntityName:(entity)];
+    NSString *className = [self getEntityName:NSStringFromClass(entity)];
     BackendlessDataQuery *dataQuery = [queryBuilder build];
     NSArray *args = @[className, dataQuery ? dataQuery:BACKENDLESS_DATA_QUERY];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_COUNT args:args responder:chainedResponder];
