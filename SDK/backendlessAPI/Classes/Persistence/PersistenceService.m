@@ -257,6 +257,7 @@ static NSString *ADD_RELATION = @"addRelation";
     if (!queryBuilder) {
         return [backendless throwFault:FAULT_FIELD_IS_NULL];
     }
+    [self prepareClass:entity];
     NSString *className = [self getEntityName:(entity)];
     NSArray *args = @[className, [queryBuilder build]];
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args];
