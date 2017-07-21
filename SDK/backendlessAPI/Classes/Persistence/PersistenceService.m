@@ -249,6 +249,16 @@ static NSString *ADD_RELATION = @"addRelation";
     return [self setRelations:relations object:object response:result];
 }
 
+-(NSArray *)find:(Class)entity {
+    if (!entity) {
+        return [backendless throwFault:FAULT_NO_ENTITY];
+    }
+    [self prepareClass:entity];
+    NSString *className = [self typeClassName:entity];
+    NSArray *args = @[[self getEntityName:className], [DataQueryBuilder new]];
+    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args];
+}
+
 -(NSArray *)find:(Class)entity queryBuilder:(DataQueryBuilder *)queryBuilder {
     if (!entity) {
         return [backendless throwFault:FAULT_NO_ENTITY];
@@ -258,7 +268,7 @@ static NSString *ADD_RELATION = @"addRelation";
     }
     [self prepareClass:entity];
     NSString *className = [self typeClassName:entity];
-    NSArray *args = @[[self getEntityName:className], queryBuilder];
+    NSArray *args = @[[self getEntityName:className], [queryBuilder build]];
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args];
 }
 
@@ -608,6 +618,17 @@ static NSString *ADD_RELATION = @"addRelation";
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_UPDATE args:args responder:_responder];
 }
 
+-(void)find:(Class)entity response:(void (^)(NSArray *))responseBlock error:(void (^)(Fault *))errorBlock {
+    Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!entity) {
+        return [chainedResponder errorHandler:FAULT_NO_ENTITY];
+    }
+    [self prepareClass:entity];
+    NSString *className = [self typeClassName:entity];
+    NSArray *args = @[[self getEntityName:className], [DataQueryBuilder new]];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args responder:chainedResponder];
+}
+
 -(void)find:(Class)entity queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!entity) {
@@ -618,7 +639,7 @@ static NSString *ADD_RELATION = @"addRelation";
     }
     [self prepareClass:entity];
     NSString *className = [self typeClassName:entity];
-    NSArray *args = @[[self getEntityName:className], queryBuilder];
+    NSArray *args = @[[self getEntityName:className], [queryBuilder build]];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args responder:chainedResponder];
 }
 
