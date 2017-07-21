@@ -258,7 +258,7 @@ static NSString *ADD_RELATION = @"addRelation";
     }
     [self prepareClass:entity];
     NSString *className = [self typeClassName:entity];
-    NSArray *args = @[[self getEntityName:className], [queryBuilder build]];
+    NSArray *args = @[[self getEntityName:className], queryBuilder];
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args];
 }
 
@@ -618,7 +618,7 @@ static NSString *ADD_RELATION = @"addRelation";
     }
     [self prepareClass:entity];
     NSString *className = [self typeClassName:entity];
-    NSArray *args = @[[self getEntityName:className], [queryBuilder build]];
+    NSArray *args = @[[self getEntityName:className], queryBuilder];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args responder:chainedResponder];
 }
 
