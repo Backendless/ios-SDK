@@ -1,7 +1,7 @@
 Backendless SDK for iOS (http://backendless.com)
 ---
 
-# Version 4.0.2
+# Version 4.0.3
 The source code for version 4.0 is currently available in the master branch of this repository: https://github.com/Backendless/ios-SDK
 
 > For the instructions for version 3.x of the library, see [Backendless 3.x Getting Started Guide](https://backendless.com/mobile-developers/quick-start-guide-for-ios/ "Backendless 3.x Getting Started Guide")
@@ -30,7 +30,7 @@ To create a new project with CocoaPods, follow the instructions below:
 3. Create a Podfile. This can be done by running `pod init`.
 4. Open your Podfile with a text editor, and add the following
 ```
-pod 'Backendless', '4.0.2'
+pod 'Backendless', '4.0.3'
 ```
 5. Save Podfile, return to Terminal window and run `pod install`. Once all of the pod data is downloaded, Xcode project workspace file will be created. This is the file you must open when working on your app.
 6. Open .xcworkspace file to launch your project.
@@ -38,6 +38,9 @@ pod 'Backendless', '4.0.2'
 `${PODS_ROOT}/Headers/Public/Backendless/Backendless-Bridging-Header.h`
 
 ## RELEASE HISTORY
+4.0.3 July 21, 2017
+* autoload relation loading fixed for the class approach
+
 4.0.2 July 18, 2017
 * the mapTableToClass method fixed
 
