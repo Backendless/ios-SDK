@@ -1,7 +1,6 @@
 /*
-     File: Reachability.h
+ File: Reachability.h
  Abstract: Basic demonstration of how to use the SystemConfiguration Reachablity APIs.
-  Version: 3.0
  
  Disclaimer: IMPORTANT:  This Apple software is supplied to you by Apple
  Inc. ("Apple") in consideration of your agreement to the following
@@ -41,10 +40,11 @@
  STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  
- Copyright (C) 2013 Apple Inc. All Rights Reserved.
- 
+ Copyright (C) 2016 Apple Inc. All Rights Reserved.
  */
+
 //  backendlessAPI
+
 /*
  * *********************************************************************************************************************
  *
@@ -67,45 +67,36 @@
 #import <SystemConfiguration/SystemConfiguration.h>
 #import <netinet/in.h>
 
-
 typedef enum : NSInteger {
 	beNotReachable = 0,
 	beReachableViaWiFi,
 	beReachableViaWWAN
 } BENetworkStatus;
 
-
 extern NSString *kBEReachabilityChangedNotification;
-
 
 @interface BEReachability : NSObject
 
 /*!
  * Use to check the reachability of a given host name.
  */
-+ (instancetype)reachabilityWithHostName:(NSString *)hostName;
++(instancetype)reachabilityWithHostName:(NSString *)hostName;
 
 /*!
  * Use to check the reachability of a given IP address.
  */
-+ (instancetype)reachabilityWithAddress:(const struct sockaddr_in *)hostAddress;
++(instancetype)reachabilityWithAddress:(const struct sockaddr_in *)hostAddress;
 
 /*!
  * Checks whether the default route is available. Should be used by applications that do not connect to a particular host.
  */
-+ (instancetype)reachabilityForInternetConnection;
-
-/*!
- * Checks whether a local WiFi connection is available.
- */
-+ (instancetype)reachabilityForLocalWiFi;
++(instancetype)reachabilityForInternetConnection;
 
 /*!
  * Start listening for reachability notifications on the current run loop.
  */
 -(BOOL)startNotifier;
 -(void)stopNotifier;
-
 -(BENetworkStatus)currentReachabilityStatus;
 
 /*!
