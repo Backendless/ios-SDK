@@ -122,7 +122,11 @@ static NSString *METHOD_LAST = @"last";
 
 -(NSArray *)find {
     NSArray *args = @[_tableName, [DataQueryBuilder new]];
-    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args];
+    NSMutableArray *result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args];
+    for (NSMutableDictionary *dictionary in result) {
+        [self setNullToNil:dictionary];
+    }
+    return (NSArray *)result;
 }
 
 -(NSArray *)find:(DataQueryBuilder *)queryBuilder {
@@ -131,6 +135,9 @@ static NSString *METHOD_LAST = @"last";
     if ([result isKindOfClass:[Fault class]]) {
         return result;
     }
+    for (NSMutableDictionary *dictionary in (NSMutableArray *)result) {
+        [self setNullToNil:dictionary];
+    }
     NSArray *bc = (NSArray *)result;
     return [self fixClassCollection:bc];
 }
@@ -138,50 +145,55 @@ static NSString *METHOD_LAST = @"last";
 -(id)findFirst {
     NSArray *args = @[_tableName];
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIRST args:args];
-    return [result isKindOfClass:NSDictionary.class]?result:[Types propertyDictionary:result];
+    return [result isKindOfClass:NSDictionary.class]?[self setNullToNil:(NSMutableDictionary *) result]:[self setNullToNil:(NSMutableDictionary *) [Types propertyDictionary:result]];
 }
 
 -(id)findFirst:(DataQueryBuilder *)queryBuilder {
     NSArray *args = @[_tableName, [queryBuilder getRelated]?[queryBuilder getRelated]:@[], @([queryBuilder getRelationsDepth]), [queryBuilder getProperties]];
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIRST args:args];
-    return [result isKindOfClass:NSDictionary.class]?result:[Types propertyDictionary:result];
+    return [result isKindOfClass:NSDictionary.class]?[self setNullToNil:(NSMutableDictionary *) result]:[self setNullToNil:(NSMutableDictionary *) [Types propertyDictionary:result]];
 }
 
 -(id)findLast {
     NSArray *args = @[_tableName];
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LAST args:args];
-    return [result isKindOfClass:NSDictionary.class]?result:[Types propertyDictionary:result];
+    return [result isKindOfClass:NSDictionary.class]?[self setNullToNil:(NSMutableDictionary *) result]:[self setNullToNil:(NSMutableDictionary *) [Types propertyDictionary:result]];
 }
 
 -(id)findLast:(DataQueryBuilder *)queryBuilder {
     NSArray *args = @[_tableName, [queryBuilder getRelated]?[queryBuilder getRelated]:@[], @([queryBuilder getRelationsDepth]), [queryBuilder getProperties]];
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LAST args:args];
-    return [result isKindOfClass:NSDictionary.class]?result:[Types propertyDictionary:result];
+    return [result isKindOfClass:NSDictionary.class]?[self setNullToNil:(NSMutableDictionary *) result]:[self setNullToNil:(NSMutableDictionary *) [Types propertyDictionary:result]];
 }
 
 -(id)findById:(id)objectId {
+    NSMutableDictionary *result;
     if ([objectId isKindOfClass:[NSString class]]) {
-        return [backendless.persistenceService findById:_tableName objectId:objectId];
+        result = [backendless.persistenceService findById:_tableName objectId:objectId];
     }
     else if ([objectId isKindOfClass:[NSDictionary class]]) {
-        return [backendless.persistenceService findByObject:_tableName keys:objectId];
+        result = [backendless.persistenceService findByObject:_tableName keys:objectId];
     }
     else {
-        return [backendless.persistenceService findByObject:objectId];
+        result = [backendless.persistenceService findByObject:objectId];
     }
+    result = [self setNullToNil:result];
+    return result;
 }
 
 -(id)findById:(id)objectId queryBuilder:(DataQueryBuilder *)queryBuilder {
-    
+    NSMutableDictionary *result;
     if ([objectId isKindOfClass:[NSString class]]) {
-        return [backendless.persistenceService findById:_tableName objectId:objectId queryBuilder:queryBuilder];
+        result = [backendless.persistenceService findById:_tableName objectId:objectId queryBuilder:queryBuilder];
     }
     else if ([objectId isKindOfClass:[NSDictionary class]]) {
-        return [backendless.persistenceService findByObject:_tableName keys:objectId queryBuilder:queryBuilder];
+        result = [backendless.persistenceService findByObject:_tableName keys:objectId queryBuilder:queryBuilder];
     }
     else {
-        return [backendless.persistenceService findByObject:objectId queryBuilder:queryBuilder];
+        result = [backendless.persistenceService findByObject:objectId queryBuilder:queryBuilder];
     }
+    result = [self setNullToNil:result];
+    return result;
 }
 
 -(NSNumber *)getObjectCount {
@@ -241,55 +253,85 @@ static NSString *METHOD_LAST = @"last";
 
 -(void)find:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     NSArray *args = @[_tableName, [DataQueryBuilder new]];
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    Responder *responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onFind:) selErrorHandler:nil];
+    _responder.chained = responder;
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args responder:_responder];
 }
 
 -(void)find:(DataQueryBuilder *)queryBuilder response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     NSArray *args = @[_tableName, [queryBuilder build]];
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    Responder *responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onFind:) selErrorHandler:nil];
+    _responder.chained = responder;
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args responder:_responder];
 }
 
 -(void)findFirst:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     NSArray *args = @[_tableName];
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIRST args:args responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    Responder *responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onFind:) selErrorHandler:nil];
+    _responder.chained = responder;
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIRST args:args responder:_responder];
 }
 
 -(void)findFirst:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     NSArray *args = @[_tableName, [queryBuilder getRelated]?[queryBuilder getRelated]:@[], @([queryBuilder getRelationsDepth]), [queryBuilder getProperties]];
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIRST args:args responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    Responder *responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onFind:) selErrorHandler:nil];
+    _responder.chained = responder;
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIRST args:args responder:_responder];
 }
 
 -(void)findLast:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     NSArray *args = @[_tableName];
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LAST args:args responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    Responder *responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onFind:) selErrorHandler:nil];
+    _responder.chained = responder;
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LAST args:args responder:_responder];
 }
 
 -(void)findLast:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     NSArray *args = @[_tableName, [queryBuilder getRelated]?[queryBuilder getRelated]:@[], @([queryBuilder getRelationsDepth]), [queryBuilder getProperties]];
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LAST args:args responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    Responder *responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onFind:) selErrorHandler:nil];
+    _responder.chained = responder;
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LAST args:args responder:_responder];
 }
 
 -(void)findById:(id)objectId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+    
+    void (^wrappedBlock)(id) = ^(id dict) {
+        dict = [self setNullToNil:dict];
+        responseBlock(dict);
+    };
+    
     if ([objectId isKindOfClass:[NSString class]]) {
-        [backendless.persistenceService findById:_tableName objectId:objectId response:responseBlock error:errorBlock];
+        [backendless.persistenceService findById:_tableName objectId:objectId response:wrappedBlock error:errorBlock];
     }
     else if ([objectId isKindOfClass:[NSDictionary class]]) {
-        [backendless.persistenceService findByObject:_tableName keys:objectId response:responseBlock error:errorBlock];
+        [backendless.persistenceService findByObject:_tableName keys:objectId response:wrappedBlock error:errorBlock];
     }
     else {
-        [backendless.persistenceService findByObject:objectId response:responseBlock error:errorBlock];
+        [backendless.persistenceService findByObject:objectId response:wrappedBlock error:errorBlock];
     }
 }
 
 -(void)findById:(id)objectId queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+    
+    void (^wrappedBlock)(id) = ^(id dict) {
+        dict = [self setNullToNil:dict];
+        responseBlock(dict);
+    };
+    
     if ([objectId isKindOfClass:[NSString class]]) {
-        [backendless.persistenceService findById:_tableName objectId:objectId queryBuilder:queryBuilder response:responseBlock error:errorBlock];
+        [backendless.persistenceService findById:_tableName objectId:objectId queryBuilder:queryBuilder response:wrappedBlock error:errorBlock];
     }
     else if ([objectId isKindOfClass:[NSDictionary class]]) {
-        [backendless.persistenceService findByObject:_tableName keys:objectId queryBuilder:queryBuilder response:responseBlock error:errorBlock];
+        [backendless.persistenceService findByObject:_tableName keys:objectId queryBuilder:queryBuilder response:wrappedBlock error:errorBlock];
     }
     else {
-        [backendless.persistenceService findByObject:objectId queryBuilder:queryBuilder response:responseBlock error:errorBlock];
+        [backendless.persistenceService findByObject:objectId queryBuilder:queryBuilder response:wrappedBlock error:errorBlock];
     }
 }
 
@@ -329,6 +371,27 @@ static NSString *METHOD_LAST = @"last";
 
 -(void)loadRelations:(NSString *)objectId queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.persistenceService loadRelations:(_tableName) objectId:(NSString *)objectId  queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder response:responseBlock error:errorBlock];
+}
+
+-(NSMutableDictionary *)setNullToNil:(NSMutableDictionary *)dictionary {
+    for (NSString *key in [dictionary allKeys]) {
+        if ([[dictionary valueForKey:key] isKindOfClass:[NSNull class]]) {
+            dictionary[key] = nil;
+        }
+    }
+    return dictionary;
+}
+
+-(id)onFind:(id)response {
+    if ([response isKindOfClass:[NSArray class]]) {
+        for (NSMutableDictionary *dictionary in (NSMutableArray *)response) {
+            [self setNullToNil:dictionary];
+        }
+    }
+    else if ([response isKindOfClass:[NSDictionary class]]) {
+        [self setNullToNil:response];
+    }
+    return response;
 }
 
 @end
