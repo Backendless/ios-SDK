@@ -107,11 +107,15 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     [super dealloc];
 }
 
--(BackendlessUser *)initWithDictionary:(NSDictionary *)dictionary {
-    BackendlessUser *user = [BackendlessUser new];
-    if ([dictionary isKindOfClass:[NSDictionary class]]) {
-        for (NSString *key in [dictionary allKeys]) {
-            id value = [dictionary valueForKey:key];
+-(BackendlessUser *)initWithDictionary:(id)castObject {
+    BackendlessUser *castedUser = nil;
+    if ([castObject isKindOfClass:[BackendlessUser class]]) {
+        castedUser = (BackendlessUser *)castObject;
+    }
+    else if ([castObject isKindOfClass:[NSDictionary class]]) {
+        BackendlessUser *user = [BackendlessUser new];
+        for (NSString *key in [castObject allKeys]) {
+            id value = [castObject valueForKey:key];
             if (![value isEqual:[NSNull null]]) {
                 [user setProperty:key object:value];
             }
@@ -119,8 +123,9 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
                 [user setProperty:key object:nil];
             }
         }
+        castedUser = user;
     }
-    return user;
+    return castedUser;
 }
 
 #pragma mark -
@@ -268,7 +273,6 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     void(^wrappedBlock)(NSDictionary *) = ^(NSDictionary *regUserDict) {
         responseBlock([self initWithDictionary:regUserDict]);
     };
-    
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_REGISTER args:args responder:[ResponderBlocksContext responderBlocksContext:wrappedBlock error:errorBlock]];
 }
 
