@@ -35,6 +35,7 @@
 #import "BackendlessCache.h"
 #import "ObjectProperty.h"
 #import "LoadRelationsQueryBuilder.h"
+#import "MapDrivenDataStore.h"
 
 #define FAULT_NO_ENTITY [Fault fault:@"Entity is missing or null" detail:@"Entity is missing or null" faultCode:@"1900"]
 #define FAULT_OBJECT_ID_IS_NOT_EXIST [Fault fault:@"objectId is missing or null" detail:@"objectId is missing or null" faultCode:@"1901"]
@@ -772,7 +773,7 @@ static NSString *ADD_RELATION = @"addRelation";
 }
 
 -(void)findById:(NSString *)entityName objectId:(NSString *)objectId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]; 
     if (!entityName) {
         return [chainedResponder errorHandler:FAULT_NO_ENTITY];
     }
