@@ -46,7 +46,7 @@ pod 'Backendless', '4.0.5'
 * The autoload relation loading fixed for the basic find method
 
 4.0.2 July 18, 2017
-* the mapTableToClass method fixed
+* The mapTableToClass method fixed
 
 4.0.1 July 5, 2017
 * 4.0 release
