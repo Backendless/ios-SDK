@@ -3,7 +3,7 @@
 ## 4.0.6 August 10, 2017
 * Added the "mutable-content" support for push notifications
 
-##4.0.5 August 4, 2017
+## 4.0.5 August 4, 2017
 * The user registration bug when adding to users one after another fixed
 * NSNull values changed to nil for dictionary/map approach
 
