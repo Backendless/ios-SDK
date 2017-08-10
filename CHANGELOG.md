@@ -28,7 +28,7 @@
 ## 4.0b12 June 21, 2017
 * PushPolicyEnum changed to PublishPolicyEnum and now supports the PUSH, PUBSUB and BOTH delivery options
 
-##4.0b11 June 16, 2017
+## 4.0b11 June 16, 2017
 * Removed version from hosted service invocation
 
 ## 4.0b10 June 14, 2017
