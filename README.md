@@ -4,7 +4,7 @@ Backendless SDK for iOS (http://backendless.com)
 # Version 4.0.6
 The source code for version 4.0 is currently available in the master branch of this repository: https://github.com/Backendless/ios-SDK
 
-> For the instructions for version 3.x of the library, see [Backendless 3.x Guide](https://backendless.com/documentation/users/ios/users_overview.html")
+> For the instructions for version 3.x of the library, see [Backendless 3.x Guide](https://backendless.com/documentation/users/ios/users_overview.html)
 
 ## GETTING STARTED WITH BACKENDLESS
 The simplest way to get started with Backendless is by using a Project Template for iOS:
