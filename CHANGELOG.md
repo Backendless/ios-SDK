@@ -1,5 +1,6 @@
 # RELEASE HISTORY
 
+
 ## 4.0.6 August 10, 2017
 * Added the "mutable-content" support for push notifications
 
