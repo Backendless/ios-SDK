@@ -115,11 +115,6 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
         self.pollingFrequencySec = DEFAULT_POLLING_INTERVAL;
         _subscriptions = [HashMap new];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.management.DeviceRegistrationDto" mapped:[DeviceRegistration class]];
-        [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.messaging.Message" mapped:[Message class]];
-        [[Types sharedInstance] addClientClassMapping:@"com.backendless.messaging.MessageStatus" mapped:[MessageStatus class]];
-        [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.messaging.PublishOptions" mapped:[PublishOptions class]];
-        [[Types sharedInstance] addClientClassMapping:@"com.backendless.messaging.DeliveryOptions" mapped:[DeliveryOptions class]];
-        [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.mail.BodyParts" mapped:[BodyParts class]];
         deviceRegistration = [DeviceRegistration new];
         
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
@@ -161,6 +156,31 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     NSString *str = [NSString stringWithFormat:@"%@", token];
     return [[[str stringByReplacingOccurrencesOfString:@" " withString:@""] stringByReplacingOccurrencesOfString:@"<" withString:@""] stringByReplacingOccurrencesOfString:@">" withString:@""];
 }
+
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+-(void)attachmentProcessing:(UNNotificationRequest *)request withContentHandler:(void (^)(UNNotificationContent * _Nonnull))contentHandler {
+    UNMutableNotificationContent *bestAttemptContent = [request.content mutableCopy];
+    NSString *urlString = [request.content.userInfo valueForKey:@"attachment-url"];
+    NSURL *fileUrl = [NSURL URLWithString:urlString];
+    [[[NSURLSession sharedSession] downloadTaskWithURL:fileUrl
+                                     completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+                                         if (location) {
+                                             NSString *tmpDirectory = NSTemporaryDirectory();
+                                             NSString *tmpFile = [[@"file://" stringByAppendingString:tmpDirectory] stringByAppendingString:fileUrl.lastPathComponent];
+                                             NSURL *tmpUrl = [NSURL URLWithString:tmpFile];
+                                             BOOL success = [[NSFileManager defaultManager] moveItemAtURL:location toURL:tmpUrl error:nil];
+                                             //if (success) {
+                                             UNNotificationAttachment *attachment = [UNNotificationAttachment attachmentWithIdentifier:@"" URL:tmpUrl options:nil error:nil];
+                                             if (attachment) {
+                                                 bestAttemptContent.attachments = @[attachment];
+                                             }
+                                             //}
+                                         }
+                                         contentHandler(bestAttemptContent);
+                                     }] resume];
+}
+#endif
+
 
 // sync methods with fault return (as exception)
 
