@@ -1,7 +1,7 @@
 Backendless SDK for iOS (http://backendless.com)
 ---
 
-# Version 4.0.5
+# Version 4.0.6
 The source code for version 4.0 is currently available in the master branch of this repository: https://github.com/Backendless/ios-SDK
 
 > For the instructions for version 3.x of the library, see [Backendless 3.x Getting Started Guide](https://backendless.com/mobile-developers/quick-start-guide-for-ios/ "Backendless 3.x Getting Started Guide")
@@ -30,7 +30,7 @@ To create a new project with CocoaPods, follow the instructions below:
 3. Create a Podfile. This can be done by running `pod init`.
 4. Open your Podfile with a text editor, and add the following
 ```
-pod 'Backendless', '4.0.5'
+pod 'Backendless', '4.0.6'
 ```
 5. Save Podfile, return to Terminal window and run `pod install`. Once all of the pod data is downloaded, Xcode project workspace file will be created. This is the file you must open when working on your app.
 6. Open .xcworkspace file to launch your project.
@@ -38,6 +38,9 @@ pod 'Backendless', '4.0.5'
 `${PODS_ROOT}/Headers/Public/Backendless/Backendless-Bridging-Header.h`
 
 ## RELEASE HISTORY
+4.0.6 August 10, 2017
+* Added the "mutable-content" support for push notifications
+
 4.0.5 August 4, 2017
 * The user registration bug when adding to users one after another fixed
 * NSNull values changed to nil for dictionary/map approach
