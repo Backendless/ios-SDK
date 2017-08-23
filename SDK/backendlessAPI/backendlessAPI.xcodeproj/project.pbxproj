@@ -1450,6 +1450,11 @@
 		5A507A761F3B42D80027ABAC /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A507A741F3B41D80027ABAC /* UserNotifications.framework */; };
 		5A507A771F3B42E10027ABAC /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A507A741F3B41D80027ABAC /* UserNotifications.framework */; };
 		5A507A781F3B42E80027ABAC /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A507A741F3B41D80027ABAC /* UserNotifications.framework */; };
+		5A76AACD1F4D78F700E3FC48 /* OfflineManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A76AACB1F4D78F700E3FC48 /* OfflineManager.m */; };
+		5A76AAE41F4D8CE700E3FC48 /* OfflineManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A76AACB1F4D78F700E3FC48 /* OfflineManager.m */; };
+		5A76AAE61F4D8E6A00E3FC48 /* OfflineManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A76AACB1F4D78F700E3FC48 /* OfflineManager.m */; };
+		5A76AAE71F4D8EA600E3FC48 /* OfflineManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A76AACB1F4D78F700E3FC48 /* OfflineManager.m */; };
+		5A76AAE81F4D8EAC00E3FC48 /* OfflineManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A76AACB1F4D78F700E3FC48 /* OfflineManager.m */; };
 		5AF2B7281EB2136300D54442 /* MessagingService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AFFBF7A1EB211EC0099A72F /* MessagingService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AF2B7291EB2137200D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; };
 		5AF2B72A1EB2137A00D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; };
@@ -2363,6 +2368,12 @@
 		0F9AC8121E798C5C0087869F /* V3ReferenceCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = V3ReferenceCache.m; sourceTree = "<group>"; };
 		1C7BB5101A2E092900D3C2C1 /* libbackendless-mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libbackendless-mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A507A741F3B41D80027ABAC /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		5A76AACA1F4D78F700E3FC48 /* OfflineManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfflineManager.h; sourceTree = "<group>"; };
+		5A76AACB1F4D78F700E3FC48 /* OfflineManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfflineManager.m; sourceTree = "<group>"; };
+		5A76AAD51F4D88BD00E3FC48 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/usr/lib/libsqlite3.tbd; sourceTree = DEVELOPER_DIR; };
+		5A76AAD71F4D88C500E3FC48 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		5A76AADC1F4D899800E3FC48 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
+		5A76AADE1F4D899C00E3FC48 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5AFFBF7A1EB211EC0099A72F /* MessagingService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagingService.h; sourceTree = "<group>"; };
 		5AFFBF7B1EB211EC0099A72F /* MessagingService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagingService.m; sourceTree = "<group>"; };
 		84B027E41DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadRelationsQueryBuilder.h; sourceTree = "<group>"; };
@@ -3184,6 +3195,10 @@
 		F9042B0615FDD8D300C9381A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5A76AADE1F4D899C00E3FC48 /* SystemConfiguration.framework */,
+				5A76AADC1F4D899800E3FC48 /* SystemConfiguration.framework */,
+				5A76AAD71F4D88C500E3FC48 /* libsqlite3.tbd */,
+				5A76AAD51F4D88BD00E3FC48 /* libsqlite3.tbd */,
 				5A507A741F3B41D80027ABAC /* UserNotifications.framework */,
 			);
 			name = Frameworks;
@@ -3211,7 +3226,6 @@
 				F99D9232160B617200AFF3F6 /* Property */,
 				F91B47E615FF448F00012DFC /* UserService */,
 				F91B47E515FF448F00012DFC /* Persistence */,
-				F9F58DAB1BA83B34009B8782 /* Beacons */,
 				F91B47E315FF448F00012DFC /* Geo */,
 				F91B480715FF655800012DFC /* Messaging */,
 				F91B47E215FF448F00012DFC /* Files */,
@@ -3302,6 +3316,9 @@
 				F96B1C6B1DD3B6CA00A4B362 /* QueryOptionsBuilder.m */,
 				F96B1C781DD4BF5F00A4B362 /* DataQueryBuilder.h */,
 				F96B1C791DD4BF5F00A4B362 /* DataQueryBuilder.m */,
+				5A76AACA1F4D78F700E3FC48 /* OfflineManager.h */,
+				5A76AACB1F4D78F700E3FC48 /* OfflineManager.m */,
+				F9F58DAB1BA83B34009B8782 /* Beacons */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
@@ -3480,7 +3497,8 @@
 				F9CB13941BC53D5100F3CA1D /* BeaconMonitoring.h */,
 				F9CB13951BC53D5100F3CA1D /* BeaconMonitoring.m */,
 			);
-			path = Beacons;
+			name = Beacons;
+			path = ../Beacons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -4913,6 +4931,7 @@
 				0F9ACBE21E798C5E0087869F /* ObjectFactories.m in Sources */,
 				D316BA3A1A83C649007215CA /* ProtectedBackendlessGeoQuery.m in Sources */,
 				F9CB13911BC53D2300F3CA1D /* BeaconTracker.m in Sources */,
+				5A76AACD1F4D78F700E3FC48 /* OfflineManager.m in Sources */,
 				0F9ACA111E798C5D0087869F /* AnonymousObjectReader.m in Sources */,
 				0F9ACA251E798C5D0087869F /* ArrayType.m in Sources */,
 				0F9ACCAA1E798C5F0087869F /* BoundPropertyBagWriter.m in Sources */,
@@ -5074,6 +5093,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A76AAE71F4D8EA600E3FC48 /* OfflineManager.m in Sources */,
 				5AF2B72A1EB2137A00D54442 /* MessagingService.m in Sources */,
 				0F9ACB751E798C5E0087869F /* Types.m in Sources */,
 				0F9ACAFD1E798C5E0087869F /* StringType.m in Sources */,
@@ -5265,6 +5285,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A76AAE81F4D8EAC00E3FC48 /* OfflineManager.m in Sources */,
 				5AF2B72D1EB213A400D54442 /* MessagingService.m in Sources */,
 				0F9ACB761E798C5E0087869F /* Types.m in Sources */,
 				0F9ACAFE1E798C5E0087869F /* StringType.m in Sources */,
@@ -5456,6 +5477,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A76AAE61F4D8E6A00E3FC48 /* OfflineManager.m in Sources */,
 				5AF2B72E1EB213AC00D54442 /* MessagingService.m in Sources */,
 				84B027EE1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */,
 				F9B360C51D65A7BD00818EEF /* UICKeyChainStore.m in Sources */,
@@ -5647,6 +5669,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A76AAE41F4D8CE700E3FC48 /* OfflineManager.m in Sources */,
 				5AF2B7311EB213C600D54442 /* MessagingService.m in Sources */,
 				84B027EF1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */,
 				F9B360C61D65A7D000818EEF /* UICKeyChainStore.m in Sources */,
@@ -5853,7 +5876,10 @@
 				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lsqlite3",
+				);
 				PRODUCT_NAME = "backendless-mac";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
@@ -5878,7 +5904,10 @@
 				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lsqlite3",
+				);
 				PRODUCT_NAME = "backendless-mac";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
@@ -6006,7 +6035,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lsqlite3",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -6032,7 +6064,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lsqlite3",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -6056,7 +6091,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lsqlite3",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -6080,7 +6118,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lsqlite3",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -6129,7 +6170,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lsqlite3",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -6155,7 +6199,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lsqlite3",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -6179,7 +6226,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lsqlite3",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -6203,7 +6253,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lsqlite3",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;

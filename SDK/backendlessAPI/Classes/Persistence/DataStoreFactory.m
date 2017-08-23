@@ -23,6 +23,7 @@
 #include "Backendless.h"
 #import "ObjectProperty.h"
 #import "AuthorizationException.h"
+#import "OfflineManager.h"
 
 @interface DataStoreFactory () {
     Class _entityClass;
@@ -52,6 +53,18 @@
 }
 
 #pragma mark IDataStore Methods
+
+// offline mode
+-(void)enableOffline {
+    backendless.data.offlineEnabled = YES;
+    offlineManager.tableName = [backendless.data typeClassName:[_entityClass class]];
+}
+
+-(void)disableOffline {
+    backendless.data.offlineEnabled = NO;
+    [offlineManager dropTable];
+}
+
 
 // sync methods with fault return (as exception)
 

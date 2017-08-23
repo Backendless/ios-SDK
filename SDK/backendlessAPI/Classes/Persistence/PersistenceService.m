@@ -36,6 +36,7 @@
 #import "ObjectProperty.h"
 #import "LoadRelationsQueryBuilder.h"
 #import "MapDrivenDataStore.h"
+#import "OfflineManager.h"
 
 #define FAULT_NO_ENTITY [Fault fault:@"Entity is missing or null" detail:@"Entity is missing or null" faultCode:@"1900"]
 #define FAULT_OBJECT_ID_IS_NOT_EXIST [Fault fault:@"objectId is missing or null" detail:@"objectId is missing or null" faultCode:@"1901"]
@@ -144,6 +145,7 @@ static NSString *ADD_RELATION = @"addRelation";
     return entityName;
 }
 
+
 // sync methods with fault return  (as exception)
 
 -(NSArray<ObjectProperty *> *)describe:(NSString *)entityName {
@@ -193,11 +195,28 @@ static NSString *ADD_RELATION = @"addRelation";
     BOOL isObjectId = objectId && [objectId isKindOfClass:NSString.class];
     NSString *method = isObjectId ? METHOD_UPDATE:METHOD_CREATE;
     [DebLog log:@"PersistenceService -> save: method = %@, objectId = %@", method, objectId];
-    NSArray *args = @[[self objectClassName:entity], [self propertyObject:entity]];
-    id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:method args:args];
-    if ([result isKindOfClass:[Fault class]]) {
-        return result;
+    
+    id result = nil;
+    
+    
+    
+    
+    if (offlineManager.internetActive) {
+        NSArray *args = @[[self objectClassName:entity], [self propertyObject:entity]];
+        result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:method args:args];
+        if ([result isKindOfClass:[Fault class]]) {
+            return result;
+        }
+        else {
+            [offlineManager updateRecord:result];
+        }
     }
+    
+    else {
+        result = entity;
+        [offlineManager updateRecord:result];
+    }
+    
     [self onCurrentUserUpdate:result];
     return result;
 }
@@ -256,8 +275,17 @@ static NSString *ADD_RELATION = @"addRelation";
     }
     [self prepareClass:entity];
     NSString *className = [self typeClassName:entity];
-    NSArray *args = @[[self getEntityName:className], [DataQueryBuilder new]];
-    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args];
+    NSArray *resultArray;
+    
+    if (offlineManager.internetActive) {
+        NSArray *args = @[[self getEntityName:className], [DataQueryBuilder new]];
+        resultArray = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args];
+        [offlineManager insertIntoDB:resultArray];
+    }
+    else {
+        resultArray = [offlineManager readFromDB:nil];
+    }
+    return resultArray;
 }
 
 -(NSArray *)find:(Class)entity queryBuilder:(DataQueryBuilder *)queryBuilder {
@@ -269,8 +297,17 @@ static NSString *ADD_RELATION = @"addRelation";
     }
     [self prepareClass:entity];
     NSString *className = [self typeClassName:entity];
-    NSArray *args = @[[self getEntityName:className], [queryBuilder build]];
-    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args];
+    NSArray *resultArray;
+    
+    if (offlineManager.internetActive) {
+        NSArray *args = @[[self getEntityName:className], [queryBuilder build]];
+        resultArray = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args];
+        [offlineManager insertIntoDB:resultArray];
+    }
+    else {
+        resultArray = [offlineManager readFromDB:queryBuilder];
+    }
+    return resultArray;
 }
 
 -(id)first:(Class)entity {
@@ -773,7 +810,7 @@ static NSString *ADD_RELATION = @"addRelation";
 }
 
 -(void)findById:(NSString *)entityName objectId:(NSString *)objectId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]; 
+    Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!entityName) {
         return [chainedResponder errorHandler:FAULT_NO_ENTITY];
     }

@@ -28,6 +28,10 @@
 
 @protocol IDataStore <NSObject>
 
+// offline mode
+-(void)enableOffline;
+-(void)disableOffline;
+
 // sync methods with fault return (as exception)
 -(id)save:(id)entity;
 -(NSNumber *)remove:(id)entity;

@@ -32,6 +32,9 @@
 
 @interface PersistenceService : NSObject
 
+// offline mode
+@property(nonatomic) BOOL offlineEnabled;
+
 @property (strong, nonatomic, readonly) DataPermission *permissions;
 
 -(NSString *)getEntityName:(NSString *)entityName;
