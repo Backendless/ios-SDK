@@ -35,6 +35,7 @@
 -(void)closeDB;
 -(void)dropTable;
 -(void)insertIntoDB:(NSArray *)insertObjects;
+-(void)insertNewObject:(id)object;
 -(NSArray *)readFromDB:(DataQueryBuilder *)queryBuilder;
 -(void)updateRecord:(id)object;
 

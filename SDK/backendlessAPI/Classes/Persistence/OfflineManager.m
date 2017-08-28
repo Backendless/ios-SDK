@@ -1,10 +1,23 @@
 //
 //  OfflineManager.m
 //  backendlessAPI
-//
-//  Created by Slava Vdovichenko on 11/10/16.
-//  Copyright © 2017 BACKENDLESS.COM. All rights reserved.
-//
+/*
+ * *********************************************************************************************************************
+ *
+ *  BACKENDLESS.COM CONFIDENTIAL
+ *
+ *  ********************************************************************************************************************
+ *
+ *  Copyright 2017 BACKENDLESS.COM. All Rights Reserved.
+ *
+ *  NOTICE: All information contained herein is, and remains the property of Backendless.com and its suppliers,
+ *  if any. The intellectual and technical concepts contained herein are proprietary to Backendless.com and its
+ *  suppliers and may be covered by U.S. and Foreign Patents, patents in process, and are protected by trade secret
+ *  or copyright law. Dissemination of this information or reproduction of this material is strictly forbidden
+ *  unless prior written permission is obtained from Backendless.com.
+ *
+ *  ********************************************************************************************************************
+ */
 
 #import "OfflineManager.h"
 #import "BEReachability.h"
@@ -74,34 +87,14 @@
     sqlite3_stmt *statement;
     NSString *selectCmd = [NSString stringWithFormat:@"SELECT * from %@ WHERE needUpload = 1", self.tableName];
     if (sqlite3_prepare_v2 (db_instance, [selectCmd UTF8String], -1, &statement, nil) == SQLITE_OK) {
-        
         while (sqlite3_step(statement) == SQLITE_ROW) {
             BinaryStream *stream = [[BinaryStream alloc] initWithStream:(char *)sqlite3_column_blob(statement, 0) andSize:sqlite3_column_bytes(statement, 0)];
             id object = [AMFSerializer deserializeFromBytes:stream];
-            [DebLog log:@"%@", ((BackendlessEntity *)object).objectId ];
-            
-            //            BackendlessEntity *savedObject = [backendless.data save:object];
-            //            NSString *objectId = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 1)];
-            //            [self updateRecord:objectId withObject:savedObject];
+            BackendlessEntity *savedObject = [backendless.data save:object];       
         }
     }
     sqlite3_finalize(statement);
     [self closeDB];
-}
-
-- (void)updateRecord:(NSString *)objectId withObject:(BackendlessEntity *)object {
-    sqlite3_stmt *statement;
-    NSString *updateCmd = [NSString stringWithFormat:@"UPDATE %@ SET objectData = ?, objectId = '%@', needUpload = 0 WHERE objectId = '%@'", self.tableName, object.objectId, objectId];
-    if(sqlite3_prepare_v2(db_instance, [updateCmd UTF8String], -1, &statement, NULL) != SQLITE_OK) {
-        NSLog(@"Error while creating insert statement: %s", sqlite3_errmsg(db_instance));
-    }
-    BinaryStream *stream = [AMFSerializer serializeToBytes:object];
-    if (sqlite3_bind_blob(statement, 1, stream.buffer, (int)stream.size, SQLITE_TRANSIENT) == SQLITE_OK) {
-        if (sqlite3_step(statement) == SQLITE_DONE) {
-            NSLog(@"BKNDLSS FILLED");
-        }
-    }
-    sqlite3_finalize(statement);
 }
 
 
@@ -186,6 +179,28 @@
         }
         sqlite3_finalize(statement);
     }
+    [self closeDB];
+}
+
+-(void)insertNewObject:(id)object {
+    [self openDB];
+    [self createTableIfNotExists];
+    BackendlessEntity *entity = (BackendlessEntity *)object;
+    sqlite3_stmt *statement;
+    NSString *tmpObjectId = [[NSUUID UUID] UUIDString];
+    NSString *insertCmd = [NSString stringWithFormat:@"INSERT INTO %@(objectData, objectId, needUpload) VALUES(?, '%@', 1);", self.tableName, tmpObjectId];
+    if(sqlite3_prepare_v2(db_instance, [insertCmd UTF8String], -1, &statement, NULL) != SQLITE_OK) {
+        [DebLog log:@"Error while creating insert statement: %s", sqlite3_errmsg(db_instance)];
+    }
+    BinaryStream *stream = [AMFSerializer serializeToBytes:object];
+    int result = sqlite3_bind_blob(statement, 1, stream.buffer, (int)stream.size, SQLITE_TRANSIENT);
+    if((result = sqlite3_step(statement)) != SQLITE_DONE) {
+        [DebLog log:@"Error while updating: %s", sqlite3_errmsg(db_instance)];
+    }
+    else {
+        [DebLog log:@"A new object added to DB"];
+    }
+    sqlite3_finalize(statement);
     [self closeDB];
 }
 

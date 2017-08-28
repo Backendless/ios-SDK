@@ -189,61 +189,37 @@ static NSString *ADD_RELATION = @"addRelation";
     if (!entity) {
         return [backendless throwFault:FAULT_NO_ENTITY];
     }
-    [DebLog log:@"PersistenceService -> save: class = %@, entity = %@", [self objectClassName:entity], [self propertyDictionary:entity]];
-    // 'save' = 'create' | 'update'
     id objectId = [self getObjectId:entity];
     BOOL isObjectId = objectId && [objectId isKindOfClass:NSString.class];
     NSString *method = isObjectId ? METHOD_UPDATE:METHOD_CREATE;
-    [DebLog log:@"PersistenceService -> save: method = %@, objectId = %@", method, objectId];
-    
+    NSArray *args = @[[self objectClassName:entity], [self propertyObject:entity]];
     id result = nil;
-    
-    
-    
-    
-    if (offlineManager.internetActive) {
-        NSArray *args = @[[self objectClassName:entity], [self propertyObject:entity]];
+    if (self.offlineEnabled) {
+        if (offlineManager.internetActive) {
+            result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:method args:args];
+            
+            if ([method isEqualToString:METHOD_UPDATE]) {
+                [offlineManager updateRecord:result];
+            }
+            if ([method isEqualToString:METHOD_CREATE]) {
+                [offlineManager insertNewObject:result];
+            }
+        }
+        else {
+            result = entity;
+            if ([method isEqualToString:METHOD_UPDATE]) {
+                [offlineManager updateRecord:result];
+            }
+            if ([method isEqualToString:METHOD_CREATE]) {
+                [offlineManager insertNewObject:result];
+            }
+        }
+    }
+    else {
         result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:method args:args];
         if ([result isKindOfClass:[Fault class]]) {
             return result;
         }
-        else {
-            [offlineManager updateRecord:result];
-        }
-    }
-    
-    else {
-        result = entity;
-        [offlineManager updateRecord:result];
-    }
-    
-    [self onCurrentUserUpdate:result];
-    return result;
-}
-
--(id)create:(id)entity {
-    if (!entity) {
-        return [backendless throwFault:FAULT_NO_ENTITY];
-    }
-    [DebLog log:@"PersistenceService -> create: class = %@, entity = %@", [self objectClassName:entity], entity];
-    NSArray *args = @[[self objectClassName:entity],  [self propertyObject:entity]];
-    id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_CREATE args:args];
-    if ([result isKindOfClass:[Fault class]]) {
-        return result;
-    }
-    [self onCurrentUserUpdate:result];
-    return result;
-}
-
--(id)update:(id)entity {
-    if (!entity) {
-        return [backendless throwFault:FAULT_NO_ENTITY];
-    }
-    [DebLog log:@"PersistenceService -> update: class = %@, entity = %@", [self objectClassName:entity], entity];
-    NSArray *args = @[[self objectClassName:entity],  [self propertyObject:entity]];
-    id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_UPDATE args:args];
-    if ([result isKindOfClass:[Fault class]]) {
-        return result;
     }
     [self onCurrentUserUpdate:result];
     return result;
@@ -273,17 +249,21 @@ static NSString *ADD_RELATION = @"addRelation";
     if (!entity) {
         return [backendless throwFault:FAULT_NO_ENTITY];
     }
+    NSArray *resultArray;
     [self prepareClass:entity];
     NSString *className = [self typeClassName:entity];
-    NSArray *resultArray;
-    
-    if (offlineManager.internetActive) {
-        NSArray *args = @[[self getEntityName:className], [DataQueryBuilder new]];
-        resultArray = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args];
-        [offlineManager insertIntoDB:resultArray];
+    NSArray *args = @[[self getEntityName:className], [DataQueryBuilder new]];
+    if (self.offlineEnabled) {
+        if (offlineManager.internetActive) {
+            resultArray = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args];
+            [offlineManager insertIntoDB:resultArray];
+        }
+        else {
+            resultArray = [offlineManager readFromDB:nil];
+        }
     }
     else {
-        resultArray = [offlineManager readFromDB:nil];
+        resultArray = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args];
     }
     return resultArray;
 }
@@ -295,17 +275,21 @@ static NSString *ADD_RELATION = @"addRelation";
     if (!queryBuilder) {
         return [backendless throwFault:FAULT_FIELD_IS_NULL];
     }
+    NSArray *resultArray;
     [self prepareClass:entity];
     NSString *className = [self typeClassName:entity];
-    NSArray *resultArray;
-    
-    if (offlineManager.internetActive) {
-        NSArray *args = @[[self getEntityName:className], [queryBuilder build]];
-        resultArray = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args];
-        [offlineManager insertIntoDB:resultArray];
+    NSArray *args = @[[self getEntityName:className], [queryBuilder build]];
+    if (self.offlineEnabled) {
+        if (offlineManager.internetActive) {
+            resultArray = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args];
+            [offlineManager insertIntoDB:resultArray];
+        }
+        else {
+            resultArray = [offlineManager readFromDB:queryBuilder];
+        }
     }
     else {
-        resultArray = [offlineManager readFromDB:queryBuilder];
+        resultArray = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args];
     }
     return resultArray;
 }
