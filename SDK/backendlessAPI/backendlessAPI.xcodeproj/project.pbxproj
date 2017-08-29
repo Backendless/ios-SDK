@@ -1450,6 +1450,11 @@
 		5A507A761F3B42D80027ABAC /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A507A741F3B41D80027ABAC /* UserNotifications.framework */; };
 		5A507A771F3B42E10027ABAC /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A507A741F3B41D80027ABAC /* UserNotifications.framework */; };
 		5A507A781F3B42E80027ABAC /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A507A741F3B41D80027ABAC /* UserNotifications.framework */; };
+		5A76183E1F55795C000D1E28 /* OfflineManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A76AACA1F4D78F700E3FC48 /* OfflineManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A76183F1F557973000D1E28 /* OfflineManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A76AACA1F4D78F700E3FC48 /* OfflineManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A7618401F557981000D1E28 /* OfflineManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A76AACA1F4D78F700E3FC48 /* OfflineManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A7618411F55798B000D1E28 /* OfflineManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A76AACA1F4D78F700E3FC48 /* OfflineManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A7618421F557997000D1E28 /* OfflineManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A76AACA1F4D78F700E3FC48 /* OfflineManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A76AACD1F4D78F700E3FC48 /* OfflineManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A76AACB1F4D78F700E3FC48 /* OfflineManager.m */; };
 		5A76AAE41F4D8CE700E3FC48 /* OfflineManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A76AACB1F4D78F700E3FC48 /* OfflineManager.m */; };
 		5A76AAE61F4D8E6A00E3FC48 /* OfflineManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A76AACB1F4D78F700E3FC48 /* OfflineManager.m */; };
@@ -3732,6 +3737,7 @@
 				1C7BB5001A2E092900D3C2C1 /* AbstractQuery.h in Headers */,
 				1C7BB5021A2E092900D3C2C1 /* BackendlessCachePolicy.h in Headers */,
 				1C7BB5051A2E092900D3C2C1 /* BackendlessCacheProtocol.h in Headers */,
+				5A76183E1F55795C000D1E28 /* OfflineManager.h in Headers */,
 				1C7BB5061A2E092900D3C2C1 /* QueryOptions.h in Headers */,
 				5AF2B7281EB2136300D54442 /* MessagingService.h in Headers */,
 			);
@@ -3969,6 +3975,7 @@
 				91F139AE17D7240A00D1AC4C /* BackendlessCacheProtocol.h in Headers */,
 				5AF2B72B1EB2138500D54442 /* MessagingService.h in Headers */,
 				91F139B217D724C700D1AC4C /* QueryOptions.h in Headers */,
+				5A76183F1F557973000D1E28 /* OfflineManager.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4203,6 +4210,7 @@
 				91F139AA17D7240A00D1AC4C /* BackendlessCachePolicy.h in Headers */,
 				91F139AF17D7240A00D1AC4C /* BackendlessCacheProtocol.h in Headers */,
 				91F139B317D724C700D1AC4C /* QueryOptions.h in Headers */,
+				5A7618401F557981000D1E28 /* OfflineManager.h in Headers */,
 				5AF2B72C1EB2138F00D54442 /* MessagingService.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4437,6 +4445,7 @@
 				F9F0AF261CDBCA3900035C62 /* AbstractQuery.h in Headers */,
 				F9F0AF271CDBCA3900035C62 /* BackendlessCachePolicy.h in Headers */,
 				F9F0AF291CDBCA3900035C62 /* BackendlessCacheProtocol.h in Headers */,
+				5A7618411F55798B000D1E28 /* OfflineManager.h in Headers */,
 				5AF2B72F1EB213B300D54442 /* MessagingService.h in Headers */,
 				F9F0AF2A1CDBCA3900035C62 /* QueryOptions.h in Headers */,
 			);
@@ -4672,6 +4681,7 @@
 				F9F0AFE11CDBCAB500035C62 /* AbstractQuery.h in Headers */,
 				F9F0AFE21CDBCAB500035C62 /* BackendlessCachePolicy.h in Headers */,
 				F9F0AFE41CDBCAB500035C62 /* BackendlessCacheProtocol.h in Headers */,
+				5A7618421F557997000D1E28 /* OfflineManager.h in Headers */,
 				5AF2B7301EB213BD00D54442 /* MessagingService.h in Headers */,
 				F9F0AFE51CDBCAB500035C62 /* QueryOptions.h in Headers */,
 			);
