@@ -28,6 +28,8 @@
 
 @protocol IDataStore <NSObject>
 
+-(NSString *)getDataStoreSourceName;
+
 // offline mode
 -(void)enableOffline;
 -(void)disableOffline;

@@ -114,7 +114,7 @@
 // IDataStore class factory
 -(id <IDataStore>)of:(Class)entityClass;
 // MapDrivenDataStore factory
--(MapDrivenDataStore *)ofTable:(NSString *)tableName;
+-(id <IDataStore>)ofTable:(NSString *)tableName;
 
 // utilites
 -(id)getObjectId:(id)object;
