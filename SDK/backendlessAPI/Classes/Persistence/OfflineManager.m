@@ -22,6 +22,7 @@
 #import "OfflineManager.h"
 #import "BEReachability.h"
 #import <sqlite3.h>
+#import<objc/runtime.h>
 
 @interface OfflineManager() {
     sqlite3 *db_instance;
@@ -103,7 +104,7 @@
 // operation (for save method)
 // 0 - create
 // 1 - update
-// 3 - other methods (find etc.)
+// 2 - other methods (find etc.)
 -(void)createTableIfNotExists {
     NSString *createTableCmd = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@(objectData BLOB, objectId TEXT PRIMARY KEY, needUpload BOOL, operation BOOL);", self.tableName];
     sqlite3_exec(db_instance, [createTableCmd UTF8String], NULL, NULL, NULL);
@@ -147,17 +148,43 @@
     NSString *selectCmd = [NSString stringWithFormat:@"SELECT * from %@ WHERE needUpload = 1", self.tableName];
     if (sqlite3_prepare_v2 (db_instance, [selectCmd UTF8String], -1, &statement, nil) == SQLITE_OK) {
         
+        
+        
+        
         while (sqlite3_step(statement) == SQLITE_ROW) {
+            
             BinaryStream *stream = [[BinaryStream alloc] initWithStream:(char *)sqlite3_column_blob(statement, 0) andSize:sqlite3_column_bytes(statement, 0)];
             id object = [AMFSerializer deserializeFromBytes:stream];
             NSString *objectId = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 1)];
             int operation = sqlite3_column_int(statement, 3);
-            if (operation == 0) {
-                [(BackendlessEntity *)object setObjectId:nil];
+            
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                if (operation == 0) {
+                    NSLog(@"OBJECT ID 1 = %@", [object valueForKey:@"objectId"]);
+                    NSMutableDictionary *mutableObject = [object mutableCopy];
+                    [mutableObject setObject:[NSNull null] forKey:@"objectId"];
+                    object = mutableObject;
+                    NSLog(@"OBJECT ID 2 = %@", [object valueForKey:objectId]);
+                }
+                BackendlessEntity *savedObject = [self.dataStore save:object];
+                
+                NSLog(@"ObjectId = %@", objectId);
+                NSLog(@"Saved object id = %@", [savedObject valueForKey:@"objectId"]);
+                
+                if (![[savedObject valueForKey:@"objectId"] isEqualToString:objectId]) {
+                    [self deleteFromTableWithObjectId:objectId];
+                    NSLog(@"OLD OBJECT DELETED");
+                }
             }
-            BackendlessEntity *savedObject = [backendless.data save:object];
-            if (![savedObject.objectId isEqualToString:objectId]) {
-                [self deleteFromTableWithObjectId:objectId];
+            else {
+                if (operation == 0) {
+                    ((BackendlessEntity *)object).objectId = nil;
+                }
+                BackendlessEntity *savedObject = [self.dataStore save:object];
+                if (![savedObject.objectId isEqualToString:objectId]) {
+                    [self deleteFromTableWithObjectId:objectId];
+                    NSLog(@"OLD OBJECT DELETED");
+                }
             }
         }
     }
@@ -181,11 +208,12 @@
     if (clear) {
         [self deleteFromTable];
     }
-    for (BackendlessEntity *object in insertObjects) {
-        NSString *objectId = object.objectId;
-        if (!objectId) {
+    /*for (BackendlessEntity *object in insertObjects) {
+        id objectId = [backendless.data getObjectId:object];
+        BOOL isObjectId = objectId && [objectId isKindOfClass:NSString.class];
+        if (!isObjectId) {
             objectId = [[NSUUID UUID] UUIDString];
-            [object setObjectId:objectId];
+            object.objectId = objectId;
         }
         sqlite3_stmt *statement;
         NSString *insertCmd = [NSString stringWithFormat:@"INSERT INTO %@(objectData, objectId, needUpload, operation) VALUES(?, '%@', %d, %d);", self.tableName, objectId, needUpload, operation];
@@ -198,6 +226,50 @@
             NSLog(@"Error while inserting: %s", sqlite3_errmsg(db_instance));
         }
         sqlite3_finalize(statement);
+    }*/
+    
+    for (id insertObject in insertObjects) {
+        if ([insertObject isKindOfClass:[NSDictionary class]]) {
+            NSMutableDictionary *object = [insertObject mutableCopy];
+            NSString *objectId = [object valueForKey:@"objectId"];
+            if ([objectId isKindOfClass:[NSNull class]]) {
+                objectId = [[NSUUID UUID] UUIDString];
+                [object setObject:objectId forKey:@"objectId"];
+            }
+            sqlite3_stmt *statement;
+            NSString *insertCmd = [NSString stringWithFormat:@"INSERT INTO %@(objectData, objectId, needUpload, operation) VALUES(?, '%@', %d, %d);", self.tableName, objectId, needUpload, operation];
+            if(sqlite3_prepare_v2(db_instance, [insertCmd UTF8String], -1, &statement, NULL) != SQLITE_OK) {
+                NSLog(@"Error while creating insert statement: %s", sqlite3_errmsg(db_instance));
+            }
+            BinaryStream *stream = [AMFSerializer serializeToBytes:object];
+            int result = sqlite3_bind_blob(statement, 1, stream.buffer, (int)stream.size, SQLITE_TRANSIENT);
+            if((result = sqlite3_step(statement)) != SQLITE_DONE) {
+                NSLog(@"Error while inserting: %s", sqlite3_errmsg(db_instance));
+            }
+            sqlite3_finalize(statement);
+        }
+        
+        
+        else {
+            BackendlessEntity *object = (BackendlessEntity *)insertObject;
+            id objectId = [backendless.data getObjectId:object];
+            BOOL isObjectId = objectId && [objectId isKindOfClass:NSString.class];
+            if (!isObjectId) {
+                objectId = [[NSUUID UUID] UUIDString];
+                object.objectId = objectId;
+            }
+            sqlite3_stmt *statement;
+            NSString *insertCmd = [NSString stringWithFormat:@"INSERT INTO %@(objectData, objectId, needUpload, operation) VALUES(?, '%@', %d, %d);", self.tableName, objectId, needUpload, operation];
+            if(sqlite3_prepare_v2(db_instance, [insertCmd UTF8String], -1, &statement, NULL) != SQLITE_OK) {
+                NSLog(@"Error while creating insert statement: %s", sqlite3_errmsg(db_instance));
+            }
+            BinaryStream *stream = [AMFSerializer serializeToBytes:object];
+            int result = sqlite3_bind_blob(statement, 1, stream.buffer, (int)stream.size, SQLITE_TRANSIENT);
+            if((result = sqlite3_step(statement)) != SQLITE_DONE) {
+                NSLog(@"Error while inserting: %s", sqlite3_errmsg(db_instance));
+            }
+            sqlite3_finalize(statement);
+        }
     }
 }
 
@@ -226,7 +298,13 @@
 
 -(void)updateRecord:(id)object withNeedUpload:(int)needUpload {
     [self openDB];
-    NSString *objectId = ((BackendlessEntity *)object).objectId;
+    NSString *objectId;
+    if ([object isKindOfClass:[NSDictionary class]]) {
+        objectId = [object valueForKey:@"objectId"];
+    }
+    else {
+        objectId = ((BackendlessEntity *)object).objectId;
+    }
     sqlite3_stmt *statement;
     NSString *updateCmd = [NSString stringWithFormat:@"UPDATE %@ SET objectData = ?, needUpload = %d WHERE objectId = '%@'", self.tableName, needUpload, objectId];
     if(sqlite3_prepare_v2(db_instance, [updateCmd UTF8String], -1, &statement, NULL) != SQLITE_OK) {

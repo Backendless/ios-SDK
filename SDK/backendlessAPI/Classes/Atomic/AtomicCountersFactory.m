@@ -20,7 +20,7 @@
  */
 
 #import "AtomicCountersFactory.h"
-#include "Backendless.h"
+#import "Backendless.h"
 
 @interface AtomicCountersFactory () {
     NSString *_name;

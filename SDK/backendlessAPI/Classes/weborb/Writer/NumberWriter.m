@@ -10,7 +10,7 @@
 #import "DEBUG.h"
 #import "IProtocolFormatter.h"
 
-#include <math.h>
+#import <math.h>
 
 
 @implementation NumberWriter
