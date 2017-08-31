@@ -32,6 +32,7 @@ static NSString *METHOD_UPDATE = @"update";
 
 @interface OfflineDataStore () {
     id<IDataStore> dataStore;
+    OfflineManager *offlineManager;
 }
 @end
 
@@ -40,6 +41,7 @@ static NSString *METHOD_UPDATE = @"update";
 
 -(void)enableOffline {
     backendless.data.offlineEnabled = YES;
+    offlineManager = [OfflineManager new];
     offlineManager.tableName = [dataStore getDataStoreSourceName];
     offlineManager.dataStore = dataStore;
 }
@@ -62,19 +64,18 @@ static NSString *METHOD_UPDATE = @"update";
     [super dealloc];
 }
 
--(id)prepareObjectForSaving:(id)object {
-    if ([object isKindOfClass:[NSDictionary class]]) {
-        if (![[object allKeys] containsObject:@"objectId"]) {
-            NSMutableDictionary *mutableObject = [object mutableCopy];
-            [mutableObject setObject:[NSNull null] forKey:@"objectId"];
-            object = mutableObject;
-        }
+-(void)prepareObjectForSaving:(id)object {
+    [__types classInstance:[object class]];
+    [[object class] resolveProperty:@"objectId"];
+}
+
+-(NSDictionary *)prepareDictionaryForSaving:(NSDictionary *)dictionary {
+    if (![[dictionary allKeys] containsObject:@"objectId"]) {
+        NSMutableDictionary *mutableDictionary = [dictionary mutableCopy];
+        [mutableDictionary setObject:[NSNull null] forKey:@"objectId"];
+        dictionary = mutableDictionary;
     }
-    else {
-        object = [__types classInstance:[object class]];
-        [object resolveProperty:@"objectId"];
-    }
-    return object;
+    return dictionary;
 }
 
 -(NSString *)getObjectId:(id)object {
@@ -95,22 +96,8 @@ static NSString *METHOD_UPDATE = @"update";
 -(id)save:(id)entity {
     id savedObject = nil;
     if (backendless.data.offlineEnabled) {
-        
-        id objectId;
-        
-        if ([entity isKindOfClass:[NSDictionary class]]) {
-            NSLog(@"Entity is dictionary");
-            objectId = [entity valueForKey:@"objectId"];
-            NSLog(@"OBJECT ID 1 = %@", objectId);
-        }
-        else {
-            NSLog(@"Entity is object");
-            objectId = [self getObjectId:entity];
-            NSLog(@"OBJECT ID 2 = %@", objectId);
-        }
-        
+        id objectId = [self getObjectId:entity];
         BOOL isObjectId = objectId && [objectId isKindOfClass:NSString.class];
-        
         NSString *method = METHOD_CREATE;
         if (isObjectId) {
             method = METHOD_UPDATE;
@@ -126,7 +113,12 @@ static NSString *METHOD_UPDATE = @"update";
         }
         else if (!offlineManager.internetActive) {
             if ([method isEqualToString:METHOD_CREATE]) {
-                entity = [self prepareObjectForSaving:entity];
+                if ([entity isKindOfClass:[NSDictionary class]]) {
+                    entity = [self prepareDictionaryForSaving:entity];
+                }
+                else {
+                    [self prepareObjectForSaving:entity];
+                }
                 [offlineManager insertIntoDB:@[entity] withTableClear:NO withNeedUpload:1 withOperation:0];
             }
             else if ([method isEqualToString:METHOD_UPDATE]) {

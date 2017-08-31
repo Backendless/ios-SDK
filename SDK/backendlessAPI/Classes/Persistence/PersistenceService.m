@@ -185,61 +185,6 @@ static NSString *ADD_RELATION = @"addRelation";
 }
 
 -(id)save:(id)entity {
-    /*if (!entity) {
-     return [backendless throwFault:FAULT_NO_ENTITY];
-     }
-     id result;
-     id objectId = [self getObjectId:entity];
-     BOOL isObjectId = objectId && [objectId isKindOfClass:NSString.class];
-     NSString *method = isObjectId ? METHOD_UPDATE:METHOD_CREATE;
-     // OFFLINE ENABLED
-     if (self.offlineEnabled) {
-     
-     
-     if (offlineManager.internetActive) {
-     if ([method isEqualToString:METHOD_CREATE]) {
-     NSArray *args = @[[self objectClassName:entity], [self propertyObject:entity]];
-     result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:method args:args];
-     if ([result isKindOfClass:[Fault class]]) {
-     return result;
-     }
-     [offlineManager insertIntoDB:@[result] withTableClear:NO withNeedUpload:0 withOperation:0];
-     }
-     else if ([method isEqualToString:METHOD_UPDATE]) {
-     @try {
-     NSArray *args = @[[self objectClassName:entity], [self propertyObject:entity]];
-     result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:method args:args];
-     if ([result isKindOfClass:[Fault class]]) {
-     return result;
-     }
-     [offlineManager updateRecord:result withNeedUpload:0];
-     }
-     @catch (Fault *f) {
-     NSLog(@"Fault: %@", f.description);
-     }
-     }
-     }
-     else {
-     result = entity;
-     if ([method isEqualToString:METHOD_CREATE]) {
-     [offlineManager insertIntoDB:@[result] withTableClear:NO withNeedUpload:1 withOperation:0];
-     }
-     else if ([method isEqualToString:METHOD_UPDATE]) {
-     [offlineManager updateRecord:result withNeedUpload:1];
-     }
-     }
-     }
-     // OFFLINE DISABLED
-     else {
-     NSArray *args = @[[self objectClassName:entity], [self propertyObject:entity]];
-     result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:method args:args];
-     if ([result isKindOfClass:[Fault class]]) {
-     return result;
-     }
-     }
-     [self onCurrentUserUpdate:result];
-     return result;*/
-    
     if (!entity) {
         return [backendless throwFault:FAULT_NO_ENTITY];
     }
@@ -981,7 +926,6 @@ static NSString *ADD_RELATION = @"addRelation";
 
 // IDataStore class factory
 -(id <IDataStore>)of:(Class)entityClass {
-    NSLog(@"of method called");
     id<IDataStore>dataStore = [DataStoreFactory createDataStore:entityClass];
     return [[OfflineDataStore alloc] initWithDataStore:dataStore];
 }

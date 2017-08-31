@@ -55,17 +55,6 @@
 
 #pragma mark IDataStore Methods
 
-// offline mode
-//-(void)enableOffline {
-//    backendless.data.offlineEnabled = YES;
-//    offlineManager.tableName = [backendless.data typeClassName:[_entityClass class]];
-//}
-//
-//-(void)disableOffline {
-//    backendless.data.offlineEnabled = NO;
-//    [offlineManager dropTable];
-//}
-
 -(NSString *)getDataStoreSourceName {
     return [backendless.data typeClassName:[_entityClass class]];
 }

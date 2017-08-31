@@ -28,9 +28,7 @@
 
 @protocol IDataStore <NSObject>
 
-// offline mode
--(void)enableOffline;
--(void)disableOffline;
+-(NSString *)getDataStoreSourceName;
 
 // sync methods with fault return (as exception)
 -(id)save:(id)entity;
@@ -80,4 +78,10 @@
 -(void)deleteRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 
 -(void)loadRelations:(NSString *)objectId queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
+
+// offline mode
+@optional
+-(void)enableOffline;
+-(void)disableOffline;
+
 @end

@@ -23,15 +23,12 @@
 #import "Backendless.h"
 @class BEReachability;
 
-#define offlineManager [OfflineManager sharedInstance]
-
 @interface OfflineManager : NSObject
 
 @property(nonatomic) BOOL internetActive;
 @property(nonatomic, strong) NSString *tableName;
 @property(nonatomic, strong) id<IDataStore> dataStore;
 
-+(OfflineManager *)sharedInstance;
 -(void)openDB;
 -(void)closeDB;
 -(void)dropTable;
