@@ -28,7 +28,6 @@
 #import "ClassCastException.h"
 #import "Backendless.h"
 #import "Invoker.h"
-#import "ObjectProperty.h"
 #import "QueryOptions.h"
 #import "BackendlessEntity.h"
 #import "DataStoreFactory.h"
@@ -36,6 +35,8 @@
 #import "ObjectProperty.h"
 #import "LoadRelationsQueryBuilder.h"
 #import "MapDrivenDataStore.h"
+#import "OfflineManager.h"
+#import "OfflineDataStore.h"
 
 #define FAULT_NO_ENTITY [Fault fault:@"Entity is missing or null" detail:@"Entity is missing or null" faultCode:@"1900"]
 #define FAULT_OBJECT_ID_IS_NOT_EXIST [Fault fault:@"objectId is missing or null" detail:@"objectId is missing or null" faultCode:@"1901"]
@@ -64,7 +65,6 @@ static NSString *ADD_RELATION = @"addRelation";
 @interface PersistenceService()
 -(NSDictionary *)filteringProperty:(id)object;
 -(BOOL)prepareClass:(Class)className;
--(BOOL)prepareObject:(id)object;
 -(NSString *)typeClassName:(Class)entity;
 -(NSString *)objectClassName:(id)object;
 -(NSDictionary *)propertyDictionary:(id)object;
@@ -144,6 +144,7 @@ static NSString *ADD_RELATION = @"addRelation";
     return entityName;
 }
 
+
 // sync methods with fault return  (as exception)
 
 -(NSArray<ObjectProperty *> *)describe:(NSString *)entityName {
@@ -188,41 +189,12 @@ static NSString *ADD_RELATION = @"addRelation";
         return [backendless throwFault:FAULT_NO_ENTITY];
     }
     [DebLog log:@"PersistenceService -> save: class = %@, entity = %@", [self objectClassName:entity], [self propertyDictionary:entity]];
-    // 'save' = 'create' | 'update'
     id objectId = [self getObjectId:entity];
     BOOL isObjectId = objectId && [objectId isKindOfClass:NSString.class];
     NSString *method = isObjectId ? METHOD_UPDATE:METHOD_CREATE;
     [DebLog log:@"PersistenceService -> save: method = %@, objectId = %@", method, objectId];
     NSArray *args = @[[self objectClassName:entity], [self propertyObject:entity]];
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:method args:args];
-    if ([result isKindOfClass:[Fault class]]) {
-        return result;
-    }
-    [self onCurrentUserUpdate:result];
-    return result;
-}
-
--(id)create:(id)entity {
-    if (!entity) {
-        return [backendless throwFault:FAULT_NO_ENTITY];
-    }
-    [DebLog log:@"PersistenceService -> create: class = %@, entity = %@", [self objectClassName:entity], entity];
-    NSArray *args = @[[self objectClassName:entity],  [self propertyObject:entity]];
-    id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_CREATE args:args];
-    if ([result isKindOfClass:[Fault class]]) {
-        return result;
-    }
-    [self onCurrentUserUpdate:result];
-    return result;
-}
-
--(id)update:(id)entity {
-    if (!entity) {
-        return [backendless throwFault:FAULT_NO_ENTITY];
-    }
-    [DebLog log:@"PersistenceService -> update: class = %@, entity = %@", [self objectClassName:entity], entity];
-    NSArray *args = @[[self objectClassName:entity],  [self propertyObject:entity]];
-    id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_UPDATE args:args];
     if ([result isKindOfClass:[Fault class]]) {
         return result;
     }
@@ -267,10 +239,11 @@ static NSString *ADD_RELATION = @"addRelation";
     if (!queryBuilder) {
         return [backendless throwFault:FAULT_FIELD_IS_NULL];
     }
+    NSArray *resultArray;
     [self prepareClass:entity];
     NSString *className = [self typeClassName:entity];
     NSArray *args = @[[self getEntityName:className], [queryBuilder build]];
-    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args];
+    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args];   
 }
 
 -(id)first:(Class)entity {
@@ -583,7 +556,6 @@ static NSString *ADD_RELATION = @"addRelation";
         return [chainedResponder errorHandler:FAULT_NO_ENTITY];
     }
     [DebLog log:@"PersistenceService -> save: class = %@, entity = %@", [self objectClassName:entity], [self propertyDictionary:entity]];
-    // 'save' = 'create' | 'update'
     id objectId = [self getObjectId:entity];
     BOOL isObjectId = objectId && [objectId isKindOfClass:NSString.class];
     NSString *method = isObjectId ? METHOD_UPDATE:METHOD_CREATE;
@@ -773,7 +745,7 @@ static NSString *ADD_RELATION = @"addRelation";
 }
 
 -(void)findById:(NSString *)entityName objectId:(NSString *)objectId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]; 
+    Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!entityName) {
         return [chainedResponder errorHandler:FAULT_NO_ENTITY];
     }
@@ -954,12 +926,14 @@ static NSString *ADD_RELATION = @"addRelation";
 
 // IDataStore class factory
 -(id <IDataStore>)of:(Class)entityClass {
-    return [DataStoreFactory createDataStore:entityClass];
+    id<IDataStore>dataStore = [DataStoreFactory createDataStore:entityClass];
+    return [[OfflineDataStore alloc] initWithDataStore:dataStore];
 }
 
 // MapDrivenDataStore factory
--(MapDrivenDataStore *)ofTable:(NSString *)tableName {
-    return [MapDrivenDataStore createDataStore:tableName];
+-(id <IDataStore>)ofTable:(NSString *)tableName {
+    id<IDataStore>dataStore = [MapDrivenDataStore createDataStore:tableName];
+    return [[OfflineDataStore alloc] initWithDataStore:dataStore];
 }
 
 // utilites
@@ -1000,12 +974,6 @@ static NSString *ADD_RELATION = @"addRelation";
     BOOL result = [object resolveProperty:PERSIST_OBJECT_ID];
     [object resolveProperty:@"__meta"];
     return result;
-}
-
--(BOOL)prepareObject:(id)object {
-    [object resolveProperty:PERSIST_OBJECT_ID value:nil];
-    [object resolveProperty:@"__meta" value:nil];
-    return YES;
 }
 
 -(NSString *)typeClassName:(Class)entity {

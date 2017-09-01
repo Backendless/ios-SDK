@@ -20,9 +20,11 @@
  */
 
 #import "DataStoreFactory.h"
-#include "Backendless.h"
-#import "ObjectProperty.h"
+#import "Backendless.h"
+//#import "ObjectProperty.h"
 #import "AuthorizationException.h"
+
+#import "OfflineManager.h"
 
 @interface DataStoreFactory () {
     Class _entityClass;
@@ -52,6 +54,10 @@
 }
 
 #pragma mark IDataStore Methods
+
+-(NSString *)getDataStoreSourceName {
+    return [backendless.data typeClassName:[_entityClass class]];
+}
 
 // sync methods with fault return (as exception)
 

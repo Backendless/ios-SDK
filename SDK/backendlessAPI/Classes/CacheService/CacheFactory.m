@@ -20,7 +20,7 @@
  */
 
 #import "CacheFactory.h"
-#include "Backendless.h"
+#import "Backendless.h"
 
 #define FAULT_NO_ENTITY_TYPE [Fault fault:@"Entity type is not valid" faultCode:@"0000"]
 

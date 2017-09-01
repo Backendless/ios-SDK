@@ -20,9 +20,9 @@
  */
 
 #import "MapDrivenDataStore.h"
-#include "Backendless.h"
+#import "Backendless.h"
 #import "Invoker.h"
-#include "Responder.h"
+#import "Responder.h"
 #import "ObjectProperty.h"
 #import "ClassCastException.h"
 #import "ObjectSerializer.h"
@@ -93,6 +93,10 @@ static NSString *METHOD_LAST = @"last";
 }
 
 #pragma mark Public Methods
+
+-(NSString *)getDataStoreSourceName {
+    return _tableName;
+}
 
 // sync methods with fault return (as exception)
 -(id)save:(id)entity {

@@ -19,8 +19,8 @@
  *  ********************************************************************************************************************
  */
 
-#include <mach/mach.h>
-#include <sys/sysctl.h>
+#import <mach/mach.h>
+#import <sys/sysctl.h>
 
 #import "Backendless.h"
 #import "Invoker.h"
