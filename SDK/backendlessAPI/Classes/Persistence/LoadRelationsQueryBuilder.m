@@ -42,14 +42,6 @@
     return self;
 }
 
--(void)dealloc {
-    [DebLog logN:@"DEALLOC DataQueryBuilder"];
-    [_pagedQueryBuilder release];
-    [_relationName release];
-    [_relationType release];
-    [super dealloc];
-}
-
 -(void)LoadRelationsQueryBuilder:(Class)relationType{
         _pagedQueryBuilder = [[PagedQueryBuilder alloc] init:self];
         _relationType = relationType;

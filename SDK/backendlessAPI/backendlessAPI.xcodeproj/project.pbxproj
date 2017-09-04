@@ -1465,11 +1465,11 @@
 		84B027E81DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 84B027E41DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		84B027E91DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 84B027E41DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		84B027EA1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 84B027E41DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		84B027EB1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B027E51DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m */; };
-		84B027EC1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B027E51DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m */; };
-		84B027ED1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B027E51DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m */; };
-		84B027EE1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B027E51DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m */; };
-		84B027EF1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B027E51DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m */; };
+		84B027EB1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B027E51DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		84B027EC1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B027E51DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		84B027ED1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B027E51DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		84B027EE1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B027E51DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		84B027EF1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B027E51DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		910117D4180C0CCF008102A7 /* BodyParts.h in Headers */ = {isa = PBXBuildFile; fileRef = 910117D2180C0CCF008102A7 /* BodyParts.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		910117D5180C0CCF008102A7 /* BodyParts.h in Headers */ = {isa = PBXBuildFile; fileRef = 910117D2180C0CCF008102A7 /* BodyParts.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		910117D7180C0CCF008102A7 /* BodyParts.m in Sources */ = {isa = PBXBuildFile; fileRef = 910117D3180C0CCF008102A7 /* BodyParts.m */; };
