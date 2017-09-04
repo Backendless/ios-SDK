@@ -1,5 +1,8 @@
 # RELEASE HISTORY
 
+## 4.0.7 September 4, 2017
+* ARC enabled for the LoadRelationsQueryBuilder class
+
 ## 4.0.6 August 10, 2017
 * Added the "mutable-content" support for push notifications
 
