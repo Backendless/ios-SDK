@@ -166,4 +166,49 @@ static NSString *METHOD_UPDATE = @"update";
     return resultArray;
 }
 
+-(void)saveObjectToLocalDB:(id)object withTableClear:(BOOL)clear withNeedUpload:(int)needUpload {
+    id objectId = [self getObjectId:entity];
+    BOOL isObjectId = objectId && [objectId isKindOfClass:NSString.class];
+    NSString *method = METHOD_CREATE;
+    int operation = 0;
+    if (isObjectId) {
+        method = METHOD_UPDATE;
+        operation = 1
+    }
+    
+    if ([method isEqualToString:METHOD_CREATE] && operation == 0 && needUpload == 1) {
+        if ([object isKindOfClass:[NSDictionary class]]) {
+            object = [self prepareDictionaryForSaving:object];
+        }
+        else {
+            [self prepareObjectForSaving:object];
+        }
+    }
+    
+    if ([method isEqualToString:METHOD_CREATE]) {
+        [offlineManager insertIntoDB:object withTableClear:clear withNeedUpload:needUpload withOperation:operation];
+    }
+    else if ([method isEqualToString:METHOD_UPDATE]) {
+        [offlineManager updateRecord:object withNeedUpload:needUpload];
+    }
+}
+
+-(void)save:(id)entity response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+    if (backendless.data.offlineEnabled) {        
+        if (offlineManager.internetActive) {
+            void (^wrappedBlock)(id) = ^(id object) {
+                responseBlock(object);
+                [self saveObjectToLocalDB:object withTableClear:NO withNeedUpload:0];
+            };
+            [dataStore save:entity response:wrappedBlock error:errorBlock];
+        }
+        else if (!offlineManager.internetActive) {
+            [self saveObjectToLocalDB:entity withTableClear:NO withNeedUpload:1];
+        }
+    }
+    else if (!backendless.data.offlineEnabled) {
+        [dataStore save:entity response:responseBlock error:errorBlock];
+    }
+}
+
 @end
