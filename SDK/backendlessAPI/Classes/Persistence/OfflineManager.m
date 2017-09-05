@@ -138,6 +138,7 @@
     NSString *selectCmd = [NSString stringWithFormat:@"SELECT * from %@ WHERE needUpload = 1", self.tableName];
     if (sqlite3_prepare_v2 (db_instance, [selectCmd UTF8String], -1, &statement, nil) == SQLITE_OK) {
         while (sqlite3_step(statement) == SQLITE_ROW) {
+            
             BinaryStream *stream = [[BinaryStream alloc] initWithStream:(char *)sqlite3_column_blob(statement, 0) andSize:sqlite3_column_bytes(statement, 0)];
             id object = [AMFSerializer deserializeFromBytes:stream];
             NSString *objectId = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 1)];
@@ -148,20 +149,29 @@
                     NSMutableDictionary *mutableObject = [object mutableCopy];
                     [mutableObject setObject:[NSNull null] forKey:@"objectId"];
                     object = mutableObject;
-                }
-                NSDictionary *savedObject = [self.dataStore save:object];
-                if (![[savedObject valueForKey:@"objectId"] isEqualToString:objectId]) {
                     [self deleteFromTableWithObjectId:objectId];
                 }
+                NSDictionary *savedObject = [self.dataStore save:object];
+                [self.dataStore save:object
+                            response:^(NSDictionary *savedObject) {
+                                [DebLog log:@"Object saved to BKNDLSS: %@", [savedObject valueForKey:@"objectId"]];
+                            }
+                               error:^(Fault *fault) {
+                                   [DebLog log:@"Upload failed: %@", fault.message];
+                               }];
             }
             else {
                 if (operation == 0) {
                     ((BackendlessEntity *)object).objectId = nil;
-                }
-                BackendlessEntity *savedObject = [self.dataStore save:object];
-                if (![savedObject.objectId isEqualToString:objectId]) {
                     [self deleteFromTableWithObjectId:objectId];
                 }
+                [self.dataStore save:object
+                            response:^(BackendlessEntity *savedObject) {
+                                [DebLog log:@"Object saved to BKNDLSS: %@", savedObject.objectId];
+                            }
+                               error:^(Fault *fault) {
+                                   [DebLog log:@"Upload failed: %@", fault.message];
+                               }];
             }
         }
     }

@@ -166,49 +166,65 @@ static NSString *METHOD_UPDATE = @"update";
     return resultArray;
 }
 
--(void)saveObjectToLocalDB:(id)object withTableClear:(BOOL)clear withNeedUpload:(int)needUpload {
-    id objectId = [self getObjectId:entity];
-    BOOL isObjectId = objectId && [objectId isKindOfClass:NSString.class];
-    NSString *method = METHOD_CREATE;
-    int operation = 0;
-    if (isObjectId) {
-        method = METHOD_UPDATE;
-        operation = 1
-    }
-    
-    if ([method isEqualToString:METHOD_CREATE] && operation == 0 && needUpload == 1) {
-        if ([object isKindOfClass:[NSDictionary class]]) {
-            object = [self prepareDictionaryForSaving:object];
-        }
-        else {
-            [self prepareObjectForSaving:object];
-        }
-    }
-    
-    if ([method isEqualToString:METHOD_CREATE]) {
-        [offlineManager insertIntoDB:object withTableClear:clear withNeedUpload:needUpload withOperation:operation];
-    }
-    else if ([method isEqualToString:METHOD_UPDATE]) {
-        [offlineManager updateRecord:object withNeedUpload:needUpload];
-    }
-}
+// async methods with block-based callbacks
 
 -(void)save:(id)entity response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
-    if (backendless.data.offlineEnabled) {        
+    if (backendless.data.offlineEnabled) {
+        
+        id objectId = [self getObjectId:entity];
+        BOOL isObjectId = objectId && [objectId isKindOfClass:NSString.class];
+        NSString *method = METHOD_CREATE;
+        if (isObjectId) {
+            method = METHOD_UPDATE;
+        }
+        if ([method isEqualToString:METHOD_CREATE] && !objectId) {
+            if ([entity isKindOfClass:[NSDictionary class]]) {
+                entity = [self prepareDictionaryForSaving:entity];
+            }
+            else {
+                [self prepareObjectForSaving:entity];
+            }
+        }
         if (offlineManager.internetActive) {
             void (^wrappedBlock)(id) = ^(id object) {
                 responseBlock(object);
-                [self saveObjectToLocalDB:object withTableClear:NO withNeedUpload:0];
+                if (!isObjectId) {
+                    [offlineManager insertIntoDB:@[object] withTableClear:NO withNeedUpload:0 withOperation:0];
+                }
             };
             [dataStore save:entity response:wrappedBlock error:errorBlock];
         }
         else if (!offlineManager.internetActive) {
-            [self saveObjectToLocalDB:entity withTableClear:NO withNeedUpload:1];
+            if (!isObjectId) {
+                [offlineManager insertIntoDB:@[entity] withTableClear:NO withNeedUpload:1 withOperation:0];
+            }
         }
     }
     else if (!backendless.data.offlineEnabled) {
         [dataStore save:entity response:responseBlock error:errorBlock];
     }
 }
+
+-(void)find:(void (^)(NSArray *))responseBlock error:(void (^)(Fault *))errorBlock {
+    if (backendless.data.offlineEnabled) {
+        if (offlineManager.internetActive) {
+            [dataStore find:responseBlock error:errorBlock];
+            void (^wrappedBlock)(NSArray *) = ^(NSArray *resultArray) {
+                responseBlock(resultArray);
+                [offlineManager insertIntoDB:resultArray withTableClear:YES withNeedUpload:0 withOperation:2];
+            };
+        }
+        else if (!offlineManager.internetActive) {
+            NSArray *arr = [offlineManager readFromDB:nil];
+            responseBlock(arr);            
+        }
+    }
+    else if (!backendless.data.offlineEnabled) {
+        [dataStore find:responseBlock error:errorBlock];
+    }
+}
+
+
+
 
 @end
