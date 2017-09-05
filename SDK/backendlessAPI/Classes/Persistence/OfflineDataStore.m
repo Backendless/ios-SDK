@@ -177,7 +177,7 @@ static NSString *METHOD_UPDATE = @"update";
         if (isObjectId) {
             method = METHOD_UPDATE;
         }
-        if ([method isEqualToString:METHOD_CREATE] && !objectId) {
+        if ([method isEqualToString:METHOD_CREATE]) {
             if ([entity isKindOfClass:[NSDictionary class]]) {
                 entity = [self prepareDictionaryForSaving:entity];
             }
@@ -207,16 +207,16 @@ static NSString *METHOD_UPDATE = @"update";
 
 -(void)find:(void (^)(NSArray *))responseBlock error:(void (^)(Fault *))errorBlock {
     if (backendless.data.offlineEnabled) {
-        if (offlineManager.internetActive) {
-            [dataStore find:responseBlock error:errorBlock];
+        if (offlineManager.internetActive) {            
             void (^wrappedBlock)(NSArray *) = ^(NSArray *resultArray) {
                 responseBlock(resultArray);
                 [offlineManager insertIntoDB:resultArray withTableClear:YES withNeedUpload:0 withOperation:2];
             };
+            [dataStore find:wrappedBlock error:errorBlock];
         }
         else if (!offlineManager.internetActive) {
-            NSArray *arr = [offlineManager readFromDB:nil];
-            responseBlock(arr);            
+            NSArray *resultArray = [offlineManager readFromDB:nil];
+            responseBlock(resultArray);
         }
     }
     else if (!backendless.data.offlineEnabled) {
