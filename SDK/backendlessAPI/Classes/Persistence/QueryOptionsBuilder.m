@@ -13,7 +13,7 @@
 @interface QueryOptionsBuilder () {
     NSMutableArray<NSString *> *_sortBy;
     NSMutableArray<NSString *> *_related;
-    int _relationsDepth;
+    NSInteger _relationsDepth;
     id _builder;
 }
 @end
@@ -21,35 +21,29 @@
 @implementation QueryOptionsBuilder
 
 -(instancetype)init {
-    if ( (self=[super init]) ) {
-        
+    if (self = [super init]) {
         _sortBy = [NSMutableArray new];
         _related = [NSMutableArray new];
         _builder = nil;
     }
-    
     return self;
 }
 
 -(instancetype)init:(id)builder {
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         _sortBy = [NSMutableArray new];
         _related = [NSMutableArray new];
         _builder = [builder retain];
     }
-    
     return self;
 }
 
 
 -(void)dealloc {
-    
     [DebLog logN:@"DEALLOC QueryOptionsBuilder"];
-    
     [_sortBy release];
     [_related release];
     [_builder release];
-    
     [super dealloc];
 }
 
@@ -57,14 +51,12 @@
 #pragma mark Public Methods
 
 -(QueryOptions *)build {
-    
     QueryOptions *queryOptions =  [QueryOptions new];
     queryOptions.sortBy = [[NSMutableArray alloc] initWithArray:_sortBy];
     queryOptions.related = [[NSMutableArray alloc] initWithArray:_related];
     queryOptions.relationsDepth = @(_relationsDepth);
     return queryOptions;
 }
-
 
 #pragma mark -
 #pragma mark IQueryOptionsBuilder Methods
@@ -74,11 +66,9 @@
 }
 
 -(id)setSortBy:(NSArray<NSString *> *)sortBy {
-    
     if (sortBy) {
         _sortBy = [[NSMutableArray alloc] initWithArray:sortBy];
     }
-    
     return _builder;
 }
 
@@ -90,7 +80,6 @@
 }
 
 -(id)addListSortBy:(NSArray<NSString *> *)sortBy {
-    
     if (sortBy) {
         [_sortBy addObjectsFromArray:sortBy];
     }
@@ -102,7 +91,6 @@
 }
 
 -(id)setRelated:(NSArray<NSString *> *)related {
-    
     if (related) {
         _related = [[NSMutableArray alloc] initWithArray:related];
     }
@@ -117,7 +105,6 @@
 }
 
 -(id)addListRelated:(NSArray<NSString *> *)related {
-    
     if (related) {
         [_related addObjectsFromArray:related];
     }
@@ -125,7 +112,7 @@
 }
 
 -(int)getRelationsDepth {
-    return _relationsDepth;
+    return (int)_relationsDepth;
 }
 
 -(id)setRelationsDepth:(int)relationsDepth {
