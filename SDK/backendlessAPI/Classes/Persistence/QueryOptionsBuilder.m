@@ -13,7 +13,7 @@
 @interface QueryOptionsBuilder () {
     NSMutableArray<NSString *> *_sortBy;
     NSMutableArray<NSString *> *_related;
-    NSInteger _relationsDepth;
+    NSNumber *_relationsDepth;
     id _builder;
 }
 @end
@@ -25,6 +25,7 @@
         _sortBy = [NSMutableArray new];
         _related = [NSMutableArray new];
         _builder = nil;
+        _relationsDepth = nil;
     }
     return self;
 }
@@ -54,7 +55,7 @@
     QueryOptions *queryOptions =  [QueryOptions new];
     queryOptions.sortBy = [[NSMutableArray alloc] initWithArray:_sortBy];
     queryOptions.related = [[NSMutableArray alloc] initWithArray:_related];
-    queryOptions.relationsDepth = @(_relationsDepth);
+    queryOptions.relationsDepth = _relationsDepth;
     return queryOptions;
 }
 
@@ -111,12 +112,12 @@
     return _builder;
 }
 
--(NSInteger)getRelationsDepth {
+-(NSNumber *)getRelationsDepth {
     return _relationsDepth;
 }
 
 -(id)setRelationsDepth:(int)relationsDepth {
-    _relationsDepth = relationsDepth;
+    _relationsDepth = @(relationsDepth);
     return _builder;
 }
 
