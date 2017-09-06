@@ -1,7 +1,7 @@
 # RELEASE HISTORY
 
 ## 4.0.8 September 6, 2017
-* the LoadRelationsQueryBuilder class updated to support dictionary/map approach
+* The LoadRelationsQueryBuilder class updated to support dictionary/map approach
 
 ## 4.0.7 September 4, 2017
 * ARC enabled for the LoadRelationsQueryBuilder class
