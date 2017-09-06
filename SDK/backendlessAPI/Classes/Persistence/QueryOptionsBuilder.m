@@ -111,8 +111,8 @@
     return _builder;
 }
 
--(int)getRelationsDepth {
-    return (int)_relationsDepth;
+-(NSInteger)getRelationsDepth {
+    return _relationsDepth;
 }
 
 -(id)setRelationsDepth:(int)relationsDepth {
