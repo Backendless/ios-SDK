@@ -17,7 +17,7 @@
 -(id)setRelated:(NSArray<NSString *> *)related;
 -(id)addRelated:(NSString *)related;
 -(id)addListRelated:(NSArray<NSString *> *)related;
--(int)getRelationsDepth;
+-(NSInteger)getRelationsDepth;
 -(id)setRelationsDepth:(int)relationsDepth;
 @end
 
