@@ -17,18 +17,16 @@
     Class _relationType;
     PagedQueryBuilder *_pagedQueryBuilder;
 }
-
 @end
 
 @implementation LoadRelationsQueryBuilder
 
 -(instancetype)init {
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         _pagedQueryBuilder = [[PagedQueryBuilder alloc] init:self];
         _relationName = nil;
         _relationType = nil;
     }
-    
     return self;
 }
 
@@ -38,7 +36,6 @@
         _relationName = nil;
         _relationType = relationType;
     }
-    
     return self;
 }
 
@@ -52,35 +49,32 @@
     return queryBuilder;
 }
 
-+(instancetype) of:(Class)relationType {
++(instancetype)of:(Class)relationType {
     return [[LoadRelationsQueryBuilder alloc] initWithClass:relationType];
 }
-
 
 #pragma mark -
 #pragma mark Public Methods
 
 -(BackendlessDataQuery *)build {
-    
     BackendlessDataQuery *dataQuery = [_pagedQueryBuilder build];
     QueryOptions *queryOptions = [QueryOptions new];
     [queryOptions addRelated:_relationName];
-    dataQuery.queryOptions = queryOptions;
-    
+    dataQuery.queryOptions = queryOptions;    
     return dataQuery;
 }
 
--(instancetype) setGetRelationName:(NSString*) relationName {
+-(instancetype) setRelationName:(NSString*) relationName {
     _relationName = relationName;
     return self;
 }
 
--(instancetype) setGetPageSize:(int)pageSize {
+-(instancetype) setPageSize:(int)pageSize {
     [_pagedQueryBuilder setPageSize:pageSize];
     return self;
 }
 
--(instancetype)setGetOffset:(int)offset {
+-(instancetype)setOffset:(int)offset {
     [_pagedQueryBuilder setOffset:offset];
     return self;
 }
