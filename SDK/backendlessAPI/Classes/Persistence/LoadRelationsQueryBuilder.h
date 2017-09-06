@@ -11,12 +11,13 @@
 
 @interface LoadRelationsQueryBuilder : NSObject
 
--(instancetype)initWithClass:(Class)relationType;
++(instancetype)ofMap;
++(instancetype)of:(Class)relationType;
 
 -(BackendlessDataQuery *)build;
--(instancetype) setGetRelationName:(NSString*) relationName;
--(instancetype) setGetPageSize:(int)pageSize;
--(instancetype) setGetOffset:(int)offset;
+-(instancetype) setRelationName:(NSString*) relationName;
+-(instancetype) setPageSize:(int)pageSize;
+-(instancetype) setOffset:(int)offset;
 -(instancetype) prepareNextPage;
 -(instancetype) preparePreviousPage;
 -(NSMutableArray<NSString*> *)getRelationType;
