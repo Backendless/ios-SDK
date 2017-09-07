@@ -1,6 +1,6 @@
 # RELEASE HISTORY
 
-## 4.0.9 September 6, 2017
+## 4.0.9 September 7, 2017
 * Fixed relationsDepth bug when it is not specified
 
 ## 4.0.8 September 6, 2017
