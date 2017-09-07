@@ -536,10 +536,9 @@ static NSString *ADD_RELATION = @"addRelation";
         return [backendless throwFault:FAULT_FIELD_IS_NULL];
     }
     BackendlessDataQuery *dataQuery = [queryBuilder build];
-    NSString *relationName = [dataQuery.queryOptions.related objectAtIndex:0];
     NSNumber *pageSize = dataQuery.pageSize;
     NSNumber *offset  = dataQuery.offset;
-    NSArray *args = @[parentType, objectId, relationName, pageSize, offset];
+    NSArray *args = @[parentType, objectId, dataQuery.queryOptions.related, pageSize, offset];
     return  [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:LOAD_RELATIONS args:args];
 }
 
@@ -941,10 +940,9 @@ static NSString *ADD_RELATION = @"addRelation";
         return [chainedResponder errorHandler:FAULT_FIELD_IS_NULL];
     }
     BackendlessDataQuery *dataQuery = [queryBuilder build];
-    NSString *relationName = [dataQuery.queryOptions.related objectAtIndex:0];
     NSNumber *pageSize = dataQuery.pageSize;
     NSNumber *offset  = dataQuery.offset;
-    NSArray *args = @[parentType, objectId, relationName, pageSize, offset];
+    NSArray *args = @[parentType, objectId, dataQuery.queryOptions.related, pageSize, offset];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:LOAD_RELATIONS args:args responder:chainedResponder];
 }
 
