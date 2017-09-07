@@ -14,6 +14,7 @@
 
 @interface LoadRelationsQueryBuilder () {
     NSString *_relationName;
+    NSMutableArray<NSString *> *_relationNames;
     Class _relationType;
     PagedQueryBuilder *_pagedQueryBuilder;
 }
@@ -25,6 +26,7 @@
     if (self = [super init]) {
         _pagedQueryBuilder = [[PagedQueryBuilder alloc] init:self];
         _relationName = nil;
+        _relationNames = [NSMutableArray<NSString *> new];
         _relationType = nil;
     }
     return self;
@@ -34,14 +36,15 @@
     if ( (self=[super init]) ) {
         _pagedQueryBuilder = [[PagedQueryBuilder alloc] init:self];
         _relationName = nil;
+        _relationNames = [NSMutableArray<NSString *> new];
         _relationType = relationType;
     }
     return self;
 }
 
 -(void)LoadRelationsQueryBuilder:(Class)relationType{
-        _pagedQueryBuilder = [[PagedQueryBuilder alloc] init:self];
-        _relationType = relationType;
+    _pagedQueryBuilder = [[PagedQueryBuilder alloc] init:self];
+    _relationType = relationType;
 }
 
 +(instancetype)ofMap {
@@ -59,15 +62,36 @@
 -(BackendlessDataQuery *)build {
     BackendlessDataQuery *dataQuery = [_pagedQueryBuilder build];
     QueryOptions *queryOptions = [QueryOptions new];
-    [queryOptions addRelated:_relationName];
-    dataQuery.queryOptions = queryOptions;    
+    if (_relationName) {
+        [queryOptions addRelated:@[_relationName]];
+    }
+    else if ([_relationNames count] > 0) {
+        [queryOptions addRelated:_relationNames];
+    }
+    dataQuery.queryOptions = queryOptions;
     return dataQuery;
 }
 
+// deprecated
 -(instancetype) setRelationName:(NSString*) relationName {
     _relationName = relationName;
     return self;
 }
+//
+
+// **************************************************
+
+-(instancetype) addRelation:(NSString *)name {
+    [_relationNames addObject:name];
+    return self;
+}
+
+-(instancetype) setRelations:(NSArray<NSString *> *)names {
+    _relationNames = (NSMutableArray<NSString *> *)names;
+    return self;
+}
+
+// **************************************************
 
 -(instancetype) setPageSize:(int)pageSize {
     [_pagedQueryBuilder setPageSize:pageSize];

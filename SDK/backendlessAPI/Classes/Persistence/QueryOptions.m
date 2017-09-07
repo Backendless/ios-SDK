@@ -29,7 +29,7 @@
     if (self = [super init]) {
         self.sortBy = [[[NSMutableArray alloc] initWithArray:@[@"objectId"]] autorelease];
         self.related = nil;
-    }    
+    }
     return self;
 }
 
@@ -61,13 +61,19 @@
     return YES;
 }
 
--(BOOL)addRelated:(NSString *)related {
-    
-    if (!related || !related.length)
+-(BOOL)addRelated:(NSArray<NSString *> *)related {
+    //    if (!related || !related.length)
+    //        return NO;
+    if (!related || [related count] == 0) {
         return NO;
-    
-    if (!self.related) self.related = [[NSMutableArray new] autorelease];
-    [self.related addObject:related];
+    }
+    if (!self.related) {
+        self.related = [[NSMutableArray new] autorelease];
+    }
+    for (NSString *relatedName in related) {
+        [self.related addObject:relatedName];
+    }
+    //[self.related addObject:related];
     return YES;
 }
 

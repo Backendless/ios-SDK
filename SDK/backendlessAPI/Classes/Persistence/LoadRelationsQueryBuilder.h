@@ -15,7 +15,13 @@
 +(instancetype)of:(Class)relationType;
 
 -(BackendlessDataQuery *)build;
--(instancetype) setRelationName:(NSString*) relationName;
+-(instancetype) setRelationName:(NSString*) relationName __attribute__((deprecated("use the setRelations method instead")));\
+
+
+-(instancetype) addRelation:(NSString *)name;
+-(instancetype) setRelations:(NSArray<NSString *> *)names;
+
+
 -(instancetype) setPageSize:(int)pageSize;
 -(instancetype) setOffset:(int)offset;
 -(instancetype) prepareNextPage;
