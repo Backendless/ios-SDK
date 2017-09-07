@@ -1450,6 +1450,16 @@
 		5A507A761F3B42D80027ABAC /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A507A741F3B41D80027ABAC /* UserNotifications.framework */; };
 		5A507A771F3B42E10027ABAC /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A507A741F3B41D80027ABAC /* UserNotifications.framework */; };
 		5A507A781F3B42E80027ABAC /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A507A741F3B41D80027ABAC /* UserNotifications.framework */; };
+		5A5F14601F616DA900F6C43B /* OfflineDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F145D1F616A3400F6C43B /* OfflineDataStore.m */; };
+		5A5F14611F616DB300F6C43B /* OfflineDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A5F145F1F616A6500F6C43B /* OfflineDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A5F14621F616DDC00F6C43B /* OfflineDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F145D1F616A3400F6C43B /* OfflineDataStore.m */; };
+		5A5F14631F616DE300F6C43B /* OfflineDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A5F145F1F616A6500F6C43B /* OfflineDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A5F14641F616DEC00F6C43B /* OfflineDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A5F145F1F616A6500F6C43B /* OfflineDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A5F14651F616DF500F6C43B /* OfflineDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F145D1F616A3400F6C43B /* OfflineDataStore.m */; };
+		5A5F14661F616DFD00F6C43B /* OfflineDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A5F145F1F616A6500F6C43B /* OfflineDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A5F14671F616E0600F6C43B /* OfflineDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F145D1F616A3400F6C43B /* OfflineDataStore.m */; };
+		5A5F14681F616E0B00F6C43B /* OfflineDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F145D1F616A3400F6C43B /* OfflineDataStore.m */; };
+		5A5F14691F616E1200F6C43B /* OfflineDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A5F145F1F616A6500F6C43B /* OfflineDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A76183E1F55795C000D1E28 /* OfflineManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A76AACA1F4D78F700E3FC48 /* OfflineManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A76183F1F557973000D1E28 /* OfflineManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A76AACA1F4D78F700E3FC48 /* OfflineManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A7618401F557981000D1E28 /* OfflineManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A76AACA1F4D78F700E3FC48 /* OfflineManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -3739,6 +3749,7 @@
 				F96B1C601DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */,
 				84B027E61DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h in Headers */,
 				1C7BB5001A2E092900D3C2C1 /* AbstractQuery.h in Headers */,
+				5A5F14611F616DB300F6C43B /* OfflineDataStore.h in Headers */,
 				1C7BB5021A2E092900D3C2C1 /* BackendlessCachePolicy.h in Headers */,
 				1C7BB5051A2E092900D3C2C1 /* BackendlessCacheProtocol.h in Headers */,
 				5A76183E1F55795C000D1E28 /* OfflineManager.h in Headers */,
@@ -3979,6 +3990,7 @@
 				91F139AE17D7240A00D1AC4C /* BackendlessCacheProtocol.h in Headers */,
 				5AF2B72B1EB2138500D54442 /* MessagingService.h in Headers */,
 				91F139B217D724C700D1AC4C /* QueryOptions.h in Headers */,
+				5A5F14631F616DE300F6C43B /* OfflineDataStore.h in Headers */,
 				5A76183F1F557973000D1E28 /* OfflineManager.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4213,6 +4225,7 @@
 				91F1399617D7240A00D1AC4C /* AbstractQuery.h in Headers */,
 				91F139AA17D7240A00D1AC4C /* BackendlessCachePolicy.h in Headers */,
 				91F139AF17D7240A00D1AC4C /* BackendlessCacheProtocol.h in Headers */,
+				5A5F14641F616DEC00F6C43B /* OfflineDataStore.h in Headers */,
 				91F139B317D724C700D1AC4C /* QueryOptions.h in Headers */,
 				5A7618401F557981000D1E28 /* OfflineManager.h in Headers */,
 				5AF2B72C1EB2138F00D54442 /* MessagingService.h in Headers */,
@@ -4450,6 +4463,7 @@
 				F9F0AF271CDBCA3900035C62 /* BackendlessCachePolicy.h in Headers */,
 				F9F0AF291CDBCA3900035C62 /* BackendlessCacheProtocol.h in Headers */,
 				5A7618411F55798B000D1E28 /* OfflineManager.h in Headers */,
+				5A5F14661F616DFD00F6C43B /* OfflineDataStore.h in Headers */,
 				5AF2B72F1EB213B300D54442 /* MessagingService.h in Headers */,
 				F9F0AF2A1CDBCA3900035C62 /* QueryOptions.h in Headers */,
 			);
@@ -4686,6 +4700,7 @@
 				F9F0AFE21CDBCAB500035C62 /* BackendlessCachePolicy.h in Headers */,
 				F9F0AFE41CDBCAB500035C62 /* BackendlessCacheProtocol.h in Headers */,
 				5A7618421F557997000D1E28 /* OfflineManager.h in Headers */,
+				5A5F14691F616E1200F6C43B /* OfflineDataStore.h in Headers */,
 				5AF2B7301EB213BD00D54442 /* MessagingService.h in Headers */,
 				F9F0AFE51CDBCAB500035C62 /* QueryOptions.h in Headers */,
 			);
@@ -4917,6 +4932,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A5F14601F616DA900F6C43B /* OfflineDataStore.m in Sources */,
 				5AF2B7291EB2137200D54442 /* MessagingService.m in Sources */,
 				F91AC5781D58CFA500511EA5 /* MapDrivenDataStore.m in Sources */,
 				0F9AC9B21E798C5D0087869F /* PendingCall.m in Sources */,
@@ -5107,6 +5123,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A5F14621F616DDC00F6C43B /* OfflineDataStore.m in Sources */,
 				5A76AAE71F4D8EA600E3FC48 /* OfflineManager.m in Sources */,
 				5AF2B72A1EB2137A00D54442 /* MessagingService.m in Sources */,
 				0F9ACB751E798C5E0087869F /* Types.m in Sources */,
@@ -5299,6 +5316,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A5F14651F616DF500F6C43B /* OfflineDataStore.m in Sources */,
 				5A76AAE81F4D8EAC00E3FC48 /* OfflineManager.m in Sources */,
 				5AF2B72D1EB213A400D54442 /* MessagingService.m in Sources */,
 				0F9ACB761E798C5E0087869F /* Types.m in Sources */,
@@ -5491,6 +5509,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A5F14671F616E0600F6C43B /* OfflineDataStore.m in Sources */,
 				5A76AAE61F4D8E6A00E3FC48 /* OfflineManager.m in Sources */,
 				5AF2B72E1EB213AC00D54442 /* MessagingService.m in Sources */,
 				84B027EE1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */,
@@ -5683,6 +5702,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A5F14681F616E0B00F6C43B /* OfflineDataStore.m in Sources */,
 				5A76AAE41F4D8CE700E3FC48 /* OfflineManager.m in Sources */,
 				5AF2B7311EB213C600D54442 /* MessagingService.m in Sources */,
 				84B027EF1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */,

@@ -62,13 +62,17 @@
         case beReachableViaWiFi: {
             [DebLog log:@"WI-FI CONNECTION"];
             self.internetActive = YES;
-            [self uploadWaitingObjects];
+            [self uploadWaitingObjects:^(id response) {
+                NSLog(@"Object uploaded: %@", response);
+            }];
             break;
         }
         case beReachableViaWWAN: {
             [DebLog log:@"WWAN CONNECTION"];
             self.internetActive = YES;
-            [self uploadWaitingObjects];
+            [self uploadWaitingObjects:^(id response) {
+                NSLog(@"Object uploaded: %@", response);
+            }];
             break;
         }
     }
@@ -132,7 +136,7 @@
     [self closeDB];
 }
 
--(void)uploadWaitingObjects {
+-(void)uploadWaitingObjects:(void (^)(id))responseBlock {
     [self openDB];
     sqlite3_stmt *statement;
     NSString *selectCmd = [NSString stringWithFormat:@"SELECT * from %@ WHERE needUpload = 1", self.tableName];
@@ -153,6 +157,7 @@
                 [self.dataStore save:object
                             response:^(NSDictionary *savedObject) {
                                 [DebLog log:@"Object saved to BKNDLSS: %@", [savedObject valueForKey:@"objectId"]];
+                                responseBlock(savedObject);
                             }
                                error:^(Fault *fault) {
                                    [DebLog log:@"Upload failed: %@", fault.message];
@@ -166,6 +171,7 @@
                 [self.dataStore save:object
                             response:^(BackendlessEntity *savedObject) {
                                 [DebLog log:@"Object saved to BKNDLSS: %@", savedObject.objectId];
+                                responseBlock(savedObject);
                             }
                                error:^(Fault *fault) {
                                    [DebLog log:@"Upload failed: %@", fault.message];
