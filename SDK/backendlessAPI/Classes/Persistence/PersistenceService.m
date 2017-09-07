@@ -287,7 +287,7 @@ static NSString *ADD_RELATION = @"addRelation";
         return [backendless throwFault:FAULT_NO_ENTITY];
     }
     [self prepareClass:entity];
-    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], [queryBuilder getRelated], @([queryBuilder getRelationsDepth]), [queryBuilder getProperties], nil];
+    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], [queryBuilder getRelated], [queryBuilder getRelationsDepth], [queryBuilder getProperties], nil];
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIRST args:args];
 }
 
@@ -305,7 +305,7 @@ static NSString *ADD_RELATION = @"addRelation";
         return [backendless throwFault:FAULT_NO_ENTITY];
     }
     [self prepareClass:entity];
-    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], [queryBuilder getRelated], @([queryBuilder getRelationsDepth]), [queryBuilder getProperties], nil];
+    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], [queryBuilder getRelated], [queryBuilder getRelationsDepth], [queryBuilder getProperties], nil];
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LAST args:args];
 }
 
@@ -660,9 +660,7 @@ static NSString *ADD_RELATION = @"addRelation";
         return [chainedResponder errorHandler:FAULT_NO_ENTITY];
     }
     [self prepareClass:entity];
-    NSArray *relations = [queryBuilder getRelated];
-    int relationsDepth = [queryBuilder getRelationsDepth];
-    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], relations, @(relationsDepth), [queryBuilder getProperties], nil];
+    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], [queryBuilder getRelated], [queryBuilder getRelationsDepth], [queryBuilder getProperties], nil];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIRST args:args responder:chainedResponder];
 }
 
@@ -682,9 +680,7 @@ static NSString *ADD_RELATION = @"addRelation";
         return [chainedResponder errorHandler:FAULT_NO_ENTITY];
     }
     [self prepareClass:entity];
-    NSArray *relations = [queryBuilder getRelated];
-    int relationsDepth = [queryBuilder getRelationsDepth];
-    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], [queryBuilder getRelated], @([queryBuilder getRelationsDepth]), [queryBuilder getProperties], nil];
+    NSArray *args = [NSArray arrayWithObjects:[self typeClassName:entity], [queryBuilder getRelated], [queryBuilder getRelationsDepth], [queryBuilder getProperties], nil];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LAST args:args responder:chainedResponder];
 }
 
