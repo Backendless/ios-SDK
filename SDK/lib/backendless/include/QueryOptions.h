@@ -30,6 +30,6 @@
 +(instancetype)query;
 
 -(BOOL)addSortByOption:(NSString *)sortBy;
--(BOOL)addRelated:(NSString *)related;
+-(BOOL)addRelated:(NSArray<NSString *> *)related;
 -(QueryOptions *)newInstanse;
 @end

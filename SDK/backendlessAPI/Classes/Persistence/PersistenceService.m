@@ -57,7 +57,7 @@ static NSString *METHOD_COUNT = @"count";
 static NSString *METHOD_FIRST = @"first";
 static NSString *METHOD_LAST = @"last";
 static NSString *DELETE_RELATION = @"deleteRelation";
-static NSString *LOAD_RELATION = @"loadRelations";
+static NSString *LOAD_RELATIONS = @"loadRelations";
 static NSString *CREATE_RELATION = @"setRelation";
 static NSString *ADD_RELATION = @"addRelation";
 
@@ -540,7 +540,7 @@ static NSString *ADD_RELATION = @"addRelation";
     NSNumber *pageSize = dataQuery.pageSize;
     NSNumber *offset  = dataQuery.offset;
     NSArray *args = @[parentType, objectId, relationName, pageSize, offset];
-    return  [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:LOAD_RELATION args:args];
+    return  [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:LOAD_RELATIONS args:args];
 }
 
 // async methods with block-base callbacks
@@ -945,7 +945,7 @@ static NSString *ADD_RELATION = @"addRelation";
     NSNumber *pageSize = dataQuery.pageSize;
     NSNumber *offset  = dataQuery.offset;
     NSArray *args = @[parentType, objectId, relationName, pageSize, offset];
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:LOAD_RELATION args:args responder:chainedResponder];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:LOAD_RELATIONS args:args responder:chainedResponder];
 }
 
 // IDataStore class factory
