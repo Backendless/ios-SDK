@@ -25,6 +25,8 @@
 
 @interface OfflineManager : NSObject
 
+@property (nonatomic, copy) void (^responseBlock)(void);
+@property (nonatomic, copy) void (^errorBlock)(Fault *);
 @property(nonatomic) BOOL internetActive;
 @property(nonatomic, strong) NSString *tableName;
 @property(nonatomic, strong) id<IDataStore> dataStore;
@@ -32,8 +34,8 @@
 -(void)openDB;
 -(void)closeDB;
 -(void)dropTable;
--(void)insertIntoDB:(NSArray *)insertObjects withTableClear:(BOOL)clear withNeedUpload:(int)needUpload withOperation:(int)operation;
+-(void)insertIntoDB:(NSArray *)insertObjects withTableClear:(BOOL)clear withNeedUpload:(int)needUpload withOperation:(int)operation response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
 -(NSArray *)readFromDB:(DataQueryBuilder *)queryBuilder;
--(void)updateRecord:(id)object withNeedUpload:(int)needUpload;
+-(void)updateRecord:(id)object withNeedUpload:(int)needUpload response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
 
 @end

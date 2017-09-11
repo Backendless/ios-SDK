@@ -81,7 +81,7 @@
 
 // offline mode
 @optional
--(void)enableOffline;
+-(void)enableOffline:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)disableOffline;
 
 @end
