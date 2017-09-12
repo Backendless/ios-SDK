@@ -107,7 +107,7 @@ static NSString *METHOD_UPDATE = @"update";
         if (offlineManager.internetActive) {
             savedObject = [dataStore save:entity];
             if ([method isEqualToString:METHOD_CREATE]) {
-                [offlineManager insertIntoDB:@[savedObject] withTableClear:NO withNeedUpload:0 withOperation:0 response:nil error:nil];
+                [offlineManager insertIntoDB:@[savedObject] withNeedUpload:0 withOperation:0 response:nil error:nil];
             }
             else if ([method isEqualToString:METHOD_UPDATE]) {
                 [offlineManager updateRecord:savedObject withNeedUpload:0 response:nil error:nil];
@@ -121,7 +121,7 @@ static NSString *METHOD_UPDATE = @"update";
                 else {
                     [self prepareObjectForSaving:entity];
                 }
-                [offlineManager insertIntoDB:@[entity] withTableClear:NO withNeedUpload:1 withOperation:0 response:nil error:nil];
+                [offlineManager insertIntoDB:@[entity] withNeedUpload:1 withOperation:0 response:nil error:nil];
             }
             else if ([method isEqualToString:METHOD_UPDATE]) {
                 [offlineManager updateRecord:entity withNeedUpload:1 response:nil error:nil];
@@ -139,7 +139,7 @@ static NSString *METHOD_UPDATE = @"update";
     if (backendless.data.offlineEnabled) {
         if (offlineManager.internetActive) {
             resultArray = [dataStore find];
-            [offlineManager insertIntoDB:resultArray withTableClear:YES withNeedUpload:0 withOperation:2 response:nil error:nil];
+            [offlineManager insertIntoDB:resultArray withNeedUpload:0 withOperation:2 response:nil error:nil];
         }
         else if (!offlineManager.internetActive) {
             resultArray = [offlineManager readFromDB:nil];
@@ -156,7 +156,7 @@ static NSString *METHOD_UPDATE = @"update";
     if (backendless.data.offlineEnabled) {
         if (offlineManager.internetActive) {
             resultArray = [dataStore find:queryBuilder];
-            [offlineManager insertIntoDB:resultArray withTableClear:YES withNeedUpload:0 withOperation:2 response:nil error:nil];
+            [offlineManager insertIntoDB:resultArray withNeedUpload:0 withOperation:2 response:nil error:nil];
         }
         else if (!offlineManager.internetActive) {
             resultArray = [offlineManager readFromDB:queryBuilder];
@@ -191,7 +191,7 @@ static NSString *METHOD_UPDATE = @"update";
             void (^wrappedBlock)(id) = ^(id object) {
                 responseBlock(object);
                 if (!isObjectId) {
-                    [offlineManager insertIntoDB:@[object] withTableClear:NO withNeedUpload:0 withOperation:0 response:responseBlock error:errorBlock];
+                    [offlineManager insertIntoDB:@[object] withNeedUpload:0 withOperation:0 response:responseBlock error:errorBlock];
                 }
                 else {
                     [offlineManager updateRecord:object withNeedUpload:0 response:responseBlock error:errorBlock];
@@ -201,7 +201,7 @@ static NSString *METHOD_UPDATE = @"update";
         }
         else if (!offlineManager.internetActive) {
             if (!isObjectId) {
-                [offlineManager insertIntoDB:@[entity] withTableClear:NO withNeedUpload:1 withOperation:0 response:responseBlock error:errorBlock];
+                [offlineManager insertIntoDB:@[entity] withNeedUpload:1 withOperation:0 response:responseBlock error:errorBlock];
             }
             else {
                 [offlineManager updateRecord:entity withNeedUpload:1 response:responseBlock error:errorBlock];
@@ -217,7 +217,7 @@ static NSString *METHOD_UPDATE = @"update";
     if (backendless.data.offlineEnabled) {
         if (offlineManager.internetActive) {
             void (^wrappedBlock)(NSArray *) = ^(NSArray *resultArray) {
-                [offlineManager insertIntoDB:resultArray withTableClear:YES withNeedUpload:0 withOperation:2 response:responseBlock error:errorBlock];
+                [offlineManager insertIntoDB:resultArray withNeedUpload:0 withOperation:2 response:responseBlock error:errorBlock];
             };
             [dataStore find:wrappedBlock error:errorBlock];
         }
@@ -235,7 +235,7 @@ static NSString *METHOD_UPDATE = @"update";
     if (backendless.data.offlineEnabled) {
         if (offlineManager.internetActive) {
             void (^wrappedBlock)(NSArray *) = ^(NSArray *resultArray) {
-                [offlineManager insertIntoDB:resultArray withTableClear:YES withNeedUpload:0 withOperation:2 response:responseBlock error:errorBlock];
+                [offlineManager insertIntoDB:resultArray withNeedUpload:0 withOperation:2 response:responseBlock error:errorBlock];
             };
             [dataStore find:queryBuilder response:wrappedBlock error:errorBlock];
         }

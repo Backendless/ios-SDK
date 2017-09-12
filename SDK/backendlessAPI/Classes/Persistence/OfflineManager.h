@@ -34,7 +34,7 @@
 -(void)openDB;
 -(void)closeDB;
 -(void)dropTable;
--(void)insertIntoDB:(NSArray *)insertObjects withTableClear:(BOOL)clear withNeedUpload:(int)needUpload withOperation:(int)operation response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
+-(void)insertIntoDB:(NSArray *)insertObjects withNeedUpload:(int)needUpload withOperation:(int)operation response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
 -(NSArray *)readFromDB:(DataQueryBuilder *)queryBuilder;
 -(void)updateRecord:(id)object withNeedUpload:(int)needUpload response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
 

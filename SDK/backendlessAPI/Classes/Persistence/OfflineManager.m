@@ -81,7 +81,7 @@
     }
     else {
         dbOpened = NO;
-        [DebLog log:@"SQLite Error: %s", sqlite3_errmsg(db_instance)];
+        [DebLog log:@"SQLite Error: %s\n", sqlite3_errmsg(db_instance)];
     }
 }
 
@@ -92,6 +92,21 @@
 
 -(Fault *)faultWithMessage:(NSString *)message withSQLError:(const char *)sqliteError {
     return [[Fault alloc] initWithMessage:[message stringByAppendingString:[NSString stringWithUTF8String:sqliteError]]];
+}
+
+-(BOOL)objectExists:(NSString *)objectId {
+    int recordsCount = 0;
+    sqlite3_stmt *statement;
+    NSString *countCmd = [NSString stringWithFormat:@"SELECT COUNT(*) FROM %@ WHERE objectId = '%@'", self.tableName, objectId];
+    if (sqlite3_prepare_v2(db_instance, [countCmd UTF8String], -1, &statement, NULL) == SQLITE_OK) {
+        if (sqlite3_step(statement) == SQLITE_ROW )
+            recordsCount  = sqlite3_column_int(statement, 0);
+    }
+    sqlite3_finalize(statement);
+    if (recordsCount > 0) {
+        return YES;
+    }
+    return NO;
 }
 
 // operation (for save method)
@@ -108,7 +123,7 @@
     NSString *clearTableCmd = [NSString stringWithFormat:@"DELETE FROM %@", self.tableName];
     if(sqlite3_prepare_v2(db_instance, [clearTableCmd UTF8String], -1, &statement, NULL) == SQLITE_OK) {
         if(sqlite3_step(statement) != SQLITE_DONE) {
-            [DebLog log:@"SQLite Error: %s", sqlite3_errmsg(db_instance)];
+            [DebLog log:@"SQLite Error 2: %s\n", sqlite3_errmsg(db_instance)];
         }
     }
     sqlite3_finalize(statement);
@@ -119,7 +134,7 @@
     NSString *clearTableCmd = [NSString stringWithFormat:@"DELETE FROM %@ WHERE objectId = '%@'", self.tableName, objectId];
     if(sqlite3_prepare_v2(db_instance, [clearTableCmd UTF8String], -1, &statement, NULL) == SQLITE_OK) {
         if(sqlite3_step(statement) != SQLITE_DONE) {
-            [DebLog log:@"SQLite Error: %s", sqlite3_errmsg(db_instance)];
+            [DebLog log:@"SQLite Error 3: %s\n", sqlite3_errmsg(db_instance)];
         }
     }
     sqlite3_finalize(statement);
@@ -197,23 +212,23 @@
     [self closeDB];
 }
 
--(void)insertIntoDB:(NSArray *)insertObjects withTableClear:(BOOL)clear withNeedUpload:(int)needUpload withOperation:(int)operation response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)insertIntoDB:(NSArray *)insertObjects withNeedUpload:(int)needUpload withOperation:(int)operation response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
     if (!dbOpened) {
         [self openDB];
-        [self insert:insertObjects withTableClear:clear withNeedUpload:needUpload withOperation:operation response:responseBlock error:errorBlock];
+        [self insert:insertObjects withNeedUpload:needUpload withOperation:operation response:responseBlock error:errorBlock];
         [self closeDB];
     }
     else {
-        [self insert:insertObjects withTableClear:clear withNeedUpload:needUpload withOperation:operation response:responseBlock error:errorBlock];
+        [self insert:insertObjects withNeedUpload:needUpload withOperation:operation response:responseBlock error:errorBlock];
     }
 }
 
--(void)insert:(NSArray *)insertObjects withTableClear:(BOOL)clear withNeedUpload:(int)needUpload withOperation:(int)operation response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)insert:(NSArray *)insertObjects withNeedUpload:(int)needUpload withOperation:(int)operation response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
     [self createTableIfNotExists];
-    if (clear) {
-        [self deleteFromTable];
-    }
     for (id insertObject in insertObjects) {
+        
+        
+        
         if ([insertObject isKindOfClass:[NSDictionary class]]) {
             NSMutableDictionary *object = [insertObject mutableCopy];
             NSString *objectId = [object valueForKey:@"objectId"];
@@ -221,18 +236,28 @@
                 objectId = [[NSUUID UUID] UUIDString];
                 [object setObject:objectId forKey:@"objectId"];
             }
-            [self insert:object withObjectId:objectId withNeedUpload:needUpload withOperation:operation response:responseBlock error:errorBlock];
+            if ([self objectExists:objectId]) {
+                [self updateRecord:object withNeedUpload:needUpload response:^(id updatedObject){ } error:errorBlock];
+            }
+            else {
+                [self insert:object withObjectId:objectId withNeedUpload:needUpload withOperation:operation response:responseBlock error:errorBlock];
+            }
         }
+        
         else {
             BackendlessEntity *object = (BackendlessEntity *)insertObject;
             id objectId = [backendless.data getObjectId:object];
-            objectId = [backendless.data getObjectId:object];
             BOOL isObjectId = objectId && [objectId isKindOfClass:NSString.class];
             if (!isObjectId) {
                 objectId = [[NSUUID UUID] UUIDString];
                 object.objectId = objectId;
             }
-            [self insert:object withObjectId:objectId withNeedUpload:needUpload withOperation:operation response:responseBlock error:errorBlock];
+            if ([self objectExists:objectId]) {
+                [self updateRecord:object withNeedUpload:needUpload response:^(id updatedObject){ } error:errorBlock];
+            }
+            else {
+                [self insert:object withObjectId:objectId withNeedUpload:needUpload withOperation:operation response:responseBlock error:errorBlock];
+            }
         }
     }
     if (responseBlock) {
@@ -244,18 +269,17 @@
     sqlite3_stmt *statement;
     NSString *insertCmd = [NSString stringWithFormat:@"INSERT INTO %@(objectData, objectId, needUpload, operation) VALUES(?, '%@', %d, %d);", self.tableName, objectId, needUpload, operation];
     if(sqlite3_prepare_v2(db_instance, [insertCmd UTF8String], -1, &statement, NULL) != SQLITE_OK) {
-        [DebLog log:@"SQLite Error: %s", sqlite3_errmsg(db_instance)];
+        [DebLog log:@"SQLite Error 4: %s\n", sqlite3_errmsg(db_instance)];
         if (errorBlock) {
-            errorBlock([self faultWithMessage:@"SQLite Error: %s" withSQLError:sqlite3_errmsg(db_instance)]);
+            errorBlock([self faultWithMessage:@"SQLite Error 5: %s\n" withSQLError:sqlite3_errmsg(db_instance)]);
         }
     }
     BinaryStream *stream = [AMFSerializer serializeToBytes:object];
     int result = sqlite3_bind_blob(statement, 1, stream.buffer, (int)stream.size, SQLITE_TRANSIENT);
     if((result = sqlite3_step(statement)) != SQLITE_DONE) {
-        [DebLog log:@"SQLite Error: %s", sqlite3_errmsg(db_instance)];
-        errorBlock([self faultWithMessage:@"SQLite Error: %s" withSQLError:sqlite3_errmsg(db_instance)]);
+        [DebLog log:@"SQLite Error 6: %s", sqlite3_errmsg(db_instance)];
         if (errorBlock) {
-            errorBlock([self faultWithMessage:@"SQLite Error: %s" withSQLError:sqlite3_errmsg(db_instance)]);
+            errorBlock([self faultWithMessage:@"SQLite Error 7: %s\n" withSQLError:sqlite3_errmsg(db_instance)]);
         }
     }
     sqlite3_finalize(statement);
@@ -285,7 +309,17 @@
 }
 
 -(void)updateRecord:(id)object withNeedUpload:(int)needUpload response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
-    [self openDB];
+    if (!dbOpened) {
+        [self openDB];
+        [self update:object withNeedUpload:needUpload response:responseBlock error:errorBlock];
+        [self closeDB];
+    }
+    else {
+        [self update:object withNeedUpload:needUpload response:responseBlock error:errorBlock];
+    }
+}
+
+-(void)update:(id)object withNeedUpload:(int)needUpload response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
     NSString *objectId;
     if ([object isKindOfClass:[NSDictionary class]]) {
         objectId = [object valueForKey:@"objectId"];
@@ -296,22 +330,24 @@
     sqlite3_stmt *statement;
     NSString *updateCmd = [NSString stringWithFormat:@"UPDATE %@ SET objectData = ?, needUpload = %d WHERE objectId = '%@'", self.tableName, needUpload, objectId];
     if(sqlite3_prepare_v2(db_instance, [updateCmd UTF8String], -1, &statement, NULL) != SQLITE_OK) {
-        [DebLog log:@"SQLite Error: %s", sqlite3_errmsg(db_instance)];
+        [DebLog log:@"SQLite Error 9: %s\n", sqlite3_errmsg(db_instance)];
         if (errorBlock) {
-            errorBlock([self faultWithMessage:@"SQLite Error: %s" withSQLError:sqlite3_errmsg(db_instance)]);
+            errorBlock([self faultWithMessage:@"SQLite Error 8: %s" withSQLError:sqlite3_errmsg(db_instance)]);
         }
     }
     BinaryStream *stream = [AMFSerializer serializeToBytes:object];
     if (sqlite3_bind_blob(statement, 1, stream.buffer, (int)stream.size, SQLITE_TRANSIENT) == SQLITE_OK) {
         if (sqlite3_step(statement) != SQLITE_DONE) {
-            [DebLog log:@"SQLite Error: %s", sqlite3_errmsg(db_instance)];
+            [DebLog log:@"SQLite Error 10: %s\n", sqlite3_errmsg(db_instance)];
             if (errorBlock) {
-                errorBlock([self faultWithMessage:@"SQLite Error: %s" withSQLError:sqlite3_errmsg(db_instance)]);
+                errorBlock([self faultWithMessage:@"SQLite Error 11: %s\n" withSQLError:sqlite3_errmsg(db_instance)]);
             }
         }
     }
     sqlite3_finalize(statement);
-    [self closeDB];
+    if (responseBlock) {
+        responseBlock(object);
+    }
 }
 
 @end
