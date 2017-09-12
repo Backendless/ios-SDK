@@ -110,7 +110,7 @@ static NSString *METHOD_UPDATE = @"update";
                 [offlineManager insertIntoDB:@[savedObject] withNeedUpload:0 withOperation:0 response:nil error:nil];
             }
             else if ([method isEqualToString:METHOD_UPDATE]) {
-                [offlineManager updateRecord:savedObject withNeedUpload:0 response:nil error:nil];
+                [offlineManager updateRecord:savedObject withNeedUpload:0 withOperation:1 response:nil error:nil];
             }
         }
         else if (!offlineManager.internetActive) {
@@ -124,7 +124,7 @@ static NSString *METHOD_UPDATE = @"update";
                 [offlineManager insertIntoDB:@[entity] withNeedUpload:1 withOperation:0 response:nil error:nil];
             }
             else if ([method isEqualToString:METHOD_UPDATE]) {
-                [offlineManager updateRecord:entity withNeedUpload:1 response:nil error:nil];
+                [offlineManager updateRecord:entity withNeedUpload:1 withOperation:1 response:nil error:nil];
             }
         }
     }
@@ -134,12 +134,49 @@ static NSString *METHOD_UPDATE = @"update";
     return savedObject;
 }
 
+-(NSNumber *)remove:(id)entity {
+    NSNumber *result = nil;
+    if (backendless.data.offlineEnabled) {
+        if (offlineManager.internetActive) {
+            result = [dataStore remove:entity];
+            [offlineManager deleteFromTableWithObjectId:[self getObjectId:entity] response:nil error:nil];
+        }
+        else if (!offlineManager.internetActive) {
+            [offlineManager updateRecord:entity withNeedUpload:1 withOperation:2 response:nil error:nil];
+        }
+    }
+    else if (!backendless.data.offlineEnabled) {
+        result = [dataStore remove:entity];
+    }
+    return result;
+}
+
+-(NSNumber *)removeById:(NSString *)objectId {
+    NSNumber *result = nil;
+    if (backendless.data.offlineEnabled) {
+        if (offlineManager.internetActive) {
+            result = [dataStore removeById:objectId];
+            [offlineManager deleteFromTableWithObjectId:objectId response:nil error:nil];
+        }
+        else if (!offlineManager.internetActive) {
+            DataQueryBuilder *queryBuilder = [DataQueryBuilder new];
+            [queryBuilder setWhereClause:[NSString stringWithFormat:@"objectId = '%@'", objectId]];
+            id objectToRemove = [[offlineManager readFromDB:queryBuilder] firstObject];
+            [offlineManager updateRecord:objectToRemove withNeedUpload:1 withOperation:2 response:nil error:nil];
+        }
+    }
+    else if (!backendless.data.offlineEnabled) {
+        result = [dataStore removeById:objectId];
+    }
+    return result;
+}
+
 -(NSArray *)find {
     NSArray *resultArray = nil;
     if (backendless.data.offlineEnabled) {
         if (offlineManager.internetActive) {
             resultArray = [dataStore find];
-            [offlineManager insertIntoDB:resultArray withNeedUpload:0 withOperation:2 response:nil error:nil];
+            [offlineManager insertIntoDB:resultArray withNeedUpload:0 withOperation:3 response:nil error:nil];
         }
         else if (!offlineManager.internetActive) {
             resultArray = [offlineManager readFromDB:nil];
@@ -156,7 +193,7 @@ static NSString *METHOD_UPDATE = @"update";
     if (backendless.data.offlineEnabled) {
         if (offlineManager.internetActive) {
             resultArray = [dataStore find:queryBuilder];
-            [offlineManager insertIntoDB:resultArray withNeedUpload:0 withOperation:2 response:nil error:nil];
+            [offlineManager insertIntoDB:resultArray withNeedUpload:0 withOperation:3 response:nil error:nil];
         }
         else if (!offlineManager.internetActive) {
             resultArray = [offlineManager readFromDB:queryBuilder];
@@ -194,7 +231,7 @@ static NSString *METHOD_UPDATE = @"update";
                     [offlineManager insertIntoDB:@[object] withNeedUpload:0 withOperation:0 response:responseBlock error:errorBlock];
                 }
                 else {
-                    [offlineManager updateRecord:object withNeedUpload:0 response:responseBlock error:errorBlock];
+                    [offlineManager updateRecord:object withNeedUpload:0 withOperation:1 response:responseBlock error:errorBlock];
                 }
             };
             [dataStore save:entity response:wrappedBlock error:errorBlock];
@@ -204,7 +241,7 @@ static NSString *METHOD_UPDATE = @"update";
                 [offlineManager insertIntoDB:@[entity] withNeedUpload:1 withOperation:0 response:responseBlock error:errorBlock];
             }
             else {
-                [offlineManager updateRecord:entity withNeedUpload:1 response:responseBlock error:errorBlock];
+                [offlineManager updateRecord:entity withNeedUpload:1 withOperation:1 response:responseBlock error:errorBlock];
             }
         }
     }
@@ -217,7 +254,7 @@ static NSString *METHOD_UPDATE = @"update";
     if (backendless.data.offlineEnabled) {
         if (offlineManager.internetActive) {
             void (^wrappedBlock)(NSArray *) = ^(NSArray *resultArray) {
-                [offlineManager insertIntoDB:resultArray withNeedUpload:0 withOperation:2 response:responseBlock error:errorBlock];
+                [offlineManager insertIntoDB:resultArray withNeedUpload:0 withOperation:3 response:responseBlock error:errorBlock];
             };
             [dataStore find:wrappedBlock error:errorBlock];
         }
@@ -235,7 +272,7 @@ static NSString *METHOD_UPDATE = @"update";
     if (backendless.data.offlineEnabled) {
         if (offlineManager.internetActive) {
             void (^wrappedBlock)(NSArray *) = ^(NSArray *resultArray) {
-                [offlineManager insertIntoDB:resultArray withNeedUpload:0 withOperation:2 response:responseBlock error:errorBlock];
+                [offlineManager insertIntoDB:resultArray withNeedUpload:0 withOperation:3 response:responseBlock error:errorBlock];
             };
             [dataStore find:queryBuilder response:wrappedBlock error:errorBlock];
         }

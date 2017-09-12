@@ -73,22 +73,6 @@
         }
     }
 }
--(void)openDB {
-    NSArray *directory = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *DBPath = [NSString stringWithFormat:@"%@/%@.sqlite", [directory lastObject], backendless.appID];
-    if (sqlite3_open([DBPath UTF8String], &db_instance) == SQLITE_OK) {
-        dbOpened = YES;
-    }
-    else {
-        dbOpened = NO;
-        [DebLog log:@"SQLite Error: %s\n", sqlite3_errmsg(db_instance)];
-    }
-}
-
--(void)closeDB {
-    sqlite3_close(db_instance);
-    dbOpened = NO;
-}
 
 -(Fault *)faultWithMessage:(NSString *)message withSQLError:(const char *)sqliteError {
     return [[Fault alloc] initWithMessage:[message stringByAppendingString:[NSString stringWithUTF8String:sqliteError]]];
@@ -112,42 +96,11 @@
 // operation (for save method)
 // 0 - create
 // 1 - update
-// 2 - other methods (find etc.)
+// 2 - delete
+// 3 - other methods (find etc.)
 -(void)createTableIfNotExists {
     NSString *createTableCmd = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@(objectData BLOB, objectId TEXT PRIMARY KEY, needUpload BOOL, operation BOOL);", self.tableName];
     sqlite3_exec(db_instance, [createTableCmd UTF8String], NULL, NULL, NULL);
-}
-
--(void)deleteFromTable {
-    sqlite3_stmt *statement;
-    NSString *clearTableCmd = [NSString stringWithFormat:@"DELETE FROM %@", self.tableName];
-    if(sqlite3_prepare_v2(db_instance, [clearTableCmd UTF8String], -1, &statement, NULL) == SQLITE_OK) {
-        if(sqlite3_step(statement) != SQLITE_DONE) {
-            [DebLog log:@"SQLite Error 2: %s\n", sqlite3_errmsg(db_instance)];
-        }
-    }
-    sqlite3_finalize(statement);
-}
-
--(void)deleteFromTableWithObjectId:(NSString *)objectId {
-    sqlite3_stmt *statement;
-    NSString *clearTableCmd = [NSString stringWithFormat:@"DELETE FROM %@ WHERE objectId = '%@'", self.tableName, objectId];
-    if(sqlite3_prepare_v2(db_instance, [clearTableCmd UTF8String], -1, &statement, NULL) == SQLITE_OK) {
-        if(sqlite3_step(statement) != SQLITE_DONE) {
-            [DebLog log:@"SQLite Error 3: %s\n", sqlite3_errmsg(db_instance)];
-        }
-    }
-    sqlite3_finalize(statement);
-}
-
--(void)dropTable {
-    [self openDB];
-    char *error;
-    NSString *dropTableCmd = [NSString stringWithFormat:@"DROP TABLE IF EXISTS %@;", self.tableName];
-    sqlite3_exec(db_instance, [dropTableCmd UTF8String], NULL, NULL, &error);
-    [DebLog log:@"Table dropped: ", self.tableName];
-    self.tableName = nil;
-    [self closeDB];
 }
 
 -(void)uploadWaitingObjects:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -169,39 +122,75 @@
             id object = [AMFSerializer deserializeFromBytes:stream];
             NSString *objectId = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 1)];
             int operation = sqlite3_column_int(statement, 3);
-            [self deleteFromTableWithObjectId:objectId];
+            
+            [self deleteFromTableWithObjectId:objectId response:^(NSNumber *response){
+                
+            } error:^(Fault *fault) {
+                [DebLog log:@"Deletion failed: %@", fault.message];
+                if (errorBlock) {
+                    errorBlock(fault);
+                }
+            }];
             
             if ([object isKindOfClass:[NSDictionary class]]) {
-                if (operation == 0) {
-                    NSMutableDictionary *mutableObject = [object mutableCopy];
-                    [mutableObject setObject:[NSNull null] forKey:@"objectId"];
-                    object = mutableObject;
+                if (operation != 2) {
+                    if (operation == 0) {
+                        NSMutableDictionary *mutableObject = [object mutableCopy];
+                        [mutableObject setObject:[NSNull null] forKey:@"objectId"];
+                        object = mutableObject;
+                    }
+                    [self.dataStore save:object
+                                response:^(NSDictionary *savedObject) {
+                                    [DebLog log:@"Object saved to BKNDLSS: %@", [savedObject valueForKey:@"objectId"]];
+                                }
+                                   error:^(Fault *fault) {
+                                       [DebLog log:@"Upload failed: %@", fault.message];
+                                       if (errorBlock) {
+                                           errorBlock(fault);
+                                       }
+                                   }];
                 }
-                [self.dataStore save:object
-                            response:^(NSDictionary *savedObject) {
-                                [DebLog log:@"Object saved to BKNDLSS: %@", [savedObject valueForKey:@"objectId"]];
-                            }
-                               error:^(Fault *fault) {
-                                   [DebLog log:@"Upload failed: %@", fault.message];
-                                   if (errorBlock) {
-                                       errorBlock(fault);
-                                   }
-                               }];
+                else if (operation == 2) {
+                    [self.dataStore remove:object
+                                  response:^(NSNumber *removed) {
+                                      [DebLog log:@"Object removed from BKNDLSS: %@", [object valueForKey:@"objectId"]];
+                                  }
+                                     error:^(Fault *fault) {
+                                         [DebLog log:@"Deletion failed: %@", fault.message];
+                                         if (errorBlock) {
+                                             errorBlock(fault);
+                                         }
+                                     }];
+                }
             }
             else {
-                if (operation == 0) {
-                    ((BackendlessEntity *)object).objectId = nil;
+                if (operation != 2) {
+                    if (operation == 0) {
+                        ((BackendlessEntity *)object).objectId = nil;
+                    }
+                    [self.dataStore save:object
+                                response:^(BackendlessEntity *savedObject) {
+                                    [DebLog log:@"Object saved to BKNDLSS: %@", savedObject.objectId];
+                                }
+                                   error:^(Fault *fault) {
+                                       [DebLog log:@"Upload failed: %@", fault.message];
+                                       if (errorBlock) {
+                                           errorBlock(fault);
+                                       }
+                                   }];
                 }
-                [self.dataStore save:object
-                            response:^(BackendlessEntity *savedObject) {
-                                [DebLog log:@"Object saved to BKNDLSS: %@", savedObject.objectId];
-                            }
-                               error:^(Fault *fault) {
-                                   [DebLog log:@"Upload failed: %@", fault.message];
-                                   if (errorBlock) {
-                                       errorBlock(fault);
-                                   }
-                               }];
+                else if (operation == 2) {
+                    [self.dataStore remove:object
+                                  response:^(NSNumber *removed) {
+                                      [DebLog log:@"Object removes from BKNDLSS: %@", ((BackendlessEntity *)object).objectId];
+                                  }
+                                     error:^(Fault *fault) {
+                                         [DebLog log:@"Upload failed: %@", fault.message];
+                                         if (errorBlock) {
+                                             errorBlock(fault);
+                                         }
+                                     }];
+                }
             }
         }
     }
@@ -212,23 +201,38 @@
     [self closeDB];
 }
 
--(void)insertIntoDB:(NSArray *)insertObjects withNeedUpload:(int)needUpload withOperation:(int)operation response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
-    if (!dbOpened) {
-        [self openDB];
-        [self insert:insertObjects withNeedUpload:needUpload withOperation:operation response:responseBlock error:errorBlock];
-        [self closeDB];
+// ************************************************************
+
+-(void)openDB {
+    NSArray *directory = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *DBPath = [NSString stringWithFormat:@"%@/%@.sqlite", [directory lastObject], backendless.appID];
+    if (sqlite3_open([DBPath UTF8String], &db_instance) == SQLITE_OK) {
+        dbOpened = YES;
     }
     else {
-        [self insert:insertObjects withNeedUpload:needUpload withOperation:operation response:responseBlock error:errorBlock];
+        dbOpened = NO;
+        [DebLog log:@"SQLite Error: %s\n", sqlite3_errmsg(db_instance)];
     }
+}
+
+-(void)closeDB {
+    sqlite3_close(db_instance);
+    dbOpened = NO;
+}
+
+-(void)dropTable {
+    [self openDB];
+    char *error;
+    NSString *dropTableCmd = [NSString stringWithFormat:@"DROP TABLE IF EXISTS %@;", self.tableName];
+    sqlite3_exec(db_instance, [dropTableCmd UTF8String], NULL, NULL, &error);
+    [DebLog log:@"Table dropped: ", self.tableName];
+    self.tableName = nil;
+    [self closeDB];
 }
 
 -(void)insert:(NSArray *)insertObjects withNeedUpload:(int)needUpload withOperation:(int)operation response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
     [self createTableIfNotExists];
     for (id insertObject in insertObjects) {
-        
-        
-        
         if ([insertObject isKindOfClass:[NSDictionary class]]) {
             NSMutableDictionary *object = [insertObject mutableCopy];
             NSString *objectId = [object valueForKey:@"objectId"];
@@ -237,13 +241,12 @@
                 [object setObject:objectId forKey:@"objectId"];
             }
             if ([self objectExists:objectId]) {
-                [self updateRecord:object withNeedUpload:needUpload response:^(id updatedObject){ } error:errorBlock];
+                [self updateRecord:object withNeedUpload:needUpload withOperation:operation response:^(id updatedObject){ } error:errorBlock];
             }
             else {
                 [self insert:object withObjectId:objectId withNeedUpload:needUpload withOperation:operation response:responseBlock error:errorBlock];
             }
         }
-        
         else {
             BackendlessEntity *object = (BackendlessEntity *)insertObject;
             id objectId = [backendless.data getObjectId:object];
@@ -253,7 +256,7 @@
                 object.objectId = objectId;
             }
             if ([self objectExists:objectId]) {
-                [self updateRecord:object withNeedUpload:needUpload response:^(id updatedObject){ } error:errorBlock];
+                [self updateRecord:object withNeedUpload:needUpload withOperation:operation response:^(id updatedObject){ } error:errorBlock];
             }
             else {
                 [self insert:object withObjectId:objectId withNeedUpload:needUpload withOperation:operation response:responseBlock error:errorBlock];
@@ -262,6 +265,17 @@
     }
     if (responseBlock) {
         responseBlock(insertObjects);
+    }
+}
+
+-(void)insertIntoDB:(NSArray *)insertObjects withNeedUpload:(int)needUpload withOperation:(int)operation response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+    if (!dbOpened) {
+        [self openDB];
+        [self insert:insertObjects withNeedUpload:needUpload withOperation:operation response:responseBlock error:errorBlock];
+        [self closeDB];
+    }
+    else {
+        [self insert:insertObjects withNeedUpload:needUpload withOperation:operation response:responseBlock error:errorBlock];
     }
 }
 
@@ -285,41 +299,46 @@
     sqlite3_finalize(statement);
 }
 
--(NSArray *)readFromDB:(DataQueryBuilder *)queryBuilder {
-    [self openDB];
-    [self createTableIfNotExists];
-    NSMutableArray *retrievedObjects = [NSMutableArray new];
-    NSString *selectCmd = [NSString stringWithFormat:@"SELECT objectData from %@", self.tableName];
+-(void)deleteFromTable {
     sqlite3_stmt *statement;
-    if (sqlite3_prepare_v2 (db_instance, [selectCmd UTF8String], -1, &statement, nil) == SQLITE_OK) {
-        while (sqlite3_step(statement) == SQLITE_ROW) {
-            BinaryStream *stream = [[BinaryStream alloc] initWithStream:(char *)sqlite3_column_blob(statement, 0) andSize:sqlite3_column_bytes(statement, 0)];
-            id object = [AMFSerializer deserializeFromBytes:stream];
-            [retrievedObjects addObject:object];
+    NSString *clearTableCmd = [NSString stringWithFormat:@"DELETE FROM %@", self.tableName];
+    if(sqlite3_prepare_v2(db_instance, [clearTableCmd UTF8String], -1, &statement, NULL) == SQLITE_OK) {
+        if(sqlite3_step(statement) != SQLITE_DONE) {
+            [DebLog log:@"SQLite Error 2: %s\n", sqlite3_errmsg(db_instance)];
         }
     }
-    if (queryBuilder) {
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:[queryBuilder getWhereClause]];
-        retrievedObjects = (NSMutableArray *)[retrievedObjects filteredArrayUsingPredicate:predicate];
-        
-    }
     sqlite3_finalize(statement);
-    [self closeDB];
-    return (NSArray *)retrievedObjects;
 }
 
--(void)updateRecord:(id)object withNeedUpload:(int)needUpload response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)deleteFromTableWithObjectId:(NSString *)objectId response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+    sqlite3_stmt *statement;
+    NSString *clearTableCmd = [NSString stringWithFormat:@"DELETE FROM %@ WHERE objectId = '%@'", self.tableName, objectId];
+    if(sqlite3_prepare_v2(db_instance, [clearTableCmd UTF8String], -1, &statement, NULL) == SQLITE_OK) {
+        if(sqlite3_step(statement) != SQLITE_DONE) {
+            [DebLog log:@"SQLite Error 3: %s\n", sqlite3_errmsg(db_instance)];
+            if (errorBlock) {
+                errorBlock([self faultWithMessage:@"SQLite Error: " withSQLError:sqlite3_errmsg(db_instance)]);
+            }
+        }
+    }
+    sqlite3_finalize(statement);
+    if (responseBlock) {
+        responseBlock(@1);
+    }
+}
+
+-(void)updateRecord:(id)object withNeedUpload:(int)needUpload withOperation:(int)operation response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
     if (!dbOpened) {
         [self openDB];
-        [self update:object withNeedUpload:needUpload response:responseBlock error:errorBlock];
+        [self update:object withNeedUpload:needUpload withOperation:operation response:responseBlock error:errorBlock];
         [self closeDB];
     }
     else {
-        [self update:object withNeedUpload:needUpload response:responseBlock error:errorBlock];
+        [self update:object withNeedUpload:needUpload withOperation:operation response:responseBlock error:errorBlock];
     }
 }
 
--(void)update:(id)object withNeedUpload:(int)needUpload response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)update:(id)object withNeedUpload:(int)needUpload withOperation:(int)operation response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
     NSString *objectId;
     if ([object isKindOfClass:[NSDictionary class]]) {
         objectId = [object valueForKey:@"objectId"];
@@ -328,7 +347,7 @@
         objectId = ((BackendlessEntity *)object).objectId;
     }
     sqlite3_stmt *statement;
-    NSString *updateCmd = [NSString stringWithFormat:@"UPDATE %@ SET objectData = ?, needUpload = %d WHERE objectId = '%@'", self.tableName, needUpload, objectId];
+    NSString *updateCmd = [NSString stringWithFormat:@"UPDATE %@ SET objectData = ?, needUpload = %d, operation = %d WHERE objectId = '%@'", self.tableName, needUpload, operation, objectId];
     if(sqlite3_prepare_v2(db_instance, [updateCmd UTF8String], -1, &statement, NULL) != SQLITE_OK) {
         [DebLog log:@"SQLite Error 9: %s\n", sqlite3_errmsg(db_instance)];
         if (errorBlock) {
@@ -348,6 +367,29 @@
     if (responseBlock) {
         responseBlock(object);
     }
+}
+
+-(NSArray *)readFromDB:(DataQueryBuilder *)queryBuilder {
+    [self openDB];
+    [self createTableIfNotExists];
+    NSMutableArray *retrievedObjects = [NSMutableArray new];
+    NSString *selectCmd = [NSString stringWithFormat:@"SELECT objectData from %@ WHERE operation != 2", self.tableName];
+    sqlite3_stmt *statement;
+    if (sqlite3_prepare_v2 (db_instance, [selectCmd UTF8String], -1, &statement, nil) == SQLITE_OK) {
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            BinaryStream *stream = [[BinaryStream alloc] initWithStream:(char *)sqlite3_column_blob(statement, 0) andSize:sqlite3_column_bytes(statement, 0)];
+            id object = [AMFSerializer deserializeFromBytes:stream];
+            [retrievedObjects addObject:object];
+        }
+    }
+    if (queryBuilder) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:[queryBuilder getWhereClause]];
+        retrievedObjects = (NSMutableArray *)[retrievedObjects filteredArrayUsingPredicate:predicate];
+        
+    }
+    sqlite3_finalize(statement);
+    [self closeDB];
+    return (NSArray *)retrievedObjects;
 }
 
 @end
