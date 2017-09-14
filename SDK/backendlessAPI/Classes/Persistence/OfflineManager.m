@@ -106,7 +106,7 @@
 }
 
 -(void)createTableIfNotExists {
-    NSString *createTableCmd = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@(objectData BLOB, objectId TEXT PRIMARY KEY, needUpload BOOL, operation INTEGER);", self.tableName];
+    NSString *createTableCmd = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@(objectData BLOB, objectId TEXT PRIMARY KEY, needUpload BOOL, operation INTEGER, created TEXT);", self.tableName];
     sqlite3_exec(db_instance, [createTableCmd UTF8String], NULL, NULL, NULL);
 }
 
@@ -207,6 +207,8 @@
 -(void)insert:(NSArray *)insertObjects withNeedUpload:(int)needUpload withOperation:(int)operation response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
     [self createTableIfNotExists];
     for (id insertObject in insertObjects) {
+        
+        
         if ([insertObject isKindOfClass:[NSDictionary class]]) {
             NSMutableDictionary *object = [insertObject mutableCopy];
             NSString *objectId = [object valueForKey:@"objectId"];
@@ -214,18 +216,26 @@
                 objectId = [[NSUUID UUID] UUIDString];
                 [object setObject:objectId forKey:@"objectId"];
             }
-            [self insert:object withObjectId:objectId withNeedUpload:needUpload withOperation:operation error:errorBlock];
+            NSDate *created = [object valueForKey:@"created"];
+            if ([created isKindOfClass:[NSNull class]]) {
+                [object setObject:[NSDate date] forKey:@"created"];
+            }
+            [self insert:object withObjectId:objectId withNeedUpload:needUpload withOperation:operation withCreated:created error:errorBlock];
         }
+        
+        
         else {
             BackendlessEntity *object = (BackendlessEntity *)insertObject;
-            id objectId = [backendless.data getObjectId:object];
-            objectId = [backendless.data getObjectId:object];
+            id objectId = /*[backendless.data getObjectId:object]*/ object.objectId;
             BOOL isObjectId = objectId && [objectId isKindOfClass:NSString.class];
             if (!isObjectId) {
                 objectId = [[NSUUID UUID] UUIDString];
                 object.objectId = objectId;
             }
-            [self insert:object withObjectId:objectId withNeedUpload:needUpload withOperation:operation error:errorBlock];
+            if (!object.created) {
+                object.created = [NSDate date];
+            }
+            [self insert:object withObjectId:objectId withNeedUpload:needUpload withOperation:operation withCreated:object.created error:errorBlock];
         }
     }
     if (responseBlock) {
@@ -233,13 +243,18 @@
     }
 }
 
--(void)insert:(id)object withObjectId:(NSString *)objectId withNeedUpload:(int)needUpload withOperation:(int)operation error:(void (^)(Fault *))errorBlock {
+-(void)insert:(id)object withObjectId:(NSString *)objectId withNeedUpload:(int)needUpload withOperation:(int)operation withCreated:(NSDate *)created error:(void (^)(Fault *))errorBlock {
+    
+    NSDateFormatter *dateFormatter = [NSDateFormatter new];
+    dateFormatter.dateFormat = @"MM/dd/yyyy HH:mm:ss";
+    NSString *createdString = [NSString stringWithFormat:@"%@", [dateFormatter stringFromDate:created]];
+    
     if ([self recordExistOrNot:[NSString stringWithFormat:@"SELECT * FROM %@ WHERE objectId = '%@'", self.tableName, objectId]]) {
         [self updateRecord:object withNeedUpload:needUpload response:nil error:errorBlock];
     }
     else {
         sqlite3_stmt *statement;
-        NSString *insertCmd = [NSString stringWithFormat:@"INSERT INTO %@(objectData, objectId, needUpload, operation) VALUES(?, '%@', %d, %d);", self.tableName, objectId, needUpload, operation];
+        NSString *insertCmd = [NSString stringWithFormat:@"INSERT INTO %@(objectData, objectId, needUpload, operation, created) VALUES(?, '%@', %d, %d, '%@');", self.tableName, objectId, needUpload, operation, createdString];
         if(sqlite3_prepare_v2(db_instance, [insertCmd UTF8String], -1, &statement, NULL) != SQLITE_OK) {
             if (errorBlock) {
                 errorBlock([self faultWithMessage:@"SQLite Error: " withSQLError:sqlite3_errmsg(db_instance)]);

@@ -69,12 +69,14 @@ static NSString *METHOD_UPDATE = @"update";
 -(void)prepareObjectForSaving:(id)object {
     [__types classInstance:[object class]];
     [[object class] resolveProperty:@"objectId"];
+    [[object class] resolveProperty:@"created"];
 }
 
 -(NSDictionary *)prepareDictionaryForSaving:(NSDictionary *)dictionary {
     if (![[dictionary allKeys] containsObject:@"objectId"]) {
         NSMutableDictionary *mutableDictionary = [dictionary mutableCopy];
         [mutableDictionary setObject:[NSNull null] forKey:@"objectId"];
+        [mutableDictionary setObject:[NSNull null] forKey:@"created"];
         dictionary = mutableDictionary;
     }
     return dictionary;
