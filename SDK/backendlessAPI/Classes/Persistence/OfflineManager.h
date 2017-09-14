@@ -23,6 +23,13 @@
 #import "Backendless.h"
 @class BEReachability;
 
+typedef enum {
+    CREATE = 0,
+    UPDATE = 1,
+    DELETE = 2,
+    OTHER = 3
+} PersistentStorageOperation;
+
 @interface OfflineManager : NSObject
 
 @property (nonatomic, copy) void (^responseBlock)(void);
@@ -35,8 +42,9 @@
 -(void)closeDB;
 -(void)dropTable;
 -(void)insertIntoDB:(NSArray *)insertObjects withNeedUpload:(int)needUpload withOperation:(int)operation response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
--(void)deleteFromTableWithObjectId:(NSString *)objectId response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;;
--(void)updateRecord:(id)object withNeedUpload:(int)needUpload withOperation:(int)operation response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
+-(void)updateRecord:(id)object withNeedUpload:(int)needUpload response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
+-(void)deleteFromTableWithObjectId:(NSString *)objectId response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(NSArray *)readFromDB:(DataQueryBuilder *)queryBuilder;
+-(void)markObjectForDeleteWithObjectId:(NSString *)objectId response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 
 @end
