@@ -39,20 +39,6 @@ static NSString *METHOD_UPDATE = @"update";
 
 @implementation OfflineDataStore
 
--(void)enableOffline:(void (^)(void))responseBlock error:(void (^)(Fault *))errorBlock {
-    offlineManager = [OfflineManager new];
-    offlineManager.tableName = [dataStore getDataStoreSourceName];
-    offlineManager.dataStore = dataStore;
-    offlineManager.responseBlock = responseBlock;
-    offlineManager.errorBlock = errorBlock;
-    backendless.data.offlineEnabled = YES;
-}
-
--(void)disableOffline {
-    backendless.data.offlineEnabled = NO;
-    [offlineManager dropTable];
-}
-
 -(id <IDataStore>)initWithDataStore:(id <IDataStore>)iDataStore {
     if (self = [super init]) {
         dataStore = iDataStore;
@@ -64,6 +50,24 @@ static NSString *METHOD_UPDATE = @"update";
 -(void)dealloc {
     [DebLog logN:@"DEALLOC OfflineDataStore"];
     [super dealloc];
+}
+
+-(void)enableOffline:(void (^)(void))responseBlock error:(void (^)(Fault *))errorBlock {
+    offlineManager = [OfflineManager new];
+    offlineManager.tableName = [self getDataStoreSourceName];
+    offlineManager.dataStore = dataStore;
+    offlineManager.responseBlock = responseBlock;
+    offlineManager.errorBlock = errorBlock;
+    backendless.data.offlineEnabled = YES;
+}
+
+-(void)disableOffline {
+    backendless.data.offlineEnabled = NO;
+    [offlineManager dropTable];
+}
+
+-(NSString *)getDataStoreSourceName {
+    return [dataStore getDataStoreSourceName];
 }
 
 -(void)prepareObjectForSaving:(id)object {
@@ -202,6 +206,42 @@ static NSString *METHOD_UPDATE = @"update";
         resultArray = [dataStore find:queryBuilder];
     }
     return resultArray;
+}
+
+-(id)findFirst {
+    id result = nil;
+    if (backendless.data.offlineEnabled) {
+        if (offlineManager.internetActive) {
+            result = [dataStore findFirst];
+            [offlineManager insertIntoDB:@[result] withNeedUpload:0 withOperation:OTHER response:nil error:nil];
+        }
+        else if (!offlineManager.internetActive) {
+            NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"created" ascending:YES];
+            result = [[[offlineManager readFromDB:nil] sortedArrayUsingDescriptors:@[sortDescriptor]] firstObject];
+        }
+    }
+    else if (!backendless.data.offlineEnabled) {
+        result = [dataStore findFirst];
+    }
+    return result;
+}
+
+-(id)findLast {
+    id result = nil;
+    if (backendless.data.offlineEnabled) {
+        if (offlineManager.internetActive) {
+            result = [dataStore findLast];
+            [offlineManager insertIntoDB:@[result] withNeedUpload:0 withOperation:OTHER response:nil error:nil];
+        }
+        else if (!offlineManager.internetActive) {
+            NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"created" ascending:YES];
+            result = [[[offlineManager readFromDB:nil] sortedArrayUsingDescriptors:@[sortDescriptor]] lastObject];
+        }
+    }
+    else if (!backendless.data.offlineEnabled) {
+        result = [dataStore findLast];
+    }
+    return result;
 }
 
 -(id)findById:(id)objectId {
@@ -366,6 +406,42 @@ static NSString *METHOD_UPDATE = @"update";
     }
     else if (!backendless.data.offlineEnabled) {
         [dataStore find:queryBuilder response:responseBlock error:errorBlock];
+    }
+}
+
+-(void)findFirst:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+    if (backendless.data.offlineEnabled) {
+        if (offlineManager.internetActive) {
+            void (^wrappedBlock)(id) = ^(id result) {
+                [offlineManager insertIntoDB:@[result] withNeedUpload:0 withOperation:OTHER response:responseBlock error:errorBlock];
+            };
+            [dataStore findFirst:responseBlock error:errorBlock];
+        }
+        else if (!offlineManager.internetActive) {
+            NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"created" ascending:YES];
+            responseBlock([[[offlineManager readFromDB:nil] sortedArrayUsingDescriptors:@[sortDescriptor]] firstObject]);
+        }
+    }
+    else if (!backendless.data.offlineEnabled) {
+        [dataStore findFirst:responseBlock error:errorBlock];
+    }
+}
+
+-(void)findLast:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+    if (backendless.data.offlineEnabled) {
+        if (offlineManager.internetActive) {
+            void (^wrappedBlock)(id) = ^(id result) {
+                [offlineManager insertIntoDB:@[result] withNeedUpload:0 withOperation:OTHER response:responseBlock error:errorBlock];
+            };
+            [dataStore findLast:responseBlock error:errorBlock];
+        }
+        else if (!offlineManager.internetActive) {
+            NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"created" ascending:YES];
+            responseBlock([[[offlineManager readFromDB:nil] sortedArrayUsingDescriptors:@[sortDescriptor]] lastObject]);
+        }
+    }
+    else if (!backendless.data.offlineEnabled) {
+        [dataStore findLast:responseBlock error:errorBlock];
     }
 }
 
