@@ -32,8 +32,9 @@ typedef enum {
 
 @interface OfflineManager : NSObject
 
-@property (nonatomic, copy) void (^responseBlock)(void);
-@property (nonatomic, copy) void (^errorBlock)(Fault *);
+@property(nonatomic, strong) NSString *methodType;
+@property(nonatomic, copy) void (^responseBlock)(BOOL);
+@property(nonatomic, copy) void (^errorBlock)(Fault *);
 @property(nonatomic) BOOL internetActive;
 @property(nonatomic, strong) NSString *tableName;
 @property(nonatomic, strong) id<IDataStore> dataStore;
@@ -41,10 +42,19 @@ typedef enum {
 -(void)openDB;
 -(void)closeDB;
 -(void)dropTable;
--(void)insertIntoDB:(NSArray *)insertObjects withNeedUpload:(int)needUpload withOperation:(int)operation response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
--(void)updateRecord:(id)object withNeedUpload:(int)needUpload response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
--(void)deleteFromTableWithObjectId:(NSString *)objectId response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
+
+// sync
+-(NSArray *)insertIntoDB:(NSArray *)insertObjects withNeedUpload:(int)needUpload withOperation:(int)operation;
+-(id)updateRecord:(id)object withNeedUpload:(int)needUpload;
+-(NSNumber *)markObjectForDeleteWithObjectId:(NSString *)objectId;
+-(NSNumber *)deleteFromTableWithObjectId:(NSString *)objectId;
 -(NSArray *)readFromDB:(DataQueryBuilder *)queryBuilder;
+
+// async
+-(void)insertIntoDB:(NSArray *)insertObjects withNeedUpload:(int)needUpload withOperation:(int)operation response:(void (^)(NSArray *))responseBlock error:(void (^)(Fault *))errorBlock;
+-(void)updateRecord:(id)object withNeedUpload:(int)needUpload response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
 -(void)markObjectForDeleteWithObjectId:(NSString *)objectId response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)deleteFromTableWithObjectId:(NSString *)objectId response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)readFromDB:(DataQueryBuilder *)queryBuilder response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 
 @end

@@ -81,7 +81,8 @@
 
 // offline mode
 @optional
--(void)enableOffline:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)enableOffline;
 -(void)disableOffline;
+-(void)on:(NSString *)methodType response:(void(^)(BOOL))responseBlock error:(void(^)(Fault *))errorBlock;
 
 @end
