@@ -1,5 +1,8 @@
 # RELEASE HISTORY
 
+## 4.0.11 September 18, 2017
+* Bug fixes
+
 ## 4.0.10 September 7, 2017
 * Bug fixes
 
