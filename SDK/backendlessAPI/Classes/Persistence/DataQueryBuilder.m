@@ -148,7 +148,7 @@
     return self;
 }
 
--(int)getRelationsDepth {
+-(NSNumber *)getRelationsDepth {
     return [_queryOptionsBuilder getRelationsDepth];
 }
 
