@@ -83,6 +83,6 @@
 -(DeviceRegistration *)currentDevice;
 -(NSString *)deviceTokenAsString:(NSData *)token;
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
--(void)attachmentProcessing:(UNNotificationRequest *_Nonnull)request withContentHandler:(void (^_Nonnull)(UNNotificationContent * _Nonnull))contentHandler;
+-(void)attachmentProcessing:(UNNotificationRequest *)request withContentHandler:(void (^)(UNNotificationContent *))contentHandler;
 #endif
 @end
