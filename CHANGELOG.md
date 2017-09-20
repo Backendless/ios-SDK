@@ -1,5 +1,8 @@
 # RELEASE HISTORY
 
+## 4.0.12 September 20, 2017
+* Xcode 9 compatibility, warnings fixed
+
 ## 4.0.11 September 18, 2017
 * Bug fixes
 
