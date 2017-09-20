@@ -158,7 +158,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 }
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
--(void)attachmentProcessing:(UNNotificationRequest *)request withContentHandler:(void (^)(UNNotificationContent * _Nonnull))contentHandler {
+-(void)attachmentProcessing:(UNNotificationRequest *)request withContentHandler:(void (^)(UNNotificationContent *))contentHandler {
     UNMutableNotificationContent *bestAttemptContent = [request.content mutableCopy];
     NSString *urlString = [request.content.userInfo valueForKey:@"attachment-url"];
     NSURL *fileUrl = [NSURL URLWithString:urlString];
@@ -169,12 +169,10 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
                                              NSString *tmpFile = [[@"file://" stringByAppendingString:tmpDirectory] stringByAppendingString:fileUrl.lastPathComponent];
                                              NSURL *tmpUrl = [NSURL URLWithString:tmpFile];
                                              BOOL success = [[NSFileManager defaultManager] moveItemAtURL:location toURL:tmpUrl error:nil];
-                                             //if (success) {
                                              UNNotificationAttachment *attachment = [UNNotificationAttachment attachmentWithIdentifier:@"" URL:tmpUrl options:nil error:nil];
                                              if (attachment) {
                                                  bestAttemptContent.attachments = @[attachment];
                                              }
-                                             //}
                                          }
                                          contentHandler(bestAttemptContent);
                                      }] resume];

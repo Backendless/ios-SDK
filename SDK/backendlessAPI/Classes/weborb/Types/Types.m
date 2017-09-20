@@ -374,7 +374,7 @@
 }
 
 // try catch functionality for swift by wrapping around Objective-C
-+(void)tryblock:(void(^)())tryblock catchblock:(void(^)(id exception))catchblock finally:(void(^)())finally {
++(void)tryblock:(void(^)(void))tryblock catchblock:(void(^)(id exception))catchblock finally:(void(^)(void))finally {
     
     @try {
         tryblock ? tryblock() : nil;
@@ -389,7 +389,7 @@
     }
 }
 
-+(void)tryblock:(void(^)())tryblock catchblock:(void(^)(id exception))catchblock {
++(void)tryblock:(void(^)(void))tryblock catchblock:(void(^)(id exception))catchblock {
     
     @try {
         tryblock ? tryblock() : nil;
