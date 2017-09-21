@@ -1,5 +1,9 @@
 # RELEASE HISTORY
 
+## 4.0.13 September 21, 2017
+* The findFirst (sync/async) method bug with classMapping fixed
+* The findLast (sync/async) method bug with classMapping fixed
+
 ## 4.0.12 September 20, 2017
 * Xcode 9 compatibility
 * Warnings fixed
