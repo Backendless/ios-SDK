@@ -1,5 +1,8 @@
 # RELEASE HISTORY
 
+## 4.0.14 September 22, 2017
+* Bug fixes
+
 ## 4.0.13 September 21, 2017
 * The findFirst (sync/async) method bug with classMapping fixed
 * The findLast (sync/async) method bug with classMapping fixed
