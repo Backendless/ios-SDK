@@ -158,7 +158,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 }
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
--(void)attachmentProcessing:(UNNotificationRequest *)request withContentHandler:(void (^)(UNNotificationContent *))contentHandler {
+-(void)attachmentProcessing:(UNNotificationRequest *_Nonnull)request withContentHandler:(void (^_Nonnull)(UNNotificationContent *_Nonnull))contentHandler {
     UNMutableNotificationContent *bestAttemptContent = [request.content mutableCopy];
     NSString *urlString = [request.content.userInfo valueForKey:@"attachment-url"];
     NSURL *fileUrl = [NSURL URLWithString:urlString];
@@ -178,7 +178,6 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
                                      }] resume];
 }
 #endif
-
 
 // sync methods with fault return (as exception)
 
