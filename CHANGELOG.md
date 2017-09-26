@@ -1,5 +1,8 @@
 # RELEASE HISTORY
 
+## 4.0.15 September 26, 2017
+* Fixed bug when subscription response returned NSArray of Dictionaries, not NSArray of Messages
+
 ## 4.0.14 September 22, 2017
 * Bug fixes
 
