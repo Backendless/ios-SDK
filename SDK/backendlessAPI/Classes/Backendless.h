@@ -35,7 +35,6 @@
 #import "Responder.h"
 #import "AMFSerializer.h"
 #import "BinaryCodec.h"
-
 #import "HashMap.h"
 #import "AbstractProperty.h"
 #import "BackendlessUser.h"
@@ -65,6 +64,7 @@
 #import "BESubscription.h"
 #import "DeviceRegistration.h"
 #import "MessagingService.h"
+#import "PushHelper.h"
 #import "FileService.h"
 #import "BackendlessFile.h"
 #import "CustomService.h"
