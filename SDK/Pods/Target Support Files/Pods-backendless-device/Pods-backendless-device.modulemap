@@ -1,0 +1,6 @@
+framework module Pods_backendless_device {
+  umbrella header "Pods-backendless-device-umbrella.h"
+
+  export *
+  module * { export * }
+}

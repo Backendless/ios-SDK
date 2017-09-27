@@ -1,0 +1,6 @@
+framework module Pods_backendless_simulator {
+  umbrella header "Pods-backendless-simulator-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,6 @@
+framework module Pods_bkndlss_simulator {
+  umbrella header "Pods-bkndlss-simulator-umbrella.h"
+
+  export *
+  module * { export * }
+}
