@@ -20,13 +20,13 @@
  */
 
 #import <Foundation/Foundation.h>
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#if TARGET_OS_IOS || TARGET_OS_SIMULATOR
 #import <UserNotifications/UserNotifications.h>
 #endif
 
 @interface BackendlessPushHelper : NSObject
 
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#if TARGET_OS_IOS || TARGET_OS_SIMULATOR
 +(void)attachmentProcessing:(UNNotificationRequest *_Nonnull)request withContentHandler:(void (^_Nonnull)(UNNotificationContent *_Nonnull))contentHandler;
 #endif
 

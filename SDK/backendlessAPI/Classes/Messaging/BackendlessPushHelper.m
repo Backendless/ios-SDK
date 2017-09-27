@@ -23,7 +23,7 @@
 
 @implementation BackendlessPushHelper
 
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#if TARGET_OS_IOS || TARGET_OS_SIMULATOR
 +(void)attachmentProcessing:(UNNotificationRequest *_Nonnull)request withContentHandler:(void (^_Nonnull)(UNNotificationContent *_Nonnull))contentHandler {
     UNMutableNotificationContent *bestAttemptContent = [request.content mutableCopy];
     NSString *urlString = [request.content.userInfo valueForKey:@"attachment-url"];
