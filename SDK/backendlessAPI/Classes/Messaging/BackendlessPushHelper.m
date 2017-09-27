@@ -1,5 +1,5 @@
 //
-//  PushHelper.m
+//  BackendlessPushHelper.m
 //  backendlessAPI
 /*
  * *********************************************************************************************************************
@@ -19,9 +19,9 @@
  *  ********************************************************************************************************************
  */
 
-#import "PushHelper.h"
+#import "BackendlessPushHelper.h"
 
-@implementation PushHelper
+@implementation BackendlessPushHelper
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 +(void)attachmentProcessing:(UNNotificationRequest *_Nonnull)request withContentHandler:(void (^_Nonnull)(UNNotificationContent *_Nonnull))contentHandler {

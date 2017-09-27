@@ -64,7 +64,7 @@
 #import "BESubscription.h"
 #import "DeviceRegistration.h"
 #import "MessagingService.h"
-#import "PushHelper.h"
+#import "BackendlessPushHelper.h"
 #import "FileService.h"
 #import "BackendlessFile.h"
 #import "CustomService.h"
