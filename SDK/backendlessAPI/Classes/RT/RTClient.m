@@ -20,7 +20,24 @@
  */
 
 #import "RTClient.h"
+@import SocketIO;
+
+@interface RTClient() {
+    NSURL *url;
+    SocketIOClient *socket;
+}
+@end
 
 @implementation RTClient
+
+-(void)connectSocket {
+    url = [[NSURL alloc] initWithString:@"http://localhost:5000"];
+    socket = [[SocketIOClient alloc] initWithSocketURL:url config:@{@"path": @"/appId/token"}];
+    [socket connect];
+}
+
+-(void)disconnectSocket {
+    [socket disconnect];
+}
 
 @end

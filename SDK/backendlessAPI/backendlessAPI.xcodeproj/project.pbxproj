@@ -6117,6 +6117,7 @@
 			baseConfigurationReference = D2FC943FC0A2026D02378404 /* Pods-backendless-mac.debug.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -6143,6 +6144,7 @@
 			baseConfigurationReference = 794E54C8BE75E5765E238115 /* Pods-backendless-mac.release.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -6282,6 +6284,7 @@
 			baseConfigurationReference = 9546C59C60711D2749F7DB50 /* Pods-backendless-simulator.debug.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DSTROOT = /tmp/backendless_simulator.dst;
@@ -6309,6 +6312,7 @@
 			baseConfigurationReference = 08D8BDD65DEE8E27020CF9D5 /* Pods-backendless-simulator.release.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DSTROOT = /tmp/backendless_simulator.dst;
@@ -6336,6 +6340,7 @@
 			baseConfigurationReference = FBBAD71CB61A9B6B538CA4E1 /* Pods-backendless-device.debug.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DSTROOT = /tmp/backendless_device.dst;
@@ -6361,6 +6366,7 @@
 			baseConfigurationReference = 58A8A33F81FBDCC0007B0A75 /* Pods-backendless-device.release.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DSTROOT = /tmp/backendless_device.dst;
@@ -6409,6 +6415,7 @@
 			baseConfigurationReference = 5D3042DFCDE68A9E5CBB5E76 /* Pods-bkndlss-simulator.debug.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DSTROOT = /tmp/backendless_simulator.dst;
@@ -6436,6 +6443,7 @@
 			baseConfigurationReference = EFEA671B25792860386F9467 /* Pods-bkndlss-simulator.release.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DSTROOT = /tmp/backendless_simulator.dst;
@@ -6463,6 +6471,7 @@
 			baseConfigurationReference = 6982ECCD265F2BAD650CCF80 /* Pods-bkndlss-device.debug.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DSTROOT = /tmp/backendless_device.dst;
@@ -6488,6 +6497,7 @@
 			baseConfigurationReference = AF9BDC0B0E483FCE09BE98FC /* Pods-bkndlss-device.release.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DSTROOT = /tmp/backendless_device.dst;

@@ -23,4 +23,7 @@
 
 @interface RTClient : NSObject
 
+-(void)connectSocket;
+-(void)disconnectSocket;
+
 @end
