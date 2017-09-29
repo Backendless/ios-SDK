@@ -166,7 +166,6 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 
 -(NSString *)registerDevice:(NSData *)deviceToken {
     deviceRegistration.deviceToken = [self deviceTokenAsString:deviceToken];
-    deviceRegistration.channels = @[DEFAULT_CHANNEL_NAME];
     return [self registerDevice];
 }
 
@@ -178,7 +177,6 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 
 -(NSString *)registerDevice:(NSData *)deviceToken expiration:(NSDate *)expiration {
     deviceRegistration.deviceToken = [self deviceTokenAsString:deviceToken];
-    deviceRegistration.channels = @[DEFAULT_CHANNEL_NAME];
     deviceRegistration.expiration = expiration;
     return [self registerDevice];
 }
@@ -336,7 +334,6 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 
 -(void)registerDevice:(NSData *)deviceToken response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
     deviceRegistration.deviceToken = [self deviceTokenAsString:deviceToken];
-    deviceRegistration.channels = @[DEFAULT_CHANNEL_NAME];
     [self registerDeviceAsync:responseBlock error:errorBlock];
 }
 
@@ -348,7 +345,6 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 
 -(void)registerDevice:(NSData *)deviceToken expiration:(NSDate *)expiration response:(void (^)(NSString *))responseBlock error:(void (^)(Fault *))errorBlock {
     deviceRegistration.deviceToken = [self deviceTokenAsString:deviceToken];
-    deviceRegistration.channels = @[DEFAULT_CHANNEL_NAME];
     deviceRegistration.expiration = expiration;
     [self registerDeviceAsync:responseBlock error:errorBlock];
 }
