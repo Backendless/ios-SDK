@@ -26,22 +26,28 @@
 #if TARGET_OS_IOS || TARGET_OS_SIMULATOR
 +(void)processMutableContent:(UNNotificationRequest *_Nonnull)request withContentHandler:(void (^_Nonnull)(UNNotificationContent *_Nonnull))contentHandler {
     UNMutableNotificationContent *bestAttemptContent = [request.content mutableCopy];
-    NSString *urlString = [request.content.userInfo valueForKey:@"attachment-url"];
-    NSURL *fileUrl = [NSURL URLWithString:urlString];
-    [[[NSURLSession sharedSession] downloadTaskWithURL:fileUrl
-                                     completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
-                                         if (location) {
-                                             NSString *tmpDirectory = NSTemporaryDirectory();
-                                             NSString *tmpFile = [[@"file://" stringByAppendingString:tmpDirectory] stringByAppendingString:fileUrl.lastPathComponent];
-                                             NSURL *tmpUrl = [NSURL URLWithString:tmpFile];
-                                             BOOL success = [[NSFileManager defaultManager] moveItemAtURL:location toURL:tmpUrl error:nil];
-                                             UNNotificationAttachment *attachment = [UNNotificationAttachment attachmentWithIdentifier:@"" URL:tmpUrl options:nil error:nil];
-                                             if (attachment) {
-                                                 bestAttemptContent.attachments = @[attachment];
+    
+    if ([request.content.userInfo valueForKey:@"attachment-url"]) {
+       NSString *urlString = [request.content.userInfo valueForKey:@"attachment-url"];
+       NSURL *fileUrl = [NSURL URLWithString:urlString];        
+        [[[NSURLSession sharedSession] downloadTaskWithURL:fileUrl
+                                         completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+                                             if (location) {
+                                                 NSString *tmpDirectory = NSTemporaryDirectory();
+                                                 NSString *tmpFile = [[@"file://" stringByAppendingString:tmpDirectory] stringByAppendingString:fileUrl.lastPathComponent];
+                                                 NSURL *tmpUrl = [NSURL URLWithString:tmpFile];
+                                                 BOOL success = [[NSFileManager defaultManager] moveItemAtURL:location toURL:tmpUrl error:nil];
+                                                 UNNotificationAttachment *attachment = [UNNotificationAttachment attachmentWithIdentifier:@"" URL:tmpUrl options:nil error:nil];
+                                                 if (attachment) {
+                                                     bestAttemptContent.attachments = @[attachment];
+                                                 }
                                              }
-                                         }
-                                         contentHandler(bestAttemptContent);
-                                     }] resume];
+                                             contentHandler(bestAttemptContent);
+                                         }] resume];
+    }
+    else {
+        contentHandler(bestAttemptContent);
+    }
 }
 #endif
 
