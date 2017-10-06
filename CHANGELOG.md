@@ -1,5 +1,12 @@
 # RELEASE HISTORY
 
+## 4.0.16 October 6, 2017
+* The deviceRegistration (sync/async) methods bug with the default channel fixed
+* The BackendlessPushHelper class created to process mutable content
+* The publishPolicy method's bug when publishPolicy is not set fixed
+* The deliveryOptionsForNotification:(PublishPolicyEnum)pushPolice method removed
+* The bug when relationsDepth is not set for the find methods with query builder fixed
+
 ## 4.0.15 September 26, 2017
 * Fixed bug when subscription response returned NSArray of Dictionaries, not NSArray of Messages
 
