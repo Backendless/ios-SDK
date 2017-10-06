@@ -1,6 +1,5 @@
 # RELEASE HISTORY
 
-
 ## 4.0.16 October 6, 2017
 * The deviceRegistration (sync/async) methods bug with the default channel fixed
 * The BackendlessPushHelper class created to process mutable content
