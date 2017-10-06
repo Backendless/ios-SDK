@@ -22,9 +22,6 @@
 #import <Foundation/Foundation.h>
 #import "HashMap.h"
 #import "DeviceRegistration.h"
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-#import <UserNotifications/UserNotifications.h>
-#endif
 
 @class UIUserNotificationCategory;
 @class MessageStatus, PublishOptions, DeliveryOptions, SubscriptionOptions, BESubscription, BodyParts, Message, Fault;
@@ -82,8 +79,5 @@
 // utilites
 -(DeviceRegistration *)currentDevice;
 -(NSString *)deviceTokenAsString:(NSData *)token;
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
--(void)attachmentProcessing:(UNNotificationRequest *_Nonnull)request withContentHandler:(void (^_Nonnull)(UNNotificationContent *_Nonnull))contentHandler;
-#endif
 
 @end

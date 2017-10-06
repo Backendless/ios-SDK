@@ -22,10 +22,8 @@
 #import "DeliveryOptions.h"
 #import "DEBUG.h"
 
-@interface DeliveryOptions () {
-    NSArray *PUBLISH_POLICY;
-}
-@property (strong, nonatomic) NSString *publishPolicy;
+@interface DeliveryOptions ()
+@property (strong, nonatomic) NSNumber *publishPolicy;
 @property (strong, nonatomic) NSNumber *pushBroadcast;
 @property (strong, nonatomic) NSNumber *repeatEvery;
 @end
@@ -40,7 +38,6 @@
         _publishAt = nil;
         [self repeatEvery:0];
         _repeatExpiresAt = nil;
-        PUBLISH_POLICY = @[@"PUSH", @"PUBSUB", @"BOTH"];
 	}
 	return self;
 }
@@ -59,15 +56,8 @@
 #pragma mark -
 #pragma mark Public Methods
 
-+(id)deliveryOptionsForNotification:(PublishPolicyEnum)publishPolice {
-    DeliveryOptions *deliveryOption = [[[DeliveryOptions alloc] init] autorelease];
-    [deliveryOption publishPolicy:publishPolice];
-    [deliveryOption pushBroadcast:FOR_ALL];
-    return deliveryOption;
-}
-
--(void)publishPolicy:(PublishPolicyEnum)publishPolicy {
-    self.publishPolicy = PUBLISH_POLICY[publishPolicy];
+-(void)publishPolicy:(UInt32)publishPolicy {
+    self.publishPolicy = [[NSNumber alloc] initWithUnsignedInt:publishPolicy];
 }
 
 -(UInt32)valPushBroadcast {

@@ -162,28 +162,6 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     return [[[str stringByReplacingOccurrencesOfString:@" " withString:@""] stringByReplacingOccurrencesOfString:@"<" withString:@""] stringByReplacingOccurrencesOfString:@">" withString:@""];
 }
 
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
--(void)attachmentProcessing:(UNNotificationRequest *_Nonnull)request withContentHandler:(void (^_Nonnull)(UNNotificationContent *_Nonnull))contentHandler {    
-    UNMutableNotificationContent *bestAttemptContent = [request.content mutableCopy];
-    NSString *urlString = [request.content.userInfo valueForKey:@"attachment-url"];
-    NSURL *fileUrl = [NSURL URLWithString:urlString];
-    [[[NSURLSession sharedSession] downloadTaskWithURL:fileUrl
-                                     completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
-                                         if (location) {
-                                             NSString *tmpDirectory = NSTemporaryDirectory();
-                                             NSString *tmpFile = [[@"file://" stringByAppendingString:tmpDirectory] stringByAppendingString:fileUrl.lastPathComponent];
-                                             NSURL *tmpUrl = [NSURL URLWithString:tmpFile];
-                                             BOOL success = [[NSFileManager defaultManager] moveItemAtURL:location toURL:tmpUrl error:nil];
-                                             UNNotificationAttachment *attachment = [UNNotificationAttachment attachmentWithIdentifier:@"" URL:tmpUrl options:nil error:nil];
-                                             if (attachment) {
-                                                 bestAttemptContent.attachments = @[attachment];
-                                             }
-                                         }
-                                         contentHandler(bestAttemptContent);
-                                     }] resume];
-}
-#endif
-
 // sync methods with fault return (as exception)
 
 -(NSString *)registerDevice:(NSData *)deviceToken {

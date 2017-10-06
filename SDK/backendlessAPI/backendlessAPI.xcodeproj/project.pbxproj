@@ -1450,6 +1450,14 @@
 		5A507A761F3B42D80027ABAC /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A507A741F3B41D80027ABAC /* UserNotifications.framework */; };
 		5A507A771F3B42E10027ABAC /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A507A741F3B41D80027ABAC /* UserNotifications.framework */; };
 		5A507A781F3B42E80027ABAC /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A507A741F3B41D80027ABAC /* UserNotifications.framework */; };
+		5A633F411F7BB7F6004D7ACA /* BackendlessPushHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A633F3F1F7BB7F6004D7ACA /* BackendlessPushHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A633F421F7BB7F6004D7ACA /* BackendlessPushHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A633F3F1F7BB7F6004D7ACA /* BackendlessPushHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A633F431F7BB7F6004D7ACA /* BackendlessPushHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A633F3F1F7BB7F6004D7ACA /* BackendlessPushHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A633F441F7BB7F6004D7ACA /* BackendlessPushHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A633F3F1F7BB7F6004D7ACA /* BackendlessPushHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A633F451F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; };
+		5A633F461F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; };
+		5A633F471F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; };
+		5A633F481F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; };
 		5AF2B7281EB2136300D54442 /* MessagingService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AFFBF7A1EB211EC0099A72F /* MessagingService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AF2B7291EB2137200D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; };
 		5AF2B72A1EB2137A00D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; };
@@ -2363,6 +2371,8 @@
 		0F9AC8121E798C5C0087869F /* V3ReferenceCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = V3ReferenceCache.m; sourceTree = "<group>"; };
 		1C7BB5101A2E092900D3C2C1 /* libbackendless-mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libbackendless-mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A507A741F3B41D80027ABAC /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		5A633F3F1F7BB7F6004D7ACA /* BackendlessPushHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BackendlessPushHelper.h; sourceTree = "<group>"; };
+		5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BackendlessPushHelper.m; sourceTree = "<group>"; };
 		5AFFBF7A1EB211EC0099A72F /* MessagingService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagingService.h; sourceTree = "<group>"; };
 		5AFFBF7B1EB211EC0099A72F /* MessagingService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagingService.m; sourceTree = "<group>"; };
 		84B027E41DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadRelationsQueryBuilder.h; sourceTree = "<group>"; };
@@ -3355,6 +3365,8 @@
 		F91B480715FF655800012DFC /* Messaging */ = {
 			isa = PBXGroup;
 			children = (
+				5A633F3F1F7BB7F6004D7ACA /* BackendlessPushHelper.h */,
+				5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */,
 				5AFFBF7A1EB211EC0099A72F /* MessagingService.h */,
 				5AFFBF7B1EB211EC0099A72F /* MessagingService.m */,
 				F9C3C067161AB80C00409FF2 /* DeviceRegistration.h */,
@@ -3946,6 +3958,7 @@
 				F96B1C7B1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */,
 				84B027E71DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h in Headers */,
 				F96B1C611DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */,
+				5A633F411F7BB7F6004D7ACA /* BackendlessPushHelper.h in Headers */,
 				91F1399517D7240A00D1AC4C /* AbstractQuery.h in Headers */,
 				91F139A917D7240A00D1AC4C /* BackendlessCachePolicy.h in Headers */,
 				91F139AE17D7240A00D1AC4C /* BackendlessCacheProtocol.h in Headers */,
@@ -4183,6 +4196,7 @@
 				F96B1C621DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */,
 				91F1399617D7240A00D1AC4C /* AbstractQuery.h in Headers */,
 				91F139AA17D7240A00D1AC4C /* BackendlessCachePolicy.h in Headers */,
+				5A633F421F7BB7F6004D7ACA /* BackendlessPushHelper.h in Headers */,
 				91F139AF17D7240A00D1AC4C /* BackendlessCacheProtocol.h in Headers */,
 				91F139B317D724C700D1AC4C /* QueryOptions.h in Headers */,
 				5AF2B72C1EB2138F00D54442 /* MessagingService.h in Headers */,
@@ -4417,6 +4431,7 @@
 				F9F0AF181CDBCA3900035C62 /* BackendlessFile.h in Headers */,
 				F9F0AF191CDBCA3900035C62 /* HashMap.h in Headers */,
 				F9F0AF261CDBCA3900035C62 /* AbstractQuery.h in Headers */,
+				5A633F431F7BB7F6004D7ACA /* BackendlessPushHelper.h in Headers */,
 				F9F0AF271CDBCA3900035C62 /* BackendlessCachePolicy.h in Headers */,
 				F9F0AF291CDBCA3900035C62 /* BackendlessCacheProtocol.h in Headers */,
 				5AF2B72F1EB213B300D54442 /* MessagingService.h in Headers */,
@@ -4653,6 +4668,7 @@
 				F9F0AFD31CDBCAB500035C62 /* HashMap.h in Headers */,
 				F9F0AFE11CDBCAB500035C62 /* AbstractQuery.h in Headers */,
 				F9F0AFE21CDBCAB500035C62 /* BackendlessCachePolicy.h in Headers */,
+				5A633F441F7BB7F6004D7ACA /* BackendlessPushHelper.h in Headers */,
 				F9F0AFE41CDBCAB500035C62 /* BackendlessCacheProtocol.h in Headers */,
 				5AF2B7301EB213BD00D54442 /* MessagingService.h in Headers */,
 				F9F0AFE51CDBCAB500035C62 /* QueryOptions.h in Headers */,
@@ -5243,6 +5259,7 @@
 				F9CB138A1BC53CDD00F3CA1D /* Presence.m in Sources */,
 				0F9ACAE91E798C5E0087869F /* ReaderReferenceCache.m in Sources */,
 				F96B1C721DD3B6CA00A4B362 /* QueryOptionsBuilder.m in Sources */,
+				5A633F451F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */,
 				91F139A117D7240A00D1AC4C /* BackendlessCacheData.m in Sources */,
 				91F139A617D7240A00D1AC4C /* BackendlessCacheKey.m in Sources */,
 				91F139AB17D7240A00D1AC4C /* BackendlessCachePolicy.m in Sources */,
@@ -5434,6 +5451,7 @@
 				F9CB138B1BC53CDD00F3CA1D /* Presence.m in Sources */,
 				0F9ACAEA1E798C5E0087869F /* ReaderReferenceCache.m in Sources */,
 				F96B1C731DD3B6CA00A4B362 /* QueryOptionsBuilder.m in Sources */,
+				5A633F461F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */,
 				91F139A217D7240A00D1AC4C /* BackendlessCacheData.m in Sources */,
 				91F139A717D7240A00D1AC4C /* BackendlessCacheKey.m in Sources */,
 				91F139AC17D7240A00D1AC4C /* BackendlessCachePolicy.m in Sources */,
@@ -5625,6 +5643,7 @@
 				F9F0AEC51CDBCA3900035C62 /* BackendlessCache.m in Sources */,
 				0F9ACA911E798C5D0087869F /* NamedObject.m in Sources */,
 				F9F0AEC61CDBCA3900035C62 /* Presence.m in Sources */,
+				5A633F471F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */,
 				F9F0AEC71CDBCA3900035C62 /* BackendlessCacheData.m in Sources */,
 				F9F0AEC81CDBCA3900035C62 /* BackendlessCacheKey.m in Sources */,
 				0F9ACC851E798C5F0087869F /* ArrayReferenceWriter.m in Sources */,
@@ -5816,6 +5835,7 @@
 				F9F0AF7F1CDBCAB500035C62 /* BackendlessCache.m in Sources */,
 				0F9ACA921E798C5D0087869F /* NamedObject.m in Sources */,
 				F9F0AF801CDBCAB500035C62 /* Presence.m in Sources */,
+				5A633F481F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */,
 				F9F0AF811CDBCAB500035C62 /* BackendlessCacheData.m in Sources */,
 				F9F0AF821CDBCAB500035C62 /* BackendlessCacheKey.m in Sources */,
 				0F9ACC861E798C5F0087869F /* ArrayReferenceWriter.m in Sources */,
