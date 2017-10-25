@@ -21,10 +21,10 @@
 @implementation DataQueryBuilder
 
 -(instancetype)init {
-    if (self=[super init]) {
+    if (self = [super init]) {
         _pagedQueryBuilder = [[PagedQueryBuilder alloc] init:self];
         _queryOptionsBuilder = [[QueryOptionsBuilder alloc] init:self];
-        _properties = [NSMutableArray new];
+        _properties = [NSMutableArray<NSString *> new];
         _whereClause = nil;
     }
     return self;

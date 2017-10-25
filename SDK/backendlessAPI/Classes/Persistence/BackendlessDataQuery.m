@@ -30,29 +30,24 @@
 @implementation BackendlessDataQuery
 
 -(instancetype)init {
-	if ( (self=[super init]) ) {
-        
+	if (self = [super init]) {
         pageSize = DEFAULT_PAGE_SIZE;
         offset = DEFAULT_OFFSET;
         self.properties = nil;
         self.whereClause = nil;
         self.queryOptions = [QueryOptions query];
 	}
-	
 	return self;
 }
 
 -(instancetype)init:(NSArray *)properties where:(NSString *)whereClause query:(QueryOptions *)queryOptions {
-	
-    if ( (self=[super init]) ) {
-        
+    if (self = [super init]) {
         pageSize = DEFAULT_PAGE_SIZE;
         offset = DEFAULT_OFFSET;
         self.properties = properties?[[[NSMutableArray alloc] initWithArray:properties] autorelease]:nil;
         self.whereClause = [whereClause autorelease];
         self.queryOptions = [queryOptions autorelease];
 	}
-	
 	return self;
 }
 
@@ -65,13 +60,10 @@
 }
 
 -(void)dealloc {
-	
 	[DebLog logN:@"DEALLOC BackendlessDataQuery: %@", self];
-    
     [self.properties release];
     [self.whereClause release];
     [self.queryOptions release];
-	
     [super dealloc];
 }
 
@@ -79,22 +71,18 @@
 #pragma mark getters / setters
 
 -(NSNumber *)pageSize {
-    //[DebLog logY:@" ------ pageSize"];
     return @(pageSize);
 }
 
 -(void)setPageSize:(NSNumber *)_pageSize {
-    //[DebLog logY:@" ------ setPageSize"];
     pageSize = [_pageSize intValue];
 }
 
 -(NSNumber *)offset {
-    //[DebLog logY:@" ------ offset"];
     return @(offset);
 }
 
 -(void)setOffset:(NSNumber *)_offset {
-    //[DebLog logY:@" ------ setOffset"];
     offset = [_offset intValue];
 }
 
@@ -102,15 +90,15 @@
 #pragma mark Public Methods
 
 -(BOOL)addProperty:(NSString *)property {
-    
-    if (!property || !property.length)
+    if (!property || !property.length) {
         return NO;
-    
-    if (!self.properties) self.properties = [[NSMutableArray new] autorelease];
+    }
+    if (!self.properties) {
+        self.properties = [[NSMutableArray new] autorelease];
+    }
     [self.properties addObject:property];
     return YES;
 }
-
 
 -(void)prepareForNextPage {
     offset += pageSize;
@@ -120,7 +108,6 @@
     offset -= pageSize;
 }
 
-
 -(NSString *)description {
     return [NSString stringWithFormat:@"<BackendlessDataQuery> -> pageSize: %@, offset: %@ properties: %@, whereClause: %@, queryOptions: %@", self.pageSize, self.offset, self.properties, self.whereClause, self.queryOptions];
 }
@@ -129,7 +116,6 @@
 #pragma mark NSCopying Methods
 
 -(id)copyWithZone:(NSZone *)zone {
-    
     BackendlessDataQuery *query = [BackendlessDataQuery query];
     query.pageSize = self.pageSize.copy;
     query.offset = self.offset.copy;
