@@ -36,17 +36,21 @@
         self.properties = nil;
         self.whereClause = nil;
         self.queryOptions = [QueryOptions query];
-	}
+        self.groupBy = nil;
+        self.havingClause = nil;
+    }
 	return self;
 }
 
--(instancetype)init:(NSArray *)properties where:(NSString *)whereClause query:(QueryOptions *)queryOptions {
+-(instancetype)init:(NSArray *)properties where:(NSString *)whereClause query:(QueryOptions *)queryOptions groupBy:(NSArray<NSString *> *)groupBy havingClause:(NSString *)havingClause {
     if (self = [super init]) {
         pageSize = DEFAULT_PAGE_SIZE;
         offset = DEFAULT_OFFSET;
-        self.properties = properties?[[[NSMutableArray alloc] initWithArray:properties] autorelease]:nil;
+        self.properties = properties ? [[[NSMutableArray alloc] initWithArray:properties] autorelease]:nil;
         self.whereClause = [whereClause autorelease];
         self.queryOptions = [queryOptions autorelease];
+        self.groupBy = groupBy ? [[[NSMutableArray alloc] initWithArray:groupBy] autorelease]:nil;
+        self.havingClause = [havingClause autorelease];
 	}
 	return self;
 }
@@ -55,8 +59,8 @@
     return [[BackendlessDataQuery new] autorelease];
 }
 
-+(instancetype)query:(NSArray *)properties where:(NSString *)whereClause query:(QueryOptions *)queryOptions {
-    return [[[BackendlessDataQuery alloc] init:properties where:whereClause query:queryOptions] autorelease];
++(instancetype)query:(NSArray *)properties where:(NSString *)whereClause query:(QueryOptions *)queryOptions groupBy:(NSArray<NSString *> *)groupBy havingClause:(NSString *)havingClause {
+    return [[[BackendlessDataQuery alloc] init:properties where:whereClause query:queryOptions groupBy:groupBy havingClause:havingClause] autorelease];
 }
 
 -(void)dealloc {
@@ -64,6 +68,8 @@
     [self.properties release];
     [self.whereClause release];
     [self.queryOptions release];
+    [self.groupBy release];
+    [self.havingClause release];
     [super dealloc];
 }
 
@@ -122,6 +128,8 @@
     query.properties = self.properties ? [[[NSMutableArray alloc] initWithArray:self.properties] autorelease]: nil;
     query.whereClause = self.whereClause.copy;
     query.queryOptions = self.queryOptions.copy;
+    query.groupBy = self.groupBy.copy;
+    query.havingClause = self.havingClause.copy;
     return query;
 }
 
