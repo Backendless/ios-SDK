@@ -10,7 +10,7 @@
 #import "PagedQueryBuilder.h"
 #import "QueryOptionsBuilder.h"
 
-@interface DataQueryBuilder : NSObject 
+@interface DataQueryBuilder : NSObject
 
 -(instancetype)init;
 -(BackendlessDataQuery *)build;
@@ -25,8 +25,10 @@
  */
 -(instancetype)preparePreviousPage;
 -(NSMutableArray<NSString*> *)getProperties;
+
+
 -(instancetype)setProperties:(NSArray<NSString*> *)properties;
--(instancetype)addProperty:(NSString *)property ;
+-(instancetype)addProperty:(NSString *)property;
 -(instancetype)addProperties:(NSArray<NSString *> *)properties;
 -(NSString *)getWhereClause;
 -(instancetype)setWhereClause:(NSString *)whereClause;
@@ -40,5 +42,9 @@
 -(instancetype)addListRelated:(NSArray<NSString *> *)related;
 -(NSNumber *)getRelationsDepth;
 -(instancetype)setRelationsDepth:(int)relationsDepth;
+-(instancetype)setGroupByProperties:(NSArray<NSString *> *)groupBy;
+-(instancetype)addGroupByProperty:(NSString *)groupBy;
+-(instancetype)addGroupByProperties:(NSArray<NSString *> *)groupBy;
+-(instancetype)setHavingClause:(NSString *)havingClause;
 
 @end
