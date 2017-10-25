@@ -15,8 +15,6 @@
     QueryOptionsBuilder *_queryOptionsBuilder;
     NSMutableArray<NSString *> *_properties;
     NSString *_whereClause;
-    NSMutableArray<NSString *> *_groupBy;
-    NSString *_havingClause;
 }
 @end
 
@@ -28,8 +26,6 @@
         _queryOptionsBuilder = [[QueryOptionsBuilder alloc] init:self];
         _properties = [NSMutableArray<NSString *> new];
         _whereClause = nil;
-        _groupBy = [NSMutableArray<NSString *> new];
-        _havingClause = @"";
     }
     return self;
 }
@@ -41,9 +37,6 @@
     [_properties removeAllObjects];
     [_properties release];
     [_whereClause release];
-    [_groupBy removeAllObjects];
-    [_groupBy release];
-    [_havingClause release];
     [super dealloc];
 }
 
@@ -56,8 +49,6 @@
     dataQuery.queryOptions = [_queryOptionsBuilder build];
     dataQuery.properties = _properties ? [[[NSMutableArray alloc] initWithArray:_properties] autorelease]: nil;
     dataQuery.whereClause = _whereClause.copy;
-    dataQuery.groupBy = _groupBy;
-    dataQuery.havingClause = _havingClause;
     return dataQuery;
 }
 
@@ -163,32 +154,6 @@
 
 -(instancetype)setRelationsDepth:(int)relationsDepth {
     [_queryOptionsBuilder setRelationsDepth:relationsDepth];
-    return self;
-}
-
--(instancetype)setGroupByProperties:(NSArray<NSString *> *)groupBy {
-    _groupBy = groupBy ? [[NSMutableArray alloc] initWithArray:groupBy]: nil;
-    return self;
-}
-
--(instancetype)addGroupByProperty:(NSString *)groupBy {
-    if (groupBy) {
-        [_groupBy addObject:groupBy];
-    }
-    return self;
-}
-
--(instancetype)addGroupByProperties:(NSArray<NSString *> *)groupBy {
-    if (groupBy) {
-        [_groupBy addObjectsFromArray:groupBy];
-    }
-    return self;
-}
-
--(instancetype)setHavingClause:(NSString *)havingClause {
-    if (havingClause) {
-        _havingClause = havingClause;
-    }
     return self;
 }
 
