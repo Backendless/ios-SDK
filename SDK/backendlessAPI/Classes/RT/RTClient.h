@@ -29,6 +29,6 @@
 
 +(RTClient *)sharedInstance;
 -(void)connectSocket;
--(void)subscribe:(NSDictionary *)data onError:(NSArray *)errors;
+-(void)subscribe:(NSDictionary *)data onError:(NSArray *)errorCallbacks;
 
 @end

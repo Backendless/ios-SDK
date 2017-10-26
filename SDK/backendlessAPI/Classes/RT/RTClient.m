@@ -81,27 +81,25 @@
     }
 }
 
--(void)onObjectChangesHandler:(NSArray *)errors {
+-(void)onObjectChangesHandler:(NSArray *)errorCallbacks {
     subscribed = YES;
     [socket on:@"SUB_RES" callback:^(NSArray* data, SocketAckEmitter* ack) {
         NSDictionary *resultData = data.firstObject;
         NSString *subId = [resultData valueForKey:@"id"];
-        NSDictionary *result;
         
         if ([resultData valueForKey:@"result"]) {
-            result = [resultData valueForKey:@"result"];
+            NSDictionary *result = [resultData valueForKey:@"result"];
             void (^callback)(id) = [[self.subscriptions valueForKey:subId] valueForKey:@"onData"];
             if (callback) {
                 callback(result);
             }
         }
         else if ([resultData valueForKey:@"error"]) {
-            result = [resultData valueForKey:@"error"];
-            
-            for (void (^callback)(NSDictionary *) in errors) {
-                callback(result);
-                [self onStop:subId];
+            NSDictionary *error = [resultData valueForKey:@"error"];
+            for (void (^errorCallback)(NSDictionary *) in errorCallbacks) {
+                errorCallback(error);
             }
+            [self onStop:subId];
         }
     }];
 }
@@ -109,6 +107,7 @@
 -(void)onStop:(NSString *)subId {
     [socket emit:@"SUB_OFF" with:[NSArray arrayWithObject:subId]];
     [self.subscriptions removeObjectForKey:subId];
+    // remove from dataStore!
 }
 
 @end

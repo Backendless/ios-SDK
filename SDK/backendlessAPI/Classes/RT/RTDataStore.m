@@ -49,6 +49,7 @@
     if (!subId) {
         subId = [[NSUUID UUID] UUIDString];
     }
+    
     NSDictionary *options = @{@"tableName"  : tableName,
                               @"event"      : event,
                               @"whereClause" : @"name = 'Ann'"};
