@@ -32,6 +32,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		09D36C3C9BC3D0449B91A51B /* libPods-backendless-mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CD860BEAA145275C51C7AC1 /* libPods-backendless-mac.a */; };
 		0F9AC8131E798C5C0087869F /* Engine.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC6EA1E798C5B0087869F /* Engine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0F9AC8141E798C5C0087869F /* Engine.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC6EA1E798C5B0087869F /* Engine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0F9AC8151E798C5C0087869F /* Engine.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC6EA1E798C5B0087869F /* Engine.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1458,6 +1459,26 @@
 		5A633F461F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; };
 		5A633F471F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; };
 		5A633F481F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; };
+		5A8A155E1FA0CB22009A1394 /* RTClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A155C1FA0CB22009A1394 /* RTClient.h */; };
+		5A8A155F1FA0CB22009A1394 /* RTClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A155C1FA0CB22009A1394 /* RTClient.h */; };
+		5A8A15601FA0CB22009A1394 /* RTClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A155C1FA0CB22009A1394 /* RTClient.h */; };
+		5A8A15611FA0CB22009A1394 /* RTClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A155C1FA0CB22009A1394 /* RTClient.h */; };
+		5A8A15621FA0CB22009A1394 /* RTClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A155C1FA0CB22009A1394 /* RTClient.h */; };
+		5A8A15631FA0CB22009A1394 /* RTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A155D1FA0CB22009A1394 /* RTClient.m */; };
+		5A8A15641FA0CB22009A1394 /* RTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A155D1FA0CB22009A1394 /* RTClient.m */; };
+		5A8A15651FA0CB22009A1394 /* RTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A155D1FA0CB22009A1394 /* RTClient.m */; };
+		5A8A15661FA0CB22009A1394 /* RTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A155D1FA0CB22009A1394 /* RTClient.m */; };
+		5A8A15671FA0CB22009A1394 /* RTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A155D1FA0CB22009A1394 /* RTClient.m */; };
+		5A8A15821FA0D3C3009A1394 /* RTDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A15801FA0D3C3009A1394 /* RTDataStore.h */; };
+		5A8A15831FA0D3C3009A1394 /* RTDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A15801FA0D3C3009A1394 /* RTDataStore.h */; };
+		5A8A15841FA0D3C3009A1394 /* RTDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A15801FA0D3C3009A1394 /* RTDataStore.h */; };
+		5A8A15851FA0D3C3009A1394 /* RTDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A15801FA0D3C3009A1394 /* RTDataStore.h */; };
+		5A8A15861FA0D3C3009A1394 /* RTDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A15801FA0D3C3009A1394 /* RTDataStore.h */; };
+		5A8A15871FA0D3C3009A1394 /* RTDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A15811FA0D3C3009A1394 /* RTDataStore.m */; };
+		5A8A15881FA0D3C3009A1394 /* RTDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A15811FA0D3C3009A1394 /* RTDataStore.m */; };
+		5A8A15891FA0D3C3009A1394 /* RTDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A15811FA0D3C3009A1394 /* RTDataStore.m */; };
+		5A8A158A1FA0D3C3009A1394 /* RTDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A15811FA0D3C3009A1394 /* RTDataStore.m */; };
+		5A8A158B1FA0D3C3009A1394 /* RTDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A15811FA0D3C3009A1394 /* RTDataStore.m */; };
 		5AF2B7281EB2136300D54442 /* MessagingService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AFFBF7A1EB211EC0099A72F /* MessagingService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AF2B7291EB2137200D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; };
 		5AF2B72A1EB2137A00D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; };
@@ -1478,6 +1499,8 @@
 		84B027ED1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B027E51DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		84B027EE1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B027E51DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		84B027EF1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B027E51DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		85BF58AC405C3EEC749759D6 /* libPods-bkndlss-device.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C202F0E98E0AEBE8E69B2C /* libPods-bkndlss-device.a */; };
+		876F10E361EDBC49440ED707 /* libPods-backendless-device.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD8BE580DA2C4432D8AF5879 /* libPods-backendless-device.a */; };
 		910117D4180C0CCF008102A7 /* BodyParts.h in Headers */ = {isa = PBXBuildFile; fileRef = 910117D2180C0CCF008102A7 /* BodyParts.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		910117D5180C0CCF008102A7 /* BodyParts.h in Headers */ = {isa = PBXBuildFile; fileRef = 910117D2180C0CCF008102A7 /* BodyParts.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		910117D7180C0CCF008102A7 /* BodyParts.m in Sources */ = {isa = PBXBuildFile; fileRef = 910117D3180C0CCF008102A7 /* BodyParts.m */; };
@@ -1516,6 +1539,7 @@
 		91F139B317D724C700D1AC4C /* QueryOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F139B017D724C600D1AC4C /* QueryOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91F139B417D724C700D1AC4C /* QueryOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F139B117D724C600D1AC4C /* QueryOptions.m */; };
 		91F139B517D724C700D1AC4C /* QueryOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F139B117D724C600D1AC4C /* QueryOptions.m */; };
+		CD3A9413FD6DB11C0DA091B7 /* Pods_backendless_simulator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1808AE0112E8B656BBA0656 /* Pods_backendless_simulator.framework */; };
 		D30A5D7519B9CA8200C0BA44 /* Backendless-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = D30A5D7319B9CA8200C0BA44 /* Backendless-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D30A5D7619B9CA8200C0BA44 /* Backendless-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = D30A5D7319B9CA8200C0BA44 /* Backendless-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D30FC9B11AE132C2007C9A83 /* LogBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = D30FC9AF1AE132C2007C9A83 /* LogBuffer.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2100,9 +2124,12 @@
 		F9F58DB11BA83BB1009B8782 /* BackendlessBeacon.m in Sources */ = {isa = PBXBuildFile; fileRef = F9F58DAD1BA83BB1009B8782 /* BackendlessBeacon.m */; };
 		F9F58DB21BA83BB1009B8782 /* BackendlessBeacon.m in Sources */ = {isa = PBXBuildFile; fileRef = F9F58DAD1BA83BB1009B8782 /* BackendlessBeacon.m */; };
 		F9F58DB31BA83BB1009B8782 /* BackendlessBeacon.m in Sources */ = {isa = PBXBuildFile; fileRef = F9F58DAD1BA83BB1009B8782 /* BackendlessBeacon.m */; };
+		FDF334006D563D1B2D130282 /* Pods_bkndlss_simulator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB007FCF5367853056905B55 /* Pods_bkndlss_simulator.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		07DD39005F2680D15F0B0DC5 /* Pods-backendless-device.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-device.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-device/Pods-backendless-device.debug.xcconfig"; sourceTree = "<group>"; };
+		0D55ADE20F9E0A6EC83EC808 /* Pods-backendless-mac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-mac.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-mac/Pods-backendless-mac.debug.xcconfig"; sourceTree = "<group>"; };
 		0F9AC6EA1E798C5B0087869F /* Engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Engine.h; sourceTree = "<group>"; };
 		0F9AC6EB1E798C5B0087869F /* Engine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Engine.m; sourceTree = "<group>"; };
 		0F9AC6EC1E798C5B0087869F /* HttpEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpEngine.h; sourceTree = "<group>"; };
@@ -2369,12 +2396,22 @@
 		0F9AC8101E798C5C0087869F /* V3ObjectSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = V3ObjectSerializer.m; sourceTree = "<group>"; };
 		0F9AC8111E798C5C0087869F /* V3ReferenceCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = V3ReferenceCache.h; sourceTree = "<group>"; };
 		0F9AC8121E798C5C0087869F /* V3ReferenceCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = V3ReferenceCache.m; sourceTree = "<group>"; };
+		1B1CA3EE1CB295FC9C169201 /* Pods-backendless-mac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-mac.release.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-mac/Pods-backendless-mac.release.xcconfig"; sourceTree = "<group>"; };
 		1C7BB5101A2E092900D3C2C1 /* libbackendless-mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libbackendless-mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CD860BEAA145275C51C7AC1 /* libPods-backendless-mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-backendless-mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		50CA398B1F44581BDBE242AB /* Pods-bkndlss-simulator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bkndlss-simulator.release.xcconfig"; path = "../Pods/Target Support Files/Pods-bkndlss-simulator/Pods-bkndlss-simulator.release.xcconfig"; sourceTree = "<group>"; };
 		5A507A741F3B41D80027ABAC /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		5A633F3F1F7BB7F6004D7ACA /* BackendlessPushHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BackendlessPushHelper.h; sourceTree = "<group>"; };
 		5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BackendlessPushHelper.m; sourceTree = "<group>"; };
+		5A8A155C1FA0CB22009A1394 /* RTClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTClient.h; sourceTree = "<group>"; };
+		5A8A155D1FA0CB22009A1394 /* RTClient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RTClient.m; sourceTree = "<group>"; };
+		5A8A15801FA0D3C3009A1394 /* RTDataStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTDataStore.h; sourceTree = "<group>"; };
+		5A8A15811FA0D3C3009A1394 /* RTDataStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RTDataStore.m; sourceTree = "<group>"; };
 		5AFFBF7A1EB211EC0099A72F /* MessagingService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagingService.h; sourceTree = "<group>"; };
 		5AFFBF7B1EB211EC0099A72F /* MessagingService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagingService.m; sourceTree = "<group>"; };
+		65C202F0E98E0AEBE8E69B2C /* libPods-bkndlss-device.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-bkndlss-device.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7066B97F93C19A1C65C97B9F /* Pods-backendless-simulator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-simulator.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-simulator/Pods-backendless-simulator.debug.xcconfig"; sourceTree = "<group>"; };
+		7B91160747F6471D311F88F7 /* Pods-bkndlss-device.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bkndlss-device.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-bkndlss-device/Pods-bkndlss-device.debug.xcconfig"; sourceTree = "<group>"; };
 		84B027E41DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadRelationsQueryBuilder.h; sourceTree = "<group>"; };
 		84B027E51DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadRelationsQueryBuilder.m; sourceTree = "<group>"; };
 		910117D2180C0CCF008102A7 /* BodyParts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BodyParts.h; sourceTree = "<group>"; };
@@ -2396,6 +2433,11 @@
 		91F1399417D7240A00D1AC4C /* BackendlessCacheProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackendlessCacheProtocol.h; sourceTree = "<group>"; };
 		91F139B017D724C600D1AC4C /* QueryOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryOptions.h; sourceTree = "<group>"; };
 		91F139B117D724C600D1AC4C /* QueryOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryOptions.m; sourceTree = "<group>"; };
+		C1808AE0112E8B656BBA0656 /* Pods_backendless_simulator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_backendless_simulator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C33459CE4899AC7981870292 /* Pods-backendless-simulator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-simulator.release.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-simulator/Pods-backendless-simulator.release.xcconfig"; sourceTree = "<group>"; };
+		CB007FCF5367853056905B55 /* Pods_bkndlss_simulator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bkndlss_simulator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D1A55B209629E10D092A6379 /* Pods-bkndlss-device.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bkndlss-device.release.xcconfig"; path = "../Pods/Target Support Files/Pods-bkndlss-device/Pods-bkndlss-device.release.xcconfig"; sourceTree = "<group>"; };
+		D1BEE8A3838A49C1CC7966D7 /* Pods-backendless-device.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-device.release.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-device/Pods-backendless-device.release.xcconfig"; sourceTree = "<group>"; };
 		D30A5D7319B9CA8200C0BA44 /* Backendless-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Backendless-Bridging-Header.h"; sourceTree = "<group>"; };
 		D30A5D7819B9D03100C0BA44 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
 		D30FC9AF1AE132C2007C9A83 /* LogBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogBuffer.h; sourceTree = "<group>"; };
@@ -2438,6 +2480,7 @@
 		D3FB9B7219867F0E00A13FB6 /* AtomicCountersFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtomicCountersFactory.h; sourceTree = "<group>"; };
 		D3FB9B7319867F0E00A13FB6 /* AtomicCountersFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtomicCountersFactory.m; sourceTree = "<group>"; };
 		D3FB9B7A1986818F00A13FB6 /* IAtomicCounters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAtomicCounters.h; sourceTree = "<group>"; };
+		E151B6C88D94B9132AD437E7 /* Pods-bkndlss-simulator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bkndlss-simulator.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-bkndlss-simulator/Pods-bkndlss-simulator.debug.xcconfig"; sourceTree = "<group>"; };
 		F918412C1638281600D36A61 /* FileService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileService.h; sourceTree = "<group>"; };
 		F918412D1638281600D36A61 /* FileService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileService.m; sourceTree = "<group>"; };
 		F9184132163AB29600D36A61 /* BackendlessFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackendlessFile.h; sourceTree = "<group>"; };
@@ -2532,6 +2575,7 @@
 		F9F26B571D8C3A1E00B9EA82 /* backendless.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = backendless.a; sourceTree = "<group>"; };
 		F9F58DAC1BA83BB1009B8782 /* BackendlessBeacon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackendlessBeacon.h; sourceTree = "<group>"; };
 		F9F58DAD1BA83BB1009B8782 /* BackendlessBeacon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackendlessBeacon.m; sourceTree = "<group>"; };
+		FD8BE580DA2C4432D8AF5879 /* libPods-backendless-device.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-backendless-device.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2539,6 +2583,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09D36C3C9BC3D0449B91A51B /* libPods-backendless-mac.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2547,6 +2592,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A507A761F3B42D80027ABAC /* UserNotifications.framework in Frameworks */,
+				CD3A9413FD6DB11C0DA091B7 /* Pods_backendless_simulator.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2555,6 +2601,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A507A751F3B41D80027ABAC /* UserNotifications.framework in Frameworks */,
+				876F10E361EDBC49440ED707 /* libPods-backendless-device.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2563,6 +2610,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A507A771F3B42E10027ABAC /* UserNotifications.framework in Frameworks */,
+				FDF334006D563D1B2D130282 /* Pods_bkndlss_simulator.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2571,6 +2619,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A507A781F3B42E80027ABAC /* UserNotifications.framework in Frameworks */,
+				85BF58AC405C3EEC749759D6 /* libPods-bkndlss-device.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3074,6 +3123,34 @@
 			path = Amf;
 			sourceTree = "<group>";
 		};
+		5A8A14F21FA0A318009A1394 /* RT */ = {
+			isa = PBXGroup;
+			children = (
+				5A8A155C1FA0CB22009A1394 /* RTClient.h */,
+				5A8A155D1FA0CB22009A1394 /* RTClient.m */,
+				5A8A15801FA0D3C3009A1394 /* RTDataStore.h */,
+				5A8A15811FA0D3C3009A1394 /* RTDataStore.m */,
+			);
+			path = RT;
+			sourceTree = "<group>";
+		};
+		8CB99147EB97C745EBE11F32 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				07DD39005F2680D15F0B0DC5 /* Pods-backendless-device.debug.xcconfig */,
+				D1BEE8A3838A49C1CC7966D7 /* Pods-backendless-device.release.xcconfig */,
+				0D55ADE20F9E0A6EC83EC808 /* Pods-backendless-mac.debug.xcconfig */,
+				1B1CA3EE1CB295FC9C169201 /* Pods-backendless-mac.release.xcconfig */,
+				7066B97F93C19A1C65C97B9F /* Pods-backendless-simulator.debug.xcconfig */,
+				C33459CE4899AC7981870292 /* Pods-backendless-simulator.release.xcconfig */,
+				7B91160747F6471D311F88F7 /* Pods-bkndlss-device.debug.xcconfig */,
+				D1A55B209629E10D092A6379 /* Pods-bkndlss-device.release.xcconfig */,
+				E151B6C88D94B9132AD437E7 /* Pods-bkndlss-simulator.debug.xcconfig */,
+				50CA398B1F44581BDBE242AB /* Pods-bkndlss-simulator.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		91223DC7195AF68900F72F48 /* Events */ = {
 			isa = PBXGroup;
 			children = (
@@ -3176,6 +3253,7 @@
 				F9796A2A166CD3A400595F5E /* backendless-device */,
 				F9042B0615FDD8D300C9381A /* Frameworks */,
 				F9042B0415FDD8D300C9381A /* Products */,
+				8CB99147EB97C745EBE11F32 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -3195,6 +3273,11 @@
 			isa = PBXGroup;
 			children = (
 				5A507A741F3B41D80027ABAC /* UserNotifications.framework */,
+				FD8BE580DA2C4432D8AF5879 /* libPods-backendless-device.a */,
+				2CD860BEAA145275C51C7AC1 /* libPods-backendless-mac.a */,
+				C1808AE0112E8B656BBA0656 /* Pods_backendless_simulator.framework */,
+				65C202F0E98E0AEBE8E69B2C /* libPods-bkndlss-device.a */,
+				CB007FCF5367853056905B55 /* Pods_bkndlss_simulator.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -3214,6 +3297,7 @@
 				D30A5D7319B9CA8200C0BA44 /* Backendless-Bridging-Header.h */,
 				F91B47FE15FF569400012DFC /* Backendless.h */,
 				F91B47FF15FF569400012DFC /* Backendless.m */,
+				5A8A14F21FA0A318009A1394 /* RT */,
 				0F9AC6E81E798C5B0087869F /* weborb */,
 				91F1398917D7240A00D1AC4C /* Cache */,
 				F91B47EC15FF48AF00012DFC /* IO */,
@@ -3565,6 +3649,7 @@
 				0F9ACB831E798C5E0087869F /* CrowdNode.h in Headers */,
 				0F9ACB471E798C5E0087869F /* V3Reader.h in Headers */,
 				0F9ACAA71E798C5D0087869F /* NullReader.h in Headers */,
+				5A8A15821FA0D3C3009A1394 /* RTDataStore.h in Headers */,
 				0F9AC94E1E798C5D0087869F /* MetaData.h in Headers */,
 				0F9AC9C61E798C5D0087869F /* ISharedObjectEvent.h in Headers */,
 				0F9ACB6A1E798C5E0087869F /* ICacheableAdaptingType.h in Headers */,
@@ -3699,6 +3784,7 @@
 				D35DC3391AD6CE1500EF2A68 /* Logging.h in Headers */,
 				D35CA5311A668AC600F500B0 /* FilePermission.h in Headers */,
 				1C7BB4F21A2E092900D3C2C1 /* BESubscription.h in Headers */,
+				5A8A155E1FA0CB22009A1394 /* RTClient.h in Headers */,
 				1C7BB4F31A2E092900D3C2C1 /* Message.h in Headers */,
 				1C7BB4F51A2E092900D3C2C1 /* MessageStatus.h in Headers */,
 				D3A064C81AFCE69D00779BB1 /* GeoFenceMonitoring.h in Headers */,
@@ -3787,6 +3873,7 @@
 				0F9ACA0D1E798C5D0087869F /* AnonymousObjectReader.h in Headers */,
 				0F9ACB661E798C5E0087869F /* IAdaptingType.h in Headers */,
 				0F9ACBE81E798C5E0087869F /* AckMessage.h in Headers */,
+				5A8A155F1FA0CB22009A1394 /* RTClient.h in Headers */,
 				0F9AC8D21E798C5C0087869F /* ISharedObjectBase.h in Headers */,
 				0F9AC81E1E798C5C0087869F /* HttpEngine.h in Headers */,
 				0F9AC9181E798C5C0087869F /* Aggregate.h in Headers */,
@@ -3821,6 +3908,7 @@
 				0F9AC8731E798C5C0087869F /* EventType.h in Headers */,
 				0F9AC8691E798C5C0087869F /* Request.h in Headers */,
 				0F9AC94A1E798C5D0087869F /* IRTMPEvent.h in Headers */,
+				5A8A15831FA0D3C3009A1394 /* RTDataStore.h in Headers */,
 				0F9ACB6B1E798C5E0087869F /* ICacheableAdaptingType.h in Headers */,
 				0F9ACA941E798C5D0087869F /* NamedObjectReader.h in Headers */,
 				0F9ACB5C1E798C5E0087869F /* V3VectorReader.h in Headers */,
@@ -4023,6 +4111,7 @@
 				0F9ACA0E1E798C5D0087869F /* AnonymousObjectReader.h in Headers */,
 				0F9ACB671E798C5E0087869F /* IAdaptingType.h in Headers */,
 				0F9ACBE91E798C5E0087869F /* AckMessage.h in Headers */,
+				5A8A15601FA0CB22009A1394 /* RTClient.h in Headers */,
 				0F9AC8D31E798C5C0087869F /* ISharedObjectBase.h in Headers */,
 				0F9AC81F1E798C5C0087869F /* HttpEngine.h in Headers */,
 				0F9AC9191E798C5C0087869F /* Aggregate.h in Headers */,
@@ -4057,6 +4146,7 @@
 				0F9AC8741E798C5C0087869F /* EventType.h in Headers */,
 				0F9AC86A1E798C5C0087869F /* Request.h in Headers */,
 				0F9AC94B1E798C5D0087869F /* IRTMPEvent.h in Headers */,
+				5A8A15841FA0D3C3009A1394 /* RTDataStore.h in Headers */,
 				0F9ACB6C1E798C5E0087869F /* ICacheableAdaptingType.h in Headers */,
 				0F9ACA951E798C5D0087869F /* NamedObjectReader.h in Headers */,
 				0F9ACB5D1E798C5E0087869F /* V3VectorReader.h in Headers */,
@@ -4259,6 +4349,7 @@
 				0F9AC8D91E798C5C0087869F /* ISharedObjectHandlerProvider.h in Headers */,
 				0F9ACA411E798C5D0087869F /* BoundPropertyBagReader.h in Headers */,
 				0F9AC87F1E798C5C0087869F /* IEventDispatcher.h in Headers */,
+				5A8A15611FA0CB22009A1394 /* RTClient.h in Headers */,
 				0F9ACC8A1E798C5F0087869F /* ArrayWriter.h in Headers */,
 				0F9AC8BB1E798C5C0087869F /* IPendingServiceCall.h in Headers */,
 				0F9ACD201E798C600087869F /* PropertyBagWriter.h in Headers */,
@@ -4293,6 +4384,7 @@
 				0F9ACC081E798C5F0087869F /* BodyHolderFactory.h in Headers */,
 				0F9AC8931E798C5C0087869F /* IDeserializer.h in Headers */,
 				0F9ACBC71E798C5E0087869F /* FlashorbBinaryReader.h in Headers */,
+				5A8A15851FA0D3C3009A1394 /* RTDataStore.h in Headers */,
 				0F9ACB7C1E798C5E0087869F /* AMFSerializer.h in Headers */,
 				0F9ACCA81E798C5F0087869F /* BoundPropertyBagWriter.h in Headers */,
 				0F9ACA691E798C5D0087869F /* DateType.h in Headers */,
@@ -4495,6 +4587,7 @@
 				0F9AC8DA1E798C5C0087869F /* ISharedObjectHandlerProvider.h in Headers */,
 				0F9ACA421E798C5D0087869F /* BoundPropertyBagReader.h in Headers */,
 				0F9AC8801E798C5C0087869F /* IEventDispatcher.h in Headers */,
+				5A8A15621FA0CB22009A1394 /* RTClient.h in Headers */,
 				0F9ACC8B1E798C5F0087869F /* ArrayWriter.h in Headers */,
 				0F9AC8BC1E798C5C0087869F /* IPendingServiceCall.h in Headers */,
 				0F9ACD211E798C600087869F /* PropertyBagWriter.h in Headers */,
@@ -4529,6 +4622,7 @@
 				0F9ACC091E798C5F0087869F /* BodyHolderFactory.h in Headers */,
 				0F9AC8941E798C5C0087869F /* IDeserializer.h in Headers */,
 				0F9ACBC81E798C5E0087869F /* FlashorbBinaryReader.h in Headers */,
+				5A8A15861FA0D3C3009A1394 /* RTDataStore.h in Headers */,
 				0F9ACB7D1E798C5E0087869F /* AMFSerializer.h in Headers */,
 				0F9ACCA91E798C5F0087869F /* BoundPropertyBagWriter.h in Headers */,
 				0F9ACA6A1E798C5D0087869F /* DateType.h in Headers */,
@@ -4682,10 +4776,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1C7BB50D1A2E092900D3C2C1 /* Build configuration list for PBXNativeTarget "backendless-mac" */;
 			buildPhases = (
+				29B6D509BDA88BB303AE4904 /* [CP] Check Pods Manifest.lock */,
 				1C7BB48F1A2E092900D3C2C1 /* Sources */,
 				1C7BB4C11A2E092900D3C2C1 /* Frameworks */,
 				1C7BB4C21A2E092900D3C2C1 /* Headers */,
 				1C7BB5161A319F4200D3C2C1 /* ShellScript */,
+				AE592B9E314A2E2A1AEAC85B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -4700,10 +4796,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F97969E7166CC8C300595F5E /* Build configuration list for PBXNativeTarget "backendless-simulator" */;
 			buildPhases = (
+				9CD901ADEC91CB97AD379174 /* [CP] Check Pods Manifest.lock */,
 				F97969D8166CC8C300595F5E /* Sources */,
 				F97969D9166CC8C300595F5E /* Frameworks */,
 				F97969E9166CC94900595F5E /* Headers */,
 				1C7BB5171A31B9A700D3C2C1 /* ShellScript */,
+				379A2A207BD46C4DC53C2045 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -4718,10 +4816,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F9796A31166CD3A400595F5E /* Build configuration list for PBXNativeTarget "backendless-device" */;
 			buildPhases = (
+				239C3A8526B703B46C1F88A8 /* [CP] Check Pods Manifest.lock */,
 				F9796A24166CD3A400595F5E /* Sources */,
 				F9796A25166CD3A400595F5E /* Frameworks */,
 				F9796A50166CD3E500595F5E /* Headers */,
 				1C7BB5191A3306A900D3C2C1 /* Run Script */,
+				8E63D2D5FB52DAA1B2F299D3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -4736,10 +4836,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F9F0AF361CDBCA3900035C62 /* Build configuration list for PBXNativeTarget "bkndlss-simulator" */;
 			buildPhases = (
+				ED9CC748067AC9D8A61B0CDF /* [CP] Check Pods Manifest.lock */,
 				F9F0AE811CDBCA3900035C62 /* Sources */,
 				F9F0AECD1CDBCA3900035C62 /* Frameworks */,
 				F9F0AECE1CDBCA3900035C62 /* Headers */,
 				F9F0AF351CDBCA3900035C62 /* ShellScript */,
+				BC393A9EC67FA108AA0A32F8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -4754,10 +4856,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F9F0AFF01CDBCAB500035C62 /* Build configuration list for PBXNativeTarget "bkndlss-device" */;
 			buildPhases = (
+				0A907A97308F836FF81EA3AE /* [CP] Check Pods Manifest.lock */,
 				F9F0AF3B1CDBCAB500035C62 /* Sources */,
 				F9F0AF871CDBCAB500035C62 /* Frameworks */,
 				F9F0AF881CDBCAB500035C62 /* Headers */,
 				F9F0AFEF1CDBCAB500035C62 /* ShellScript */,
+				11A247C9D6391AA03E6AD0A5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -4802,6 +4906,39 @@
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0A907A97308F836FF81EA3AE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-bkndlss-device-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		11A247C9D6391AA03E6AD0A5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-bkndlss-device/Pods-bkndlss-device-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		1C7BB5161A319F4200D3C2C1 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -4842,6 +4979,120 @@
 			shellPath = /bin/sh;
 			shellScript = "\n# --  YOU SHOULD USE THIS SCHEME TO BUILD BACKENDLESS LIBS ---------------------------------------------------\n\ncp ${BUILT_PRODUCTS_DIR}/libbackendless-device.a ${SRCROOT}/../lib/backendless\ncp -f ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../lib/backendless/include\n                                              \nrm -rf ${BUILT_PRODUCTS_DIR}/libbackendless-device.a\nrm -rf ${BUILT_PRODUCTS_DIR}/usr/local/include/*\n";
 		};
+		239C3A8526B703B46C1F88A8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-backendless-device-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		29B6D509BDA88BB303AE4904 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-backendless-mac-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		379A2A207BD46C4DC53C2045 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-backendless-simulator/Pods-backendless-simulator-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8E63D2D5FB52DAA1B2F299D3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-backendless-device/Pods-backendless-device-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9CD901ADEC91CB97AD379174 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-backendless-simulator-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AE592B9E314A2E2A1AEAC85B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-backendless-mac/Pods-backendless-mac-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BC393A9EC67FA108AA0A32F8 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-bkndlss-simulator/Pods-bkndlss-simulator-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		D3CF37E51A387DEB0070B746 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -4854,6 +5105,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\n# -- THIS IS THE DEVELOPMENT SCHEME - YOU SHOULD USE BACKENDLESS-FAT SCHEME TO BUILD BACKENDLESS LIBS\n\n# --------------------------- BUILD -----------------------------------------------------\n\n# -- ios\nrm -rf ${SRCROOT}/../ios/backendless\nmkdir ${SRCROOT}/../ios/backendless\nmkdir ${SRCROOT}/../ios/backendless/include\n\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme bkndlss-simulator TEST_AFTER_BUILD=NO clean build -sdk iphonesimulator -arch \"x86_64\" -arch \"i386\" OTHER_CFLAGS=\"-fembed-bitcode\"\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme bkndlss-device TEST_AFTER_BUILD=NO clean build -sdk iphoneos OTHER_CFLAGS=\"-fembed-bitcode\"\n\nlipo -create \"${SRCROOT}/../ios/backendless/libbkndlss-simulator.a\" \\\n\"${SRCROOT}/../ios/backendless/libbkndlss-device.a\" -output \\\n\"${SRCROOT}/../ios/backendless/backendless.a\"\n\nrm -rf ${SRCROOT}/../ios/backendless/libbkndlss-simulator.a\nrm -rf ${SRCROOT}/../ios/backendless/libbkndlss-device.a\n\n# -- lib\nrm -rf ${SRCROOT}/../lib/backendless\nmkdir ${SRCROOT}/../lib/backendless\nmkdir ${SRCROOT}/../lib/backendless/include\n\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-simulator TEST_AFTER_BUILD=NO clean build -sdk iphonesimulator -arch \"x86_64\" -arch \"i386\" OTHER_CFLAGS=\"-fembed-bitcode\"\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-device TEST_AFTER_BUILD=NO clean build -sdk iphoneos OTHER_CFLAGS=\"-fembed-bitcode\" \n\nlipo -create \"${SRCROOT}/../lib/backendless/libbackendless-simulator.a\" \\\n\"${SRCROOT}/../lib/backendless/libbackendless-device.a\" -output \\\n\"${SRCROOT}/../lib/backendless/backendless.a\"\n\nrm -rf ${SRCROOT}/../lib/backendless/libbackendless-simulator.a\nrm -rf ${SRCROOT}/../lib/backendless/libbackendless-device.a\n\n# -- osx\nrm -rf ${SRCROOT}/../osx/backendless\nmkdir ${SRCROOT}/../osx/backendless\nmkdir ${SRCROOT}/../osx/backendless/include\n\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-mac TEST_AFTER_BUILD=NO clean build\n\n# ---------------------------- MAKE THE COPIES ---------------------------------------\n\n#cp -rf ${SRCROOT}/../lib/backendless/* ${SRCROOT}/../../../iOS-Samples/lib/backendless\n#cp -rf ${SRCROOT}/../osx/backendless/* ${SRCROOT}/../../../iOS-Samples/osx/backendless\n                                     \n#cp -rf ${SRCROOT}/../lib/backendless/* ~/backendless.gitlab/src/client/tests/ios/TCTestSDK/lib/backendless\n\n#cp -rf ${SRCROOT}/../lib/backendless/* ${SRCROOT}/../../../BlogFeatureDay/lib/backendless\n                                     \n#cp -rf ${SRCROOT}/../lib/backendless/* ${SRCROOT}/../../../SamplesForDoc/lib/backendless\n\n# -------------------------- !!!!! TEMP TESTING COPIES !!!!! --------------------------\n\n#cp -rf ${SRCROOT}/../ios/backendless/* ${SRCROOT}/../../../Backendless4-Samples/B4UserService/Pods/Backendless/SDK/ios/backendless\n                                     \n#cp -rf ${SRCROOT}/../ios/backendless/* ${SRCROOT}/../../../Backendless4-Samples/B4EasyLogin/Pods/Backendless/SDK/ios/backendless\n \n#cp -rf ${SRCROOT}/../ios/backendless/* ${SRCROOT}/../../../TestPushNotify/Pods/Backendless/SDK/ios/backendless\n                                     \n#cp -rf ${SRCROOT}/../ios/backendless/* ${SRCROOT}/../../../TestEasyLogin/Pods/Backendless/SDK/ios/backendless\n\n#----------------------------------------------------------------------------------------\n";
+		};
+		ED9CC748067AC9D8A61B0CDF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-bkndlss-simulator-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 		F9796A73166CD4F800595F5E /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4903,6 +5172,7 @@
 			files = (
 				5AF2B7291EB2137200D54442 /* MessagingService.m in Sources */,
 				F91AC5781D58CFA500511EA5 /* MapDrivenDataStore.m in Sources */,
+				5A8A15871FA0D3C3009A1394 /* RTDataStore.m in Sources */,
 				0F9AC9B21E798C5D0087869F /* PendingCall.m in Sources */,
 				F96B1C711DD3B6CA00A4B362 /* QueryOptionsBuilder.m in Sources */,
 				0F9ACB4C1E798C5E0087869F /* V3Reader.m in Sources */,
@@ -4911,6 +5181,7 @@
 				0F9ACAFC1E798C5E0087869F /* StringType.m in Sources */,
 				D35CA5331A668E1400F500B0 /* FilePermission.m in Sources */,
 				1C7BB4901A2E092900D3C2C1 /* Backendless.m in Sources */,
+				5A8A15631FA0CB22009A1394 /* RTClient.m in Sources */,
 				0F9AC9441E798C5D0087869F /* Invoke.m in Sources */,
 				84B027EB1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */,
 				0F9ACA751E798C5D0087869F /* IntegerReader.m in Sources */,
@@ -5119,6 +5390,7 @@
 				0F9ACA6C1E798C5D0087869F /* DateType.m in Sources */,
 				F97969EE166CCB8200595F5E /* BackendlessUser.m in Sources */,
 				0F9ACBCA1E798C5E0087869F /* FlashorbBinaryReader.m in Sources */,
+				5A8A15881FA0D3C3009A1394 /* RTDataStore.m in Sources */,
 				D3F8BDA219825CF80009DB40 /* CacheFactory.m in Sources */,
 				F97969EF166CCB8200595F5E /* UserProperty.m in Sources */,
 				0F9ACC5B1E798C5F0087869F /* AmfV3Formatter.m in Sources */,
@@ -5175,6 +5447,7 @@
 				0F9ACCAB1E798C5F0087869F /* BoundPropertyBagWriter.m in Sources */,
 				F97969FD166CCB8200595F5E /* DeliveryOptions.m in Sources */,
 				D30FC9B51AE132C2007C9A83 /* LogBuffer.m in Sources */,
+				5A8A15641FA0CB22009A1394 /* RTClient.m in Sources */,
 				F97969FE166CCB8200595F5E /* PublishOptions.m in Sources */,
 				0F9ACA1C1E798C5D0087869F /* ArrayReader.m in Sources */,
 				0F9AC9FE1E798C5D0087869F /* RequestParser.m in Sources */,
@@ -5311,6 +5584,7 @@
 				0F9ACA6D1E798C5D0087869F /* DateType.m in Sources */,
 				F9796A38166CD3DA00595F5E /* BackendlessUser.m in Sources */,
 				0F9ACBCB1E798C5E0087869F /* FlashorbBinaryReader.m in Sources */,
+				5A8A15891FA0D3C3009A1394 /* RTDataStore.m in Sources */,
 				D3F8BDA319825CF80009DB40 /* CacheFactory.m in Sources */,
 				F9796A39166CD3DA00595F5E /* UserProperty.m in Sources */,
 				0F9ACC5C1E798C5F0087869F /* AmfV3Formatter.m in Sources */,
@@ -5367,6 +5641,7 @@
 				0F9ACCAC1E798C5F0087869F /* BoundPropertyBagWriter.m in Sources */,
 				F9796A47166CD3DB00595F5E /* DeliveryOptions.m in Sources */,
 				D30FC9B61AE132C2007C9A83 /* LogBuffer.m in Sources */,
+				5A8A15651FA0CB22009A1394 /* RTClient.m in Sources */,
 				F9796A48166CD3DB00595F5E /* PublishOptions.m in Sources */,
 				0F9ACA1D1E798C5D0087869F /* ArrayReader.m in Sources */,
 				0F9AC9FF1E798C5D0087869F /* RequestParser.m in Sources */,
@@ -5503,6 +5778,7 @@
 				0F9ACA781E798C5D0087869F /* IntegerReader.m in Sources */,
 				0F9ACB271E798C5E0087869F /* V3ArrayReader.m in Sources */,
 				0F9AC9E21E798C5D0087869F /* SharedObjectEvent.m in Sources */,
+				5A8A158A1FA0D3C3009A1394 /* RTDataStore.m in Sources */,
 				F9F0AE8C1CDBCA3900035C62 /* UserProperty.m in Sources */,
 				0F9AC9601E798C5D0087869F /* NotifyEvent.m in Sources */,
 				0F9ACB4F1E798C5E0087869F /* V3Reader.m in Sources */,
@@ -5559,6 +5835,7 @@
 				0F9AC97E1E798C5D0087869F /* Header.m in Sources */,
 				0F9ACA6E1E798C5D0087869F /* DateType.m in Sources */,
 				0F9ACCDF1E798C5F0087869F /* MessageWriter.m in Sources */,
+				5A8A15661FA0CB22009A1394 /* RTClient.m in Sources */,
 				0F9AC9921E798C5D0087869F /* RTMPClient.m in Sources */,
 				0F9AC84D1E798C5C0087869F /* WeborbClient.m in Sources */,
 				F9F0AEA01CDBCA3900035C62 /* ServerCallback.m in Sources */,
@@ -5695,6 +5972,7 @@
 				0F9ACA791E798C5D0087869F /* IntegerReader.m in Sources */,
 				0F9ACB281E798C5E0087869F /* V3ArrayReader.m in Sources */,
 				0F9AC9E31E798C5D0087869F /* SharedObjectEvent.m in Sources */,
+				5A8A158B1FA0D3C3009A1394 /* RTDataStore.m in Sources */,
 				F9F0AF461CDBCAB500035C62 /* UserProperty.m in Sources */,
 				0F9AC9611E798C5D0087869F /* NotifyEvent.m in Sources */,
 				0F9ACB501E798C5E0087869F /* V3Reader.m in Sources */,
@@ -5751,6 +6029,7 @@
 				0F9AC97F1E798C5D0087869F /* Header.m in Sources */,
 				0F9ACA6F1E798C5D0087869F /* DateType.m in Sources */,
 				0F9ACCE01E798C5F0087869F /* MessageWriter.m in Sources */,
+				5A8A15671FA0CB22009A1394 /* RTClient.m in Sources */,
 				0F9AC9931E798C5D0087869F /* RTMPClient.m in Sources */,
 				0F9AC84E1E798C5C0087869F /* WeborbClient.m in Sources */,
 				F9F0AF5A1CDBCAB500035C62 /* ServerCallback.m in Sources */,
@@ -5859,8 +6138,10 @@
 /* Begin XCBuildConfiguration section */
 		1C7BB50E1A2E092900D3C2C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0D55ADE20F9E0A6EC83EC808 /* Pods-backendless-mac.debug.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -5884,8 +6165,10 @@
 		};
 		1C7BB50F1A2E092900D3C2C1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1B1CA3EE1CB295FC9C169201 /* Pods-backendless-mac.release.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -6022,8 +6305,10 @@
 		};
 		F97969E5166CC8C300595F5E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7066B97F93C19A1C65C97B9F /* Pods-backendless-simulator.debug.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DSTROOT = /tmp/backendless_simulator.dst;
@@ -6048,8 +6333,10 @@
 		};
 		F97969E6166CC8C300595F5E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C33459CE4899AC7981870292 /* Pods-backendless-simulator.release.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DSTROOT = /tmp/backendless_simulator.dst;
@@ -6074,8 +6361,10 @@
 		};
 		F9796A32166CD3A400595F5E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 07DD39005F2680D15F0B0DC5 /* Pods-backendless-device.debug.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DSTROOT = /tmp/backendless_device.dst;
@@ -6098,8 +6387,10 @@
 		};
 		F9796A33166CD3A400595F5E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1BEE8A3838A49C1CC7966D7 /* Pods-backendless-device.release.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DSTROOT = /tmp/backendless_device.dst;
@@ -6145,8 +6436,10 @@
 		};
 		F9F0AF371CDBCA3900035C62 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E151B6C88D94B9132AD437E7 /* Pods-bkndlss-simulator.debug.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DSTROOT = /tmp/backendless_simulator.dst;
@@ -6171,8 +6464,10 @@
 		};
 		F9F0AF381CDBCA3900035C62 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 50CA398B1F44581BDBE242AB /* Pods-bkndlss-simulator.release.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DSTROOT = /tmp/backendless_simulator.dst;
@@ -6197,8 +6492,10 @@
 		};
 		F9F0AFF11CDBCAB500035C62 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7B91160747F6471D311F88F7 /* Pods-bkndlss-device.debug.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DSTROOT = /tmp/backendless_device.dst;
@@ -6221,8 +6518,10 @@
 		};
 		F9F0AFF21CDBCAB500035C62 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1A55B209629E10D092A6379 /* Pods-bkndlss-device.release.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DSTROOT = /tmp/backendless_device.dst;
