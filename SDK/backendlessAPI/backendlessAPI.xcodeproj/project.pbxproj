@@ -1458,26 +1458,36 @@
 		5A633F461F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; };
 		5A633F471F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; };
 		5A633F481F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; };
-		5A8A155E1FA0CB22009A1394 /* RTClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A155C1FA0CB22009A1394 /* RTClient.h */; };
-		5A8A155F1FA0CB22009A1394 /* RTClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A155C1FA0CB22009A1394 /* RTClient.h */; };
-		5A8A15601FA0CB22009A1394 /* RTClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A155C1FA0CB22009A1394 /* RTClient.h */; };
-		5A8A15611FA0CB22009A1394 /* RTClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A155C1FA0CB22009A1394 /* RTClient.h */; };
-		5A8A15621FA0CB22009A1394 /* RTClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A155C1FA0CB22009A1394 /* RTClient.h */; };
+		5A8A155E1FA0CB22009A1394 /* RTClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A155C1FA0CB22009A1394 /* RTClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A8A155F1FA0CB22009A1394 /* RTClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A155C1FA0CB22009A1394 /* RTClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A8A15601FA0CB22009A1394 /* RTClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A155C1FA0CB22009A1394 /* RTClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A8A15611FA0CB22009A1394 /* RTClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A155C1FA0CB22009A1394 /* RTClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A8A15621FA0CB22009A1394 /* RTClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A155C1FA0CB22009A1394 /* RTClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A8A15631FA0CB22009A1394 /* RTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A155D1FA0CB22009A1394 /* RTClient.m */; };
 		5A8A15641FA0CB22009A1394 /* RTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A155D1FA0CB22009A1394 /* RTClient.m */; };
 		5A8A15651FA0CB22009A1394 /* RTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A155D1FA0CB22009A1394 /* RTClient.m */; };
 		5A8A15661FA0CB22009A1394 /* RTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A155D1FA0CB22009A1394 /* RTClient.m */; };
 		5A8A15671FA0CB22009A1394 /* RTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A155D1FA0CB22009A1394 /* RTClient.m */; };
-		5A8A15821FA0D3C3009A1394 /* RTDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A15801FA0D3C3009A1394 /* RTDataStore.h */; };
-		5A8A15831FA0D3C3009A1394 /* RTDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A15801FA0D3C3009A1394 /* RTDataStore.h */; };
-		5A8A15841FA0D3C3009A1394 /* RTDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A15801FA0D3C3009A1394 /* RTDataStore.h */; };
-		5A8A15851FA0D3C3009A1394 /* RTDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A15801FA0D3C3009A1394 /* RTDataStore.h */; };
-		5A8A15861FA0D3C3009A1394 /* RTDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A15801FA0D3C3009A1394 /* RTDataStore.h */; };
+		5A8A15821FA0D3C3009A1394 /* RTDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A15801FA0D3C3009A1394 /* RTDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A8A15831FA0D3C3009A1394 /* RTDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A15801FA0D3C3009A1394 /* RTDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A8A15841FA0D3C3009A1394 /* RTDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A15801FA0D3C3009A1394 /* RTDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A8A15851FA0D3C3009A1394 /* RTDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A15801FA0D3C3009A1394 /* RTDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A8A15861FA0D3C3009A1394 /* RTDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A15801FA0D3C3009A1394 /* RTDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A8A15871FA0D3C3009A1394 /* RTDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A15811FA0D3C3009A1394 /* RTDataStore.m */; };
 		5A8A15881FA0D3C3009A1394 /* RTDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A15811FA0D3C3009A1394 /* RTDataStore.m */; };
 		5A8A15891FA0D3C3009A1394 /* RTDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A15811FA0D3C3009A1394 /* RTDataStore.m */; };
 		5A8A158A1FA0D3C3009A1394 /* RTDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A15811FA0D3C3009A1394 /* RTDataStore.m */; };
 		5A8A158B1FA0D3C3009A1394 /* RTDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A15811FA0D3C3009A1394 /* RTDataStore.m */; };
+		5ADF71051FA20120007E3AD5 /* RTSubscription.h in Headers */ = {isa = PBXBuildFile; fileRef = 5ADF71031FA20120007E3AD5 /* RTSubscription.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5ADF71061FA20120007E3AD5 /* RTSubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADF71041FA20120007E3AD5 /* RTSubscription.m */; };
+		5ADF71071FA20126007E3AD5 /* RTSubscription.h in Headers */ = {isa = PBXBuildFile; fileRef = 5ADF71031FA20120007E3AD5 /* RTSubscription.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5ADF71081FA20126007E3AD5 /* RTSubscription.h in Headers */ = {isa = PBXBuildFile; fileRef = 5ADF71031FA20120007E3AD5 /* RTSubscription.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5ADF71091FA20127007E3AD5 /* RTSubscription.h in Headers */ = {isa = PBXBuildFile; fileRef = 5ADF71031FA20120007E3AD5 /* RTSubscription.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5ADF710A1FA20127007E3AD5 /* RTSubscription.h in Headers */ = {isa = PBXBuildFile; fileRef = 5ADF71031FA20120007E3AD5 /* RTSubscription.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5ADF710B1FA2012E007E3AD5 /* RTSubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADF71041FA20120007E3AD5 /* RTSubscription.m */; };
+		5ADF710C1FA2012E007E3AD5 /* RTSubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADF71041FA20120007E3AD5 /* RTSubscription.m */; };
+		5ADF710D1FA2012E007E3AD5 /* RTSubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADF71041FA20120007E3AD5 /* RTSubscription.m */; };
+		5ADF710E1FA2012F007E3AD5 /* RTSubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADF71041FA20120007E3AD5 /* RTSubscription.m */; };
 		5AF2B7281EB2136300D54442 /* MessagingService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AFFBF7A1EB211EC0099A72F /* MessagingService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AF2B7291EB2137200D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; };
 		5AF2B72A1EB2137A00D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; };
@@ -3101,6 +3111,8 @@
 			children = (
 				5A8A155C1FA0CB22009A1394 /* RTClient.h */,
 				5A8A155D1FA0CB22009A1394 /* RTClient.m */,
+				5ADF71031FA20120007E3AD5 /* RTSubscription.h */,
+				5ADF71041FA20120007E3AD5 /* RTSubscription.m */,
 				5A8A15801FA0D3C3009A1394 /* RTDataStore.h */,
 				5A8A15811FA0D3C3009A1394 /* RTDataStore.m */,
 			);
@@ -3536,6 +3548,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A8A15821FA0D3C3009A1394 /* RTDataStore.h in Headers */,
+				5ADF71051FA20120007E3AD5 /* RTSubscription.h in Headers */,
+				5A8A155E1FA0CB22009A1394 /* RTClient.h in Headers */,
 				0F9ACCD21E798C5F0087869F /* ITypeWriter.h in Headers */,
 				0F9AC8271E798C5C0087869F /* Responder.h in Headers */,
 				0F9ACBCE1E798C5E0087869F /* FlashorbBinaryWriter.h in Headers */,
@@ -3599,7 +3614,6 @@
 				0F9ACB831E798C5E0087869F /* CrowdNode.h in Headers */,
 				0F9ACB471E798C5E0087869F /* V3Reader.h in Headers */,
 				0F9ACAA71E798C5D0087869F /* NullReader.h in Headers */,
-				5A8A15821FA0D3C3009A1394 /* RTDataStore.h in Headers */,
 				0F9AC94E1E798C5D0087869F /* MetaData.h in Headers */,
 				0F9AC9C61E798C5D0087869F /* ISharedObjectEvent.h in Headers */,
 				0F9ACB6A1E798C5E0087869F /* ICacheableAdaptingType.h in Headers */,
@@ -3734,7 +3748,6 @@
 				D35DC3391AD6CE1500EF2A68 /* Logging.h in Headers */,
 				D35CA5311A668AC600F500B0 /* FilePermission.h in Headers */,
 				1C7BB4F21A2E092900D3C2C1 /* BESubscription.h in Headers */,
-				5A8A155E1FA0CB22009A1394 /* RTClient.h in Headers */,
 				1C7BB4F31A2E092900D3C2C1 /* Message.h in Headers */,
 				1C7BB4F51A2E092900D3C2C1 /* MessageStatus.h in Headers */,
 				D3A064C81AFCE69D00779BB1 /* GeoFenceMonitoring.h in Headers */,
@@ -3771,6 +3784,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A8A15831FA0D3C3009A1394 /* RTDataStore.h in Headers */,
+				5ADF71071FA20126007E3AD5 /* RTSubscription.h in Headers */,
+				5A8A155F1FA0CB22009A1394 /* RTClient.h in Headers */,
 				0F9AC9CC1E798C5D0087869F /* ISharedObjectMessage.h in Headers */,
 				0F9AC98B1E798C5D0087869F /* RTMPClient.h in Headers */,
 				0F9ACA491E798C5D0087869F /* ByteArrayType.h in Headers */,
@@ -3823,7 +3839,6 @@
 				0F9ACA0D1E798C5D0087869F /* AnonymousObjectReader.h in Headers */,
 				0F9ACB661E798C5E0087869F /* IAdaptingType.h in Headers */,
 				0F9ACBE81E798C5E0087869F /* AckMessage.h in Headers */,
-				5A8A155F1FA0CB22009A1394 /* RTClient.h in Headers */,
 				0F9AC8D21E798C5C0087869F /* ISharedObjectBase.h in Headers */,
 				0F9AC81E1E798C5C0087869F /* HttpEngine.h in Headers */,
 				0F9AC9181E798C5C0087869F /* Aggregate.h in Headers */,
@@ -3858,7 +3873,6 @@
 				0F9AC8731E798C5C0087869F /* EventType.h in Headers */,
 				0F9AC8691E798C5C0087869F /* Request.h in Headers */,
 				0F9AC94A1E798C5D0087869F /* IRTMPEvent.h in Headers */,
-				5A8A15831FA0D3C3009A1394 /* RTDataStore.h in Headers */,
 				0F9ACB6B1E798C5E0087869F /* ICacheableAdaptingType.h in Headers */,
 				0F9ACA941E798C5D0087869F /* NamedObjectReader.h in Headers */,
 				0F9ACB5C1E798C5E0087869F /* V3VectorReader.h in Headers */,
@@ -4009,6 +4023,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A8A15841FA0D3C3009A1394 /* RTDataStore.h in Headers */,
+				5ADF71081FA20126007E3AD5 /* RTSubscription.h in Headers */,
+				5A8A15601FA0CB22009A1394 /* RTClient.h in Headers */,
 				0F9AC9CD1E798C5D0087869F /* ISharedObjectMessage.h in Headers */,
 				0F9AC98C1E798C5D0087869F /* RTMPClient.h in Headers */,
 				0F9ACA4A1E798C5D0087869F /* ByteArrayType.h in Headers */,
@@ -4061,7 +4078,6 @@
 				0F9ACA0E1E798C5D0087869F /* AnonymousObjectReader.h in Headers */,
 				0F9ACB671E798C5E0087869F /* IAdaptingType.h in Headers */,
 				0F9ACBE91E798C5E0087869F /* AckMessage.h in Headers */,
-				5A8A15601FA0CB22009A1394 /* RTClient.h in Headers */,
 				0F9AC8D31E798C5C0087869F /* ISharedObjectBase.h in Headers */,
 				0F9AC81F1E798C5C0087869F /* HttpEngine.h in Headers */,
 				0F9AC9191E798C5C0087869F /* Aggregate.h in Headers */,
@@ -4096,7 +4112,6 @@
 				0F9AC8741E798C5C0087869F /* EventType.h in Headers */,
 				0F9AC86A1E798C5C0087869F /* Request.h in Headers */,
 				0F9AC94B1E798C5D0087869F /* IRTMPEvent.h in Headers */,
-				5A8A15841FA0D3C3009A1394 /* RTDataStore.h in Headers */,
 				0F9ACB6C1E798C5E0087869F /* ICacheableAdaptingType.h in Headers */,
 				0F9ACA951E798C5D0087869F /* NamedObjectReader.h in Headers */,
 				0F9ACB5D1E798C5E0087869F /* V3VectorReader.h in Headers */,
@@ -4247,6 +4262,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A8A15851FA0D3C3009A1394 /* RTDataStore.h in Headers */,
+				5ADF71091FA20127007E3AD5 /* RTSubscription.h in Headers */,
+				5A8A15611FA0CB22009A1394 /* RTClient.h in Headers */,
 				0F9ACCD51E798C5F0087869F /* ITypeWriter.h in Headers */,
 				0F9AC82A1E798C5C0087869F /* Responder.h in Headers */,
 				0F9ACBD11E798C5E0087869F /* FlashorbBinaryWriter.h in Headers */,
@@ -4299,7 +4317,6 @@
 				0F9AC8D91E798C5C0087869F /* ISharedObjectHandlerProvider.h in Headers */,
 				0F9ACA411E798C5D0087869F /* BoundPropertyBagReader.h in Headers */,
 				0F9AC87F1E798C5C0087869F /* IEventDispatcher.h in Headers */,
-				5A8A15611FA0CB22009A1394 /* RTClient.h in Headers */,
 				0F9ACC8A1E798C5F0087869F /* ArrayWriter.h in Headers */,
 				0F9AC8BB1E798C5C0087869F /* IPendingServiceCall.h in Headers */,
 				0F9ACD201E798C600087869F /* PropertyBagWriter.h in Headers */,
@@ -4334,7 +4351,6 @@
 				0F9ACC081E798C5F0087869F /* BodyHolderFactory.h in Headers */,
 				0F9AC8931E798C5C0087869F /* IDeserializer.h in Headers */,
 				0F9ACBC71E798C5E0087869F /* FlashorbBinaryReader.h in Headers */,
-				5A8A15851FA0D3C3009A1394 /* RTDataStore.h in Headers */,
 				0F9ACB7C1E798C5E0087869F /* AMFSerializer.h in Headers */,
 				0F9ACCA81E798C5F0087869F /* BoundPropertyBagWriter.h in Headers */,
 				0F9ACA691E798C5D0087869F /* DateType.h in Headers */,
@@ -4485,6 +4501,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A8A15861FA0D3C3009A1394 /* RTDataStore.h in Headers */,
+				5ADF710A1FA20127007E3AD5 /* RTSubscription.h in Headers */,
+				5A8A15621FA0CB22009A1394 /* RTClient.h in Headers */,
 				0F9ACCD61E798C5F0087869F /* ITypeWriter.h in Headers */,
 				0F9AC82B1E798C5C0087869F /* Responder.h in Headers */,
 				0F9ACBD21E798C5E0087869F /* FlashorbBinaryWriter.h in Headers */,
@@ -4537,7 +4556,6 @@
 				0F9AC8DA1E798C5C0087869F /* ISharedObjectHandlerProvider.h in Headers */,
 				0F9ACA421E798C5D0087869F /* BoundPropertyBagReader.h in Headers */,
 				0F9AC8801E798C5C0087869F /* IEventDispatcher.h in Headers */,
-				5A8A15621FA0CB22009A1394 /* RTClient.h in Headers */,
 				0F9ACC8B1E798C5F0087869F /* ArrayWriter.h in Headers */,
 				0F9AC8BC1E798C5C0087869F /* IPendingServiceCall.h in Headers */,
 				0F9ACD211E798C600087869F /* PropertyBagWriter.h in Headers */,
@@ -4572,7 +4590,6 @@
 				0F9ACC091E798C5F0087869F /* BodyHolderFactory.h in Headers */,
 				0F9AC8941E798C5C0087869F /* IDeserializer.h in Headers */,
 				0F9ACBC81E798C5E0087869F /* FlashorbBinaryReader.h in Headers */,
-				5A8A15861FA0D3C3009A1394 /* RTDataStore.h in Headers */,
 				0F9ACB7D1E798C5E0087869F /* AMFSerializer.h in Headers */,
 				0F9ACCA91E798C5F0087869F /* BoundPropertyBagWriter.h in Headers */,
 				0F9ACA6A1E798C5D0087869F /* DateType.h in Headers */,
@@ -5032,6 +5049,7 @@
 				0F9ACBF61E798C5F0087869F /* AsyncMessage.m in Sources */,
 				D3A064BB1AFCE61700779BB1 /* GeoMath.m in Sources */,
 				0F9ACB061E798C5E0087869F /* UndefinedType.m in Sources */,
+				5ADF71061FA20120007E3AD5 /* RTSubscription.m in Sources */,
 				1C7BB4A61A2E092900D3C2C1 /* DeviceRegistration.m in Sources */,
 				0F9ACC3C1E798C5F0087869F /* AbstractReferenceableTypeWriter.m in Sources */,
 				D30FC9B41AE132C2007C9A83 /* LogBuffer.m in Sources */,
@@ -5146,6 +5164,7 @@
 				0F9AC8231E798C5C0087869F /* HttpEngine.m in Sources */,
 				0F9ACD051E798C5F0087869F /* ObjectReferenceWriter.m in Sources */,
 				0F9ACD2D1E798C600087869F /* ReferenceCache.m in Sources */,
+				5ADF710B1FA2012E007E3AD5 /* RTSubscription.m in Sources */,
 				F91AC57A1D58CFE800511EA5 /* MapDrivenDataStore.m in Sources */,
 				0F9ACA441E798C5D0087869F /* BoundPropertyBagReader.m in Sources */,
 				F97969EA166CCB8200595F5E /* Backendless.m in Sources */,
@@ -5340,6 +5359,7 @@
 				0F9AC8241E798C5C0087869F /* HttpEngine.m in Sources */,
 				0F9ACD061E798C5F0087869F /* ObjectReferenceWriter.m in Sources */,
 				0F9ACD2E1E798C600087869F /* ReferenceCache.m in Sources */,
+				5ADF710C1FA2012E007E3AD5 /* RTSubscription.m in Sources */,
 				F91AC57C1D58D06B00511EA5 /* MapDrivenDataStore.m in Sources */,
 				0F9ACA451E798C5D0087869F /* BoundPropertyBagReader.m in Sources */,
 				F9796A34166CD3DA00595F5E /* Backendless.m in Sources */,
@@ -5534,6 +5554,7 @@
 				0F9ACB451E798C5E0087869F /* V3ObjectReader.m in Sources */,
 				F9F0AE851CDBCA3900035C62 /* Invoker.m in Sources */,
 				0F9ACC3F1E798C5F0087869F /* AbstractReferenceableTypeWriter.m in Sources */,
+				5ADF710D1FA2012E007E3AD5 /* RTSubscription.m in Sources */,
 				F9F0AE861CDBCA3900035C62 /* AbstractProperty.m in Sources */,
 				0F9ACA3C1E798C5D0087869F /* BooleanType.m in Sources */,
 				F9F0AE871CDBCA3900035C62 /* GeoFence.m in Sources */,
@@ -5728,6 +5749,7 @@
 				0F9ACB461E798C5E0087869F /* V3ObjectReader.m in Sources */,
 				F9F0AF3F1CDBCAB500035C62 /* Invoker.m in Sources */,
 				0F9ACC401E798C5F0087869F /* AbstractReferenceableTypeWriter.m in Sources */,
+				5ADF710E1FA2012F007E3AD5 /* RTSubscription.m in Sources */,
 				F9F0AF401CDBCAB500035C62 /* AbstractProperty.m in Sources */,
 				0F9ACA3D1E798C5D0087869F /* BooleanType.m in Sources */,
 				F9F0AF411CDBCAB500035C62 /* GeoFence.m in Sources */,

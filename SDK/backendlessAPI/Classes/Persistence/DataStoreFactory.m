@@ -31,8 +31,11 @@
 
 @implementation DataStoreFactory
 
+@synthesize rt;
+
 -(id)init:(Class)entityClass {
     if (self = [super init]) {
+        self.rt = [RTDataStore new];
         _entityClass = [entityClass retain];
         [[Types sharedInstance] addClientClassMapping:@"Users" mapped:[BackendlessUser class]];
     }

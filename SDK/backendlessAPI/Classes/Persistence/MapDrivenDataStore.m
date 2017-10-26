@@ -43,6 +43,8 @@ static NSString *METHOD_LAST = @"last";
 
 @implementation MapDrivenDataStore
 
+@synthesize rt;
+
 -(id)init {
     if (self = [super init]) {
         _tableName = nil;

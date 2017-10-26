@@ -23,9 +23,7 @@
 @import SocketIO;
 
 @interface RTClient() {
-    SocketIOClient *socket;
     BOOL socketReady;
-    BOOL subscribed;
 }
 @end
 
@@ -44,70 +42,34 @@
     if (self = [super init]) {
         self.subscriptions = [NSMutableDictionary new];
         socketReady = NO;
-        subscribed = NO;
     }
     return self;
 }
 
--(void)connectSocket {
+-(void)connectSocket:(void(^)(void))connected {
     if (!socketReady) {
         NSString *path = [@"/" stringByAppendingString:[backendless getAppId]];
         NSURL *url = [[NSURL alloc] initWithString:@"http://localhost:5000"];
-        socket = [[SocketIOClient alloc] initWithSocketURL:url config:@{@"path": path, @"nsp": path, @"connectParams":@{@"token":@"some-token"}}];
-        [self onConnectionHandlers];
-        [socket connect];
+        self.socket = [[SocketIOClient alloc] initWithSocketURL:url config:@{@"path": path, @"nsp": path, @"connectParams":@{@"token":@"some-token"}}];
+        [self onConnectionHandlers:connected];
+        [self.socket connect];
     }
 }
 
--(void)onConnectionHandlers {
-    [socket on:@"connect" callback:^(NSArray* data, SocketAckEmitter* ack) {
+-(void)onConnectionHandlers:(void(^)(void))connected {
+    [self.socket on:@"connect" callback:^(NSArray* data, SocketAckEmitter* ack) {
         NSLog(@"***** Socket connected *****");
         socketReady = YES;
-        
+        connected();
+        // TODO: subscribe here
         //TODO: resubscribe on reconnect
     }];
-    [socket on:@"reconnect" callback:^(NSArray* data, SocketAckEmitter* ack) {
+    [self.socket on:@"reconnect" callback:^(NSArray* data, SocketAckEmitter* ack) {
         NSLog(@"***** Socket reconnected *****");
     }];
-    [socket on:@"disconnect" callback:^(NSArray* data, SocketAckEmitter* ack) {
+    [self.socket on:@"disconnect" callback:^(NSArray* data, SocketAckEmitter* ack) {
         NSLog(@"***** Socket disconnected *****");
     }];
-}
-
--(void)subscribe:(NSDictionary *)data onError:(NSArray *)errors {
-    [socket emit:@"SUB_ON" with:[NSArray arrayWithObject:data]];
-    if (!subscribed) {
-        [self onObjectChangesHandler:errors];
-    }
-}
-
--(void)onObjectChangesHandler:(NSArray *)errorCallbacks {
-    subscribed = YES;
-    [socket on:@"SUB_RES" callback:^(NSArray* data, SocketAckEmitter* ack) {
-        NSDictionary *resultData = data.firstObject;
-        NSString *subId = [resultData valueForKey:@"id"];
-        
-        if ([resultData valueForKey:@"result"]) {
-            NSDictionary *result = [resultData valueForKey:@"result"];
-            void (^callback)(id) = [[self.subscriptions valueForKey:subId] valueForKey:@"onData"];
-            if (callback) {
-                callback(result);
-            }
-        }
-        else if ([resultData valueForKey:@"error"]) {
-            NSDictionary *error = [resultData valueForKey:@"error"];
-            for (void (^errorCallback)(NSDictionary *) in errorCallbacks) {
-                errorCallback(error);
-            }
-            [self onStop:subId];
-        }
-    }];
-}
-
--(void)onStop:(NSString *)subId {
-    [socket emit:@"SUB_OFF" with:[NSArray arrayWithObject:subId]];
-    [self.subscriptions removeObjectForKey:subId];
-    // remove from dataStore!
 }
 
 @end

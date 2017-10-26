@@ -1,5 +1,5 @@
 //
-//  RTClient.h
+//  RTSubscription.h
 //  backendlessAPI
 /*
  * *********************************************************************************************************************
@@ -18,18 +18,13 @@
  *
  *  ********************************************************************************************************************
  */
-
 #import <Foundation/Foundation.h>
-@import SocketIO;
 
-#define rtClient [RTClient sharedInstance]
+@interface RTSubscription : NSObject
 
-@interface RTClient : NSObject
-
-@property (nonatomic, strong) SocketIOClient *socket;
-@property (nonatomic, strong) NSMutableDictionary *subscriptions;
-
-+(RTClient *)sharedInstance;
--(void)connectSocket:(void(^)(void))connected;
+@property (strong, nonatomic) NSDictionary *data;
+@property (nonatomic, copy) void(^onData)(id);
+@property (nonatomic, copy) void(^onError)(NSDictionary *);
+@property (nonatomic, copy) void(^onStop)(NSString *);
 
 @end

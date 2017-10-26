@@ -20,17 +20,8 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "Backendless.h"
 
 @interface RTDataStore : NSObject
-
-@property (strong, nonatomic) NSMutableDictionary<NSString *, NSMutableArray*> *simpleListener;
-@property (strong, nonatomic) NSMutableDictionary *subscriptions;
-
-@property (strong, nonatomic) NSString *subscriptionId;
-@property (strong, nonatomic) NSString *event;
-@property (strong, nonatomic) NSString *tableName;
-@property (strong, nonatomic) id<IDataStore> dataStore;
 
 -(void)addErrorListener:(void (^)(NSDictionary *))onError;
 -(void)addCreateListener:(void (^)(id))onCreate;
