@@ -22,5 +22,4 @@
 #import "RTSubscription.h"
 
 @implementation RTSubscription
-
 @end

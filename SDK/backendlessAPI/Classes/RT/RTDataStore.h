@@ -20,10 +20,20 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "RTError.h"
+
+typedef enum {
+    MAPDRIVENDATASTORE = 0,
+    DATASTOREFACTORY = 1
+} DataStoreTypeEnum;
 
 @interface RTDataStore : NSObject
 
--(void)addErrorListener:(void (^)(NSDictionary *))onError;
+-(RTDataStore *)initWithTableName:(NSString *)tableName withEntity:(Class)tableEntity dataStoreType:(UInt32)dataStoreType;
+
+-(void)addErrorListener:(void (^)(RTError *))onError;
+
 -(void)addCreateListener:(void (^)(id))onCreate;
+-(void)addCreateListener:(NSString *)whereClause onCreateCallback:(void (^)(id))onCreate;
 
 @end

@@ -1473,11 +1473,21 @@
 		5A8A15841FA0D3C3009A1394 /* RTDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A15801FA0D3C3009A1394 /* RTDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A8A15851FA0D3C3009A1394 /* RTDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A15801FA0D3C3009A1394 /* RTDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A8A15861FA0D3C3009A1394 /* RTDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A15801FA0D3C3009A1394 /* RTDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A8A15871FA0D3C3009A1394 /* RTDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A15811FA0D3C3009A1394 /* RTDataStore.m */; };
-		5A8A15881FA0D3C3009A1394 /* RTDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A15811FA0D3C3009A1394 /* RTDataStore.m */; };
-		5A8A15891FA0D3C3009A1394 /* RTDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A15811FA0D3C3009A1394 /* RTDataStore.m */; };
-		5A8A158A1FA0D3C3009A1394 /* RTDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A15811FA0D3C3009A1394 /* RTDataStore.m */; };
-		5A8A158B1FA0D3C3009A1394 /* RTDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A15811FA0D3C3009A1394 /* RTDataStore.m */; };
+		5A8A15871FA0D3C3009A1394 /* RTDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A15811FA0D3C3009A1394 /* RTDataStore.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A8A15881FA0D3C3009A1394 /* RTDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A15811FA0D3C3009A1394 /* RTDataStore.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A8A15891FA0D3C3009A1394 /* RTDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A15811FA0D3C3009A1394 /* RTDataStore.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A8A158A1FA0D3C3009A1394 /* RTDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A15811FA0D3C3009A1394 /* RTDataStore.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A8A158B1FA0D3C3009A1394 /* RTDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A15811FA0D3C3009A1394 /* RTDataStore.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5ADAAF481FA34D1D00663B7D /* RTError.h in Headers */ = {isa = PBXBuildFile; fileRef = 5ADAAF461FA34D1D00663B7D /* RTError.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5ADAAF491FA34D1D00663B7D /* RTError.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADAAF471FA34D1D00663B7D /* RTError.m */; };
+		5ADAAF4A1FA34D2500663B7D /* RTError.h in Headers */ = {isa = PBXBuildFile; fileRef = 5ADAAF461FA34D1D00663B7D /* RTError.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5ADAAF4B1FA34D2600663B7D /* RTError.h in Headers */ = {isa = PBXBuildFile; fileRef = 5ADAAF461FA34D1D00663B7D /* RTError.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5ADAAF4C1FA34D2600663B7D /* RTError.h in Headers */ = {isa = PBXBuildFile; fileRef = 5ADAAF461FA34D1D00663B7D /* RTError.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5ADAAF4D1FA34D2600663B7D /* RTError.h in Headers */ = {isa = PBXBuildFile; fileRef = 5ADAAF461FA34D1D00663B7D /* RTError.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5ADAAF4E1FA34D2900663B7D /* RTError.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADAAF471FA34D1D00663B7D /* RTError.m */; };
+		5ADAAF4F1FA34D2900663B7D /* RTError.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADAAF471FA34D1D00663B7D /* RTError.m */; };
+		5ADAAF501FA34D2A00663B7D /* RTError.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADAAF471FA34D1D00663B7D /* RTError.m */; };
+		5ADAAF511FA34D2B00663B7D /* RTError.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADAAF471FA34D1D00663B7D /* RTError.m */; };
 		5ADF71051FA20120007E3AD5 /* RTSubscription.h in Headers */ = {isa = PBXBuildFile; fileRef = 5ADF71031FA20120007E3AD5 /* RTSubscription.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5ADF71061FA20120007E3AD5 /* RTSubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADF71041FA20120007E3AD5 /* RTSubscription.m */; };
 		5ADF71071FA20126007E3AD5 /* RTSubscription.h in Headers */ = {isa = PBXBuildFile; fileRef = 5ADF71031FA20120007E3AD5 /* RTSubscription.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2407,6 +2417,10 @@
 		5A8A155D1FA0CB22009A1394 /* RTClient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RTClient.m; sourceTree = "<group>"; };
 		5A8A15801FA0D3C3009A1394 /* RTDataStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTDataStore.h; sourceTree = "<group>"; };
 		5A8A15811FA0D3C3009A1394 /* RTDataStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RTDataStore.m; sourceTree = "<group>"; };
+		5ADAAF461FA34D1D00663B7D /* RTError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTError.h; sourceTree = "<group>"; };
+		5ADAAF471FA34D1D00663B7D /* RTError.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RTError.m; sourceTree = "<group>"; };
+		5ADF71031FA20120007E3AD5 /* RTSubscription.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTSubscription.h; sourceTree = "<group>"; };
+		5ADF71041FA20120007E3AD5 /* RTSubscription.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RTSubscription.m; sourceTree = "<group>"; };
 		5AFFBF7A1EB211EC0099A72F /* MessagingService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagingService.h; sourceTree = "<group>"; };
 		5AFFBF7B1EB211EC0099A72F /* MessagingService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagingService.m; sourceTree = "<group>"; };
 		84B027E41DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadRelationsQueryBuilder.h; sourceTree = "<group>"; };
@@ -3113,6 +3127,8 @@
 				5A8A155D1FA0CB22009A1394 /* RTClient.m */,
 				5ADF71031FA20120007E3AD5 /* RTSubscription.h */,
 				5ADF71041FA20120007E3AD5 /* RTSubscription.m */,
+				5ADAAF461FA34D1D00663B7D /* RTError.h */,
+				5ADAAF471FA34D1D00663B7D /* RTError.m */,
 				5A8A15801FA0D3C3009A1394 /* RTDataStore.h */,
 				5A8A15811FA0D3C3009A1394 /* RTDataStore.m */,
 			);
@@ -3548,6 +3564,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5ADAAF481FA34D1D00663B7D /* RTError.h in Headers */,
 				5A8A15821FA0D3C3009A1394 /* RTDataStore.h in Headers */,
 				5ADF71051FA20120007E3AD5 /* RTSubscription.h in Headers */,
 				5A8A155E1FA0CB22009A1394 /* RTClient.h in Headers */,
@@ -3784,6 +3801,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5ADAAF4A1FA34D2500663B7D /* RTError.h in Headers */,
 				5A8A15831FA0D3C3009A1394 /* RTDataStore.h in Headers */,
 				5ADF71071FA20126007E3AD5 /* RTSubscription.h in Headers */,
 				5A8A155F1FA0CB22009A1394 /* RTClient.h in Headers */,
@@ -4023,6 +4041,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5ADAAF4B1FA34D2600663B7D /* RTError.h in Headers */,
 				5A8A15841FA0D3C3009A1394 /* RTDataStore.h in Headers */,
 				5ADF71081FA20126007E3AD5 /* RTSubscription.h in Headers */,
 				5A8A15601FA0CB22009A1394 /* RTClient.h in Headers */,
@@ -4262,6 +4281,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5ADAAF4C1FA34D2600663B7D /* RTError.h in Headers */,
 				5A8A15851FA0D3C3009A1394 /* RTDataStore.h in Headers */,
 				5ADF71091FA20127007E3AD5 /* RTSubscription.h in Headers */,
 				5A8A15611FA0CB22009A1394 /* RTClient.h in Headers */,
@@ -4501,6 +4521,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5ADAAF4D1FA34D2600663B7D /* RTError.h in Headers */,
 				5A8A15861FA0D3C3009A1394 /* RTDataStore.h in Headers */,
 				5ADF710A1FA20127007E3AD5 /* RTSubscription.h in Headers */,
 				5A8A15621FA0CB22009A1394 /* RTClient.h in Headers */,
@@ -5012,6 +5033,7 @@
 				1C7BB49D1A2E092900D3C2C1 /* BackendlessDataQuery.m in Sources */,
 				0F9ACADE1E798C5E0087869F /* PointerReader.m in Sources */,
 				0F9AC8181E798C5C0087869F /* Engine.m in Sources */,
+				5ADAAF491FA34D1D00663B7D /* RTError.m in Sources */,
 				0F9ACA2F1E798C5D0087869F /* BooleanReader.m in Sources */,
 				0F9ACC141E798C5F0087869F /* CommandMessage.m in Sources */,
 				0F9ACD041E798C5F0087869F /* ObjectReferenceWriter.m in Sources */,
@@ -5333,6 +5355,7 @@
 				0F9ACB391E798C5E0087869F /* V3DateReader.m in Sources */,
 				0F9ACA851E798C5D0087869F /* LongUTFStringReader.m in Sources */,
 				0F9ACAD51E798C5E0087869F /* ParseContext.m in Sources */,
+				5ADAAF4E1FA34D2900663B7D /* RTError.m in Sources */,
 				D3EA53051A3077C1009C5FE0 /* FilePermission.m in Sources */,
 				0F9AC9A91E798C5D0087869F /* Call.m in Sources */,
 				0F9AC8A01E798C5C0087869F /* WebORBDeserializer.m in Sources */,
@@ -5528,6 +5551,7 @@
 				0F9ACB3A1E798C5E0087869F /* V3DateReader.m in Sources */,
 				0F9ACA861E798C5D0087869F /* LongUTFStringReader.m in Sources */,
 				0F9ACAD61E798C5E0087869F /* ParseContext.m in Sources */,
+				5ADAAF511FA34D2B00663B7D /* RTError.m in Sources */,
 				D3EA53061A3077C1009C5FE0 /* FilePermission.m in Sources */,
 				0F9AC9AA1E798C5D0087869F /* Call.m in Sources */,
 				0F9AC8A11E798C5C0087869F /* WebORBDeserializer.m in Sources */,
@@ -5723,6 +5747,7 @@
 				0F9ACC7B1E798C5F0087869F /* AMFMessageWriter.m in Sources */,
 				F9F0AEC91CDBCA3900035C62 /* BackendlessCachePolicy.m in Sources */,
 				0F9ACA321E798C5D0087869F /* BooleanReader.m in Sources */,
+				5ADAAF4F1FA34D2900663B7D /* RTError.m in Sources */,
 				0F9AC9881E798C5D0087869F /* Packet.m in Sources */,
 				F96B1C821DD4BF5F00A4B362 /* DataQueryBuilder.m in Sources */,
 				0F9ACACD1E798C5E0087869F /* NumberReader.m in Sources */,
@@ -5918,6 +5943,7 @@
 				0F9ACC7C1E798C5F0087869F /* AMFMessageWriter.m in Sources */,
 				F9F0AF831CDBCAB500035C62 /* BackendlessCachePolicy.m in Sources */,
 				0F9ACA331E798C5D0087869F /* BooleanReader.m in Sources */,
+				5ADAAF501FA34D2A00663B7D /* RTError.m in Sources */,
 				0F9AC9891E798C5D0087869F /* Packet.m in Sources */,
 				F96B1C831DD4BF5F00A4B362 /* DataQueryBuilder.m in Sources */,
 				0F9ACACE1E798C5E0087869F /* NumberReader.m in Sources */,

@@ -18,13 +18,15 @@
  *
  *  ********************************************************************************************************************
  */
+
 #import <Foundation/Foundation.h>
+@class RTError;
 
 @interface RTSubscription : NSObject
 
 @property (strong, nonatomic) NSDictionary *data;
 @property (nonatomic, copy) void(^onData)(id);
-@property (nonatomic, copy) void(^onError)(NSDictionary *);
+@property (nonatomic, copy) void(^onError)(RTError *);
 @property (nonatomic, copy) void(^onStop)(NSString *);
 
 @end

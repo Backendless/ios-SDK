@@ -18,6 +18,7 @@
  *
  *  ********************************************************************************************************************
  */
+
 #import "RTClient.h"
 #import "Backendless.h"
 @import SocketIO;
@@ -58,10 +59,11 @@
 
 -(void)onConnectionHandlers:(void(^)(void))connected {
     [self.socket on:@"connect" callback:^(NSArray* data, SocketAckEmitter* ack) {
-        NSLog(@"***** Socket connected *****");
-        socketReady = YES;
+        if (!socketReady) {
+            NSLog(@"***** Socket connected *****");
+            socketReady = YES;
+        }
         connected();
-        // TODO: subscribe here
         //TODO: resubscribe on reconnect
     }];
     [self.socket on:@"reconnect" callback:^(NSArray* data, SocketAckEmitter* ack) {
