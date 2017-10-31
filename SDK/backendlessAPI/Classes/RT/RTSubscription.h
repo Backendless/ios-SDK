@@ -25,8 +25,14 @@
 @interface RTSubscription : NSObject
 
 @property (strong, nonatomic) NSDictionary *data;
-@property (nonatomic, copy) void(^onData)(id);
+
+@property (nonatomic, strong) NSString *subscriptionId;
+@property (nonatomic, strong) NSString *type;
+@property (nonatomic, strong) NSDictionary *options;
+@property (nonatomic, copy) void(^onResult)(id);
 @property (nonatomic, copy) void(^onError)(RTError *);
-@property (nonatomic, copy) void(^onStop)(NSString *);
+@property (nonatomic, copy) void(^onStop)(RTSubscription *);
+
+-(void)stop;
 
 @end

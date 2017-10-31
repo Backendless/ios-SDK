@@ -21,15 +21,14 @@
 
 #import <Foundation/Foundation.h>
 @import SocketIO;
+@class RTSubscription;
 
 #define rtClient [RTClient sharedInstance]
 
 @interface RTClient : NSObject
 
-@property (strong, nonatomic) SocketIOClient *socket;
-@property (strong, nonatomic) NSMutableDictionary *subscriptions;
-
 +(RTClient *)sharedInstance;
--(void)connectSocket:(void(^)(void))connected;
+-(void)subscribe:(NSDictionary *)data subscription:(RTSubscription *)subscription;
+-(void)unsubscribe:(NSString *)subscriptionId;
 
 @end

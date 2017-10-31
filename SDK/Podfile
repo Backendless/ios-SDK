@@ -17,7 +17,6 @@ end
 
 
 
-
 target 'backendless-simulator' do
     use_frameworks!
     workspace 'backendless'

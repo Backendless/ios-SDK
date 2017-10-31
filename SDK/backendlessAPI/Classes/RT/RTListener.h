@@ -1,5 +1,5 @@
 //
-//  RTSubscription.m
+//  RTListener.h
 //  backendlessAPI
 /*
  * *********************************************************************************************************************
@@ -19,17 +19,21 @@
  *  ********************************************************************************************************************
  */
 
+// ОТ ЭТОГО КЛАССА НАСЛЕДУЕТСЯ DATA STORE
 
-#import "RTSubscription.h"
-#import "RTClient.h"
+#import <Foundation/Foundation.h>
+@class RTSubscription;
+@class RTError;
 
-@implementation RTSubscription
+#define ERROR_TYPE @"ERROR"
+#define OBJECTS_CHANGES_TYPE @"OBJECTS_CHANGES"
 
--(void)stop {
-    [rtClient unsubscribe:self.subscriptionId];
-    if (self.onStop) {
-        self.onStop(self);
-    }
-}
+@interface RTListener : NSObject
+
+-(void)addSubscription:(NSString *)type options:(NSDictionary *)options onResult:(void(^)(id))onResult;
+-(void)stopSubscription:(NSString *)type onResult:(void(^)(id))onResult whereClause:(NSString *)whereClause;
+-(void)addSimpleListener:(NSString *)type callBack:(void (^)(id))callback;
+-(void)addErrorListener:(void(^)(RTError *))onError;
+-(void)removeErrorListener:(void(^)(RTError *))onError;
 
 @end
