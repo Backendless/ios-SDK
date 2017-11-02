@@ -20,20 +20,27 @@
  */
 
 #import <Foundation/Foundation.h>
-//#import "RTError.h"
+#import "RTError.h"
+#import "RTListener.h"
 
-//typedef enum {
-//    MAPDRIVENDATASTORE = 0,
-//    DATASTOREFACTORY = 1
-//} DataStoreTypeEnum;
-//
-@interface RTDataStore : NSObject
-//
-//-(RTDataStore *)initWithTableName:(NSString *)tableName withEntity:(Class)tableEntity dataStoreType:(UInt32)dataStoreType;
-//
-//-(void)addErrorListener:(void (^)(RTError *))onError;
-//
-//-(void)addCreateListener:(void (^)(id))onCreate;
-//-(void)addCreateListener:(NSString *)whereClause onCreateCallback:(void (^)(id))onCreate;
+typedef enum {
+    MAPDRIVENDATASTORE = 0,
+    DATASTOREFACTORY = 1
+} DataStoreTypeEnum;
+
+@interface RTDataStore : RTListener
+
+-(RTDataStore *)initWithTableName:(NSString *)tableName withEntity:(Class)tableEntity dataStoreType:(UInt32)dataStoreType;
+
+-(void)addErrorListener:(void(^)(RTError *))onError;
+-(void)removeErrorListener:(void(^)(RTError *))onError;
+-(void)removeErrorListener;
+
+-(void)addCreateListener:(void(^)(id))onCreate;
+-(void)addCreateListener:(NSString *)whereClause onCreate:(void(^)(id))onCreate;
+-(void)removeCreateListener:(NSString *)whereClause onCreate:(void(^)(id))onCreate;
+-(void)removeCreateListenerWithCallback:(void(^)(id))onCreate;
+-(void)removeCreateListenerWithWhereClause:(NSString *)whereClause;
+-(void)removeCreateListener;
 
 @end

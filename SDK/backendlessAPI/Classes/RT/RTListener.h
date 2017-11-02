@@ -19,8 +19,6 @@
  *  ********************************************************************************************************************
  */
 
-// ОТ ЭТОГО КЛАССА НАСЛЕДУЕТСЯ DATA STORE
-
 #import <Foundation/Foundation.h>
 @class RTSubscription;
 @class RTError;
@@ -29,11 +27,4 @@
 #define OBJECTS_CHANGES_TYPE @"OBJECTS_CHANGES"
 
 @interface RTListener : NSObject
-
--(void)addSubscription:(NSString *)type options:(NSDictionary *)options onResult:(void(^)(id))onResult;
--(void)stopSubscription:(NSString *)type onResult:(void(^)(id))onResult whereClause:(NSString *)whereClause;
--(void)addSimpleListener:(NSString *)type callBack:(void (^)(id))callback;
--(void)addErrorListener:(void(^)(RTError *))onError;
--(void)removeErrorListener:(void(^)(RTError *))onError;
-
 @end

@@ -57,6 +57,7 @@ static NSString *METHOD_LAST = @"last";
     if (self = [super init]) {
         _tableName = [tableName retain];
         [self setClassMapping];
+        self.rt = [[RTDataStore alloc] initWithTableName:_tableName withEntity:nil dataStoreType:MAPDRIVENDATASTORE];
     }
     return self;
 }

@@ -37,7 +37,7 @@
     if (self = [super init]) {
         _entityClass = [entityClass retain];
         [[Types sharedInstance] addClientClassMapping:@"Users" mapped:[BackendlessUser class]];
-        //        self.rt = [[RTDataStore alloc] initWithTableName:[backendless.persistenceService getEntityName:NSStringFromClass(_entityClass)] withEntity:_entityClass dataStoreType:DATASTOREFACTORY];
+        self.rt = [[RTDataStore alloc] initWithTableName:[backendless.persistenceService getEntityName:NSStringFromClass(_entityClass)] withEntity:_entityClass dataStoreType:DATASTOREFACTORY];
     }
     return self;
 }

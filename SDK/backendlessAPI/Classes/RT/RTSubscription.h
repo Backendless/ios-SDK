@@ -24,8 +24,6 @@
 
 @interface RTSubscription : NSObject
 
-@property (strong, nonatomic) NSDictionary *data;
-
 @property (nonatomic, strong) NSString *subscriptionId;
 @property (nonatomic, strong) NSString *type;
 @property (nonatomic, strong) NSDictionary *options;

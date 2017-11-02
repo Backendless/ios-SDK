@@ -22,104 +22,133 @@
 #import "Backendless.h"
 #import "RTDataStore.h"
 #import "RTClient.h"
+#import "RTListener+RTListenerMethods.h"
+#import "RTSubscription.h"
+#import "RTError.h"
 
-#define OBJECTS_CHANGES @"OBJECTS_CHANGES"
 #define CREATED @"created"
-#define ERROR_TYPE @"ErrorType"
 
-//@interface RTDataStore() {
-//    NSMutableArray *errorCallbacks;
-//    NSMutableDictionary<NSString *, NSMutableArray<RTSubscription *> *> *subscriptions;
-//    void (^onError)(RTError *);
-//    void (^onStop)(NSString *);
-//    BOOL subscribed;
-//    NSString *table;
-//    Class entity;
-//    int dataStore;
-//}
-//@end
+@interface RTDataStore() {
+    NSString *table;
+    Class entity;
+    int dataStore;
+}
+@end
 
 @implementation RTDataStore
 
-//-(RTDataStore *)initWithTableName:(NSString *)tableName withEntity:(Class)tableEntity dataStoreType:(UInt32)dataStoreType {
-//    if (self = [super init]) {
-//        errorCallbacks = [NSMutableArray new];
-//        subscriptions = [NSMutableDictionary<NSString*, NSMutableArray<RTSubscription *> *> new];
-//        subscribed = NO;
-//        table = tableName;
-//        entity = tableEntity;
-//        dataStore = dataStoreType;
-//    }
-//    return self;
-//}
-//
-//-(void)addErrorListener:(void (^)(RTError *))onError {
-//    //    [rtClient connectSocket:^{
-//    //        [errorCallbacks addObject:[onError copy]];
-//    //    }];
-//}
-//
-//-(void)addCreateListener:(void(^)(id))onCreate {
-//    [self subscribeForObjectChanges:nil event:CREATED tableName:table whereClause:nil onData:onCreate];
-//}
-//
-//-(void)addCreateListener:(NSString *)whereClause onCreateCallback:(void (^)(id))onCreate {
-//    [self subscribeForObjectChanges:whereClause event:CREATED tableName:table whereClause:nil onData:onCreate];
-//}
-//
-//-(void)subscribeForObjectChanges:(NSString *)subId event:(NSString *)event tableName:(NSString *)tableName whereClause:(NSString *)whereClause onData:(void(^)(id))onData {
-//    
-//    if (!subId) {
-//        subId = [[NSUUID UUID] UUIDString];
-//    }
-//    NSDictionary *options = @{@"tableName"  : tableName,
-//                              @"event"      : event};
-//    if (whereClause) {
-//        options = @{@"tableName"    : tableName,
-//                    @"event"        : event,
-//                    @"whereClause"  : whereClause};
-//        
-//    }
-//    NSDictionary *data = @{@"id"        : subId,
-//                           @"name"      : OBJECTS_CHANGES,
-//                           @"options"   : options};
-//    
-//    __weak NSMutableArray *weakErrorCallbacks = errorCallbacks;
-//    __weak NSMutableDictionary<NSString *, NSMutableArray<RTSubscription *> *> *weakSubscriptions = subscriptions;
-//    
-//    onError = ^(RTError *error) {
-//        for (int i = 0; i < [errorCallbacks count]; i++) {
-//            void (^errorBlock)(RTError *) = [weakErrorCallbacks objectAtIndex:i];
-//            errorBlock(error);
-//        }
-//    };
-//    
-//    onStop = ^(NSString *subId) {
-//        [rtClient.socket emit:@"SUB_OFF" with:[NSArray arrayWithObject:subId]];
-//        [rtClient.subscriptions removeObjectForKey:subId];
-//        
-//        for (NSMutableSet *subscriptionsSet in [weakSubscriptions allValues]) {
-//            for (RTSubscription *subscription in subscriptionsSet) {
-//                if ([[subscription.data valueForKey:@"id"] isEqualToString:subId]) {
-//                    [subscriptionsSet removeObject:subscription];
-//                }
-//            }
-//        }
-//    };
-//    
-//    RTSubscription *subscription = [RTSubscription new];
-//    subscription.data = data;
-//    subscription.onData = onData;
-//    subscription.onError = onError;
-//    subscription.onStop = onStop;
-//    
-//    NSMutableArray *subscriptionSet = [NSMutableArray arrayWithArray:[subscriptions valueForKey:event]];
-//    [subscriptionSet addObject:subscription];
-//    
-//    [rtClient.subscriptions setObject:subscription forKey:subId];
-//    
-//    [rtClient subscribe:data];
-//}
+-(RTDataStore *)initWithTableName:(NSString *)tableName withEntity:(Class)tableEntity dataStoreType:(UInt32)dataStoreType {
+    if (self = [super init]) {
+        table = tableName;
+        entity = tableEntity;
+        dataStore = dataStoreType;
+    }
+    return self;
+}
+
+-(void)addErrorListener:(void(^)(RTError *))onError {
+    [super addSimpleListener:ERROR_TYPE callBack:onError];
+}
+
+-(void)removeErrorListener:(void(^)(RTError *))onError {
+    [super removeSimpleListener:ERROR_TYPE callBack:[onError copy]];
+}
+
+-(void)removeErrorListener {
+    [super removeSimpleListener:ERROR_TYPE];
+}
+
+-(void)addCreateListener:(void(^)(id))onCreate {
+    [self subscribeForObjectChanges:CREATED tableName:table whereClause:nil onData:onCreate];
+}
+
+-(void)addCreateListener:(NSString *)whereClause onCreate:(void(^)(id))onCreate {
+    [self subscribeForObjectChanges:CREATED tableName:table whereClause:whereClause onData:onCreate];
+}
+
+-(void)removeCreateListener:(NSString *)whereClause onCreate:(void(^)(id))onCreate {
+    [super stopSubscription:CREATED whereClause:whereClause onResult:onCreate];
+}
+
+-(void)removeCreateListenerWithCallback:(void (^)(id))onCreate {
+    [super stopSubscription:CREATED whereClause:nil onResult:onCreate];
+}
+
+-(void)removeCreateListenerWithWhereClause:(NSString *)whereClause {
+    [super stopSubscription:CREATED whereClause:whereClause onResult:nil];
+}
+
+-(void)removeCreateListener {
+    [super stopSubscription:CREATED whereClause:nil onResult:nil];
+}
+
+-(void)subscribeForObjectChanges:(NSString *)event tableName:(NSString *)tableName whereClause:(NSString *)whereClause onData:(void(^)(id))onChange {
+    
+    NSDictionary *options = @{@"tableName"  : tableName,
+                              @"event"      : event};
+    if (whereClause) {
+        options = @{@"tableName"    : tableName,
+                    @"event"        : event,
+                    @"whereClause"  : whereClause};
+    }
+    
+    void(^wrappedOnChanges)(NSDictionary *) = ^(NSDictionary *result) {
+        if (dataStore == DATASTOREFACTORY) {
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:result options:NSJSONWritingPrettyPrinted error:nil];
+            id resultObject = [self objectFromJSON:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
+            onChange(resultObject);
+        }
+        else if (dataStore == MAPDRIVENDATASTORE) {
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:result options:NSJSONWritingPrettyPrinted error:nil];
+            NSDictionary *resultDictionary = [self dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
+            onChange(resultDictionary);
+        }
+    };
+    
+    [super addSubscription:OBJECTS_CHANGES_TYPE options:options onResult:wrappedOnChanges];
+};
+
+// *************************************************
+
+-(id)objectFromJSON:(NSString *)JSONString {
+    NSError *error;
+    NSData *JSONData = [JSONString dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *JSONDictionary = [NSJSONSerialization JSONObjectWithData:JSONData options:0 error:&error];
+    id object = [entity new];
+    object = [self setObject:object valuesFromDictionary:JSONDictionary];
+    return object;
+}
+
+-(id)setObject:(id)object valuesFromDictionary:(NSDictionary *) dictionary {
+    [self prepareClass:[object class]];
+    for (NSString *fieldName in dictionary) {
+        if (![fieldName isEqualToString:@"___jsonclass"] && ![fieldName isEqualToString:@"__meta"] && ![fieldName isEqualToString:@"___class"]) {
+            [object setValue:[dictionary objectForKey:fieldName] forKey:fieldName];
+        }
+    }
+    return object;
+}
+
+-(void)prepareClass:(Class)class {
+    [__types classInstance:class];
+    [class resolveProperty:@"objectId"];
+    [class resolveProperty:@"ownerId"];
+    [class resolveProperty:@"created"];
+    [class resolveProperty:@"updated"];
+}
+
+-(NSDictionary *)dictionaryFromJson:(NSString *)JSONString {
+    NSMutableDictionary *dictionary = [NSMutableDictionary new];
+    NSError *error;
+    NSData *JSONData = [JSONString dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *JSONDictionary = [NSJSONSerialization JSONObjectWithData:JSONData options:0 error:&error];
+    for (NSString *fieldName in JSONDictionary) {
+        if (![fieldName isEqualToString:@"___jsonclass"] && ![fieldName isEqualToString:@"__meta"] && ![fieldName isEqualToString:@"___class"]) {
+            [dictionary setValue:[JSONDictionary valueForKey:fieldName] forKey:fieldName];
+        }
+    }
+    return dictionary;
+}
 
 @end
 

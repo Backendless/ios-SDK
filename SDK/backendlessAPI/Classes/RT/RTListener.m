@@ -19,8 +19,6 @@
  *  ********************************************************************************************************************
  */
 
-// ОТ ЭТОГО КЛАССА НАСЛЕДУЕТСЯ DATA STORE
-
 #import "RTListener.h"
 #import "RTClient.h"
 #import "RTSubscription.h"
@@ -55,7 +53,7 @@
     __weak NSMutableDictionary<NSString *, NSMutableArray *> *weakSimpleListeners = simpleListeners;
     
     onError = ^(RTError *error) {
-        NSArray *errorCallbacks = [weakSubscriptions valueForKey:ERROR_TYPE];
+        NSArray *errorCallbacks = [NSArray arrayWithArray:[weakSimpleListeners valueForKey:ERROR_TYPE]];
         for (int i = 0; i < [errorCallbacks count]; i++) {
             void(^errorBlock)(RTError *) = [errorCallbacks objectAtIndex:i];
             errorBlock(error);
@@ -70,50 +68,63 @@
     RTSubscription *subscription = [RTSubscription new];
     subscription.subscriptionId = subscriptionId;
     subscription.type = type;
-    subscription.options = options;
+    subscription.options = [NSDictionary dictionaryWithDictionary:options];
     subscription.onResult = onResult;
     subscription.onError = onError;
     subscription.onStop = onStop;
     
     [rtClient subscribe:data subscription:subscription];
     
-    NSMutableArray *subscriptionStack = [NSMutableArray arrayWithArray:[subscriptions valueForKey:type]] ? [NSMutableArray arrayWithArray:[subscriptions valueForKey:type]] : [NSMutableArray new];
+    NSString *event = [[data valueForKey:@"options"] valueForKey:@"event"];
+    NSMutableArray *subscriptionStack = [NSMutableArray arrayWithArray:[subscriptions valueForKey:event]];
     [subscriptionStack addObject:subscription];
+    [subscriptions setObject:subscriptionStack forKey:event];
+    
+    for (RTSubscription *sub in subscriptionStack) {
+        NSLog(@"%@", sub.subscriptionId);
+        NSLog(@"%@", sub.type);
+        NSLog(@"%@", sub.options);
+    }
 }
 
--(void)stopSubscription:(NSString *)type onResult:(void(^)(id))onResult whereClause:(NSString *)whereClause {
-    NSMutableArray *subscriptionStack = [NSMutableArray arrayWithArray:[subscriptions valueForKey:type]] ? [NSMutableArray arrayWithArray:[subscriptions valueForKey:type]] : [NSMutableArray new];
-    if (whereClause) {
-        for (RTSubscription *subscription in subscriptionStack) {
-            if ([[subscription.options valueForKey:@"whereClause"] isEqualToString:whereClause]) {
-                [subscription stop];
-            }
-        }
-    }
-    else if (onResult) {
-        for (RTSubscription *subscription in subscriptionStack) {
-            if (subscription.onResult == onResult) {
-                [subscription stop];
-            }
-        }
-    }
-    else if (whereClause && onResult) {
-        for (RTSubscription *subscription in subscriptionStack) {
-            if ([[subscription.options valueForKey:@"whereClause"] isEqualToString:whereClause] && subscription.onResult == onResult) {
-                [subscription stop];
-            }
-        }
-    }
-    else {
-        for (RTSubscription *subscription in subscriptionStack) {
-            [subscription stop];
-        }
-    }
+-(void)stopSubscription:(NSString *)event whereClause:(NSString *)whereClause onResult:(void(^)(id))onResult {
+    //    NSMutableArray *subscriptionStack = [NSMutableArray arrayWithObject:[subscriptions valueForKey:event]];
+    //    if (subscriptionStack) {
+    //        if (whereClause && onResult) {
+    //            for (RTSubscription *subscription in subscriptionStack) {
+    //                if ([subscription.options valueForKey:@"whereClause"]) {
+    //                    if ([[subscription.options valueForKey:@"whereClause"] isEqualToString:whereClause] && subscription.onResult == onResult) {
+    //                        onStop(subscription);
+    //                    }
+    //                }
+    //            }
+    //        }
+    //        else if (!whereClause && onResult) {
+    //            for (RTSubscription *subscription in subscriptionStack) {
+    //                if (![subscription.options valueForKey:@"whereClause"] && subscription.onResult == onResult) {
+    //                    [subscription stop];
+    //                }
+    //            }
+    //        }
+    //        else if (whereClause && !onResult) {
+    //            for (RTSubscription *subscription in subscriptionStack) {
+    //                if ([[subscription.options valueForKey:@"whereClause"] isEqualToString:whereClause]) {
+    //                    [subscription stop];
+    //                }
+    //            }
+    //        }
+    //        else {
+    //            for (RTSubscription *subscription in subscriptionStack) {
+    //                [subscription stop];
+    //            }
+    //        }
+    //    }
 }
 
 -(void)addSimpleListener:(NSString *)type callBack:(void(^)(id))callback {
     NSMutableArray *listenersStack = [NSMutableArray arrayWithArray:[simpleListeners valueForKey:type]] ? [NSMutableArray arrayWithArray:[simpleListeners valueForKey:type]] : [NSMutableArray new];
     [listenersStack addObject:[callback copy]];
+    [simpleListeners setObject:listenersStack forKey:type];
 }
 
 -(void)removeSimpleListener:(NSString *)type callBack:(void(^)(id))callback {
@@ -125,12 +136,13 @@
     }
 }
 
--(void)addErrorListener:(void(^)(RTError *))onError {
-    [self addSimpleListener:ERROR_TYPE callBack:[onError copy]];
-}
-
--(void)removeErrorListener:(void(^)(RTError *))onError {
-    [self removeSimpleListener:ERROR_TYPE callBack:onError];
+-(void)removeSimpleListener:(NSString *)type {
+    if ([simpleListeners valueForKey:type]) {
+        NSMutableArray *listenersStack = [simpleListeners valueForKey:type];
+        if (listenersStack) {
+            [listenersStack removeAllObjects];
+        }
+    }
 }
 
 -(void)removeAllListeners {

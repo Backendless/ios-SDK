@@ -55,7 +55,7 @@
         needResubscribe = NO;
         onConnectionHandlersReady = NO;
         _lock = [NSLock new];
-    }
+    }    
     return self;
 }
 
@@ -73,6 +73,7 @@
         }
         if (socketConnected) {
             connected();
+            [_lock unlock];
         }
         else {
             [socket connect];
@@ -80,7 +81,7 @@
     });
 }
 
--(void)subscribe:(NSDictionary *)data subscription:(RTSubscription *)subscription {
+-(void)subscribe:(NSDictionary *)data subscription:(RTSubscription *)subscription {    
     if(socketConnected) {
         [socket emit:@"SUB_ON" with:[NSArray arrayWithObject:data]];
     }
@@ -89,7 +90,9 @@
             [socket emit:@"SUB_ON" with:[NSArray arrayWithObject:data]];
         }];
     }
-    [subscriptions setObject:subscription forKey:subscription.subscriptionId];
+    if (!needResubscribe) {
+        [subscriptions setObject:subscription forKey:subscription.subscriptionId];
+    }
 }
 
 -(void)unsubscribe:(NSString *)subscriptionId {
@@ -105,21 +108,27 @@
             NSLog(@"***** Socket connected *****");
             socketConnected = YES;
             [_lock unlock];
-            
-            // reusbscribe
+
             if (needResubscribe) {
-                NSLog(@"Here will be resubscribed: %lu", (unsigned long)[subscriptions count]);
+                for (NSString *subscriptionId in subscriptions) {
+                    RTSubscription *subscription = [subscriptions valueForKey:subscriptionId];
+                    
+                    NSDictionary *data = @{@"id"        : subscriptionId,
+                                           @"name"      : subscription.type,
+                                           @"options"   : subscription.options};
+                    
+                    [self subscribe:data subscription:subscription];
+                }
                 needResubscribe = NO;
             }
+            
             else if (!needResubscribe) {
                 [self onResult];
                 connected();
             }
         }];
-        
         [socket on:@"reconnect" callback:^(NSArray* data, SocketAckEmitter* ack) {
             NSLog(@"***** Socket reconnected *****");
-            [_lock lock];
             socketConnected = NO;
             needResubscribe = YES;
         }];
@@ -129,11 +138,11 @@
 -(void)onResult {
     [socket on:@"SUB_RES" callback:^(NSArray* data, SocketAckEmitter* ack) {
         NSDictionary *resultData = data.firstObject;
-        NSString *subId = [resultData valueForKey:@"id"];
+        NSString *subscriptionId = [resultData valueForKey:@"id"];
         
         if ([resultData valueForKey:@"result"]) {
             NSDictionary *result = [resultData valueForKey:@"result"];
-            void (^resultCallback)(id) = ((RTSubscription *)[subscriptions valueForKey:subId]).onResult;
+            void(^resultCallback)(id) = ((RTSubscription *)[subscriptions valueForKey:subscriptionId]).onResult;
             if (resultCallback) {
                 resultCallback(result);
             }
@@ -143,15 +152,16 @@
             error.code = [[resultData valueForKey:@"error"] valueForKey:@"code"];
             error.message = [[resultData valueForKey:@"error"] valueForKey:@"message"];
             error.details = [[resultData valueForKey:@"details"] valueForKey:@"code"];
-            void (^errorCallback)(RTError *) = ((RTSubscription *)[subscriptions valueForKey:subId]).onError;
+            
+            void(^errorCallback)(RTError *) = ((RTSubscription *)[subscriptions valueForKey:subscriptionId]).onError;
             if (errorCallback) {
                 errorCallback(error);
             }
-            void (^stopCallback)(RTSubscription *) = [subscriptions valueForKey:subId].onStop;
+            void(^stopCallback)(RTSubscription *) = [subscriptions valueForKey:subscriptionId].onStop;
             if (stopCallback) {
-                stopCallback([subscriptions valueForKey:subId]);
-            }
-            [subscriptions removeObjectForKey:subId];
+                stopCallback([subscriptions valueForKey:subscriptionId]);
+                [subscriptions removeObjectForKey:subscriptionId];
+            }       
         }
     }];
 }
