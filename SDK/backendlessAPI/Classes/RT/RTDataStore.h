@@ -43,4 +43,21 @@ typedef enum {
 -(void)removeCreateListenerWithWhereClause:(NSString *)whereClause;
 -(void)removeCreateListener;
 
+-(void)addUpdateListener:(void(^)(id))onUpdate;
+-(void)addUpdateListener:(NSString *)whereClause onUpdate:(void(^)(id))onUpdate;
+-(void)removeUpdateListener:(NSString *)whereClause onUpdate:(void(^)(id))onUpdate;
+-(void)removeUpdateListenerWithCallback:(void(^)(id))onUpdate;
+-(void)removeUpdateListenerWithWhereClause:(NSString *)whereClause;
+-(void)removeUpdateListener;
+
+-(void)addDeleteListener:(void(^)(id))onDelete;
+-(void)addDeleteListener:(NSString *)whereClause onDelete:(void(^)(id))onDelete;
+-(void)removeDeleteListener:(NSString *)whereClause onDelete:(void(^)(id))onDelete;
+-(void)removeDeleteListenerWithCallback:(void(^)(id))onDelete;
+-(void)removeDeleteListenerWithWhereClause:(NSString *)whereClause;
+-(void)removeDeleteListener;
+
+-(void)removeAllListeners;
+
 @end
+

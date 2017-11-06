@@ -28,3 +28,4 @@
 @property (strong, nonatomic) NSObject *details;
 
 @end
+

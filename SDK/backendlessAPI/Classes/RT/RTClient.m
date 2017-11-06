@@ -24,6 +24,7 @@
 #import "RTSubscription.h"
 #import "RTError.h"
 
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 
 @interface RTClient() {
     SocketIOClient *socket;
@@ -55,7 +56,7 @@
         needResubscribe = NO;
         onConnectionHandlersReady = NO;
         _lock = [NSLock new];
-    }    
+    }
     return self;
 }
 
@@ -81,7 +82,7 @@
     });
 }
 
--(void)subscribe:(NSDictionary *)data subscription:(RTSubscription *)subscription {    
+-(void)subscribe:(NSDictionary *)data subscription:(RTSubscription *)subscription {
     if(socketConnected) {
         [socket emit:@"SUB_ON" with:[NSArray arrayWithObject:data]];
     }
@@ -108,7 +109,7 @@
             NSLog(@"***** Socket connected *****");
             socketConnected = YES;
             [_lock unlock];
-
+            
             if (needResubscribe) {
                 for (NSString *subscriptionId in subscriptions) {
                     RTSubscription *subscription = [subscriptions valueForKey:subscriptionId];
@@ -144,7 +145,10 @@
             NSDictionary *result = [resultData valueForKey:@"result"];
             void(^resultCallback)(id) = ((RTSubscription *)[subscriptions valueForKey:subscriptionId]).onResult;
             if (resultCallback) {
-                resultCallback(result);
+                RTSubscription *subscription = [subscriptions valueForKey:subscriptionId];
+                if (subscription) {
+                    resultCallback([subscription.classInstance performSelector:subscription.handleData withObject:result]);
+                }
             }
         }
         else if ([resultData valueForKey:@"error"]) {
@@ -161,9 +165,10 @@
             if (stopCallback) {
                 stopCallback([subscriptions valueForKey:subscriptionId]);
                 [subscriptions removeObjectForKey:subscriptionId];
-            }       
+            }
         }
     }];
 }
 
 @end
+

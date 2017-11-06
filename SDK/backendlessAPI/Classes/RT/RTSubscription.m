@@ -25,7 +25,7 @@
 
 @implementation RTSubscription
 
--(void)stop {
+-(void)stop {    
     [rtClient unsubscribe:self.subscriptionId];
     if (self.onStop) {
         self.onStop(self);

@@ -30,6 +30,8 @@
 @property (nonatomic, copy) void(^onResult)(id);
 @property (nonatomic, copy) void(^onError)(RTError *);
 @property (nonatomic, copy) void(^onStop)(RTSubscription *);
+@property (nonatomic) SEL handleData;
+@property (nonatomic) id classInstance;
 
 -(void)stop;
 

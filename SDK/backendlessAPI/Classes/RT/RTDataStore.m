@@ -27,6 +27,8 @@
 #import "RTError.h"
 
 #define CREATED @"created"
+#define UPDATED @"updated"
+#define DELETED @"deleted"
 
 @interface RTDataStore() {
     NSString *table;
@@ -66,8 +68,8 @@
     [self subscribeForObjectChanges:CREATED tableName:table whereClause:whereClause onData:onCreate];
 }
 
--(void)removeCreateListener:(NSString *)whereClause onCreate:(void(^)(id))onCreate {
-    [super stopSubscription:CREATED whereClause:whereClause onResult:onCreate];
+-(void)removeCreateListener:(NSString *)whereClause onCreate:(void(^)(id))onCreate {    
+    [super stopSubscription:CREATED whereClause:whereClause onResult: onCreate];
 }
 
 -(void)removeCreateListenerWithCallback:(void (^)(id))onCreate {
@@ -82,6 +84,60 @@
     [super stopSubscription:CREATED whereClause:nil onResult:nil];
 }
 
+-(void)addUpdateListener:(void (^)(id))onUpdate {
+    [self subscribeForObjectChanges:UPDATED tableName:table whereClause:nil onData:onUpdate];
+}
+
+-(void)addUpdateListener:(NSString *)whereClause onUpdate:(void (^)(id))onUpdate {
+    [self subscribeForObjectChanges:UPDATED tableName:table whereClause:whereClause onData:onUpdate];
+}
+
+-(void)removeUpdateListener:(NSString *)whereClause onUpdate:(void (^)(id))onUpdate {
+    [super stopSubscription:UPDATED whereClause:whereClause onResult: onUpdate];
+}
+
+-(void)removeUpdateListenerWithCallback:(void (^)(id))onUpdate {
+    [super stopSubscription:UPDATED whereClause:nil onResult:onUpdate];
+}
+
+-(void)removeUpdateListenerWithWhereClause:(NSString *)whereClause {
+    [super stopSubscription:UPDATED whereClause:whereClause onResult:nil];
+}
+
+-(void)removeUpdateListener {
+    [super stopSubscription:UPDATED whereClause:nil onResult:nil];
+}
+
+-(void)addDeleteListener:(void (^)(id))onDelete {
+        [self subscribeForObjectChanges:DELETED tableName:table whereClause:nil onData:onDelete];
+}
+
+-(void)addDeleteListener:(NSString *)whereClause onDelete:(void (^)(id))onDelete {
+    [self subscribeForObjectChanges:DELETED tableName:table whereClause:whereClause onData:onDelete];
+}
+
+-(void)removeDeleteListener:(NSString *)whereClause onDelete:(void (^)(id))onDelete {
+    [super stopSubscription:DELETED whereClause:whereClause onResult: onDelete];
+}
+
+-(void)removeDeleteListenerWithCallback:(void (^)(id))onDelete {
+    [super stopSubscription:DELETED whereClause:nil onResult:onDelete];
+}
+
+-(void)removeDeleteListenerWithWhereClause:(NSString *)whereClause {
+    [super stopSubscription:DELETED whereClause:whereClause onResult:nil];
+}
+
+-(void)removeDeleteListener {
+    [super stopSubscription:DELETED whereClause:nil onResult:nil];
+}
+
+-(void)removeAllListeners {
+    [super stopSubscription:nil whereClause:nil onResult:nil];
+}
+
+// *********************************************
+
 -(void)subscribeForObjectChanges:(NSString *)event tableName:(NSString *)tableName whereClause:(NSString *)whereClause onData:(void(^)(id))onChange {
     
     NSDictionary *options = @{@"tableName"  : tableName,
@@ -92,21 +148,34 @@
                     @"whereClause"  : whereClause};
     }
     
-    void(^wrappedOnChanges)(NSDictionary *) = ^(NSDictionary *result) {
-        if (dataStore == DATASTOREFACTORY) {
-            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:result options:NSJSONWritingPrettyPrinted error:nil];
-            id resultObject = [self objectFromJSON:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
-            onChange(resultObject);
-        }
-        else if (dataStore == MAPDRIVENDATASTORE) {
-            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:result options:NSJSONWritingPrettyPrinted error:nil];
-            NSDictionary *resultDictionary = [self dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
-            onChange(resultDictionary);
-        }
-    };
+    //        void(^wrappedOnChanges)(NSDictionary *) = ^(NSDictionary *result) {
+    //            if (dataStore == DATASTOREFACTORY) {
+    //                NSData *jsonData = [NSJSONSerialization dataWithJSONObject:result options:NSJSONWritingPrettyPrinted error:nil];
+    //                id resultObject = [self objectFromJSON:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
+    //                onChange(resultObject);
+    //            }
+    //            else if (dataStore == MAPDRIVENDATASTORE) {
+    //                NSData *jsonData = [NSJSONSerialization dataWithJSONObject:result options:NSJSONWritingPrettyPrinted error:nil];
+    //                NSDictionary *resultDictionary = [self dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
+    //                onChange(resultDictionary);
+    //            }
+    //        };
     
-    [super addSubscription:OBJECTS_CHANGES_TYPE options:options onResult:wrappedOnChanges];
+    [super addSubscription:OBJECTS_CHANGES_TYPE options:options onResult:onChange handleDataSelector:@selector(handleData:) fromClass:self];
 };
+
+-(id)handleData:(NSDictionary *)jsonResult {
+    id result;
+    if (dataStore == DATASTOREFACTORY) {
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonResult options:NSJSONWritingPrettyPrinted error:nil];
+        result = [self objectFromJSON:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
+    }
+    else if (dataStore == MAPDRIVENDATASTORE) {
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonResult options:NSJSONWritingPrettyPrinted error:nil];
+        result = [self dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
+    }
+    return result;
+}
 
 // *************************************************
 
