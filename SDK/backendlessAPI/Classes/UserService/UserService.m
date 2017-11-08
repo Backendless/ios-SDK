@@ -101,13 +101,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     return self;
 }
 
--(void)dealloc {
-    [DebLog logN:@"DEALLOC UserService"];
-    [self.currentUser release];
-    [super dealloc];
-}
-
--(BackendlessUser *)initWithDictionary:(id)castObject {
+-(BackendlessUser *)castFromDictionary:(id)castObject {
     BackendlessUser *castedUser = nil;
     if ([castObject isKindOfClass:[BackendlessUser class]]) {
         castedUser = (BackendlessUser *)castObject;
@@ -147,7 +141,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
     [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
     NSArray *args = [NSArray arrayWithObjects:props, nil];
-    return [self initWithDictionary:[invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_REGISTER args:args]];
+    return [self castFromDictionary:[invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_REGISTER args:args]];
 }
 
 -(BackendlessUser *)update:(BackendlessUser *)user {
@@ -176,7 +170,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     if (!login || !password || ![login length] || ![password length])
         return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
     NSArray *args = [NSArray arrayWithObjects:login, password, nil];
-    self.currentUser = [self initWithDictionary:[invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_LOGIN args:args]];
+    self.currentUser = [self castFromDictionary:[invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_LOGIN args:args]];
     if (self.currentUser.getUserToken)
         [backendless.headers setValue:self.currentUser.getUserToken forKey:BACKENDLESS_USER_TOKEN];
     else
@@ -271,7 +265,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     NSArray *args = [NSArray arrayWithObjects:props, nil];
     
     void(^wrappedBlock)(NSDictionary *) = ^(NSDictionary *regUserDict) {
-        responseBlock([self initWithDictionary:regUserDict]);
+        responseBlock([self castFromDictionary:regUserDict]);
     };
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_REGISTER args:args responder:[ResponderBlocksContext responderBlocksContext:wrappedBlock error:errorBlock]];
 }
@@ -568,8 +562,9 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 
 -(id)onLogout:(id)response {
     [DebLog log:@"UserService -> onLogout: %@", response];
-    if (self.currentUser) [self.currentUser release];
-    self.currentUser = nil;
+    if (self.currentUser) {
+        self.currentUser = nil;
+    }
     [backendless.headers removeObjectForKey:BACKENDLESS_USER_TOKEN];
     [self resetPersistentUser];
     return response;
