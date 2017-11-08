@@ -1,5 +1,8 @@
 # RELEASE HISTORY
 
+## 4.0.17 November 8, 2017
+* Fixed the logout bug when "Users" table is mapped to the BackendlessUser class
+
 ## 4.0.16 October 6, 2017
 * The deviceRegistration (sync/async) methods bug with the default channel fixed
 * The BackendlessPushHelper class created to process mutable content
