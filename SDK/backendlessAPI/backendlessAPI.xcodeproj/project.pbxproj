@@ -1458,6 +1458,7 @@
 		5A633F461F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; };
 		5A633F471F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; };
 		5A633F481F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; };
+		5AAEFE321FB34099006EBC8F /* UserService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480515FF5AC500012DFC /* UserService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5AF2B7281EB2136300D54442 /* MessagingService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AFFBF7A1EB211EC0099A72F /* MessagingService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AF2B7291EB2137200D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; };
 		5AF2B72A1EB2137A00D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; };
@@ -1839,7 +1840,6 @@
 		F9F0AE861CDBCA3900035C62 /* AbstractProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D9234160B61AF00AFF3F6 /* AbstractProperty.m */; };
 		F9F0AE871CDBCA3900035C62 /* GeoFence.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064BF1AFCE64D00779BB1 /* GeoFence.m */; };
 		F9F0AE881CDBCA3900035C62 /* BeaconTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB138D1BC53D2300F3CA1D /* BeaconTracker.m */; };
-		F9F0AE891CDBCA3900035C62 /* UserService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480515FF5AC500012DFC /* UserService.m */; };
 		F9F0AE8A1CDBCA3900035C62 /* BackendlessUser.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480915FF724000012DFC /* BackendlessUser.m */; };
 		F9F0AE8B1CDBCA3900035C62 /* CacheFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F8BD9D19825CF80009DB40 /* CacheFactory.m */; };
 		F9F0AE8C1CDBCA3900035C62 /* UserProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480C15FF7DEA00012DFC /* UserProperty.m */; };
@@ -5474,6 +5474,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5AAEFE321FB34099006EBC8F /* UserService.m in Sources */,
 				5AF2B72E1EB213AC00D54442 /* MessagingService.m in Sources */,
 				84B027EE1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */,
 				F9B360C51D65A7BD00818EEF /* UICKeyChainStore.m in Sources */,
@@ -5488,7 +5489,6 @@
 				0F9ACA3C1E798C5D0087869F /* BooleanType.m in Sources */,
 				F9F0AE871CDBCA3900035C62 /* GeoFence.m in Sources */,
 				F9F0AE881CDBCA3900035C62 /* BeaconTracker.m in Sources */,
-				F9F0AE891CDBCA3900035C62 /* UserService.m in Sources */,
 				0F9ACB091E798C5E0087869F /* UndefinedType.m in Sources */,
 				0F9ACC171E798C5F0087869F /* CommandMessage.m in Sources */,
 				0F9AC9AB1E798C5D0087869F /* Call.m in Sources */,
