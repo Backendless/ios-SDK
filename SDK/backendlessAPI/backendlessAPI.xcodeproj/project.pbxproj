@@ -2398,6 +2398,13 @@
 		0F9AC8121E798C5C0087869F /* V3ReferenceCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = V3ReferenceCache.m; sourceTree = "<group>"; };
 		1C7BB5101A2E092900D3C2C1 /* libbackendless-mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libbackendless-mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A507A741F3B41D80027ABAC /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		5A5F384F1FB317EB002F21D4 /* RTListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTListener.m; sourceTree = "<group>"; };
+		5A5F38501FB317EB002F21D4 /* RTMessaging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTMessaging.m; sourceTree = "<group>"; };
+		5A5F38511FB317EB002F21D4 /* RTListener+RTListenerMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RTListener+RTListenerMethods.h"; sourceTree = "<group>"; };
+		5A5F38521FB317EB002F21D4 /* RTSubscription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTSubscription.h; sourceTree = "<group>"; };
+		5A5F38531FB317EB002F21D4 /* RTListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTListener.h; sourceTree = "<group>"; };
+		5A5F38541FB317EB002F21D4 /* RTMessaging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTMessaging.h; sourceTree = "<group>"; };
+		5A5F38551FB317EB002F21D4 /* RTSubscription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTSubscription.m; sourceTree = "<group>"; };
 		5A633F3F1F7BB7F6004D7ACA /* BackendlessPushHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BackendlessPushHelper.h; sourceTree = "<group>"; };
 		5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BackendlessPushHelper.m; sourceTree = "<group>"; };
 		5A8A155C1FA0CB22009A1394 /* RTClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTClient.h; sourceTree = "<group>"; };
@@ -3110,14 +3117,17 @@
 			children = (
 				5A8A155C1FA0CB22009A1394 /* RTClient.h */,
 				5A8A155D1FA0CB22009A1394 /* RTClient.m */,
-				5A3D026D1FA896B7006A8C48 /* RTListener.h */,
-				5A3D026E1FA896B7006A8C48 /* RTListener.m */,
-				5A3D02611FA89420006A8C48 /* RTSubscription.h */,
-				5A3D02621FA89420006A8C48 /* RTSubscription.m */,
+				5A5F38511FB317EB002F21D4 /* RTListener+RTListenerMethods.h */,
+				5A5F38531FB317EB002F21D4 /* RTListener.h */,
+				5A5F384F1FB317EB002F21D4 /* RTListener.m */,
+				5A5F38521FB317EB002F21D4 /* RTSubscription.h */,
+				5A5F38551FB317EB002F21D4 /* RTSubscription.m */,
 				5ADAAF461FA34D1D00663B7D /* RTError.h */,
 				5ADAAF471FA34D1D00663B7D /* RTError.m */,
 				5A8A15801FA0D3C3009A1394 /* RTDataStore.h */,
 				5A8A15811FA0D3C3009A1394 /* RTDataStore.m */,
+				5A5F38541FB317EB002F21D4 /* RTMessaging.h */,
+				5A5F38501FB317EB002F21D4 /* RTMessaging.m */,
 			);
 			path = RT;
 			sourceTree = "<group>";
@@ -3573,7 +3583,6 @@
 				0F9ACB511E798C5E0087869F /* V3StringReader.h in Headers */,
 				0F9ACC0F1E798C5F0087869F /* CommandMessage.h in Headers */,
 				0F9ACA341E798C5D0087869F /* BooleanType.h in Headers */,
-				5A3D026F1FA896B7006A8C48 /* RTListener.h in Headers */,
 				0F9ACA891E798C5D0087869F /* NamedObject.h in Headers */,
 				0F9AC8D11E798C5C0087869F /* ISharedObjectBase.h in Headers */,
 				0F9ACB651E798C5E0087869F /* IAdaptingType.h in Headers */,
@@ -3737,7 +3746,6 @@
 				1C7BB5041A2E092900D3C2C1 /* BodyParts.h in Headers */,
 				1C7BB4EE1A2E092900D3C2C1 /* Backendless-Bridging-Header.h in Headers */,
 				F91AC5791D58CFBA00511EA5 /* MapDrivenDataStore.h in Headers */,
-				5A3D02631FA89420006A8C48 /* RTSubscription.h in Headers */,
 				D3A064A71AFA6E4A00779BB1 /* LocationTracker.h in Headers */,
 				1C7BB4EF1A2E092900D3C2C1 /* CustomService.h in Headers */,
 				F9CB13861BC53CDD00F3CA1D /* Presence.h in Headers */,
@@ -3900,7 +3908,6 @@
 				0F9ACABC1E798C5E0087869F /* NumberObject.h in Headers */,
 				0F9AC8781E798C5C0087869F /* IEvent.h in Headers */,
 				0F9AC8281E798C5C0087869F /* Responder.h in Headers */,
-				5A3D02711FA896BD006A8C48 /* RTListener.h in Headers */,
 				0F9ACBAC1E798C5E0087869F /* IArgumentObjectFactory.h in Headers */,
 				0F9AC8FF1E798C5C0087869F /* BaseRTMPProtocolEncoder.h in Headers */,
 				0F9ACC601E798C5F0087869F /* AMFBodyWriter.h in Headers */,
@@ -4013,7 +4020,6 @@
 				F96B1C6D1DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */,
 				F9CB13971BC53D5100F3CA1D /* BeaconMonitoring.h in Headers */,
 				F96B1C7B1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */,
-				5A3D02651FA89423006A8C48 /* RTSubscription.h in Headers */,
 				84B027E71DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h in Headers */,
 				F96B1C611DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */,
 				5A633F411F7BB7F6004D7ACA /* BackendlessPushHelper.h in Headers */,
@@ -4141,7 +4147,6 @@
 				0F9ACABD1E798C5E0087869F /* NumberObject.h in Headers */,
 				0F9AC8791E798C5C0087869F /* IEvent.h in Headers */,
 				0F9AC8291E798C5C0087869F /* Responder.h in Headers */,
-				5A3D02721FA896BE006A8C48 /* RTListener.h in Headers */,
 				0F9ACBAD1E798C5E0087869F /* IArgumentObjectFactory.h in Headers */,
 				0F9AC9001E798C5C0087869F /* BaseRTMPProtocolEncoder.h in Headers */,
 				0F9ACC611E798C5F0087869F /* AMFBodyWriter.h in Headers */,
@@ -4254,7 +4259,6 @@
 				91F139A517D7240A00D1AC4C /* BackendlessCacheKey.h in Headers */,
 				F96B1C7C1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */,
 				F96B1C6E1DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */,
-				5A3D02661FA89424006A8C48 /* RTSubscription.h in Headers */,
 				84B027E81DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h in Headers */,
 				F96B1C621DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */,
 				91F1399617D7240A00D1AC4C /* AbstractQuery.h in Headers */,
@@ -4382,7 +4386,6 @@
 				0F9ACB181E798C5E0087869F /* UTFStringReader.h in Headers */,
 				0F9ACD0C1E798C5F0087869F /* ObjectSerializer.h in Headers */,
 				0F9ACAE61E798C5E0087869F /* ReaderReferenceCache.h in Headers */,
-				5A3D02731FA896BE006A8C48 /* RTListener.h in Headers */,
 				0F9AC92E1E798C5C0087869F /* BaseEvent.h in Headers */,
 				0F9AC9C41E798C5D0087869F /* IClientSharedObjectDelegate.h in Headers */,
 				0F9ACC621E798C5F0087869F /* AMFBodyWriter.h in Headers */,
@@ -4495,15 +4498,12 @@
 				F9F0AF181CDBCA3900035C62 /* BackendlessFile.h in Headers */,
 				F9F0AF191CDBCA3900035C62 /* HashMap.h in Headers */,
 				F9F0AF261CDBCA3900035C62 /* AbstractQuery.h in Headers */,
-				5A3D02671FA89424006A8C48 /* RTSubscription.h in Headers */,
 				5A633F431F7BB7F6004D7ACA /* BackendlessPushHelper.h in Headers */,
 				F9F0AF271CDBCA3900035C62 /* BackendlessCachePolicy.h in Headers */,
 				F9F0AF291CDBCA3900035C62 /* BackendlessCacheProtocol.h in Headers */,
 				5AF2B72F1EB213B300D54442 /* MessagingService.h in Headers */,
 				F9F0AF2A1CDBCA3900035C62 /* QueryOptions.h in Headers */,
-				5A2150E21FA76C2700E08FC0 /* RTError.h in Headers */,
 				5A9E9A6C1FA769FB001BB2BE /* RTDataStore.h in Headers */,
-				5A2150E41FA76C3800E08FC0 /* RTClient.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4623,7 +4623,6 @@
 				0F9ACC6D1E798C5F0087869F /* AMFHeaderWriter.h in Headers */,
 				0F9ACADD1E798C5E0087869F /* PointerReader.h in Headers */,
 				0F9ACC271E798C5F0087869F /* ReqMessage.h in Headers */,
-				5A3D02741FA896BE006A8C48 /* RTListener.h in Headers */,
 				0F9ACB191E798C5E0087869F /* UTFStringReader.h in Headers */,
 				0F9ACD0D1E798C5F0087869F /* ObjectSerializer.h in Headers */,
 				0F9ACAE71E798C5E0087869F /* ReaderReferenceCache.h in Headers */,
@@ -4736,7 +4735,6 @@
 				F96B1C7E1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */,
 				84B027EA1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h in Headers */,
 				F9F0AFD11CDBCAB500035C62 /* FilePermission.h in Headers */,
-				5A3D02681FA89424006A8C48 /* RTSubscription.h in Headers */,
 				F9F0AFD21CDBCAB500035C62 /* BackendlessFile.h in Headers */,
 				F9F0AFD31CDBCAB500035C62 /* HashMap.h in Headers */,
 				F9F0AFE11CDBCAB500035C62 /* AbstractQuery.h in Headers */,
@@ -5086,7 +5084,6 @@
 				0F9ACC641E798C5F0087869F /* AMFBodyWriter.m in Sources */,
 				0F9ACCA01E798C5F0087869F /* BooleanWriter.m in Sources */,
 				0F9AC8591E798C5C0087869F /* Body.m in Sources */,
-				5A3D02641FA89420006A8C48 /* RTSubscription.m in Sources */,
 				0F9ACACA1E798C5E0087869F /* NumberReader.m in Sources */,
 				0F9AC9261E798C5C0087869F /* AudioData.m in Sources */,
 				1C7BB4AE1A2E092900D3C2C1 /* BackendlessFile.m in Sources */,
@@ -5122,7 +5119,6 @@
 				0F9ACAB61E798C5E0087869F /* NullType.m in Sources */,
 				0F9ACAF21E798C5E0087869F /* ReaderUtils.m in Sources */,
 				1C7BB4B91A2E092900D3C2C1 /* AbstractQuery.m in Sources */,
-				5A3D02701FA896B7006A8C48 /* RTListener.m in Sources */,
 				0F9ACAC01E798C5E0087869F /* NumberObject.m in Sources */,
 				1C7BB4BA1A2E092900D3C2C1 /* AtomicCountersFactory.m in Sources */,
 				0F9ACA6B1E798C5D0087869F /* DateType.m in Sources */,
@@ -5262,7 +5258,6 @@
 				F97969FF166CCB8200595F5E /* SubscriptionOptions.m in Sources */,
 				0F9ACB071E798C5E0087869F /* UndefinedType.m in Sources */,
 				0F9ACD551E798C600087869F /* V3ReferenceCache.m in Sources */,
-				5A3D02691FA89426006A8C48 /* RTSubscription.m in Sources */,
 				D316BA3B1A83C649007215CA /* ProtectedBackendlessGeoQuery.m in Sources */,
 				0F9AC91D1E798C5C0087869F /* Aggregate.m in Sources */,
 				D3A064DC1B0242B900779BB1 /* ClientCallback.m in Sources */,
@@ -5345,7 +5340,6 @@
 				91F139A617D7240A00D1AC4C /* BackendlessCacheKey.m in Sources */,
 				91F139AB17D7240A00D1AC4C /* BackendlessCachePolicy.m in Sources */,
 				0F9ACB391E798C5E0087869F /* V3DateReader.m in Sources */,
-				5A3D02751FA896C1006A8C48 /* RTListener.m in Sources */,
 				0F9ACA851E798C5D0087869F /* LongUTFStringReader.m in Sources */,
 				0F9ACAD51E798C5E0087869F /* ParseContext.m in Sources */,
 				5ADAAF4E1FA34D2900663B7D /* RTError.m in Sources */,
@@ -5459,7 +5453,6 @@
 				F9796A49166CD3DB00595F5E /* SubscriptionOptions.m in Sources */,
 				0F9ACB081E798C5E0087869F /* UndefinedType.m in Sources */,
 				0F9ACD561E798C600087869F /* V3ReferenceCache.m in Sources */,
-				5A3D026A1FA89427006A8C48 /* RTSubscription.m in Sources */,
 				D316BA3C1A83C649007215CA /* ProtectedBackendlessGeoQuery.m in Sources */,
 				0F9AC91E1E798C5C0087869F /* Aggregate.m in Sources */,
 				D3A064DD1B0242B900779BB1 /* ClientCallback.m in Sources */,
@@ -5542,7 +5535,6 @@
 				91F139A717D7240A00D1AC4C /* BackendlessCacheKey.m in Sources */,
 				91F139AC17D7240A00D1AC4C /* BackendlessCachePolicy.m in Sources */,
 				0F9ACB3A1E798C5E0087869F /* V3DateReader.m in Sources */,
-				5A3D02771FA896C1006A8C48 /* RTListener.m in Sources */,
 				0F9ACA861E798C5D0087869F /* LongUTFStringReader.m in Sources */,
 				0F9ACAD61E798C5E0087869F /* ParseContext.m in Sources */,
 				5ADAAF511FA34D2B00663B7D /* RTError.m in Sources */,
@@ -5656,7 +5648,6 @@
 				0F9ACAC31E798C5E0087869F /* NumberObject.m in Sources */,
 				F9F0AEA31CDBCA3900035C62 /* DeviceRegistration.m in Sources */,
 				0F9AC96A1E798C5D0087869F /* Ping.m in Sources */,
-				5A3D026B1FA89427006A8C48 /* RTSubscription.m in Sources */,
 				F9F0AEA41CDBCA3900035C62 /* DeliveryOptions.m in Sources */,
 				0F9ACC5D1E798C5F0087869F /* AmfV3Formatter.m in Sources */,
 				0F9ACCA31E798C5F0087869F /* BooleanWriter.m in Sources */,
@@ -5739,7 +5730,6 @@
 				F9F0AEC81CDBCA3900035C62 /* BackendlessCacheKey.m in Sources */,
 				0F9ACC851E798C5F0087869F /* ArrayReferenceWriter.m in Sources */,
 				0F9ACC7B1E798C5F0087869F /* AMFMessageWriter.m in Sources */,
-				5A3D02761FA896C1006A8C48 /* RTListener.m in Sources */,
 				F9F0AEC91CDBCA3900035C62 /* BackendlessCachePolicy.m in Sources */,
 				0F9ACA321E798C5D0087869F /* BooleanReader.m in Sources */,
 				5ADAAF4F1FA34D2900663B7D /* RTError.m in Sources */,
@@ -5853,7 +5843,6 @@
 				0F9ACAC41E798C5E0087869F /* NumberObject.m in Sources */,
 				F9F0AF5D1CDBCAB500035C62 /* DeviceRegistration.m in Sources */,
 				0F9AC96B1E798C5D0087869F /* Ping.m in Sources */,
-				5A3D026C1FA89427006A8C48 /* RTSubscription.m in Sources */,
 				F9F0AF5E1CDBCAB500035C62 /* DeliveryOptions.m in Sources */,
 				0F9ACC5E1E798C5F0087869F /* AmfV3Formatter.m in Sources */,
 				0F9ACCA41E798C5F0087869F /* BooleanWriter.m in Sources */,
@@ -5936,7 +5925,6 @@
 				F9F0AF821CDBCAB500035C62 /* BackendlessCacheKey.m in Sources */,
 				0F9ACC861E798C5F0087869F /* ArrayReferenceWriter.m in Sources */,
 				0F9ACC7C1E798C5F0087869F /* AMFMessageWriter.m in Sources */,
-				5A3D02781FA896C1006A8C48 /* RTListener.m in Sources */,
 				F9F0AF831CDBCAB500035C62 /* BackendlessCachePolicy.m in Sources */,
 				0F9ACA331E798C5D0087869F /* BooleanReader.m in Sources */,
 				5ADAAF501FA34D2A00663B7D /* RTError.m in Sources */,
