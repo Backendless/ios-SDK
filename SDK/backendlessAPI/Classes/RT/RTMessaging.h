@@ -20,6 +20,14 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "RTError.h"
+#import "RTListener.h"
 
-@interface RTMessaging : NSObject
+#define rtMessaging [RTMessaging sharedInstance]
+
+@interface RTMessaging : RTListener
+
++(RTMessaging *)sharedInstance;
+-(void)addConnectListener:(NSString *)channel onConnect:(void(^)(void))onConnect;
+
 @end

@@ -141,17 +141,29 @@
         NSDictionary *resultData = data.firstObject;
         NSString *subscriptionId = [resultData valueForKey:@"id"];
         
-        if ([resultData valueForKey:@"result"]) {
+        NSLog(@"RESULT DATA = %@", resultData);
+        
+        
+        
+        
+        
+        if ([resultData valueForKey:@"result"] && ![resultData valueForKey:@"error"]) {
             NSDictionary *result = [resultData valueForKey:@"result"];
             void(^resultCallback)(id) = ((RTSubscription *)[subscriptions valueForKey:subscriptionId]).onResult;
             if (resultCallback) {
                 RTSubscription *subscription = [subscriptions valueForKey:subscriptionId];
                 if (subscription) {
-                    resultCallback([subscription.classInstance performSelector:subscription.handleData withObject:result]);
+                    resultCallback([subscription.classInstance performSelector:subscription.handleResult withObject:result]);
                 }
             }
         }
-        else if ([resultData valueForKey:@"error"]) {
+        else if (![resultData valueForKey:@"result"] && ![resultData valueForKey:@"error"]) {
+//            void(^resultCallback)(id) = ((RTSubscription *)[subscriptions valueForKey:subscriptionId]).onResult;
+//            if (resultCallback) {
+//                resultCallback(nil);
+//            }
+        }
+        else if (![resultData valueForKey:@"result"] && [resultData valueForKey:@"error"]) {
             RTError *error = [RTError new];
             error.code = [[resultData valueForKey:@"error"] valueForKey:@"code"];
             error.message = [[resultData valueForKey:@"error"] valueForKey:@"message"];

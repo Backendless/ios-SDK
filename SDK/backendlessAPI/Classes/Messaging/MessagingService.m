@@ -113,6 +113,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 -(id)init {
     if (self = [super init]) {
         self.pollingFrequencySec = DEFAULT_POLLING_INTERVAL;
+        self.rt = rtMessaging;
         _subscriptions = [HashMap new];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.management.DeviceRegistrationDto" mapped:[DeviceRegistration class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.messaging.Message" mapped:[Message class]];

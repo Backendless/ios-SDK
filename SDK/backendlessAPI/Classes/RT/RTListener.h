@@ -25,6 +25,7 @@
 
 #define ERROR_TYPE @"ERROR"
 #define OBJECTS_CHANGES_TYPE @"OBJECTS_CHANGES"
+#define PUB_SUB_CONNECT_TYPE @"PUB_SUB_CONNECT"
 
 @interface RTListener : NSObject
 @end

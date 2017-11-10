@@ -22,6 +22,7 @@
 #import <Foundation/Foundation.h>
 #import "HashMap.h"
 #import "DeviceRegistration.h"
+#import "RTMessaging.h"
 
 @class UIUserNotificationCategory;
 @class MessageStatus, PublishOptions, DeliveryOptions, SubscriptionOptions, BESubscription, BodyParts, Message, Fault;
@@ -29,6 +30,8 @@
 @interface MessagingService : NSObject
 @property (nonatomic) uint pollingFrequencySec;
 @property (strong, nonatomic, readonly) HashMap *subscriptions;
+
+@property (strong, nonatomic) RTMessaging *rt;
 
 // sync methods with fault return (as exception)
 -(NSString *)registerDevice:(NSData *)deviceToken;

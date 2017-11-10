@@ -161,7 +161,7 @@
     //            }
     //        };
     
-    [super addSubscription:OBJECTS_CHANGES_TYPE options:options onResult:onChange handleDataSelector:@selector(handleData:) fromClass:self];
+    [super addSubscription:OBJECTS_CHANGES_TYPE options:options onResult:onChange handleResultSelector:@selector(handleData:) fromClass:self];
 };
 
 -(id)handleData:(NSDictionary *)jsonResult {

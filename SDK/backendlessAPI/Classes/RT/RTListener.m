@@ -29,6 +29,7 @@
     NSMutableDictionary<NSString *, NSMutableArray *> *simpleListeners;
     void(^onError)(RTError *);
     void(^onStop)(RTSubscription *);
+    void(^onReady)(void);
 }
 @end
 
@@ -42,7 +43,7 @@
     return self;
 }
 
--(void)addSubscription:(NSString *)type options:(NSDictionary *)options onResult:(void(^)(id))onResult handleDataSelector:(SEL)handleDataSelector fromClass:(id)subscriptionClassInstance {
+-(void)addSubscription:(NSString *)type options:(NSDictionary *)options onResult:(void(^)(id))onResult handleResultSelector:(SEL)handleResultSelector fromClass:(id)subscriptionClassInstance {
     
     NSString *subscriptionId = [[NSUUID UUID] UUIDString];
     NSDictionary *data = @{@"id"        : subscriptionId,
@@ -65,6 +66,14 @@
         [subscriptionStack removeObject:subscription];
     };
     
+    onReady = ^{
+        NSArray *readyCallbacks = [NSArray arrayWithArray:[weakSimpleListeners valueForKey:PUB_SUB_CONNECT_TYPE]];
+        for (int i = 0; i < [readyCallbacks count]; i++) {
+            void(^readyBlock)(id) = [readyCallbacks objectAtIndex:i];
+            readyBlock(nil);
+        }
+    };
+    
     RTSubscription *subscription = [RTSubscription new];
     subscription.subscriptionId = subscriptionId;
     subscription.type = type;
@@ -72,15 +81,26 @@
     subscription.onResult = onResult;
     subscription.onError = onError;
     subscription.onStop = onStop;
-    subscription.handleData = handleDataSelector;
-    subscription.classInstance = subscriptionClassInstance;\
+    subscription.onReady = onReady;
+    subscription.ready = NO;
+    subscription.handleResult = handleResultSelector;
+    subscription.classInstance = subscriptionClassInstance;
     
     [rtClient subscribe:data subscription:subscription];
     
-    NSString *event = [[data valueForKey:@"options"] valueForKey:@"event"];
-    NSMutableArray *subscriptionStack = [NSMutableArray arrayWithArray:[subscriptions valueForKey:event]];
+    NSString *typeName = [data valueForKey:@"name"];
+    if ([typeName isEqualToString:OBJECTS_CHANGES_TYPE]) {
+        typeName = [[data valueForKey:@"options"] valueForKey:@"event"];
+    }
+    
+    NSMutableArray *subscriptionStack = [NSMutableArray arrayWithArray:[subscriptions valueForKey:typeName]];
+    if (!subscriptionStack) {
+        subscriptionStack = [NSMutableArray new];
+    }
     [subscriptionStack addObject:subscription];
-    [subscriptions setObject:subscriptionStack forKey:event];
+    NSLog(@"SUB STACK: %@", subscriptionStack);
+    
+    [subscriptions setObject:subscriptionStack forKey:typeName];
 }
 
 -(void)stopSubscription:(NSString *)event whereClause:(NSString *)whereClause onResult:(void(^)(id))onResult {

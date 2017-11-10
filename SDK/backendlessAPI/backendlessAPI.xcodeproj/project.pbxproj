@@ -1366,7 +1366,7 @@
 		1C7BB4911A2E092900D3C2C1 /* CustomService.m in Sources */ = {isa = PBXBuildFile; fileRef = D36CDDEF19C99D5900C3FFE3 /* CustomService.m */; };
 		1C7BB4921A2E092900D3C2C1 /* Invoker.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480215FF5AA900012DFC /* Invoker.m */; };
 		1C7BB4931A2E092900D3C2C1 /* AbstractProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D9234160B61AF00AFF3F6 /* AbstractProperty.m */; };
-		1C7BB4941A2E092900D3C2C1 /* UserService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480515FF5AC500012DFC /* UserService.m */; };
+		1C7BB4941A2E092900D3C2C1 /* UserService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480515FF5AC500012DFC /* UserService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		1C7BB4961A2E092900D3C2C1 /* BackendlessUser.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480915FF724000012DFC /* BackendlessUser.m */; };
 		1C7BB4981A2E092900D3C2C1 /* UserProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480C15FF7DEA00012DFC /* UserProperty.m */; };
 		1C7BB4991A2E092900D3C2C1 /* PersistenceService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B48141602254900012DFC /* PersistenceService.m */; };
@@ -1475,7 +1475,16 @@
 		5A8A15891FA0D3C3009A1394 /* RTDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A15811FA0D3C3009A1394 /* RTDataStore.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A8A158A1FA0D3C3009A1394 /* RTDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A15811FA0D3C3009A1394 /* RTDataStore.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A8A158B1FA0D3C3009A1394 /* RTDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A15811FA0D3C3009A1394 /* RTDataStore.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A9E9A6C1FA769FB001BB2BE /* RTDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A15801FA0D3C3009A1394 /* RTDataStore.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		5A9E9A6C1FA769FB001BB2BE /* RTDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A15801FA0D3C3009A1394 /* RTDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AB0CA9A1FB490A400C21766 /* RTMessaging.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F38501FB317EB002F21D4 /* RTMessaging.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5ABF767C1FB4AC8D006299F7 /* RTError.h in Headers */ = {isa = PBXBuildFile; fileRef = 5ADAAF461FA34D1D00663B7D /* RTError.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		5ABF77691FB4ACF1006299F7 /* RTClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A155C1FA0CB22009A1394 /* RTClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5ABF776A1FB4AD00006299F7 /* RTListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F384F1FB317EB002F21D4 /* RTListener.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5ABF776B1FB4AD04006299F7 /* RTListener.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A5F38531FB317EB002F21D4 /* RTListener.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5ABF776C1FB4AD0D006299F7 /* RTListener+RTListenerMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A5F38511FB317EB002F21D4 /* RTListener+RTListenerMethods.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5ABF776D1FB4AD46006299F7 /* RTSubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F38551FB317EB002F21D4 /* RTSubscription.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5ABF776E1FB4AD4C006299F7 /* RTSubscription.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A5F38521FB317EB002F21D4 /* RTSubscription.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		5ABF776F1FB4AD65006299F7 /* RTMessaging.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A5F38541FB317EB002F21D4 /* RTMessaging.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5ADAAF481FA34D1D00663B7D /* RTError.h in Headers */ = {isa = PBXBuildFile; fileRef = 5ADAAF461FA34D1D00663B7D /* RTError.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5ADAAF491FA34D1D00663B7D /* RTError.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADAAF471FA34D1D00663B7D /* RTError.m */; };
 		5ADAAF4A1FA34D2500663B7D /* RTError.h in Headers */ = {isa = PBXBuildFile; fileRef = 5ADAAF461FA34D1D00663B7D /* RTError.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1694,7 +1703,7 @@
 		F97969EA166CCB8200595F5E /* Backendless.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B47FF15FF569400012DFC /* Backendless.m */; };
 		F97969EB166CCB8200595F5E /* Invoker.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480215FF5AA900012DFC /* Invoker.m */; };
 		F97969EC166CCB8200595F5E /* AbstractProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D9234160B61AF00AFF3F6 /* AbstractProperty.m */; };
-		F97969ED166CCB8200595F5E /* UserService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480515FF5AC500012DFC /* UserService.m */; };
+		F97969ED166CCB8200595F5E /* UserService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480515FF5AC500012DFC /* UserService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		F97969EE166CCB8200595F5E /* BackendlessUser.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480915FF724000012DFC /* BackendlessUser.m */; };
 		F97969EF166CCB8200595F5E /* UserProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480C15FF7DEA00012DFC /* UserProperty.m */; };
 		F97969F0166CCB8200595F5E /* PersistenceService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B48141602254900012DFC /* PersistenceService.m */; };
@@ -1746,7 +1755,7 @@
 		F9796A34166CD3DA00595F5E /* Backendless.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B47FF15FF569400012DFC /* Backendless.m */; };
 		F9796A35166CD3DA00595F5E /* Invoker.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480215FF5AA900012DFC /* Invoker.m */; };
 		F9796A36166CD3DA00595F5E /* AbstractProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D9234160B61AF00AFF3F6 /* AbstractProperty.m */; };
-		F9796A37166CD3DA00595F5E /* UserService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480515FF5AC500012DFC /* UserService.m */; };
+		F9796A37166CD3DA00595F5E /* UserService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480515FF5AC500012DFC /* UserService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		F9796A38166CD3DA00595F5E /* BackendlessUser.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480915FF724000012DFC /* BackendlessUser.m */; };
 		F9796A39166CD3DA00595F5E /* UserProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480C15FF7DEA00012DFC /* UserProperty.m */; };
 		F9796A3A166CD3DA00595F5E /* PersistenceService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B48141602254900012DFC /* PersistenceService.m */; };
@@ -1866,7 +1875,7 @@
 		F9F0AE861CDBCA3900035C62 /* AbstractProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D9234160B61AF00AFF3F6 /* AbstractProperty.m */; };
 		F9F0AE871CDBCA3900035C62 /* GeoFence.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064BF1AFCE64D00779BB1 /* GeoFence.m */; };
 		F9F0AE881CDBCA3900035C62 /* BeaconTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB138D1BC53D2300F3CA1D /* BeaconTracker.m */; };
-		F9F0AE891CDBCA3900035C62 /* UserService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480515FF5AC500012DFC /* UserService.m */; };
+		F9F0AE891CDBCA3900035C62 /* UserService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480515FF5AC500012DFC /* UserService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		F9F0AE8A1CDBCA3900035C62 /* BackendlessUser.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480915FF724000012DFC /* BackendlessUser.m */; };
 		F9F0AE8B1CDBCA3900035C62 /* CacheFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F8BD9D19825CF80009DB40 /* CacheFactory.m */; };
 		F9F0AE8C1CDBCA3900035C62 /* UserProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480C15FF7DEA00012DFC /* UserProperty.m */; };
@@ -1996,7 +2005,7 @@
 		F9F0AF401CDBCAB500035C62 /* AbstractProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D9234160B61AF00AFF3F6 /* AbstractProperty.m */; };
 		F9F0AF411CDBCAB500035C62 /* GeoFence.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064BF1AFCE64D00779BB1 /* GeoFence.m */; };
 		F9F0AF421CDBCAB500035C62 /* BeaconTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB138D1BC53D2300F3CA1D /* BeaconTracker.m */; };
-		F9F0AF431CDBCAB500035C62 /* UserService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480515FF5AC500012DFC /* UserService.m */; };
+		F9F0AF431CDBCAB500035C62 /* UserService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480515FF5AC500012DFC /* UserService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		F9F0AF441CDBCAB500035C62 /* BackendlessUser.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480915FF724000012DFC /* BackendlessUser.m */; };
 		F9F0AF451CDBCAB500035C62 /* CacheFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F8BD9D19825CF80009DB40 /* CacheFactory.m */; };
 		F9F0AF461CDBCAB500035C62 /* UserProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480C15FF7DEA00012DFC /* UserProperty.m */; };
@@ -4274,6 +4283,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5ABF776B1FB4AD04006299F7 /* RTListener.h in Headers */,
+				5ABF776C1FB4AD0D006299F7 /* RTListener+RTListenerMethods.h in Headers */,
 				0F9ACCD51E798C5F0087869F /* ITypeWriter.h in Headers */,
 				0F9AC82A1E798C5C0087869F /* Responder.h in Headers */,
 				0F9ACBD11E798C5E0087869F /* FlashorbBinaryWriter.h in Headers */,
@@ -4504,6 +4515,10 @@
 				5AF2B72F1EB213B300D54442 /* MessagingService.h in Headers */,
 				F9F0AF2A1CDBCA3900035C62 /* QueryOptions.h in Headers */,
 				5A9E9A6C1FA769FB001BB2BE /* RTDataStore.h in Headers */,
+				5ABF776F1FB4AD65006299F7 /* RTMessaging.h in Headers */,
+				5ABF77691FB4ACF1006299F7 /* RTClient.h in Headers */,
+				5ABF767C1FB4AC8D006299F7 /* RTError.h in Headers */,
+				5ABF776E1FB4AD4C006299F7 /* RTSubscription.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5554,6 +5569,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5ABF776D1FB4AD46006299F7 /* RTSubscription.m in Sources */,
+				5ABF776A1FB4AD00006299F7 /* RTListener.m in Sources */,
+				5AB0CA9A1FB490A400C21766 /* RTMessaging.m in Sources */,
 				5AF2B72E1EB213AC00D54442 /* MessagingService.m in Sources */,
 				84B027EE1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */,
 				F9B360C51D65A7BD00818EEF /* UICKeyChainStore.m in Sources */,
@@ -5945,6 +5963,7 @@
 /* Begin XCBuildConfiguration section */
 		1C7BB50E1A2E092900D3C2C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 63FF8C770906BC1C10DF0CB9 /* Pods-backendless-mac.debug.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
