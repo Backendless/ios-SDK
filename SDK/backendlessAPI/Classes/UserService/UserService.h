@@ -63,7 +63,7 @@
 
 // methods of social easy logins
 // Twitter
--(void)easyLoginWithTwitterFieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping;
+-(BackendlessUser *)easyLoginWithTwitterFieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping;
 -(void)easyLoginWithTwitterFieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 
 // utilites
