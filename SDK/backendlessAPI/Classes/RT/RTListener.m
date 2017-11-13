@@ -97,9 +97,7 @@
     if (!subscriptionStack) {
         subscriptionStack = [NSMutableArray new];
     }
-    [subscriptionStack addObject:subscription];
-    NSLog(@"SUB STACK: %@", subscriptionStack);
-    
+    [subscriptionStack addObject:subscription];    
     [subscriptions setObject:subscriptionStack forKey:typeName];
 }
 

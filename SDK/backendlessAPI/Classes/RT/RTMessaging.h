@@ -29,5 +29,6 @@
 
 +(RTMessaging *)sharedInstance;
 -(void)addConnectListener:(NSString *)channel onConnect:(void(^)(void))onConnect;
+-(void)removeConnectListener:(NSString *)channel onConnect:(void(^)(void))onConnect;
 
 @end

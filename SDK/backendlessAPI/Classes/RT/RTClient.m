@@ -140,42 +140,36 @@
     [socket on:@"SUB_RES" callback:^(NSArray* data, SocketAckEmitter* ack) {
         NSDictionary *resultData = data.firstObject;
         NSString *subscriptionId = [resultData valueForKey:@"id"];
-        
-        NSLog(@"RESULT DATA = %@", resultData);
-        
-        
-        
-        
+        RTSubscription *subscription = [subscriptions valueForKey:subscriptionId];
         
         if ([resultData valueForKey:@"result"] && ![resultData valueForKey:@"error"]) {
-            NSDictionary *result = [resultData valueForKey:@"result"];
-            void(^resultCallback)(id) = ((RTSubscription *)[subscriptions valueForKey:subscriptionId]).onResult;
-            if (resultCallback) {
-                RTSubscription *subscription = [subscriptions valueForKey:subscriptionId];
-                if (subscription) {
-                    resultCallback([subscription.classInstance performSelector:subscription.handleResult withObject:result]);
+            id result = [resultData valueForKey:@"result"];
+            
+            if (result && [result isKindOfClass:[NSString class]]) {
+                if (subscription && subscription.onReady) {
+                    subscription.onReady();
+                }
+            }
+            
+            else if (result && [result isKindOfClass:[NSDictionary class]]) {
+                if (subscription && subscription.onResult) {
+                    subscription.onResult([subscription.classInstance performSelector:subscription.handleResult withObject:result]);
+                    subscription.ready = YES;
                 }
             }
         }
-        else if (![resultData valueForKey:@"result"] && ![resultData valueForKey:@"error"]) {
-//            void(^resultCallback)(id) = ((RTSubscription *)[subscriptions valueForKey:subscriptionId]).onResult;
-//            if (resultCallback) {
-//                resultCallback(nil);
-//            }
-        }
+        
         else if (![resultData valueForKey:@"result"] && [resultData valueForKey:@"error"]) {
             RTError *error = [RTError new];
             error.code = [[resultData valueForKey:@"error"] valueForKey:@"code"];
             error.message = [[resultData valueForKey:@"error"] valueForKey:@"message"];
             error.details = [[resultData valueForKey:@"details"] valueForKey:@"code"];
             
-            void(^errorCallback)(RTError *) = ((RTSubscription *)[subscriptions valueForKey:subscriptionId]).onError;
-            if (errorCallback) {
-                errorCallback(error);
+            if (subscription && subscription.onError) {
+                subscription.onError(error);
             }
-            void(^stopCallback)(RTSubscription *) = [subscriptions valueForKey:subscriptionId].onStop;
-            if (stopCallback) {
-                stopCallback([subscriptions valueForKey:subscriptionId]);
+            if (subscription && subscription.onStop) {
+                subscription.onStop(subscription);
                 [subscriptions removeObjectForKey:subscriptionId];
             }
         }

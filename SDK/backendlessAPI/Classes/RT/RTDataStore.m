@@ -72,7 +72,7 @@
     [super stopSubscription:CREATED whereClause:whereClause onResult: onCreate];
 }
 
--(void)removeCreateListenerWithCallback:(void (^)(id))onCreate {
+-(void)removeCreateListenerWithCallback:(void(^)(id))onCreate {
     [super stopSubscription:CREATED whereClause:nil onResult:onCreate];
 }
 
@@ -84,19 +84,19 @@
     [super stopSubscription:CREATED whereClause:nil onResult:nil];
 }
 
--(void)addUpdateListener:(void (^)(id))onUpdate {
+-(void)addUpdateListener:(void(^)(id))onUpdate {
     [self subscribeForObjectChanges:UPDATED tableName:table whereClause:nil onData:onUpdate];
 }
 
--(void)addUpdateListener:(NSString *)whereClause onUpdate:(void (^)(id))onUpdate {
+-(void)addUpdateListener:(NSString *)whereClause onUpdate:(void(^)(id))onUpdate {
     [self subscribeForObjectChanges:UPDATED tableName:table whereClause:whereClause onData:onUpdate];
 }
 
--(void)removeUpdateListener:(NSString *)whereClause onUpdate:(void (^)(id))onUpdate {
+-(void)removeUpdateListener:(NSString *)whereClause onUpdate:(void(^)(id))onUpdate {
     [super stopSubscription:UPDATED whereClause:whereClause onResult: onUpdate];
 }
 
--(void)removeUpdateListenerWithCallback:(void (^)(id))onUpdate {
+-(void)removeUpdateListenerWithCallback:(void(^)(id))onUpdate {
     [super stopSubscription:UPDATED whereClause:nil onResult:onUpdate];
 }
 
@@ -108,19 +108,19 @@
     [super stopSubscription:UPDATED whereClause:nil onResult:nil];
 }
 
--(void)addDeleteListener:(void (^)(id))onDelete {
+-(void)addDeleteListener:(void(^)(id))onDelete {
         [self subscribeForObjectChanges:DELETED tableName:table whereClause:nil onData:onDelete];
 }
 
--(void)addDeleteListener:(NSString *)whereClause onDelete:(void (^)(id))onDelete {
+-(void)addDeleteListener:(NSString *)whereClause onDelete:(void(^)(id))onDelete {
     [self subscribeForObjectChanges:DELETED tableName:table whereClause:whereClause onData:onDelete];
 }
 
--(void)removeDeleteListener:(NSString *)whereClause onDelete:(void (^)(id))onDelete {
+-(void)removeDeleteListener:(NSString *)whereClause onDelete:(void(^)(id))onDelete {
     [super stopSubscription:DELETED whereClause:whereClause onResult: onDelete];
 }
 
--(void)removeDeleteListenerWithCallback:(void (^)(id))onDelete {
+-(void)removeDeleteListenerWithCallback:(void(^)(id))onDelete {
     [super stopSubscription:DELETED whereClause:nil onResult:onDelete];
 }
 

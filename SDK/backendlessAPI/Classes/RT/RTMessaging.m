@@ -21,9 +21,10 @@
 
 #import "RTMessaging.h"
 #import "RTListener+RTListenerMethods.h"
+#import "Backendless.h"
 
 @interface RTMessaging() {
-    NSMutableDictionary *onConnectCallbacks;
+    NSMapTable *onConnectCallbacks;
 }
 @end
 
@@ -40,13 +41,29 @@
 
 - (RTMessaging *)init {
     if (self = [super init]) {
-        onConnectCallbacks = [NSMutableDictionary new];
+        onConnectCallbacks = [NSMapTable new];
     }
     return self;
 }
 
--(void)addConnectListener:(NSString *)channel onConnect:(void (^)(void))onConnect {
-    [self subscribeForPubSubConnect:channel onConnect:onConnect];
+-(void)addConnectListener:(NSString *)channel onConnect:(void(^)(void))onConnect {
+    ///???
+    [backendless.messaging subscribe:channel
+                            response:^(BESubscription *subscription) {
+                                [self subscribeForPubSubConnect:channel onConnect:onConnect];
+                            } error:^(Fault *fault) {
+                                [DebLog log:@"MessagingService -> subscribeForChannelAsync Error: %@", fault];
+                            }];
+}
+
+-(void)removeConnectListener:(NSString *)channel onConnect:(void(^)(void))onConnect {
+    NSLog(@"onConnectCallbacks: %@", onConnectCallbacks);
+  
+    void(^onRemoveConnect)(id) = [onConnectCallbacks objectForKey:onConnect];
+    [super stopSubscription:PUB_SUB_CONNECT_TYPE whereClause:nil onResult:onRemoveConnect];
+    [onConnectCallbacks removeObjectForKey:onConnect];
+    
+    NSLog(@"onConnectCallbacks: %@", onConnectCallbacks);
 }
 
 -(void)subscribeForPubSubConnect:(NSString *)channel onConnect:(void(^)(void))onConnect {
