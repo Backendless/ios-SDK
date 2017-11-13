@@ -1,5 +1,8 @@
 # RELEASE HISTORY
 
+## 4.0.18 November 13, 2017
+* The loginWithTwitterSDK sync and async methods added to the UserService class
+
 ## 4.0.17 November 8, 2017
 * Fixed the logout bug when "Users" table is mapped to the BackendlessUser class
 
