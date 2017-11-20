@@ -29,7 +29,7 @@
 #import "Responder.h"
 #import "Backendless.h"
 #import "Invoker.h"
-#import "BESubscription.h"
+#import "Channel.h"
 #import "BodyParts.h"
 #import "UICKeyChainStore.h"
 #import "KeychainDataStore.h"
@@ -43,8 +43,6 @@
 #define FAULT_NO_BODY [Fault fault:@"Message body is not set for email" detail:@"Message body is not set for email" faultCode:@"5906"]
 #define FAULT_NO_RECIPIENT [Fault fault:@"No recipient is set for email" detail:@"No recipient is set for email" faultCode:@"5907"]
 
-#define DEFAULT_POLLING_INTERVAL 5
-
 // Default channel name
 static  NSString *DEFAULT_CHANNEL_NAME = @"default";
 // SERVICE NAME
@@ -57,8 +55,6 @@ static NSString *METHOD_GET_REGISTRATIONS = @"getDeviceRegistrationByDeviceId";
 static NSString *METHOD_UNREGISTER_DEVICE = @"unregisterDevice";
 static NSString *METHOD_PUBLISH = @"publish";
 static NSString *METHOD_CANCEL = @"cancel";
-static NSString *METHOD_POLLING_SUBSCRIBE = @"subscribeForPollingAccess";
-static NSString *METHOD_POLL_MESSAGES = @"pollMessages";
 static NSString *METHOD_SEND_EMAIL = @"send";
 static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
 // UICKeyChainStore service name
@@ -72,8 +68,6 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 @end
 
 @implementation MessagingService
-
-@synthesize pollingFrequencySec;
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 -(NSString *)serialNumber {
@@ -112,8 +106,6 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 
 -(id)init {
     if (self = [super init]) {
-        self.pollingFrequencySec = DEFAULT_POLLING_INTERVAL;
-        self.rt = rtMessaging;
         _subscriptions = [HashMap new];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.management.DeviceRegistrationDto" mapped:[DeviceRegistration class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.messaging.Message" mapped:[Message class]];
@@ -256,38 +248,8 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     return [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_CANCEL args:args];
 }
 
--(BESubscription *)subscribe:(NSString *)channelName {
-    return [self subscribe:[BESubscription subscription:channelName responder:nil] subscriptionOptions:nil];
-}
-
--(BESubscription *)subscribe:(NSString *)channelName subscriptionResponse:(void(^)(NSArray<Message*> *))subscriptionResponseBlock subscriptionError:(void(^)(Fault *))subscriptionErrorBlock {
-    return [self subscribe:[BESubscription subscription:channelName responder:[ResponderBlocksContext responderBlocksContext:subscriptionResponseBlock error:subscriptionErrorBlock]] subscriptionOptions:nil];
-}
-
--(BESubscription *)subscribe:(NSString *)channelName subscriptionResponse:(void(^)(NSArray<Message*> *))subscriptionResponseBlock subscriptionError:(void(^)(Fault *))subscriptionErrorBlock subscriptionOptions:(SubscriptionOptions *)subscriptionOptions {
-    return [self subscribe:[BESubscription subscription:channelName responder:[ResponderBlocksContext responderBlocksContext:subscriptionResponseBlock error:subscriptionErrorBlock]] subscriptionOptions:subscriptionOptions];
-}
-
--(BESubscription *)subscribe:(BESubscription *)subscription subscriptionOptions:(SubscriptionOptions *)subscriptionOptions {
-    if (!subscription)
-        return [backendless throwFault:FAULT_NO_CHANNEL];
-    subscription.deliveryMethod = [subscriptionOptions valDeliveryMethod];
-    subscriptionOptions.deviceId = deviceRegistration.deviceId;
-    id result = [self subscribeForPollingAccess:subscription.channelName subscriptionOptions:subscriptionOptions];
-    if ([result isKindOfClass:[Fault class]])
-        return result;
-    subscription.subscriptionId = result;
-    [subscription startPolling];
-    return subscription;
-}
-
--(NSArray *)pollMessages:(NSString *)channelName subscriptionId:(NSString *)subscriptionId {
-    if (!channelName)
-        return [backendless throwFault:FAULT_NO_CHANNEL];
-    if (!subscriptionId)
-        return [backendless throwFault:FAULT_NO_SUBSCRIPTION_ID];
-    NSArray *args = [NSArray arrayWithObjects:channelName, subscriptionId, nil];
-    return [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_POLL_MESSAGES args:args];
+-(Channel *)subscribe:(NSString *)channelName {
+    return [[Channel alloc] initWithChannelName:channelName];
 }
 
 -(id)sendTextEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray<NSString*> *)recipients {
@@ -411,46 +373,6 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_CANCEL args:args responder:responder];
 }
 
--(void)subscribe:(NSString *)channelName response:(void(^)(BESubscription *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self  subscribe:[BESubscription subscription:channelName responder:nil]
- subscriptionOptions:nil
-           responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
-}
-
--(void)subscribe:(NSString *)channelName subscriptionResponse:(void(^)(NSArray<Message*> *))subscriptionResponseBlock subscriptionError:(void(^)(Fault *))subscriptionErrorBlock response:(void(^)(BESubscription *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self  subscribe:[BESubscription subscription:channelName responder:[ResponderBlocksContext responderBlocksContext:subscriptionResponseBlock error:subscriptionErrorBlock]]
- subscriptionOptions:nil
-           responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
-}
-
--(void)subscribe:(NSString *)channelName subscriptionResponse:(void(^)(NSArray<Message*> *))subscriptionResponseBlock subscriptionError:(void(^)(Fault *))subscriptionErrorBlock subscriptionOptions:(SubscriptionOptions *)subscriptionOptions response:(void(^)(BESubscription *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self  subscribe:[BESubscription subscription:channelName responder:[ResponderBlocksContext responderBlocksContext:subscriptionResponseBlock error:subscriptionErrorBlock]]
- subscriptionOptions:subscriptionOptions
-           responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
-}
-
--(void)subscribe:(BESubscription *)subscription subscriptionOptions:(SubscriptionOptions *)subscriptionOptions responder:(id <IResponder>)responder {
-    if (!subscription)
-        return [responder errorHandler:FAULT_NO_CHANNEL];
-    subscription.deliveryMethod = [subscriptionOptions valDeliveryMethod];
-    subscriptionOptions.deviceId = deviceRegistration.deviceId;
-    [subscription startPolling];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onSubscribe:) selErrorHandler:nil];
-    _responder.context = [subscription retain];
-    _responder.chained = responder;
-    [self subscribeForPollingAccess:subscription.channelName subscriptionOptions:subscriptionOptions responder:_responder];
-}
-
--(void)pollMessages:(NSString *)channelName subscriptionId:(NSString *)subscriptionId response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
-    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
-    if (!channelName)
-        return [responder errorHandler:FAULT_NO_CHANNEL];
-    if (!subscriptionId)
-        return [responder errorHandler:FAULT_NO_SUBSCRIPTION_ID];
-    NSArray *args = [NSArray arrayWithObjects:channelName, subscriptionId, nil];
-    [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_POLL_MESSAGES args:args responder:responder];
-}
-
 -(void)sendTextEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray<NSString*> *)recipients response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [self sendEmail:subject body:[BodyParts bodyText:messageBody html:nil] to:recipients attachment:nil response:responseBlock error:errorBlock];
 }
@@ -484,26 +406,6 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 #pragma mark -
 #pragma mark Private Methods
 
-// sync
--(NSString *)subscribeForPollingAccess:(NSString *)channelName subscriptionOptions:(SubscriptionOptions *)subscriptionOptions {
-    if (!channelName)
-        return [backendless throwFault:FAULT_NO_CHANNEL];
-    if (!subscriptionOptions)
-        subscriptionOptions = [SubscriptionOptions new];
-    NSArray *args = @[channelName, subscriptionOptions];
-    return [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_POLLING_SUBSCRIBE args:args];
-}
-
-// async
--(void)subscribeForPollingAccess:(NSString *)channelName subscriptionOptions:(SubscriptionOptions *)subscriptionOptions responder:(id <IResponder>)responder {
-    if (!channelName)
-        return [responder errorHandler:FAULT_NO_CHANNEL];
-    if (!subscriptionOptions)
-        subscriptionOptions = [SubscriptionOptions new];
-    NSArray *args = @[channelName, subscriptionOptions];
-    [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_POLLING_SUBSCRIBE args:args responder:responder];
-}
-
 // callbacks
 
 -(id)onRegistering:(id)response {
@@ -515,12 +417,6 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     NSNumber *result = (NSNumber *)response;
     if (result && [result boolValue]) deviceRegistration.id = nil;
     return response;
-}
-
--(id)onSubscribe:(id)response {
-    BESubscription *subscription = ((ResponseContext *)response).context;
-    subscription.subscriptionId = (NSString *)((ResponseContext *)response).response;
-    return [subscription autorelease];
 }
 
 @end

@@ -24,7 +24,6 @@
 #import "RTClient.h"
 #import "RTListener+RTListenerMethods.h"
 #import "RTSubscription.h"
-#import "RTError.h"
 
 #define CREATED @"created"
 #define UPDATED @"updated"
@@ -48,12 +47,12 @@
     return self;
 }
 
--(void)addErrorListener:(void(^)(RTError *))onError {
+-(void)addErrorListener:(void(^)(Fault *))onError {
     [super addSimpleListener:ERROR_TYPE callBack:onError];
 }
 
--(void)removeErrorListener:(void(^)(RTError *))onError {
-    [super removeSimpleListener:ERROR_TYPE callBack:[onError copy]];
+-(void)removeErrorListener:(void(^)(Fault *))onError {
+    [super removeSimpleListener:ERROR_TYPE callBack:onError];
 }
 
 -(void)removeErrorListener {
@@ -68,20 +67,20 @@
     [self subscribeForObjectChanges:CREATED tableName:table whereClause:whereClause onData:onCreate];
 }
 
--(void)removeCreateListener:(NSString *)whereClause onCreate:(void(^)(id))onCreate {    
-    [super stopSubscription:CREATED whereClause:whereClause onResult: onCreate];
+-(void)removeCreateListener:(NSString *)whereClause onCreate:(void(^)(id))onCreate {
+    [super stopSubscription:nil event:CREATED whereClause:whereClause onResult:onCreate];
 }
 
 -(void)removeCreateListenerWithCallback:(void(^)(id))onCreate {
-    [super stopSubscription:CREATED whereClause:nil onResult:onCreate];
+    [super stopSubscription:nil event:CREATED whereClause:nil onResult:onCreate];
 }
 
 -(void)removeCreateListenerWithWhereClause:(NSString *)whereClause {
-    [super stopSubscription:CREATED whereClause:whereClause onResult:nil];
+    [super stopSubscription:nil event:CREATED whereClause:whereClause onResult:nil];
 }
 
 -(void)removeCreateListener {
-    [super stopSubscription:CREATED whereClause:nil onResult:nil];
+    [super stopSubscription:nil event:CREATED whereClause:nil onResult:nil];
 }
 
 -(void)addUpdateListener:(void(^)(id))onUpdate {
@@ -93,23 +92,23 @@
 }
 
 -(void)removeUpdateListener:(NSString *)whereClause onUpdate:(void(^)(id))onUpdate {
-    [super stopSubscription:UPDATED whereClause:whereClause onResult: onUpdate];
+    [super stopSubscription:nil event:UPDATED whereClause:whereClause onResult:onUpdate];
 }
 
 -(void)removeUpdateListenerWithCallback:(void(^)(id))onUpdate {
-    [super stopSubscription:UPDATED whereClause:nil onResult:onUpdate];
+    [super stopSubscription:nil event:UPDATED whereClause:nil onResult:onUpdate];
 }
 
 -(void)removeUpdateListenerWithWhereClause:(NSString *)whereClause {
-    [super stopSubscription:UPDATED whereClause:whereClause onResult:nil];
+    [super stopSubscription:nil event:UPDATED whereClause:whereClause onResult:nil];
 }
 
 -(void)removeUpdateListener {
-    [super stopSubscription:UPDATED whereClause:nil onResult:nil];
+    [super stopSubscription:nil event:UPDATED whereClause:nil onResult:nil];
 }
 
 -(void)addDeleteListener:(void(^)(id))onDelete {
-        [self subscribeForObjectChanges:DELETED tableName:table whereClause:nil onData:onDelete];
+    [self subscribeForObjectChanges:DELETED tableName:table whereClause:nil onData:onDelete];
 }
 
 -(void)addDeleteListener:(NSString *)whereClause onDelete:(void(^)(id))onDelete {
@@ -117,23 +116,26 @@
 }
 
 -(void)removeDeleteListener:(NSString *)whereClause onDelete:(void(^)(id))onDelete {
-    [super stopSubscription:DELETED whereClause:whereClause onResult: onDelete];
+    [super stopSubscription:nil event:DELETED whereClause:whereClause onResult:onDelete];
 }
 
 -(void)removeDeleteListenerWithCallback:(void(^)(id))onDelete {
-    [super stopSubscription:DELETED whereClause:nil onResult:onDelete];
+    [super stopSubscription:nil event:DELETED whereClause:nil onResult:onDelete];
 }
 
 -(void)removeDeleteListenerWithWhereClause:(NSString *)whereClause {
-    [super stopSubscription:DELETED whereClause:whereClause onResult:nil];
+    [super stopSubscription:nil event:DELETED whereClause:whereClause onResult:nil];
 }
 
 -(void)removeDeleteListener {
-    [super stopSubscription:DELETED whereClause:nil onResult:nil];
+    [super stopSubscription:nil event:DELETED whereClause:nil onResult:nil];
 }
 
 -(void)removeAllListeners {
-    [super stopSubscription:nil whereClause:nil onResult:nil];
+    [self removeCreateListener];
+    [self removeUpdateListener];
+    [self removeDeleteListener];
+    [self removeErrorListener];
 }
 
 // *********************************************
@@ -166,18 +168,18 @@
 
 -(id)handleData:(NSDictionary *)jsonResult {
     id result;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonResult options:NSJSONWritingPrettyPrinted error:nil];
+    
     if (dataStore == DATASTOREFACTORY) {
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonResult options:NSJSONWritingPrettyPrinted error:nil];
         result = [self objectFromJSON:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
     }
     else if (dataStore == MAPDRIVENDATASTORE) {
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonResult options:NSJSONWritingPrettyPrinted error:nil];
         result = [self dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
     }
     return result;
 }
 
-// *************************************************
+// **************************************************
 
 -(id)objectFromJSON:(NSString *)JSONString {
     NSError *error;
@@ -188,7 +190,7 @@
     return object;
 }
 
--(id)setObject:(id)object valuesFromDictionary:(NSDictionary *) dictionary {
+-(id)setObject:(id)object valuesFromDictionary:(NSDictionary *)dictionary {
     [self prepareClass:[object class]];
     for (NSString *fieldName in dictionary) {
         if (![fieldName isEqualToString:@"___jsonclass"] && ![fieldName isEqualToString:@"__meta"] && ![fieldName isEqualToString:@"___class"]) {

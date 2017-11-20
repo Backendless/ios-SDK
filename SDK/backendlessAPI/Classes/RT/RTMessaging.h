@@ -20,15 +20,23 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "RTError.h"
 #import "RTListener.h"
-
-#define rtMessaging [RTMessaging sharedInstance]
+#import "Responder.h"
+#import "Message.h"
 
 @interface RTMessaging : RTListener
 
-+(RTMessaging *)sharedInstance;
--(void)addConnectListener:(NSString *)channel onConnect:(void(^)(void))onConnect;
--(void)removeConnectListener:(NSString *)channel onConnect:(void(^)(void))onConnect;
+-(RTMessaging *)initWithChannelName:(NSString *)channelName;
+
+-(void)connect:(void(^)(id))onSuccessfulConnect;
+
+-(void)addErrorListener:(void(^)(Fault *))errorBlock;
+-(void)removeErrorListener:(void(^)(Fault *))errorBlock;
+
+-(void)addConnectListener:(BOOL)isConnected onConnect:(void(^)(void))onConnect;
+-(void)removeConnectListener:(void(^)(void))onConnect;
+
+-(void)addMessageListener:(NSString *)selector onMessage:(void(^)(Message *))onMessage;
+-(void)removeMessageListener:(NSString *)selector onMessage:(void(^)(Message *))onMessage;
 
 @end

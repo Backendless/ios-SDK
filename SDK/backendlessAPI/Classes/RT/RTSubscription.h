@@ -20,7 +20,7 @@
  */
 
 #import <Foundation/Foundation.h>
-@class RTError;
+#import "Responder.h"
 
 @interface RTSubscription : NSObject
 
@@ -28,7 +28,7 @@
 @property (nonatomic, strong) NSString *type;
 @property (nonatomic, strong) NSDictionary *options;
 @property (nonatomic, copy) void(^onResult)(id);
-@property (nonatomic, copy) void(^onError)(RTError *);
+@property (nonatomic, copy) void(^onError)(Fault *);
 @property (nonatomic, copy) void(^onStop)(RTSubscription *);
 @property (nonatomic, copy) void(^onReady)(void);
 @property (nonatomic) BOOL ready;

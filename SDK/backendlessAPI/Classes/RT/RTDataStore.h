@@ -20,8 +20,8 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "RTError.h"
 #import "RTListener.h"
+#import "Responder.h"
 
 typedef enum {
     MAPDRIVENDATASTORE = 0,
@@ -32,8 +32,8 @@ typedef enum {
 
 -(RTDataStore *)initWithTableName:(NSString *)tableName withEntity:(Class)tableEntity dataStoreType:(UInt32)dataStoreType;
 
--(void)addErrorListener:(void(^)(RTError *))onError;
--(void)removeErrorListener:(void(^)(RTError *))onError;
+-(void)addErrorListener:(void(^)(Fault *))errorBlock;
+-(void)removeErrorListener:(void(^)(Fault *))errorBlock;
 -(void)removeErrorListener;
 
 -(void)addCreateListener:(void(^)(id))onCreate;

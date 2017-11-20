@@ -20,13 +20,13 @@
  */
 
 #import "RTClient.h"
-#include "Backendless.h"
 #import "RTSubscription.h"
-#import "RTError.h"
+#import "Backendless.h"
 
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 
 @interface RTClient() {
+    SocketManager *socketManager;
     SocketIOClient *socket;
     NSMutableDictionary<NSString *, RTSubscription *> *subscriptions;
     BOOL socketCreated;
@@ -66,7 +66,8 @@
         if (!socketCreated) {
             NSString *path = [@"/" stringByAppendingString:[backendless getAppId]];
             NSURL *url = [[NSURL alloc] initWithString:@"http://localhost:5000"];
-            socket = [[SocketIOClient alloc] initWithSocketURL:url config:@{@"path": path, @"nsp": path, @"connectParams":@{@"token":@"some-token"}}];
+            socketManager = [[SocketManager alloc] initWithSocketURL:url config:@{@"path": path, @"connectParams":@{@"token":@"some-token"}}];
+            socket = [socketManager socketForNamespace:path];
             if (socket) {
                 socketCreated = YES;
                 [self onConnectionHandlers:connected];
@@ -111,6 +112,8 @@
             [_lock unlock];
             
             if (needResubscribe) {
+                NSLog(@"NEED RESUBSCRIBE");
+                
                 for (NSString *subscriptionId in subscriptions) {
                     RTSubscription *subscription = [subscriptions valueForKey:subscriptionId];
                     
@@ -142,31 +145,30 @@
         NSString *subscriptionId = [resultData valueForKey:@"id"];
         RTSubscription *subscription = [subscriptions valueForKey:subscriptionId];
         
-        if ([resultData valueForKey:@"result"] && ![resultData valueForKey:@"error"]) {
-            id result = [resultData valueForKey:@"result"];
+        if ([resultData valueForKey:@"data"]) {
+            id result = [resultData valueForKey:@"data"];
+            subscription.ready = YES;
             
-            if (result && [result isKindOfClass:[NSString class]]) {
+            if (result && [result isKindOfClass:[NSString class]] && [result isEqualToString:@"connected"]) {
                 if (subscription && subscription.onReady) {
                     subscription.onReady();
+                    subscription.onResult(result);
                 }
             }
-            
             else if (result && [result isKindOfClass:[NSDictionary class]]) {
                 if (subscription && subscription.onResult) {
                     subscription.onResult([subscription.classInstance performSelector:subscription.handleResult withObject:result]);
-                    subscription.ready = YES;
                 }
             }
         }
         
-        else if (![resultData valueForKey:@"result"] && [resultData valueForKey:@"error"]) {
-            RTError *error = [RTError new];
-            error.code = [[resultData valueForKey:@"error"] valueForKey:@"code"];
-            error.message = [[resultData valueForKey:@"error"] valueForKey:@"message"];
-            error.details = [[resultData valueForKey:@"details"] valueForKey:@"code"];
+        else if ([resultData valueForKey:@"error"]) {
+            Fault *fault = [Fault fault:[[resultData valueForKey:@"error"] valueForKey:@"message"]
+                                 detail:[[resultData valueForKey:@"error"] valueForKey:@"message"]
+                              faultCode:[[resultData valueForKey:@"details"] valueForKey:@"code"]];
             
             if (subscription && subscription.onError) {
-                subscription.onError(error);
+                subscription.onError(fault);
             }
             if (subscription && subscription.onStop) {
                 subscription.onStop(subscription);

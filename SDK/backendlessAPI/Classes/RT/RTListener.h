@@ -20,12 +20,11 @@
  */
 
 #import <Foundation/Foundation.h>
-@class RTSubscription;
-@class RTError;
 
 #define ERROR_TYPE @"ERROR"
 #define OBJECTS_CHANGES_TYPE @"OBJECTS_CHANGES"
 #define PUB_SUB_CONNECT_TYPE @"PUB_SUB_CONNECT"
+#define PUB_SUB_MESSAGES_TYPE @"PUB_SUB_MESSAGES"
 
 @interface RTListener : NSObject
 @end

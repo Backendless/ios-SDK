@@ -1,5 +1,5 @@
 //
-//  RTError.h
+//  Channel.h
 //  backendlessAPI
 /*
  * *********************************************************************************************************************
@@ -20,12 +20,33 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "Responder.h"
+#import "Message.h"
 
-@interface RTError : NSObject
+@interface Channel : NSObject
 
-@property (strong, nonatomic) NSNumber *code;
-@property (strong, nonatomic) NSString *message;
-@property (strong, nonatomic) NSObject *details;
+@property (strong, nonatomic, readonly) NSString *channelName;
+@property (nonatomic, readonly) BOOL isConnected;
+
+-(instancetype)initWithChannelName:(NSString *)channelName;
+-(void)connect;
+-(void)disconnect;
+
+-(void)addErrorListener:(void(^)(Fault *))errorBlock;
+-(void)removeErrorListener:(void(^)(Fault *))errorBlock;
+-(void)removeErrorListener;
+
+-(void)addConnectListener:(void(^)(void))onConnect;
+-(void)removeConnectListener:(void(^)(void))onConnect;
+-(void)removeConnectListener;
+
+-(void)addMessageListener:(void(^)(Message *))onMessage;
+-(void)addMessageListener:(NSString *)selector onMessage:(void(^)(Message *))onMessage;
+-(void)removeMessageListener:(NSString *)selector onMessage:(void(^)(Message *))onMessage;
+-(void)removeMessageListenerWithCallback:(void(^)(Message *))onMessage;
+-(void)removeMessageListenerWithSelector:(NSString *)selector;
+-(void)removeMessageListener;
+
+-(void)removeAllListeners;
 
 @end
-

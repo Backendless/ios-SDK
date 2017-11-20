@@ -20,7 +20,7 @@
  */
 
 #import "DataStoreFactory.h"
-#include "Backendless.h"
+#import "Backendless.h"
 #import "ObjectProperty.h"
 #import "AuthorizationException.h"
 
