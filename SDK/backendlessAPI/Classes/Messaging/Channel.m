@@ -112,12 +112,26 @@
     [self.rt removeMessageListener:nil onMessage:nil];
 }
 
+// **********************************************
+
+-(void)addCommandListener:(void (^)(RTCommand *))onCommand {
+    [self.rt addCommandListener:onCommand];
+}
+
+-(void)removeCommandListener:(void (^)(RTCommand *))onCommand {
+    [self.rt removeCommandListener:onCommand];
+}
+
+-(void)removeCommandListener {
+    [self.rt removeCommandListener:nil];
+}
+
+// **********************************************
+
 -(void)removeAllListeners {
     [self removeErrorListener];
     [self removeConnectListener];
     [self removeMessageListener];
 }
-
-// **********************************************
 
 @end

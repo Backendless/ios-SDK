@@ -73,4 +73,7 @@
 -(DeviceRegistration *)currentDevice;
 -(NSString *)deviceTokenAsString:(NSData *)token;
 
+// commands
+-(void)sendCommand:(NSString *)commandName channelName:(NSString *)channelName data:(id)data;
+
 @end

@@ -1,5 +1,5 @@
 //
-//  RTClient.h
+//  RTCommand.h
 //  backendlessAPI
 /*
  * *********************************************************************************************************************
@@ -20,18 +20,12 @@
  */
 
 #import <Foundation/Foundation.h>
-@import SocketIO;
-@class RTSubscription;
-@class RTMethodRequest;
 
-#define rtClient [RTClient sharedInstance]
+@interface RTCommand : NSObject
 
-@interface RTClient : NSObject
-
-+(RTClient *)sharedInstance;
--(void)subscribe:(NSDictionary *)data subscription:(RTSubscription *)subscription;
--(void)unsubscribe:(NSString *)subscriptionId;
--(void)sendCommand:(NSDictionary *)data method:(RTMethodRequest *)method;
+@property (strong, nonatomic) NSString *type;   // тип команды, это указывает юзер
+@property (strong, nonatomic) NSString *connectionId;
+@property (strong, nonatomic) NSString *userId;
+@property (strong, nonatomic) id data;
 
 @end
-

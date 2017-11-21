@@ -21,6 +21,7 @@
 
 #import "RTClient.h"
 #import "RTSubscription.h"
+#import "RTMethodRequest.h"
 #import "Backendless.h"
 
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
@@ -29,9 +30,10 @@
     SocketManager *socketManager;
     SocketIOClient *socket;
     NSMutableDictionary<NSString *, RTSubscription *> *subscriptions;
+    NSMutableDictionary<NSString *, RTMethodRequest *> *methods;
     BOOL socketCreated;
     BOOL socketConnected;
-    BOOL needResubscribe;
+    BOOL needResubscribe;   // only for subscriptions?
     BOOL onConnectionHandlersReady;
     NSLock *_lock;
 }
@@ -102,6 +104,18 @@
     [subscriptions removeObjectForKey:subscriptionId];
 }
 
+-(void)sendCommand:(NSDictionary *)data method:(RTMethodRequest *)method {
+    if(socketConnected) {
+        [socket emit:@"MET_REQ" with:[NSArray arrayWithObject:data]];
+    }
+    else {
+        [self connectSocket:^{
+            [socket emit:@"MET_REQ" with:[NSArray arrayWithObject:data]];
+        }];
+    }
+    [methods setObject:method forKey:method.methodId];
+}
+
 -(void)onConnectionHandlers:(void(^)(void))connected {
     if (!onConnectionHandlersReady) {
         onConnectionHandlersReady = YES;
@@ -112,8 +126,6 @@
             [_lock unlock];
             
             if (needResubscribe) {
-                NSLog(@"NEED RESUBSCRIBE");
-                
                 for (NSString *subscriptionId in subscriptions) {
                     RTSubscription *subscription = [subscriptions valueForKey:subscriptionId];
                     
@@ -128,6 +140,7 @@
             
             else if (!needResubscribe) {
                 [self onResult];
+                [self onMethodResult];
                 connected();
             }
         }];
@@ -160,8 +173,7 @@
                     subscription.onResult([subscription.classInstance performSelector:subscription.handleResult withObject:result]);
                 }
             }
-        }
-        
+        }        
         else if ([resultData valueForKey:@"error"]) {
             Fault *fault = [Fault fault:[[resultData valueForKey:@"error"] valueForKey:@"message"]
                                  detail:[[resultData valueForKey:@"error"] valueForKey:@"message"]
@@ -173,6 +185,35 @@
             if (subscription && subscription.onStop) {
                 subscription.onStop(subscription);
                 [subscriptions removeObjectForKey:subscriptionId];
+            }
+        }
+    }];
+}
+
+-(void)onMethodResult {
+    [socket on:@"MET_RES" callback:^(NSArray* data, SocketAckEmitter* ack) {
+        NSDictionary *resultData = data.firstObject;
+        NSString *methodId = [resultData valueForKey:@"id"];
+        RTMethodRequest *method = [methods valueForKey:methodId];
+        
+        if ([resultData valueForKey:@"result"]) {
+            id result = [resultData valueForKey:@"result"];
+            if (result) {
+                method.onResult(result);
+                method.onStop(method);
+                [methods removeObjectForKey:methodId];
+            }
+        }
+        else if ([resultData valueForKey:@"error"]) {
+            Fault *fault = [Fault fault:[[resultData valueForKey:@"error"] valueForKey:@"message"]
+                                 detail:[[resultData valueForKey:@"error"] valueForKey:@"message"]
+                              faultCode:[[resultData valueForKey:@"details"] valueForKey:@"code"]];
+            if (method && method.onError) {
+                method.onError(fault);
+            }
+            if (method && method.onStop) {
+                method.onStop(method);
+                [methods removeObjectForKey:methodId];
             }
         }
     }];

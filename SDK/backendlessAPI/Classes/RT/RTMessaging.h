@@ -23,6 +23,7 @@
 #import "RTListener.h"
 #import "Responder.h"
 #import "Message.h"
+#import "RTCommand.h"
 
 @interface RTMessaging : RTListener
 
@@ -38,5 +39,8 @@
 
 -(void)addMessageListener:(NSString *)selector onMessage:(void(^)(Message *))onMessage;
 -(void)removeMessageListener:(NSString *)selector onMessage:(void(^)(Message *))onMessage;
+
+-(void)addCommandListener:(void(^)(RTCommand *))onCommand;
+-(void)removeCommandListener:(void(^)(RTCommand *))onCommand;
 
 @end

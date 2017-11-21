@@ -102,12 +102,10 @@
 }
 
 -(void)stopSubscription:(NSString *)channel event:(NSString *)event whereClause:(NSString *)whereClause onResult:(void(^)(id))onResult {
-    
+    NSMutableArray *subscriptionStack = [NSMutableArray arrayWithArray:[subscriptions valueForKey:event]];
     if (event) {
         if (!channel) {
-            NSMutableArray *subscriptionStack = [NSMutableArray arrayWithArray:[subscriptions valueForKey:event]];
             if (subscriptionStack) {
-                
                 if (whereClause && onResult) {
                     for (RTSubscription *subscription in subscriptionStack) {
                         if ([subscription.options valueForKey:@"whereClause"] && [[subscription.options valueForKey:@"whereClause"] isEqualToString:whereClause] && subscription.onResult == onResult) {
@@ -137,10 +135,22 @@
             }
         }
         else if (channel) {
-            NSMutableArray *subscriptionStack = [NSMutableArray arrayWithArray:[subscriptions valueForKey:event]];
-            
             if (subscriptionStack) {
-                if (!whereClause && onResult) {
+                if (whereClause && onResult) {
+                    for (RTSubscription *subscription in subscriptionStack) {
+                        if ([subscription.options valueForKey:@"channel"] && [[subscription.options valueForKey:@"channel"] isEqualToString:channel] && [subscription.options valueForKey:@"selector"] && [[subscription.options valueForKey:@"selector"] isEqualToString:whereClause] && subscription.onResult == onResult) {
+                            [subscription stop];
+                        }
+                    }
+                }
+                else if (whereClause && !onResult) {
+                    for (RTSubscription *subscription in subscriptionStack) {
+                        if ([subscription.options valueForKey:@"channel"] && [[subscription.options valueForKey:@"channel"] isEqualToString:channel] && [subscription.options valueForKey:@"selector"] && [[subscription.options valueForKey:@"selector"] isEqualToString:whereClause]) {
+                            [subscription stop];
+                        }
+                    }
+                }
+                else if (!whereClause && onResult) {
                     for (RTSubscription *subscription in subscriptionStack) {
                         if ([subscription.options valueForKey:@"channel"] && [[subscription.options valueForKey:@"channel"] isEqualToString:channel] && subscription.onResult == onResult) {
                             [subscription stop];
@@ -150,16 +160,6 @@
                 else if (!whereClause && !onResult) {
                     for (RTSubscription *subscription in subscriptionStack) {
                         [subscription stop];
-                    }
-                }
-                else if (whereClause && !onResult) {
-                }
-                else if (whereClause && onResult) {
-                    for (RTSubscription *subscription in subscriptionStack) {
-                        if ([subscription.options valueForKey:@"channel"] && [[subscription.options valueForKey:@"channel"] isEqualToString:channel] && [subscription.options valueForKey:@"selector"] && [[subscription.options valueForKey:@"selector"] isEqualToString:whereClause]) {
-                            [subscription stop];
-                            NSLog(@"SUB STOP");
-                        }
                     }
                 }
             }

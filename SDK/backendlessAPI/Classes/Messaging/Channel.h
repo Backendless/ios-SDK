@@ -22,6 +22,7 @@
 #import <Foundation/Foundation.h>
 #import "Responder.h"
 #import "Message.h"
+#import "RTCommand.h"
 
 @interface Channel : NSObject
 
@@ -46,6 +47,10 @@
 -(void)removeMessageListenerWithCallback:(void(^)(Message *))onMessage;
 -(void)removeMessageListenerWithSelector:(NSString *)selector;
 -(void)removeMessageListener;
+
+-(void)addCommandListener:(void(^)(RTCommand *))onCommand;
+-(void)removeCommandListener:(void(^)(RTCommand *))onCommand;
+-(void)removeCommandListener;
 
 -(void)removeAllListeners;
 

@@ -23,8 +23,9 @@
 #import "RTListener+RTListenerMethods.h"
 
 @interface RTMessaging() {
-    NSMapTable *onConnectCallbacks;
     NSString *channel;
+    NSMapTable *onConnectCallbacks;
+    NSMapTable *onCommandCallbacks;
 }
 @end
 
@@ -32,8 +33,9 @@
 
 -(RTMessaging *)initWithChannelName:(NSString *)channelName {
     if (self = [super init]) {
-        onConnectCallbacks = [NSMapTable new];
         channel = channelName;
+        onConnectCallbacks = [NSMapTable new];
+        onCommandCallbacks = [NSMapTable new];
     }
     return self;
 }
@@ -92,6 +94,19 @@
     message.headers = [messageData valueForKey:@"headers"];
     message.publisherId = [messageData valueForKey:@"publisherId"];
     return message;
+}
+
+// **************************************************
+
+-(void) addCommandListener:(void (^)(RTCommand *))onCommand {
+    void(^wrappedOnCommand)(RTCommand *) = ^(RTCommand * result) { onCommand(result); };
+    [onCommandCallbacks setObject:wrappedOnCommand forKey:onCommand];
+    [super addSimpleListener:PUB_SUB_COMMAND_TYPE callBack:wrappedOnCommand];
+}
+
+-(void)removeCommandListener:(void (^)(RTCommand *))onCommand {
+    [super removeSimpleListener:PUB_SUB_COMMAND_TYPE callBack:[onCommandCallbacks objectForKey:onCommand]];
+    [super stopSubscription:channel event:PUB_SUB_COMMAND_TYPE whereClause:nil onResult:[onCommandCallbacks objectForKey:onCommand]];
 }
 
 // **************************************************

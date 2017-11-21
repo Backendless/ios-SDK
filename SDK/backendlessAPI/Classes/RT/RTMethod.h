@@ -1,5 +1,5 @@
 //
-//  RTClient.h
+//  RTMethod.h
 //  backendlessAPI
 /*
  * *********************************************************************************************************************
@@ -20,18 +20,12 @@
  */
 
 #import <Foundation/Foundation.h>
-@import SocketIO;
-@class RTSubscription;
-@class RTMethodRequest;
 
-#define rtClient [RTClient sharedInstance]
+#define rtMethod [RTMethod sharedInstance]
 
-@interface RTClient : NSObject
+@interface RTMethod : NSObject
 
-+(RTClient *)sharedInstance;
--(void)subscribe:(NSDictionary *)data subscription:(RTSubscription *)subscription;
--(void)unsubscribe:(NSString *)subscriptionId;
--(void)sendCommand:(NSDictionary *)data method:(RTMethodRequest *)method;
++(RTMethod *)sharedInstance;
+-(void)sendCommand:(NSString *)type options:(NSDictionary *)options;
 
 @end
-

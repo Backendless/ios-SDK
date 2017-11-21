@@ -24,12 +24,10 @@
 @interface RTListener ()
 
 -(void)addSubscription:(NSString *)type options:(NSDictionary *)options onResult:(void(^)(id))onResult handleResultSelector:(SEL)handleResultSelector fromClass:(id)subscriptionClassInstance;
-
 -(void)stopSubscription:(NSString *)channel event:(NSString *)event whereClause:(NSString *)whereClause onResult:(void(^)(id))onResult;
+
 -(void)addSimpleListener:(NSString *)type callBack:(void(^)(id))callback;
 -(void)removeSimpleListener:(NSString *)type callBack:(void(^)(id))callback;
 -(void)removeSimpleListener:(NSString *)type;
-
--(id)objectFromJSON:(NSString *)JSONString to:(Class)classType needPrepareClass:(BOOL)needPrepare;
 
 @end
