@@ -56,6 +56,7 @@ static NSString *METHOD_USER_LOGIN_WITH_TWITTER = @"getTwitterServiceAuthorizati
 static NSString *METHOD_USER_LOGIN_WITH_GOOGLEPLUS = @"getGooglePlusServiceAuthorizationUrlLink";
 static NSString *METHOD_USER_LOGIN_WITH_FACEBOOK_SDK = @"loginWithFacebook";
 static NSString *METHOD_USER_LOGIN_WITH_GOOGLEPLUS_SDK = @"loginWithGooglePlus";
+static NSString *METHOD_USER_LOGIN_WITH_TWITTER_SDK = @"loginWithTwitter";
 static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 
 @interface UserService ()
@@ -246,6 +247,14 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     return [result isKindOfClass:[Fault class]] ? result : [self onLogin:result];
 }
 
+-(BackendlessUser *)loginWithTwitterSDK:(NSString *)authToken authTokenSecret:(NSString *)authTokenSecret fieldsMapping:(id)fieldsMapping {
+    if (!authToken||!authToken.length||!authTokenSecret||!authTokenSecret.length)
+        return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
+    NSArray *args = @[authToken, authTokenSecret, (NSDictionary<NSString *, NSString*> *)fieldsMapping?fieldsMapping:@{}];    
+    id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_TWITTER_SDK args:args];
+    return [result isKindOfClass:[Fault class]] ? result : [self onLogin:result];
+}
+
 -(id)resendEmailConfirmation:(NSString *)email {
     if (!email||!email.length)
         return [backendless throwFault:FAULT_NO_USER_EMAIL];
@@ -351,6 +360,17 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_GOOGLEPLUS_SDK args:args responder:_responder];
 }
 
+-(void)loginWithTwitterSDK:(NSString *)authToken authTokenSecret:(NSString *)authTokenSecret fieldsMapping:(id)fieldsMapping response:(void (^)(BackendlessUser *))responseBlock error:(void (^)(Fault *))errorBlock {
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!authToken||!authToken.length||!authTokenSecret||!authTokenSecret.length) {
+        return [responder errorHandler:FAULT_NO_USER_CREDENTIALS];
+    }
+    NSArray *args = @[authToken, authTokenSecret, (NSDictionary<NSString *, NSString*> *)fieldsMapping?fieldsMapping:@{}];
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onLogin:) selErrorHandler:nil];
+    _responder.chained = responder;
+    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_TWITTER_SDK args:args responder:_responder];
+}
+
 -(void)resendEmailConfirmation:(NSString *)email response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!email||!email.length)
@@ -361,12 +381,10 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 
 // methods of social easy logins
 // Twitter
--(void)easyLoginWithTwitterFieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping {
-    id<IResponder>responder = nil;
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(easyLoginResponder:) selErrorHandler:@selector(easyLoginError:)];
-    _responder.chained = responder;
+-(BackendlessUser *)easyLoginWithTwitterFieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping {
     NSArray *args = @[backendless.applicationType, fieldsMapping?fieldsMapping:@{}];
-    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_TWITTER args:args responder:_responder];
+    id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_TWITTER args:args];
+    return [result isKindOfClass:[Fault class]] ? result : [self onLogin:result];
 }
 
 -(void)easyLoginWithTwitterFieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {

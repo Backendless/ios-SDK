@@ -5765,7 +5765,6 @@
 				0F9ACA3C1E798C5D0087869F /* BooleanType.m in Sources */,
 				F9F0AE871CDBCA3900035C62 /* GeoFence.m in Sources */,
 				F9F0AE881CDBCA3900035C62 /* BeaconTracker.m in Sources */,
-				F9F0AE891CDBCA3900035C62 /* UserService.m in Sources */,
 				0F9ACB091E798C5E0087869F /* UndefinedType.m in Sources */,
 				0F9ACC171E798C5F0087869F /* CommandMessage.m in Sources */,
 				0F9AC9AB1E798C5D0087869F /* Call.m in Sources */,
