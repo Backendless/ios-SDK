@@ -423,7 +423,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 
 // commands
 
--(void)sendCommand:(NSString *)commandName channelName:(NSString *)channelName data:(id)data {
+-(void)sendCommand:(NSString *)commandName channelName:(NSString *)channelName data:(id)data onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError {
     NSDictionary *options = @{@"channel"    : channelName,
                               @"type"       : commandName};
     if (data) {
@@ -431,7 +431,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
                     @"type"       : commandName,
                     @"data"       : data};
     }
-    [rtMethod sendCommand:PUB_SUB_COMMAND_TYPE options:options];
+    [rtMethod sendCommand:commandName options:options onSuccess:onSuccess onError:onError];
 }
 
 @end

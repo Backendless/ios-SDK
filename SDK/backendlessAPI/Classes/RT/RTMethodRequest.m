@@ -22,5 +22,4 @@
 #import "RTMethodRequest.h"
 
 @implementation RTMethodRequest
-
 @end

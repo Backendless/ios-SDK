@@ -114,16 +114,30 @@
 
 // **********************************************
 
--(void)addCommandListener:(void (^)(RTCommand *))onCommand {
+-(void)addCommandListener:(void (^)(CommandObject *))onCommand {
     [self.rt addCommandListener:onCommand];
 }
 
--(void)removeCommandListener:(void (^)(RTCommand *))onCommand {
+-(void)removeCommandListener:(void (^)(CommandObject *))onCommand {
     [self.rt removeCommandListener:onCommand];
 }
 
 -(void)removeCommandListener {
     [self.rt removeCommandListener:nil];
+}
+
+// **********************************************
+
+-(void)addUserStatusListener:(void (^)(UserStatusObject *))onUserStatus {
+    [self.rt addUserStatusListener:onUserStatus];
+}
+
+-(void)removeUserStatusListener:(void (^)(UserStatusObject *))onUserStatus {
+    [self.rt removeUserStatusListener:onUserStatus];
+}
+
+-(void)removeUserStatusListener {
+    [self.rt removeUserStatusListener:nil];
 }
 
 // **********************************************

@@ -22,7 +22,6 @@
 #import "RTMethod.h"
 #import "RTClient.h"
 #import "RTMethodRequest.h"
-#import "Backendless.h"
 
 @interface RTMethod() {
     NSMutableDictionary<NSString *, NSMutableArray<RTMethodRequest *> *> *methods;
@@ -52,11 +51,23 @@
     return self;
 }
 
--(void)sendCommand:(NSString *)type options:(NSDictionary *)options {
+-(void)sendCommand:(NSString *)type options:(NSDictionary *)options onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError {
+    
+    NSDictionary *callbacks = @{type        : onSuccess,
+                                ERROR_TYPE  : onError};
+    
+    for (NSString *callbackType in [callbacks allKeys]) {
+        NSMutableArray *callbackStack = [NSMutableArray arrayWithArray:[simpleListeners valueForKey:callbackType]];
+        if (!callbackStack) {
+            callbackStack = [NSMutableArray new];
+        }
+        [callbackStack addObject:[callbacks valueForKey:callbackType]];
+        [simpleListeners setObject:callbackStack forKey:callbackType];
+    }
     
     NSString *methodId = [[NSUUID UUID] UUIDString];
     NSDictionary *data = @{@"id"        : methodId,
-                           @"name"      : type,
+                           @"name"      : PUB_SUB_COMMAND_TYPE,
                            @"options"   : options};
     
     __weak NSMutableDictionary<NSString *, NSMutableArray<RTMethodRequest *> *> *weakMethods = methods;
@@ -69,11 +80,11 @@
             errorBlock(error);
         }
     };
-
+    
     onResult = ^(id result) {
-        NSArray *methodCallbacks = [NSArray arrayWithArray:[weakMethods valueForKey:type]];
-        for (int i = 0; i < [methodCallbacks count]; i++) {
-            void(^resultBlock)(id) = [methodCallbacks objectAtIndex:i];
+        NSArray *resultCallbacks = [NSArray arrayWithArray:[weakSimpleListeners valueForKey:type]];
+        for (int i = 0; i < [resultCallbacks count]; i++) {
+            void(^resultBlock)(id) = [resultCallbacks objectAtIndex:i];
             resultBlock(result);
         }
     };

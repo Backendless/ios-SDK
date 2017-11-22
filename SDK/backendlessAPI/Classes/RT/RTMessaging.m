@@ -25,7 +25,6 @@
 @interface RTMessaging() {
     NSString *channel;
     NSMapTable *onConnectCallbacks;
-    NSMapTable *onCommandCallbacks;
 }
 @end
 
@@ -35,7 +34,6 @@
     if (self = [super init]) {
         channel = channelName;
         onConnectCallbacks = [NSMapTable new];
-        onCommandCallbacks = [NSMapTable new];
     }
     return self;
 }
@@ -57,7 +55,7 @@
 
 // **************************************************
 
--(void)addConnectListener:(BOOL)isConnected onConnect:(void (^)(void))onConnect {
+-(void)addConnectListener:(BOOL)isConnected onConnect:(void(^)(void))onConnect {
     void(^wrappedOnConnect)(id) = ^(id result) { onConnect(); };
     [onConnectCallbacks setObject:wrappedOnConnect forKey:onConnect];
     [super addSimpleListener:PUB_SUB_CONNECT_TYPE callBack:wrappedOnConnect];
@@ -82,7 +80,7 @@
     [super addSubscription:PUB_SUB_MESSAGES_TYPE options:options onResult:onMessage handleResultSelector:@selector(handleMessage:) fromClass:self];
 }
 
--(void)removeMessageListener:(NSString *)selector onMessage:(void (^)(Message *))onMessage {
+-(void)removeMessageListener:(NSString *)selector onMessage:(void(^)(Message *))onMessage {
     [super stopSubscription:channel event:PUB_SUB_MESSAGES_TYPE whereClause:selector onResult:onMessage];
 }
 
@@ -98,15 +96,49 @@
 
 // **************************************************
 
--(void) addCommandListener:(void (^)(RTCommand *))onCommand {
-    void(^wrappedOnCommand)(RTCommand *) = ^(RTCommand * result) { onCommand(result); };
-    [onCommandCallbacks setObject:wrappedOnCommand forKey:onCommand];
-    [super addSimpleListener:PUB_SUB_COMMAND_TYPE callBack:wrappedOnCommand];
+-(void) addCommandListener:(void(^)(CommandObject *))onCommand {
+    NSDictionary *options = @{@"channel" : channel};
+    [super addSubscription:PUB_SUB_COMMANDS_TYPE options:options onResult:onCommand handleResultSelector:@selector(handleCommand:) fromClass:self];
 }
 
--(void)removeCommandListener:(void (^)(RTCommand *))onCommand {
-    [super removeSimpleListener:PUB_SUB_COMMAND_TYPE callBack:[onCommandCallbacks objectForKey:onCommand]];
-    [super stopSubscription:channel event:PUB_SUB_COMMAND_TYPE whereClause:nil onResult:[onCommandCallbacks objectForKey:onCommand]];
+-(void)removeCommandListener:(void(^)(CommandObject *))onCommand {
+    [super stopSubscription:channel event:PUB_SUB_COMMANDS_TYPE whereClause:nil onResult:onCommand];
+}
+
+-(CommandObject *)handleCommand:(NSDictionary *)jsonResult {
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonResult options:NSJSONWritingPrettyPrinted error:nil];
+    NSDictionary *commandData = [self dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
+    CommandObject *command = [CommandObject new];
+    command.type = [commandData valueForKey:@"type"];
+    command.connectionId = [commandData valueForKey:@"connectionId"];
+    command.userId = [commandData valueForKey:@"userId"];
+    command.data = [commandData valueForKey:@"data"];
+    return command;
+}
+
+// **************************************************
+
+-(void)addUserStatusListener:(void(^)(UserStatusObject *))onUserStatus {
+    NSDictionary *options = @{@"channel" : channel};
+    [super addSubscription:PUB_SUB_USERS_TYPE options:options onResult:onUserStatus handleResultSelector:@selector(handleUserStatus:) fromClass:self];
+}
+
+-(void)removeUserStatusListener:(void(^)(UserStatusObject *))onUserStatus {
+    [super stopSubscription:channel event:PUB_SUB_USERS_TYPE whereClause:nil onResult:onUserStatus];
+}
+
+-(UserStatusObject *)handleUserStatus:(NSDictionary *)jsonResult {
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonResult options:NSJSONWritingPrettyPrinted error:nil];
+    NSDictionary *userStatusData = [self dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
+    UserStatusObject *userStatus = [UserStatusObject new];
+    
+    
+    NSLog(@"USER STATUS DATA: %@", userStatusData);
+    /*@property (strong, nonatomic) NSString *status; // LISTING | CONNECTED | DISCONNECTED | USERUPDATE
+     @property (strong, nonatomic) NSArray *data;*/
+    
+    
+    return userStatus;
 }
 
 // **************************************************

@@ -20,12 +20,13 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "Backendless.h"
 
 #define rtMethod [RTMethod sharedInstance]
 
 @interface RTMethod : NSObject
 
 +(RTMethod *)sharedInstance;
--(void)sendCommand:(NSString *)type options:(NSDictionary *)options;
+-(void)sendCommand:(NSString *)type options:(NSDictionary *)options onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
 
 @end

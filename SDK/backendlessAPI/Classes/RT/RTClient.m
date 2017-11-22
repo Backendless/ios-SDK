@@ -33,7 +33,7 @@
     NSMutableDictionary<NSString *, RTMethodRequest *> *methods;
     BOOL socketCreated;
     BOOL socketConnected;
-    BOOL needResubscribe;   // only for subscriptions?
+    BOOL needResubscribe;
     BOOL onConnectionHandlersReady;
     NSLock *_lock;
 }
@@ -53,6 +53,7 @@
 - (RTClient *)init {
     if (self = [super init]) {
         subscriptions = [NSMutableDictionary<NSString *, RTSubscription *> new];
+        methods =  [NSMutableDictionary<NSString *, RTMethodRequest *> new];
         socketCreated = NO;
         socketConnected = NO;
         needResubscribe = NO;
@@ -173,7 +174,7 @@
                     subscription.onResult([subscription.classInstance performSelector:subscription.handleResult withObject:result]);
                 }
             }
-        }        
+        }
         else if ([resultData valueForKey:@"error"]) {
             Fault *fault = [Fault fault:[[resultData valueForKey:@"error"] valueForKey:@"message"]
                                  detail:[[resultData valueForKey:@"error"] valueForKey:@"message"]
@@ -196,18 +197,13 @@
         NSString *methodId = [resultData valueForKey:@"id"];
         RTMethodRequest *method = [methods valueForKey:methodId];
         
-        if ([resultData valueForKey:@"result"]) {
-            id result = [resultData valueForKey:@"result"];
-            if (result) {
-                method.onResult(result);
-                method.onStop(method);
-                [methods removeObjectForKey:methodId];
-            }
-        }
-        else if ([resultData valueForKey:@"error"]) {
+        if ([resultData valueForKey:@"error"]) {
             Fault *fault = [Fault fault:[[resultData valueForKey:@"error"] valueForKey:@"message"]
                                  detail:[[resultData valueForKey:@"error"] valueForKey:@"message"]
-                              faultCode:[[resultData valueForKey:@"details"] valueForKey:@"code"]];
+                              faultCode:[[resultData valueForKey:@"error"] valueForKey:@"code"]];
+            
+            NSLog(@"CODE: %@", fault.faultCode);
+            
             if (method && method.onError) {
                 method.onError(fault);
             }
@@ -215,6 +211,16 @@
                 method.onStop(method);
                 [methods removeObjectForKey:methodId];
             }
+        }
+        else {
+            if ([resultData valueForKey:@"result"]) {
+                method.onResult([resultData valueForKey:@"result"]);
+            }
+            else if ([resultData valueForKey:@"id"] && ![resultData valueForKey:@"result"]) {
+                method.onResult(nil);
+            }
+            method.onStop(method);
+            [methods removeObjectForKey:methodId];
         }
     }];
 }

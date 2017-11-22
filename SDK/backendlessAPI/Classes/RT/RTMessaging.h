@@ -23,7 +23,8 @@
 #import "RTListener.h"
 #import "Responder.h"
 #import "Message.h"
-#import "RTCommand.h"
+#import "CommandObject.h"
+#import "UserStatusObject.h"
 
 @interface RTMessaging : RTListener
 
@@ -40,7 +41,10 @@
 -(void)addMessageListener:(NSString *)selector onMessage:(void(^)(Message *))onMessage;
 -(void)removeMessageListener:(NSString *)selector onMessage:(void(^)(Message *))onMessage;
 
--(void)addCommandListener:(void(^)(RTCommand *))onCommand;
--(void)removeCommandListener:(void(^)(RTCommand *))onCommand;
+-(void)addCommandListener:(void(^)(CommandObject *))onCommand;
+-(void)removeCommandListener:(void(^)(CommandObject *))onCommand;
+
+-(void)addUserStatusListener:(void(^)(UserStatusObject *))onUserStatus;
+-(void)removeUserStatusListener:(void(^)(UserStatusObject *))onUserStatus;
 
 @end
