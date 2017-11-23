@@ -69,7 +69,14 @@
         if (!socketCreated) {
             NSString *path = [@"/" stringByAppendingString:[backendless getAppId]];
             NSURL *url = [[NSURL alloc] initWithString:@"http://localhost:5000"];
-            socketManager = [[SocketManager alloc] initWithSocketURL:url config:@{@"path": path, @"connectParams":@{@"token":@"some-token"}}];
+            NSString *userToken = [backendless.userService.currentUser getUserToken];
+            if (userToken) {
+                socketManager = [[SocketManager alloc] initWithSocketURL:url config:@{@"path": path, @"connectParams":@{@"token":@"some-token", @"userToken":userToken}}];
+            }
+            else {
+                socketManager = [[SocketManager alloc] initWithSocketURL:url config:@{@"path": path, @"connectParams":@{@"token":@"some-token"}}];
+            }
+            NSLog(@"USER TOKEN: %@", [backendless.userService.currentUser getUserToken]);
             socket = [socketManager socketForNamespace:path];
             if (socket) {
                 socketCreated = YES;
@@ -114,7 +121,9 @@
             [socket emit:@"MET_REQ" with:[NSArray arrayWithObject:data]];
         }];
     }
-    [methods setObject:method forKey:method.methodId];
+    if (method) {
+        [methods setObject:method forKey:method.methodId];
+    }
 }
 
 -(void)onConnectionHandlers:(void(^)(void))connected {
@@ -200,10 +209,7 @@
         if ([resultData valueForKey:@"error"]) {
             Fault *fault = [Fault fault:[[resultData valueForKey:@"error"] valueForKey:@"message"]
                                  detail:[[resultData valueForKey:@"error"] valueForKey:@"message"]
-                              faultCode:[[resultData valueForKey:@"error"] valueForKey:@"code"]];
-            
-            NSLog(@"CODE: %@", fault.faultCode);
-            
+                              faultCode:[[resultData valueForKey:@"error"] valueForKey:@"code"]];            
             if (method && method.onError) {
                 method.onError(fault);
             }
@@ -223,6 +229,17 @@
             [methods removeObjectForKey:methodId];
         }
     }];
+}
+
+-(void)userLoggedInWithToken:(NSString *)userToken {
+    if (socketConnected) {
+        NSString *methodId = [[NSUUID UUID] UUIDString];
+        NSDictionary *options = @{@"userToken"  : userToken};
+        NSDictionary *data = @{@"id"        : methodId,
+                               @"name"      : SET_USER_TYPE,
+                               @"options"   : options};
+        [self sendCommand:data method:nil];
+    }
 }
 
 @end

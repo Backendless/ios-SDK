@@ -58,8 +58,6 @@
     self.isConnected = NO;
 }
 
-// **********************************************
-
 -(void)addErrorListener:(void(^)(Fault *))errorBlock {
     [self.rt addErrorListener:errorBlock];
 }
@@ -72,8 +70,6 @@
     [self.rt removeErrorListener:nil];
 }
 
-// **********************************************
-
 -(void)addConnectListener:(void(^)(void))onConnect {
     [self.rt addConnectListener:self.isConnected onConnect:onConnect];
 }
@@ -85,8 +81,6 @@
 -(void)removeConnectListener {
     [self.rt removeConnectListener:nil];
 }
-
-// **********************************************
 
 -(void)addMessageListener:(void(^)(Message *))onMessage {
     [self.rt addMessageListener:nil onMessage:onMessage];
@@ -112,8 +106,6 @@
     [self.rt removeMessageListener:nil onMessage:nil];
 }
 
-// **********************************************
-
 -(void)addCommandListener:(void (^)(CommandObject *))onCommand {
     [self.rt addCommandListener:onCommand];
 }
@@ -125,8 +117,6 @@
 -(void)removeCommandListener {
     [self.rt removeCommandListener:nil];
 }
-
-// **********************************************
 
 -(void)addUserStatusListener:(void (^)(UserStatusObject *))onUserStatus {
     [self.rt addUserStatusListener:onUserStatus];
@@ -140,12 +130,12 @@
     [self.rt removeUserStatusListener:nil];
 }
 
-// **********************************************
-
 -(void)removeAllListeners {
     [self removeErrorListener];
     [self removeConnectListener];
     [self removeMessageListener];
+    [self removeCommandListener];
+    [self removeUserStatusListener];
 }
 
 @end

@@ -20,7 +20,7 @@
  */
 
 #import "RTMessaging.h"
-#import "RTListener+RTListenerMethods.h"
+#import "RTListener.h"
 
 @interface RTMessaging() {
     NSString *channel;
@@ -43,8 +43,6 @@
     [super addSubscription:PUB_SUB_CONNECT_TYPE options:options onResult:onSuccessfulConnect handleResultSelector:nil fromClass:nil];
 }
 
-// **************************************************
-
 -(void)addErrorListener:(void(^)(Fault *))onError {
     [super addSimpleListener:ERROR_TYPE callBack:onError];
 }
@@ -52,8 +50,6 @@
 -(void)removeErrorListener:(void(^)(Fault *))onError {
     [super removeSimpleListener:ERROR_TYPE callBack:onError];
 }
-
-// **************************************************
 
 -(void)addConnectListener:(BOOL)isConnected onConnect:(void(^)(void))onConnect {
     void(^wrappedOnConnect)(id) = ^(id result) { onConnect(); };
@@ -68,8 +64,6 @@
     [super removeSimpleListener:PUB_SUB_CONNECT_TYPE callBack:[onConnectCallbacks objectForKey:onConnect]];
     [super stopSubscription:channel event:PUB_SUB_CONNECT_TYPE whereClause:nil onResult:[onConnectCallbacks objectForKey:onConnect]];
 }
-
-// **************************************************
 
 -(void)addMessageListener:(NSString *)selector onMessage:(void(^)(Message *))onMessage {
     NSDictionary *options = @{@"channel"  : channel};
@@ -94,8 +88,6 @@
     return message;
 }
 
-// **************************************************
-
 -(void) addCommandListener:(void(^)(CommandObject *))onCommand {
     NSDictionary *options = @{@"channel" : channel};
     [super addSubscription:PUB_SUB_COMMANDS_TYPE options:options onResult:onCommand handleResultSelector:@selector(handleCommand:) fromClass:self];
@@ -116,8 +108,6 @@
     return command;
 }
 
-// **************************************************
-
 -(void)addUserStatusListener:(void(^)(UserStatusObject *))onUserStatus {
     NSDictionary *options = @{@"channel" : channel};
     [super addSubscription:PUB_SUB_USERS_TYPE options:options onResult:onUserStatus handleResultSelector:@selector(handleUserStatus:) fromClass:self];
@@ -131,17 +121,10 @@
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonResult options:NSJSONWritingPrettyPrinted error:nil];
     NSDictionary *userStatusData = [self dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
     UserStatusObject *userStatus = [UserStatusObject new];
-    
-    
-    NSLog(@"USER STATUS DATA: %@", userStatusData);
-    /*@property (strong, nonatomic) NSString *status; // LISTING | CONNECTED | DISCONNECTED | USERUPDATE
-     @property (strong, nonatomic) NSArray *data;*/
-    
-    
+    userStatus.status = [userStatusData valueForKey:@"status"];
+    userStatus.data = [userStatusData valueForKey:@"data"];    
     return userStatus;
 }
-
-// **************************************************
 
 -(NSDictionary *)dictionaryFromJson:(NSString *)JSONString {
     NSMutableDictionary *dictionary = [NSMutableDictionary new];

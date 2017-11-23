@@ -28,8 +28,9 @@
 #import "Invoker.h"
 #import "BackendlessUser.h"
 #import "UserProperty.h"
-#import "AMFSerializer.h"
+#import "AMFSerializer.h"`
 #import "AuthorizationException.h"
+#import "RTClient.h"
 
 #define FAULT_NO_USER_CREDENTIALS [Fault fault:@"Login or password is missing or null" detail:@"Login or password is missing or null" faultCode:@"3006"]
 #define FAULT_NO_USER [Fault fault:@"User is missing or null" detail:@"User is missing or null" faultCode:@"3900"]
@@ -172,10 +173,13 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
         return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
     NSArray *args = [NSArray arrayWithObjects:login, password, nil];
     self.currentUser = [self castFromDictionary:[invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_LOGIN args:args]];
-    if (self.currentUser.getUserToken)
+    if (self.currentUser.getUserToken) {
         [backendless.headers setValue:self.currentUser.getUserToken forKey:BACKENDLESS_USER_TOKEN];
-    else
+    }
+    else {
         [backendless.headers removeObjectForKey:BACKENDLESS_USER_TOKEN];
+    }
+    
     [self setPersistentUser];
     return self.currentUser;
 }
@@ -475,19 +479,23 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 }
 
 -(BOOL)setPersistentUser {
-    if (self.currentUser && _isStayLoggedIn) {
-        NSMutableDictionary *properties = [NSMutableDictionary dictionaryWithDictionary:[self.currentUser getProperties]];
-        NSString *userToken = [backendless.headers valueForKey:BACKENDLESS_USER_TOKEN];
-        if (userToken) {
-            [properties setValue:userToken forKey:BACKENDLESS_USER_TOKEN];
+    if (self.currentUser) {
+        [rtClient userLoggedInWithToken:self.currentUser.getUserToken];
+        if (_isStayLoggedIn) {
+            NSMutableDictionary *properties = [NSMutableDictionary dictionaryWithDictionary:[self.currentUser getProperties]];
+            NSString *userToken = [backendless.headers valueForKey:BACKENDLESS_USER_TOKEN];
+            if (userToken) {
+                [properties setValue:userToken forKey:BACKENDLESS_USER_TOKEN];
+            }
+            return [AMFSerializer serializeToFile:properties fileName:PERSIST_USER_FILE_NAME];
         }
-        return [AMFSerializer serializeToFile:properties fileName:PERSIST_USER_FILE_NAME];
     }
     return NO;
 }
 
 -(BOOL)resetPersistentUser {
     return [AMFSerializer serializeToFile:nil fileName:PERSIST_USER_FILE_NAME];
+    [rtClient userLoggedInWithToken:nil];
 }
 
 #pragma mark -

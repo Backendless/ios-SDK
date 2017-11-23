@@ -22,5 +22,4 @@
 #import "UserStatusObject.h"
 
 @implementation UserStatusObject
-
 @end

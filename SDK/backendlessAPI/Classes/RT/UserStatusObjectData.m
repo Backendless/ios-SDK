@@ -22,5 +22,4 @@
 #import "UserStatusObjectData.h"
 
 @implementation UserStatusObjectData
-
 @end

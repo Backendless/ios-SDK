@@ -25,9 +25,18 @@
 #define OBJECTS_CHANGES_TYPE @"OBJECTS_CHANGES"
 #define PUB_SUB_CONNECT_TYPE @"PUB_SUB_CONNECT"
 #define PUB_SUB_MESSAGES_TYPE @"PUB_SUB_MESSAGES"
+#define SET_USER_TYPE @"SET_USER"
 #define PUB_SUB_COMMAND_TYPE @"PUB_SUB_COMMAND"
 #define PUB_SUB_COMMANDS_TYPE @"PUB_SUB_COMMANDS"
 #define PUB_SUB_USERS_TYPE @"PUB_SUB_USERS"
 
 @interface RTListener : NSObject
+
+-(void)addSubscription:(NSString *)type options:(NSDictionary *)options onResult:(void(^)(id))onResult handleResultSelector:(SEL)handleResultSelector fromClass:(id)subscriptionClassInstance;
+-(void)stopSubscription:(NSString *)channel event:(NSString *)event whereClause:(NSString *)whereClause onResult:(void(^)(id))onResult;
+
+-(void)addSimpleListener:(NSString *)type callBack:(void(^)(id))callback;
+-(void)removeSimpleListener:(NSString *)type callBack:(void(^)(id))callback;
+-(void)removeSimpleListener:(NSString *)type;
+
 @end

@@ -91,8 +91,7 @@
     NSString *typeName = [data valueForKey:@"name"];
     if ([typeName isEqualToString:OBJECTS_CHANGES_TYPE]) {
         typeName = [[data valueForKey:@"options"] valueForKey:@"event"];
-    }
-    
+    }    
     NSMutableArray *subscriptionStack = [NSMutableArray arrayWithArray:[subscriptions valueForKey:typeName]];
     if (!subscriptionStack) {
         subscriptionStack = [NSMutableArray new];

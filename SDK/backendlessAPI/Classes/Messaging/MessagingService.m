@@ -33,7 +33,7 @@
 #import "BodyParts.h"
 #import "UICKeyChainStore.h"
 #import "KeychainDataStore.h"
-#import "RTListener+RTListenerMethods.h"
+#import "RTListener.h"
 #import "RTMethod.h"
 
 #define FAULT_NO_DEVICE_ID [Fault fault:@"Device ID is not set" detail:@"Device ID is not set" faultCode:@"5900"]

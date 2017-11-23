@@ -22,5 +22,4 @@
 #import "CommandObject.h"
 
 @implementation CommandObject
-
 @end

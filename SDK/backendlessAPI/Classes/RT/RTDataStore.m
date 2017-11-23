@@ -22,7 +22,7 @@
 #import "Backendless.h"
 #import "RTDataStore.h"
 #import "RTClient.h"
-#import "RTListener+RTListenerMethods.h"
+#import "RTListener.h"
 #import "RTSubscription.h"
 
 #define CREATED @"created"
@@ -138,10 +138,7 @@
     [self removeErrorListener];
 }
 
-// *********************************************
-
 -(void)subscribeForObjectChanges:(NSString *)event tableName:(NSString *)tableName whereClause:(NSString *)whereClause onData:(void(^)(id))onChange {
-    
     NSDictionary *options = @{@"tableName"  : tableName,
                               @"event"      : event};
     if (whereClause) {
@@ -149,27 +146,12 @@
                     @"event"        : event,
                     @"whereClause"  : whereClause};
     }
-    
-    //        void(^wrappedOnChanges)(NSDictionary *) = ^(NSDictionary *result) {
-    //            if (dataStore == DATASTOREFACTORY) {
-    //                NSData *jsonData = [NSJSONSerialization dataWithJSONObject:result options:NSJSONWritingPrettyPrinted error:nil];
-    //                id resultObject = [self objectFromJSON:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
-    //                onChange(resultObject);
-    //            }
-    //            else if (dataStore == MAPDRIVENDATASTORE) {
-    //                NSData *jsonData = [NSJSONSerialization dataWithJSONObject:result options:NSJSONWritingPrettyPrinted error:nil];
-    //                NSDictionary *resultDictionary = [self dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
-    //                onChange(resultDictionary);
-    //            }
-    //        };
-    
     [super addSubscription:OBJECTS_CHANGES_TYPE options:options onResult:onChange handleResultSelector:@selector(handleData:) fromClass:self];
 };
 
 -(id)handleData:(NSDictionary *)jsonResult {
     id result;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonResult options:NSJSONWritingPrettyPrinted error:nil];
-    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonResult options:NSJSONWritingPrettyPrinted error:nil];    
     if (dataStore == DATASTOREFACTORY) {
         result = [self objectFromJSON:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
     }
@@ -178,8 +160,6 @@
     }
     return result;
 }
-
-// **************************************************
 
 -(id)objectFromJSON:(NSString *)JSONString {
     NSError *error;

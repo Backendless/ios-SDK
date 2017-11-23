@@ -32,6 +32,7 @@
 -(void)subscribe:(NSDictionary *)data subscription:(RTSubscription *)subscription;
 -(void)unsubscribe:(NSString *)subscriptionId;
 -(void)sendCommand:(NSDictionary *)data method:(RTMethodRequest *)method;
+-(void)userLoggedInWithToken:(NSString *)userToken;
 
 @end
 
