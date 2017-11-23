@@ -30,7 +30,7 @@
 
 @implementation RTMessaging
 
--(RTMessaging *)initWithChannelName:(NSString *)channelName {
+-(instancetype)initWithChannelName:(NSString *)channelName {
     if (self = [super init]) {
         channel = channelName;
         onConnectCallbacks = [NSMapTable new];
@@ -40,29 +40,29 @@
 
 -(void)connect:(void(^)(id))onSuccessfulConnect {
     NSDictionary *options = @{@"channel"  : channel};
-    [super addSubscription:PUB_SUB_CONNECT_TYPE options:options onResult:onSuccessfulConnect handleResultSelector:nil fromClass:nil];
+    [super addSubscription:PUB_SUB_CONNECT options:options onResult:onSuccessfulConnect handleResultSelector:nil fromClass:nil];
 }
 
 -(void)addErrorListener:(void(^)(Fault *))onError {
-    [super addSimpleListener:ERROR_TYPE callBack:onError];
+    [super addSimpleListener:ERROR callBack:onError];
 }
 
 -(void)removeErrorListener:(void(^)(Fault *))onError {
-    [super removeSimpleListener:ERROR_TYPE callBack:onError];
+    [super removeSimpleListener:ERROR callBack:onError];
 }
 
 -(void)addConnectListener:(BOOL)isConnected onConnect:(void(^)(void))onConnect {
     void(^wrappedOnConnect)(id) = ^(id result) { onConnect(); };
     [onConnectCallbacks setObject:wrappedOnConnect forKey:onConnect];
-    [super addSimpleListener:PUB_SUB_CONNECT_TYPE callBack:wrappedOnConnect];
+    [super addSimpleListener:PUB_SUB_CONNECT callBack:wrappedOnConnect];
     if (isConnected) {
         onConnect();
     }
 }
 
 -(void)removeConnectListener:(void(^)(void))onConnect {
-    [super removeSimpleListener:PUB_SUB_CONNECT_TYPE callBack:[onConnectCallbacks objectForKey:onConnect]];
-    [super stopSubscription:channel event:PUB_SUB_CONNECT_TYPE whereClause:nil onResult:[onConnectCallbacks objectForKey:onConnect]];
+    [super removeSimpleListener:PUB_SUB_CONNECT callBack:[onConnectCallbacks objectForKey:onConnect]];
+    [super stopSubscriptionWithChannel:channel event:PUB_SUB_CONNECT whereClause:nil onResult:[onConnectCallbacks objectForKey:onConnect]];
 }
 
 -(void)addMessageListener:(NSString *)selector onMessage:(void(^)(Message *))onMessage {
@@ -71,11 +71,11 @@
         options = @{@"channel"  : channel,
                     @"selector" : selector};
     }
-    [super addSubscription:PUB_SUB_MESSAGES_TYPE options:options onResult:onMessage handleResultSelector:@selector(handleMessage:) fromClass:self];
+    [super addSubscription:PUB_SUB_MESSAGES options:options onResult:onMessage handleResultSelector:@selector(handleMessage:) fromClass:self];
 }
 
 -(void)removeMessageListener:(NSString *)selector onMessage:(void(^)(Message *))onMessage {
-    [super stopSubscription:channel event:PUB_SUB_MESSAGES_TYPE whereClause:selector onResult:onMessage];
+    [super stopSubscriptionWithChannel:channel event:PUB_SUB_MESSAGES whereClause:selector onResult:onMessage];
 }
 
 -(Message *)handleMessage:(NSDictionary *)jsonResult {
@@ -90,11 +90,11 @@
 
 -(void) addCommandListener:(void(^)(CommandObject *))onCommand {
     NSDictionary *options = @{@"channel" : channel};
-    [super addSubscription:PUB_SUB_COMMANDS_TYPE options:options onResult:onCommand handleResultSelector:@selector(handleCommand:) fromClass:self];
+    [super addSubscription:PUB_SUB_COMMANDS options:options onResult:onCommand handleResultSelector:@selector(handleCommand:) fromClass:self];
 }
 
 -(void)removeCommandListener:(void(^)(CommandObject *))onCommand {
-    [super stopSubscription:channel event:PUB_SUB_COMMANDS_TYPE whereClause:nil onResult:onCommand];
+    [super stopSubscriptionWithChannel:channel event:PUB_SUB_COMMANDS whereClause:nil onResult:onCommand];
 }
 
 -(CommandObject *)handleCommand:(NSDictionary *)jsonResult {
@@ -110,11 +110,11 @@
 
 -(void)addUserStatusListener:(void(^)(UserStatusObject *))onUserStatus {
     NSDictionary *options = @{@"channel" : channel};
-    [super addSubscription:PUB_SUB_USERS_TYPE options:options onResult:onUserStatus handleResultSelector:@selector(handleUserStatus:) fromClass:self];
+    [super addSubscription:PUB_SUB_USERS options:options onResult:onUserStatus handleResultSelector:@selector(handleUserStatus:) fromClass:self];
 }
 
 -(void)removeUserStatusListener:(void(^)(UserStatusObject *))onUserStatus {
-    [super stopSubscription:channel event:PUB_SUB_USERS_TYPE whereClause:nil onResult:onUserStatus];
+    [super stopSubscriptionWithChannel:channel event:PUB_SUB_USERS whereClause:nil onResult:onUserStatus];
 }
 
 -(UserStatusObject *)handleUserStatus:(NSDictionary *)jsonResult {

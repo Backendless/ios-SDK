@@ -30,7 +30,7 @@ typedef enum {
 
 @interface RTDataStore : RTListener
 
--(RTDataStore *)initWithTableName:(NSString *)tableName withEntity:(Class)tableEntity dataStoreType:(UInt32)dataStoreType;
+-(instancetype)initWithTableName:(NSString *)tableName withEntity:(Class)tableEntity dataStoreType:(UInt32)dataStoreType;
 
 -(void)addErrorListener:(void(^)(Fault *))errorBlock;
 -(void)removeErrorListener:(void(^)(Fault *))errorBlock;

@@ -34,7 +34,7 @@
 
 @implementation RTMethod
 
-+(RTMethod *)sharedInstance {
++(instancetype)sharedInstance {
     static RTMethod *sharedRTMethod;
     @synchronized(self) {
         if (!sharedRTMethod)
@@ -43,7 +43,7 @@
     return sharedRTMethod;
 }
 
--(RTMethod *)init {
+-(instancetype)init {
     if (self = [super init]) {
         methods = [NSMutableDictionary<NSString *, NSMutableArray<RTMethodRequest *> *> new];
         simpleListeners = [NSMutableDictionary<NSString *, NSMutableArray *> new];
@@ -54,7 +54,7 @@
 -(void)sendCommand:(NSString *)type options:(NSDictionary *)options onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError {
     
     NSDictionary *callbacks = @{type        : onSuccess,
-                                ERROR_TYPE  : onError};
+                                ERROR  : onError};
     
     for (NSString *callbackType in [callbacks allKeys]) {
         NSMutableArray *callbackStack = [NSMutableArray arrayWithArray:[simpleListeners valueForKey:callbackType]];
@@ -67,14 +67,14 @@
     
     NSString *methodId = [[NSUUID UUID] UUIDString];
     NSDictionary *data = @{@"id"        : methodId,
-                           @"name"      : PUB_SUB_COMMAND_TYPE,
+                           @"name"      : PUB_SUB_COMMAND,
                            @"options"   : options};
     
     __weak NSMutableDictionary<NSString *, NSMutableArray<RTMethodRequest *> *> *weakMethods = methods;
     __weak NSMutableDictionary<NSString *, NSMutableArray *> *weakSimpleListeners = simpleListeners;
     
     onError = ^(Fault *error) {
-        NSArray *errorCallbacks = [NSArray arrayWithArray:[weakSimpleListeners valueForKey:ERROR_TYPE]];
+        NSArray *errorCallbacks = [NSArray arrayWithArray:[weakSimpleListeners valueForKey:ERROR]];
         for (int i = 0; i < [errorCallbacks count]; i++) {
             void(^errorBlock)(Fault *) = [errorCallbacks objectAtIndex:i];
             errorBlock(error);

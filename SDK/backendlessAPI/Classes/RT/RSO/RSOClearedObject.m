@@ -1,5 +1,5 @@
 //
-//  UserStatusObject.h
+//  RSOClearedObjet.m
 //  backendlessAPI
 /*
  * *********************************************************************************************************************
@@ -19,12 +19,7 @@
  *  ********************************************************************************************************************
  */
 
-#import <Foundation/Foundation.h>
-#import "UserStatusObject.h"
+#import "RSOClearedObject.h"
 
-@interface UserStatusObject : NSObject
-
-@property (strong, nonatomic) NSString *status;
-@property (strong, nonatomic) NSArray<UserStatusObject *> *data;
-
+@implementation RSOClearedObject
 @end

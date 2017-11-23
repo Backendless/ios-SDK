@@ -26,7 +26,7 @@
 
 @interface RTMethod : NSObject
 
-+(RTMethod *)sharedInstance;
++(instancetype)sharedInstance;
 -(void)sendCommand:(NSString *)type options:(NSDictionary *)options onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
 
 @end

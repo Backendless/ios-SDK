@@ -1,5 +1,5 @@
 //
-//  Channel.m
+//  RemoteSharedObject.m
 //  backendlessAPI
 /*
  * *********************************************************************************************************************
@@ -19,21 +19,21 @@
  *  ********************************************************************************************************************
  */
 
-#import "Channel.h"
-#import "RTMessaging.h"
+#import "RemoteSharedObject.h"
+#import "RTRemoteSharedObject.h"
 
-@interface Channel()
-@property (strong, nonatomic, readwrite) NSString *channelName;
-@property (strong, nonatomic) RTMessaging *rt;
+@interface RemoteSharedObject()
+@property (strong, nonatomic, readwrite) NSString *rsoName;
+@property (strong, nonatomic) RTRemoteSharedObject *rt;
 @property (nonatomic, readwrite) BOOL isConnected;
 @end
 
-@implementation Channel
+@implementation RemoteSharedObject
 
--(instancetype)initWithChannelName:(NSString *)channelName {
+-(instancetype)initWithRSOName:(NSString *)rsoName {
     if (self = [super init]) {
-        self.channelName = channelName;
-        self.rt = [[RTMessaging alloc] initWithChannelName:channelName];
+        self.rsoName = rsoName;
+        self.rt = [[RTRemoteSharedObject alloc] initWithRSOName:rsoName];
         self.isConnected = NO;
     }
     return self;
@@ -50,7 +50,8 @@
 -(void)disconnect {
     [self removeErrorListener];
     [self removeConnectListener];
-    [self removeMessageListener];
+    [self removeChangesListener];
+    [self removeClearListener];
     [self removeCommandListener];
     [self removeUserStatusListener];
     self.isConnected = NO;
@@ -80,35 +81,35 @@
     [self.rt removeConnectListener:nil];
 }
 
--(void)addMessageListener:(void(^)(Message *))onMessage {
-    [self.rt addMessageListener:nil onMessage:onMessage];
+-(void)addChangesListener:(void(^)(RSOChangesObject *))onChanges {
+    [self.rt addChangesListener:onChanges];
 }
 
--(void)addMessageListener:(NSString *)selector onMessage:(void(^)(Message *))onMessage {
-    [self.rt addMessageListener:selector onMessage:onMessage];
+-(void)removeChangesListener:(void(^)(RSOChangesObject *))onChanges {
+    [self.rt removeChangesListener:onChanges];
 }
 
--(void)removeMessageListener:(NSString *)selector onMessage:(void(^)(Message *))onMessage {
-    [self.rt removeMessageListener:selector onMessage:onMessage];
+-(void)removeChangesListener {
+    [self.rt removeChangesListener:nil];
 }
 
--(void)removeMessageListenerWithCallback:(void(^)(Message *))onMessage {
-    [self.rt removeMessageListener:nil onMessage:onMessage];
+-(void)addClearListener:(void(^)(RSOClearedObject *))onClear {
+    [self.rt addClearListener:onClear];
 }
 
--(void)removeMessageListenerWithSelector:(NSString *)selector {
-    [self.rt removeMessageListener:selector onMessage:nil];
+-(void)removeClearListener:(void(^)(RSOClearedObject *))onClear {
+    [self.rt removeClearListener:onClear];
 }
 
--(void)removeMessageListener {
-    [self.rt removeMessageListener:nil onMessage:nil];
+-(void)removeClearListener {
+    [self.rt removeClearListener:nil];
 }
 
--(void)addCommandListener:(void (^)(CommandObject *))onCommand {
+-(void)addCommandListener:(void(^)(CommandObject *))onCommand {
     [self.rt addCommandListener:onCommand];
 }
 
--(void)removeCommandListener:(void (^)(CommandObject *))onCommand {
+-(void)removeCommandListener:(void(^)(CommandObject *))onCommand {
     [self.rt removeCommandListener:onCommand];
 }
 
@@ -116,11 +117,11 @@
     [self.rt removeCommandListener:nil];
 }
 
--(void)addUserStatusListener:(void (^)(UserStatusObject *))onUserStatus {
+-(void)addUserStatusListener:(void(^)(UserStatusObject *))onUserStatus {
     [self.rt addUserStatusListener:onUserStatus];
 }
 
--(void)removeUserStatusListener:(void (^)(UserStatusObject *))onUserStatus {
+-(void)removeUserStatusListener:(void(^)(UserStatusObject *))onUserStatus {
     [self.rt removeUserStatusListener:onUserStatus];
 }
 
@@ -128,12 +129,22 @@
     [self.rt removeUserStatusListener:nil];
 }
 
--(void)removeAllListeners {
-    [self removeErrorListener];
-    [self removeConnectListener];
-    [self removeMessageListener];
-    [self removeCommandListener];
-    [self removeUserStatusListener];
+// commands
+
+-(void)get:(NSString *)key onSuccess:(void(^)(id))onSuccess onError:(void (^)(Fault *))onError {
+    [self.rt get:key onSuccess:onSuccess onError:onError];
+}
+
+-(void)set:(NSString *)key data:(id)data onSuccess:(void(^)(id))onSuccess onError:(void (^)(Fault *))onError {
+    [self.rt set:key data:data onSuccess:onSuccess onError:onError];
+}
+
+-(void)clear:(void(^)(id))onSuccess onError:(void (^)(Fault *))onError {
+    [self.rt clear:onSuccess onError:onError];
+}
+
+-(void)sendCommand:(NSString *)commandName data:(id)data onSuccess:(void (^)(id))onSuccess onError:(void (^)(Fault *))onError {
+    [self.rt sendCommand:commandName data:data onSuccess:onSuccess onError:onError];
 }
 
 @end

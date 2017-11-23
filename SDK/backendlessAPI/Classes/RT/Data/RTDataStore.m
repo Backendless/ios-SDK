@@ -38,7 +38,7 @@
 
 @implementation RTDataStore
 
--(RTDataStore *)initWithTableName:(NSString *)tableName withEntity:(Class)tableEntity dataStoreType:(UInt32)dataStoreType {
+-(instancetype)initWithTableName:(NSString *)tableName withEntity:(Class)tableEntity dataStoreType:(UInt32)dataStoreType {
     if (self = [super init]) {
         table = tableName;
         entity = tableEntity;
@@ -48,15 +48,15 @@
 }
 
 -(void)addErrorListener:(void(^)(Fault *))onError {
-    [super addSimpleListener:ERROR_TYPE callBack:onError];
+    [super addSimpleListener:ERROR callBack:onError];
 }
 
 -(void)removeErrorListener:(void(^)(Fault *))onError {
-    [super removeSimpleListener:ERROR_TYPE callBack:onError];
+    [super removeSimpleListener:ERROR callBack:onError];
 }
 
 -(void)removeErrorListener {
-    [super removeSimpleListener:ERROR_TYPE];
+    [super removeSimpleListener:ERROR];
 }
 
 -(void)addCreateListener:(void(^)(id))onCreate {
@@ -68,19 +68,19 @@
 }
 
 -(void)removeCreateListener:(NSString *)whereClause onCreate:(void(^)(id))onCreate {
-    [super stopSubscription:nil event:CREATED whereClause:whereClause onResult:onCreate];
+    [super stopSubscription:CREATED whereClause:whereClause onResult:onCreate];
 }
 
 -(void)removeCreateListenerWithCallback:(void(^)(id))onCreate {
-    [super stopSubscription:nil event:CREATED whereClause:nil onResult:onCreate];
+    [super stopSubscription:CREATED whereClause:nil onResult:onCreate];
 }
 
 -(void)removeCreateListenerWithWhereClause:(NSString *)whereClause {
-    [super stopSubscription:nil event:CREATED whereClause:whereClause onResult:nil];
+    [super stopSubscription:CREATED whereClause:whereClause onResult:nil];
 }
 
 -(void)removeCreateListener {
-    [super stopSubscription:nil event:CREATED whereClause:nil onResult:nil];
+    [super stopSubscription:CREATED whereClause:nil onResult:nil];
 }
 
 -(void)addUpdateListener:(void(^)(id))onUpdate {
@@ -92,19 +92,19 @@
 }
 
 -(void)removeUpdateListener:(NSString *)whereClause onUpdate:(void(^)(id))onUpdate {
-    [super stopSubscription:nil event:UPDATED whereClause:whereClause onResult:onUpdate];
+    [super stopSubscription:UPDATED whereClause:whereClause onResult:onUpdate];
 }
 
 -(void)removeUpdateListenerWithCallback:(void(^)(id))onUpdate {
-    [super stopSubscription:nil event:UPDATED whereClause:nil onResult:onUpdate];
+    [super stopSubscription:UPDATED whereClause:nil onResult:onUpdate];
 }
 
 -(void)removeUpdateListenerWithWhereClause:(NSString *)whereClause {
-    [super stopSubscription:nil event:UPDATED whereClause:whereClause onResult:nil];
+    [super stopSubscription:UPDATED whereClause:whereClause onResult:nil];
 }
 
 -(void)removeUpdateListener {
-    [super stopSubscription:nil event:UPDATED whereClause:nil onResult:nil];
+    [super stopSubscription:UPDATED whereClause:nil onResult:nil];
 }
 
 -(void)addDeleteListener:(void(^)(id))onDelete {
@@ -116,19 +116,19 @@
 }
 
 -(void)removeDeleteListener:(NSString *)whereClause onDelete:(void(^)(id))onDelete {
-    [super stopSubscription:nil event:DELETED whereClause:whereClause onResult:onDelete];
+    [super stopSubscription:DELETED whereClause:whereClause onResult:onDelete];
 }
 
 -(void)removeDeleteListenerWithCallback:(void(^)(id))onDelete {
-    [super stopSubscription:nil event:DELETED whereClause:nil onResult:onDelete];
+    [super stopSubscription:DELETED whereClause:nil onResult:onDelete];
 }
 
 -(void)removeDeleteListenerWithWhereClause:(NSString *)whereClause {
-    [super stopSubscription:nil event:DELETED whereClause:whereClause onResult:nil];
+    [super stopSubscription:DELETED whereClause:whereClause onResult:nil];
 }
 
 -(void)removeDeleteListener {
-    [super stopSubscription:nil event:DELETED whereClause:nil onResult:nil];
+    [super stopSubscription:DELETED whereClause:nil onResult:nil];
 }
 
 -(void)removeAllListeners {
@@ -146,7 +146,7 @@
                     @"event"        : event,
                     @"whereClause"  : whereClause};
     }
-    [super addSubscription:OBJECTS_CHANGES_TYPE options:options onResult:onChange handleResultSelector:@selector(handleData:) fromClass:self];
+    [super addSubscription:OBJECTS_CHANGES options:options onResult:onChange handleResultSelector:@selector(handleData:) fromClass:self];
 };
 
 -(id)handleData:(NSDictionary *)jsonResult {

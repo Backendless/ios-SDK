@@ -1,5 +1,5 @@
 //
-//  UserStatusObject.h
+//  RSOChangesObject.h
 //  backendlessAPI
 /*
  * *********************************************************************************************************************
@@ -20,11 +20,12 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "UserStatusObject.h"
 
-@interface UserStatusObject : NSObject
+@interface RSOChangesObject : NSObject
 
-@property (strong, nonatomic) NSString *status;
-@property (strong, nonatomic) NSArray<UserStatusObject *> *data;
+@property (strong, nonatomic) NSString *key;
+@property (strong, nonatomic) id data;
+@property (strong, nonatomic) NSString *connectionId;
+@property (strong, nonatomic) NSString *userId;
 
 @end

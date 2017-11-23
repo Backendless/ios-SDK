@@ -41,7 +41,7 @@
 
 @implementation RTClient
 
-+(RTClient *)sharedInstance {
++(instancetype)sharedInstance {
     static RTClient *sharedRTClient;
     @synchronized(self) {
         if (!sharedRTClient)
@@ -50,7 +50,7 @@
     return sharedRTClient;
 }
 
-- (RTClient *)init {
+- (instancetype)init {
     if (self = [super init]) {
         subscriptions = [NSMutableDictionary<NSString *, RTSubscription *> new];
         methods =  [NSMutableDictionary<NSString *, RTMethodRequest *> new];
@@ -236,7 +236,7 @@
         NSString *methodId = [[NSUUID UUID] UUIDString];
         NSDictionary *options = @{@"userToken"  : userToken};
         NSDictionary *data = @{@"id"        : methodId,
-                               @"name"      : SET_USER_TYPE,
+                               @"name"      : SET_USER,
                                @"options"   : options};
         [self sendCommand:data method:nil];
     }

@@ -30,6 +30,7 @@
 #import "Backendless.h"
 #import "Invoker.h"
 #import "Channel.h"
+#import "RemoteSharedObject.h"
 #import "BodyParts.h"
 #import "UICKeyChainStore.h"
 #import "KeychainDataStore.h"
@@ -157,6 +158,16 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     return [[[str stringByReplacingOccurrencesOfString:@" " withString:@""] stringByReplacingOccurrencesOfString:@"<" withString:@""] stringByReplacingOccurrencesOfString:@">" withString:@""];
 }
 
+// Channel and RSO methods
+
+-(Channel *)subscribe:(NSString *)channelName {
+    return [[Channel alloc] initWithChannelName:channelName];
+}
+
+-(RemoteSharedObject *)rso:(NSString *)rsoName {
+    return [[RemoteSharedObject alloc] init];
+}
+
 // sync methods with fault return (as exception)
 
 -(NSString *)registerDevice:(NSData *)deviceToken {
@@ -248,10 +259,6 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
         return [backendless throwFault:FAULT_NO_MESSAGE_ID];
     NSArray *args = [NSArray arrayWithObjects:messageId, nil];
     return [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_CANCEL args:args];
-}
-
--(Channel *)subscribe:(NSString *)channelName {
-    return [[Channel alloc] initWithChannelName:channelName];
 }
 
 -(id)sendTextEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray<NSString*> *)recipients {

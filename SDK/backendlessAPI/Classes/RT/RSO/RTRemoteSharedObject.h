@@ -1,5 +1,5 @@
 //
-//  RTMessaging.h
+//  RTRemoteSharedObject.h
 //  backendlessAPI
 /*
  * *********************************************************************************************************************
@@ -22,14 +22,14 @@
 #import <Foundation/Foundation.h>
 #import "RTListener.h"
 #import "Responder.h"
-#import "Message.h"
+#import "RSOChangesObject.h"
+#import "RSOClearedObject.h"
 #import "CommandObject.h"
 #import "UserStatusObject.h"
 
-@interface RTMessaging : RTListener
+@interface RTRemoteSharedObject : RTListener
 
--(RTMessaging *)initWithChannelName:(NSString *)channelName;
-
+-(instancetype)initWithRSOName:(NSString *)rsoName;
 -(void)connect:(void(^)(id))onSuccessfulConnect;
 
 -(void)addErrorListener:(void(^)(Fault *))errorBlock;
@@ -38,8 +38,11 @@
 -(void)addConnectListener:(BOOL)isConnected onConnect:(void(^)(void))onConnect;
 -(void)removeConnectListener:(void(^)(void))onConnect;
 
--(void)addMessageListener:(NSString *)selector onMessage:(void(^)(Message *))onMessage;
--(void)removeMessageListener:(NSString *)selector onMessage:(void(^)(Message *))onMessage;
+-(void)addChangesListener:(void(^)(RSOChangesObject *))onChange;
+-(void)removeChangesListener:(void(^)(RSOChangesObject *))onChange;
+
+-(void)addClearListener:(void(^)(RSOClearedObject *))onClear;
+-(void)removeClearListener:(void(^)(RSOClearedObject *))onClear;
 
 -(void)addCommandListener:(void(^)(CommandObject *))onCommand;
 -(void)removeCommandListener:(void(^)(CommandObject *))onCommand;
@@ -47,4 +50,9 @@
 -(void)addUserStatusListener:(void(^)(UserStatusObject *))onUserStatus;
 -(void)removeUserStatusListener:(void(^)(UserStatusObject *))onUserStatus;
 
+// commands
+-(void)get:(NSString *)key onSuccess:(void(^)(id))onSuccess onError:(void (^)(Fault *))onError;
+-(void)set:(NSString *)key data:(id)data onSuccess:(void (^)(id))onSuccess onError:(void (^)(Fault *))onError;
+-(void)clear:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
+-(void)sendCommand:(NSString *)commandName data:(id)data onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
 @end

@@ -1,5 +1,5 @@
 //
-//  UserStatusObject.h
+//  RTMessaging.h
 //  backendlessAPI
 /*
  * *********************************************************************************************************************
@@ -20,11 +20,30 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "RTListener.h"
+#import "Responder.h"
+#import "Message.h"
+#import "CommandObject.h"
 #import "UserStatusObject.h"
 
-@interface UserStatusObject : NSObject
+@interface RTMessaging : RTListener
 
-@property (strong, nonatomic) NSString *status;
-@property (strong, nonatomic) NSArray<UserStatusObject *> *data;
+-(instancetype)initWithChannelName:(NSString *)channelName;
+-(void)connect:(void(^)(id))onSuccessfulConnect;
+
+-(void)addErrorListener:(void(^)(Fault *))errorBlock;
+-(void)removeErrorListener:(void(^)(Fault *))errorBlock;
+
+-(void)addConnectListener:(BOOL)isConnected onConnect:(void(^)(void))onConnect;
+-(void)removeConnectListener:(void(^)(void))onConnect;
+
+-(void)addMessageListener:(NSString *)selector onMessage:(void(^)(Message *))onMessage;
+-(void)removeMessageListener:(NSString *)selector onMessage:(void(^)(Message *))onMessage;
+
+-(void)addCommandListener:(void(^)(CommandObject *))onCommand;
+-(void)removeCommandListener:(void(^)(CommandObject *))onCommand;
+
+-(void)addUserStatusListener:(void(^)(UserStatusObject *))onUserStatus;
+-(void)removeUserStatusListener:(void(^)(UserStatusObject *))onUserStatus;
 
 @end
