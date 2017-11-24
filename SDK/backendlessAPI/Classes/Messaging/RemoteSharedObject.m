@@ -129,7 +129,20 @@
     [self.rt removeUserStatusListener:nil];
 }
 
+-(void)removeAllListeners {
+    [self removeErrorListener];
+    [self removeConnectListener];
+    [self removeChangesListener];
+    [self removeClearListener];
+    [self removeCommandListener];
+    [self removeUserStatusListener];
+}
+
 // commands
+
+-(void)get:(void (^)(id))onSuccess onError:(void (^)(Fault *))onError {
+    [self.rt get:nil onSuccess:onSuccess onError:onError];
+}
 
 -(void)get:(NSString *)key onSuccess:(void(^)(id))onSuccess onError:(void (^)(Fault *))onError {
     [self.rt get:key onSuccess:onSuccess onError:onError];

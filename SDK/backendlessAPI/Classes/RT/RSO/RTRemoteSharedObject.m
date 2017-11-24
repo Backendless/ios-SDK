@@ -163,8 +163,11 @@
 // commands
 
 -(void)get:(NSString *)key onSuccess:(void(^)(id))onSuccess onError:(void (^)(Fault *))onError {
-    NSDictionary *options = @{@"name"   : rso,
-                              @"key"    : key};
+    NSDictionary *options = @{@"name"   : rso};
+    if (key) {
+        options = @{@"name"   : rso,
+                    @"key"    : key};
+    }    
     [rtMethod sendCommand:RSO_GET options:options onSuccess:onSuccess onError:onError];
 }
 
