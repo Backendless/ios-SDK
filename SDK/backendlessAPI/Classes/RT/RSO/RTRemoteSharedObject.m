@@ -38,7 +38,7 @@
     return self;
 }
 
--(void)connect:(void(^)(id))onSuccessfulConnect {
+-(void)connect:(void(^)(id))onSuccessfulConnect {    
     NSDictionary *options = @{@"name"  : rso};
     [super addSubscription:RSO_CONNECT options:options onResult:onSuccessfulConnect handleResultSelector:nil fromClass:nil];
 }

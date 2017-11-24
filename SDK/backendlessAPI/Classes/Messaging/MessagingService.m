@@ -165,7 +165,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 }
 
 -(RemoteSharedObject *)rso:(NSString *)rsoName {
-    return [[RemoteSharedObject alloc] init];
+    return [[RemoteSharedObject alloc] initWithRSOName:rsoName];
 }
 
 // sync methods with fault return (as exception)

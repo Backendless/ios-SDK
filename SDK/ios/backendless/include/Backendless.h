@@ -80,6 +80,7 @@
 #import "BackendlessBeacon.h"
 #import "Presence.h"
 #import "MapDrivenDataStore.h"
+#import "RemoteSharedObject.h"
 
 //Cache
 #import "BackendlessCachePolicy.h"

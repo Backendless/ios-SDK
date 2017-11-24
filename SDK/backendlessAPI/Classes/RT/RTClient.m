@@ -76,7 +76,6 @@
             else {
                 socketManager = [[SocketManager alloc] initWithSocketURL:url config:@{@"path": path, @"connectParams":@{@"token":@"some-token"}}];
             }
-            NSLog(@"USER TOKEN: %@", [backendless.userService.currentUser getUserToken]);
             socket = [socketManager socketForNamespace:path];
             if (socket) {
                 socketCreated = YES;

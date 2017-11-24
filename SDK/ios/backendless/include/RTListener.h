@@ -21,19 +21,30 @@
 
 #import <Foundation/Foundation.h>
 
-#define ERROR_TYPE @"ERROR"
-#define OBJECTS_CHANGES_TYPE @"OBJECTS_CHANGES"
-#define PUB_SUB_CONNECT_TYPE @"PUB_SUB_CONNECT"
-#define PUB_SUB_MESSAGES_TYPE @"PUB_SUB_MESSAGES"
-#define SET_USER_TYPE @"SET_USER"
-#define PUB_SUB_COMMAND_TYPE @"PUB_SUB_COMMAND"
-#define PUB_SUB_COMMANDS_TYPE @"PUB_SUB_COMMANDS"
-#define PUB_SUB_USERS_TYPE @"PUB_SUB_USERS"
+#define ERROR @"ERROR"
+#define OBJECTS_CHANGES @"OBJECTS_CHANGES"
+#define PUB_SUB_CONNECT @"PUB_SUB_CONNECT"
+#define PUB_SUB_MESSAGES @"PUB_SUB_MESSAGES"
+#define SET_USER @"SET_USER"
+#define PUB_SUB_COMMAND @"PUB_SUB_COMMAND"
+#define PUB_SUB_COMMANDS @"PUB_SUB_COMMANDS"
+#define PUB_SUB_USERS @"PUB_SUB_USERS"
+#define RSO_CONNECT @"RSO_CONNECT"
+#define RSO_CHANGES @"RSO_CHANGES"
+#define RSO_CLEARED @"RSO_CLEARED"
+#define RSO_COMMANDS @"RSO_COMMANDS"
+#define RSO_USERS @"RSO_USERS"
+#define RSO_GET @"RSO_GET"
+#define RSO_SET @"RSO_SET"
+#define RSO_CLEAR @"RSO_CLEAR"
+#define RSO_COMMAND @"RSO_COMMAND"
 
 @interface RTListener : NSObject
 
 -(void)addSubscription:(NSString *)type options:(NSDictionary *)options onResult:(void(^)(id))onResult handleResultSelector:(SEL)handleResultSelector fromClass:(id)subscriptionClassInstance;
--(void)stopSubscription:(NSString *)channel event:(NSString *)event whereClause:(NSString *)whereClause onResult:(void(^)(id))onResult;
+-(void)stopSubscription:(NSString *)event whereClause:(NSString *)whereClause onResult:(void(^)(id))onResult;
+-(void)stopSubscriptionWithChannel:(NSString *)channel event:(NSString *)event whereClause:(NSString *)whereClause onResult:(void(^)(id))onResult;
+-(void)stopSubscriptionWithRSO:(NSString *)rso event:(NSString *)event onResult:(void(^)(id))onResult;
 
 -(void)addSimpleListener:(NSString *)type callBack:(void(^)(id))callback;
 -(void)removeSimpleListener:(NSString *)type callBack:(void(^)(id))callback;

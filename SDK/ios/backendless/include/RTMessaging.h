@@ -28,8 +28,7 @@
 
 @interface RTMessaging : RTListener
 
--(RTMessaging *)initWithChannelName:(NSString *)channelName;
-
+-(instancetype)initWithChannelName:(NSString *)channelName;
 -(void)connect:(void(^)(id))onSuccessfulConnect;
 
 -(void)addErrorListener:(void(^)(Fault *))errorBlock;

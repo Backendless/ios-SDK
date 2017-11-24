@@ -25,10 +25,14 @@
 #import "RTMessaging.h"
 
 @class UIUserNotificationCategory;
-@class MessageStatus, PublishOptions, DeliveryOptions, Channel, BodyParts, Message, Fault;
+@class MessageStatus, PublishOptions, DeliveryOptions, Channel, RemoteSharedObject, BodyParts, Message, Fault;
 
 @interface MessagingService : NSObject
 @property (strong, nonatomic, readonly) HashMap *subscriptions;
+
+// Channel and RSO methods
+-(Channel *)subscribe:(NSString *)channelName;
+-(RemoteSharedObject *)rso:(NSString *)rsoName;
 
 // sync methods with fault return (as exception)
 -(NSString *)registerDevice:(NSData *)deviceToken;
@@ -43,7 +47,6 @@
 -(MessageStatus *)publish:(NSString *)channelName message:(id)message deliveryOptions:(DeliveryOptions *)deliveryOptions;
 -(MessageStatus *)publish:(NSString *)channelName message:(id)message publishOptions:(PublishOptions *)publishOptions deliveryOptions:(DeliveryOptions *)deliveryOptions;
 -(id)cancel:(NSString *)messageId;
--(Channel *)subscribe:(NSString *)channelName;
 -(id)sendTextEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray<NSString*> *)recipients;
 -(id)sendHTMLEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray<NSString*> *)recipients;
 -(id)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients;

@@ -28,7 +28,7 @@
 
 @interface RTClient : NSObject
 
-+(RTClient *)sharedInstance;
++(instancetype)sharedInstance;
 -(void)subscribe:(NSDictionary *)data subscription:(RTSubscription *)subscription;
 -(void)unsubscribe:(NSString *)subscriptionId;
 -(void)sendCommand:(NSDictionary *)data method:(RTMethodRequest *)method;

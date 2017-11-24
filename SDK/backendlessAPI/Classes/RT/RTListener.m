@@ -67,7 +67,7 @@
     };
     
     onReady = ^{
-        NSArray *readyCallbacks = [NSArray arrayWithArray:[weakSimpleListeners valueForKey:PUB_SUB_CONNECT]];
+        NSArray *readyCallbacks = [NSArray arrayWithArray:[weakSimpleListeners valueForKey:type]];
         for (int i = 0; i < [readyCallbacks count]; i++) {
             void(^readyBlock)(id) = [readyCallbacks objectAtIndex:i];
             readyBlock(nil);
@@ -85,7 +85,7 @@
     subscription.ready = NO;
     subscription.handleResult = handleResultSelector;
     subscription.classInstance = subscriptionClassInstance;
-    
+        
     [rtClient subscribe:data subscription:subscription];
     
     NSString *typeName = [data valueForKey:@"name"];
