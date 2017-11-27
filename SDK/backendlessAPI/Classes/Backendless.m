@@ -25,7 +25,6 @@
 #import "Backendless.h"
 #import "Invoker.h"
 #import "BackendlessCache.h"
-#import "BEReachability.h"
 
 #define MISSING_SERVER_URL @"Missing server URL. You should set hostURL property"
 #define MISSING_APP_ID @"Missing application ID argument. Login to Backendless Console, select your app and get the ID and key from the Manage > App Settings screen. Copy/paste the values into the [backendless initApp:APIKey:]"
@@ -33,21 +32,16 @@
 
 // backendless default url
 static NSString *BACKENDLESS_HOST_URL = @"https://api.backendless.com";
-// wowza hardcorded url
-static NSString *BACKENDLESS_MEDIA_URL = @"rtmp://media.backendless.com:1935/mediaApp";
 
 static NSString *APP_TYPE = @"IOS";
 static NSString *APP_ID_HEADER_KEY = @"application-id";
 static NSString *API_KEY_HEADER_KEY = @"API-key";
 
-@interface Backendless ()
-@property (nonatomic, strong) BEReachability *hostReachability;
-@end
-
 @implementation Backendless
-@synthesize hostURL = _hostURL, appID = _appID, apiKey = _apiKey, reachabilityDelegate = _reachabilityDelegate;
+
+@synthesize hostURL = _hostURL, appID = _appID, apiKey = _apiKey;
 @synthesize userService = _userService, persistenceService = _persistenceService, messagingService = _messagingService;
-@synthesize geoService = _geoService, fileService = _fileService, mediaService = _mediaService;
+@synthesize geoService = _geoService, fileService = _fileService;
 @synthesize customService = _customService, events = _events, cache = _cache, counters = _counters, logging = _logging;
 @synthesize data = _data, geo = _geo, messaging = _messaging, file = _file;
 
@@ -67,18 +61,12 @@ static NSString *API_KEY_HEADER_KEY = @"API-key";
         _appID = nil;
         _apiKey = nil;
         _headers = [NSMutableDictionary new];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kBEReachabilityChangedNotification object:nil];
-        self.hostReachability = [BEReachability reachabilityWithHostName:_hostURL];
-        [self.hostReachability startNotifier];
     }
     return self;
 }
 
 -(void)dealloc {
     [DebLog logN:@"DEALLOC Backendless"];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kBEReachabilityChangedNotification object:nil];
-    [_reachabilityDelegate release];
-    [_hostReachability release];
     [_hostURL release];
     [_headers removeAllObjects];
     [_headers release];
@@ -89,7 +77,6 @@ static NSString *API_KEY_HEADER_KEY = @"API-key";
     [_geoService release];
     [_messagingService release];
     [_fileService release];
-    [_mediaService release];
     [_customService release];
     [_events release];
     [_cache release];
@@ -208,23 +195,6 @@ static NSString *API_KEY_HEADER_KEY = @"API-key";
     return _logging;
 }
 
-#pragma mark - reachability
-
--(NSInteger)getConnectionStatus {
-    return _hostReachability.currentReachabilityStatus;
-}
-
--(void)reachabilityChanged:(NSNotification *)note {
-    BEReachability* reachability = [note object];
-    NSParameterAssert([reachability isKindOfClass:[BEReachability class]]);
-    
-    BENetworkStatus netStatus = [reachability currentReachabilityStatus];
-    BOOL connectionRequired = [reachability connectionRequired];
-    if ([_reachabilityDelegate respondsToSelector:@selector(changeNetworkStatus:connectionRequired:)]) {
-        [_reachabilityDelegate changeNetworkStatus:netStatus connectionRequired:connectionRequired];
-    }
-}
-
 #pragma mark -
 #pragma mark getters / setters
 
@@ -309,10 +279,6 @@ static NSString *API_KEY_HEADER_KEY = @"API-key";
         [self throwFault:[Fault fault:MISSING_APP_ID faultCode:@"0002"]];
     else if (!(value = [self getAPIKey]) || !value.length)
         [self throwFault:[Fault fault:MISSING_API_KEY faultCode:@"0003"]];
-}
-
--(NSString *)mediaServerUrl {
-    return [NSString stringWithFormat:@"%@", BACKENDLESS_MEDIA_URL];
 }
 
 -(void)setThrowException:(BOOL)needThrow {
