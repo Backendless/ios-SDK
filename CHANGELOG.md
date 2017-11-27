@@ -1,13 +1,5 @@
 # RELEASE HISTORY
 
-## 4.0.20 November 27, 2017
-* Backendless.podspec file changed
-
-## 4.0.19 November 27, 2017
-* The easyLoginWithTwitter methods removed. Please use login with TwitterKit instead
-* The BEReachability class removed
-* Safari and MediaService references removed
-
 ## 4.0.18 November 13, 2017
 * The loginWithTwitterSDK sync and async methods added to the UserService class
 
