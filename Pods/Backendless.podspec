@@ -27,6 +27,19 @@ Pod::Spec.new do |s|
 
   s.osx.frameworks     = 'CoreLocation', 'Foundation', 'Security', 'SystemConfiguration'
   s.osx.libraries      = 'libbackendless-mac'
-  s.osx.xcconfig       =  { 'LIBRARY_SEARCH_PATHS' => '"$(SRCROOT)/Pods/Backendless/SDK/osx/libbackendless-mac"' }
+  s.osx.xcconfig       =  { 'LIBRARY_SEARCH_PATHS' => '"$(SRCROOT)/Pods/Backendless/SDK/osx/backendless"' }
+
+
+s.prepare_command = <<-CMD
+
+    pushd SDK/ios/backendless/
+	  ln -s backendless.a libbackendless.a
+	popd	
+
+    pushd SDK/osx/backendless/
+	  ln -s libbackendless-mac.a libbackendless.a
+	popd	
+
+    CMD
 
 end
