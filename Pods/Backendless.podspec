@@ -7,7 +7,6 @@ Pod::Spec.new do |s|
   s.license	 = { :type => 'Apache', :text => 'Copyright (c) 2012-2017 by Backendless.com' }
   s.author      = { 'Mark Piller' => 'mark@backendless.com' }
 
-  s.platform = :osx, '10.8'
   s.platform = :ios, '8.0'
   s.requires_arc   = true
   s.source         = { 
@@ -15,29 +14,17 @@ Pod::Spec.new do |s|
 	:tag => '4.0.19'
   }
 
-  s.ios.preserve_paths = 'SDK/ios/**/*.a'
-  s.ios.source_files   = 'SDK/ios/**/*.h'
+  s.preserve_paths = 'SDK/ios/**/*.a'
+  s.source_files   = 'SDK/ios/**/*.h'
 
-  s.osx.preserve_paths = 'SDK/osx/**/*.a'
-  s.osx.source_files    = 'SDK/osx/**/*.h'
-
-  s.ios.frameworks     = 'CoreLocation', 'Foundation', 'Security', 'SystemConfiguration'
-  s.ios.libraries      = 'backendless'
-  s.ios.xcconfig       =  { 'LIBRARY_SEARCH_PATHS' => '"$(SRCROOT)/Pods/Backendless/SDK/ios/backendless"' }
-
-  s.osx.frameworks     = 'CoreLocation', 'Foundation', 'Security', 'SystemConfiguration'
-  s.osx.libraries      = 'libbackendless-mac'
-  s.osx.xcconfig       =  { 'LIBRARY_SEARCH_PATHS' => '"$(SRCROOT)/Pods/Backendless/SDK/osx/backendless"' }
-
+  s.frameworks     = 'CoreLocation', 'Foundation', 'Security', 'SystemConfiguration'
+  s.libraries      = 'backendless'
+  s.xcconfig       =  { 'LIBRARY_SEARCH_PATHS' => '"$(SRCROOT)/Pods/Backendless/SDK/ios/backendless"' }
 
 s.prepare_command = <<-CMD
 
     pushd SDK/ios/backendless/
 	  ln -s backendless.a libbackendless.a
-	popd	
-
-    pushd SDK/osx/backendless/
-	  ln -s libbackendless-mac.a libbackendless.a
 	popd	
 
     CMD
