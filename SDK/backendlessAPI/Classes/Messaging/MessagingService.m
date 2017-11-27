@@ -22,6 +22,9 @@
 #if !TARGET_OS_IPHONE && !TARGET_IPHONE_SIMULATOR
 #import <IOKit/IOKitLib.h>
 #endif
+#if TARGET_OS_IOS || TARGET_OS_SIMULATOR
+#import <UIKit/UIKit.h>
+#endif
 
 #import "MessagingService.h"
 #import "DEBUG.h"
