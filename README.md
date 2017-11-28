@@ -33,5 +33,7 @@ pod 'Backendless-osx-SDK'
 ```
 5. Save Podfile, return to Terminal window and run `pod install` and `pod update`. Once all of the pod data is downloaded/updated, Xcode project workspace file will be created. This is the file you must open when working on your app.
 6. Open .xcworkspace file to launch your project.
-7. If you use Swift, it is necessary to add a bridging header file. Navigate to "Build Settings -> Swift Compiler ... -> Objective-C Bridging Header" and add the following:
+7. If you use Swift, it is necessary to add a bridging header file. Navigate to "Build Settings -> Swift Compiler ... -> Objective-C Bridging Header" and add the following for iOS:
 `${PODS_ROOT}/Headers/Public/Backendless/Backendless-Bridging-Header.h`
+for macOS:
+`${PODS_ROOT}/Headers/Public/Backendless-osx-SDK/Backendless-Bridging-Header.h`
