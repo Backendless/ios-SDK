@@ -1,5 +1,9 @@
 # RELEASE HISTORY
 
+## 4.0.19 November 28, 2017
+* Removed easy Twitter login methods. Please use TwitterKit instead
+* Removed the BEReachability class, MediaService and Safari references
+* Build for iOS and macOS
 
 ## 4.0.18 November 13, 2017
 * The loginWithTwitterSDK sync and async methods added to the UserService class
