@@ -1390,7 +1390,6 @@
 		1C7BB4AD1A2E092900D3C2C1 /* FileService.m in Sources */ = {isa = PBXBuildFile; fileRef = F918412D1638281600D36A61 /* FileService.m */; };
 		1C7BB4AE1A2E092900D3C2C1 /* BackendlessFile.m in Sources */ = {isa = PBXBuildFile; fileRef = F9184133163AB29600D36A61 /* BackendlessFile.m */; };
 		1C7BB4AF1A2E092900D3C2C1 /* HashMap.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B47EA15FF448F00012DFC /* HashMap.m */; };
-		1C7BB4B01A2E092900D3C2C1 /* BEReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A4285A18508269005F91DE /* BEReachability.m */; };
 		1C7BB4B11A2E092900D3C2C1 /* backendless_simulator.m in Sources */ = {isa = PBXBuildFile; fileRef = F97969E3166CC8C300595F5E /* backendless_simulator.m */; };
 		1C7BB4B21A2E092900D3C2C1 /* CacheService.m in Sources */ = {isa = PBXBuildFile; fileRef = D39A468019811D9B006CBD1B /* CacheService.m */; };
 		1C7BB4B51A2E092900D3C2C1 /* BodyParts.m in Sources */ = {isa = PBXBuildFile; fileRef = 910117D3180C0CCF008102A7 /* BodyParts.m */; };
@@ -1422,7 +1421,6 @@
 		1C7BB4E21A2E092900D3C2C1 /* BackendlessGeoQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = F9C3BF75161486B500409FF2 /* BackendlessGeoQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C7BB4E51A2E092900D3C2C1 /* DeviceRegistration.h in Headers */ = {isa = PBXBuildFile; fileRef = F9C3C067161AB80C00409FF2 /* DeviceRegistration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C7BB4E61A2E092900D3C2C1 /* DeliveryOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = F9C3C05B161AB72100409FF2 /* DeliveryOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1C7BB4E71A2E092900D3C2C1 /* BEReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 91A4285918508269005F91DE /* BEReachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C7BB4E81A2E092900D3C2C1 /* PublishOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = F9C3C05F161AB7AC00409FF2 /* PublishOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C7BB4E91A2E092900D3C2C1 /* CacheFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F8BD9C19825CF80009DB40 /* CacheFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C7BB4EA1A2E092900D3C2C1 /* CacheService.h in Headers */ = {isa = PBXBuildFile; fileRef = D39A467F19811D9B006CBD1B /* CacheService.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1562,10 +1560,6 @@
 		91223DCC195AF6AB00F72F48 /* Events.h in Headers */ = {isa = PBXBuildFile; fileRef = 91223DC8195AF6AB00F72F48 /* Events.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91223DCE195AF6AB00F72F48 /* Events.m in Sources */ = {isa = PBXBuildFile; fileRef = 91223DC9195AF6AB00F72F48 /* Events.m */; };
 		91223DCF195AF6AB00F72F48 /* Events.m in Sources */ = {isa = PBXBuildFile; fileRef = 91223DC9195AF6AB00F72F48 /* Events.m */; };
-		91A4285B18508269005F91DE /* BEReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 91A4285918508269005F91DE /* BEReachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		91A4285C18508269005F91DE /* BEReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 91A4285918508269005F91DE /* BEReachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		91A4285E18508269005F91DE /* BEReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A4285A18508269005F91DE /* BEReachability.m */; };
-		91A4285F18508269005F91DE /* BEReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A4285A18508269005F91DE /* BEReachability.m */; };
 		91F1399517D7240A00D1AC4C /* AbstractQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1398A17D7240A00D1AC4C /* AbstractQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91F1399617D7240A00D1AC4C /* AbstractQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1398A17D7240A00D1AC4C /* AbstractQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91F1399717D7240A00D1AC4C /* AbstractQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1398B17D7240A00D1AC4C /* AbstractQuery.m */; };
@@ -1913,7 +1907,6 @@
 		F9F0AE8B1CDBCA3900035C62 /* CacheFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F8BD9D19825CF80009DB40 /* CacheFactory.m */; };
 		F9F0AE8C1CDBCA3900035C62 /* UserProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480C15FF7DEA00012DFC /* UserProperty.m */; };
 		F9F0AE8D1CDBCA3900035C62 /* PersistenceService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B48141602254900012DFC /* PersistenceService.m */; };
-		F9F0AE8E1CDBCA3900035C62 /* BEReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A4285A18508269005F91DE /* BEReachability.m */; };
 		F9F0AE8F1CDBCA3900035C62 /* ObjectProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B481716032EA900012DFC /* ObjectProperty.m */; };
 		F9F0AE901CDBCA3900035C62 /* ClassCastException.m in Sources */ = {isa = PBXBuildFile; fileRef = F9D5234C1B25CEF800F6A441 /* ClassCastException.m */; };
 		F9F0AE911CDBCA3900035C62 /* BackendlessEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B481A1603340A00012DFC /* BackendlessEntity.m */; };
@@ -2018,7 +2011,6 @@
 		F9F0AF181CDBCA3900035C62 /* BackendlessFile.h in Headers */ = {isa = PBXBuildFile; fileRef = F9184132163AB29600D36A61 /* BackendlessFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AF191CDBCA3900035C62 /* HashMap.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B47E915FF448F00012DFC /* HashMap.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AF211CDBCA3900035C62 /* ServerCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064CE1B02429100779BB1 /* ServerCallback.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F9F0AF231CDBCA3900035C62 /* BEReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 91A4285918508269005F91DE /* BEReachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AF241CDBCA3900035C62 /* AuthorizationException.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BE41C21B2ED98200CD0A72 /* AuthorizationException.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AF261CDBCA3900035C62 /* AbstractQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1398A17D7240A00D1AC4C /* AbstractQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AF271CDBCA3900035C62 /* BackendlessCachePolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1399217D7240A00D1AC4C /* BackendlessCachePolicy.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2039,7 +2031,6 @@
 		F9F0AF451CDBCAB500035C62 /* CacheFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F8BD9D19825CF80009DB40 /* CacheFactory.m */; };
 		F9F0AF461CDBCAB500035C62 /* UserProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480C15FF7DEA00012DFC /* UserProperty.m */; };
 		F9F0AF471CDBCAB500035C62 /* PersistenceService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B48141602254900012DFC /* PersistenceService.m */; };
-		F9F0AF481CDBCAB500035C62 /* BEReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A4285A18508269005F91DE /* BEReachability.m */; };
 		F9F0AF491CDBCAB500035C62 /* ObjectProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B481716032EA900012DFC /* ObjectProperty.m */; };
 		F9F0AF4A1CDBCAB500035C62 /* ClassCastException.m in Sources */ = {isa = PBXBuildFile; fileRef = F9D5234C1B25CEF800F6A441 /* ClassCastException.m */; };
 		F9F0AF4B1CDBCAB500035C62 /* BackendlessEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B481A1603340A00012DFC /* BackendlessEntity.m */; };
@@ -2144,7 +2135,6 @@
 		F9F0AFD21CDBCAB500035C62 /* BackendlessFile.h in Headers */ = {isa = PBXBuildFile; fileRef = F9184132163AB29600D36A61 /* BackendlessFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AFD31CDBCAB500035C62 /* HashMap.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B47E915FF448F00012DFC /* HashMap.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AFDB1CDBCAB500035C62 /* ServerCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A064CE1B02429100779BB1 /* ServerCallback.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F9F0AFDD1CDBCAB500035C62 /* BEReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 91A4285918508269005F91DE /* BEReachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AFDE1CDBCAB500035C62 /* AuthorizationException.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BE41C21B2ED98200CD0A72 /* AuthorizationException.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AFE01CDBCAB500035C62 /* BeaconMonitoring.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13941BC53D5100F3CA1D /* BeaconMonitoring.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AFE11CDBCAB500035C62 /* AbstractQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1398A17D7240A00D1AC4C /* AbstractQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2483,8 +2473,6 @@
 		910117D3180C0CCF008102A7 /* BodyParts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BodyParts.m; sourceTree = "<group>"; };
 		91223DC8195AF6AB00F72F48 /* Events.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Events.h; sourceTree = "<group>"; };
 		91223DC9195AF6AB00F72F48 /* Events.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Events.m; sourceTree = "<group>"; };
-		91A4285918508269005F91DE /* BEReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEReachability.h; sourceTree = "<group>"; };
-		91A4285A18508269005F91DE /* BEReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEReachability.m; sourceTree = "<group>"; };
 		91F1398A17D7240A00D1AC4C /* AbstractQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractQuery.h; sourceTree = "<group>"; };
 		91F1398B17D7240A00D1AC4C /* AbstractQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractQuery.m; sourceTree = "<group>"; };
 		91F1398C17D7240A00D1AC4C /* BackendlessCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackendlessCache.h; sourceTree = "<group>"; };
@@ -3266,15 +3254,6 @@
 			path = Events;
 			sourceTree = "<group>";
 		};
-		91A4285818508257005F91DE /* Reachability */ = {
-			isa = PBXGroup;
-			children = (
-				91A4285918508269005F91DE /* BEReachability.h */,
-				91A4285A18508269005F91DE /* BEReachability.m */,
-			);
-			name = Reachability;
-			sourceTree = "<group>";
-		};
 		91F1398917D7240A00D1AC4C /* Cache */ = {
 			isa = PBXGroup;
 			children = (
@@ -3522,7 +3501,6 @@
 		F91B47E715FF448F00012DFC /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				91A4285818508257005F91DE /* Reachability */,
 				F91B47E815FF448F00012DFC /* Common */,
 			);
 			path = Util;
@@ -3899,7 +3877,6 @@
 				D3A064D81B0242B900779BB1 /* ClientCallback.h in Headers */,
 				D3A064B81AFCE61700779BB1 /* GeoMath.h in Headers */,
 				F9BE41C41B2ED98200CD0A72 /* AuthorizationException.h in Headers */,
-				1C7BB4E71A2E092900D3C2C1 /* BEReachability.h in Headers */,
 				D3A064D01B02429100779BB1 /* ServerCallback.h in Headers */,
 				F9CB13961BC53D5100F3CA1D /* BeaconMonitoring.h in Headers */,
 				F9D5234D1B25CEF800F6A441 /* ClassCastException.h in Headers */,
@@ -3923,6 +3900,7 @@
 				1C7BB5051A2E092900D3C2C1 /* BackendlessCacheProtocol.h in Headers */,
 				1C7BB5061A2E092900D3C2C1 /* QueryOptions.h in Headers */,
 				5AF2B7281EB2136300D54442 /* MessagingService.h in Headers */,
+				5A9DB6031FCC22AD00B0C3CD /* BackendlessPushHelper.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4146,7 +4124,6 @@
 				F9B360C71D65A7E400818EEF /* UICKeyChainStore.h in Headers */,
 				F9CB136C1BC284A900F3CA1D /* BeaconsInfo.h in Headers */,
 				D3A064D11B02429100779BB1 /* ServerCallback.h in Headers */,
-				91A4285B18508269005F91DE /* BEReachability.h in Headers */,
 				F9BE41C51B2ED98200CD0A72 /* AuthorizationException.h in Headers */,
 				F9796A07166CCBFE00595F5E /* Invoker.h in Headers */,
 				91F1399A17D7240A00D1AC4C /* BackendlessCache.h in Headers */,
@@ -4386,7 +4363,6 @@
 				D3A064CA1AFCE69D00779BB1 /* GeoFenceMonitoring.h in Headers */,
 				F9B360C81D65A81600818EEF /* UICKeyChainStore.h in Headers */,
 				D3A064D21B02429100779BB1 /* ServerCallback.h in Headers */,
-				91A4285C18508269005F91DE /* BEReachability.h in Headers */,
 				F9BE41C61B2ED98200CD0A72 /* AuthorizationException.h in Headers */,
 				F9CB13981BC53D5100F3CA1D /* BeaconMonitoring.h in Headers */,
 				F9796A53166CD42E00595F5E /* Invoker.h in Headers */,
@@ -4621,7 +4597,6 @@
 				F9F0AF101CDBCA3900035C62 /* GeoFenceMonitoring.h in Headers */,
 				F9F0AF141CDBCA3900035C62 /* BeaconsInfo.h in Headers */,
 				F9F0AF211CDBCA3900035C62 /* ServerCallback.h in Headers */,
-				F9F0AF231CDBCA3900035C62 /* BEReachability.h in Headers */,
 				F9F0AF241CDBCA3900035C62 /* AuthorizationException.h in Headers */,
 				F9F0AF2B1CDBCA3900035C62 /* Invoker.h in Headers */,
 				F9F0AF2C1CDBCA3900035C62 /* BackendlessCache.h in Headers */,
@@ -4869,7 +4844,6 @@
 				F9B360CA1D65A83200818EEF /* UICKeyChainStore.h in Headers */,
 				F9F0AFC91CDBCAB500035C62 /* GeoFenceMonitoring.h in Headers */,
 				F9F0AFDB1CDBCAB500035C62 /* ServerCallback.h in Headers */,
-				F9F0AFDD1CDBCAB500035C62 /* BEReachability.h in Headers */,
 				F9F0AFDE1CDBCAB500035C62 /* AuthorizationException.h in Headers */,
 				F9F0AFE01CDBCAB500035C62 /* BeaconMonitoring.h in Headers */,
 				F9F0AFE61CDBCAB500035C62 /* Invoker.h in Headers */,
@@ -5296,6 +5270,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A9DB6021FCC219200B0C3CD /* BackendlessPushHelper.m in Sources */,
 				5AF2B7291EB2137200D54442 /* MessagingService.m in Sources */,
 				F91AC5781D58CFA500511EA5 /* MapDrivenDataStore.m in Sources */,
 				5A8A15871FA0D3C3009A1394 /* RTDataStore.m in Sources */,
@@ -5412,7 +5387,6 @@
 				0F9AC9261E798C5C0087869F /* AudioData.m in Sources */,
 				1C7BB4AE1A2E092900D3C2C1 /* BackendlessFile.m in Sources */,
 				1C7BB4AF1A2E092900D3C2C1 /* HashMap.m in Sources */,
-				1C7BB4B01A2E092900D3C2C1 /* BEReachability.m in Sources */,
 				0F9AC9EE1E798C5D0087869F /* SharedObjectMessage.m in Sources */,
 				F9CB13891BC53CDD00F3CA1D /* Presence.m in Sources */,
 				0F9ACD4A1E798C600087869F /* V3ObjectSerializer.m in Sources */,
@@ -5524,7 +5498,6 @@
 				F97969EF166CCB8200595F5E /* UserProperty.m in Sources */,
 				0F9ACC5B1E798C5F0087869F /* AmfV3Formatter.m in Sources */,
 				F97969F0166CCB8200595F5E /* PersistenceService.m in Sources */,
-				91A4285E18508269005F91DE /* BEReachability.m in Sources */,
 				0F9ACAB71E798C5E0087869F /* NullType.m in Sources */,
 				0F9AC9541E798C5D0087869F /* MetaData.m in Sources */,
 				0F9ACC971E798C5F0087869F /* BodyHolderWriter.m in Sources */,
@@ -5720,7 +5693,6 @@
 				F9796A39166CD3DA00595F5E /* UserProperty.m in Sources */,
 				0F9ACC5C1E798C5F0087869F /* AmfV3Formatter.m in Sources */,
 				F9796A3A166CD3DA00595F5E /* PersistenceService.m in Sources */,
-				91A4285F18508269005F91DE /* BEReachability.m in Sources */,
 				0F9ACAB81E798C5E0087869F /* NullType.m in Sources */,
 				0F9AC9551E798C5D0087869F /* MetaData.m in Sources */,
 				0F9ACC981E798C5F0087869F /* BodyHolderWriter.m in Sources */,
@@ -5925,7 +5897,6 @@
 				0F9AC91F1E798C5C0087869F /* Aggregate.m in Sources */,
 				0F9ACA641E798C5D0087869F /* DateReader.m in Sources */,
 				0F9ACB591E798C5E0087869F /* V3StringReader.m in Sources */,
-				F9F0AE8E1CDBCA3900035C62 /* BEReachability.m in Sources */,
 				F9F0AE8F1CDBCA3900035C62 /* ObjectProperty.m in Sources */,
 				0F9ACD2F1E798C600087869F /* ReferenceCache.m in Sources */,
 				F9F0AE901CDBCA3900035C62 /* ClassCastException.m in Sources */,
@@ -6123,7 +6094,6 @@
 				0F9AC9201E798C5C0087869F /* Aggregate.m in Sources */,
 				0F9ACA651E798C5D0087869F /* DateReader.m in Sources */,
 				0F9ACB5A1E798C5E0087869F /* V3StringReader.m in Sources */,
-				F9F0AF481CDBCAB500035C62 /* BEReachability.m in Sources */,
 				F9F0AF491CDBCAB500035C62 /* ObjectProperty.m in Sources */,
 				0F9ACD301E798C600087869F /* ReferenceCache.m in Sources */,
 				F9F0AF4A1CDBCAB500035C62 /* ClassCastException.m in Sources */,

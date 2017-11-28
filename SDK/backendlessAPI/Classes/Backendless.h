@@ -20,16 +20,7 @@
  */
 
 // implementation options
-#define _USE_SAFARI_VC_ 1
-
 #import <Foundation/Foundation.h>
-
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-#if _USE_SAFARI_VC_
-#import <SafariServices/SafariServices.h>
-#endif
-#endif
-
 #import "DEBUG.h"
 #import "Types.h"
 #import "Responder.h"
@@ -98,12 +89,6 @@
 #define BACKENDLESS_API_KEY @"APIKey"
 #define BACKENDLESS_DEBLOG_ON @"DebLogOn"
 
-@class MediaService;
-
-@protocol ReachabilityDelegate <NSObject>
--(void)changeNetworkStatus:(NSInteger)status connectionRequired:(BOOL)connectionRequired;
-@end
-
 @interface Backendless : NSObject
 // context
 @property (strong, nonatomic, getter = getHostUrl, setter = setHostUrl:) NSString *hostURL;
@@ -118,7 +103,6 @@
 @property (strong, nonatomic, readonly) GeoService *geoService;
 @property (strong, nonatomic, readonly) MessagingService *messagingService;
 @property (strong, nonatomic, readonly) FileService *fileService;
-@property (strong, nonatomic, readwrite) MediaService *mediaService;
 @property (strong, nonatomic, readonly) CustomService *customService;
 @property (strong, nonatomic, readonly) Events *events;
 @property (strong, nonatomic, readonly) CacheService *cache;
@@ -129,15 +113,6 @@
 @property (assign, nonatomic, readonly) GeoService *geo;
 @property (assign, nonatomic, readonly) MessagingService *messaging;
 @property (assign, nonatomic, readonly) FileService *file;
-// delegates
-@property (strong, nonatomic) id <ReachabilityDelegate> reachabilityDelegate;
-//
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-#if _USE_SAFARI_VC_
-@property (strong, nonatomic) SFSafariViewController *safariVC;
-#endif
-#endif
-
 
 // Singleton accessor:  this is how you should ALWAYS get a reference to the class instance.  Never init your own.
 +(Backendless *)sharedInstance;
@@ -152,7 +127,6 @@
 -(void)initApp:(NSString *)plist;
 -(void)initApp;
 -(void)initAppFault;
--(NSString *)mediaServerUrl;
 #pragma mark - exceptions management
 -(void)setThrowException:(BOOL)needThrow;
 -(id)throwFault:(Fault *)fault;
@@ -167,8 +141,6 @@
 -(void)setCachePolicy:(BackendlessCachePolicy *)policy;
 -(void)setCacheStoredType:(BackendlessCacheStoredEnum)storedType;
 -(void)saveCache;
-#pragma mark - connection
--(NSInteger)getConnectionStatus;
 #pragma mark - hardware
 -(BOOL)is64bitSimulator;
 -(BOOL)is64bitHardware;
