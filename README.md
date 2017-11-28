@@ -23,8 +23,7 @@ To create a new project with CocoaPods, follow the instructions below:
 1. Create a new project in Xcode as you would normally, then close the project.
 2. Open a Terminal window, and $ cd into your project directory.
 3. Create a Podfile. This can be done by running `pod init`.
-4. Open your Podfile with a text editor, and add the following 
-for iOS:
+4. Open your Podfile with a text editor, and add the following for iOS:
 ```
 pod 'Backendless'
 ```
