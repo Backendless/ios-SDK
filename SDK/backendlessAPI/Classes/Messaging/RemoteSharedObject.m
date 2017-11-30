@@ -39,6 +39,10 @@
     return self;
 }
 
+-(void)setInvocationTarget:(id)invocationTarget {
+    self.rt.invocationTarget = invocationTarget;
+}
+
 -(void)connect {
     __weak __typeof__(self) weakSelf = self;
     [self.rt connect:^(id result) {
@@ -54,6 +58,7 @@
     [self removeClearListener];
     [self removeCommandListener];
     [self removeUserStatusListener];
+    [self removeInvokeListener];
     self.isConnected = NO;
 }
 
@@ -129,6 +134,18 @@
     [self.rt removeUserStatusListener:nil];
 }
 
+-(void)addInvokeListener:(void(^)(InvokeObject *))onInvoke {
+    [self.rt addInvokeListener:onInvoke];
+}
+
+-(void)removeInvokeListener:(void(^)(InvokeObject *))onInvoke {
+    [self.rt removeInvokeListener:onInvoke];
+}
+
+-(void)removeInvokeListener {
+    [self.rt removeInvokeListener:nil];
+}
+
 -(void)removeAllListeners {
     [self removeErrorListener];
     [self removeConnectListener];
@@ -136,6 +153,7 @@
     [self removeClearListener];
     [self removeCommandListener];
     [self removeUserStatusListener];
+    [self removeInvokeListener];
 }
 
 // commands
@@ -158,6 +176,22 @@
 
 -(void)sendCommand:(NSString *)commandName data:(id)data onSuccess:(void (^)(id))onSuccess onError:(void (^)(Fault *))onError {
     [self.rt sendCommand:commandName data:data onSuccess:onSuccess onError:onError];
+}
+
+-(void)invoke:(NSString *)method targets:(NSArray *)targets args:(NSArray *)args onSuccess:(void (^)(id))onSuccess onError:(void (^)(Fault *))onError {
+    [self.rt invoke:method targets:targets args:args onSuccess:onSuccess onError:onError];
+}
+
+-(void)invoke:(NSString *)method targets:(NSArray *)targets onSuccess:(void (^)(id))onSuccess onError:(void (^)(Fault *))onError {
+    [self.rt invoke:method targets:targets args:nil onSuccess:onSuccess onError:onError];
+}
+
+-(void)invoke:(NSString *)method args:(NSArray *)args onSuccess:(void (^)(id))onSuccess onError:(void (^)(Fault *))onError {
+    [self.rt invoke:method targets:nil args:args onSuccess:onSuccess onError:onError];
+}
+
+-(void)invoke:(NSString *)method onSuccess:(void (^)(id))onSuccess onError:(void (^)(Fault *))onError {
+    [self.rt invoke:method targets:nil args:nil onSuccess:onSuccess onError:onError];
 }
 
 @end

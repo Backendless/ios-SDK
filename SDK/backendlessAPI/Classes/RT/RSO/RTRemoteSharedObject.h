@@ -26,8 +26,11 @@
 #import "RSOClearedObject.h"
 #import "CommandObject.h"
 #import "UserStatusObject.h"
+#import "InvokeObject.h"
 
 @interface RTRemoteSharedObject : RTListener
+
+@property (strong, nonatomic) id invocationTarget;
 
 -(instancetype)initWithRSOName:(NSString *)rsoName;
 -(void)connect:(void(^)(id))onSuccessfulConnect;
@@ -50,9 +53,14 @@
 -(void)addUserStatusListener:(void(^)(UserStatusObject *))onUserStatus;
 -(void)removeUserStatusListener:(void(^)(UserStatusObject *))onUserStatus;
 
+-(void)addInvokeListener:(void(^)(InvokeObject *))onInvoke;
+-(void)removeInvokeListener:(void(^)(InvokeObject *))onInvoke;
+
 // commands
 -(void)get:(NSString *)key onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
 -(void)set:(NSString *)key data:(id)data onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
 -(void)clear:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
 -(void)sendCommand:(NSString *)commandName data:(id)data onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
+-(void)invoke:(NSString *)method targets:(NSArray *)targets args:(NSArray *)args onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
+
 @end

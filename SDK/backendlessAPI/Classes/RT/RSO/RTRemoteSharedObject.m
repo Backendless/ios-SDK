@@ -24,6 +24,8 @@
 #import "JSONHelper.h"
 #import <objc/runtime.h>
 
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+
 @interface RTRemoteSharedObject() {
     NSString *rso;
     NSMapTable *onConnectCallbacks;
@@ -85,7 +87,7 @@
     rsoChangesObject.key = [rsoChangesData valueForKey:@"key"];
     rsoChangesObject.data = [jsonHelper parseBackObjectForJSON:[rsoChangesData valueForKey:@"data"]];
     rsoChangesObject.connectionId = [rsoChangesData valueForKey:@"connectionId"];
-    rsoChangesObject.userId = [rsoChangesData valueForKey:@"userId"];    
+    rsoChangesObject.userId = [rsoChangesData valueForKey:@"userId"];
     return rsoChangesObject;
 }
 
@@ -151,6 +153,56 @@
     return userStatus;
 }
 
+// *************************************************
+
+-(void)addInvokeListener:(void(^)(InvokeObject *))onInvoke {
+    NSDictionary *options = @{@"name" : rso};
+    [super addSubscription:RSO_INVOKE options:options onResult:onInvoke handleResultSelector:@selector(handleInvoke:) fromClass:self];
+}
+
+-(void)removeInvokeListener:(void(^)(InvokeObject *))onInvoke {
+    [super stopSubscriptionWithRSO:rso event:RSO_INVOKE onResult:onInvoke];
+}
+
+-(InvokeObject *)handleInvoke:(NSDictionary *)jsonResult {
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonResult options:NSJSONWritingPrettyPrinted error:nil];
+    NSDictionary *invokeData = [jsonHelper dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
+    InvokeObject *invokeObject = [InvokeObject new];
+    invokeObject.method = [invokeData valueForKey:@"method"];
+    invokeObject.args = [invokeData valueForKey:@"args"];
+    invokeObject.connectionId = [invokeData valueForKey:@"connectionId"];
+    invokeObject.userId = [invokeData valueForKey:@"userId"];
+    
+    SEL invocationMethodSelector = NSSelectorFromString(invokeObject.method);
+    
+    if (self.invocationTarget) {
+        if ([self.invocationTarget respondsToSelector:invocationMethodSelector]) {
+
+            NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[self.invocationTarget methodSignatureForSelector:invocationMethodSelector]];
+            [invocation setTarget:self.invocationTarget];
+            [invocation setSelector:invocationMethodSelector];
+            
+            for (int i = 0; i < [invokeObject.args count]; i++) {
+                id arg = [invokeObject.args objectAtIndex:i];
+                [invocation setArgument:&arg atIndex:i+2]; // index 0 reserved for self, index 1 reserved for _cmd
+            }
+            [invocation invoke];
+        }
+        else if ([[self.invocationTarget class] respondsToSelector:invocationMethodSelector]) {
+            
+            // perform selector with many args
+            [[self.invocationTarget class] performSelector:invocationMethodSelector withObject:nil];
+        }
+    }
+    else {
+        NSLog(@"TARGET NOT FOUND");
+    }
+    
+    return invokeObject;
+}
+
+// *************************************************
+
 // commands
 
 -(void)get:(NSString *)key onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError {
@@ -187,6 +239,28 @@
                     @"data" : [jsonHelper parseObjectForJSON:data]};
     }
     [rtMethod sendCommand:RSO_COMMAND options:options onSuccess:onSuccess onError:onError];
+}
+
+-(void)invoke:(NSString *)method targets:(NSArray *)targets args:(NSArray *)args onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError {
+    NSDictionary *options = @{@"name"       : rso,
+                              @"method"     : method};
+    if (targets) {
+        options = @{@"name"     : rso,
+                    @"method"   : method,
+                    @"targets"  : targets};
+    }
+    if (args) {
+        options = @{@"name"     : rso,
+                    @"method"   : method,
+                    @"args"     : args};
+    }
+    if (targets && args) {
+        options = @{@"name"     : rso,
+                    @"method"   : method,
+                    @"targets"  : targets,
+                    @"args"     :args};
+    }
+    [rtMethod sendCommand:RSO_INVOKE options:options onSuccess:onSuccess onError:onError];
 }
 
 @end

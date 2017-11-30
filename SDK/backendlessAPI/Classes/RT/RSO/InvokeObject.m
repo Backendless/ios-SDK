@@ -1,5 +1,5 @@
 //
-//  CommandObject.h
+//  InvokeObject.m
 //  backendlessAPI
 /*
  * *********************************************************************************************************************
@@ -19,13 +19,7 @@
  *  ********************************************************************************************************************
  */
 
-#import <Foundation/Foundation.h>
+#import "InvokeObject.h"
 
-@interface CommandObject : NSObject
-
-@property (strong, nonatomic) NSString *type;
-@property (strong, nonatomic) NSString *connectionId;
-@property (strong, nonatomic) NSString *userId;
-@property (strong, nonatomic) id data;
-
+@implementation InvokeObject
 @end

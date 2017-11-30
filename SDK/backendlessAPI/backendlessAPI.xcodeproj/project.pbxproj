@@ -1472,6 +1472,16 @@
 		5A74B1FC1FC6E65100157850 /* RemoteSharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A74B1F41FC6E65100157850 /* RemoteSharedObject.m */; };
 		5A74B1FD1FC6E65100157850 /* RemoteSharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A74B1F41FC6E65100157850 /* RemoteSharedObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A74B1FE1FC6E65100157850 /* RemoteSharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A74B1F41FC6E65100157850 /* RemoteSharedObject.m */; };
+		5A79B7C71FD01BEC00F7A37A /* InvokeObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A79B7C51FD01BEC00F7A37A /* InvokeObject.h */; };
+		5A79B7C81FD01BEC00F7A37A /* InvokeObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A79B7C51FD01BEC00F7A37A /* InvokeObject.h */; };
+		5A79B7C91FD01BEC00F7A37A /* InvokeObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A79B7C51FD01BEC00F7A37A /* InvokeObject.h */; };
+		5A79B7CA1FD01BEC00F7A37A /* InvokeObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A79B7C51FD01BEC00F7A37A /* InvokeObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A79B7CB1FD01BEC00F7A37A /* InvokeObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A79B7C51FD01BEC00F7A37A /* InvokeObject.h */; };
+		5A79B7CC1FD01BEC00F7A37A /* InvokeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A79B7C61FD01BEC00F7A37A /* InvokeObject.m */; };
+		5A79B7CD1FD01BEC00F7A37A /* InvokeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A79B7C61FD01BEC00F7A37A /* InvokeObject.m */; };
+		5A79B7CE1FD01BEC00F7A37A /* InvokeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A79B7C61FD01BEC00F7A37A /* InvokeObject.m */; };
+		5A79B7CF1FD01BEC00F7A37A /* InvokeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A79B7C61FD01BEC00F7A37A /* InvokeObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A79B7D01FD01BEC00F7A37A /* InvokeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A79B7C61FD01BEC00F7A37A /* InvokeObject.m */; };
 		5A872EEC1FC6F82000A6CCB3 /* RTRemoteSharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872EEA1FC6F82000A6CCB3 /* RTRemoteSharedObject.h */; };
 		5A872EED1FC6F82000A6CCB3 /* RTRemoteSharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872EEA1FC6F82000A6CCB3 /* RTRemoteSharedObject.h */; };
 		5A872EEE1FC6F82000A6CCB3 /* RTRemoteSharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872EEA1FC6F82000A6CCB3 /* RTRemoteSharedObject.h */; };
@@ -2450,6 +2460,8 @@
 		5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BackendlessPushHelper.m; sourceTree = "<group>"; };
 		5A74B1F31FC6E65100157850 /* RemoteSharedObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RemoteSharedObject.h; sourceTree = "<group>"; };
 		5A74B1F41FC6E65100157850 /* RemoteSharedObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RemoteSharedObject.m; sourceTree = "<group>"; };
+		5A79B7C51FD01BEC00F7A37A /* InvokeObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InvokeObject.h; sourceTree = "<group>"; };
+		5A79B7C61FD01BEC00F7A37A /* InvokeObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InvokeObject.m; sourceTree = "<group>"; };
 		5A872EEA1FC6F82000A6CCB3 /* RTRemoteSharedObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTRemoteSharedObject.h; sourceTree = "<group>"; };
 		5A872EEB1FC6F82000A6CCB3 /* RTRemoteSharedObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RTRemoteSharedObject.m; sourceTree = "<group>"; };
 		5A872EF61FC6FED300A6CCB3 /* RSOChangesObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RSOChangesObject.h; sourceTree = "<group>"; };
@@ -3211,6 +3223,8 @@
 				5A872EF71FC6FED300A6CCB3 /* RSOChangesObject.m */,
 				5A872F0E1FC70F9500A6CCB3 /* RSOClearedObject.h */,
 				5A872F0F1FC70F9500A6CCB3 /* RSOClearedObject.m */,
+				5A79B7C51FD01BEC00F7A37A /* InvokeObject.h */,
+				5A79B7C61FD01BEC00F7A37A /* InvokeObject.m */,
 			);
 			path = RSO;
 			sourceTree = "<group>";
@@ -3828,6 +3842,7 @@
 				0F9ACB011E798C5E0087869F /* UndefinedType.h in Headers */,
 				0F9ACAC51E798C5E0087869F /* NumberReader.h in Headers */,
 				0F9AC81D1E798C5C0087869F /* HttpEngine.h in Headers */,
+				5A79B7C71FD01BEC00F7A37A /* InvokeObject.h in Headers */,
 				0F9AC9761E798C5D0087869F /* Header.h in Headers */,
 				0F9ACB331E798C5E0087869F /* V3DateReader.h in Headers */,
 				0F9ACC9B1E798C5F0087869F /* BooleanWriter.h in Headers */,
@@ -3950,6 +3965,7 @@
 				0F9ACCC91E798C5F0087869F /* IProtocolFormatter.h in Headers */,
 				0F9AC94F1E798C5D0087869F /* MetaData.h in Headers */,
 				0F9ACCBA1E798C5F0087869F /* DateWriter.h in Headers */,
+				5A79B7C81FD01BEC00F7A37A /* InvokeObject.h in Headers */,
 				0F9AC8911E798C5C0087869F /* IDeserializer.h in Headers */,
 				0F9AC96D1E798C5D0087869F /* VideoData.h in Headers */,
 				0F9ACA7B1E798C5D0087869F /* ITypeReader.h in Headers */,
@@ -4190,6 +4206,7 @@
 				0F9ACCCA1E798C5F0087869F /* IProtocolFormatter.h in Headers */,
 				0F9AC9501E798C5D0087869F /* MetaData.h in Headers */,
 				0F9ACCBB1E798C5F0087869F /* DateWriter.h in Headers */,
+				5A79B7C91FD01BEC00F7A37A /* InvokeObject.h in Headers */,
 				0F9AC8921E798C5C0087869F /* IDeserializer.h in Headers */,
 				0F9AC96E1E798C5D0087869F /* VideoData.h in Headers */,
 				0F9ACA7C1E798C5D0087869F /* ITypeReader.h in Headers */,
@@ -4404,6 +4421,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5AF988C31FCEA96E00ED908F /* JSONHelper.h in Headers */,
+				5A79B7CA1FD01BEC00F7A37A /* InvokeObject.h in Headers */,
 				5A872F131FC70F9500A6CCB3 /* RSOClearedObject.h in Headers */,
 				5A872EFB1FC6FED300A6CCB3 /* RSOChangesObject.h in Headers */,
 				5A74B1F81FC6E65100157850 /* RemoteSharedObject.h in Headers */,
@@ -4679,6 +4697,7 @@
 				0F9ACB691E798C5E0087869F /* IAdaptingType.h in Headers */,
 				0F9AC9251E798C5C0087869F /* AudioData.h in Headers */,
 				0F9ACCEF1E798C5F0087869F /* NullWriter.h in Headers */,
+				5A79B7CB1FD01BEC00F7A37A /* InvokeObject.h in Headers */,
 				0F9AC9701E798C5D0087869F /* VideoData.h in Headers */,
 				0F9ACBE11E798C5E0087869F /* ObjectFactories.h in Headers */,
 				0F9ACC951E798C5F0087869F /* BodyHolderWriter.h in Headers */,
@@ -5353,6 +5372,7 @@
 				0F9ACA431E798C5D0087869F /* BoundPropertyBagReader.m in Sources */,
 				0F9ACCFA1E798C5F0087869F /* NumberWriter.m in Sources */,
 				1C7BB4A01A2E092900D3C2C1 /* GeoCategory.m in Sources */,
+				5A79B7CC1FD01BEC00F7A37A /* InvokeObject.m in Sources */,
 				1C7BB4A11A2E092900D3C2C1 /* Events.m in Sources */,
 				0F9AC9031E798C5C0087869F /* BaseRTMPProtocolEncoder.m in Sources */,
 				0F9ACA571E798C5D0087869F /* ConcreteObject.m in Sources */,
@@ -5668,6 +5688,7 @@
 				D31700D61A84D2AA00772766 /* GeoCluster.m in Sources */,
 				0F9ACCDD1E798C5F0087869F /* MessageWriter.m in Sources */,
 				0F9ACC511E798C5F0087869F /* AmfFormatter.m in Sources */,
+				5A79B7CD1FD01BEC00F7A37A /* InvokeObject.m in Sources */,
 				0F9ACCB51E798C5F0087869F /* ClassDefinition.m in Sources */,
 				0F9AC84B1E798C5C0087869F /* WeborbClient.m in Sources */,
 				91F139B417D724C700D1AC4C /* QueryOptions.m in Sources */,
@@ -5864,6 +5885,7 @@
 				D31700D71A84D2AA00772766 /* GeoCluster.m in Sources */,
 				0F9ACCDE1E798C5F0087869F /* MessageWriter.m in Sources */,
 				0F9ACC521E798C5F0087869F /* AmfFormatter.m in Sources */,
+				5A79B7CE1FD01BEC00F7A37A /* InvokeObject.m in Sources */,
 				0F9ACCB61E798C5F0087869F /* ClassDefinition.m in Sources */,
 				0F9AC84C1E798C5C0087869F /* WeborbClient.m in Sources */,
 				91F139B517D724C700D1AC4C /* QueryOptions.m in Sources */,
@@ -6050,6 +6072,7 @@
 				0F9ACC211E798C5F0087869F /* ErrMessage.m in Sources */,
 				0F9ACCE91E798C5F0087869F /* MultiDimArrayWriter.m in Sources */,
 				0F9ACB951E798C5E0087869F /* DEBUG.m in Sources */,
+				5A79B7CF1FD01BEC00F7A37A /* InvokeObject.m in Sources */,
 				F9F0AEC41CDBCA3900035C62 /* AbstractQuery.m in Sources */,
 				F9F0AEC51CDBCA3900035C62 /* BackendlessCache.m in Sources */,
 				0F9ACA911E798C5D0087869F /* NamedObject.m in Sources */,
@@ -6265,6 +6288,7 @@
 				0F9ACCB81E798C5F0087869F /* ClassDefinition.m in Sources */,
 				0F9ACBB91E798C5E0087869F /* BinaryCodec.m in Sources */,
 				0F9AC9F21E798C5D0087869F /* SharedObjectMessage.m in Sources */,
+				5A79B7D01FD01BEC00F7A37A /* InvokeObject.m in Sources */,
 				F9F0AF841CDBCAB500035C62 /* FilePermission.m in Sources */,
 				F9F0AF851CDBCAB500035C62 /* GeoCluster.m in Sources */,
 				F9F0AF861CDBCAB500035C62 /* QueryOptions.m in Sources */,

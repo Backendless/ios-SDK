@@ -52,16 +52,16 @@
 }
 
 -(void)sendCommand:(NSString *)type options:(NSDictionary *)options onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError {
+    
     NSDictionary *callbacks = @{type        : onSuccess,
                                 ERROR       : onError};
-    
-    NSLog(@"TYPE = %@", type);
     
     for (NSString *callbackType in [callbacks allKeys]) {
         NSMutableArray *callbackStack = [NSMutableArray arrayWithArray:[simpleListeners valueForKey:callbackType]];
         if (!callbackStack) {
             callbackStack = [NSMutableArray new];
         }
+        
         [callbackStack addObject:[callbacks valueForKey:callbackType]];
         [simpleListeners setObject:callbackStack forKey:callbackType];
     }

@@ -38,6 +38,7 @@
 #define RSO_SET @"RSO_SET"
 #define RSO_CLEAR @"RSO_CLEAR"
 #define RSO_COMMAND @"RSO_COMMAND"
+#define RSO_INVOKE @"RSO_INVOKE"
 
 @interface RTListener : NSObject
 
