@@ -21,6 +21,7 @@
 
 #import "RTMessaging.h"
 #import "RTListener.h"
+#import "JSONHelper.h"
 
 @interface RTMessaging() {
     NSString *channel;
@@ -80,7 +81,7 @@
 
 -(Message *)handleMessage:(NSDictionary *)jsonResult {
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonResult options:NSJSONWritingPrettyPrinted error:nil];
-    NSDictionary *messageData = [self dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
+    NSDictionary *messageData = [jsonHelper dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
     Message *message = [Message new];
     message.data = messageData;
     message.headers = [messageData valueForKey:@"headers"];
@@ -99,12 +100,12 @@
 
 -(CommandObject *)handleCommand:(NSDictionary *)jsonResult {
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonResult options:NSJSONWritingPrettyPrinted error:nil];
-    NSDictionary *commandData = [self dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
+    NSDictionary *commandData = [jsonHelper dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
     CommandObject *command = [CommandObject new];
     command.type = [commandData valueForKey:@"type"];
     command.connectionId = [commandData valueForKey:@"connectionId"];
     command.userId = [commandData valueForKey:@"userId"];
-    command.data = [commandData valueForKey:@"data"];
+    command.data = [jsonHelper parseBackObjectForJSON:[commandData valueForKey:@"data"]];
     return command;
 }
 
@@ -119,24 +120,11 @@
 
 -(UserStatusObject *)handleUserStatus:(NSDictionary *)jsonResult {
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonResult options:NSJSONWritingPrettyPrinted error:nil];
-    NSDictionary *userStatusData = [self dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
+    NSDictionary *userStatusData = [jsonHelper dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
     UserStatusObject *userStatus = [UserStatusObject new];
     userStatus.status = [userStatusData valueForKey:@"status"];
-    userStatus.data = [userStatusData valueForKey:@"data"];    
+    userStatus.data = [userStatusData valueForKey:@"data"];
     return userStatus;
-}
-
--(NSDictionary *)dictionaryFromJson:(NSString *)JSONString {
-    NSMutableDictionary *dictionary = [NSMutableDictionary new];
-    NSError *error;
-    NSData *JSONData = [JSONString dataUsingEncoding:NSUTF8StringEncoding];
-    NSDictionary *JSONDictionary = [NSJSONSerialization JSONObjectWithData:JSONData options:0 error:&error];
-    for (NSString *fieldName in JSONDictionary) {
-        if (![fieldName isEqualToString:@"___jsonclass"] && ![fieldName isEqualToString:@"__meta"] && ![fieldName isEqualToString:@"___class"]) {
-            [dictionary setValue:[JSONDictionary valueForKey:fieldName] forKey:fieldName];
-        }
-    }
-    return dictionary;
 }
 
 @end

@@ -100,7 +100,7 @@
     [subscriptions setObject:subscriptionStack forKey:typeName];
 }
 
--(void)stopSubscription:(NSString *)event whereClause:(NSString *)whereClause onResult:(void (^)(id))onResult {
+-(void)stopSubscription:(NSString *)event whereClause:(NSString *)whereClause onResult:(void(^)(id))onResult {
     NSMutableArray *subscriptionStack = [NSMutableArray arrayWithArray:[subscriptions valueForKey:event]];
     if (event && subscriptionStack) {
         if (whereClause && onResult) {
@@ -142,7 +142,7 @@
     }
 }
 
--(void)stopSubscriptionWithChannel:(NSString *)channel event:(NSString *)event whereClause:(NSString *)whereClause onResult:(void (^)(id))onResult {
+-(void)stopSubscriptionWithChannel:(NSString *)channel event:(NSString *)event whereClause:(NSString *)whereClause onResult:(void(^)(id))onResult {
     NSMutableArray *subscriptionStack = [NSMutableArray arrayWithArray:[subscriptions valueForKey:event]];
     if (channel && event && subscriptionStack) {
         if (whereClause && onResult) {
@@ -184,7 +184,7 @@
     }
 }
 
--(void)stopSubscriptionWithRSO:(NSString *)rso event:(NSString *)event onResult:(void (^)(id))onResult {
+-(void)stopSubscriptionWithRSO:(NSString *)rso event:(NSString *)event onResult:(void(^)(id))onResult {
     NSMutableArray *subscriptionStack = [NSMutableArray arrayWithArray:[subscriptions valueForKey:event]];
     if (rso && event && subscriptionStack) {        
         if (onResult) {

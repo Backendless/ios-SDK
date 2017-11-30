@@ -31,7 +31,7 @@
 +(instancetype)sharedInstance;
 -(void)subscribe:(NSDictionary *)data subscription:(RTSubscription *)subscription;
 -(void)unsubscribe:(NSString *)subscriptionId;
--(void)sendCommand:(NSDictionary *)data method:(RTMethodRequest *)method;
+-(void)sendCommand:(id)data method:(RTMethodRequest *)method;
 -(void)userLoggedInWithToken:(NSString *)userToken;
 
 @end

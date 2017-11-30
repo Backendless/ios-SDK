@@ -39,6 +39,7 @@
 #import "KeychainDataStore.h"
 #import "RTListener.h"
 #import "RTMethod.h"
+#import "JSONHelper.h"
 
 #define FAULT_NO_DEVICE_ID [Fault fault:@"Device ID is not set" detail:@"Device ID is not set" faultCode:@"5900"]
 #define FAULT_NO_DEVICE_TOKEN [Fault fault:@"Device token is not set" detail:@"Device token is not set" faultCode:@"5901"]
@@ -433,15 +434,15 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 
 // commands
 
--(void)sendCommand:(NSString *)commandName channelName:(NSString *)channelName data:(id)data onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError {
+-(void)sendCommand:(NSString *)commandType channelName:(NSString *)channelName data:(id)data onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError {
     NSDictionary *options = @{@"channel"    : channelName,
-                              @"type"       : commandName};
+                              @"type"       : commandType};
     if (data) {
         options = @{@"channel"    : channelName,
-                    @"type"       : commandName,
-                    @"data"       : data};
+                    @"type"       : commandType,
+                    @"data"       : [jsonHelper parseObjectForJSON:data]};
     }
-    [rtMethod sendCommand:commandName options:options onSuccess:onSuccess onError:onError];
+    [rtMethod sendCommand:PUB_SUB_COMMAND options:options onSuccess:onSuccess onError:onError];
 }
 
 @end

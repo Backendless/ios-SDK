@@ -51,8 +51,8 @@
 -(void)removeUserStatusListener:(void(^)(UserStatusObject *))onUserStatus;
 
 // commands
--(void)get:(NSString *)key onSuccess:(void(^)(id))onSuccess onError:(void (^)(Fault *))onError;
--(void)set:(NSString *)key data:(id)data onSuccess:(void (^)(id))onSuccess onError:(void (^)(Fault *))onError;
+-(void)get:(NSString *)key onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
+-(void)set:(NSString *)key data:(id)data onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
 -(void)clear:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
 -(void)sendCommand:(NSString *)commandName data:(id)data onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
 @end

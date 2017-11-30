@@ -24,6 +24,7 @@
 #import "RTClient.h"
 #import "RTListener.h"
 #import "RTSubscription.h"
+#import "JSONHelper.h"
 
 #define CREATED @"created"
 #define UPDATED @"updated"
@@ -151,54 +152,14 @@
 
 -(id)handleData:(NSDictionary *)jsonResult {
     id result;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonResult options:NSJSONWritingPrettyPrinted error:nil];    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonResult options:NSJSONWritingPrettyPrinted error:nil];
     if (dataStore == DATASTOREFACTORY) {
-        result = [self objectFromJSON:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
+        result = [jsonHelper objectFromJSON:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding] ofType:entity];
     }
     else if (dataStore == MAPDRIVENDATASTORE) {
-        result = [self dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
+        result = [jsonHelper dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
     }
     return result;
-}
-
--(id)objectFromJSON:(NSString *)JSONString {
-    NSError *error;
-    NSData *JSONData = [JSONString dataUsingEncoding:NSUTF8StringEncoding];
-    NSDictionary *JSONDictionary = [NSJSONSerialization JSONObjectWithData:JSONData options:0 error:&error];
-    id object = [entity new];
-    object = [self setObject:object valuesFromDictionary:JSONDictionary];
-    return object;
-}
-
--(id)setObject:(id)object valuesFromDictionary:(NSDictionary *)dictionary {
-    [self prepareClass:[object class]];
-    for (NSString *fieldName in dictionary) {
-        if (![fieldName isEqualToString:@"___jsonclass"] && ![fieldName isEqualToString:@"__meta"] && ![fieldName isEqualToString:@"___class"]) {
-            [object setValue:[dictionary objectForKey:fieldName] forKey:fieldName];
-        }
-    }
-    return object;
-}
-
--(void)prepareClass:(Class)class {
-    [__types classInstance:class];
-    [class resolveProperty:@"objectId"];
-    [class resolveProperty:@"ownerId"];
-    [class resolveProperty:@"created"];
-    [class resolveProperty:@"updated"];
-}
-
--(NSDictionary *)dictionaryFromJson:(NSString *)JSONString {
-    NSMutableDictionary *dictionary = [NSMutableDictionary new];
-    NSError *error;
-    NSData *JSONData = [JSONString dataUsingEncoding:NSUTF8StringEncoding];
-    NSDictionary *JSONDictionary = [NSJSONSerialization JSONObjectWithData:JSONData options:0 error:&error];
-    for (NSString *fieldName in JSONDictionary) {
-        if (![fieldName isEqualToString:@"___jsonclass"] && ![fieldName isEqualToString:@"__meta"] && ![fieldName isEqualToString:@"___class"]) {
-            [dictionary setValue:[JSONDictionary valueForKey:fieldName] forKey:fieldName];
-        }
-    }
-    return dictionary;
 }
 
 @end

@@ -111,7 +111,7 @@
     [subscriptions removeObjectForKey:subscriptionId];
 }
 
--(void)sendCommand:(NSDictionary *)data method:(RTMethodRequest *)method {
+-(void)sendCommand:(id)data method:(RTMethodRequest *)method {
     if(socketConnected) {
         [socket emit:@"MET_REQ" with:[NSArray arrayWithObject:data]];
     }

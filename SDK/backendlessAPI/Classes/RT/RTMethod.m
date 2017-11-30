@@ -52,9 +52,10 @@
 }
 
 -(void)sendCommand:(NSString *)type options:(NSDictionary *)options onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError {
-    
     NSDictionary *callbacks = @{type        : onSuccess,
                                 ERROR       : onError};
+    
+    NSLog(@"TYPE = %@", type);
     
     for (NSString *callbackType in [callbacks allKeys]) {
         NSMutableArray *callbackStack = [NSMutableArray arrayWithArray:[simpleListeners valueForKey:callbackType]];
@@ -66,11 +67,8 @@
     }
     
     NSString *methodId = [[NSUUID UUID] UUIDString];
-    
-    
-    
     NSDictionary *data = @{@"id"        : methodId,
-                           @"name"      : [type isEqualToString:PUB_SUB_COMMANDS]?PUB_SUB_COMMAND:type,
+                           @"name"      : type,
                            @"options"   : options};
     
     __weak NSMutableDictionary<NSString *, NSMutableArray<RTMethodRequest *> *> *weakMethods = methods;

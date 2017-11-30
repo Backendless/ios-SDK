@@ -28,7 +28,7 @@
 #import "Invoker.h"
 #import "BackendlessUser.h"
 #import "UserProperty.h"
-#import "AMFSerializer.h"`
+#import "AMFSerializer.h"
 #import "AuthorizationException.h"
 #import "RTClient.h"
 

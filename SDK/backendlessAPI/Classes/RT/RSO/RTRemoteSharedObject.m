@@ -21,6 +21,8 @@
 
 #import "RTRemoteSharedObject.h"
 #import "RTMethod.h"
+#import "JSONHelper.h"
+#import <objc/runtime.h>
 
 @interface RTRemoteSharedObject() {
     NSString *rso;
@@ -76,31 +78,31 @@
     [super stopSubscriptionWithRSO:rso event:RSO_CHANGES onResult:onChange];
 }
 
--(RSOChangesObject *)handleRSOChanges:(NSDictionary *)jsonResult {
+-(RSOChangesObject *)handleRSOChanges:(NSDictionary *)jsonResult {    
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonResult options:NSJSONWritingPrettyPrinted error:nil];
-    NSDictionary *rsoChangesData = [self dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];    
-    RSOChangesObject *rsoChangesObject = [RSOChangesObject new];    
+    NSDictionary *rsoChangesData = [jsonHelper dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
+    RSOChangesObject *rsoChangesObject = [RSOChangesObject new];
     rsoChangesObject.key = [rsoChangesData valueForKey:@"key"];
-    rsoChangesObject.data = [rsoChangesData valueForKey:@"data"];
+    rsoChangesObject.data = [jsonHelper parseBackObjectForJSON:[rsoChangesData valueForKey:@"data"]];
     rsoChangesObject.connectionId = [rsoChangesData valueForKey:@"connectionId"];
-    rsoChangesObject.userId = [rsoChangesData valueForKey:@"userId"];
+    rsoChangesObject.userId = [rsoChangesData valueForKey:@"userId"];    
     return rsoChangesObject;
 }
 
 // *************************************************
 
--(void)addClearListener:(void (^)(RSOClearedObject *))onClear {
+-(void)addClearListener:(void(^)(RSOClearedObject *))onClear {
     NSDictionary *options = @{@"name" : rso};
     [super addSubscription:RSO_CLEARED options:options onResult:onClear handleResultSelector:@selector(handleRSOCleared:) fromClass:self];
 }
 
--(void)removeClearListener:(void (^)(RSOClearedObject *))onClear {
+-(void)removeClearListener:(void(^)(RSOClearedObject *))onClear {
     [super stopSubscriptionWithRSO:rso event:RSO_CLEARED onResult:onClear];
 }
 
 -(RSOClearedObject *)handleRSOCleared:(NSDictionary *)jsonResult {
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonResult options:NSJSONWritingPrettyPrinted error:nil];
-    NSDictionary *rsoClearedData = [self dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
+    NSDictionary *rsoClearedData = [jsonHelper dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
     RSOClearedObject *rsoClearedObject = [RSOClearedObject new];
     rsoClearedObject.connectionId = [rsoClearedData valueForKey:@"connectionId"];
     rsoClearedObject.userId = [rsoClearedData valueForKey:@"userId"];
@@ -109,25 +111,27 @@
 
 // *************************************************
 
--(void)addCommandListener:(void (^)(CommandObject *))onCommand {
+-(void)addCommandListener:(void(^)(CommandObject *))onCommand {
     NSDictionary *options = @{@"name" : rso};
     [super addSubscription:RSO_COMMANDS options:options onResult:onCommand handleResultSelector:@selector(handleCommand:) fromClass:self];
 }
 
--(void)removeCommandListener:(void (^)(CommandObject *))onCommand {
+-(void)removeCommandListener:(void(^)(CommandObject *))onCommand {
     [super stopSubscriptionWithRSO:rso event:RSO_COMMANDS onResult:onCommand];
 }
 
 -(CommandObject *)handleCommand:(NSDictionary *)jsonResult {
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonResult options:NSJSONWritingPrettyPrinted error:nil];
-    NSDictionary *commandData = [self dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
+    NSDictionary *commandData = [jsonHelper dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
     CommandObject *command = [CommandObject new];
     command.type = [commandData valueForKey:@"type"];
     command.connectionId = [commandData valueForKey:@"connectionId"];
     command.userId = [commandData valueForKey:@"userId"];
-    command.data = [commandData valueForKey:@"data"];
+    command.data = [jsonHelper parseBackObjectForJSON:[commandData valueForKey:@"data"]];
     return command;
 }
+
+// *************************************************
 
 -(void)addUserStatusListener:(void(^)(UserStatusObject *))onUserStatus {
     NSDictionary *options = @{@"name" : rso};
@@ -140,34 +144,21 @@
 
 -(UserStatusObject *)handleUserStatus:(NSDictionary *)jsonResult {
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonResult options:NSJSONWritingPrettyPrinted error:nil];
-    NSDictionary *userStatusData = [self dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
+    NSDictionary *userStatusData = [jsonHelper dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
     UserStatusObject *userStatus = [UserStatusObject new];
     userStatus.status = [userStatusData valueForKey:@"status"];
     userStatus.data = [userStatusData valueForKey:@"data"];
     return userStatus;
 }
 
--(NSDictionary *)dictionaryFromJson:(NSString *)JSONString {
-    NSMutableDictionary *dictionary = [NSMutableDictionary new];
-    NSError *error;
-    NSData *JSONData = [JSONString dataUsingEncoding:NSUTF8StringEncoding];
-    NSDictionary *JSONDictionary = [NSJSONSerialization JSONObjectWithData:JSONData options:0 error:&error];
-    for (NSString *fieldName in JSONDictionary) {
-        if (![fieldName isEqualToString:@"___jsonclass"] && ![fieldName isEqualToString:@"__meta"] && ![fieldName isEqualToString:@"___class"]) {
-            [dictionary setValue:[JSONDictionary valueForKey:fieldName] forKey:fieldName];
-        }
-    }
-    return dictionary;
-}
-
 // commands
 
--(void)get:(NSString *)key onSuccess:(void(^)(id))onSuccess onError:(void (^)(Fault *))onError {
+-(void)get:(NSString *)key onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError {
     NSDictionary *options = @{@"name"   : rso};
     if (key) {
         options = @{@"name"   : rso,
                     @"key"    : key};
-    }    
+    }
     [rtMethod sendCommand:RSO_GET options:options onSuccess:onSuccess onError:onError];
 }
 
@@ -175,9 +166,9 @@
     NSDictionary *options = @{@"name"   : rso,
                               @"key"    : key};
     if (data) {
-        options = @{@"name"   : rso,
-                    @"key"    : key,
-                    @"data"   : data};
+        options = @{@"name" : rso,
+                    @"key"  : key,
+                    @"data" : [jsonHelper parseObjectForJSON:data]};
     }
     [rtMethod sendCommand:RSO_SET options:options onSuccess:onSuccess onError:onError];
 }
@@ -187,13 +178,13 @@
     [rtMethod sendCommand:RSO_CLEAR options:options onSuccess:onSuccess onError:onError];
 }
 
--(void)sendCommand:(NSString *)commandName data:(id)data onSuccess:(void (^)(id))onSuccess onError:(void (^)(Fault *))onError {
+-(void)sendCommand:(NSString *)commandName data:(id)data onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError {
     NSDictionary *options = @{@"name"   : rso,
                               @"type"   : commandName};
     if (data) {
         options = @{@"name" : rso,
                     @"type" : commandName,
-                    @"data" : data};
+                    @"data" : [jsonHelper parseObjectForJSON:data]};
     }
     [rtMethod sendCommand:RSO_COMMAND options:options onSuccess:onSuccess onError:onError];
 }

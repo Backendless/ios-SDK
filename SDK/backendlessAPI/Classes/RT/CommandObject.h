@@ -26,6 +26,6 @@
 @property (strong, nonatomic) NSString *type;   // тип команды, это указывает юзер
 @property (strong, nonatomic) NSString *connectionId;
 @property (strong, nonatomic) NSString *userId;
-@property (strong, nonatomic) NSDictionary *data;
+@property (strong, nonatomic) id data;
 
 @end

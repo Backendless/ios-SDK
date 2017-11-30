@@ -77,6 +77,6 @@
 -(NSString *)deviceTokenAsString:(NSData *)token;
 
 // commands
--(void)sendCommand:(NSString *)commandName channelName:(NSString *)channelName data:(id)data onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
+-(void)sendCommand:(NSString *)commandType channelName:(NSString *)channelName data:(id)data onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
 
 @end

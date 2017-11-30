@@ -6,9 +6,9 @@
 //  Copyright 2011 The Midnight Coders, Inc. All rights reserved.
 //
 
-#import <objc/runtime.h>
 #import "Types.h"
 #import "DEBUG.h"
+#import <objc/runtime.h>
 
 #define SWIFT_ON 1
 
