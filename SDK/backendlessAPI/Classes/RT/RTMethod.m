@@ -25,7 +25,6 @@
 
 @interface RTMethod() {
     NSMutableDictionary<NSString *, NSMutableArray<RTMethodRequest *> *> *methods;
-    NSMutableDictionary<NSString *, NSMutableArray *> *simpleListeners;
     void(^onResult)(id);
     void(^onError)(Fault *);
     void(^onStop)(RTMethodRequest *);
@@ -46,49 +45,17 @@
 -(instancetype)init {
     if (self = [super init]) {
         methods = [NSMutableDictionary<NSString *, NSMutableArray<RTMethodRequest *> *> new];
-        simpleListeners = [NSMutableDictionary<NSString *, NSMutableArray *> new];
     }
     return self;
 }
 
 -(void)sendCommand:(NSString *)type options:(NSDictionary *)options onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError {
-    
-    NSDictionary *callbacks = @{type        : onSuccess,
-                                ERROR       : onError};
-    
-    for (NSString *callbackType in [callbacks allKeys]) {
-        NSMutableArray *callbackStack = [NSMutableArray arrayWithArray:[simpleListeners valueForKey:callbackType]];
-        if (!callbackStack) {
-            callbackStack = [NSMutableArray new];
-        }
-        
-        [callbackStack addObject:[callbacks valueForKey:callbackType]];
-        [simpleListeners setObject:callbackStack forKey:callbackType];
-    }
-    
     NSString *methodId = [[NSUUID UUID] UUIDString];
     NSDictionary *data = @{@"id"        : methodId,
                            @"name"      : type,
                            @"options"   : options};
     
     __weak NSMutableDictionary<NSString *, NSMutableArray<RTMethodRequest *> *> *weakMethods = methods;
-    __weak NSMutableDictionary<NSString *, NSMutableArray *> *weakSimpleListeners = simpleListeners;
-    
-    onError = ^(Fault *error) {
-        NSArray *errorCallbacks = [NSArray arrayWithArray:[weakSimpleListeners valueForKey:ERROR]];
-        for (int i = 0; i < [errorCallbacks count]; i++) {
-            void(^errorBlock)(Fault *) = [errorCallbacks objectAtIndex:i];
-            errorBlock(error);
-        }
-    };
-    
-    onResult = ^(id result) {
-        NSArray *resultCallbacks = [NSArray arrayWithArray:[weakSimpleListeners valueForKey:type]];
-        for (int i = 0; i < [resultCallbacks count]; i++) {
-            void(^resultBlock)(id) = [resultCallbacks objectAtIndex:i];
-            resultBlock(result);
-        }
-    };
     
     onStop = ^(RTMethodRequest *method) {
         NSMutableArray *methodStack = [NSMutableArray arrayWithArray:[weakMethods valueForKey:type]] ? [NSMutableArray arrayWithArray:[weakMethods valueForKey:type]] : [NSMutableArray new];
@@ -99,18 +66,15 @@
     method.methodId = methodId;
     method.type = type;
     method.options = options;
-    method.onResult = onResult;
+    method.onResult = onSuccess;
     method.onError = onError;
     method.onStop = onStop;
     
-    [rtClient sendCommand:data method:method];
-    
-    NSMutableArray *methodStack = [NSMutableArray arrayWithArray:[methods valueForKey:type]];
-    if (!methodStack) {
-        methodStack = [NSMutableArray new];
-    }
+    NSMutableArray *methodStack = [NSMutableArray arrayWithArray:[methods valueForKey:type]] ? [NSMutableArray arrayWithArray:[methods valueForKey:type]] : [NSMutableArray new];
     [methodStack addObject:method];
     [methods setObject:methodStack forKey:type];
+    
+    [rtClient sendCommand:data method:method];
 }
 
 @end
