@@ -32,8 +32,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		08D99F6B49E607646C4A92C7 /* libPods-bkndlss-device.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3062B3FDB5AD8744032E7E6D /* libPods-bkndlss-device.a */; };
-		0A061463335D948D040E5867 /* libPods-backendless-mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AB6C7620109DEA368B9AD1FF /* libPods-backendless-mac.a */; };
+		0664A6A14891DF465989E26A /* Pods_backendless_mac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AFD97F1E7B54AF9F8CD74E /* Pods_backendless_mac.framework */; };
 		0F9AC8131E798C5C0087869F /* Engine.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC6EA1E798C5B0087869F /* Engine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0F9AC8141E798C5C0087869F /* Engine.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC6EA1E798C5B0087869F /* Engine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0F9AC8151E798C5C0087869F /* Engine.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC6EA1E798C5B0087869F /* Engine.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1442,6 +1441,25 @@
 		1C7BB5081A2E092900D3C2C1 /* BackendlessCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1398C17D7240A00D1AC4C /* BackendlessCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C7BB5091A2E092900D3C2C1 /* BackendlessCacheData.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1398E17D7240A00D1AC4C /* BackendlessCacheData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C7BB50A1A2E092900D3C2C1 /* BackendlessCacheKey.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1399017D7240A00D1AC4C /* BackendlessCacheKey.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A096D6F1FD1ADE6009BF89E /* RTListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F384F1FB317EB002F21D4 /* RTListener.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A096D701FD1ADF3009BF89E /* RTMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9B01FC4788700B192D9 /* RTMethod.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A096D711FD1ADFC009BF89E /* RTMethodRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9AF1FC4788700B192D9 /* RTMethodRequest.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A096D721FD1AE06009BF89E /* RTSubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F38551FB317EB002F21D4 /* RTSubscription.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A096D731FD1AE12009BF89E /* UserStatusObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AEED9CA1FC5B90800CB7D9F /* UserStatusObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A096D741FD1AE1F009BF89E /* UserStatusObjectData.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB3C1891FC5C2FB00728003 /* UserStatusObjectData.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A096D751FD1AE95009BF89E /* RTMessaging.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A5F38541FB317EB002F21D4 /* RTMessaging.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A096D761FD1AEA3009BF89E /* CommandObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A9FC9AC1FC4788700B192D9 /* CommandObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A096D771FD1AEE8009BF89E /* RTListener.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A5F38531FB317EB002F21D4 /* RTListener.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A096D781FD1AEF1009BF89E /* RTMethod.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A9FC9AE1FC4788700B192D9 /* RTMethod.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A096D791FD1AEF5009BF89E /* RTMethodRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A9FC9AB1FC4788700B192D9 /* RTMethodRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A096D7A1FD1AEFA009BF89E /* RTSubscription.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A5F38521FB317EB002F21D4 /* RTSubscription.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A096D7B1FD1AF02009BF89E /* UserStatusObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AEED9C91FC5B90800CB7D9F /* UserStatusObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A096D7C1FD1AF0B009BF89E /* UserStatusObjectData.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AB3C1881FC5C2FB00728003 /* UserStatusObjectData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A096D7D1FD1AF17009BF89E /* Channel.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A9FC9A81FC4786800B192D9 /* Channel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A096D7E1FD1B072009BF89E /* RTMessaging.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F38501FB317EB002F21D4 /* RTMessaging.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A096D7F1FD1B07E009BF89E /* CommandObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9AD1FC4788700B192D9 /* CommandObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A096D801FD1B088009BF89E /* RTListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F384F1FB317EB002F21D4 /* RTListener.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A096D811FD1B091009BF89E /* RTMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9B01FC4788700B192D9 /* RTMethod.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A3917D71FC5BDFF0084D24D /* CommandObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9AD1FC4788700B192D9 /* CommandObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A3917D81FC5BE0C0084D24D /* CommandObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A9FC9AC1FC4788700B192D9 /* CommandObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A4A3A9C1FC570CB00C0ADBA /* RTMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9B01FC4788700B192D9 /* RTMethod.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -1458,69 +1476,108 @@
 		5A633F421F7BB7F6004D7ACA /* BackendlessPushHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A633F3F1F7BB7F6004D7ACA /* BackendlessPushHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A633F431F7BB7F6004D7ACA /* BackendlessPushHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A633F3F1F7BB7F6004D7ACA /* BackendlessPushHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A633F441F7BB7F6004D7ACA /* BackendlessPushHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A633F3F1F7BB7F6004D7ACA /* BackendlessPushHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A633F451F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; };
-		5A633F461F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; };
+		5A633F451F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A633F461F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A633F471F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; };
-		5A633F481F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; };
-		5A74B1F51FC6E65100157850 /* RemoteSharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A74B1F31FC6E65100157850 /* RemoteSharedObject.h */; };
-		5A74B1F61FC6E65100157850 /* RemoteSharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A74B1F31FC6E65100157850 /* RemoteSharedObject.h */; };
-		5A74B1F71FC6E65100157850 /* RemoteSharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A74B1F31FC6E65100157850 /* RemoteSharedObject.h */; };
+		5A633F481F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A74B1F51FC6E65100157850 /* RemoteSharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A74B1F31FC6E65100157850 /* RemoteSharedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A74B1F61FC6E65100157850 /* RemoteSharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A74B1F31FC6E65100157850 /* RemoteSharedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A74B1F71FC6E65100157850 /* RemoteSharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A74B1F31FC6E65100157850 /* RemoteSharedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A74B1F81FC6E65100157850 /* RemoteSharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A74B1F31FC6E65100157850 /* RemoteSharedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A74B1F91FC6E65100157850 /* RemoteSharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A74B1F31FC6E65100157850 /* RemoteSharedObject.h */; };
-		5A74B1FA1FC6E65100157850 /* RemoteSharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A74B1F41FC6E65100157850 /* RemoteSharedObject.m */; };
-		5A74B1FB1FC6E65100157850 /* RemoteSharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A74B1F41FC6E65100157850 /* RemoteSharedObject.m */; };
-		5A74B1FC1FC6E65100157850 /* RemoteSharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A74B1F41FC6E65100157850 /* RemoteSharedObject.m */; };
+		5A74B1F91FC6E65100157850 /* RemoteSharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A74B1F31FC6E65100157850 /* RemoteSharedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A74B1FA1FC6E65100157850 /* RemoteSharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A74B1F41FC6E65100157850 /* RemoteSharedObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A74B1FB1FC6E65100157850 /* RemoteSharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A74B1F41FC6E65100157850 /* RemoteSharedObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A74B1FC1FC6E65100157850 /* RemoteSharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A74B1F41FC6E65100157850 /* RemoteSharedObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A74B1FD1FC6E65100157850 /* RemoteSharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A74B1F41FC6E65100157850 /* RemoteSharedObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A74B1FE1FC6E65100157850 /* RemoteSharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A74B1F41FC6E65100157850 /* RemoteSharedObject.m */; };
-		5A79B7C71FD01BEC00F7A37A /* InvokeObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A79B7C51FD01BEC00F7A37A /* InvokeObject.h */; };
-		5A79B7C81FD01BEC00F7A37A /* InvokeObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A79B7C51FD01BEC00F7A37A /* InvokeObject.h */; };
-		5A79B7C91FD01BEC00F7A37A /* InvokeObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A79B7C51FD01BEC00F7A37A /* InvokeObject.h */; };
+		5A74B1FE1FC6E65100157850 /* RemoteSharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A74B1F41FC6E65100157850 /* RemoteSharedObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A79B7C71FD01BEC00F7A37A /* InvokeObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A79B7C51FD01BEC00F7A37A /* InvokeObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A79B7C81FD01BEC00F7A37A /* InvokeObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A79B7C51FD01BEC00F7A37A /* InvokeObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A79B7C91FD01BEC00F7A37A /* InvokeObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A79B7C51FD01BEC00F7A37A /* InvokeObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A79B7CA1FD01BEC00F7A37A /* InvokeObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A79B7C51FD01BEC00F7A37A /* InvokeObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A79B7CB1FD01BEC00F7A37A /* InvokeObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A79B7C51FD01BEC00F7A37A /* InvokeObject.h */; };
-		5A79B7CC1FD01BEC00F7A37A /* InvokeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A79B7C61FD01BEC00F7A37A /* InvokeObject.m */; };
-		5A79B7CD1FD01BEC00F7A37A /* InvokeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A79B7C61FD01BEC00F7A37A /* InvokeObject.m */; };
-		5A79B7CE1FD01BEC00F7A37A /* InvokeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A79B7C61FD01BEC00F7A37A /* InvokeObject.m */; };
+		5A79B7CB1FD01BEC00F7A37A /* InvokeObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A79B7C51FD01BEC00F7A37A /* InvokeObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A79B7CC1FD01BEC00F7A37A /* InvokeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A79B7C61FD01BEC00F7A37A /* InvokeObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A79B7CD1FD01BEC00F7A37A /* InvokeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A79B7C61FD01BEC00F7A37A /* InvokeObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A79B7CE1FD01BEC00F7A37A /* InvokeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A79B7C61FD01BEC00F7A37A /* InvokeObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A79B7CF1FD01BEC00F7A37A /* InvokeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A79B7C61FD01BEC00F7A37A /* InvokeObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A79B7D01FD01BEC00F7A37A /* InvokeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A79B7C61FD01BEC00F7A37A /* InvokeObject.m */; };
-		5A872EEC1FC6F82000A6CCB3 /* RTRemoteSharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872EEA1FC6F82000A6CCB3 /* RTRemoteSharedObject.h */; };
-		5A872EED1FC6F82000A6CCB3 /* RTRemoteSharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872EEA1FC6F82000A6CCB3 /* RTRemoteSharedObject.h */; };
-		5A872EEE1FC6F82000A6CCB3 /* RTRemoteSharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872EEA1FC6F82000A6CCB3 /* RTRemoteSharedObject.h */; };
-		5A872EEF1FC6F82000A6CCB3 /* RTRemoteSharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872EEA1FC6F82000A6CCB3 /* RTRemoteSharedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A872EF01FC6F82000A6CCB3 /* RTRemoteSharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872EEA1FC6F82000A6CCB3 /* RTRemoteSharedObject.h */; };
-		5A872EF11FC6F82000A6CCB3 /* RTRemoteSharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872EEB1FC6F82000A6CCB3 /* RTRemoteSharedObject.m */; };
-		5A872EF21FC6F82000A6CCB3 /* RTRemoteSharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872EEB1FC6F82000A6CCB3 /* RTRemoteSharedObject.m */; };
-		5A872EF31FC6F82000A6CCB3 /* RTRemoteSharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872EEB1FC6F82000A6CCB3 /* RTRemoteSharedObject.m */; };
-		5A872EF41FC6F82000A6CCB3 /* RTRemoteSharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872EEB1FC6F82000A6CCB3 /* RTRemoteSharedObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A872EF51FC6F82000A6CCB3 /* RTRemoteSharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872EEB1FC6F82000A6CCB3 /* RTRemoteSharedObject.m */; };
-		5A872EF81FC6FED300A6CCB3 /* RSOChangesObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872EF61FC6FED300A6CCB3 /* RSOChangesObject.h */; };
-		5A872EF91FC6FED300A6CCB3 /* RSOChangesObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872EF61FC6FED300A6CCB3 /* RSOChangesObject.h */; };
-		5A872EFA1FC6FED300A6CCB3 /* RSOChangesObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872EF61FC6FED300A6CCB3 /* RSOChangesObject.h */; };
+		5A79B7D01FD01BEC00F7A37A /* InvokeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A79B7C61FD01BEC00F7A37A /* InvokeObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A8393461FD1A72E00FB5697 /* RTRSO.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872EEB1FC6F82000A6CCB3 /* RTRSO.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A8393471FD1A78400FB5697 /* RTMessaging.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F38501FB317EB002F21D4 /* RTMessaging.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A8393481FD1A79900FB5697 /* RTMessaging.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A5F38541FB317EB002F21D4 /* RTMessaging.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A8393491FD1A7BB00FB5697 /* CommandObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9AD1FC4788700B192D9 /* CommandObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A83934A1FD1A7C200FB5697 /* CommandObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A9FC9AC1FC4788700B192D9 /* CommandObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A83934B1FD1A7E400FB5697 /* RTListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F384F1FB317EB002F21D4 /* RTListener.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A83934C1FD1A7EB00FB5697 /* RTListener.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A5F38531FB317EB002F21D4 /* RTListener.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A83934D1FD1A80800FB5697 /* RTMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9B01FC4788700B192D9 /* RTMethod.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A83934E1FD1A80F00FB5697 /* RTMethod.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A9FC9AE1FC4788700B192D9 /* RTMethod.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A83934F1FD1A82600FB5697 /* RTMethodRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9AF1FC4788700B192D9 /* RTMethodRequest.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A8393501FD1A82D00FB5697 /* RTMethodRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A9FC9AB1FC4788700B192D9 /* RTMethodRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A8393511FD1A84B00FB5697 /* RTSubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F38551FB317EB002F21D4 /* RTSubscription.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A8393521FD1A85300FB5697 /* RTSubscription.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A5F38521FB317EB002F21D4 /* RTSubscription.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A8393531FD1A85800FB5697 /* UserStatusObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AEED9C91FC5B90800CB7D9F /* UserStatusObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A8393541FD1A85E00FB5697 /* UserStatusObjectData.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AB3C1881FC5C2FB00728003 /* UserStatusObjectData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A8393551FD1A88100FB5697 /* UserStatusObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AEED9CA1FC5B90800CB7D9F /* UserStatusObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A8393561FD1A88500FB5697 /* UserStatusObjectData.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB3C1891FC5C2FB00728003 /* UserStatusObjectData.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A8393571FD1A89D00FB5697 /* Channel.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A9FC9A81FC4786800B192D9 /* Channel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A8393581FD1A8C100FB5697 /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9A91FC4786900B192D9 /* Channel.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A8393591FD1AA3A00FB5697 /* RTMessaging.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F38501FB317EB002F21D4 /* RTMessaging.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A83935A1FD1AA4200FB5697 /* RTMessaging.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A5F38541FB317EB002F21D4 /* RTMessaging.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A83935B1FD1AA7800FB5697 /* CommandObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9AD1FC4788700B192D9 /* CommandObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A83935C1FD1AA8200FB5697 /* CommandObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A9FC9AC1FC4788700B192D9 /* CommandObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A83935D1FD1AAA600FB5697 /* RTListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F384F1FB317EB002F21D4 /* RTListener.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A83935E1FD1AAAB00FB5697 /* RTListener.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A5F38531FB317EB002F21D4 /* RTListener.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A83935F1FD1AAB400FB5697 /* RTMethod.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A9FC9AE1FC4788700B192D9 /* RTMethod.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A8393601FD1AABC00FB5697 /* RTMethodRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A9FC9AB1FC4788700B192D9 /* RTMethodRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A8393621FD1AAC700FB5697 /* RTSubscription.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A5F38521FB317EB002F21D4 /* RTSubscription.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A8393631FD1AACF00FB5697 /* UserStatusObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AEED9C91FC5B90800CB7D9F /* UserStatusObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A8393641FD1AAD400FB5697 /* UserStatusObjectData.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AB3C1881FC5C2FB00728003 /* UserStatusObjectData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A8393651FD1AADE00FB5697 /* Channel.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A9FC9A81FC4786800B192D9 /* Channel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A8393661FD1AAF200FB5697 /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9A91FC4786900B192D9 /* Channel.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A8393671FD1AB2600FB5697 /* RTMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9B01FC4788700B192D9 /* RTMethod.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A8393681FD1AB2A00FB5697 /* RTMethodRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9AF1FC4788700B192D9 /* RTMethodRequest.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A8393691FD1AB2F00FB5697 /* RTSubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F38551FB317EB002F21D4 /* RTSubscription.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A83936A1FD1AB3500FB5697 /* UserStatusObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AEED9CA1FC5B90800CB7D9F /* UserStatusObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A83936B1FD1AB3A00FB5697 /* UserStatusObjectData.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB3C1891FC5C2FB00728003 /* UserStatusObjectData.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A83936C1FD1AD9E00FB5697 /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9A91FC4786900B192D9 /* Channel.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A83936D1FD1ADB800FB5697 /* RTMessaging.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F38501FB317EB002F21D4 /* RTMessaging.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A83936E1FD1ADC800FB5697 /* CommandObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9AD1FC4788700B192D9 /* CommandObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A872EEC1FC6F82000A6CCB3 /* RTRSO.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872EEA1FC6F82000A6CCB3 /* RTRSO.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A872EED1FC6F82000A6CCB3 /* RTRSO.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872EEA1FC6F82000A6CCB3 /* RTRSO.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A872EEE1FC6F82000A6CCB3 /* RTRSO.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872EEA1FC6F82000A6CCB3 /* RTRSO.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A872EEF1FC6F82000A6CCB3 /* RTRSO.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872EEA1FC6F82000A6CCB3 /* RTRSO.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A872EF01FC6F82000A6CCB3 /* RTRSO.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872EEA1FC6F82000A6CCB3 /* RTRSO.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A872EF11FC6F82000A6CCB3 /* RTRSO.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872EEB1FC6F82000A6CCB3 /* RTRSO.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A872EF21FC6F82000A6CCB3 /* RTRSO.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872EEB1FC6F82000A6CCB3 /* RTRSO.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A872EF31FC6F82000A6CCB3 /* RTRSO.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872EEB1FC6F82000A6CCB3 /* RTRSO.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A872EF41FC6F82000A6CCB3 /* RTRSO.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872EEB1FC6F82000A6CCB3 /* RTRSO.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A872EF81FC6FED300A6CCB3 /* RSOChangesObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872EF61FC6FED300A6CCB3 /* RSOChangesObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A872EF91FC6FED300A6CCB3 /* RSOChangesObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872EF61FC6FED300A6CCB3 /* RSOChangesObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A872EFA1FC6FED300A6CCB3 /* RSOChangesObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872EF61FC6FED300A6CCB3 /* RSOChangesObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A872EFB1FC6FED300A6CCB3 /* RSOChangesObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872EF61FC6FED300A6CCB3 /* RSOChangesObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A872EFC1FC6FED300A6CCB3 /* RSOChangesObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872EF61FC6FED300A6CCB3 /* RSOChangesObject.h */; };
-		5A872EFD1FC6FED300A6CCB3 /* RSOChangesObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872EF71FC6FED300A6CCB3 /* RSOChangesObject.m */; };
-		5A872EFE1FC6FED300A6CCB3 /* RSOChangesObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872EF71FC6FED300A6CCB3 /* RSOChangesObject.m */; };
-		5A872EFF1FC6FED300A6CCB3 /* RSOChangesObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872EF71FC6FED300A6CCB3 /* RSOChangesObject.m */; };
+		5A872EFC1FC6FED300A6CCB3 /* RSOChangesObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872EF61FC6FED300A6CCB3 /* RSOChangesObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A872EFD1FC6FED300A6CCB3 /* RSOChangesObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872EF71FC6FED300A6CCB3 /* RSOChangesObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A872EFE1FC6FED300A6CCB3 /* RSOChangesObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872EF71FC6FED300A6CCB3 /* RSOChangesObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A872EFF1FC6FED300A6CCB3 /* RSOChangesObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872EF71FC6FED300A6CCB3 /* RSOChangesObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A872F001FC6FED300A6CCB3 /* RSOChangesObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872EF71FC6FED300A6CCB3 /* RSOChangesObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A872F011FC6FED300A6CCB3 /* RSOChangesObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872EF71FC6FED300A6CCB3 /* RSOChangesObject.m */; };
-		5A872F101FC70F9500A6CCB3 /* RSOClearedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872F0E1FC70F9500A6CCB3 /* RSOClearedObject.h */; };
-		5A872F111FC70F9500A6CCB3 /* RSOClearedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872F0E1FC70F9500A6CCB3 /* RSOClearedObject.h */; };
-		5A872F121FC70F9500A6CCB3 /* RSOClearedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872F0E1FC70F9500A6CCB3 /* RSOClearedObject.h */; };
+		5A872F011FC6FED300A6CCB3 /* RSOChangesObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872EF71FC6FED300A6CCB3 /* RSOChangesObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A872F101FC70F9500A6CCB3 /* RSOClearedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872F0E1FC70F9500A6CCB3 /* RSOClearedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A872F111FC70F9500A6CCB3 /* RSOClearedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872F0E1FC70F9500A6CCB3 /* RSOClearedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A872F121FC70F9500A6CCB3 /* RSOClearedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872F0E1FC70F9500A6CCB3 /* RSOClearedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A872F131FC70F9500A6CCB3 /* RSOClearedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872F0E1FC70F9500A6CCB3 /* RSOClearedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A872F141FC70F9500A6CCB3 /* RSOClearedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872F0E1FC70F9500A6CCB3 /* RSOClearedObject.h */; };
-		5A872F151FC70F9500A6CCB3 /* RSOClearedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872F0F1FC70F9500A6CCB3 /* RSOClearedObject.m */; };
-		5A872F161FC70F9500A6CCB3 /* RSOClearedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872F0F1FC70F9500A6CCB3 /* RSOClearedObject.m */; };
-		5A872F171FC70F9500A6CCB3 /* RSOClearedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872F0F1FC70F9500A6CCB3 /* RSOClearedObject.m */; };
+		5A872F141FC70F9500A6CCB3 /* RSOClearedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872F0E1FC70F9500A6CCB3 /* RSOClearedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A872F151FC70F9500A6CCB3 /* RSOClearedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872F0F1FC70F9500A6CCB3 /* RSOClearedObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A872F161FC70F9500A6CCB3 /* RSOClearedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872F0F1FC70F9500A6CCB3 /* RSOClearedObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A872F171FC70F9500A6CCB3 /* RSOClearedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872F0F1FC70F9500A6CCB3 /* RSOClearedObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A872F181FC70F9500A6CCB3 /* RSOClearedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872F0F1FC70F9500A6CCB3 /* RSOClearedObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A872F191FC70F9500A6CCB3 /* RSOClearedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872F0F1FC70F9500A6CCB3 /* RSOClearedObject.m */; };
+		5A872F191FC70F9500A6CCB3 /* RSOClearedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872F0F1FC70F9500A6CCB3 /* RSOClearedObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A8A155E1FA0CB22009A1394 /* RTClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A155C1FA0CB22009A1394 /* RTClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A8A155F1FA0CB22009A1394 /* RTClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A155C1FA0CB22009A1394 /* RTClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A8A15601FA0CB22009A1394 /* RTClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A155C1FA0CB22009A1394 /* RTClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A8A15621FA0CB22009A1394 /* RTClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A155C1FA0CB22009A1394 /* RTClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A8A15631FA0CB22009A1394 /* RTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A155D1FA0CB22009A1394 /* RTClient.m */; };
-		5A8A15641FA0CB22009A1394 /* RTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A155D1FA0CB22009A1394 /* RTClient.m */; };
-		5A8A15651FA0CB22009A1394 /* RTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A155D1FA0CB22009A1394 /* RTClient.m */; };
+		5A8A15631FA0CB22009A1394 /* RTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A155D1FA0CB22009A1394 /* RTClient.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A8A15641FA0CB22009A1394 /* RTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A155D1FA0CB22009A1394 /* RTClient.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A8A15651FA0CB22009A1394 /* RTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A155D1FA0CB22009A1394 /* RTClient.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A8A15661FA0CB22009A1394 /* RTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A155D1FA0CB22009A1394 /* RTClient.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A8A15671FA0CB22009A1394 /* RTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A155D1FA0CB22009A1394 /* RTClient.m */; };
+		5A8A15671FA0CB22009A1394 /* RTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A155D1FA0CB22009A1394 /* RTClient.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A8A15831FA0D3C3009A1394 /* RTDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A15801FA0D3C3009A1394 /* RTDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A8A15841FA0D3C3009A1394 /* RTDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A15801FA0D3C3009A1394 /* RTDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A8A15861FA0D3C3009A1394 /* RTDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A15801FA0D3C3009A1394 /* RTDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1540,6 +1597,21 @@
 		5ABF776D1FB4AD46006299F7 /* RTSubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F38551FB317EB002F21D4 /* RTSubscription.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5ABF776E1FB4AD4C006299F7 /* RTSubscription.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A5F38521FB317EB002F21D4 /* RTSubscription.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5ABF776F1FB4AD65006299F7 /* RTMessaging.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A5F38541FB317EB002F21D4 /* RTMessaging.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AD1BEDF1FD1B0CA00493038 /* RTMethodRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9AF1FC4788700B192D9 /* RTMethodRequest.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5AD1BEE01FD1B0D200493038 /* RTSubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F38551FB317EB002F21D4 /* RTSubscription.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5AD1BEE11FD1B0D900493038 /* UserStatusObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AEED9CA1FC5B90800CB7D9F /* UserStatusObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5AD1BEE21FD1B0DE00493038 /* UserStatusObjectData.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB3C1891FC5C2FB00728003 /* UserStatusObjectData.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5AD1BEE31FD1B0ED00493038 /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9A91FC4786900B192D9 /* Channel.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5AD1BEE41FD1B10C00493038 /* RTMessaging.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A5F38541FB317EB002F21D4 /* RTMessaging.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AD1BEE51FD1B11800493038 /* RTDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A15801FA0D3C3009A1394 /* RTDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AD1BEE61FD1B12000493038 /* CommandObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A9FC9AC1FC4788700B192D9 /* CommandObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AD1BEE71FD1B12B00493038 /* RTListener.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A5F38531FB317EB002F21D4 /* RTListener.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AD1BEE81FD1B13000493038 /* RTMethod.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A9FC9AE1FC4788700B192D9 /* RTMethod.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AD1BEE91FD1B13400493038 /* RTMethodRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A9FC9AB1FC4788700B192D9 /* RTMethodRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AD1BEEA1FD1B13B00493038 /* RTSubscription.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A5F38521FB317EB002F21D4 /* RTSubscription.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AD1BEEB1FD1B13F00493038 /* UserStatusObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AEED9C91FC5B90800CB7D9F /* UserStatusObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AD1BEEC1FD1B14300493038 /* UserStatusObjectData.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AB3C1881FC5C2FB00728003 /* UserStatusObjectData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AD1BEED1FD1B14E00493038 /* Channel.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A9FC9A81FC4786800B192D9 /* Channel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AEED9CE1FC5B90800CB7D9F /* UserStatusObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AEED9C91FC5B90800CB7D9F /* UserStatusObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AEED9D31FC5B90800CB7D9F /* UserStatusObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AEED9CA1FC5B90800CB7D9F /* UserStatusObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5AF2B7281EB2136300D54442 /* MessagingService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AFFBF7A1EB211EC0099A72F /* MessagingService.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1552,17 +1624,16 @@
 		5AF2B72F1EB213B300D54442 /* MessagingService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AFFBF7A1EB211EC0099A72F /* MessagingService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AF2B7301EB213BD00D54442 /* MessagingService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AFFBF7A1EB211EC0099A72F /* MessagingService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AF2B7311EB213C600D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; };
-		5AF988C01FCEA96E00ED908F /* JSONHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF988BE1FCEA96E00ED908F /* JSONHelper.h */; };
-		5AF988C11FCEA96E00ED908F /* JSONHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF988BE1FCEA96E00ED908F /* JSONHelper.h */; };
-		5AF988C21FCEA96E00ED908F /* JSONHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF988BE1FCEA96E00ED908F /* JSONHelper.h */; };
+		5AF988C01FCEA96E00ED908F /* JSONHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF988BE1FCEA96E00ED908F /* JSONHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AF988C11FCEA96E00ED908F /* JSONHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF988BE1FCEA96E00ED908F /* JSONHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AF988C21FCEA96E00ED908F /* JSONHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF988BE1FCEA96E00ED908F /* JSONHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AF988C31FCEA96E00ED908F /* JSONHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF988BE1FCEA96E00ED908F /* JSONHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5AF988C41FCEA96E00ED908F /* JSONHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF988BE1FCEA96E00ED908F /* JSONHelper.h */; };
-		5AF988C51FCEA96E00ED908F /* JSONHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF988BF1FCEA96E00ED908F /* JSONHelper.m */; };
-		5AF988C61FCEA96E00ED908F /* JSONHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF988BF1FCEA96E00ED908F /* JSONHelper.m */; };
-		5AF988C71FCEA96E00ED908F /* JSONHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF988BF1FCEA96E00ED908F /* JSONHelper.m */; };
+		5AF988C41FCEA96E00ED908F /* JSONHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF988BE1FCEA96E00ED908F /* JSONHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AF988C51FCEA96E00ED908F /* JSONHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF988BF1FCEA96E00ED908F /* JSONHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5AF988C61FCEA96E00ED908F /* JSONHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF988BF1FCEA96E00ED908F /* JSONHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5AF988C71FCEA96E00ED908F /* JSONHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF988BF1FCEA96E00ED908F /* JSONHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5AF988C81FCEA96E00ED908F /* JSONHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF988BF1FCEA96E00ED908F /* JSONHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5AF988C91FCEA96E00ED908F /* JSONHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF988BF1FCEA96E00ED908F /* JSONHelper.m */; };
-		748DEE07BFE6CFF653D8773C /* libPods-backendless-device.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B4FBAB4BC9E24A3F44AA8E /* libPods-backendless-device.a */; };
+		5AF988C91FCEA96E00ED908F /* JSONHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF988BF1FCEA96E00ED908F /* JSONHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		84B027E61DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 84B027E41DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		84B027E71DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 84B027E41DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		84B027E81DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 84B027E41DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1715,6 +1786,7 @@
 		D3FB9B7919867F0E00A13FB6 /* AtomicCountersFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FB9B7319867F0E00A13FB6 /* AtomicCountersFactory.m */; };
 		D3FB9B7C1986818F00A13FB6 /* IAtomicCounters.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FB9B7A1986818F00A13FB6 /* IAtomicCounters.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3FB9B7D1986818F00A13FB6 /* IAtomicCounters.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FB9B7A1986818F00A13FB6 /* IAtomicCounters.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DB118B8FFDB36BE2691A9529 /* Pods_bkndlss_device.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B57A381E13F0B9762853063B /* Pods_bkndlss_device.framework */; };
 		E8C158886BB23365FC56B7AF /* Pods_backendless_simulator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66B54B09751443A95F843B9B /* Pods_backendless_simulator.framework */; };
 		F91AC5761D58C60500511EA5 /* MapDrivenDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F99A74961D4A0CAB001AF91F /* MapDrivenDataStore.m */; };
 		F91AC5771D58C68000511EA5 /* MapDrivenDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = F99A74951D4A0CAB001AF91F /* MapDrivenDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2172,10 +2244,12 @@
 		F9F58DB11BA83BB1009B8782 /* BackendlessBeacon.m in Sources */ = {isa = PBXBuildFile; fileRef = F9F58DAD1BA83BB1009B8782 /* BackendlessBeacon.m */; };
 		F9F58DB21BA83BB1009B8782 /* BackendlessBeacon.m in Sources */ = {isa = PBXBuildFile; fileRef = F9F58DAD1BA83BB1009B8782 /* BackendlessBeacon.m */; };
 		F9F58DB31BA83BB1009B8782 /* BackendlessBeacon.m in Sources */ = {isa = PBXBuildFile; fileRef = F9F58DAD1BA83BB1009B8782 /* BackendlessBeacon.m */; };
+		FF065C96A50741ECA4E4296C /* Pods_backendless_device.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B8B04F32516093DA781A5B7 /* Pods_backendless_device.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0369B4E9D70051B0C8319033 /* Pods-bkndlss-device.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bkndlss-device.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-bkndlss-device/Pods-bkndlss-device.debug.xcconfig"; sourceTree = "<group>"; };
+		0B8B04F32516093DA781A5B7 /* Pods_backendless_device.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_backendless_device.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F9AC6EA1E798C5B0087869F /* Engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Engine.h; sourceTree = "<group>"; };
 		0F9AC6EB1E798C5B0087869F /* Engine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Engine.m; sourceTree = "<group>"; };
 		0F9AC6EC1E798C5B0087869F /* HttpEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpEngine.h; sourceTree = "<group>"; };
@@ -2445,10 +2519,8 @@
 		1C7BB5101A2E092900D3C2C1 /* libbackendless-mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libbackendless-mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EF0EF339B6A1087D4A0D18B /* Pods-backendless-simulator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-simulator.release.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-simulator/Pods-backendless-simulator.release.xcconfig"; sourceTree = "<group>"; };
 		27B7837BDF6EA8880A461F02 /* Pods-backendless-mac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-mac.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-mac/Pods-backendless-mac.debug.xcconfig"; sourceTree = "<group>"; };
-		3062B3FDB5AD8744032E7E6D /* libPods-bkndlss-device.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-bkndlss-device.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		346409409194FCF429A34565 /* Pods-bkndlss-simulator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bkndlss-simulator.release.xcconfig"; path = "../Pods/Target Support Files/Pods-bkndlss-simulator/Pods-bkndlss-simulator.release.xcconfig"; sourceTree = "<group>"; };
 		530D9B0CCB96D17BE03B174A /* Pods-backendless-device.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-device.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-device/Pods-backendless-device.debug.xcconfig"; sourceTree = "<group>"; };
-		59B4FBAB4BC9E24A3F44AA8E /* libPods-backendless-device.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-backendless-device.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A507A741F3B41D80027ABAC /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		5A5F384F1FB317EB002F21D4 /* RTListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTListener.m; sourceTree = "<group>"; };
 		5A5F38501FB317EB002F21D4 /* RTMessaging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTMessaging.m; sourceTree = "<group>"; };
@@ -2462,8 +2534,8 @@
 		5A74B1F41FC6E65100157850 /* RemoteSharedObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RemoteSharedObject.m; sourceTree = "<group>"; };
 		5A79B7C51FD01BEC00F7A37A /* InvokeObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InvokeObject.h; sourceTree = "<group>"; };
 		5A79B7C61FD01BEC00F7A37A /* InvokeObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InvokeObject.m; sourceTree = "<group>"; };
-		5A872EEA1FC6F82000A6CCB3 /* RTRemoteSharedObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTRemoteSharedObject.h; sourceTree = "<group>"; };
-		5A872EEB1FC6F82000A6CCB3 /* RTRemoteSharedObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RTRemoteSharedObject.m; sourceTree = "<group>"; };
+		5A872EEA1FC6F82000A6CCB3 /* RTRSO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTRSO.h; sourceTree = "<group>"; };
+		5A872EEB1FC6F82000A6CCB3 /* RTRSO.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RTRSO.m; sourceTree = "<group>"; };
 		5A872EF61FC6FED300A6CCB3 /* RSOChangesObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RSOChangesObject.h; sourceTree = "<group>"; };
 		5A872EF71FC6FED300A6CCB3 /* RSOChangesObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RSOChangesObject.m; sourceTree = "<group>"; };
 		5A872F0E1FC70F9500A6CCB3 /* RSOClearedObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RSOClearedObject.h; sourceTree = "<group>"; };
@@ -2492,6 +2564,7 @@
 		5AFFBF7B1EB211EC0099A72F /* MessagingService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagingService.m; sourceTree = "<group>"; };
 		66B54B09751443A95F843B9B /* Pods_backendless_simulator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_backendless_simulator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		74D97F9608E34A2F087B9A3D /* Pods-backendless-simulator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-simulator.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-simulator/Pods-backendless-simulator.debug.xcconfig"; sourceTree = "<group>"; };
+		83AFD97F1E7B54AF9F8CD74E /* Pods_backendless_mac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_backendless_mac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84B027E41DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadRelationsQueryBuilder.h; sourceTree = "<group>"; };
 		84B027E51DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadRelationsQueryBuilder.m; sourceTree = "<group>"; };
 		910117D2180C0CCF008102A7 /* BodyParts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BodyParts.h; sourceTree = "<group>"; };
@@ -2511,7 +2584,7 @@
 		91F1399417D7240A00D1AC4C /* BackendlessCacheProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackendlessCacheProtocol.h; sourceTree = "<group>"; };
 		91F139B017D724C600D1AC4C /* QueryOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryOptions.h; sourceTree = "<group>"; };
 		91F139B117D724C600D1AC4C /* QueryOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryOptions.m; sourceTree = "<group>"; };
-		AB6C7620109DEA368B9AD1FF /* libPods-backendless-mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-backendless-mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B57A381E13F0B9762853063B /* Pods_bkndlss_device.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bkndlss_device.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6FAC8A868972F8E27950031 /* Pods_bkndlss_simulator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bkndlss_simulator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D266CC56174F52954A132438 /* Pods-backendless-device.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-device.release.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-device/Pods-backendless-device.release.xcconfig"; sourceTree = "<group>"; };
 		D30A5D7319B9CA8200C0BA44 /* Backendless-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Backendless-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -2656,7 +2729,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A061463335D948D040E5867 /* libPods-backendless-mac.a in Frameworks */,
+				0664A6A14891DF465989E26A /* Pods_backendless_mac.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2674,7 +2747,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A507A751F3B41D80027ABAC /* UserNotifications.framework in Frameworks */,
-				748DEE07BFE6CFF653D8773C /* libPods-backendless-device.a in Frameworks */,
+				FF065C96A50741ECA4E4296C /* Pods_backendless_device.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2692,7 +2765,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A507A781F3B42E80027ABAC /* UserNotifications.framework in Frameworks */,
-				08D99F6B49E607646C4A92C7 /* libPods-bkndlss-device.a in Frameworks */,
+				DB118B8FFDB36BE2691A9529 /* Pods_bkndlss_device.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3217,8 +3290,8 @@
 		5A872F1C1FC7105100A6CCB3 /* RSO */ = {
 			isa = PBXGroup;
 			children = (
-				5A872EEA1FC6F82000A6CCB3 /* RTRemoteSharedObject.h */,
-				5A872EEB1FC6F82000A6CCB3 /* RTRemoteSharedObject.m */,
+				5A872EEA1FC6F82000A6CCB3 /* RTRSO.h */,
+				5A872EEB1FC6F82000A6CCB3 /* RTRSO.m */,
 				5A872EF61FC6FED300A6CCB3 /* RSOChangesObject.h */,
 				5A872EF71FC6FED300A6CCB3 /* RSOChangesObject.m */,
 				5A872F0E1FC70F9500A6CCB3 /* RSOClearedObject.h */,
@@ -3387,11 +3460,11 @@
 			isa = PBXGroup;
 			children = (
 				5A507A741F3B41D80027ABAC /* UserNotifications.framework */,
-				59B4FBAB4BC9E24A3F44AA8E /* libPods-backendless-device.a */,
-				AB6C7620109DEA368B9AD1FF /* libPods-backendless-mac.a */,
 				66B54B09751443A95F843B9B /* Pods_backendless_simulator.framework */,
-				3062B3FDB5AD8744032E7E6D /* libPods-bkndlss-device.a */,
 				B6FAC8A868972F8E27950031 /* Pods_bkndlss_simulator.framework */,
+				0B8B04F32516093DA781A5B7 /* Pods_backendless_device.framework */,
+				B57A381E13F0B9762853063B /* Pods_bkndlss_device.framework */,
+				83AFD97F1E7B54AF9F8CD74E /* Pods_backendless_mac.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -3719,7 +3792,6 @@
 				0F9ACB5B1E798C5E0087869F /* V3VectorReader.h in Headers */,
 				0F9AC8F41E798C5C0087869F /* BaseRTMPProtocolDecoder.h in Headers */,
 				0F9ACB1F1E798C5E0087869F /* V3ArrayReader.h in Headers */,
-				5AF988C01FCEA96E00ED908F /* JSONHelper.h in Headers */,
 				0F9ACB511E798C5E0087869F /* V3StringReader.h in Headers */,
 				0F9ACC0F1E798C5F0087869F /* CommandMessage.h in Headers */,
 				0F9ACA341E798C5D0087869F /* BooleanType.h in Headers */,
@@ -3741,7 +3813,6 @@
 				0F9ACAF71E798C5E0087869F /* StringType.h in Headers */,
 				0F9ACD4F1E798C600087869F /* V3ReferenceCache.h in Headers */,
 				0F9ACC731E798C5F0087869F /* AMFMessageWriter.h in Headers */,
-				5A74B1F51FC6E65100157850 /* RemoteSharedObject.h in Headers */,
 				0F9AC8811E798C5C0087869F /* IEventListener.h in Headers */,
 				0F9ACB8D1E798C5E0087869F /* DEBUG.h in Headers */,
 				0F9ACA931E798C5D0087869F /* NamedObjectReader.h in Headers */,
@@ -3817,7 +3888,6 @@
 				0F9ACD091E798C5F0087869F /* ObjectSerializer.h in Headers */,
 				0F9ACAE31E798C5E0087869F /* ReaderReferenceCache.h in Headers */,
 				0F9AC92B1E798C5C0087869F /* BaseEvent.h in Headers */,
-				5A872F101FC70F9500A6CCB3 /* RSOClearedObject.h in Headers */,
 				0F9AC9C11E798C5D0087869F /* IClientSharedObjectDelegate.h in Headers */,
 				0F9ACC5F1E798C5F0087869F /* AMFBodyWriter.h in Headers */,
 				0F9AC8A41E798C5C0087869F /* WebORBSerializer.h in Headers */,
@@ -3842,7 +3912,6 @@
 				0F9ACB011E798C5E0087869F /* UndefinedType.h in Headers */,
 				0F9ACAC51E798C5E0087869F /* NumberReader.h in Headers */,
 				0F9AC81D1E798C5C0087869F /* HttpEngine.h in Headers */,
-				5A79B7C71FD01BEC00F7A37A /* InvokeObject.h in Headers */,
 				0F9AC9761E798C5D0087869F /* Header.h in Headers */,
 				0F9ACB331E798C5E0087869F /* V3DateReader.h in Headers */,
 				0F9ACC9B1E798C5F0087869F /* BooleanWriter.h in Headers */,
@@ -3885,7 +3954,6 @@
 				1C7BB4EA1A2E092900D3C2C1 /* CacheService.h in Headers */,
 				1C7BB4EB1A2E092900D3C2C1 /* ICacheService.h in Headers */,
 				D3A064DF1B0243ED00779BB1 /* ICallback.h in Headers */,
-				5A872EF81FC6FED300A6CCB3 /* RSOChangesObject.h in Headers */,
 				1C7BB5041A2E092900D3C2C1 /* BodyParts.h in Headers */,
 				1C7BB4EE1A2E092900D3C2C1 /* Backendless-Bridging-Header.h in Headers */,
 				F91AC5791D58CFBA00511EA5 /* MapDrivenDataStore.h in Headers */,
@@ -3913,7 +3981,6 @@
 				F9D5234D1B25CEF800F6A441 /* ClassCastException.h in Headers */,
 				F9CB138E1BC53D2300F3CA1D /* BeaconTracker.h in Headers */,
 				F9CB136B1BC284A900F3CA1D /* BeaconsInfo.h in Headers */,
-				5A872EEC1FC6F82000A6CCB3 /* RTRemoteSharedObject.h in Headers */,
 				D30FC9B11AE132C2007C9A83 /* LogBuffer.h in Headers */,
 				1C7BB5071A2E092900D3C2C1 /* Invoker.h in Headers */,
 				1C7BB5081A2E092900D3C2C1 /* BackendlessCache.h in Headers */,
@@ -3925,6 +3992,22 @@
 				F96B1C6C1DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */,
 				F96B1C7A1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */,
 				F96B1C601DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */,
+				5AF988C01FCEA96E00ED908F /* JSONHelper.h in Headers */,
+				5A74B1F51FC6E65100157850 /* RemoteSharedObject.h in Headers */,
+				5A872F101FC70F9500A6CCB3 /* RSOClearedObject.h in Headers */,
+				5A79B7C71FD01BEC00F7A37A /* InvokeObject.h in Headers */,
+				5A872EF81FC6FED300A6CCB3 /* RSOChangesObject.h in Headers */,
+				5A872EEC1FC6F82000A6CCB3 /* RTRSO.h in Headers */,
+				5AD1BEED1FD1B14E00493038 /* Channel.h in Headers */,
+				5AD1BEEC1FD1B14300493038 /* UserStatusObjectData.h in Headers */,
+				5AD1BEEB1FD1B13F00493038 /* UserStatusObject.h in Headers */,
+				5AD1BEEA1FD1B13B00493038 /* RTSubscription.h in Headers */,
+				5AD1BEE91FD1B13400493038 /* RTMethodRequest.h in Headers */,
+				5AD1BEE81FD1B13000493038 /* RTMethod.h in Headers */,
+				5AD1BEE71FD1B12B00493038 /* RTListener.h in Headers */,
+				5AD1BEE61FD1B12000493038 /* CommandObject.h in Headers */,
+				5AD1BEE51FD1B11800493038 /* RTDataStore.h in Headers */,
+				5AD1BEE41FD1B10C00493038 /* RTMessaging.h in Headers */,
 				84B027E61DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h in Headers */,
 				1C7BB5001A2E092900D3C2C1 /* AbstractQuery.h in Headers */,
 				1C7BB5021A2E092900D3C2C1 /* BackendlessCachePolicy.h in Headers */,
@@ -3965,7 +4048,6 @@
 				0F9ACCC91E798C5F0087869F /* IProtocolFormatter.h in Headers */,
 				0F9AC94F1E798C5D0087869F /* MetaData.h in Headers */,
 				0F9ACCBA1E798C5F0087869F /* DateWriter.h in Headers */,
-				5A79B7C81FD01BEC00F7A37A /* InvokeObject.h in Headers */,
 				0F9AC8911E798C5C0087869F /* IDeserializer.h in Headers */,
 				0F9AC96D1E798C5D0087869F /* VideoData.h in Headers */,
 				0F9ACA7B1E798C5D0087869F /* ITypeReader.h in Headers */,
@@ -4002,7 +4084,6 @@
 				0F9ACD501E798C600087869F /* V3ReferenceCache.h in Headers */,
 				0F9AC8CD1E798C5C0087869F /* IClientSharedObject.h in Headers */,
 				0F9ACB2A1E798C5E0087869F /* V3ByteArrayReader.h in Headers */,
-				5A872EF91FC6FED300A6CCB3 /* RSOChangesObject.h in Headers */,
 				0F9ACA5D1E798C5D0087869F /* DateReader.h in Headers */,
 				0F9AC87D1E798C5C0087869F /* IEventDispatcher.h in Headers */,
 				0F9ACC881E798C5F0087869F /* ArrayWriter.h in Headers */,
@@ -4026,7 +4107,6 @@
 				0F9ACB3E1E798C5E0087869F /* V3ObjectReader.h in Headers */,
 				0F9AC8BE1E798C5C0087869F /* IPendingServiceCallback.h in Headers */,
 				0F9AC8731E798C5C0087869F /* EventType.h in Headers */,
-				5A74B1F61FC6E65100157850 /* RemoteSharedObject.h in Headers */,
 				0F9AC8691E798C5C0087869F /* Request.h in Headers */,
 				0F9AC94A1E798C5D0087869F /* IRTMPEvent.h in Headers */,
 				0F9ACB6B1E798C5E0087869F /* ICacheableAdaptingType.h in Headers */,
@@ -4095,7 +4175,6 @@
 				0F9ACA8A1E798C5D0087869F /* NamedObject.h in Headers */,
 				0F9ACB7A1E798C5E0087869F /* AMFSerializer.h in Headers */,
 				0F9ACD1E1E798C600087869F /* PropertyBagWriter.h in Headers */,
-				5A872F111FC70F9500A6CCB3 /* RSOClearedObject.h in Headers */,
 				F9CB13821BC53B0200F3CA1D /* IPresenceListener.h in Headers */,
 				F9CB13871BC53CDD00F3CA1D /* Presence.h in Headers */,
 				F9F58DAF1BA83BB1009B8782 /* BackendlessBeacon.h in Headers */,
@@ -4128,12 +4207,10 @@
 				D3FB9B6919867EA500A13FB6 /* AtomicCounters.h in Headers */,
 				D39A468219811D9B006CBD1B /* CacheService.h in Headers */,
 				D36CDDF119C99D5900C3FFE3 /* CustomService.h in Headers */,
-				5A872EED1FC6F82000A6CCB3 /* RTRemoteSharedObject.h in Headers */,
 				D3A064E01B0243ED00779BB1 /* ICallback.h in Headers */,
 				D3A064C11AFCE64D00779BB1 /* GeoFence.h in Headers */,
 				F9796A20166CCBFE00595F5E /* FileService.h in Headers */,
 				F9C7DE901B7CBF0300AFCD06 /* BEFileInfo.h in Headers */,
-				5AF988C11FCEA96E00ED908F /* JSONHelper.h in Headers */,
 				D35DC3421AD7E19800EF2A68 /* Logger.h in Headers */,
 				910117D4180C0CCF008102A7 /* BodyParts.h in Headers */,
 				D3A064A81AFA6E4A00779BB1 /* LocationTracker.h in Headers */,
@@ -4166,6 +4243,21 @@
 				F96B1C7B1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */,
 				84B027E71DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h in Headers */,
 				F96B1C611DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */,
+				5A79B7C81FD01BEC00F7A37A /* InvokeObject.h in Headers */,
+				5A872EF91FC6FED300A6CCB3 /* RSOChangesObject.h in Headers */,
+				5A74B1F61FC6E65100157850 /* RemoteSharedObject.h in Headers */,
+				5A872F111FC70F9500A6CCB3 /* RSOClearedObject.h in Headers */,
+				5A872EED1FC6F82000A6CCB3 /* RTRSO.h in Headers */,
+				5AF988C11FCEA96E00ED908F /* JSONHelper.h in Headers */,
+				5A096D7D1FD1AF17009BF89E /* Channel.h in Headers */,
+				5A096D7C1FD1AF0B009BF89E /* UserStatusObjectData.h in Headers */,
+				5A096D7B1FD1AF02009BF89E /* UserStatusObject.h in Headers */,
+				5A096D7A1FD1AEFA009BF89E /* RTSubscription.h in Headers */,
+				5A096D791FD1AEF5009BF89E /* RTMethodRequest.h in Headers */,
+				5A096D781FD1AEF1009BF89E /* RTMethod.h in Headers */,
+				5A096D771FD1AEE8009BF89E /* RTListener.h in Headers */,
+				5A096D761FD1AEA3009BF89E /* CommandObject.h in Headers */,
+				5A096D751FD1AE95009BF89E /* RTMessaging.h in Headers */,
 				5A633F411F7BB7F6004D7ACA /* BackendlessPushHelper.h in Headers */,
 				91F1399517D7240A00D1AC4C /* AbstractQuery.h in Headers */,
 				91F139A917D7240A00D1AC4C /* BackendlessCachePolicy.h in Headers */,
@@ -4179,6 +4271,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A872EFA1FC6FED300A6CCB3 /* RSOChangesObject.h in Headers */,
+				5A872F121FC70F9500A6CCB3 /* RSOClearedObject.h in Headers */,
+				5A79B7C91FD01BEC00F7A37A /* InvokeObject.h in Headers */,
+				5A872EEE1FC6F82000A6CCB3 /* RTRSO.h in Headers */,
 				5A8A15841FA0D3C3009A1394 /* RTDataStore.h in Headers */,
 				5A8A15601FA0CB22009A1394 /* RTClient.h in Headers */,
 				0F9AC9CD1E798C5D0087869F /* ISharedObjectMessage.h in Headers */,
@@ -4206,7 +4302,6 @@
 				0F9ACCCA1E798C5F0087869F /* IProtocolFormatter.h in Headers */,
 				0F9AC9501E798C5D0087869F /* MetaData.h in Headers */,
 				0F9ACCBB1E798C5F0087869F /* DateWriter.h in Headers */,
-				5A79B7C91FD01BEC00F7A37A /* InvokeObject.h in Headers */,
 				0F9AC8921E798C5C0087869F /* IDeserializer.h in Headers */,
 				0F9AC96E1E798C5D0087869F /* VideoData.h in Headers */,
 				0F9ACA7C1E798C5D0087869F /* ITypeReader.h in Headers */,
@@ -4243,7 +4338,6 @@
 				0F9ACD511E798C600087869F /* V3ReferenceCache.h in Headers */,
 				0F9AC8CE1E798C5C0087869F /* IClientSharedObject.h in Headers */,
 				0F9ACB2B1E798C5E0087869F /* V3ByteArrayReader.h in Headers */,
-				5A872EFA1FC6FED300A6CCB3 /* RSOChangesObject.h in Headers */,
 				0F9ACA5E1E798C5D0087869F /* DateReader.h in Headers */,
 				0F9AC87E1E798C5C0087869F /* IEventDispatcher.h in Headers */,
 				0F9ACC891E798C5F0087869F /* ArrayWriter.h in Headers */,
@@ -4267,7 +4361,6 @@
 				0F9ACB3F1E798C5E0087869F /* V3ObjectReader.h in Headers */,
 				0F9AC8BF1E798C5C0087869F /* IPendingServiceCallback.h in Headers */,
 				0F9AC8741E798C5C0087869F /* EventType.h in Headers */,
-				5A74B1F71FC6E65100157850 /* RemoteSharedObject.h in Headers */,
 				0F9AC86A1E798C5C0087869F /* Request.h in Headers */,
 				0F9AC94B1E798C5D0087869F /* IRTMPEvent.h in Headers */,
 				0F9ACB6C1E798C5E0087869F /* ICacheableAdaptingType.h in Headers */,
@@ -4336,7 +4429,6 @@
 				0F9ACA8B1E798C5D0087869F /* NamedObject.h in Headers */,
 				0F9ACB7B1E798C5E0087869F /* AMFSerializer.h in Headers */,
 				0F9ACD1F1E798C600087869F /* PropertyBagWriter.h in Headers */,
-				5A872F121FC70F9500A6CCB3 /* RSOClearedObject.h in Headers */,
 				F9CB13831BC53B0200F3CA1D /* IPresenceListener.h in Headers */,
 				F9F58DB01BA83BB1009B8782 /* BackendlessBeacon.h in Headers */,
 				F9CB13881BC53CDD00F3CA1D /* Presence.h in Headers */,
@@ -4369,12 +4461,10 @@
 				D3F8BD9B198256AF0009DB40 /* ICacheService.h in Headers */,
 				D39A468319811D9B006CBD1B /* CacheService.h in Headers */,
 				F9C7DE911B7CBF0300AFCD06 /* BEFileInfo.h in Headers */,
-				5A872EEE1FC6F82000A6CCB3 /* RTRemoteSharedObject.h in Headers */,
 				910117D5180C0CCF008102A7 /* BodyParts.h in Headers */,
 				D35DC3431AD7E19800EF2A68 /* Logger.h in Headers */,
 				D30A5D7619B9CA8200C0BA44 /* Backendless-Bridging-Header.h in Headers */,
 				F9796A6C166CD42E00595F5E /* FileService.h in Headers */,
-				5AF988C21FCEA96E00ED908F /* JSONHelper.h in Headers */,
 				F9C7DE991B7CBFE600AFCD06 /* BackendlessSimpleQuery.h in Headers */,
 				D3A064E11B0243ED00779BB1 /* ICallback.h in Headers */,
 				F91AC57D1D58D07F00511EA5 /* MapDrivenDataStore.h in Headers */,
@@ -4412,7 +4502,18 @@
 				5A633F421F7BB7F6004D7ACA /* BackendlessPushHelper.h in Headers */,
 				91F139AF17D7240A00D1AC4C /* BackendlessCacheProtocol.h in Headers */,
 				91F139B317D724C700D1AC4C /* QueryOptions.h in Headers */,
+				5A74B1F71FC6E65100157850 /* RemoteSharedObject.h in Headers */,
+				5AF988C21FCEA96E00ED908F /* JSONHelper.h in Headers */,
+				5A83935C1FD1AA8200FB5697 /* CommandObject.h in Headers */,
+				5A83935A1FD1AA4200FB5697 /* RTMessaging.h in Headers */,
 				5AF2B72C1EB2138F00D54442 /* MessagingService.h in Headers */,
+				5A8393651FD1AADE00FB5697 /* Channel.h in Headers */,
+				5A8393641FD1AAD400FB5697 /* UserStatusObjectData.h in Headers */,
+				5A8393631FD1AACF00FB5697 /* UserStatusObject.h in Headers */,
+				5A8393621FD1AAC700FB5697 /* RTSubscription.h in Headers */,
+				5A8393601FD1AABC00FB5697 /* RTMethodRequest.h in Headers */,
+				5A83935F1FD1AAB400FB5697 /* RTMethod.h in Headers */,
+				5A83935E1FD1AAAB00FB5697 /* RTListener.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4425,7 +4526,7 @@
 				5A872F131FC70F9500A6CCB3 /* RSOClearedObject.h in Headers */,
 				5A872EFB1FC6FED300A6CCB3 /* RSOChangesObject.h in Headers */,
 				5A74B1F81FC6E65100157850 /* RemoteSharedObject.h in Headers */,
-				5A872EEF1FC6F82000A6CCB3 /* RTRemoteSharedObject.h in Headers */,
+				5A872EEF1FC6F82000A6CCB3 /* RTRSO.h in Headers */,
 				5AB3C18E1FC5C2FF00728003 /* UserStatusObjectData.h in Headers */,
 				5ABF776B1FB4AD04006299F7 /* RTListener.h in Headers */,
 				0F9ACCD51E798C5F0087869F /* ITypeWriter.h in Headers */,
@@ -4670,6 +4771,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A872EF01FC6F82000A6CCB3 /* RTRSO.h in Headers */,
 				5A8A15861FA0D3C3009A1394 /* RTDataStore.h in Headers */,
 				5A8A15621FA0CB22009A1394 /* RTClient.h in Headers */,
 				0F9ACCD61E798C5F0087869F /* ITypeWriter.h in Headers */,
@@ -4697,7 +4799,6 @@
 				0F9ACB691E798C5E0087869F /* IAdaptingType.h in Headers */,
 				0F9AC9251E798C5C0087869F /* AudioData.h in Headers */,
 				0F9ACCEF1E798C5F0087869F /* NullWriter.h in Headers */,
-				5A79B7CB1FD01BEC00F7A37A /* InvokeObject.h in Headers */,
 				0F9AC9701E798C5D0087869F /* VideoData.h in Headers */,
 				0F9ACBE11E798C5E0087869F /* ObjectFactories.h in Headers */,
 				0F9ACC951E798C5F0087869F /* BodyHolderWriter.h in Headers */,
@@ -4734,7 +4835,6 @@
 				0F9AC88A1E798C5C0087869F /* IAttributeStore.h in Headers */,
 				0F9ACA561E798C5D0087869F /* ConcreteObject.h in Headers */,
 				0F9ACB871E798C5E0087869F /* CrowdNode.h in Headers */,
-				5A872EFC1FC6FED300A6CCB3 /* RSOChangesObject.h in Headers */,
 				0F9ACB4B1E798C5E0087869F /* V3Reader.h in Headers */,
 				0F9ACAAB1E798C5E0087869F /* NullReader.h in Headers */,
 				0F9AC9521E798C5D0087869F /* MetaData.h in Headers */,
@@ -4758,7 +4858,6 @@
 				0F9AC8621E798C5C0087869F /* MHeader.h in Headers */,
 				0F9AC98E1E798C5D0087869F /* RTMPClient.h in Headers */,
 				0F9ACC091E798C5F0087869F /* BodyHolderFactory.h in Headers */,
-				5A74B1F91FC6E65100157850 /* RemoteSharedObject.h in Headers */,
 				0F9AC8941E798C5C0087869F /* IDeserializer.h in Headers */,
 				0F9ACBC81E798C5E0087869F /* FlashorbBinaryReader.h in Headers */,
 				0F9ACB7D1E798C5E0087869F /* AMFSerializer.h in Headers */,
@@ -4827,7 +4926,6 @@
 				0F9ACCB31E798C5F0087869F /* ClassDefinition.h in Headers */,
 				0F9ACBDC1E798C5E0087869F /* IServiceObjectFactory.h in Headers */,
 				0F9ACB0F1E798C5E0087869F /* UndefinedTypeReader.h in Headers */,
-				5A872F141FC70F9500A6CCB3 /* RSOClearedObject.h in Headers */,
 				F9F0AF891CDBCAB500035C62 /* IPresenceListener.h in Headers */,
 				F9F0AF8A1CDBCAB500035C62 /* BackendlessBeacon.h in Headers */,
 				F9F0AF8B1CDBCAB500035C62 /* Presence.h in Headers */,
@@ -4860,12 +4958,10 @@
 				F9F0AFBF1CDBCAB500035C62 /* ICacheService.h in Headers */,
 				F9F0AFC01CDBCAB500035C62 /* CacheService.h in Headers */,
 				F9F0AFC21CDBCAB500035C62 /* BEFileInfo.h in Headers */,
-				5A872EF01FC6F82000A6CCB3 /* RTRemoteSharedObject.h in Headers */,
 				F9F0AFC31CDBCAB500035C62 /* BodyParts.h in Headers */,
 				F91AC57F1D58D0C900511EA5 /* MapDrivenDataStore.h in Headers */,
 				F9F0AFC41CDBCAB500035C62 /* Logger.h in Headers */,
 				F9F0AFC51CDBCAB500035C62 /* Backendless-Bridging-Header.h in Headers */,
-				5AF988C41FCEA96E00ED908F /* JSONHelper.h in Headers */,
 				F9F0AFC61CDBCAB500035C62 /* FileService.h in Headers */,
 				F9F0AFC71CDBCAB500035C62 /* BackendlessSimpleQuery.h in Headers */,
 				F9F0AFC81CDBCAB500035C62 /* ICallback.h in Headers */,
@@ -4899,10 +4995,24 @@
 				F9F0AFD21CDBCAB500035C62 /* BackendlessFile.h in Headers */,
 				F9F0AFD31CDBCAB500035C62 /* HashMap.h in Headers */,
 				F9F0AFE11CDBCAB500035C62 /* AbstractQuery.h in Headers */,
+				5A872EFC1FC6FED300A6CCB3 /* RSOChangesObject.h in Headers */,
+				5A872F141FC70F9500A6CCB3 /* RSOClearedObject.h in Headers */,
 				F9F0AFE21CDBCAB500035C62 /* BackendlessCachePolicy.h in Headers */,
+				5A74B1F91FC6E65100157850 /* RemoteSharedObject.h in Headers */,
+				5AF988C41FCEA96E00ED908F /* JSONHelper.h in Headers */,
 				5A633F441F7BB7F6004D7ACA /* BackendlessPushHelper.h in Headers */,
+				5A79B7CB1FD01BEC00F7A37A /* InvokeObject.h in Headers */,
 				F9F0AFE41CDBCAB500035C62 /* BackendlessCacheProtocol.h in Headers */,
 				5AF2B7301EB213BD00D54442 /* MessagingService.h in Headers */,
+				5A83934C1FD1A7EB00FB5697 /* RTListener.h in Headers */,
+				5A8393481FD1A79900FB5697 /* RTMessaging.h in Headers */,
+				5A8393541FD1A85E00FB5697 /* UserStatusObjectData.h in Headers */,
+				5A8393531FD1A85800FB5697 /* UserStatusObject.h in Headers */,
+				5A8393521FD1A85300FB5697 /* RTSubscription.h in Headers */,
+				5A83934E1FD1A80F00FB5697 /* RTMethod.h in Headers */,
+				5A83934A1FD1A7C200FB5697 /* CommandObject.h in Headers */,
+				5A8393571FD1A89D00FB5697 /* Channel.h in Headers */,
+				5A8393501FD1A82D00FB5697 /* RTMethodRequest.h in Headers */,
 				F9F0AFE51CDBCAB500035C62 /* QueryOptions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5308,6 +5418,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5AD1BEE31FD1B0ED00493038 /* Channel.m in Sources */,
+				5AD1BEE21FD1B0DE00493038 /* UserStatusObjectData.m in Sources */,
+				5AD1BEE11FD1B0D900493038 /* UserStatusObject.m in Sources */,
+				5AD1BEE01FD1B0D200493038 /* RTSubscription.m in Sources */,
+				5AD1BEDF1FD1B0CA00493038 /* RTMethodRequest.m in Sources */,
+				5A096D811FD1B091009BF89E /* RTMethod.m in Sources */,
+				5A096D801FD1B088009BF89E /* RTListener.m in Sources */,
+				5A096D7F1FD1B07E009BF89E /* CommandObject.m in Sources */,
+				5A096D7E1FD1B072009BF89E /* RTMessaging.m in Sources */,
 				5AF2B7291EB2137200D54442 /* MessagingService.m in Sources */,
 				F91AC5781D58CFA500511EA5 /* MapDrivenDataStore.m in Sources */,
 				5A8A15871FA0D3C3009A1394 /* RTDataStore.m in Sources */,
@@ -5399,7 +5518,7 @@
 				D3A064BB1AFCE61700779BB1 /* GeoMath.m in Sources */,
 				0F9ACB061E798C5E0087869F /* UndefinedType.m in Sources */,
 				1C7BB4A61A2E092900D3C2C1 /* DeviceRegistration.m in Sources */,
-				5A872EF11FC6F82000A6CCB3 /* RTRemoteSharedObject.m in Sources */,
+				5A872EF11FC6F82000A6CCB3 /* RTRSO.m in Sources */,
 				0F9ACC3C1E798C5F0087869F /* AbstractReferenceableTypeWriter.m in Sources */,
 				D30FC9B41AE132C2007C9A83 /* LogBuffer.m in Sources */,
 				0F9ACC821E798C5F0087869F /* ArrayReferenceWriter.m in Sources */,
@@ -5502,6 +5621,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A096D741FD1AE1F009BF89E /* UserStatusObjectData.m in Sources */,
+				5A096D731FD1AE12009BF89E /* UserStatusObject.m in Sources */,
+				5A096D721FD1AE06009BF89E /* RTSubscription.m in Sources */,
+				5A096D711FD1ADFC009BF89E /* RTMethodRequest.m in Sources */,
+				5A096D701FD1ADF3009BF89E /* RTMethod.m in Sources */,
+				5A096D6F1FD1ADE6009BF89E /* RTListener.m in Sources */,
+				5A83936E1FD1ADC800FB5697 /* CommandObject.m in Sources */,
+				5A83936D1FD1ADB800FB5697 /* RTMessaging.m in Sources */,
+				5A83936C1FD1AD9E00FB5697 /* Channel.m in Sources */,
 				5AF2B72A1EB2137A00D54442 /* MessagingService.m in Sources */,
 				0F9ACB751E798C5E0087869F /* Types.m in Sources */,
 				0F9ACAFD1E798C5E0087869F /* StringType.m in Sources */,
@@ -5585,7 +5713,7 @@
 				0F9ACAF31E798C5E0087869F /* ReaderUtils.m in Sources */,
 				0F9AC9271E798C5C0087869F /* AudioData.m in Sources */,
 				F97969FC166CCB8200595F5E /* DeviceRegistration.m in Sources */,
-				5A872EF21FC6F82000A6CCB3 /* RTRemoteSharedObject.m in Sources */,
+				5A872EF21FC6F82000A6CCB3 /* RTRSO.m in Sources */,
 				0F9AC9311E798C5C0087869F /* BaseEvent.m in Sources */,
 				0F9ACCAB1E798C5F0087869F /* BoundPropertyBagWriter.m in Sources */,
 				F97969FD166CCB8200595F5E /* DeliveryOptions.m in Sources */,
@@ -5699,6 +5827,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A83936B1FD1AB3A00FB5697 /* UserStatusObjectData.m in Sources */,
+				5A83936A1FD1AB3500FB5697 /* UserStatusObject.m in Sources */,
+				5A8393691FD1AB2F00FB5697 /* RTSubscription.m in Sources */,
+				5A8393681FD1AB2A00FB5697 /* RTMethodRequest.m in Sources */,
+				5A8393671FD1AB2600FB5697 /* RTMethod.m in Sources */,
+				5A8393661FD1AAF200FB5697 /* Channel.m in Sources */,
+				5A83935D1FD1AAA600FB5697 /* RTListener.m in Sources */,
+				5A83935B1FD1AA7800FB5697 /* CommandObject.m in Sources */,
+				5A8393591FD1AA3A00FB5697 /* RTMessaging.m in Sources */,
 				5AF2B72D1EB213A400D54442 /* MessagingService.m in Sources */,
 				0F9ACB761E798C5E0087869F /* Types.m in Sources */,
 				0F9ACAFE1E798C5E0087869F /* StringType.m in Sources */,
@@ -5782,7 +5919,7 @@
 				0F9ACAF41E798C5E0087869F /* ReaderUtils.m in Sources */,
 				0F9AC9281E798C5C0087869F /* AudioData.m in Sources */,
 				F9796A46166CD3DB00595F5E /* DeviceRegistration.m in Sources */,
-				5A872EF31FC6F82000A6CCB3 /* RTRemoteSharedObject.m in Sources */,
+				5A872EF31FC6F82000A6CCB3 /* RTRSO.m in Sources */,
 				0F9AC9321E798C5C0087869F /* BaseEvent.m in Sources */,
 				0F9ACCAC1E798C5F0087869F /* BoundPropertyBagWriter.m in Sources */,
 				F9796A47166CD3DB00595F5E /* DeliveryOptions.m in Sources */,
@@ -5932,7 +6069,7 @@
 				0F9ACA781E798C5D0087869F /* IntegerReader.m in Sources */,
 				0F9ACB271E798C5E0087869F /* V3ArrayReader.m in Sources */,
 				0F9AC9E21E798C5D0087869F /* SharedObjectEvent.m in Sources */,
-				5A872EF41FC6F82000A6CCB3 /* RTRemoteSharedObject.m in Sources */,
+				5A872EF41FC6F82000A6CCB3 /* RTRSO.m in Sources */,
 				5AF988C81FCEA96E00ED908F /* JSONHelper.m in Sources */,
 				5A8A158A1FA0D3C3009A1394 /* RTDataStore.m in Sources */,
 				F9F0AE8C1CDBCA3900035C62 /* UserProperty.m in Sources */,
@@ -6102,6 +6239,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A8393581FD1A8C100FB5697 /* Channel.m in Sources */,
+				5A8393561FD1A88500FB5697 /* UserStatusObjectData.m in Sources */,
+				5A8393551FD1A88100FB5697 /* UserStatusObject.m in Sources */,
+				5A8393511FD1A84B00FB5697 /* RTSubscription.m in Sources */,
+				5A83934F1FD1A82600FB5697 /* RTMethodRequest.m in Sources */,
+				5A83934D1FD1A80800FB5697 /* RTMethod.m in Sources */,
+				5A83934B1FD1A7E400FB5697 /* RTListener.m in Sources */,
+				5A8393491FD1A7BB00FB5697 /* CommandObject.m in Sources */,
+				5A8393471FD1A78400FB5697 /* RTMessaging.m in Sources */,
+				5A8393461FD1A72E00FB5697 /* RTRSO.m in Sources */,
 				5AF2B7311EB213C600D54442 /* MessagingService.m in Sources */,
 				84B027EF1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */,
 				F9B360C61D65A7D000818EEF /* UICKeyChainStore.m in Sources */,
@@ -6185,7 +6332,6 @@
 				F9F0AF591CDBCAB500035C62 /* BackendlessGeoQuery.m in Sources */,
 				0F9AC9481E798C5D0087869F /* Invoke.m in Sources */,
 				F96B1C691DD3A23D00A4B362 /* PagedQueryBuilder.m in Sources */,
-				5A872EF51FC6F82000A6CCB3 /* RTRemoteSharedObject.m in Sources */,
 				0F9ACA0B1E798C5D0087869F /* AnonymousObject.m in Sources */,
 				0F9AC97F1E798C5D0087869F /* Header.m in Sources */,
 				0F9ACA6F1E798C5D0087869F /* DateType.m in Sources */,
@@ -6314,7 +6460,7 @@
 				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "backendless-mac";
@@ -6341,7 +6487,7 @@
 				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "backendless-mac";

@@ -51,8 +51,7 @@
 #import "MessageStatus.h"
 #import "DeliveryOptions.h"
 #import "PublishOptions.h"
-#import "SubscriptionOptions.h"
-#import "BESubscription.h"
+#import "Channel.h"
 #import "DeviceRegistration.h"
 #import "MessagingService.h"
 #import "BackendlessPushHelper.h"
@@ -72,6 +71,7 @@
 #import "BackendlessBeacon.h"
 #import "Presence.h"
 #import "MapDrivenDataStore.h"
+#import "RemoteSharedObject.h"
 
 //Cache
 #import "BackendlessCachePolicy.h"

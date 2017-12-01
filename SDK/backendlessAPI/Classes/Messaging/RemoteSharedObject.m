@@ -20,11 +20,11 @@
  */
 
 #import "RemoteSharedObject.h"
-#import "RTRemoteSharedObject.h"
+#import "RTRSO.h"
 
 @interface RemoteSharedObject()
 @property (strong, nonatomic, readwrite) NSString *rsoName;
-@property (strong, nonatomic) RTRemoteSharedObject *rt;
+@property (strong, nonatomic) RTRSO *rt;
 @property (nonatomic, readwrite) BOOL isConnected;
 @end
 
@@ -33,7 +33,7 @@
 -(instancetype)initWithRSOName:(NSString *)rsoName {
     if (self = [super init]) {
         self.rsoName = rsoName;
-        self.rt = [[RTRemoteSharedObject alloc] initWithRSOName:rsoName];
+        self.rt = [[RTRSO alloc] initWithRSOName:rsoName];
         self.isConnected = NO;
     }
     return self;
@@ -156,8 +156,6 @@
     [self removeInvokeListener];
 }
 
-// commands
-
 -(void)get:(void (^)(id))onSuccess onError:(void (^)(Fault *))onError {
     [self.rt get:nil onSuccess:onSuccess onError:onError];
 }
@@ -178,11 +176,11 @@
     [self.rt sendCommand:commandName data:data onSuccess:onSuccess onError:onError];
 }
 
--(void)invoke:(NSString *)method targets:(NSArray *)targets args:(NSArray *)args onSuccess:(void (^)(id))onSuccess onError:(void (^)(Fault *))onError {
+-(void)invokeOn:(NSString *)method targets:(NSArray *)targets args:(NSArray *)args onSuccess:(void (^)(id))onSuccess onError:(void (^)(Fault *))onError {
     [self.rt invoke:method targets:targets args:args onSuccess:onSuccess onError:onError];
 }
 
--(void)invoke:(NSString *)method targets:(NSArray *)targets onSuccess:(void (^)(id))onSuccess onError:(void (^)(Fault *))onError {
+-(void)invokeOn:(NSString *)method targets:(NSArray *)targets onSuccess:(void (^)(id))onSuccess onError:(void (^)(Fault *))onError {
     [self.rt invoke:method targets:targets args:nil onSuccess:onSuccess onError:onError];
 }
 
