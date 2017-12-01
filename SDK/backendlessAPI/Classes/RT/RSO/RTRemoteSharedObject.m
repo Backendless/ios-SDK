@@ -172,33 +172,55 @@
     invokeObject.args = [invokeData valueForKey:@"args"];
     invokeObject.connectionId = [invokeData valueForKey:@"connectionId"];
     invokeObject.userId = [invokeData valueForKey:@"userId"];
-    
-    SEL invocationMethodSelector = NSSelectorFromString(invokeObject.method);
-    
-    if (self.invocationTarget) {
-        if ([self.invocationTarget respondsToSelector:invocationMethodSelector]) {
-
-            NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[self.invocationTarget methodSignatureForSelector:invocationMethodSelector]];
-            [invocation setTarget:self.invocationTarget];
-            [invocation setSelector:invocationMethodSelector];
-            
-            for (int i = 0; i < [invokeObject.args count]; i++) {
-                id arg = [invokeObject.args objectAtIndex:i];
-                [invocation setArgument:&arg atIndex:i+2]; // index 0 reserved for self, index 1 reserved for _cmd
-            }
-            [invocation invoke];
-        }
-        else if ([[self.invocationTarget class] respondsToSelector:invocationMethodSelector]) {
-            
-            // perform selector with many args
-            [[self.invocationTarget class] performSelector:invocationMethodSelector withObject:nil];
-        }
-    }
-    else {
-        NSLog(@"TARGET NOT FOUND");
-    }
-    
+    [self invokeMethod:invokeObject.method ags:invokeObject.args invocationTarget:self.invocationTarget];
     return invokeObject;
+}
+
+-(void)invokeMethod:(NSString *)methodName ags:(NSArray *)args invocationTarget:(id)invocationTarget {
+    NSArray *classMethods = [NSArray arrayWithArray:[self getMethodsListOfInvocationTarget:object_getClass([invocationTarget class])]];
+    NSArray *instanceMethods = [NSArray arrayWithArray:[self getMethodsListOfInvocationTarget:[invocationTarget class]]];
+    if ([classMethods count] > 0) {
+        [self prepareToCallInvoke:methodName from:classMethods args:args invocationTarget:[invocationTarget class]];
+    }
+    if ([instanceMethods count] > 0) {
+        [self prepareToCallInvoke:methodName from:instanceMethods args:args invocationTarget:invocationTarget];
+    }
+}
+
+-(NSArray *)getMethodsListOfInvocationTarget:(id)invocationTarget {
+    NSMutableArray *methodsArray = [NSMutableArray new];
+    unsigned int methodCount = 0;
+    Method *methods = class_copyMethodList(invocationTarget, &methodCount);
+    for (unsigned int i = 0; i < methodCount; i++) {
+        Method method = methods[i];
+        NSString *methodName = [NSString stringWithUTF8String:sel_getName(method_getName(method))];
+        [methodsArray addObject:methodName];
+    }
+    free(methods);
+    return methodsArray;
+}
+
+-(void)prepareToCallInvoke:(NSString *)methodName from:(NSArray *)methodsArray args:(NSArray *)args invocationTarget:(id)invocationTarget {
+    for (NSString *method in methodsArray) {
+        NSArray *methodComponents = [method componentsSeparatedByString:@":"];
+        NSString *name = [methodComponents firstObject];
+        if ([name isEqualToString:methodName] && ([methodComponents count] - 1) == [args count]) {
+            if ([invocationTarget respondsToSelector:NSSelectorFromString(method)]) {
+                [self invokeMethodWithSelector:NSSelectorFromString(method) args:args invocationTarget:invocationTarget];
+            }
+        }
+    }
+}
+
+-(void)invokeMethodWithSelector:(SEL)methodSelector args:(NSArray *)args invocationTarget:(id)invocationTarget {
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[invocationTarget methodSignatureForSelector:methodSelector]];
+    [invocation setTarget:invocationTarget];
+    [invocation setSelector:methodSelector];
+    for (int i = 0; i < [args count]; i++) {
+        id arg = [args objectAtIndex:i];
+        [invocation setArgument:&arg atIndex:i+2]; // index 0 reserved for self, index 1 reserved for _cmd
+    }
+    [invocation invoke];
 }
 
 // *************************************************
