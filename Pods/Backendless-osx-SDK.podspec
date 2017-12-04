@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.license	= { :type => 'Apache', :text => 'Copyright (c) 2012-2017 by Backendless.com' }
   s.author	= { 'Mark Piller' => 'mark@backendless.com' }
 
-  s.platform		= :osx, '10.8'
+  s.platform		= :osx, '10.10'
   s.requires_arc	= true
   s.source         	= { 
 	:git => "https://github.com/Backendless/ios-SDK.git",
