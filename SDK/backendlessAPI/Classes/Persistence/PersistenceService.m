@@ -60,6 +60,8 @@ static NSString *DELETE_RELATION = @"deleteRelation";
 static NSString *LOAD_RELATION = @"loadRelations";
 static NSString *CREATE_RELATION = @"setRelation";
 static NSString *ADD_RELATION = @"addRelation";
+static NSString *UPDATE_BULK = @"updateBulk";
+static NSString *REMOVE_BULK = @"removeBulk";
 
 @interface PersistenceService()
 -(NSDictionary *)filteringProperty:(id)object;
@@ -547,6 +549,24 @@ static NSString *ADD_RELATION = @"addRelation";
     return  [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:LOAD_RELATION args:args];
 }
 
+-(NSNumber *)updateBulk:(id)entity whereClause:(NSString *)whereClause changes:(NSDictionary<NSString *, id> *)changes {
+    if (!entity) {
+        return [backendless throwFault:FAULT_NO_ENTITY];
+    }
+    NSArray *args = @[[self objectClassName:entity], whereClause, changes];
+    NSNumber *result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:UPDATE_BULK args:args];
+    return result;
+}
+
+-(NSNumber *)removeBulk:(id)entity whereClause:(NSString *)whereClause {
+    if (!entity) {
+        return [backendless throwFault:FAULT_NO_ENTITY];
+    }
+    NSArray *args = @[[self objectClassName:entity], whereClause];
+    NSNumber *result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:REMOVE_BULK args:args];
+    return result;
+}
+
 // async methods with block-base callbacks
 
 -(void)describe:(NSString *)entityName response:(void(^)(NSArray<ObjectProperty*> *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -954,6 +974,30 @@ static NSString *ADD_RELATION = @"addRelation";
     NSNumber *offset  = dataQuery.offset;
     NSArray *args = @[parentType, objectId, relationName, pageSize, offset];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:LOAD_RELATION args:args responder:chainedResponder];
+}
+
+-(void)updateBulk:(id)entity whereClause:(NSString *)whereClause changes:(NSDictionary<NSString *,id> *)changes response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+    Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!entity) {
+        return [chainedResponder errorHandler:FAULT_NO_ENTITY];
+    }
+    NSArray *args = @[[self objectClassName:entity], whereClause, changes];
+    Responder *_responder = [Responder responder:chainedResponder selResponseHandler:@selector(createResponse:) selErrorHandler:nil];
+    _responder.chained = chainedResponder;
+    _responder.context = entity;
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:UPDATE_BULK args:args responder:_responder];
+}
+
+-(void)removeBulk:(id)entity whereClause:(NSString *)whereClause response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+    Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!entity) {
+        return [chainedResponder errorHandler:FAULT_NO_ENTITY];
+    }
+    NSArray *args = @[[self objectClassName:entity], whereClause];
+    Responder *_responder = [Responder responder:chainedResponder selResponseHandler:@selector(createResponse:) selErrorHandler:nil];
+    _responder.chained = chainedResponder;
+    _responder.context = entity;
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:REMOVE_BULK args:args responder:_responder];
 }
 
 // IDataStore class factory
