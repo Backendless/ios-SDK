@@ -156,6 +156,14 @@
     return [backendless.persistenceService loadRelations:[backendless.persistenceService getEntityName:NSStringFromClass(_entityClass)] objectId:(NSString *)objectId  queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder];
 }
 
+-(NSNumber *)updateBulk:(NSString *)whereClause changes:(NSDictionary<NSString *, id> *)changes {
+    return [backendless.persistenceService updateBulk:_entityClass whereClause:whereClause changes:changes];
+}
+
+-(NSNumber *)removeBulk:(NSString *)whereClause {
+    return [backendless.persistenceService removeBulk:_entityClass whereClause:whereClause];
+}
+
 // async methods with block-base callbacks
 
 -(void)save:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -262,6 +270,14 @@
 
 -(void)loadRelations:(NSString *)objectId queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.persistenceService loadRelations:[backendless.persistenceService getEntityName:NSStringFromClass(_entityClass)] objectId:(NSString *)objectId  queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder response:responseBlock error:errorBlock];
+}
+
+-(void)updateBulk:(NSString *)whereClause changes:(NSDictionary<NSString *,id> *)changes response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+    [backendless.persistenceService updateBulk:_entityClass whereClause:whereClause changes:changes response:responseBlock error:errorBlock];
+}
+
+-(void)removeBulk:(NSString *)whereClause response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+    [backendless.persistenceService removeBulk:_entityClass whereClause:whereClause response:responseBlock error:errorBlock];
 }
 
 @end

@@ -40,6 +40,8 @@ static NSString *METHOD_FIND = @"find";
 static NSString *METHOD_COUNT = @"count";
 static NSString *METHOD_FIRST = @"first";
 static NSString *METHOD_LAST = @"last";
+static NSString *UPDATE_BULK = @"updateBulk";
+static NSString *REMOVE_BULK = @"removeBulk";
 
 @implementation MapDrivenDataStore
 
@@ -237,6 +239,16 @@ static NSString *METHOD_LAST = @"last";
     return [backendless.persistenceService loadRelations:_tableName objectId:(NSString *)objectId  queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder];
 }
 
+-(NSNumber *)updateBulk:(NSString *)whereClause changes:(NSDictionary<NSString *,id> *)changes {
+    NSArray *args = @[_tableName, whereClause, changes];
+    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:UPDATE_BULK args:args];
+}
+
+-(NSNumber *)removeBulk:(NSString *)whereClause {
+    NSArray *args = @[_tableName, whereClause];
+    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:REMOVE_BULK args:args];
+}
+
 // async methods with block-based callbacks
 
 -(void)save:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -383,6 +395,22 @@ static NSString *METHOD_LAST = @"last";
         }
     }
     return dictionary;
+}
+
+-(void)updateBulk:(NSString *)whereClause changes:(NSDictionary<NSString *,id> *)changes response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+    NSArray *args = @[_tableName, whereClause, changes];
+    Responder *responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onFind:) selErrorHandler:nil];
+    _responder.chained = responder;
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:UPDATE_BULK args:args responder:_responder];
+}
+
+- (void)removeBulk:(NSString *)whereClause response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+    NSArray *args = @[_tableName, whereClause];
+    Responder *responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onFind:) selErrorHandler:nil];
+    _responder.chained = responder;
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:REMOVE_BULK args:args responder:_responder];
 }
 
 -(id)onFind:(id)response {
