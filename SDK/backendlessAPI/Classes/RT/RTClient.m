@@ -23,6 +23,7 @@
 #import "RTSubscription.h"
 #import "RTMethodRequest.h"
 #import "Backendless.h"
+#import "RTHelper.h"
 
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 
@@ -68,7 +69,7 @@
         [_lock lock];
         if (!socketCreated) {
             NSString *path = [@"/" stringByAppendingString:[backendless getAppId]];
-            NSURL *url = [[NSURL alloc] initWithString:@"http://localhost:5000"];
+            NSURL *url = [[NSURL alloc] initWithString:[RTHelper lookup]];
             NSString *userToken = [backendless.userService.currentUser getUserToken];
             if (userToken) {
                 socketManager = [[SocketManager alloc] initWithSocketURL:url config:@{@"path": path, @"connectParams":@{@"token":@"some-token", @"userToken":userToken}}];
@@ -213,7 +214,7 @@
         if ([resultData valueForKey:@"error"]) {
             Fault *fault = [Fault fault:[[resultData valueForKey:@"error"] valueForKey:@"message"]
                                  detail:[[resultData valueForKey:@"error"] valueForKey:@"message"]
-                              faultCode:[[resultData valueForKey:@"error"] valueForKey:@"code"]];            
+                              faultCode:[[resultData valueForKey:@"error"] valueForKey:@"code"]];
             if (method && method.onError) {
                 method.onError(fault);
             }

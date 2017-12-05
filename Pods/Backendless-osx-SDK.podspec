@@ -20,6 +20,5 @@ Pod::Spec.new do |s|
   s.frameworks	= 'SystemConfiguration'
   s.libraries	= 'backendless-mac'
   s.xcconfig	=  { 'LIBRARY_SEARCH_PATHS' => '"$(SRCROOT)/Pods/Backendless-osx-SDK/SDK/osx/backendless"' }
-  s.dependency 'Socket.IO-Client-Swift'
 
 end
