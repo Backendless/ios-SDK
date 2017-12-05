@@ -182,6 +182,11 @@
                     subscription.onResult([subscription.classInstance performSelector:subscription.handleResult withObject:result]);
                 }
             }
+            else if ([result isKindOfClass:[NSNumber class]]) {
+                if (subscription && subscription.onResult) {
+                    subscription.onResult(result);
+                }
+            }
         }
         else if ([resultData valueForKey:@"error"]) {
             Fault *fault = [Fault fault:[[resultData valueForKey:@"error"] valueForKey:@"message"]

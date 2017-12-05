@@ -22,6 +22,7 @@
 #import <Foundation/Foundation.h>
 #import "RTListener.h"
 #import "Responder.h"
+#import "BulkResultObject.h"
 
 typedef enum {
     MAPDRIVENDATASTORE = 0,
@@ -56,6 +57,14 @@ typedef enum {
 -(void)removeDeleteListenerWithCallback:(void(^)(id))onDelete;
 -(void)removeDeleteListenerWithWhereClause:(NSString *)whereClause;
 -(void)removeDeleteListener;
+
+-(void)addBulkUpdateListener:(void(^)(BulkResultObject *))onBulkUpdate;
+-(void)removeBulkUpdateListener:(void(^)(BulkResultObject *))onBulkUpdate;
+-(void)removeBulkUpdateListener;
+
+-(void)addBulkDeleteListener:(void(^)(NSNumber *))onBulkDelete;
+-(void)removeBulkDeleteListener:(void(^)(NSNumber *))onBulkDelete;
+-(void)removeBulkDeleteListener;
 
 -(void)removeAllListeners;
 

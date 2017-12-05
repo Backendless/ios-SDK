@@ -67,7 +67,7 @@
     NSData *JSONData = [JSONString dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *JSONDictionary = [NSJSONSerialization JSONObjectWithData:JSONData options:0 error:&error];
     for (NSString *fieldName in JSONDictionary) {
-        if (![fieldName isEqualToString:@"___jsonclass"] && ![fieldName isEqualToString:@"__meta"] && ![fieldName isEqualToString:@"___class"]) {
+        if (![fieldName isEqualToString:@"___jsonclass"] && ![fieldName isEqualToString:@"__meta"]) {
             [dictionary setValue:[JSONDictionary valueForKey:fieldName] forKey:fieldName];
         }
     }

@@ -29,6 +29,8 @@
 #define CREATED @"created"
 #define UPDATED @"updated"
 #define DELETED @"deleted"
+#define BULK_UPDATED @"bulk-updated"
+#define BULK_DELETED @"bulk-deleted"
 
 @interface RTDataStore() {
     NSString *table;
@@ -132,11 +134,37 @@
     [super stopSubscription:DELETED whereClause:nil onResult:nil];
 }
 
+-(void)addBulkUpdateListener:(void(^)(BulkResultObject *))onBulkUpdate {
+    [self subscribeForObjectChanges:BULK_UPDATED tableName:table whereClause:nil onData:onBulkUpdate];
+}
+
+-(void)removeBulkUpdateListener:(void(^)(BulkResultObject *))onBulkUpdate {
+    [super stopSubscription:BULK_UPDATED whereClause:nil onResult:onBulkUpdate];
+}
+
+-(void)removeBulkUpdateListener {
+    [super stopSubscription:BULK_UPDATED whereClause:nil onResult:nil];
+}
+
+-(void)addBulkDeleteListener:(void(^)(NSNumber *))onBulkDelete {
+    [self subscribeForObjectChanges:BULK_DELETED tableName:table whereClause:nil onData:onBulkDelete];
+}
+
+-(void)removeBulkDeleteListener:(void(^)(NSNumber *))onBulkDelete {
+    [super stopSubscription:BULK_DELETED whereClause:nil onResult:onBulkDelete];
+}
+
+-(void)removeBulkDeleteListener {
+    [super stopSubscription:BULK_DELETED whereClause:nil onResult:nil];
+}
+
 -(void)removeAllListeners {
+    [self removeErrorListener];
     [self removeCreateListener];
     [self removeUpdateListener];
     [self removeDeleteListener];
-    [self removeErrorListener];
+    [self removeBulkUpdateListener];
+    [self removeBulkDeleteListener];
 }
 
 -(void)subscribeForObjectChanges:(NSString *)event tableName:(NSString *)tableName whereClause:(NSString *)whereClause onData:(void(^)(id))onChange {
@@ -147,7 +175,16 @@
                     @"event"        : event,
                     @"whereClause"  : whereClause};
     }
-    [super addSubscription:OBJECTS_CHANGES options:options onResult:onChange handleResultSelector:@selector(handleData:) fromClass:self];
+    
+    if ([event isEqualToString:CREATED] || [event isEqualToString:UPDATED] || [event isEqualToString:DELETED]) {
+        [super addSubscription:OBJECTS_CHANGES options:options onResult:onChange handleResultSelector:@selector(handleData:) fromClass:self];
+    }
+    else if ([event isEqualToString:BULK_UPDATED]) {
+        [super addSubscription:OBJECTS_CHANGES options:options onResult:onChange handleResultSelector:@selector(handleBulkUpdate:) fromClass:self];
+    }
+    else if ([event isEqualToString:BULK_DELETED]) {
+        [super addSubscription:OBJECTS_CHANGES options:options onResult:onChange handleResultSelector:nil fromClass:nil];
+    }
 };
 
 -(id)handleData:(NSDictionary *)jsonResult {
@@ -160,6 +197,16 @@
         result = [jsonHelper dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
     }
     return result;
+}
+
+-(BulkResultObject *)handleBulkUpdate:(NSDictionary *)jsonResult {
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonResult options:NSJSONWritingPrettyPrinted error:nil];
+    NSDictionary *bulkResultDictionary = [jsonHelper dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
+    BulkResultObject *bulkResult = [BulkResultObject new];
+    bulkResult.className = [bulkResultDictionary valueForKey:@"___class"];
+    bulkResult.values = @{[[bulkResultDictionary allKeys] firstObject]:[bulkResultDictionary valueForKey:[[bulkResultDictionary allKeys] firstObject]]};
+    bulkResult.updated = [bulkResultDictionary valueForKey:@"updated"];
+    return bulkResult;
 }
 
 @end
