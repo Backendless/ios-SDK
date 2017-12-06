@@ -20,7 +20,6 @@
  */
 
 #import <Foundation/Foundation.h>
-@import SocketIO;
 @class RTSubscription;
 @class RTMethodRequest;
 

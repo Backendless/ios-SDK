@@ -24,6 +24,7 @@
 #import "RTMethodRequest.h"
 #import "Backendless.h"
 #import "RTHelper.h"
+@import SocketIO;
 
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 

@@ -11,7 +11,7 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = D3CF37E61A387DEB0070B746 /* Build configuration list for PBXAggregateTarget "backendless-dev-fat" */;
 			buildPhases = (
-				D3CF37E51A387DEB0070B746 /* ShellScript */,
+				D3CF37E51A387DEB0070B746 /* Run Script */,
 			);
 			dependencies = (
 			);
@@ -1586,7 +1586,6 @@
 		5A8A15631FA0CB22009A1394 /* RTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A155D1FA0CB22009A1394 /* RTClient.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A8A15641FA0CB22009A1394 /* RTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A155D1FA0CB22009A1394 /* RTClient.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A8A15651FA0CB22009A1394 /* RTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A155D1FA0CB22009A1394 /* RTClient.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A8A15661FA0CB22009A1394 /* RTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A155D1FA0CB22009A1394 /* RTClient.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A8A15671FA0CB22009A1394 /* RTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A155D1FA0CB22009A1394 /* RTClient.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A8A15831FA0D3C3009A1394 /* RTDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A15801FA0D3C3009A1394 /* RTDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A8A15841FA0D3C3009A1394 /* RTDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A15801FA0D3C3009A1394 /* RTDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1622,6 +1621,7 @@
 		5AD1BEEB1FD1B13F00493038 /* UserStatusObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AEED9C91FC5B90800CB7D9F /* UserStatusObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AD1BEEC1FD1B14300493038 /* UserStatusObjectData.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AB3C1881FC5C2FB00728003 /* UserStatusObjectData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AD1BEED1FD1B14E00493038 /* Channel.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A9FC9A81FC4786800B192D9 /* Channel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AD743271FD6FDBE00A19D1A /* RTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A155D1FA0CB22009A1394 /* RTClient.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5AEED9CE1FC5B90800CB7D9F /* UserStatusObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AEED9C91FC5B90800CB7D9F /* UserStatusObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AEED9D31FC5B90800CB7D9F /* UserStatusObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AEED9CA1FC5B90800CB7D9F /* UserStatusObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5AF260521FD6B06F00306C3C /* BulkResultObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF260501FD6B06F00306C3C /* BulkResultObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -4555,6 +4555,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5ABF77691FB4ACF1006299F7 /* RTClient.h in Headers */,
 				5A66A0761FD6CD1E002202BE /* RTHelper.h in Headers */,
 				5AF260551FD6B06F00306C3C /* BulkResultObject.h in Headers */,
 				5AF988C31FCEA96E00ED908F /* JSONHelper.h in Headers */,
@@ -4798,7 +4799,6 @@
 				5A4A3A9E1FC570D500C0ADBA /* RTMethod.h in Headers */,
 				5ABF776E1FB4AD4C006299F7 /* RTSubscription.h in Headers */,
 				5AEED9CE1FC5B90800CB7D9F /* UserStatusObject.h in Headers */,
-				5ABF77691FB4ACF1006299F7 /* RTClient.h in Headers */,
 				5A3917D81FC5BE0C0084D24D /* CommandObject.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5364,13 +5364,14 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D3CF37E51A387DEB0070B746 /* ShellScript */ = {
+		D3CF37E51A387DEB0070B746 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -6077,6 +6078,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5AD743271FD6FDBE00A19D1A /* RTClient.m in Sources */,
 				5AA8FF1B1FCD945700F36C6D /* UserService.m in Sources */,
 				5A3917D71FC5BDFF0084D24D /* CommandObject.m in Sources */,
 				5A4A3B961FC5790B00C0ADBA /* Channel.m in Sources */,
@@ -6171,7 +6173,6 @@
 				0F9AC97E1E798C5D0087869F /* Header.m in Sources */,
 				0F9ACA6E1E798C5D0087869F /* DateType.m in Sources */,
 				0F9ACCDF1E798C5F0087869F /* MessageWriter.m in Sources */,
-				5A8A15661FA0CB22009A1394 /* RTClient.m in Sources */,
 				0F9AC9921E798C5D0087869F /* RTMPClient.m in Sources */,
 				0F9AC84D1E798C5C0087869F /* WeborbClient.m in Sources */,
 				5AF2605A1FD6B06F00306C3C /* BulkResultObject.m in Sources */,
@@ -6611,6 +6612,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -6651,6 +6653,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -6798,6 +6801,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEFINES_MODULE = NO;
 				DSTROOT = /tmp/backendless_simulator.dst;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
@@ -6810,7 +6814,11 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-weak_framework",
+					SocketIO,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -6826,6 +6834,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEFINES_MODULE = NO;
 				DSTROOT = /tmp/backendless_simulator.dst;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
@@ -6838,7 +6847,11 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-weak_framework",
+					SocketIO,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
