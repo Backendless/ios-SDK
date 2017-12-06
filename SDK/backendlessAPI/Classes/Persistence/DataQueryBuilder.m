@@ -92,7 +92,9 @@
 }
 
 -(instancetype)setProperties:(NSArray<NSString*> *)properties {
-    _properties = properties ? [[NSMutableArray alloc] initWithArray:properties]: nil;
+    if (properties) {
+        _properties = [[NSMutableArray alloc] initWithArray:properties];
+    }
     return self;
 }
 
@@ -124,17 +126,23 @@
 }
 
 -(instancetype)setSortBy:(NSArray<NSString *> *)sortBy {
-    [_queryOptionsBuilder setSortBy:sortBy];
+    if (sortBy) {
+        [_queryOptionsBuilder setSortBy:sortBy];
+    }
     return self;
 }
 
 -(instancetype)addSortBy:(NSString *)sortBy {
-    [_queryOptionsBuilder addSortBy:sortBy];
+    if (sortBy) {
+        [_queryOptionsBuilder addSortBy:sortBy];
+    }
     return self;
 }
 
 -(instancetype)addListSortBy:(NSArray<NSString *> *)sortBy {
-    [_queryOptionsBuilder addListSortBy:sortBy];
+    if (sortBy) {
+        [_queryOptionsBuilder addListSortBy:sortBy];
+    }
     return self;
 }
 
@@ -143,17 +151,23 @@
 }
 
 -(instancetype)setRelated:(NSArray<NSString *> *)related {
-    [_queryOptionsBuilder setRelated:related];
+    if (related) {
+        [_queryOptionsBuilder setRelated:related];
+    }
     return self;
 }
 
 -(instancetype)addRelated:(NSString *)related {
-    [_queryOptionsBuilder addRelated:related];
+    if (related) {
+        [_queryOptionsBuilder addRelated:related];
+    }
     return self;
 }
 
 -(instancetype)addListRelated:(NSArray<NSString *> *)related {
-    [_queryOptionsBuilder addListRelated:related];
+    if (related) {
+        [_queryOptionsBuilder addListRelated:related];
+    }
     return self;
 }
 
@@ -162,12 +176,16 @@
 }
 
 -(instancetype)setRelationsDepth:(int)relationsDepth {
-    [_queryOptionsBuilder setRelationsDepth:relationsDepth];
+    if (relationsDepth) {
+        [_queryOptionsBuilder setRelationsDepth:relationsDepth];
+    }
     return self;
 }
 
 -(instancetype)setGroupByProperties:(NSArray<NSString*> *)groupBy {
-    _groupBy = groupBy ? [[NSMutableArray alloc] initWithArray:groupBy]: nil;
+    if (groupBy) {
+        _groupBy = [[NSMutableArray alloc] initWithArray:groupBy];
+    }
     return self;
 }
 
@@ -186,7 +204,9 @@
 }
 
 -(instancetype)setHavingClause:(NSString *)havingClause {
-    _havingClause = [havingClause retain];
+    if (havingClause) {
+        _havingClause = [havingClause retain];
+    }
     return self;
 }
 
