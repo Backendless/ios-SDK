@@ -1372,7 +1372,7 @@
 		1C7BB4991A2E092900D3C2C1 /* PersistenceService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B48141602254900012DFC /* PersistenceService.m */; };
 		1C7BB49A1A2E092900D3C2C1 /* ObjectProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B481716032EA900012DFC /* ObjectProperty.m */; };
 		1C7BB49B1A2E092900D3C2C1 /* BackendlessEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B481A1603340A00012DFC /* BackendlessEntity.m */; };
-		1C7BB49D1A2E092900D3C2C1 /* BackendlessDataQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3BF721613175600409FF2 /* BackendlessDataQuery.m */; };
+		1C7BB49D1A2E092900D3C2C1 /* BackendlessDataQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3BF721613175600409FF2 /* BackendlessDataQuery.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		1C7BB49E1A2E092900D3C2C1 /* DataStoreFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D92241607240C00AFF3F6 /* DataStoreFactory.m */; };
 		1C7BB49F1A2E092900D3C2C1 /* GeoService.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D923D160B6A7F00AFF3F6 /* GeoService.m */; };
 		1C7BB4A01A2E092900D3C2C1 /* GeoCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D9237160B6A5500AFF3F6 /* GeoCategory.m */; };
@@ -1655,11 +1655,11 @@
 		F96B1C7C1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C781DD4BF5F00A4B362 /* DataQueryBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F96B1C7D1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C781DD4BF5F00A4B362 /* DataQueryBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F96B1C7E1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F96B1C781DD4BF5F00A4B362 /* DataQueryBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F96B1C7F1DD4BF5F00A4B362 /* DataQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C791DD4BF5F00A4B362 /* DataQueryBuilder.m */; };
-		F96B1C801DD4BF5F00A4B362 /* DataQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C791DD4BF5F00A4B362 /* DataQueryBuilder.m */; };
-		F96B1C811DD4BF5F00A4B362 /* DataQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C791DD4BF5F00A4B362 /* DataQueryBuilder.m */; };
-		F96B1C821DD4BF5F00A4B362 /* DataQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C791DD4BF5F00A4B362 /* DataQueryBuilder.m */; };
-		F96B1C831DD4BF5F00A4B362 /* DataQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C791DD4BF5F00A4B362 /* DataQueryBuilder.m */; };
+		F96B1C7F1DD4BF5F00A4B362 /* DataQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C791DD4BF5F00A4B362 /* DataQueryBuilder.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		F96B1C801DD4BF5F00A4B362 /* DataQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C791DD4BF5F00A4B362 /* DataQueryBuilder.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		F96B1C811DD4BF5F00A4B362 /* DataQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C791DD4BF5F00A4B362 /* DataQueryBuilder.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		F96B1C821DD4BF5F00A4B362 /* DataQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C791DD4BF5F00A4B362 /* DataQueryBuilder.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		F96B1C831DD4BF5F00A4B362 /* DataQueryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F96B1C791DD4BF5F00A4B362 /* DataQueryBuilder.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		F97969E4166CC8C300595F5E /* backendless_simulator.m in Sources */ = {isa = PBXBuildFile; fileRef = F97969E3166CC8C300595F5E /* backendless_simulator.m */; };
 		F97969EA166CCB8200595F5E /* Backendless.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B47FF15FF569400012DFC /* Backendless.m */; };
 		F97969EB166CCB8200595F5E /* Invoker.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480215FF5AA900012DFC /* Invoker.m */; };
@@ -1670,7 +1670,7 @@
 		F97969F0166CCB8200595F5E /* PersistenceService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B48141602254900012DFC /* PersistenceService.m */; };
 		F97969F1166CCB8200595F5E /* ObjectProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B481716032EA900012DFC /* ObjectProperty.m */; };
 		F97969F2166CCB8200595F5E /* BackendlessEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B481A1603340A00012DFC /* BackendlessEntity.m */; };
-		F97969F4166CCB8200595F5E /* BackendlessDataQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3BF721613175600409FF2 /* BackendlessDataQuery.m */; };
+		F97969F4166CCB8200595F5E /* BackendlessDataQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3BF721613175600409FF2 /* BackendlessDataQuery.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		F97969F6166CCB8200595F5E /* DataStoreFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D92241607240C00AFF3F6 /* DataStoreFactory.m */; };
 		F97969F7166CCB8200595F5E /* GeoService.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D923D160B6A7F00AFF3F6 /* GeoService.m */; };
 		F97969F8166CCB8200595F5E /* GeoCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D9237160B6A5500AFF3F6 /* GeoCategory.m */; };
@@ -1722,7 +1722,7 @@
 		F9796A3A166CD3DA00595F5E /* PersistenceService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B48141602254900012DFC /* PersistenceService.m */; };
 		F9796A3B166CD3DA00595F5E /* ObjectProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B481716032EA900012DFC /* ObjectProperty.m */; };
 		F9796A3C166CD3DA00595F5E /* BackendlessEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B481A1603340A00012DFC /* BackendlessEntity.m */; };
-		F9796A3E166CD3DA00595F5E /* BackendlessDataQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3BF721613175600409FF2 /* BackendlessDataQuery.m */; };
+		F9796A3E166CD3DA00595F5E /* BackendlessDataQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3BF721613175600409FF2 /* BackendlessDataQuery.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		F9796A40166CD3DA00595F5E /* DataStoreFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D92241607240C00AFF3F6 /* DataStoreFactory.m */; };
 		F9796A41166CD3DA00595F5E /* GeoService.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D923D160B6A7F00AFF3F6 /* GeoService.m */; };
 		F9796A42166CD3DB00595F5E /* GeoCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = F99D9237160B6A5500AFF3F6 /* GeoCategory.m */; };
@@ -1844,7 +1844,7 @@
 		F9F0AE901CDBCA3900035C62 /* ClassCastException.m in Sources */ = {isa = PBXBuildFile; fileRef = F9D5234C1B25CEF800F6A441 /* ClassCastException.m */; };
 		F9F0AE911CDBCA3900035C62 /* BackendlessEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B481A1603340A00012DFC /* BackendlessEntity.m */; };
 		F9F0AE921CDBCA3900035C62 /* BEFileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C7DE8E1B7CBF0300AFCD06 /* BEFileInfo.m */; };
-		F9F0AE941CDBCA3900035C62 /* BackendlessDataQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3BF721613175600409FF2 /* BackendlessDataQuery.m */; };
+		F9F0AE941CDBCA3900035C62 /* BackendlessDataQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3BF721613175600409FF2 /* BackendlessDataQuery.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		F9F0AE951CDBCA3900035C62 /* AtomicCounters.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FB9B6719867EA500A13FB6 /* AtomicCounters.m */; };
 		F9F0AE961CDBCA3900035C62 /* GeoFenceMonitoring.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064C71AFCE69D00779BB1 /* GeoFenceMonitoring.m */; };
 		F9F0AE971CDBCA3900035C62 /* LocationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064A61AFA6E4A00779BB1 /* LocationTracker.m */; };
@@ -1972,7 +1972,7 @@
 		F9F0AF4A1CDBCAB500035C62 /* ClassCastException.m in Sources */ = {isa = PBXBuildFile; fileRef = F9D5234C1B25CEF800F6A441 /* ClassCastException.m */; };
 		F9F0AF4B1CDBCAB500035C62 /* BackendlessEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B481A1603340A00012DFC /* BackendlessEntity.m */; };
 		F9F0AF4C1CDBCAB500035C62 /* BEFileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C7DE8E1B7CBF0300AFCD06 /* BEFileInfo.m */; };
-		F9F0AF4E1CDBCAB500035C62 /* BackendlessDataQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3BF721613175600409FF2 /* BackendlessDataQuery.m */; };
+		F9F0AF4E1CDBCAB500035C62 /* BackendlessDataQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3BF721613175600409FF2 /* BackendlessDataQuery.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		F9F0AF4F1CDBCAB500035C62 /* AtomicCounters.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FB9B6719867EA500A13FB6 /* AtomicCounters.m */; };
 		F9F0AF501CDBCAB500035C62 /* GeoFenceMonitoring.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064C71AFCE69D00779BB1 /* GeoFenceMonitoring.m */; };
 		F9F0AF511CDBCAB500035C62 /* LocationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064A61AFA6E4A00779BB1 /* LocationTracker.m */; };

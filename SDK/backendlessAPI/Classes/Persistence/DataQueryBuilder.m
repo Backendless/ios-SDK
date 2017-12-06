@@ -34,19 +34,6 @@
     return self;
 }
 
--(void)dealloc {
-    [DebLog logN:@"DEALLOC DataQueryBuilder"];
-    [_pagedQueryBuilder release];
-    [_queryOptionsBuilder release];
-    [_properties removeAllObjects];
-    [_properties release];
-    [_whereClause release];
-    [_groupBy removeAllObjects];
-    [_groupBy release];
-    [_havingClause release];
-    [super dealloc];
-}
-
 #pragma mark -
 #pragma mark Public Methods
 
@@ -54,9 +41,9 @@
     BackendlessDataQuery *dataQuery = [BackendlessDataQuery new];
     dataQuery = [_pagedQueryBuilder build];
     dataQuery.queryOptions = [_queryOptionsBuilder build];
-    dataQuery.properties = _properties ? [[[NSMutableArray alloc] initWithArray:_properties] autorelease]: nil;
+    dataQuery.properties = _properties ? [[NSMutableArray alloc] initWithArray:_properties] : nil;
     dataQuery.whereClause = _whereClause.copy;
-    dataQuery.groupBy = _groupBy ? [[[NSMutableArray alloc] initWithArray:_groupBy] autorelease]: nil;
+    dataQuery.groupBy = _groupBy ? [[NSMutableArray alloc] initWithArray:_groupBy] : nil;
     dataQuery.havingClause = _havingClause.copy;
     return dataQuery;
 }
@@ -117,7 +104,7 @@
 }
 
 -(instancetype)setWhereClause:(NSString *)whereClause {
-    _whereClause = [whereClause retain];
+    _whereClause = whereClause;
     return self;
 }
 
@@ -176,9 +163,7 @@
 }
 
 -(instancetype)setRelationsDepth:(int)relationsDepth {
-    if (relationsDepth) {
-        [_queryOptionsBuilder setRelationsDepth:relationsDepth];
-    }
+    [_queryOptionsBuilder setRelationsDepth:relationsDepth];
     return self;
 }
 
@@ -205,7 +190,7 @@
 
 -(instancetype)setHavingClause:(NSString *)havingClause {
     if (havingClause) {
-        _havingClause = [havingClause retain];
+        _havingClause = havingClause;
     }
     return self;
 }

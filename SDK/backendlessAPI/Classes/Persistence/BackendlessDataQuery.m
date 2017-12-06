@@ -46,31 +46,21 @@
     if (self = [super init]) {
         pageSize = DEFAULT_PAGE_SIZE;
         offset = DEFAULT_OFFSET;
-        self.properties = properties ? [[[NSMutableArray alloc] initWithArray:properties] autorelease]:nil;
-        self.whereClause = [whereClause autorelease];
-        self.queryOptions = [queryOptions autorelease];
-        self.groupBy = groupBy ? [[[NSMutableArray alloc] initWithArray:groupBy] autorelease]:nil;
-        self.havingClause = [havingClause autorelease];
+        self.properties = properties ? [[NSMutableArray alloc] initWithArray:properties] : nil;
+        self.whereClause = whereClause;
+        self.queryOptions = queryOptions;
+        self.groupBy = groupBy ? [[NSMutableArray alloc] initWithArray:groupBy] : nil;
+        self.havingClause = havingClause;
 	}
 	return self;
 }
 
 +(instancetype)query {
-    return [[BackendlessDataQuery new] autorelease];
+    return [BackendlessDataQuery new];
 }
 
 +(instancetype)query:(NSArray *)properties where:(NSString *)whereClause query:(QueryOptions *)queryOptions groupBy:(NSArray<NSString *> *)groupBy havingClause:(NSString *)havingClause {
-    return [[[BackendlessDataQuery alloc] init:properties where:whereClause query:queryOptions groupBy:groupBy havingClause:havingClause] autorelease];
-}
-
--(void)dealloc {
-	[DebLog logN:@"DEALLOC BackendlessDataQuery: %@", self];
-    [self.properties release];
-    [self.whereClause release];
-    [self.queryOptions release];
-    [self.groupBy release];
-    [self.havingClause release];
-    [super dealloc];
+    return [[BackendlessDataQuery alloc] init:properties where:whereClause query:queryOptions groupBy:groupBy havingClause:havingClause];
 }
 
 #pragma mark -
@@ -100,7 +90,7 @@
         return NO;
     }
     if (!self.properties) {
-        self.properties = [[NSMutableArray new] autorelease];
+        self.properties = [NSMutableArray new];
     }
     [self.properties addObject:property];
     return YES;
@@ -125,7 +115,7 @@
     BackendlessDataQuery *query = [BackendlessDataQuery query];
     query.pageSize = self.pageSize.copy;
     query.offset = self.offset.copy;
-    query.properties = self.properties ? [[[NSMutableArray alloc] initWithArray:self.properties] autorelease]: nil;
+    query.properties = self.properties ? [[NSMutableArray alloc] initWithArray:self.properties] : nil;
     query.whereClause = self.whereClause.copy;
     query.queryOptions = self.queryOptions.copy;
     query.groupBy = self.groupBy.copy;
