@@ -23,11 +23,21 @@ To create a new project with CocoaPods, follow the instructions below:
 1. Create a new project in Xcode as you would normally, then close the project.
 2. Open a Terminal window, and $ cd into your project directory.
 3. Create a Podfile. This can be done by running `pod init`.
-4. Open your Podfile with a text editor, and add the following
+4. Open your Podfile with a text editor, and add the following for iOS:
 ```
-pod 'Backendless', '~> 4.0'
+pod 'Backendless'
+```
+for macOS:
+```
+pod 'Backendless-osx-SDK'
 ```
 5. Save Podfile, return to Terminal window and run `pod install` and `pod update`. Once all of the pod data is downloaded/updated, Xcode project workspace file will be created. This is the file you must open when working on your app.
 6. Open .xcworkspace file to launch your project.
-7. If you use Swift, it is necessary to add a bridging header file. Navigate to "Build Settings -> Swift Compiler ... -> Objective-C Bridging Header" and add the following:
-`${PODS_ROOT}/Headers/Public/Backendless/Backendless-Bridging-Header.h`
+7. If you use Swift, it is necessary to add a bridging header file. Navigate to "Build Settings -> Swift Compiler ... -> Objective-C Bridging Header" and add the following for iOS:
+```
+${PODS_ROOT}/Headers/Public/Backendless/Backendless-Bridging-Header.h
+```
+for macOS:
+```
+${PODS_ROOT}/Headers/Public/Backendless-osx-SDK/Backendless-Bridging-Header.h
+```

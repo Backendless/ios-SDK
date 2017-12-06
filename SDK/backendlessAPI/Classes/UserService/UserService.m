@@ -56,6 +56,7 @@ static NSString *METHOD_USER_LOGIN_WITH_TWITTER = @"getTwitterServiceAuthorizati
 static NSString *METHOD_USER_LOGIN_WITH_GOOGLEPLUS = @"getGooglePlusServiceAuthorizationUrlLink";
 static NSString *METHOD_USER_LOGIN_WITH_FACEBOOK_SDK = @"loginWithFacebook";
 static NSString *METHOD_USER_LOGIN_WITH_GOOGLEPLUS_SDK = @"loginWithGooglePlus";
+static NSString *METHOD_USER_LOGIN_WITH_TWITTER_SDK = @"loginWithTwitter";
 static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 
 @interface UserService ()
@@ -66,22 +67,12 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 // callbacks
 -(id)registerResponse:(ResponseContext *)response;
 -(id)registerError:(id)error;
--(id)easyLoginResponder:(id)response;
--(id)easyLoginError:(Fault *)fault;
 -(id)onLogin:(id)response;
 -(id)onUpdate:(ResponseContext *)response;
 -(id)onLogout:(id)response;
 -(id)onLogoutError:(Fault *)fault;
 
 @end
-
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-#if _USE_SAFARI_VC_
-@interface UserService (SafariVC) <SFSafariViewControllerDelegate>
--(UIViewController *)getCurrentViewController;
-@end
-#endif
-#endif
 
 @implementation UserService
 
@@ -94,20 +85,11 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.exceptions.security.AuthorizationException" mapped:[AuthorizationException class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.exceptions.user.UserServiceException" mapped:[AuthorizationException class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.model.GeoPoint" mapped:[GeoPoint class]];
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-        self.iOS9above = [[[UIApplication sharedApplication] delegate] respondsToSelector:@selector(application:openURL:options:)];
-#endif
     }
     return self;
 }
 
--(void)dealloc {
-    [DebLog logN:@"DEALLOC UserService"];
-    [self.currentUser release];
-    [super dealloc];
-}
-
--(BackendlessUser *)initWithDictionary:(id)castObject {
+-(BackendlessUser *)castFromDictionary:(id)castObject {
     BackendlessUser *castedUser = nil;
     if ([castObject isKindOfClass:[BackendlessUser class]]) {
         castedUser = (BackendlessUser *)castObject;
@@ -147,7 +129,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
     [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
     NSArray *args = [NSArray arrayWithObjects:props, nil];
-    return [self initWithDictionary:[invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_REGISTER args:args]];
+    return [self castFromDictionary:[invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_REGISTER args:args]];
 }
 
 -(BackendlessUser *)update:(BackendlessUser *)user {
@@ -176,7 +158,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     if (!login || !password || ![login length] || ![password length])
         return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
     NSArray *args = [NSArray arrayWithObjects:login, password, nil];
-    self.currentUser = [self initWithDictionary:[invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_LOGIN args:args]];
+    self.currentUser = [self castFromDictionary:[invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_LOGIN args:args]];
     if (self.currentUser.getUserToken)
         [backendless.headers setValue:self.currentUser.getUserToken forKey:BACKENDLESS_USER_TOKEN];
     else
@@ -252,6 +234,14 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     return [result isKindOfClass:[Fault class]] ? result : [self onLogin:result];
 }
 
+-(BackendlessUser *)loginWithTwitterSDK:(NSString *)authToken authTokenSecret:(NSString *)authTokenSecret fieldsMapping:(id)fieldsMapping {
+    if (!authToken||!authToken.length||!authTokenSecret||!authTokenSecret.length)
+        return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
+    NSArray *args = @[authToken, authTokenSecret, (NSDictionary<NSString *, NSString*> *)fieldsMapping?fieldsMapping:@{}];    
+    id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_TWITTER_SDK args:args];
+    return [result isKindOfClass:[Fault class]] ? result : [self onLogin:result];
+}
+
 -(id)resendEmailConfirmation:(NSString *)email {
     if (!email||!email.length)
         return [backendless throwFault:FAULT_NO_USER_EMAIL];
@@ -271,7 +261,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     NSArray *args = [NSArray arrayWithObjects:props, nil];
     
     void(^wrappedBlock)(NSDictionary *) = ^(NSDictionary *regUserDict) {
-        responseBlock([self initWithDictionary:regUserDict]);
+        responseBlock([self castFromDictionary:regUserDict]);
     };
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_REGISTER args:args responder:[ResponderBlocksContext responderBlocksContext:wrappedBlock error:errorBlock]];
 }
@@ -357,94 +347,23 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_GOOGLEPLUS_SDK args:args responder:_responder];
 }
 
+-(void)loginWithTwitterSDK:(NSString *)authToken authTokenSecret:(NSString *)authTokenSecret fieldsMapping:(id)fieldsMapping response:(void (^)(BackendlessUser *))responseBlock error:(void (^)(Fault *))errorBlock {
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!authToken||!authToken.length||!authTokenSecret||!authTokenSecret.length) {
+        return [responder errorHandler:FAULT_NO_USER_CREDENTIALS];
+    }
+    NSArray *args = @[authToken, authTokenSecret, (NSDictionary<NSString *, NSString*> *)fieldsMapping?fieldsMapping:@{}];
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onLogin:) selErrorHandler:nil];
+    _responder.chained = responder;
+    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_TWITTER_SDK args:args responder:_responder];
+}
+
 -(void)resendEmailConfirmation:(NSString *)email response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!email||!email.length)
         return [responder errorHandler:FAULT_NO_USER_EMAIL];
     NSArray *args = @[email];
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_RESEND_EMAIL_CONFIRMATION args:args responder:responder];
-}
-
-// methods of social easy logins
-// Twitter
--(void)easyLoginWithTwitterFieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping {
-    id<IResponder>responder = nil;
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(easyLoginResponder:) selErrorHandler:@selector(easyLoginError:)];
-    _responder.chained = responder;
-    NSArray *args = @[backendless.applicationType, fieldsMapping?fieldsMapping:@{}];
-    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_TWITTER args:args responder:_responder];
-}
-
--(void)easyLoginWithTwitterFieldsMapping:(NSDictionary<NSString*,NSString*> *)fieldsMapping response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
-    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(easyLoginResponder:) selErrorHandler:@selector(easyLoginError:)];
-    _responder.chained = responder;
-    NSArray *args = @[backendless.applicationType, fieldsMapping?fieldsMapping:@{}];
-    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_TWITTER args:args responder:_responder];
-}
-
-// utilites
-
--(BackendlessUser *)handleOpenURL:(NSURL *)url {
-    [DebLog log:@"UserService -> handleOpenURL: url = '%@'", url];
-    NSString *scheme = [[NSString stringWithFormat:@"backendless%@", backendless.appID] uppercaseString];
-    if (![[url.scheme uppercaseString] isEqualToString:scheme]) {
-        [DebLog logY:@"UserService -> handleOpenURL: SCHEME IS WRONG = %@", url.scheme];
-        return nil;
-    }
-    NSString *absoluteString = [url.absoluteString stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@://", url.scheme] withString:@""];
-    NSString *json = [absoluteString stringByRemovingPercentEncoding];
-    if (!json) {
-        json = [absoluteString stringByReplacingPercentEscapesUsingEncoding:NSISOLatin1StringEncoding];
-    }
-    NSString *substr;
-    NSUInteger index = json?json.length:0;
-    while (index) {
-        substr = [json substringFromIndex:--index];
-        if ([substr isEqualToString:@"}"])
-            break;
-        json = [json substringToIndex:index];
-    };
-    if (!json) {
-        [DebLog logY:@"UserService -> handleOpenURL: JSON IS BROKEN"];
-        return nil;
-    }
-    [DebLog log:@"UserService -> handleOpenURL: JSONObject = '%@'", json];
-    @try {
-        NSError *error = nil;
-        id userData = [NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding: NSUTF8StringEncoding] options:0 error:&error];
-        if (error) {
-            [DebLog logY:@"UserService -> handleOpenURL: ERROR = %@", error];
-            return nil;
-        }
-        [DebLog log:@"UserService -> handleOpenURL: userData = '%@'", userData];
-        return [self onLogin:userData];
-    }
-    @catch (NSException *exception) {
-        [DebLog logY:@"UserService -> handleOpenURL: EXCEPTION = %@", exception];
-        return nil;
-    }
-}
-
--(void)handleOpenURL:(NSURL *)url completion:(void(^)(BackendlessUser *))completion {
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-#if _USE_SAFARI_VC_
-    if (self.iOS9above) {
-        __block BackendlessUser *user = [self handleOpenURL:url];
-        [backendless.safariVC
-         dismissViewControllerAnimated:true
-         completion:^(void) {
-             if (completion) {
-                 completion(user);
-             }
-         }];
-        return;
-    }
-#endif
-#endif
-    if (completion) {
-        completion([self handleOpenURL:url]);
-    }
 }
 
 // persistent user
@@ -495,33 +414,6 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     return user;
 }
 
--(id)easyLoginError:(Fault *)fault {
-    [DebLog log:@"UserService -> easyLoginError: %@", fault.detail];
-    return fault;
-}
-
--(id)easyLoginResponder:(id)response {
-    NSURL *url = [NSURL URLWithString:response];
-    [DebLog log:@"UserService -> easyLoginResponder: '%@' -> '%@'", response, url];
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-#if _USE_SAFARI_VC_
-    if (self.iOS9above) {
-        [DebLog log:@"UserService -> easyLoginResponder: (**************** SAFARI VC *************************)"];
-        backendless.safariVC = [[SFSafariViewController alloc] initWithURL:url];
-        backendless.safariVC.delegate = self;
-        UIViewController *vc = [self getCurrentViewController];
-        [vc showViewController:backendless.safariVC sender:nil];
-    }
-    else {
-        [[UIApplication sharedApplication] openURL:url];
-    }
-#else
-    [[UIApplication sharedApplication] openURL:url];
-#endif
-#endif
-    return @(YES);
-}
-
 -(id)onLogin:(id)response {
     if ([response isKindOfClass:[BackendlessUser class]]) {
         self.currentUser = response;
@@ -568,8 +460,9 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 
 -(id)onLogout:(id)response {
     [DebLog log:@"UserService -> onLogout: %@", response];
-    if (self.currentUser) [self.currentUser release];
-    self.currentUser = nil;
+    if (self.currentUser) {
+        self.currentUser = nil;
+    }
     [backendless.headers removeObjectForKey:BACKENDLESS_USER_TOKEN];
     [self resetPersistentUser];
     return response;
@@ -594,38 +487,3 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 }
 
 @end
-
-
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-#if _USE_SAFARI_VC_
-@implementation UserService (SafariVC)
-
--(UIViewController *)getCurrentViewController {
-    UIViewController *WindowRootVC = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
-    UIViewController *currentViewController = [self findTopViewController:WindowRootVC];
-    return currentViewController;
-}
-
--(UIViewController *)findTopViewController:(UIViewController *)inController {
-    if ([inController isKindOfClass:[UITabBarController class]]) {
-        return [self findTopViewController:[(UITabBarController *)inController selectedViewController]];
-    }
-    else if ([inController isKindOfClass:[UINavigationController class]]) {
-        return [self findTopViewController:[(UINavigationController *)inController visibleViewController]];
-    }
-    else if ([inController isKindOfClass:[UIViewController class]]) {
-        return inController;
-    }
-    else {
-        [DebLog log:@"UserService -> findTopViewController: Unhandled ViewController class : %@", inController.class];
-        return nil;
-    }
-}
-
--(void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
-    [controller dismissViewControllerAnimated:true completion: nil];
-}
-
-@end
-#endif
-#endif

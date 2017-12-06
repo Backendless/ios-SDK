@@ -1,5 +1,16 @@
 # RELEASE HISTORY
 
+## 4.0.19 November 28, 2017
+* Removed easy Twitter login methods. Please use TwitterKit instead
+* Removed the BEReachability class, MediaService and Safari references
+* Build for iOS and macOS
+
+## 4.0.18 November 13, 2017
+* The loginWithTwitterSDK sync and async methods added to the UserService class
+
+## 4.0.17 November 8, 2017
+* Fixed the logout bug when "Users" table is mapped to the BackendlessUser class
+
 ## 4.0.16 October 6, 2017
 * The deviceRegistration (sync/async) methods bug with the default channel fixed
 * The BackendlessPushHelper class created to process mutable content
