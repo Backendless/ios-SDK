@@ -1,5 +1,8 @@
 # RELEASE HISTORY
 
+## 4.0.20 December 6, 2017
+* The updateBulk and removeBulk methods implementation added
+
 ## 4.0.19 November 28, 2017
 * Removed easy Twitter login methods. Please use TwitterKit instead
 * Removed the BEReachability class, MediaService and Safari references
