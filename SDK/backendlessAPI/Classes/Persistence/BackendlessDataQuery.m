@@ -36,35 +36,31 @@
         self.properties = nil;
         self.whereClause = nil;
         self.queryOptions = [QueryOptions query];
-	}
+        self.groupBy = nil;
+        self.havingClause = nil;
+    }
 	return self;
 }
 
--(instancetype)init:(NSArray *)properties where:(NSString *)whereClause query:(QueryOptions *)queryOptions {
+-(instancetype)init:(NSArray *)properties where:(NSString *)whereClause query:(QueryOptions *)queryOptions groupBy:(NSArray<NSString *> *)groupBy havingClause:(NSString *)havingClause {
     if (self = [super init]) {
         pageSize = DEFAULT_PAGE_SIZE;
         offset = DEFAULT_OFFSET;
-        self.properties = properties?[[[NSMutableArray alloc] initWithArray:properties] autorelease]:nil;
-        self.whereClause = [whereClause autorelease];
-        self.queryOptions = [queryOptions autorelease];
+        self.properties = properties ? [[NSMutableArray alloc] initWithArray:properties] : nil;
+        self.whereClause = whereClause;
+        self.queryOptions = queryOptions;
+        self.groupBy = groupBy ? [[NSMutableArray alloc] initWithArray:groupBy] : nil;
+        self.havingClause = havingClause;
 	}
 	return self;
 }
 
 +(instancetype)query {
-    return [[BackendlessDataQuery new] autorelease];
+    return [BackendlessDataQuery new];
 }
 
-+(instancetype)query:(NSArray *)properties where:(NSString *)whereClause query:(QueryOptions *)queryOptions {
-    return [[[BackendlessDataQuery alloc] init:properties where:whereClause query:queryOptions] autorelease];
-}
-
--(void)dealloc {
-	[DebLog logN:@"DEALLOC BackendlessDataQuery: %@", self];
-    [self.properties release];
-    [self.whereClause release];
-    [self.queryOptions release];
-    [super dealloc];
++(instancetype)query:(NSArray *)properties where:(NSString *)whereClause query:(QueryOptions *)queryOptions groupBy:(NSArray<NSString *> *)groupBy havingClause:(NSString *)havingClause {
+    return [[BackendlessDataQuery alloc] init:properties where:whereClause query:queryOptions groupBy:groupBy havingClause:havingClause];
 }
 
 #pragma mark -
@@ -94,7 +90,7 @@
         return NO;
     }
     if (!self.properties) {
-        self.properties = [[NSMutableArray new] autorelease];
+        self.properties = [NSMutableArray new];
     }
     [self.properties addObject:property];
     return YES;
@@ -119,9 +115,11 @@
     BackendlessDataQuery *query = [BackendlessDataQuery query];
     query.pageSize = self.pageSize.copy;
     query.offset = self.offset.copy;
-    query.properties = self.properties ? [[[NSMutableArray alloc] initWithArray:self.properties] autorelease]: nil;
+    query.properties = self.properties ? [[NSMutableArray alloc] initWithArray:self.properties] : nil;
     query.whereClause = self.whereClause.copy;
     query.queryOptions = self.queryOptions.copy;
+    query.groupBy = self.groupBy.copy;
+    query.havingClause = self.havingClause.copy;
     return query;
 }
 

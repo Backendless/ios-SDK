@@ -15,6 +15,8 @@
     QueryOptionsBuilder *_queryOptionsBuilder;
     NSMutableArray<NSString *> *_properties;
     NSString *_whereClause;
+    NSMutableArray<NSString *> *_groupBy;
+    NSString *_havingClause;
 }
 @end
 
@@ -26,18 +28,10 @@
         _queryOptionsBuilder = [[QueryOptionsBuilder alloc] init:self];
         _properties = [NSMutableArray<NSString *> new];
         _whereClause = nil;
+        _groupBy = [NSMutableArray<NSString *> new];
+        _havingClause = nil;
     }
     return self;
-}
-
--(void)dealloc {
-    [DebLog logN:@"DEALLOC DataQueryBuilder"];
-    [_pagedQueryBuilder release];
-    [_queryOptionsBuilder release];
-    [_properties removeAllObjects];
-    [_properties release];
-    [_whereClause release];
-    [super dealloc];
 }
 
 #pragma mark -
@@ -47,8 +41,10 @@
     BackendlessDataQuery *dataQuery = [BackendlessDataQuery new];
     dataQuery = [_pagedQueryBuilder build];
     dataQuery.queryOptions = [_queryOptionsBuilder build];
-    dataQuery.properties = _properties ? [[[NSMutableArray alloc] initWithArray:_properties] autorelease]: nil;
+    dataQuery.properties = _properties ? [[NSMutableArray alloc] initWithArray:_properties] : nil;
     dataQuery.whereClause = _whereClause.copy;
+    dataQuery.groupBy = _groupBy ? [[NSMutableArray alloc] initWithArray:_groupBy] : nil;
+    dataQuery.havingClause = _havingClause.copy;
     return dataQuery;
 }
 
@@ -83,7 +79,9 @@
 }
 
 -(instancetype)setProperties:(NSArray<NSString*> *)properties {
-    _properties = properties ? [[NSMutableArray alloc] initWithArray:properties]: nil;
+    if (properties) {
+        _properties = [[NSMutableArray alloc] initWithArray:properties];
+    }
     return self;
 }
 
@@ -106,7 +104,7 @@
 }
 
 -(instancetype)setWhereClause:(NSString *)whereClause {
-    _whereClause = [whereClause retain];
+    _whereClause = whereClause;
     return self;
 }
 
@@ -115,17 +113,23 @@
 }
 
 -(instancetype)setSortBy:(NSArray<NSString *> *)sortBy {
-    [_queryOptionsBuilder setSortBy:sortBy];
+    if (sortBy) {
+        [_queryOptionsBuilder setSortBy:sortBy];
+    }
     return self;
 }
 
 -(instancetype)addSortBy:(NSString *)sortBy {
-    [_queryOptionsBuilder addSortBy:sortBy];
+    if (sortBy) {
+        [_queryOptionsBuilder addSortBy:sortBy];
+    }
     return self;
 }
 
 -(instancetype)addListSortBy:(NSArray<NSString *> *)sortBy {
-    [_queryOptionsBuilder addListSortBy:sortBy];
+    if (sortBy) {
+        [_queryOptionsBuilder addListSortBy:sortBy];
+    }
     return self;
 }
 
@@ -134,17 +138,23 @@
 }
 
 -(instancetype)setRelated:(NSArray<NSString *> *)related {
-    [_queryOptionsBuilder setRelated:related];
+    if (related) {
+        [_queryOptionsBuilder setRelated:related];
+    }
     return self;
 }
 
 -(instancetype)addRelated:(NSString *)related {
-    [_queryOptionsBuilder addRelated:related];
+    if (related) {
+        [_queryOptionsBuilder addRelated:related];
+    }
     return self;
 }
 
 -(instancetype)addListRelated:(NSArray<NSString *> *)related {
-    [_queryOptionsBuilder addListRelated:related];
+    if (related) {
+        [_queryOptionsBuilder addListRelated:related];
+    }
     return self;
 }
 
@@ -154,6 +164,34 @@
 
 -(instancetype)setRelationsDepth:(int)relationsDepth {
     [_queryOptionsBuilder setRelationsDepth:relationsDepth];
+    return self;
+}
+
+-(instancetype)setGroupByProperties:(NSArray<NSString*> *)groupBy {
+    if (groupBy) {
+        _groupBy = [[NSMutableArray alloc] initWithArray:groupBy];
+    }
+    return self;
+}
+
+-(instancetype)addGroupByProperty:(NSString *)groupBy {
+    if (groupBy) {
+        [_groupBy addObject:groupBy];
+    }
+    return self;
+}
+
+-(instancetype)addGroupByProperies:(NSArray<NSString *> *)groupBy {
+    if (groupBy) {
+        [_groupBy addObjectsFromArray:groupBy];
+    }
+    return self;
+}
+
+-(instancetype)setHavingClause:(NSString *)havingClause {
+    if (havingClause) {
+        _havingClause = havingClause;
+    }
     return self;
 }
 

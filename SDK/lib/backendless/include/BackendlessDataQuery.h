@@ -37,10 +37,12 @@
 @property (strong, nonatomic) NSString *whereClause;
 @property (strong, nonatomic) QueryOptions *queryOptions;
 @property (strong, nonatomic) BackendlessCachePolicy *cachePolicy;
+@property (strong, nonatomic) NSArray<NSString *> *groupBy;
+@property (strong, nonatomic) NSString *havingClause;
 
--(instancetype)init:(NSArray *)properties where:(NSString *)whereClause query:(QueryOptions *)queryOptions;
+-(instancetype)init:(NSArray *)properties where:(NSString *)whereClause query:(QueryOptions *)queryOptions groupBy:(NSArray<NSString *> *)groupBy havingClause:(NSString *)havingClause;
 +(instancetype)query;
-+(instancetype)query:(NSArray *)properties where:(NSString *)whereClause query:(QueryOptions *)queryOptions;
++(instancetype)query:(NSArray *)properties where:(NSString *)whereClause query:(QueryOptions *)queryOptions groupBy:(NSArray<NSString *> *)groupBy havingClause:(NSString *)havingClause;
 
 -(BOOL)addProperty:(NSString *)property;
 -(void)prepareForNextPage;
