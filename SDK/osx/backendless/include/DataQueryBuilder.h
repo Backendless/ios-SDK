@@ -40,5 +40,9 @@
 -(instancetype)addListRelated:(NSArray<NSString *> *)related;
 -(NSNumber *)getRelationsDepth;
 -(instancetype)setRelationsDepth:(int)relationsDepth;
+-(instancetype)setGroupByProperties:(NSArray<NSString*> *)groupBy;
+-(instancetype)addGroupByProperty:(NSString *)groupBy;
+-(instancetype)addGroupByProperies:(NSArray<NSString *> *)groupBy;
+-(instancetype)setHavingClause:(NSString *)havingClause;
 
 @end
