@@ -1,5 +1,9 @@
 # RELEASE HISTORY
 
+## 4.0.20 December 7, 2017
+* The updateBulk and removeBulk methods added to the IDataStore
+* Aggregate functions added
+
 ## 4.0.19 November 28, 2017
 * Removed easy Twitter login methods. Please use TwitterKit instead
 * Removed the BEReachability class, MediaService and Safari references
