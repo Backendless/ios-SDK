@@ -63,7 +63,7 @@
     
     onStop = ^(RTSubscription *subscription) {
         NSMutableArray *subscriptionStack = [NSMutableArray arrayWithArray:[weakSubscriptions valueForKey:subscription.type]] ? [NSMutableArray arrayWithArray:[weakSubscriptions valueForKey:type]] : [NSMutableArray new];
-        [subscriptionStack removeObject:subscription];
+        [subscriptionStack removeObject:subscription];        
     };
     
     onReady = ^{
@@ -101,6 +101,7 @@
 }
 
 -(void)stopSubscription:(NSString *)event whereClause:(NSString *)whereClause onResult:(void(^)(id))onResult {
+    
     NSMutableArray *subscriptionStack = [NSMutableArray arrayWithArray:[subscriptions valueForKey:event]];
     if (event && subscriptionStack) {
         if (whereClause && onResult) {

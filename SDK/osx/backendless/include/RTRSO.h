@@ -56,7 +56,6 @@
 -(void)addInvokeListener:(void(^)(InvokeObject *))onInvoke;
 -(void)removeInvokeListener:(void(^)(InvokeObject *))onInvoke;
 
-// commands
 -(void)get:(NSString *)key onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
 -(void)set:(NSString *)key data:(id)data onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
 -(void)clear:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;

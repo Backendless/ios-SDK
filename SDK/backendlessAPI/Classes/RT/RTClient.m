@@ -73,10 +73,10 @@
             NSURL *url = [[NSURL alloc] initWithString:[RTHelper lookup]];
             NSString *userToken = [backendless.userService.currentUser getUserToken];
             if (userToken) {
-                socketManager = [[SocketManager alloc] initWithSocketURL:url config:@{@"path": path, @"connectParams":@{@"token":@"some-token", @"userToken":userToken}}];
+                socketManager = [[SocketManager alloc] initWithSocketURL:url config:@{@"path": path, @"connectParams":@{@"userToken":userToken}}];
             }
             else {
-                socketManager = [[SocketManager alloc] initWithSocketURL:url config:@{@"path": path, @"connectParams":@{@"token":@"some-token"}}];
+                socketManager = [[SocketManager alloc] initWithSocketURL:url config:@{@"path": path}];
             }
             socket = [socketManager socketForNamespace:path];
             if (socket) {
@@ -111,6 +111,15 @@
 -(void)unsubscribe:(NSString *)subscriptionId {
     [socket emit:@"SUB_OFF" with:[NSArray arrayWithObject:@{@"id":subscriptionId}]];
     [subscriptions removeObjectForKey:subscriptionId];
+    if ([subscriptions count] == 0 && socket && socketManager) {
+        [socketManager removeSocket:socket];
+        socket = nil;
+        socketCreated = NO;
+        socketConnected = NO;
+        needResubscribe = NO;
+        onConnectionHandlersReady = NO;
+        socketManager = nil;
+    }
 }
 
 -(void)sendCommand:(id)data method:(RTMethodRequest *)method {
@@ -200,7 +209,7 @@
             }
             if (subscription && subscription.onStop) {
                 subscription.onStop(subscription);
-                [subscriptions removeObjectForKey:subscriptionId];
+                [self unsubscribe:subscriptionId];
             }
         }
     }];
@@ -242,7 +251,7 @@
         NSString *methodId = [[NSUUID UUID] UUIDString];
         NSDictionary *options = @{@"userToken"  : userToken};
         NSDictionary *data = @{@"id"        : methodId,
-                               @"name"      : SET_USER,
+                               @"name"      : SET_USER_TOKEN,
                                @"options"   : options};
         [self sendCommand:data method:nil];
     }
