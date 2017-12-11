@@ -43,7 +43,7 @@ static NSString *API_KEY_HEADER_KEY = @"API-key";
 @synthesize userService = _userService, persistenceService = _persistenceService, messagingService = _messagingService;
 @synthesize geoService = _geoService, fileService = _fileService;
 @synthesize customService = _customService, events = _events, cache = _cache, counters = _counters, logging = _logging;
-@synthesize data = _data, geo = _geo, messaging = _messaging, file = _file;
+@synthesize data = _data, geo = _geo, messaging = _messaging, file = _file, rt = _rt;
 
 // Singleton accessor:  this is how you should ALWAYS get a reference to the class instance.  Never init your own.
 +(Backendless *)sharedInstance {
@@ -82,6 +82,7 @@ static NSString *API_KEY_HEADER_KEY = @"API-key";
     [_cache release];
     [_counters release];
     [_logging release];
+    [_rt release];
     [super dealloc];
 }
 
@@ -193,6 +194,13 @@ static NSString *API_KEY_HEADER_KEY = @"API-key";
         _logging = [Logging new];
     }
     return _logging;
+}
+
+-(RTService *)rt {
+    if (!_rt) {
+        _rt = [RTService new];
+    }
+    return _rt;
 }
 
 #pragma mark -

@@ -1468,6 +1468,26 @@
 		5A4A3A9F1FC570DB00C0ADBA /* RTMethodRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A9FC9AB1FC4788700B192D9 /* RTMethodRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A4A3B961FC5790B00C0ADBA /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9A91FC4786900B192D9 /* Channel.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A4A3B971FC5791700C0ADBA /* Channel.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A9FC9A81FC4786800B192D9 /* Channel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A4F7FBC1FDEB770006D5744 /* RTService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A4F7FBA1FDEB770006D5744 /* RTService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A4F7FBD1FDEB770006D5744 /* RTService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A4F7FBA1FDEB770006D5744 /* RTService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A4F7FBE1FDEB770006D5744 /* RTService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A4F7FBA1FDEB770006D5744 /* RTService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A4F7FBF1FDEB770006D5744 /* RTService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A4F7FBA1FDEB770006D5744 /* RTService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A4F7FC01FDEB770006D5744 /* RTService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A4F7FBA1FDEB770006D5744 /* RTService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A4F7FC11FDEB770006D5744 /* RTService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A4F7FBB1FDEB770006D5744 /* RTService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A4F7FC21FDEB770006D5744 /* RTService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A4F7FBB1FDEB770006D5744 /* RTService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A4F7FC31FDEB770006D5744 /* RTService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A4F7FBB1FDEB770006D5744 /* RTService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A4F7FC41FDEB770006D5744 /* RTService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A4F7FBB1FDEB770006D5744 /* RTService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A4F7FC51FDEB770006D5744 /* RTService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A4F7FBB1FDEB770006D5744 /* RTService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A4F7FC81FDEB8A4006D5744 /* RTPersistence.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A4F7FC61FDEB8A4006D5744 /* RTPersistence.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A4F7FC91FDEB8A4006D5744 /* RTPersistence.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A4F7FC61FDEB8A4006D5744 /* RTPersistence.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A4F7FCA1FDEB8A4006D5744 /* RTPersistence.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A4F7FC61FDEB8A4006D5744 /* RTPersistence.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A4F7FCB1FDEB8A5006D5744 /* RTPersistence.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A4F7FC61FDEB8A4006D5744 /* RTPersistence.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A4F7FCC1FDEB8A5006D5744 /* RTPersistence.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A4F7FC61FDEB8A4006D5744 /* RTPersistence.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A4F7FCD1FDEB8A5006D5744 /* RTPersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A4F7FC71FDEB8A4006D5744 /* RTPersistence.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A4F7FCE1FDEB8A5006D5744 /* RTPersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A4F7FC71FDEB8A4006D5744 /* RTPersistence.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A4F7FCF1FDEB8A5006D5744 /* RTPersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A4F7FC71FDEB8A4006D5744 /* RTPersistence.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A4F7FD01FDEB8A5006D5744 /* RTPersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A4F7FC71FDEB8A4006D5744 /* RTPersistence.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A4F7FD11FDEB8A5006D5744 /* RTPersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A4F7FC71FDEB8A4006D5744 /* RTPersistence.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A507A751F3B41D80027ABAC /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A507A741F3B41D80027ABAC /* UserNotifications.framework */; };
 		5A507A761F3B42D80027ABAC /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A507A741F3B41D80027ABAC /* UserNotifications.framework */; };
 		5A507A771F3B42E10027ABAC /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A507A741F3B41D80027ABAC /* UserNotifications.framework */; };
@@ -2541,6 +2561,10 @@
 		27B7837BDF6EA8880A461F02 /* Pods-backendless-mac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-mac.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-mac/Pods-backendless-mac.debug.xcconfig"; sourceTree = "<group>"; };
 		346409409194FCF429A34565 /* Pods-bkndlss-simulator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bkndlss-simulator.release.xcconfig"; path = "../Pods/Target Support Files/Pods-bkndlss-simulator/Pods-bkndlss-simulator.release.xcconfig"; sourceTree = "<group>"; };
 		530D9B0CCB96D17BE03B174A /* Pods-backendless-device.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-device.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-device/Pods-backendless-device.debug.xcconfig"; sourceTree = "<group>"; };
+		5A4F7FBA1FDEB770006D5744 /* RTService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTService.h; sourceTree = "<group>"; };
+		5A4F7FBB1FDEB770006D5744 /* RTService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RTService.m; sourceTree = "<group>"; };
+		5A4F7FC61FDEB8A4006D5744 /* RTPersistence.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTPersistence.h; sourceTree = "<group>"; };
+		5A4F7FC71FDEB8A4006D5744 /* RTPersistence.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RTPersistence.m; sourceTree = "<group>"; };
 		5A507A741F3B41D80027ABAC /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		5A5F384F1FB317EB002F21D4 /* RTListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTListener.m; sourceTree = "<group>"; };
 		5A5F38501FB317EB002F21D4 /* RTMessaging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTMessaging.m; sourceTree = "<group>"; };
@@ -2689,7 +2713,7 @@
 		F97969E0166CC8C300595F5E /* backendless-simulator-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "backendless-simulator-Prefix.pch"; sourceTree = "<group>"; };
 		F97969E1166CC8C300595F5E /* backendless_simulator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = backendless_simulator.h; sourceTree = "<group>"; };
 		F97969E3166CC8C300595F5E /* backendless_simulator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = backendless_simulator.m; sourceTree = "<group>"; };
-		F9796A28166CD3A400595F5E /* libbackendless-device.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libbackendless-device.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9796A28166CD3A400595F5E /* libbackendless-device.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libbackendless-device.a"; path = "liblibbackendless-device.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9796A2C166CD3A400595F5E /* backendless-device-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "backendless-device-Prefix.pch"; sourceTree = "<group>"; };
 		F9796A2D166CD3A400595F5E /* backendless_device.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = backendless_device.h; sourceTree = "<group>"; };
 		F9796A2F166CD3A400595F5E /* backendless_device.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = backendless_device.m; sourceTree = "<group>"; };
@@ -3296,6 +3320,8 @@
 		5A872F1A1FC7103700A6CCB3 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				5A4F7FC61FDEB8A4006D5744 /* RTPersistence.h */,
+				5A4F7FC71FDEB8A4006D5744 /* RTPersistence.m */,
 				5A8A15801FA0D3C3009A1394 /* RTDataStore.h */,
 				5A8A15811FA0D3C3009A1394 /* RTDataStore.m */,
 				5AF260501FD6B06F00306C3C /* BulkResultObject.h */,
@@ -3334,8 +3360,8 @@
 				5A872F1C1FC7105100A6CCB3 /* RSO */,
 				5A872F1B1FC7103D00A6CCB3 /* Messaging */,
 				5A872F1A1FC7103700A6CCB3 /* Data */,
-				5A9FC9AC1FC4788700B192D9 /* CommandObject.h */,
-				5A9FC9AD1FC4788700B192D9 /* CommandObject.m */,
+				5A4F7FBA1FDEB770006D5744 /* RTService.h */,
+				5A4F7FBB1FDEB770006D5744 /* RTService.m */,
 				5A8A155C1FA0CB22009A1394 /* RTClient.h */,
 				5A8A155D1FA0CB22009A1394 /* RTClient.m */,
 				5A5F38531FB317EB002F21D4 /* RTListener.h */,
@@ -3350,6 +3376,8 @@
 				5AEED9CA1FC5B90800CB7D9F /* UserStatusObject.m */,
 				5AB3C1881FC5C2FB00728003 /* UserStatusObjectData.h */,
 				5AB3C1891FC5C2FB00728003 /* UserStatusObjectData.m */,
+				5A9FC9AC1FC4788700B192D9 /* CommandObject.h */,
+				5A9FC9AD1FC4788700B192D9 /* CommandObject.m */,
 				5AF988BE1FCEA96E00ED908F /* JSONHelper.h */,
 				5AF988BF1FCEA96E00ED908F /* JSONHelper.m */,
 				5A66A0711FD6CD1E002202BE /* RTHelper.h */,
@@ -3802,6 +3830,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A4F7FC81FDEB8A4006D5744 /* RTPersistence.h in Headers */,
+				5A4F7FBC1FDEB770006D5744 /* RTService.h in Headers */,
 				5A66A0731FD6CD1E002202BE /* RTHelper.h in Headers */,
 				5AF260521FD6B06F00306C3C /* BulkResultObject.h in Headers */,
 				5A8A155E1FA0CB22009A1394 /* RTClient.h in Headers */,
@@ -4051,6 +4081,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A4F7FC91FDEB8A4006D5744 /* RTPersistence.h in Headers */,
+				5A4F7FBD1FDEB770006D5744 /* RTService.h in Headers */,
 				5A66A0741FD6CD1E002202BE /* RTHelper.h in Headers */,
 				5AF260531FD6B06F00306C3C /* BulkResultObject.h in Headers */,
 				5A8A15831FA0D3C3009A1394 /* RTDataStore.h in Headers */,
@@ -4303,6 +4335,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A4F7FCA1FDEB8A4006D5744 /* RTPersistence.h in Headers */,
+				5A4F7FBE1FDEB770006D5744 /* RTService.h in Headers */,
 				5A66A0751FD6CD1E002202BE /* RTHelper.h in Headers */,
 				5AF260541FD6B06F00306C3C /* BulkResultObject.h in Headers */,
 				5A872EFA1FC6FED300A6CCB3 /* RSOChangesObject.h in Headers */,
@@ -4555,6 +4589,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A4F7FCB1FDEB8A5006D5744 /* RTPersistence.h in Headers */,
+				5A4F7FBF1FDEB770006D5744 /* RTService.h in Headers */,
 				5ABF77691FB4ACF1006299F7 /* RTClient.h in Headers */,
 				5A66A0761FD6CD1E002202BE /* RTHelper.h in Headers */,
 				5AF260551FD6B06F00306C3C /* BulkResultObject.h in Headers */,
@@ -4807,6 +4843,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A4F7FCC1FDEB8A5006D5744 /* RTPersistence.h in Headers */,
+				5A4F7FC01FDEB770006D5744 /* RTService.h in Headers */,
 				5A66A0771FD6CD1E002202BE /* RTHelper.h in Headers */,
 				5AF260561FD6B06F00306C3C /* BulkResultObject.h in Headers */,
 				5A872EF01FC6F82000A6CCB3 /* RTRSO.h in Headers */,
@@ -5066,7 +5104,7 @@
 				1C7BB48F1A2E092900D3C2C1 /* Sources */,
 				1C7BB4C11A2E092900D3C2C1 /* Frameworks */,
 				1C7BB4C21A2E092900D3C2C1 /* Headers */,
-				1C7BB5161A319F4200D3C2C1 /* ShellScript */,
+				1C7BB5161A319F4200D3C2C1 /* Run Script */,
 				8B7061160B034D707DC33B96 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -5207,13 +5245,14 @@
 			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-backendless-device/Pods-backendless-device-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		1C7BB5161A319F4200D3C2C1 /* ShellScript */ = {
+		1C7BB5161A319F4200D3C2C1 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5622,6 +5661,7 @@
 				0F9ACB241E798C5E0087869F /* V3ArrayReader.m in Sources */,
 				0F9AC9121E798C5C0087869F /* RTMProtocol.m in Sources */,
 				0F9ACBA61E798C5E0087869F /* MemoryTicker.m in Sources */,
+				5A4F7FCD1FDEB8A5006D5744 /* RTPersistence.m in Sources */,
 				F9D523501B25CEF800F6A441 /* ClassCastException.m in Sources */,
 				0F9ACA4D1E798C5D0087869F /* ByteArrayType.m in Sources */,
 				0F9ACD401E798C600087869F /* StringWriter.m in Sources */,
@@ -5634,6 +5674,7 @@
 				1C7BB4BB1A2E092900D3C2C1 /* BackendlessCache.m in Sources */,
 				0F9ACD221E798C600087869F /* PropertyBagWriter.m in Sources */,
 				0F9ACC1E1E798C5F0087869F /* ErrMessage.m in Sources */,
+				5A4F7FC11FDEB770006D5744 /* RTService.m in Sources */,
 				1C7BB4BC1A2E092900D3C2C1 /* BackendlessCacheData.m in Sources */,
 				1C7BB4BD1A2E092900D3C2C1 /* BackendlessCacheKey.m in Sources */,
 				0F9AC8221E798C5C0087869F /* HttpEngine.m in Sources */,
@@ -5666,6 +5707,7 @@
 				5A096D731FD1AE12009BF89E /* UserStatusObject.m in Sources */,
 				5A096D721FD1AE06009BF89E /* RTSubscription.m in Sources */,
 				5A096D711FD1ADFC009BF89E /* RTMethodRequest.m in Sources */,
+				5A4F7FCE1FDEB8A5006D5744 /* RTPersistence.m in Sources */,
 				5A096D701FD1ADF3009BF89E /* RTMethod.m in Sources */,
 				5A096D6F1FD1ADE6009BF89E /* RTListener.m in Sources */,
 				5A83936E1FD1ADC800FB5697 /* CommandObject.m in Sources */,
@@ -5853,6 +5895,7 @@
 				0F9ACB391E798C5E0087869F /* V3DateReader.m in Sources */,
 				0F9ACA851E798C5D0087869F /* LongUTFStringReader.m in Sources */,
 				0F9ACAD51E798C5E0087869F /* ParseContext.m in Sources */,
+				5A4F7FC21FDEB770006D5744 /* RTService.m in Sources */,
 				D3EA53051A3077C1009C5FE0 /* FilePermission.m in Sources */,
 				0F9AC9A91E798C5D0087869F /* Call.m in Sources */,
 				0F9AC8A01E798C5C0087869F /* WebORBDeserializer.m in Sources */,
@@ -5874,6 +5917,7 @@
 				5A83936A1FD1AB3500FB5697 /* UserStatusObject.m in Sources */,
 				5A8393691FD1AB2F00FB5697 /* RTSubscription.m in Sources */,
 				5A8393681FD1AB2A00FB5697 /* RTMethodRequest.m in Sources */,
+				5A4F7FCF1FDEB8A5006D5744 /* RTPersistence.m in Sources */,
 				5A8393671FD1AB2600FB5697 /* RTMethod.m in Sources */,
 				5A8393661FD1AAF200FB5697 /* Channel.m in Sources */,
 				5A83935D1FD1AAA600FB5697 /* RTListener.m in Sources */,
@@ -6061,6 +6105,7 @@
 				0F9ACB3A1E798C5E0087869F /* V3DateReader.m in Sources */,
 				0F9ACA861E798C5D0087869F /* LongUTFStringReader.m in Sources */,
 				0F9ACAD61E798C5E0087869F /* ParseContext.m in Sources */,
+				5A4F7FC31FDEB770006D5744 /* RTService.m in Sources */,
 				D3EA53061A3077C1009C5FE0 /* FilePermission.m in Sources */,
 				0F9AC9AA1E798C5D0087869F /* Call.m in Sources */,
 				0F9AC8A11E798C5C0087869F /* WebORBDeserializer.m in Sources */,
@@ -6082,6 +6127,7 @@
 				5AA8FF1B1FCD945700F36C6D /* UserService.m in Sources */,
 				5A3917D71FC5BDFF0084D24D /* CommandObject.m in Sources */,
 				5A4A3B961FC5790B00C0ADBA /* Channel.m in Sources */,
+				5A4F7FD01FDEB8A5006D5744 /* RTPersistence.m in Sources */,
 				5A4A3A9D1FC570D000C0ADBA /* RTMethodRequest.m in Sources */,
 				5A4A3A9C1FC570CB00C0ADBA /* RTMethod.m in Sources */,
 				5ABF776D1FB4AD46006299F7 /* RTSubscription.m in Sources */,
@@ -6269,6 +6315,7 @@
 				0F9ACC851E798C5F0087869F /* ArrayReferenceWriter.m in Sources */,
 				0F9ACC7B1E798C5F0087869F /* AMFMessageWriter.m in Sources */,
 				F9F0AEC91CDBCA3900035C62 /* BackendlessCachePolicy.m in Sources */,
+				5A4F7FC41FDEB770006D5744 /* RTService.m in Sources */,
 				0F9ACA321E798C5D0087869F /* BooleanReader.m in Sources */,
 				0F9AC9881E798C5D0087869F /* Packet.m in Sources */,
 				F96B1C821DD4BF5F00A4B362 /* DataQueryBuilder.m in Sources */,
@@ -6290,6 +6337,7 @@
 				5A8393561FD1A88500FB5697 /* UserStatusObjectData.m in Sources */,
 				5A8393551FD1A88100FB5697 /* UserStatusObject.m in Sources */,
 				5A8393511FD1A84B00FB5697 /* RTSubscription.m in Sources */,
+				5A4F7FD11FDEB8A5006D5744 /* RTPersistence.m in Sources */,
 				5A83934F1FD1A82600FB5697 /* RTMethodRequest.m in Sources */,
 				5A83934D1FD1A80800FB5697 /* RTMethod.m in Sources */,
 				5A83934B1FD1A7E400FB5697 /* RTListener.m in Sources */,
@@ -6477,6 +6525,7 @@
 				0F9ACC7C1E798C5F0087869F /* AMFMessageWriter.m in Sources */,
 				F9F0AF831CDBCAB500035C62 /* BackendlessCachePolicy.m in Sources */,
 				0F9ACA331E798C5D0087869F /* BooleanReader.m in Sources */,
+				5A4F7FC51FDEB770006D5744 /* RTService.m in Sources */,
 				0F9AC9891E798C5D0087869F /* Packet.m in Sources */,
 				F96B1C831DD4BF5F00A4B362 /* DataQueryBuilder.m in Sources */,
 				0F9ACACE1E798C5E0087869F /* NumberReader.m in Sources */,

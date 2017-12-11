@@ -46,11 +46,24 @@
 -(id)setObject:(id)object valuesFromDictionary:(NSDictionary *)dictionary {
     [self prepareClass:[object class]];
     for (NSString *fieldName in dictionary) {
-        if (![fieldName isEqualToString:@"___jsonclass"] && ![fieldName isEqualToString:@"__meta"] && ![fieldName isEqualToString:@"___class"]) {
+        if (![fieldName isEqualToString:@"___jsonclass"] && ![fieldName isEqualToString:@"__meta"] && ![fieldName isEqualToString:@"___class"] && [[self propertiesNamesOf:[object class]] containsObject:fieldName]) {
             [object setValue:[dictionary objectForKey:fieldName] forKey:fieldName];
         }
     }
     return object;
+}
+
+- (NSArray *)propertiesNamesOf:(Class)objectType {
+    unsigned count;
+    objc_property_t *properties = class_copyPropertyList([objectType class], &count);
+    NSMutableArray *propertiesNames = [NSMutableArray array];
+    for (int i = 0; i < count; i++) {
+        objc_property_t property = properties[i];
+        NSString *name = [NSString stringWithUTF8String:property_getName(property)];
+        [propertiesNames addObject:name];
+    }
+    free(properties);
+    return propertiesNames;
 }
 
 -(void)prepareClass:(Class)class {

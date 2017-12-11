@@ -32,7 +32,7 @@
 
 // Channel and RSO methods
 -(Channel *)subscribe:(NSString *)channelName;
--(RemoteSharedObject *)rso:(NSString *)rsoName;
+-(RemoteSharedObject *)sharedObject:(NSString *)sharedObjectName;
 
 // sync methods with fault return (as exception)
 -(NSString *)registerDevice:(NSData *)deviceToken;

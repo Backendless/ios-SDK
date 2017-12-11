@@ -72,6 +72,7 @@
 #import "Presence.h"
 #import "MapDrivenDataStore.h"
 #import "RemoteSharedObject.h"
+#import "RTService.h"
 
 //Cache
 #import "BackendlessCachePolicy.h"
@@ -108,6 +109,7 @@
 @property (strong, nonatomic, readonly) CacheService *cache;
 @property (strong, nonatomic, readonly) AtomicCounters *counters;
 @property (strong, nonatomic, readonly) Logging *logging;
+@property (strong, nonatomic, readonly) RTService *rt;
 // service shortcuts
 @property (assign, nonatomic, readonly) PersistenceService *data;
 @property (assign, nonatomic, readonly) GeoService *geo;
