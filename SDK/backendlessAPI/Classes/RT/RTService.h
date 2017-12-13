@@ -21,9 +21,11 @@
 
 #import <Foundation/Foundation.h>
 #import "RTPersistence.h"
+#import "RemoteSharedObject.h"
 
 @interface RTService : NSObject
 
 @property (strong, nonatomic, readonly) RTPersistence *data;
+@property (strong, nonatomic, readonly) RemoteSharedObject *sharedObject;
 
 @end

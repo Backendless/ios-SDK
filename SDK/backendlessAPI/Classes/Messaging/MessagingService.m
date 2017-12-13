@@ -162,14 +162,10 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     return [[[str stringByReplacingOccurrencesOfString:@" " withString:@""] stringByReplacingOccurrencesOfString:@"<" withString:@""] stringByReplacingOccurrencesOfString:@">" withString:@""];
 }
 
-// Channel and RSO methods
+// Channel
 
 -(Channel *)subscribe:(NSString *)channelName {
     return [[Channel alloc] initWithChannelName:channelName];
-}
-
--(RemoteSharedObject *)sharedObject:(NSString *)sharedObjectName {
-    return [[RemoteSharedObject alloc] initWithRSOName:sharedObjectName];
 }
 
 // sync methods with fault return (as exception)

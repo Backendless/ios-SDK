@@ -30,9 +30,8 @@
 @interface MessagingService : NSObject
 @property (strong, nonatomic, readonly) HashMap *subscriptions;
 
-// Channel and RSO methods
+// Channel
 -(Channel *)subscribe:(NSString *)channelName;
--(RemoteSharedObject *)sharedObject:(NSString *)sharedObjectName;
 
 // sync methods with fault return (as exception)
 -(NSString *)registerDevice:(NSData *)deviceToken;

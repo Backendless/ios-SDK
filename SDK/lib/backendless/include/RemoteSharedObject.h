@@ -33,7 +33,7 @@
 @property (nonatomic, readonly) BOOL isConnected;
 @property (strong, nonatomic) id invocationTarget;
 
--(instancetype)initWithRSOName:(NSString *)rsoName;
+-(instancetype)initWithName:(NSString *)sharedObjectName;
 -(void)connect;
 -(void)disconnect;
 

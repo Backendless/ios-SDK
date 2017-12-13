@@ -30,10 +30,10 @@
 
 @implementation RemoteSharedObject
 
--(instancetype)initWithRSOName:(NSString *)rsoName {
+-(instancetype)initWithName:(NSString *)sharedObjectName {
     if (self = [super init]) {
-        self.rsoName = rsoName;
-        self.rt = [[RTRSO alloc] initWithRSOName:rsoName];
+        self.rsoName = sharedObjectName;
+        self.rt = [[RTRSO alloc] initWithRSOName:sharedObjectName];
         self.isConnected = NO;
     }
     return self;

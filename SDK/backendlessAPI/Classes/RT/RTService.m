@@ -33,4 +33,8 @@
     return _data;
 }
 
+-(RemoteSharedObject *)sharedObject {
+    return [RemoteSharedObject alloc];
+}
+
 @end

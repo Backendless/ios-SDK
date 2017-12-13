@@ -2713,7 +2713,7 @@
 		F97969E0166CC8C300595F5E /* backendless-simulator-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "backendless-simulator-Prefix.pch"; sourceTree = "<group>"; };
 		F97969E1166CC8C300595F5E /* backendless_simulator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = backendless_simulator.h; sourceTree = "<group>"; };
 		F97969E3166CC8C300595F5E /* backendless_simulator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = backendless_simulator.m; sourceTree = "<group>"; };
-		F9796A28166CD3A400595F5E /* libbackendless-device.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libbackendless-device.a"; path = "liblibbackendless-device.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9796A28166CD3A400595F5E /* libbackendless-device.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libbackendless-device.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9796A2C166CD3A400595F5E /* backendless-device-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "backendless-device-Prefix.pch"; sourceTree = "<group>"; };
 		F9796A2D166CD3A400595F5E /* backendless_device.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = backendless_device.h; sourceTree = "<group>"; };
 		F9796A2F166CD3A400595F5E /* backendless_device.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = backendless_device.m; sourceTree = "<group>"; };
@@ -3342,6 +3342,8 @@
 		5A872F1C1FC7105100A6CCB3 /* RSO */ = {
 			isa = PBXGroup;
 			children = (
+				5A74B1F31FC6E65100157850 /* RemoteSharedObject.h */,
+				5A74B1F41FC6E65100157850 /* RemoteSharedObject.m */,
 				5A872EEA1FC6F82000A6CCB3 /* RTRSO.h */,
 				5A872EEB1FC6F82000A6CCB3 /* RTRSO.m */,
 				5A872EF61FC6FED300A6CCB3 /* RSOChangesObject.h */,
@@ -3693,8 +3695,6 @@
 			children = (
 				5A9FC9A81FC4786800B192D9 /* Channel.h */,
 				5A9FC9A91FC4786900B192D9 /* Channel.m */,
-				5A74B1F31FC6E65100157850 /* RemoteSharedObject.h */,
-				5A74B1F41FC6E65100157850 /* RemoteSharedObject.m */,
 				5A9FC9AA1FC4786900B192D9 /* PublishMessageInfo.h */,
 				5A9FC9A71FC4786800B192D9 /* PublishMessageInfo.m */,
 				5A633F3F1F7BB7F6004D7ACA /* BackendlessPushHelper.h */,
