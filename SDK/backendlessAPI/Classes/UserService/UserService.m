@@ -241,7 +241,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 -(BackendlessUser *)loginWithTwitterSDK:(NSString *)authToken authTokenSecret:(NSString *)authTokenSecret fieldsMapping:(id)fieldsMapping {
     if (!authToken||!authToken.length||!authTokenSecret||!authTokenSecret.length)
         return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
-    NSArray *args = @[authToken, authTokenSecret, (NSDictionary<NSString *, NSString*> *)fieldsMapping?fieldsMapping:@{}];    
+    NSArray *args = @[authToken, authTokenSecret, (NSDictionary<NSString *, NSString*> *)fieldsMapping?fieldsMapping:@{}];
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_TWITTER_SDK args:args];
     return [result isKindOfClass:[Fault class]] ? result : [self onLogin:result];
 }
@@ -284,10 +284,10 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 }
 
 -(void)login:(NSString *)login password:(NSString *)password response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {
-    if (!login || !password || ![login length] || ![password length])
-        [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
-    NSArray *args = [NSArray arrayWithObjects:login, password, nil];
     Responder *responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!login || !password || ![login length] || ![password length])
+        return [responder errorHandler:FAULT_NO_USER_CREDENTIALS];
+    NSArray *args = [NSArray arrayWithObjects:login, password, nil];    
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onLogin:) selErrorHandler:nil];
     _responder.chained = responder;
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_LOGIN args:args responder:_responder];
