@@ -24,9 +24,8 @@
 @implementation BackendlessPushHelper
 
 #if TARGET_OS_IOS || TARGET_OS_SIMULATOR
-+(void)processMutableContent:(UNNotificationRequest *_Nonnull)request withContentHandler:(void (^_Nonnull)(UNNotificationContent *_Nonnull))contentHandler {
++(void)processMutableContent:(UNNotificationRequest *_Nonnull)request withContentHandler:(void(^_Nonnull)(UNNotificationContent *_Nonnull))contentHandler NS_AVAILABLE_IOS(10_0) {
     UNMutableNotificationContent *bestAttemptContent = [request.content mutableCopy];
-    
     if ([request.content.userInfo valueForKey:@"attachment-url"]) {
        NSString *urlString = [request.content.userInfo valueForKey:@"attachment-url"];
        NSURL *fileUrl = [NSURL URLWithString:urlString];        
