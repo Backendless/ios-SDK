@@ -71,12 +71,14 @@
         if (!socketCreated) {
             NSString *path = [@"/" stringByAppendingString:[backendless getAppId]];
             NSURL *url = [[NSURL alloc] initWithString:[RTHelper lookup]];
+            NSString *query = [NSString stringWithFormat:@"secretKey=%@", [backendless getAPIKey]];
             NSString *userToken = [backendless.userService.currentUser getUserToken];
             if (userToken) {
-                socketManager = [[SocketManager alloc] initWithSocketURL:url config:@{@"path": path, @"connectParams":@{@"userToken":userToken}}];
+                query = [NSString stringWithFormat:@"secretKey=%@&userToken=%@", [backendless getAPIKey], userToken];
+                socketManager = [[SocketManager alloc] initWithSocketURL:url config:@{@"path": path, @"query":query}];
             }
             else {
-                socketManager = [[SocketManager alloc] initWithSocketURL:url config:@{@"path": path}];
+                socketManager = [[SocketManager alloc] initWithSocketURL:url config:@{@"path": path, @"query":query}];
             }
             socket = [socketManager socketForNamespace:path];
             if (socket) {
@@ -220,41 +222,43 @@
         NSDictionary *resultData = data.firstObject;
         NSString *methodId = [resultData valueForKey:@"id"];
         RTMethodRequest *method = [methods valueForKey:methodId];
-        
-        if ([resultData valueForKey:@"error"]) {
-            Fault *fault = [Fault fault:[[resultData valueForKey:@"error"] valueForKey:@"message"]
-                                 detail:[[resultData valueForKey:@"error"] valueForKey:@"message"]
-                              faultCode:[[resultData valueForKey:@"error"] valueForKey:@"code"]];
-            if (method && method.onError) {
-                method.onError(fault);
+        if (method) {
+            if ([resultData valueForKey:@"error"]) {
+                Fault *fault = [Fault fault:[[resultData valueForKey:@"error"] valueForKey:@"message"]
+                                     detail:[[resultData valueForKey:@"error"] valueForKey:@"message"]
+                                  faultCode:[[resultData valueForKey:@"error"] valueForKey:@"code"]];
+                if (method && method.onError) {
+                    method.onError(fault);
+                }
+                if (method && method.onStop) {
+                    method.onStop(method);
+                    [methods removeObjectForKey:methodId];
+                }
             }
-            if (method && method.onStop) {
+            else {
+                if ([resultData valueForKey:@"result"]) {
+                    method.onResult([resultData valueForKey:@"result"]);
+                }
+                else if ([resultData valueForKey:@"id"] && ![resultData valueForKey:@"result"]) {
+                    method.onResult(nil);
+                }
                 method.onStop(method);
                 [methods removeObjectForKey:methodId];
             }
-        }
-        else {
-            if ([resultData valueForKey:@"result"]) {
-                method.onResult([resultData valueForKey:@"result"]);
-            }
-            else if ([resultData valueForKey:@"id"] && ![resultData valueForKey:@"result"]) {
-                method.onResult(nil);
-            }
-            method.onStop(method);
-            [methods removeObjectForKey:methodId];
         }
     }];
 }
 
 -(void)userLoggedInWithToken:(NSString *)userToken {
-    if (socketConnected) {
-        NSString *methodId = [[NSUUID UUID] UUIDString];
-        NSDictionary *options = @{@"userToken"  : userToken};
-        NSDictionary *data = @{@"id"        : methodId,
-                               @"name"      : SET_USER_TOKEN,
-                               @"options"   : options};
-        [self sendCommand:data method:nil];
+    NSString *methodId = [[NSUUID UUID] UUIDString];
+    NSDictionary *options = @{@"userToken"  : [NSNull null]};
+    if (userToken) {
+        options = @{@"userToken"  : userToken};
     }
+    NSDictionary *data = @{@"id"        : methodId,
+                           @"name"      : SET_USER_TOKEN,
+                           @"options"   : options};
+    [self sendCommand:data method:nil];
 }
 
 @end

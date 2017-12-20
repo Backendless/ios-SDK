@@ -165,8 +165,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     }
     else {
         [backendless.headers removeObjectForKey:BACKENDLESS_USER_TOKEN];
-    }
-    
+    }    
     [self setPersistentUser];
     return self.currentUser;
 }
@@ -401,8 +400,8 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 }
 
 -(BOOL)resetPersistentUser {
-    return [AMFSerializer serializeToFile:nil fileName:PERSIST_USER_FILE_NAME];
     [rtClient userLoggedInWithToken:nil];
+    return [AMFSerializer serializeToFile:nil fileName:PERSIST_USER_FILE_NAME];    
 }
 
 #pragma mark -
