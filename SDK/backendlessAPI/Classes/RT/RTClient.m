@@ -71,15 +71,13 @@
         if (!socketCreated) {
             NSString *path = [@"/" stringByAppendingString:[backendless getAppId]];
             NSURL *url = [[NSURL alloc] initWithString:[RTHelper lookup]];
-            NSString *query = [NSString stringWithFormat:@"apiKey=%@", [backendless getAPIKey]];
+            NSDictionary *connectParams = @{@"apiKey":[backendless getAPIKey]};
             NSString *userToken = [backendless.userService.currentUser getUserToken];
             if (userToken) {
-                query = [NSString stringWithFormat:@"apiKey=%@&userToken=%@", [backendless getAPIKey], userToken];
-                socketManager = [[SocketManager alloc] initWithSocketURL:url config:@{@"path": path, @"query":query}];
+                connectParams = @{@"apiKey":[backendless getAPIKey],
+                                  @"userToken": userToken};
             }
-            else {
-                socketManager = [[SocketManager alloc] initWithSocketURL:url config:@{@"path": path, @"query":query}];
-            }
+            socketManager = [[SocketManager alloc] initWithSocketURL:url config:@{@"path": path, @"connectParams":connectParams}];
             socket = [socketManager socketForNamespace:path];
             if (socket) {
                 socketCreated = YES;
