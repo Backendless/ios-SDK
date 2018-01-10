@@ -36,6 +36,7 @@
 #import "BodyParts.h"
 #import "UICKeyChainStore.h"
 #import "KeychainDataStore.h"
+#import "IOSPushTemplate.h"
 
 #define FAULT_NO_DEVICE_ID [Fault fault:@"Device ID is not set" detail:@"Device ID is not set" faultCode:@"5900"]
 #define FAULT_NO_DEVICE_TOKEN [Fault fault:@"Device token is not set" detail:@"Device token is not set" faultCode:@"5901"]
@@ -202,8 +203,8 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     if ([result isKindOfClass:[Fault class]]) {
         return result;
     }
-    deviceRegistration.id = [NSString stringWithFormat:@"%@", result];
-    return deviceRegistration.deviceId;
+    NSArray *resultArray = [self jsonToNSArray:result];
+    return resultArray.firstObject;
 }
 
 -(DeviceRegistration *)getRegistration:(NSString *)deviceId {
@@ -330,7 +331,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     }
     [DebLog log:@"MessagingService -> registerDeviceAsync (ASYNC): %@", deviceRegistration];
     NSArray *args = [NSArray arrayWithObjects:deviceRegistration, nil];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onRegistering:) selErrorHandler:nil];
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onRegister:) selErrorHandler:nil];
     _responder.chained = responder;
     [invoker invokeAsync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_REGISTER_DEVICE args:args responder:_responder];
 }
@@ -508,9 +509,16 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 
 // callbacks
 
--(id)onRegistering:(id)response {
-    deviceRegistration.id = [NSString stringWithFormat:@"%@", response];
-    return deviceRegistration.deviceId;
+-(id)onRegister:(id)response {
+    NSArray *resultArray = [self jsonToNSArray:response];
+    NSLog(@"GOT: %@", [resultArray objectAtIndex:1]);
+    return resultArray.firstObject;
+}
+
+-(NSArray *)jsonToNSArray:(NSString *)jsonString {
+    NSError* error;
+    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    return [NSJSONSerialization JSONObjectWithData:jsonData options: NSJSONReadingMutableContainers error:&error];
 }
 
 -(id)onUnregistering:(id)response {

@@ -1456,6 +1456,36 @@
 		5A633F461F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A633F471F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A633F481F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A6C37FD1FF5335100422E4D /* IOSPushTemplate.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A6C37FB1FF5335100422E4D /* IOSPushTemplate.h */; };
+		5A6C37FE1FF5335100422E4D /* IOSPushTemplate.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A6C37FB1FF5335100422E4D /* IOSPushTemplate.h */; };
+		5A6C37FF1FF5335100422E4D /* IOSPushTemplate.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A6C37FB1FF5335100422E4D /* IOSPushTemplate.h */; };
+		5A6C38001FF5335100422E4D /* IOSPushTemplate.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A6C37FB1FF5335100422E4D /* IOSPushTemplate.h */; };
+		5A6C38011FF5335100422E4D /* IOSPushTemplate.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A6C37FB1FF5335100422E4D /* IOSPushTemplate.h */; };
+		5A6C38021FF5335100422E4D /* IOSPushTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6C37FC1FF5335100422E4D /* IOSPushTemplate.m */; };
+		5A6C38031FF5335100422E4D /* IOSPushTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6C37FC1FF5335100422E4D /* IOSPushTemplate.m */; };
+		5A6C38041FF5335100422E4D /* IOSPushTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6C37FC1FF5335100422E4D /* IOSPushTemplate.m */; };
+		5A6C38051FF5335100422E4D /* IOSPushTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6C37FC1FF5335100422E4D /* IOSPushTemplate.m */; };
+		5A6C38061FF5335100422E4D /* IOSPushTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6C37FC1FF5335100422E4D /* IOSPushTemplate.m */; };
+		5A6C38091FF5336200422E4D /* ButtonTemplate.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A6C38071FF5336200422E4D /* ButtonTemplate.h */; };
+		5A6C380A1FF5336200422E4D /* ButtonTemplate.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A6C38071FF5336200422E4D /* ButtonTemplate.h */; };
+		5A6C380B1FF5336200422E4D /* ButtonTemplate.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A6C38071FF5336200422E4D /* ButtonTemplate.h */; };
+		5A6C380C1FF5336200422E4D /* ButtonTemplate.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A6C38071FF5336200422E4D /* ButtonTemplate.h */; };
+		5A6C380D1FF5336200422E4D /* ButtonTemplate.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A6C38071FF5336200422E4D /* ButtonTemplate.h */; };
+		5A6C380E1FF5336200422E4D /* ButtonTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6C38081FF5336200422E4D /* ButtonTemplate.m */; };
+		5A6C380F1FF5336200422E4D /* ButtonTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6C38081FF5336200422E4D /* ButtonTemplate.m */; };
+		5A6C38101FF5336200422E4D /* ButtonTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6C38081FF5336200422E4D /* ButtonTemplate.m */; };
+		5A6C38111FF5336200422E4D /* ButtonTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6C38081FF5336200422E4D /* ButtonTemplate.m */; };
+		5A6C38121FF5336200422E4D /* ButtonTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6C38081FF5336200422E4D /* ButtonTemplate.m */; };
+		5A6C38151FF5337600422E4D /* Action.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A6C38131FF5337600422E4D /* Action.h */; };
+		5A6C38161FF5337600422E4D /* Action.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A6C38131FF5337600422E4D /* Action.h */; };
+		5A6C38171FF5337600422E4D /* Action.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A6C38131FF5337600422E4D /* Action.h */; };
+		5A6C38181FF5337600422E4D /* Action.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A6C38131FF5337600422E4D /* Action.h */; };
+		5A6C38191FF5337600422E4D /* Action.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A6C38131FF5337600422E4D /* Action.h */; };
+		5A6C381A1FF5337600422E4D /* Action.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6C38141FF5337600422E4D /* Action.m */; };
+		5A6C381B1FF5337600422E4D /* Action.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6C38141FF5337600422E4D /* Action.m */; };
+		5A6C381C1FF5337600422E4D /* Action.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6C38141FF5337600422E4D /* Action.m */; };
+		5A6C381D1FF5337600422E4D /* Action.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6C38141FF5337600422E4D /* Action.m */; };
+		5A6C381E1FF5337600422E4D /* Action.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6C38141FF5337600422E4D /* Action.m */; };
 		5A9DB6021FCC219200B0C3CD /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A9DB6031FCC22AD00B0C3CD /* BackendlessPushHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A633F3F1F7BB7F6004D7ACA /* BackendlessPushHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AAEFE321FB34099006EBC8F /* UserService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480515FF5AC500012DFC /* UserService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -2365,6 +2395,12 @@
 		5A507A741F3B41D80027ABAC /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		5A633F3F1F7BB7F6004D7ACA /* BackendlessPushHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BackendlessPushHelper.h; sourceTree = "<group>"; };
 		5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BackendlessPushHelper.m; sourceTree = "<group>"; };
+		5A6C37FB1FF5335100422E4D /* IOSPushTemplate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOSPushTemplate.h; sourceTree = "<group>"; };
+		5A6C37FC1FF5335100422E4D /* IOSPushTemplate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IOSPushTemplate.m; sourceTree = "<group>"; };
+		5A6C38071FF5336200422E4D /* ButtonTemplate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ButtonTemplate.h; sourceTree = "<group>"; };
+		5A6C38081FF5336200422E4D /* ButtonTemplate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ButtonTemplate.m; sourceTree = "<group>"; };
+		5A6C38131FF5337600422E4D /* Action.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Action.h; sourceTree = "<group>"; };
+		5A6C38141FF5337600422E4D /* Action.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Action.m; sourceTree = "<group>"; };
 		5AFFBF7A1EB211EC0099A72F /* MessagingService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagingService.h; sourceTree = "<group>"; };
 		5AFFBF7B1EB211EC0099A72F /* MessagingService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagingService.m; sourceTree = "<group>"; };
 		84B027E41DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadRelationsQueryBuilder.h; sourceTree = "<group>"; };
@@ -3064,6 +3100,19 @@
 			path = Amf;
 			sourceTree = "<group>";
 		};
+		5A6C37FA1FF5331700422E4D /* PushTemplate */ = {
+			isa = PBXGroup;
+			children = (
+				5A6C37FB1FF5335100422E4D /* IOSPushTemplate.h */,
+				5A6C37FC1FF5335100422E4D /* IOSPushTemplate.m */,
+				5A6C38071FF5336200422E4D /* ButtonTemplate.h */,
+				5A6C38081FF5336200422E4D /* ButtonTemplate.m */,
+				5A6C38131FF5337600422E4D /* Action.h */,
+				5A6C38141FF5337600422E4D /* Action.m */,
+			);
+			path = PushTemplate;
+			sourceTree = "<group>";
+		};
 		91223DC7195AF68900F72F48 /* Events */ = {
 			isa = PBXGroup;
 			children = (
@@ -3345,6 +3394,7 @@
 		F91B480715FF655800012DFC /* Messaging */ = {
 			isa = PBXGroup;
 			children = (
+				5A6C37FA1FF5331700422E4D /* PushTemplate */,
 				5A633F3F1F7BB7F6004D7ACA /* BackendlessPushHelper.h */,
 				5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */,
 				5AFFBF7A1EB211EC0099A72F /* MessagingService.h */,
@@ -3507,6 +3557,7 @@
 				0F9ACB651E798C5E0087869F /* IAdaptingType.h in Headers */,
 				0F9AC9211E798C5C0087869F /* AudioData.h in Headers */,
 				0F9ACCEB1E798C5F0087869F /* NullWriter.h in Headers */,
+				5A6C38151FF5337600422E4D /* Action.h in Headers */,
 				0F9AC96C1E798C5D0087869F /* VideoData.h in Headers */,
 				0F9ACBDD1E798C5E0087869F /* ObjectFactories.h in Headers */,
 				0F9ACC911E798C5F0087869F /* BodyHolderWriter.h in Headers */,
@@ -3640,6 +3691,7 @@
 				1C7BB4C51A2E092900D3C2C1 /* AtomicCountersFactory.h in Headers */,
 				1C7BB4C61A2E092900D3C2C1 /* IAtomicCounters.h in Headers */,
 				1C7BB4C71A2E092900D3C2C1 /* Backendless.h in Headers */,
+				5A6C37FD1FF5335100422E4D /* IOSPushTemplate.h in Headers */,
 				1C7BB4C81A2E092900D3C2C1 /* AbstractProperty.h in Headers */,
 				1C7BB4CC1A2E092900D3C2C1 /* UserService.h in Headers */,
 				1C7BB4CD1A2E092900D3C2C1 /* BackendlessUser.h in Headers */,
@@ -3655,6 +3707,7 @@
 				1C7BB4E01A2E092900D3C2C1 /* GeoPoint.h in Headers */,
 				1C7BB4E21A2E092900D3C2C1 /* BackendlessGeoQuery.h in Headers */,
 				1C7BB4E51A2E092900D3C2C1 /* DeviceRegistration.h in Headers */,
+				5A6C38091FF5336200422E4D /* ButtonTemplate.h in Headers */,
 				1C7BB4E61A2E092900D3C2C1 /* DeliveryOptions.h in Headers */,
 				1C7BB4E81A2E092900D3C2C1 /* PublishOptions.h in Headers */,
 				1C7BB4E91A2E092900D3C2C1 /* CacheFactory.h in Headers */,
@@ -3757,6 +3810,7 @@
 				0F9ACCD31E798C5F0087869F /* ITypeWriter.h in Headers */,
 				0F9AC9AE1E798C5D0087869F /* PendingCall.h in Headers */,
 				0F9ACA031E798C5D0087869F /* AnonymousObject.h in Headers */,
+				5A6C37FE1FF5335100422E4D /* IOSPushTemplate.h in Headers */,
 				0F9AC9C71E798C5D0087869F /* ISharedObjectEvent.h in Headers */,
 				0F9AC9401E798C5D0087869F /* Invoke.h in Headers */,
 				0F9ACAEE1E798C5E0087869F /* ReaderUtils.h in Headers */,
@@ -3802,6 +3856,7 @@
 				0F9AC8691E798C5C0087869F /* Request.h in Headers */,
 				0F9AC94A1E798C5D0087869F /* IRTMPEvent.h in Headers */,
 				0F9ACB6B1E798C5E0087869F /* ICacheableAdaptingType.h in Headers */,
+				5A6C380A1FF5336200422E4D /* ButtonTemplate.h in Headers */,
 				0F9ACA941E798C5D0087869F /* NamedObjectReader.h in Headers */,
 				0F9ACB5C1E798C5E0087869F /* V3VectorReader.h in Headers */,
 				0F9ACB521E798C5E0087869F /* V3StringReader.h in Headers */,
@@ -3865,6 +3920,7 @@
 				0F9AC9631E798C5D0087869F /* Ping.h in Headers */,
 				0F9AC9951E798C5D0087869F /* RTMPConstants.h in Headers */,
 				0F9ACA8A1E798C5D0087869F /* NamedObject.h in Headers */,
+				5A6C38161FF5337600422E4D /* Action.h in Headers */,
 				0F9ACB7A1E798C5E0087869F /* AMFSerializer.h in Headers */,
 				0F9ACD1E1E798C600087869F /* PropertyBagWriter.h in Headers */,
 				F9CB13821BC53B0200F3CA1D /* IPresenceListener.h in Headers */,
@@ -3992,6 +4048,7 @@
 				0F9ACCD41E798C5F0087869F /* ITypeWriter.h in Headers */,
 				0F9AC9AF1E798C5D0087869F /* PendingCall.h in Headers */,
 				0F9ACA041E798C5D0087869F /* AnonymousObject.h in Headers */,
+				5A6C37FF1FF5335100422E4D /* IOSPushTemplate.h in Headers */,
 				0F9AC9C81E798C5D0087869F /* ISharedObjectEvent.h in Headers */,
 				0F9AC9411E798C5D0087869F /* Invoke.h in Headers */,
 				0F9ACAEF1E798C5E0087869F /* ReaderUtils.h in Headers */,
@@ -4037,6 +4094,7 @@
 				0F9AC86A1E798C5C0087869F /* Request.h in Headers */,
 				0F9AC94B1E798C5D0087869F /* IRTMPEvent.h in Headers */,
 				0F9ACB6C1E798C5E0087869F /* ICacheableAdaptingType.h in Headers */,
+				5A6C380B1FF5336200422E4D /* ButtonTemplate.h in Headers */,
 				0F9ACA951E798C5D0087869F /* NamedObjectReader.h in Headers */,
 				0F9ACB5D1E798C5E0087869F /* V3VectorReader.h in Headers */,
 				0F9ACB531E798C5E0087869F /* V3StringReader.h in Headers */,
@@ -4100,6 +4158,7 @@
 				0F9AC9641E798C5D0087869F /* Ping.h in Headers */,
 				0F9AC9961E798C5D0087869F /* RTMPConstants.h in Headers */,
 				0F9ACA8B1E798C5D0087869F /* NamedObject.h in Headers */,
+				5A6C38171FF5337600422E4D /* Action.h in Headers */,
 				0F9ACB7B1E798C5E0087869F /* AMFSerializer.h in Headers */,
 				0F9ACD1F1E798C600087869F /* PropertyBagWriter.h in Headers */,
 				F9CB13831BC53B0200F3CA1D /* IPresenceListener.h in Headers */,
@@ -4227,6 +4286,7 @@
 				0F9ACB901E798C5E0087869F /* DEBUG.h in Headers */,
 				0F9ACA961E798C5D0087869F /* NamedObjectReader.h in Headers */,
 				0F9ACA4B1E798C5D0087869F /* ByteArrayType.h in Headers */,
+				5A6C38001FF5335100422E4D /* IOSPushTemplate.h in Headers */,
 				0F9AC89D1E798C5C0087869F /* WebORBDeserializer.h in Headers */,
 				0F9ACB401E798C5E0087869F /* V3ObjectReader.h in Headers */,
 				0F9AC8F21E798C5C0087869F /* IVideoStreamCodec.h in Headers */,
@@ -4272,6 +4332,7 @@
 				0F9AC8931E798C5C0087869F /* IDeserializer.h in Headers */,
 				0F9ACBC71E798C5E0087869F /* FlashorbBinaryReader.h in Headers */,
 				0F9ACB7C1E798C5E0087869F /* AMFSerializer.h in Headers */,
+				5A6C380C1FF5336200422E4D /* ButtonTemplate.h in Headers */,
 				0F9ACCA81E798C5F0087869F /* BoundPropertyBagWriter.h in Headers */,
 				0F9ACA691E798C5D0087869F /* DateType.h in Headers */,
 				0F9AC9421E798C5D0087869F /* Invoke.h in Headers */,
@@ -4335,6 +4396,7 @@
 				0F9ACA191E798C5D0087869F /* ArrayReader.h in Headers */,
 				0F9ACD481E798C600087869F /* V3ObjectSerializer.h in Headers */,
 				0F9ACCB21E798C5F0087869F /* ClassDefinition.h in Headers */,
+				5A6C38181FF5337600422E4D /* Action.h in Headers */,
 				0F9ACBDB1E798C5E0087869F /* IServiceObjectFactory.h in Headers */,
 				0F9ACB0E1E798C5E0087869F /* UndefinedTypeReader.h in Headers */,
 				F9F0AECF1CDBCA3900035C62 /* IPresenceListener.h in Headers */,
@@ -4462,6 +4524,7 @@
 				0F9ACB911E798C5E0087869F /* DEBUG.h in Headers */,
 				0F9ACA971E798C5D0087869F /* NamedObjectReader.h in Headers */,
 				0F9ACA4C1E798C5D0087869F /* ByteArrayType.h in Headers */,
+				5A6C38011FF5335100422E4D /* IOSPushTemplate.h in Headers */,
 				0F9AC89E1E798C5C0087869F /* WebORBDeserializer.h in Headers */,
 				0F9ACB411E798C5E0087869F /* V3ObjectReader.h in Headers */,
 				0F9AC8F31E798C5C0087869F /* IVideoStreamCodec.h in Headers */,
@@ -4507,6 +4570,7 @@
 				0F9AC8941E798C5C0087869F /* IDeserializer.h in Headers */,
 				0F9ACBC81E798C5E0087869F /* FlashorbBinaryReader.h in Headers */,
 				0F9ACB7D1E798C5E0087869F /* AMFSerializer.h in Headers */,
+				5A6C380D1FF5336200422E4D /* ButtonTemplate.h in Headers */,
 				0F9ACCA91E798C5F0087869F /* BoundPropertyBagWriter.h in Headers */,
 				0F9ACA6A1E798C5D0087869F /* DateType.h in Headers */,
 				0F9AC9431E798C5D0087869F /* Invoke.h in Headers */,
@@ -4570,6 +4634,7 @@
 				0F9ACA1A1E798C5D0087869F /* ArrayReader.h in Headers */,
 				0F9ACD491E798C600087869F /* V3ObjectSerializer.h in Headers */,
 				0F9ACCB31E798C5F0087869F /* ClassDefinition.h in Headers */,
+				5A6C38191FF5337600422E4D /* Action.h in Headers */,
 				0F9ACBDC1E798C5E0087869F /* IServiceObjectFactory.h in Headers */,
 				0F9ACB0F1E798C5E0087869F /* UndefinedTypeReader.h in Headers */,
 				F9F0AF891CDBCAB500035C62 /* IPresenceListener.h in Headers */,
@@ -4879,6 +4944,7 @@
 			files = (
 				5A9DB6021FCC219200B0C3CD /* BackendlessPushHelper.m in Sources */,
 				5AF2B7291EB2137200D54442 /* MessagingService.m in Sources */,
+				5A6C381A1FF5337600422E4D /* Action.m in Sources */,
 				F91AC5781D58CFA500511EA5 /* MapDrivenDataStore.m in Sources */,
 				0F9AC9B21E798C5D0087869F /* PendingCall.m in Sources */,
 				F96B1C711DD3B6CA00A4B362 /* QueryOptionsBuilder.m in Sources */,
@@ -4886,6 +4952,7 @@
 				0F9ACCDC1E798C5F0087869F /* MessageWriter.m in Sources */,
 				D35CA5321A668E1400F500B0 /* DataPermission.m in Sources */,
 				0F9ACAFC1E798C5E0087869F /* StringType.m in Sources */,
+				5A6C38021FF5335100422E4D /* IOSPushTemplate.m in Sources */,
 				D35CA5331A668E1400F500B0 /* FilePermission.m in Sources */,
 				1C7BB4901A2E092900D3C2C1 /* Backendless.m in Sources */,
 				0F9AC9441E798C5D0087869F /* Invoke.m in Sources */,
@@ -4991,6 +5058,7 @@
 				0F9AC9261E798C5C0087869F /* AudioData.m in Sources */,
 				1C7BB4AE1A2E092900D3C2C1 /* BackendlessFile.m in Sources */,
 				1C7BB4AF1A2E092900D3C2C1 /* HashMap.m in Sources */,
+				5A6C380E1FF5336200422E4D /* ButtonTemplate.m in Sources */,
 				0F9AC9EE1E798C5D0087869F /* SharedObjectMessage.m in Sources */,
 				F9CB13891BC53CDD00F3CA1D /* Presence.m in Sources */,
 				0F9ACD4A1E798C600087869F /* V3ObjectSerializer.m in Sources */,
@@ -5145,6 +5213,7 @@
 				D35DC3451AD7E19800EF2A68 /* Logger.m in Sources */,
 				0F9ACAF31E798C5E0087869F /* ReaderUtils.m in Sources */,
 				0F9AC9271E798C5C0087869F /* AudioData.m in Sources */,
+				5A6C380F1FF5336200422E4D /* ButtonTemplate.m in Sources */,
 				F97969FC166CCB8200595F5E /* DeviceRegistration.m in Sources */,
 				0F9AC9311E798C5C0087869F /* BaseEvent.m in Sources */,
 				0F9ACCAB1E798C5F0087869F /* BoundPropertyBagWriter.m in Sources */,
@@ -5193,6 +5262,7 @@
 				F9CB136F1BC284A900F3CA1D /* BeaconsInfo.m in Sources */,
 				0F9ACD371E798C600087869F /* StringReferenceWriter.m in Sources */,
 				0F9ACC331E798C5F0087869F /* V3Message.m in Sources */,
+				5A6C38031FF5335100422E4D /* IOSPushTemplate.m in Sources */,
 				D39A468519811D9B006CBD1B /* CacheService.m in Sources */,
 				0F9AC8191E798C5C0087869F /* Engine.m in Sources */,
 				0F9AC9E01E798C5D0087869F /* SharedObjectEvent.m in Sources */,
@@ -5247,6 +5317,7 @@
 				D31700D61A84D2AA00772766 /* GeoCluster.m in Sources */,
 				0F9ACCDD1E798C5F0087869F /* MessageWriter.m in Sources */,
 				0F9ACC511E798C5F0087869F /* AmfFormatter.m in Sources */,
+				5A6C381B1FF5337600422E4D /* Action.m in Sources */,
 				0F9ACCB51E798C5F0087869F /* ClassDefinition.m in Sources */,
 				0F9AC84B1E798C5C0087869F /* WeborbClient.m in Sources */,
 				91F139B417D724C700D1AC4C /* QueryOptions.m in Sources */,
@@ -5336,6 +5407,7 @@
 				D35DC3461AD7E19800EF2A68 /* Logger.m in Sources */,
 				0F9ACAF41E798C5E0087869F /* ReaderUtils.m in Sources */,
 				0F9AC9281E798C5C0087869F /* AudioData.m in Sources */,
+				5A6C38101FF5336200422E4D /* ButtonTemplate.m in Sources */,
 				F9796A46166CD3DB00595F5E /* DeviceRegistration.m in Sources */,
 				0F9AC9321E798C5C0087869F /* BaseEvent.m in Sources */,
 				0F9ACCAC1E798C5F0087869F /* BoundPropertyBagWriter.m in Sources */,
@@ -5384,6 +5456,7 @@
 				F9CB13701BC284A900F3CA1D /* BeaconsInfo.m in Sources */,
 				0F9ACD381E798C600087869F /* StringReferenceWriter.m in Sources */,
 				0F9ACC341E798C5F0087869F /* V3Message.m in Sources */,
+				5A6C38041FF5335100422E4D /* IOSPushTemplate.m in Sources */,
 				D39A468619811D9B006CBD1B /* CacheService.m in Sources */,
 				0F9AC81A1E798C5C0087869F /* Engine.m in Sources */,
 				0F9AC9E11E798C5D0087869F /* SharedObjectEvent.m in Sources */,
@@ -5438,6 +5511,7 @@
 				D31700D71A84D2AA00772766 /* GeoCluster.m in Sources */,
 				0F9ACCDE1E798C5F0087869F /* MessageWriter.m in Sources */,
 				0F9ACC521E798C5F0087869F /* AmfFormatter.m in Sources */,
+				5A6C381C1FF5337600422E4D /* Action.m in Sources */,
 				0F9ACCB61E798C5F0087869F /* ClassDefinition.m in Sources */,
 				0F9AC84C1E798C5C0087869F /* WeborbClient.m in Sources */,
 				91F139B517D724C700D1AC4C /* QueryOptions.m in Sources */,
@@ -5527,6 +5601,7 @@
 				0F9ACAE11E798C5E0087869F /* PointerReader.m in Sources */,
 				F9F0AE9F1CDBCA3900035C62 /* BackendlessGeoQuery.m in Sources */,
 				0F9AC9471E798C5D0087869F /* Invoke.m in Sources */,
+				5A6C38111FF5336200422E4D /* ButtonTemplate.m in Sources */,
 				F96B1C681DD3A23C00A4B362 /* PagedQueryBuilder.m in Sources */,
 				0F9ACA0A1E798C5D0087869F /* AnonymousObject.m in Sources */,
 				0F9AC97E1E798C5D0087869F /* Header.m in Sources */,
@@ -5575,6 +5650,7 @@
 				F9F0AEB21CDBCA3900035C62 /* BeaconsInfo.m in Sources */,
 				0F9ACBEF1E798C5F0087869F /* AckMessage.m in Sources */,
 				0F9ACAD71E798C5E0087869F /* ParseContext.m in Sources */,
+				5A6C38051FF5335100422E4D /* IOSPushTemplate.m in Sources */,
 				0F9ACD251E798C600087869F /* PropertyBagWriter.m in Sources */,
 				F9F0AEB31CDBCA3900035C62 /* CacheService.m in Sources */,
 				0F9ACA501E798C5D0087869F /* ByteArrayType.m in Sources */,
@@ -5629,6 +5705,7 @@
 				0F9ACCB71E798C5F0087869F /* ClassDefinition.m in Sources */,
 				0F9ACBB81E798C5E0087869F /* BinaryCodec.m in Sources */,
 				0F9AC9F11E798C5D0087869F /* SharedObjectMessage.m in Sources */,
+				5A6C381D1FF5337600422E4D /* Action.m in Sources */,
 				F9F0AECA1CDBCA3900035C62 /* FilePermission.m in Sources */,
 				F9F0AECB1CDBCA3900035C62 /* GeoCluster.m in Sources */,
 				F9F0AECC1CDBCA3900035C62 /* QueryOptions.m in Sources */,
@@ -5718,6 +5795,7 @@
 				0F9ACAE21E798C5E0087869F /* PointerReader.m in Sources */,
 				F9F0AF591CDBCAB500035C62 /* BackendlessGeoQuery.m in Sources */,
 				0F9AC9481E798C5D0087869F /* Invoke.m in Sources */,
+				5A6C38121FF5336200422E4D /* ButtonTemplate.m in Sources */,
 				F96B1C691DD3A23D00A4B362 /* PagedQueryBuilder.m in Sources */,
 				0F9ACA0B1E798C5D0087869F /* AnonymousObject.m in Sources */,
 				0F9AC97F1E798C5D0087869F /* Header.m in Sources */,
@@ -5766,6 +5844,7 @@
 				F9F0AF6C1CDBCAB500035C62 /* BeaconsInfo.m in Sources */,
 				0F9ACBF01E798C5F0087869F /* AckMessage.m in Sources */,
 				0F9ACAD81E798C5E0087869F /* ParseContext.m in Sources */,
+				5A6C38061FF5335100422E4D /* IOSPushTemplate.m in Sources */,
 				0F9ACD261E798C600087869F /* PropertyBagWriter.m in Sources */,
 				F9F0AF6D1CDBCAB500035C62 /* CacheService.m in Sources */,
 				0F9ACA511E798C5D0087869F /* ByteArrayType.m in Sources */,
@@ -5820,6 +5899,7 @@
 				0F9ACCB81E798C5F0087869F /* ClassDefinition.m in Sources */,
 				0F9ACBB91E798C5E0087869F /* BinaryCodec.m in Sources */,
 				0F9AC9F21E798C5D0087869F /* SharedObjectMessage.m in Sources */,
+				5A6C381E1FF5337600422E4D /* Action.m in Sources */,
 				F9F0AF841CDBCAB500035C62 /* FilePermission.m in Sources */,
 				F9F0AF851CDBCAB500035C62 /* GeoCluster.m in Sources */,
 				F9F0AF861CDBCAB500035C62 /* QueryOptions.m in Sources */,
