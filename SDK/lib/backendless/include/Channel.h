@@ -35,27 +35,27 @@
 -(void)disconnect;
 
 -(void)addErrorListener:(void(^)(Fault *))errorBlock;
--(void)removeErrorListener:(void(^)(Fault *))errorBlock;
--(void)removeErrorListener;
+-(void)removeErrorListeners:(void(^)(Fault *))errorBlock;
+-(void)removeErrorListeners;
 
 -(void)addConnectListener:(void(^)(void))onConnect;
--(void)removeConnectListener:(void(^)(void))onConnect;
--(void)removeConnectListener;
+-(void)removeConnectListeners:(void(^)(void))onConnect;
+-(void)removeConnectListeners;
 
 -(void)addMessageListener:(void(^)(Message *))onMessage;
 -(void)addMessageListener:(NSString *)selector onMessage:(void(^)(Message *))onMessage;
--(void)removeMessageListener:(NSString *)selector onMessage:(void(^)(Message *))onMessage;
--(void)removeMessageListenerWithCallback:(void(^)(Message *))onMessage;
--(void)removeMessageListenerWithSelector:(NSString *)selector;
--(void)removeMessageListener;
+-(void)removeMessageListeners:(NSString *)selector onMessage:(void(^)(Message *))onMessage;
+-(void)removeMessageListenersWithCallback:(void(^)(Message *))onMessage;
+-(void)removeMessageListenersWithSelector:(NSString *)selector;
+-(void)removeMessageListeners;
 
 -(void)addCommandListener:(void(^)(CommandObject *))onCommand;
--(void)removeCommandListener:(void(^)(CommandObject *))onCommand;
--(void)removeCommandListener;
+-(void)removeCommandListeners:(void(^)(CommandObject *))onCommand;
+-(void)removeCommandListeners;
 
 -(void)addUserStatusListener:(void(^)(UserStatusObject *))onUserStatus;
--(void)removeUserStatusListener:(void(^)(UserStatusObject *))onUserStatus;
--(void)removeUserStatusListener;
+-(void)removeUserStatusListeners:(void(^)(UserStatusObject *))onUserStatus;
+-(void)removeUserStatusListeners;
 
 -(void)removeAllListeners;
 

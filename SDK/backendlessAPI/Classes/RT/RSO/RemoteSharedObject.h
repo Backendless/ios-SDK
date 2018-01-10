@@ -38,32 +38,32 @@
 -(void)disconnect;
 
 -(void)addErrorListener:(void(^)(Fault *))errorBlock;
--(void)removeErrorListener:(void(^)(Fault *))errorBlock;
--(void)removeErrorListener;
+-(void)removeErrorListeners:(void(^)(Fault *))errorBlock;
+-(void)removeErrorListeners;
 
 -(void)addConnectListener:(void(^)(void))onConnect;
--(void)removeConnectListener:(void(^)(void))onConnect;
--(void)removeConnectListener;
+-(void)removeConnectListeners:(void(^)(void))onConnect;
+-(void)removeConnectListeners;
 
 -(void)addChangesListener:(void(^)(RSOChangesObject *))onChanges;
--(void)removeChangesListener:(void(^)(RSOChangesObject *))onChanges;
--(void)removeChangesListener;
+-(void)removeChangesListeners:(void(^)(RSOChangesObject *))onChanges;
+-(void)removeChangesListeners;
 
 -(void)addClearListener:(void(^)(RSOClearedObject *))onClear;
--(void)removeClearListener:(void(^)(RSOClearedObject *))onClear;
--(void)removeClearListener;
+-(void)removeClearListeners:(void(^)(RSOClearedObject *))onClear;
+-(void)removeClearListeners;
 
 -(void)addCommandListener:(void(^)(CommandObject *))onCommand;
--(void)removeCommandListener:(void(^)(CommandObject *))onCommand;
--(void)removeCommandListener;
+-(void)removeCommandListeners:(void(^)(CommandObject *))onCommand;
+-(void)removeCommandListeners;
 
 -(void)addUserStatusListener:(void(^)(UserStatusObject *))onUserStatus;
--(void)removeUserStatusListener:(void(^)(UserStatusObject *))onUserStatus;
--(void)removeUserStatusListener;
+-(void)removeUserStatusListeners:(void(^)(UserStatusObject *))onUserStatus;
+-(void)removeUserStatusListeners;
 
 -(void)addInvokeListener:(void(^)(InvokeObject *))onInvoke;
--(void)removeInvokeListener:(void(^)(InvokeObject *))onInvoke;
--(void)removeInvokeListener;
+-(void)removeInvokeListeners:(void(^)(InvokeObject *))onInvoke;
+-(void)removeInvokeListeners;
 
 -(void)removeAllListeners;
 

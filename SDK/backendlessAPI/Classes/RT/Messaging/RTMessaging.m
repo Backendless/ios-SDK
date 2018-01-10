@@ -48,7 +48,7 @@
     [super addSimpleListener:ERROR callBack:onError];
 }
 
--(void)removeErrorListener:(void(^)(Fault *))onError {
+-(void)removeErrorListeners:(void(^)(Fault *))onError {
     [super removeSimpleListener:ERROR callBack:onError];
 }
 
@@ -61,7 +61,7 @@
     }
 }
 
--(void)removeConnectListener:(void(^)(void))onConnect {
+-(void)removeConnectListeners:(void(^)(void))onConnect {
     [super removeSimpleListener:PUB_SUB_CONNECT callBack:[onConnectCallbacks objectForKey:onConnect]];
     [super stopSubscriptionWithChannel:channel event:PUB_SUB_CONNECT whereClause:nil onResult:[onConnectCallbacks objectForKey:onConnect]];
 }
@@ -75,7 +75,7 @@
     [super addSubscription:PUB_SUB_MESSAGES options:options onResult:onMessage handleResultSelector:@selector(handleMessage:) fromClass:self];
 }
 
--(void)removeMessageListener:(NSString *)selector onMessage:(void(^)(Message *))onMessage {
+-(void)removeMessageListeners:(NSString *)selector onMessage:(void(^)(Message *))onMessage {
     [super stopSubscriptionWithChannel:channel event:PUB_SUB_MESSAGES whereClause:selector onResult:onMessage];
 }
 
@@ -94,7 +94,7 @@
     [super addSubscription:PUB_SUB_COMMANDS options:options onResult:onCommand handleResultSelector:@selector(handleCommand:) fromClass:self];
 }
 
--(void)removeCommandListener:(void(^)(CommandObject *))onCommand {
+-(void)removeCommandListeners:(void(^)(CommandObject *))onCommand {
     [super stopSubscriptionWithChannel:channel event:PUB_SUB_COMMANDS whereClause:nil onResult:onCommand];
 }
 
@@ -114,7 +114,7 @@
     [super addSubscription:PUB_SUB_USERS options:options onResult:onUserStatus handleResultSelector:@selector(handleUserStatus:) fromClass:self];
 }
 
--(void)removeUserStatusListener:(void(^)(UserStatusObject *))onUserStatus {
+-(void)removeUserStatusListeners:(void(^)(UserStatusObject *))onUserStatus {
     [super stopSubscriptionWithChannel:channel event:PUB_SUB_USERS whereClause:nil onResult:onUserStatus];
 }
 

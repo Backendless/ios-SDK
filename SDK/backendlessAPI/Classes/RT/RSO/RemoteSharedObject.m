@@ -52,13 +52,13 @@
 }
 
 -(void)disconnect {
-    [self removeErrorListener];
-    [self removeConnectListener];
-    [self removeChangesListener];
-    [self removeClearListener];
-    [self removeCommandListener];
-    [self removeUserStatusListener];
-    [self removeInvokeListener];
+    [self removeErrorListeners];
+    [self removeConnectListeners];
+    [self removeChangesListeners];
+    [self removeClearListeners];
+    [self removeCommandListeners];
+    [self removeUserStatusListeners];
+    [self removeInvokeListeners];
     self.isConnected = NO;
 }
 
@@ -66,11 +66,11 @@
     [self.rt addErrorListener:errorBlock];
 }
 
--(void)removeErrorListener:(void(^)(Fault *))errorBlock {
+-(void)removeErrorListeners:(void(^)(Fault *))errorBlock {
     [self.rt removeErrorListener:errorBlock];
 }
 
--(void)removeErrorListener {
+-(void)removeErrorListeners {
     [self.rt removeErrorListener:nil];
 }
 
@@ -78,11 +78,11 @@
     [self.rt addConnectListener:self.isConnected onConnect:onConnect];
 }
 
--(void)removeConnectListener:(void(^)(void))onConnect {
+-(void)removeConnectListeners:(void(^)(void))onConnect {
     [self.rt removeConnectListener:onConnect];
 }
 
--(void)removeConnectListener {
+-(void)removeConnectListeners {
     [self.rt removeConnectListener:nil];
 }
 
@@ -90,11 +90,11 @@
     [self.rt addChangesListener:onChanges];
 }
 
--(void)removeChangesListener:(void(^)(RSOChangesObject *))onChanges {
+-(void)removeChangesListeners:(void(^)(RSOChangesObject *))onChanges {
     [self.rt removeChangesListener:onChanges];
 }
 
--(void)removeChangesListener {
+-(void)removeChangesListeners {
     [self.rt removeChangesListener:nil];
 }
 
@@ -102,11 +102,11 @@
     [self.rt addClearListener:onClear];
 }
 
--(void)removeClearListener:(void(^)(RSOClearedObject *))onClear {
+-(void)removeClearListeners:(void(^)(RSOClearedObject *))onClear {
     [self.rt removeClearListener:onClear];
 }
 
--(void)removeClearListener {
+-(void)removeClearListeners {
     [self.rt removeClearListener:nil];
 }
 
@@ -114,11 +114,11 @@
     [self.rt addCommandListener:onCommand];
 }
 
--(void)removeCommandListener:(void(^)(CommandObject *))onCommand {
+-(void)removeCommandListeners:(void(^)(CommandObject *))onCommand {
     [self.rt removeCommandListener:onCommand];
 }
 
--(void)removeCommandListener {
+-(void)removeCommandListeners {
     [self.rt removeCommandListener:nil];
 }
 
@@ -126,11 +126,11 @@
     [self.rt addUserStatusListener:onUserStatus];
 }
 
--(void)removeUserStatusListener:(void(^)(UserStatusObject *))onUserStatus {
+-(void)removeUserStatusListeners:(void(^)(UserStatusObject *))onUserStatus {
     [self.rt removeUserStatusListener:onUserStatus];
 }
 
--(void)removeUserStatusListener {
+-(void)removeUserStatusListeners {
     [self.rt removeUserStatusListener:nil];
 }
 
@@ -138,22 +138,22 @@
     [self.rt addInvokeListener:onInvoke];
 }
 
--(void)removeInvokeListener:(void(^)(InvokeObject *))onInvoke {
+-(void)removeInvokeListeners:(void(^)(InvokeObject *))onInvoke {
     [self.rt removeInvokeListener:onInvoke];
 }
 
--(void)removeInvokeListener {
+-(void)removeInvokeListeners {
     [self.rt removeInvokeListener:nil];
 }
 
 -(void)removeAllListeners {
-    [self removeErrorListener];
-    [self removeConnectListener];
-    [self removeChangesListener];
-    [self removeClearListener];
-    [self removeCommandListener];
-    [self removeUserStatusListener];
-    [self removeInvokeListener];
+    [self removeErrorListeners];
+    [self removeConnectListeners];
+    [self removeChangesListeners];
+    [self removeClearListeners];
+    [self removeCommandListeners];
+    [self removeUserStatusListeners];
+    [self removeInvokeListeners];
 }
 
 -(void)get:(void (^)(id))onSuccess onError:(void (^)(Fault *))onError {

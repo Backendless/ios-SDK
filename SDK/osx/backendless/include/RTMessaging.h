@@ -32,18 +32,18 @@
 -(void)connect:(void(^)(id))onSuccessfulConnect;
 
 -(void)addErrorListener:(void(^)(Fault *))errorBlock;
--(void)removeErrorListener:(void(^)(Fault *))errorBlock;
+-(void)removeErrorListeners:(void(^)(Fault *))errorBlock;
 
 -(void)addConnectListener:(BOOL)isConnected onConnect:(void(^)(void))onConnect;
--(void)removeConnectListener:(void(^)(void))onConnect;
+-(void)removeConnectListeners:(void(^)(void))onConnect;
 
 -(void)addMessageListener:(NSString *)selector onMessage:(void(^)(Message *))onMessage;
--(void)removeMessageListener:(NSString *)selector onMessage:(void(^)(Message *))onMessage;
+-(void)removeMessageListeners:(NSString *)selector onMessage:(void(^)(Message *))onMessage;
 
 -(void)addCommandListener:(void(^)(CommandObject *))onCommand;
--(void)removeCommandListener:(void(^)(CommandObject *))onCommand;
+-(void)removeCommandListeners:(void(^)(CommandObject *))onCommand;
 
 -(void)addUserStatusListener:(void(^)(UserStatusObject *))onUserStatus;
--(void)removeUserStatusListener:(void(^)(UserStatusObject *))onUserStatus;
+-(void)removeUserStatusListeners:(void(^)(UserStatusObject *))onUserStatus;
 
 @end

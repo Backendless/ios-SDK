@@ -32,6 +32,12 @@
     SocketManager *socketManager;
     SocketIOClient *socket;
     NSMutableDictionary<NSString *, RTSubscription *> *subscriptions;
+    
+    NSMutableArray *connectEventListeners;
+    NSMutableArray *connectErrorEventListeners;
+    NSMutableArray *disconnectEventListeners;;
+    NSMutableArray *errorEventListeners;
+    
     NSMutableDictionary<NSString *, RTMethodRequest *> *methods;
     BOOL socketCreated;
     BOOL socketConnected;
@@ -163,6 +169,9 @@
                 [self onMethodResult];
                 connected();
             }
+            
+            
+            // for ...
         }];
         [socket on:@"reconnect" callback:^(NSArray* data, SocketAckEmitter* ack) {
             NSLog(@"***** Socket reconnected *****");
@@ -258,6 +267,8 @@
                            @"options"   : options};
     [self sendCommand:data method:nil];
 }
+
+// System Events & Handlers
 
 @end
 

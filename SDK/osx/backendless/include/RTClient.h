@@ -33,5 +33,7 @@
 -(void)sendCommand:(id)data method:(RTMethodRequest *)method;
 -(void)userLoggedInWithToken:(NSString *)userToken;
 
+// System Events & Handlers
+
 @end
 

@@ -48,11 +48,11 @@
 }
 
 -(void)disconnect {
-    [self removeErrorListener];
-    [self removeConnectListener];
-    [self removeMessageListener];
-    [self removeCommandListener];
-    [self removeUserStatusListener];
+    [self removeErrorListeners];
+    [self removeConnectListeners];
+    [self removeMessageListeners];
+    [self removeCommandListeners];
+    [self removeUserStatusListeners];
     self.isConnected = NO;
 }
 
@@ -60,24 +60,24 @@
     [self.rt addErrorListener:errorBlock];
 }
 
--(void)removeErrorListener:(void(^)(Fault *))errorBlock {
-    [self.rt removeErrorListener:errorBlock];
+-(void)removeErrorListeners:(void(^)(Fault *))errorBlock {
+    [self.rt removeErrorListeners:errorBlock];
 }
 
--(void)removeErrorListener {
-    [self.rt removeErrorListener:nil];
+-(void)removeErrorListeners {
+    [self.rt removeErrorListeners:nil];
 }
 
 -(void)addConnectListener:(void(^)(void))onConnect {
     [self.rt addConnectListener:self.isConnected onConnect:onConnect];
 }
 
--(void)removeConnectListener:(void(^)(void))onConnect {
-    [self.rt removeConnectListener:onConnect];
+-(void)removeConnectListeners:(void(^)(void))onConnect {
+    [self.rt removeConnectListeners:onConnect];
 }
 
--(void)removeConnectListener {
-    [self.rt removeConnectListener:nil];
+-(void)removeConnectListeners {
+    [self.rt removeConnectListeners:nil];
 }
 
 -(void)addMessageListener:(void(^)(Message *))onMessage {
@@ -88,52 +88,52 @@
     [self.rt addMessageListener:selector onMessage:onMessage];
 }
 
--(void)removeMessageListener:(NSString *)selector onMessage:(void(^)(Message *))onMessage {
-    [self.rt removeMessageListener:selector onMessage:onMessage];
+-(void)removeMessageListeners:(NSString *)selector onMessage:(void(^)(Message *))onMessage {
+    [self.rt removeMessageListeners:selector onMessage:onMessage];
 }
 
--(void)removeMessageListenerWithCallback:(void(^)(Message *))onMessage {
-    [self.rt removeMessageListener:nil onMessage:onMessage];
+-(void)removeMessageListenersWithCallback:(void(^)(Message *))onMessage {
+    [self.rt removeMessageListeners:nil onMessage:onMessage];
 }
 
--(void)removeMessageListenerWithSelector:(NSString *)selector {
-    [self.rt removeMessageListener:selector onMessage:nil];
+-(void)removeMessageListenersWithSelector:(NSString *)selector {
+    [self.rt removeMessageListeners:selector onMessage:nil];
 }
 
--(void)removeMessageListener {
-    [self.rt removeMessageListener:nil onMessage:nil];
+-(void)removeMessageListeners {
+    [self.rt removeMessageListeners:nil onMessage:nil];
 }
 
 -(void)addCommandListener:(void (^)(CommandObject *))onCommand {
     [self.rt addCommandListener:onCommand];
 }
 
--(void)removeCommandListener:(void (^)(CommandObject *))onCommand {
-    [self.rt removeCommandListener:onCommand];
+-(void)removeCommandListeners:(void (^)(CommandObject *))onCommand {
+    [self.rt removeCommandListeners:onCommand];
 }
 
--(void)removeCommandListener {
-    [self.rt removeCommandListener:nil];
+-(void)removeCommandListeners {
+    [self.rt removeCommandListeners:nil];
 }
 
 -(void)addUserStatusListener:(void (^)(UserStatusObject *))onUserStatus {
     [self.rt addUserStatusListener:onUserStatus];
 }
 
--(void)removeUserStatusListener:(void (^)(UserStatusObject *))onUserStatus {
-    [self.rt removeUserStatusListener:onUserStatus];
+-(void)removeUserStatusListeners:(void (^)(UserStatusObject *))onUserStatus {
+    [self.rt removeUserStatusListeners:onUserStatus];
 }
 
--(void)removeUserStatusListener {
-    [self.rt removeUserStatusListener:nil];
+-(void)removeUserStatusListeners {
+    [self.rt removeUserStatusListeners:nil];
 }
 
 -(void)removeAllListeners {
-    [self removeErrorListener];
-    [self removeConnectListener];
-    [self removeMessageListener];
-    [self removeCommandListener];
-    [self removeUserStatusListener];
+    [self removeErrorListeners];
+    [self removeConnectListeners];
+    [self removeMessageListeners];
+    [self removeCommandListeners];
+    [self removeUserStatusListeners];
 }
 
 @end
