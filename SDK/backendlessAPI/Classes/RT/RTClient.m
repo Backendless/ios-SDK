@@ -32,13 +32,8 @@
     SocketManager *socketManager;
     SocketIOClient *socket;
     NSMutableDictionary<NSString *, RTSubscription *> *subscriptions;
-    
-    NSMutableArray *connectEventListeners;
-    NSMutableArray *connectErrorEventListeners;
-    NSMutableArray *disconnectEventListeners;;
-    NSMutableArray *errorEventListeners;
-    
     NSMutableDictionary<NSString *, RTMethodRequest *> *methods;
+    NSMutableDictionary<NSString *, NSArray *> *eventListeners;
     BOOL socketCreated;
     BOOL socketConnected;
     BOOL needResubscribe;
@@ -62,6 +57,7 @@
     if (self = [super init]) {
         subscriptions = [NSMutableDictionary<NSString *, RTSubscription *> new];
         methods =  [NSMutableDictionary<NSString *, RTMethodRequest *> new];
+        eventListeners = [NSMutableDictionary<NSString *, NSArray *> new];
         socketCreated = NO;
         socketConnected = NO;
         needResubscribe = NO;
@@ -90,11 +86,12 @@
                 [self onConnectionHandlers:connected];
             }
         }
+        
         if (socketConnected) {
             connected();
             [_lock unlock];
         }
-        else {
+        else if (socketCreated) {
             [socket connect];
         }
     });
@@ -170,8 +167,10 @@
                 connected();
             }
             
-            
-            // for ...
+            NSArray *connectListeners = [NSArray arrayWithArray:[eventListeners valueForKey:CONNECT_EVENT]];
+            for (void(^connectBlock)(void) in connectListeners) {
+                connectBlock();
+            }
         }];
         [socket on:@"reconnect" callback:^(NSArray* data, SocketAckEmitter* ack) {
             NSLog(@"***** Socket reconnected *****");
@@ -268,7 +267,46 @@
     [self sendCommand:data method:nil];
 }
 
-// System Events & Handlers
+// Native Socket.io events
+-(void)addConnectEventListener:(void(^)(void))onConnect {
+    NSMutableArray *connectListeners = [NSMutableArray arrayWithArray:[eventListeners valueForKey:CONNECT_EVENT]];
+    if (connectListeners) {
+        [connectListeners addObject:onConnect];
+        [eventListeners setObject:connectListeners forKey:CONNECT_EVENT];
+    }
+}
+
+-(void)removeConnectEventListeners:(void(^)(void))onConnect {
+    NSMutableArray *connectListeners = [NSMutableArray arrayWithArray:[eventListeners valueForKey:CONNECT_EVENT]];
+    if (connectListeners) {
+        [connectListeners removeObject:onConnect];
+        [eventListeners setObject:connectListeners forKey:CONNECT_EVENT];
+    }
+}
+
+-(void)addEventListener:(NSString *)type callBack:(void(^)(id))callback {
+    NSMutableArray *listeners = [NSMutableArray arrayWithArray:[eventListeners valueForKey:type]];
+    if (listeners) {
+        [listeners addObject:callback];
+        [eventListeners setObject:listeners forKey:type];
+    }
+}
+
+-(void)removeEventListeners:(NSString *)type callBack:(void(^)(id))callback {
+    NSMutableArray *listeners = [NSMutableArray arrayWithArray:[eventListeners valueForKey:type]];
+    if (listeners) {
+        [listeners removeObject:callback];
+        [eventListeners setObject:listeners forKey:type];
+    }
+}
+
+-(void)removeEventListeners:(NSString *)type {
+    NSMutableArray *listeners = [NSMutableArray arrayWithArray:[eventListeners valueForKey:type]];
+    if (listeners) {
+        [listeners removeAllObjects];
+        [eventListeners setObject:listeners forKey:type];
+    }
+}
 
 @end
 

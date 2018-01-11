@@ -21,15 +21,18 @@
 
 #import "RTPersistence.h"
 #import "Backendless.h"
+#import "RTFactory.h"
 
 @implementation RTPersistence
 
 -(RTDataStore *)of:(Class)entityClass {
-    return [[RTDataStore alloc] initWithTableName:[backendless.persistenceService getEntityName:NSStringFromClass(entityClass)] withEntity:entityClass dataStoreType:DATASTOREFACTORY];
+    //return [[RTDataStore alloc] initWithTableName:[backendless.persistenceService getEntityName:NSStringFromClass(entityClass)] withEntity:entityClass dataStoreType:DATASTOREFACTORY];
+    return [rtFactory getDataStore:[backendless.persistenceService getEntityName:NSStringFromClass(entityClass)] withEntity:entityClass dataStoreType:DATASTOREFACTORY];
 }
 
 -(RTDataStore *)ofTable:(NSString *)tableName {
-    return [[RTDataStore alloc] initWithTableName:tableName withEntity:nil dataStoreType:MAPDRIVENDATASTORE];
+    //return [[RTDataStore alloc] initWithTableName:tableName withEntity:nil dataStoreType:MAPDRIVENDATASTORE];
+     return [rtFactory getDataStore:tableName withEntity:nil dataStoreType:MAPDRIVENDATASTORE];
 }
 
 @end

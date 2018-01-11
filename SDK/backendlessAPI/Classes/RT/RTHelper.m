@@ -21,6 +21,7 @@
 
 #import "RTHelper.h"
 #import "Invoker.h"
+#import "Responder.h"
 
 static NSString *SERVER_RT_SERVICE_PATH  = @"com.backendless.rt.RTService";
 static NSString *METHOD_LOOKUP  = @"lookup";

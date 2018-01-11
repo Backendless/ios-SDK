@@ -1,5 +1,5 @@
 //
-//  RemoteSharedObject.m
+//  SharedObject.m
 //  backendlessAPI
 /*
  * *********************************************************************************************************************
@@ -19,57 +19,52 @@
  *  ********************************************************************************************************************
  */
 
-#import "WeborbSharedObject.h"
-#import "RTRSO.h"
+#import "SharedObject.h"
+#import "RTSharedObject.h"
+#import "SharedObjectService.h"
 
 @interface SharedObject()
 @property (strong, nonatomic, readwrite) NSString *name;
-@property (strong, nonatomic) RTRSO *rt;
+@property (strong, nonatomic) RTSharedObject *rt;
 @property (nonatomic, readwrite) BOOL isConnected;
 @end
 
 @implementation SharedObject
 
+-(instancetype)initWithName:(NSString *)name {
+    if (self = [super init]) {
+        self.name = name;
+        self.rt = [[RTSharedObject alloc] initWithName:name];
+        self.isConnected = NO;
+    }
+    return self;
+}
+
+-(instancetype)connect:(NSString *)name {
+    return [sharedObjectService connect:name];
+}
+
 -(void)setInvocationTarget:(id)invocationTarget {
     self.rt.invocationTarget = invocationTarget;
 }
 
--(instancetype)initWithRSOName:(NSString *)sharedObjectName {
-    if (self = [super init]) {
-        self.name = sharedObjectName;
-        self.rt = [[RTRSO alloc] initWithRSOName:sharedObjectName];
-        self.isConnected = NO;
-        [self connect];
-    }
-    return self;
-}
-
--(instancetype)connect:(NSString *)sharedObjectName {
-    [self initWithRSOName:sharedObjectName];
-    return self;
-}
-
 -(void)connect {
-    if (!self.isConnected) {
-        __weak __typeof__(self) weakSelf = self;
-        [self.rt connect:^(id result) {
-            __typeof__(self) strongSelf = weakSelf;
-            strongSelf.isConnected = YES;
-        }];
-    }
+    __weak __typeof__(self) weakSelf = self;
+    [self.rt connect:^(id result) {
+        __typeof__(self) strongSelf = weakSelf;
+        strongSelf.isConnected = YES;
+    }];
 }
 
 -(void)disconnect {
-    if (self.isConnected) {
-        [self removeErrorListeners];
-        [self removeConnectListeners];
-        [self removeChangesListeners];
-        [self removeClearListeners];
-        [self removeCommandListeners];
-        [self removeUserStatusListeners];
-        [self removeInvokeListeners];
-        self.isConnected = NO;
-    }
+    [self removeErrorListeners];
+    [self removeConnectListeners];
+    [self removeChangesListeners];
+    [self removeClearListeners];
+    [self removeCommandListeners];
+    [self removeUserStatusListeners];
+    [self removeInvokeListeners];
+    self.isConnected = NO;
 }
 
 -(void)addErrorListener:(void(^)(Fault *))errorBlock {
@@ -108,11 +103,11 @@
     [self.rt removeChangesListener:nil];
 }
 
--(void)addClearListener:(void(^)(RSOClearedObject *))onClear {
+-(void)addClearListener:(void(^)(UserInfo *))onClear {
     [self.rt addClearListener:onClear];
 }
 
--(void)removeClearListeners:(void(^)(RSOClearedObject *))onClear {
+-(void)removeClearListeners:(void(^)(UserInfo *))onClear {
     [self.rt removeClearListener:onClear];
 }
 

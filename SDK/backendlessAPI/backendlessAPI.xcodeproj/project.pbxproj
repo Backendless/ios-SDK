@@ -1500,6 +1500,66 @@
 		5A507A761F3B42D80027ABAC /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A507A741F3B41D80027ABAC /* UserNotifications.framework */; };
 		5A507A771F3B42E10027ABAC /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A507A741F3B41D80027ABAC /* UserNotifications.framework */; };
 		5A507A781F3B42E80027ABAC /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A507A741F3B41D80027ABAC /* UserNotifications.framework */; };
+		5A54983C200794ED0042234F /* InvokeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A549835200794D20042234F /* InvokeObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A54983D200794F20042234F /* RTSharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A54983B200794D20042234F /* RTSharedObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A54983E200794F70042234F /* SharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A549832200794D20042234F /* SharedObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A54983F200794FD0042234F /* SharedObjectChanges.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A54983A200794D20042234F /* SharedObjectChanges.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A549840200795010042234F /* SharedObjectService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A549833200794D20042234F /* SharedObjectService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A5498412007950C0042234F /* InvokeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A549835200794D20042234F /* InvokeObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A549842200795110042234F /* RTSharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A54983B200794D20042234F /* RTSharedObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A549843200795150042234F /* SharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A549832200794D20042234F /* SharedObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A5498442007951D0042234F /* SharedObjectChanges.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A54983A200794D20042234F /* SharedObjectChanges.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A549845200795210042234F /* SharedObjectService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A549833200794D20042234F /* SharedObjectService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A549846200795270042234F /* InvokeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A549835200794D20042234F /* InvokeObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A5498472007952E0042234F /* RTSharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A54983B200794D20042234F /* RTSharedObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A549848200795320042234F /* SharedObjectChanges.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A54983A200794D20042234F /* SharedObjectChanges.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A549849200795360042234F /* SharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A549832200794D20042234F /* SharedObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A54984A2007953A0042234F /* SharedObjectService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A549833200794D20042234F /* SharedObjectService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A54984B2007953F0042234F /* InvokeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A549835200794D20042234F /* InvokeObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A54984C200795440042234F /* RTSharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A54983B200794D20042234F /* RTSharedObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A54984D200795480042234F /* SharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A549832200794D20042234F /* SharedObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A54984E2007954D0042234F /* SharedObjectChanges.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A54983A200794D20042234F /* SharedObjectChanges.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A54984F200795510042234F /* SharedObjectService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A549833200794D20042234F /* SharedObjectService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A549850200795550042234F /* InvokeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A549835200794D20042234F /* InvokeObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A5498512007955C0042234F /* RTSharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A54983B200794D20042234F /* RTSharedObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A549852200795600042234F /* SharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A549832200794D20042234F /* SharedObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A549853200795630042234F /* SharedObjectChanges.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A54983A200794D20042234F /* SharedObjectChanges.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A549854200795670042234F /* SharedObjectService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A549833200794D20042234F /* SharedObjectService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A5498552007956F0042234F /* InvokeObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A549838200794D20042234F /* InvokeObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A549856200795780042234F /* RTSharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A549836200794D20042234F /* RTSharedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A5498572007957D0042234F /* SharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A549837200794D20042234F /* SharedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A549858200795820042234F /* SharedObjectChanges.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A549834200794D20042234F /* SharedObjectChanges.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A549859200795850042234F /* SharedObjectService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A549839200794D20042234F /* SharedObjectService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A54985A200795950042234F /* InvokeObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A549838200794D20042234F /* InvokeObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A54985B2007959B0042234F /* RTSharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A549836200794D20042234F /* RTSharedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A54985C2007959E0042234F /* SharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A549837200794D20042234F /* SharedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A54985D200795A10042234F /* SharedObjectService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A549839200794D20042234F /* SharedObjectService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A54985E200795A50042234F /* SharedObjectChanges.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A549834200794D20042234F /* SharedObjectChanges.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A54985F200795BD0042234F /* InvokeObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A549838200794D20042234F /* InvokeObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A549860200795C50042234F /* RTSharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A549836200794D20042234F /* RTSharedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A549861200795C90042234F /* SharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A549837200794D20042234F /* SharedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A549862200795CC0042234F /* SharedObjectService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A549839200794D20042234F /* SharedObjectService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A549863200795D00042234F /* SharedObjectChanges.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A549834200794D20042234F /* SharedObjectChanges.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A549864200795E00042234F /* InvokeObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A549838200794D20042234F /* InvokeObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A549865200795E50042234F /* RTSharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A549836200794D20042234F /* RTSharedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A549866200795E80042234F /* SharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A549837200794D20042234F /* SharedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A549867200795EB0042234F /* SharedObjectChanges.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A549834200794D20042234F /* SharedObjectChanges.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A549868200795EF0042234F /* SharedObjectService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A549839200794D20042234F /* SharedObjectService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A549869200795FC0042234F /* InvokeObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A549838200794D20042234F /* InvokeObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A54986A200796020042234F /* RTSharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A549836200794D20042234F /* RTSharedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A54986B200796050042234F /* SharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A549837200794D20042234F /* SharedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A54986C200796080042234F /* SharedObjectChanges.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A549834200794D20042234F /* SharedObjectChanges.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A54986D2007960C0042234F /* SharedObjectService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A549839200794D20042234F /* SharedObjectService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A5498702007A2740042234F /* ReconnectAttemptObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A54986E2007A2740042234F /* ReconnectAttemptObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A5498712007A2740042234F /* ReconnectAttemptObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A54986E2007A2740042234F /* ReconnectAttemptObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A5498722007A2740042234F /* ReconnectAttemptObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A54986E2007A2740042234F /* ReconnectAttemptObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A5498732007A2740042234F /* ReconnectAttemptObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A54986E2007A2740042234F /* ReconnectAttemptObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A5498742007A2740042234F /* ReconnectAttemptObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A54986E2007A2740042234F /* ReconnectAttemptObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A5498752007A2740042234F /* ReconnectAttemptObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A54986F2007A2740042234F /* ReconnectAttemptObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A5498762007A2740042234F /* ReconnectAttemptObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A54986F2007A2740042234F /* ReconnectAttemptObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A5498772007A2740042234F /* ReconnectAttemptObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A54986F2007A2740042234F /* ReconnectAttemptObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A5498782007A2740042234F /* ReconnectAttemptObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A54986F2007A2740042234F /* ReconnectAttemptObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A5498792007A2740042234F /* ReconnectAttemptObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A54986F2007A2740042234F /* ReconnectAttemptObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A633F411F7BB7F6004D7ACA /* BackendlessPushHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A633F3F1F7BB7F6004D7ACA /* BackendlessPushHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A633F421F7BB7F6004D7ACA /* BackendlessPushHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A633F3F1F7BB7F6004D7ACA /* BackendlessPushHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A633F431F7BB7F6004D7ACA /* BackendlessPushHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A633F3F1F7BB7F6004D7ACA /* BackendlessPushHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1518,27 +1578,6 @@
 		5A66A07A1FD6CD1E002202BE /* RTHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A66A0721FD6CD1E002202BE /* RTHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A66A07B1FD6CD1E002202BE /* RTHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A66A0721FD6CD1E002202BE /* RTHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A66A07C1FD6CD1E002202BE /* RTHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A66A0721FD6CD1E002202BE /* RTHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A74B1F51FC6E65100157850 /* SharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A74B1F31FC6E65100157850 /* SharedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A74B1F61FC6E65100157850 /* SharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A74B1F31FC6E65100157850 /* SharedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A74B1F71FC6E65100157850 /* SharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A74B1F31FC6E65100157850 /* SharedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A74B1F81FC6E65100157850 /* SharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A74B1F31FC6E65100157850 /* SharedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A74B1F91FC6E65100157850 /* SharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A74B1F31FC6E65100157850 /* SharedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A74B1FA1FC6E65100157850 /* SharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A74B1F41FC6E65100157850 /* SharedObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A74B1FB1FC6E65100157850 /* SharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A74B1F41FC6E65100157850 /* SharedObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A74B1FC1FC6E65100157850 /* SharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A74B1F41FC6E65100157850 /* SharedObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A74B1FD1FC6E65100157850 /* SharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A74B1F41FC6E65100157850 /* SharedObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A74B1FE1FC6E65100157850 /* SharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A74B1F41FC6E65100157850 /* SharedObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A79B7C71FD01BEC00F7A37A /* InvokeObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A79B7C51FD01BEC00F7A37A /* InvokeObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A79B7C81FD01BEC00F7A37A /* InvokeObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A79B7C51FD01BEC00F7A37A /* InvokeObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A79B7C91FD01BEC00F7A37A /* InvokeObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A79B7C51FD01BEC00F7A37A /* InvokeObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A79B7CA1FD01BEC00F7A37A /* InvokeObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A79B7C51FD01BEC00F7A37A /* InvokeObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A79B7CB1FD01BEC00F7A37A /* InvokeObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A79B7C51FD01BEC00F7A37A /* InvokeObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A79B7CC1FD01BEC00F7A37A /* InvokeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A79B7C61FD01BEC00F7A37A /* InvokeObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A79B7CD1FD01BEC00F7A37A /* InvokeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A79B7C61FD01BEC00F7A37A /* InvokeObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A79B7CE1FD01BEC00F7A37A /* InvokeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A79B7C61FD01BEC00F7A37A /* InvokeObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A79B7CF1FD01BEC00F7A37A /* InvokeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A79B7C61FD01BEC00F7A37A /* InvokeObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A79B7D01FD01BEC00F7A37A /* InvokeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A79B7C61FD01BEC00F7A37A /* InvokeObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A8393461FD1A72E00FB5697 /* RTSharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872EEB1FC6F82000A6CCB3 /* RTSharedObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A8393471FD1A78400FB5697 /* RTMessaging.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F38501FB317EB002F21D4 /* RTMessaging.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A8393481FD1A79900FB5697 /* RTMessaging.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A5F38541FB317EB002F21D4 /* RTMessaging.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A8393491FD1A7BB00FB5697 /* CommandObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9AD1FC4788700B192D9 /* CommandObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -1574,25 +1613,6 @@
 		5A83936C1FD1AD9E00FB5697 /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9A91FC4786900B192D9 /* Channel.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A83936D1FD1ADB800FB5697 /* RTMessaging.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F38501FB317EB002F21D4 /* RTMessaging.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A83936E1FD1ADC800FB5697 /* CommandObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9AD1FC4788700B192D9 /* CommandObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A872EEC1FC6F82000A6CCB3 /* RTSharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872EEA1FC6F82000A6CCB3 /* RTSharedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A872EED1FC6F82000A6CCB3 /* RTSharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872EEA1FC6F82000A6CCB3 /* RTSharedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A872EEE1FC6F82000A6CCB3 /* RTSharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872EEA1FC6F82000A6CCB3 /* RTSharedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A872EEF1FC6F82000A6CCB3 /* RTSharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872EEA1FC6F82000A6CCB3 /* RTSharedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A872EF01FC6F82000A6CCB3 /* RTSharedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872EEA1FC6F82000A6CCB3 /* RTSharedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A872EF11FC6F82000A6CCB3 /* RTSharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872EEB1FC6F82000A6CCB3 /* RTSharedObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A872EF21FC6F82000A6CCB3 /* RTSharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872EEB1FC6F82000A6CCB3 /* RTSharedObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A872EF31FC6F82000A6CCB3 /* RTSharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872EEB1FC6F82000A6CCB3 /* RTSharedObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A872EF41FC6F82000A6CCB3 /* RTSharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872EEB1FC6F82000A6CCB3 /* RTSharedObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A872EF81FC6FED300A6CCB3 /* SharedObjectChanges.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872EF61FC6FED300A6CCB3 /* SharedObjectChanges.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A872EF91FC6FED300A6CCB3 /* SharedObjectChanges.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872EF61FC6FED300A6CCB3 /* SharedObjectChanges.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A872EFA1FC6FED300A6CCB3 /* SharedObjectChanges.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872EF61FC6FED300A6CCB3 /* SharedObjectChanges.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A872EFB1FC6FED300A6CCB3 /* SharedObjectChanges.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872EF61FC6FED300A6CCB3 /* SharedObjectChanges.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A872EFC1FC6FED300A6CCB3 /* SharedObjectChanges.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A872EF61FC6FED300A6CCB3 /* SharedObjectChanges.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A872EFD1FC6FED300A6CCB3 /* SharedObjectChanges.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872EF71FC6FED300A6CCB3 /* SharedObjectChanges.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A872EFE1FC6FED300A6CCB3 /* SharedObjectChanges.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872EF71FC6FED300A6CCB3 /* SharedObjectChanges.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A872EFF1FC6FED300A6CCB3 /* SharedObjectChanges.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872EF71FC6FED300A6CCB3 /* SharedObjectChanges.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A872F001FC6FED300A6CCB3 /* SharedObjectChanges.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872EF71FC6FED300A6CCB3 /* SharedObjectChanges.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A872F011FC6FED300A6CCB3 /* SharedObjectChanges.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A872EF71FC6FED300A6CCB3 /* SharedObjectChanges.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A8A155E1FA0CB22009A1394 /* RTClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A155C1FA0CB22009A1394 /* RTClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A8A155F1FA0CB22009A1394 /* RTClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A155C1FA0CB22009A1394 /* RTClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A8A15601FA0CB22009A1394 /* RTClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A155C1FA0CB22009A1394 /* RTClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1628,6 +1648,16 @@
 		5AD17B0D200770CC00FFB487 /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD17B05200770CC00FFB487 /* UserInfo.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5AD17B0E200770CC00FFB487 /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD17B05200770CC00FFB487 /* UserInfo.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5AD17B0F200770CC00FFB487 /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD17B05200770CC00FFB487 /* UserInfo.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5AD17B1E200775B200FFB487 /* RTFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AD17B1C200775B200FFB487 /* RTFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AD17B1F200775B200FFB487 /* RTFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AD17B1C200775B200FFB487 /* RTFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AD17B20200775B200FFB487 /* RTFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AD17B1C200775B200FFB487 /* RTFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AD17B21200775B200FFB487 /* RTFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AD17B1C200775B200FFB487 /* RTFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AD17B22200775B200FFB487 /* RTFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AD17B1C200775B200FFB487 /* RTFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AD17B23200775B200FFB487 /* RTFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD17B1D200775B200FFB487 /* RTFactory.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5AD17B24200775B200FFB487 /* RTFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD17B1D200775B200FFB487 /* RTFactory.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5AD17B25200775B200FFB487 /* RTFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD17B1D200775B200FFB487 /* RTFactory.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5AD17B26200775B200FFB487 /* RTFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD17B1D200775B200FFB487 /* RTFactory.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5AD17B27200775B200FFB487 /* RTFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD17B1D200775B200FFB487 /* RTFactory.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5AD1BEDF1FD1B0CA00493038 /* RTMethodRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9AF1FC4788700B192D9 /* RTMethodRequest.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5AD1BEE01FD1B0D200493038 /* RTSubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F38551FB317EB002F21D4 /* RTSubscription.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5AD1BEE11FD1B0D900493038 /* UserStatusObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AEED9CA1FC5B90800CB7D9F /* UserStatusObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -2558,6 +2588,18 @@
 		5A4F7FC61FDEB8A4006D5744 /* RTPersistence.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTPersistence.h; sourceTree = "<group>"; };
 		5A4F7FC71FDEB8A4006D5744 /* RTPersistence.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RTPersistence.m; sourceTree = "<group>"; };
 		5A507A741F3B41D80027ABAC /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		5A549832200794D20042234F /* SharedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharedObject.m; sourceTree = "<group>"; };
+		5A549833200794D20042234F /* SharedObjectService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharedObjectService.m; sourceTree = "<group>"; };
+		5A549834200794D20042234F /* SharedObjectChanges.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedObjectChanges.h; sourceTree = "<group>"; };
+		5A549835200794D20042234F /* InvokeObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvokeObject.m; sourceTree = "<group>"; };
+		5A549836200794D20042234F /* RTSharedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTSharedObject.h; sourceTree = "<group>"; };
+		5A549837200794D20042234F /* SharedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedObject.h; sourceTree = "<group>"; };
+		5A549838200794D20042234F /* InvokeObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvokeObject.h; sourceTree = "<group>"; };
+		5A549839200794D20042234F /* SharedObjectService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedObjectService.h; sourceTree = "<group>"; };
+		5A54983A200794D20042234F /* SharedObjectChanges.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharedObjectChanges.m; sourceTree = "<group>"; };
+		5A54983B200794D20042234F /* RTSharedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTSharedObject.m; sourceTree = "<group>"; };
+		5A54986E2007A2740042234F /* ReconnectAttemptObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReconnectAttemptObject.h; sourceTree = "<group>"; };
+		5A54986F2007A2740042234F /* ReconnectAttemptObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReconnectAttemptObject.m; sourceTree = "<group>"; };
 		5A5F384F1FB317EB002F21D4 /* RTListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTListener.m; sourceTree = "<group>"; };
 		5A5F38501FB317EB002F21D4 /* RTMessaging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTMessaging.m; sourceTree = "<group>"; };
 		5A5F38521FB317EB002F21D4 /* RTSubscription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTSubscription.h; sourceTree = "<group>"; };
@@ -2568,14 +2610,6 @@
 		5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BackendlessPushHelper.m; sourceTree = "<group>"; };
 		5A66A0711FD6CD1E002202BE /* RTHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTHelper.h; sourceTree = "<group>"; };
 		5A66A0721FD6CD1E002202BE /* RTHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RTHelper.m; sourceTree = "<group>"; };
-		5A74B1F31FC6E65100157850 /* SharedObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SharedObject.h; sourceTree = "<group>"; };
-		5A74B1F41FC6E65100157850 /* SharedObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SharedObject.m; sourceTree = "<group>"; };
-		5A79B7C51FD01BEC00F7A37A /* InvokeObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InvokeObject.h; sourceTree = "<group>"; };
-		5A79B7C61FD01BEC00F7A37A /* InvokeObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InvokeObject.m; sourceTree = "<group>"; };
-		5A872EEA1FC6F82000A6CCB3 /* RTSharedObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTSharedObject.h; sourceTree = "<group>"; };
-		5A872EEB1FC6F82000A6CCB3 /* RTSharedObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RTSharedObject.m; sourceTree = "<group>"; };
-		5A872EF61FC6FED300A6CCB3 /* SharedObjectChanges.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SharedObjectChanges.h; sourceTree = "<group>"; };
-		5A872EF71FC6FED300A6CCB3 /* SharedObjectChanges.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SharedObjectChanges.m; sourceTree = "<group>"; };
 		5A8A155C1FA0CB22009A1394 /* RTClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTClient.h; sourceTree = "<group>"; };
 		5A8A155D1FA0CB22009A1394 /* RTClient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RTClient.m; sourceTree = "<group>"; };
 		5A8A15801FA0D3C3009A1394 /* RTDataStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTDataStore.h; sourceTree = "<group>"; };
@@ -2592,6 +2626,8 @@
 		5A9FC9B01FC4788700B192D9 /* RTMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTMethod.m; sourceTree = "<group>"; };
 		5AD17B04200770CC00FFB487 /* UserInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
 		5AD17B05200770CC00FFB487 /* UserInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
+		5AD17B1C200775B200FFB487 /* RTFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTFactory.h; sourceTree = "<group>"; };
+		5AD17B1D200775B200FFB487 /* RTFactory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RTFactory.m; sourceTree = "<group>"; };
 		5AEED9C91FC5B90800CB7D9F /* UserStatusObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserStatusObject.h; sourceTree = "<group>"; };
 		5AEED9CA1FC5B90800CB7D9F /* UserStatusObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserStatusObject.m; sourceTree = "<group>"; };
 		5AF260501FD6B06F00306C3C /* BulkResultObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BulkResultObject.h; sourceTree = "<group>"; };
@@ -3314,6 +3350,23 @@
 			path = JSONHelper;
 			sourceTree = "<group>";
 		};
+		5A549831200794D20042234F /* SharedObject */ = {
+			isa = PBXGroup;
+			children = (
+				5A549838200794D20042234F /* InvokeObject.h */,
+				5A549835200794D20042234F /* InvokeObject.m */,
+				5A549836200794D20042234F /* RTSharedObject.h */,
+				5A54983B200794D20042234F /* RTSharedObject.m */,
+				5A549837200794D20042234F /* SharedObject.h */,
+				5A549832200794D20042234F /* SharedObject.m */,
+				5A549834200794D20042234F /* SharedObjectChanges.h */,
+				5A54983A200794D20042234F /* SharedObjectChanges.m */,
+				5A549839200794D20042234F /* SharedObjectService.h */,
+				5A549833200794D20042234F /* SharedObjectService.m */,
+			);
+			path = SharedObject;
+			sourceTree = "<group>";
+		};
 		5A872F1A1FC7103700A6CCB3 /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -3336,30 +3389,16 @@
 			path = Messaging;
 			sourceTree = "<group>";
 		};
-		5A872F1C1FC7105100A6CCB3 /* SharedObject */ = {
-			isa = PBXGroup;
-			children = (
-				5A74B1F31FC6E65100157850 /* SharedObject.h */,
-				5A74B1F41FC6E65100157850 /* SharedObject.m */,
-				5A872EEA1FC6F82000A6CCB3 /* RTSharedObject.h */,
-				5A872EEB1FC6F82000A6CCB3 /* RTSharedObject.m */,
-				5A872EF61FC6FED300A6CCB3 /* SharedObjectChanges.h */,
-				5A872EF71FC6FED300A6CCB3 /* SharedObjectChanges.m */,
-				5A79B7C51FD01BEC00F7A37A /* InvokeObject.h */,
-				5A79B7C61FD01BEC00F7A37A /* InvokeObject.m */,
-			);
-			name = SharedObject;
-			path = RSO;
-			sourceTree = "<group>";
-		};
 		5A8A14F21FA0A318009A1394 /* RT */ = {
 			isa = PBXGroup;
 			children = (
-				5A872F1C1FC7105100A6CCB3 /* SharedObject */,
+				5A549831200794D20042234F /* SharedObject */,
 				5A872F1B1FC7103D00A6CCB3 /* Messaging */,
 				5A872F1A1FC7103700A6CCB3 /* Data */,
 				5A4F7FBA1FDEB770006D5744 /* RTService.h */,
 				5A4F7FBB1FDEB770006D5744 /* RTService.m */,
+				5AD17B1C200775B200FFB487 /* RTFactory.h */,
+				5AD17B1D200775B200FFB487 /* RTFactory.m */,
 				5A8A155C1FA0CB22009A1394 /* RTClient.h */,
 				5A8A155D1FA0CB22009A1394 /* RTClient.m */,
 				5A5F38531FB317EB002F21D4 /* RTListener.h */,
@@ -3378,6 +3417,8 @@
 				5A66A0721FD6CD1E002202BE /* RTHelper.m */,
 				5AD17B04200770CC00FFB487 /* UserInfo.h */,
 				5AD17B05200770CC00FFB487 /* UserInfo.m */,
+				5A54986E2007A2740042234F /* ReconnectAttemptObject.h */,
+				5A54986F2007A2740042234F /* ReconnectAttemptObject.m */,
 			);
 			path = RT;
 			sourceTree = "<group>";
@@ -3825,6 +3866,13 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A5498702007A2740042234F /* ReconnectAttemptObject.h in Headers */,
+				5AD17B1E200775B200FFB487 /* RTFactory.h in Headers */,
+				5A54986D2007960C0042234F /* SharedObjectService.h in Headers */,
+				5A54986C200796080042234F /* SharedObjectChanges.h in Headers */,
+				5A54986B200796050042234F /* SharedObject.h in Headers */,
+				5A54986A200796020042234F /* RTSharedObject.h in Headers */,
+				5A549869200795FC0042234F /* InvokeObject.h in Headers */,
 				5AD17B06200770CC00FFB487 /* UserInfo.h in Headers */,
 				5A4F7FC81FDEB8A4006D5744 /* RTPersistence.h in Headers */,
 				5A4F7FBC1FDEB770006D5744 /* RTService.h in Headers */,
@@ -4048,10 +4096,6 @@
 				F96B1C6C1DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */,
 				F96B1C7A1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */,
 				F96B1C601DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */,
-				5A74B1F51FC6E65100157850 /* SharedObject.h in Headers */,
-				5A79B7C71FD01BEC00F7A37A /* InvokeObject.h in Headers */,
-				5A872EF81FC6FED300A6CCB3 /* SharedObjectChanges.h in Headers */,
-				5A872EEC1FC6F82000A6CCB3 /* RTSharedObject.h in Headers */,
 				5AD1BEED1FD1B14E00493038 /* Channel.h in Headers */,
 				5AD1BEEB1FD1B13F00493038 /* UserStatusObject.h in Headers */,
 				5AD1BEEA1FD1B13B00493038 /* RTSubscription.h in Headers */,
@@ -4075,6 +4119,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A5498712007A2740042234F /* ReconnectAttemptObject.h in Headers */,
+				5AD17B1F200775B200FFB487 /* RTFactory.h in Headers */,
 				5AD17B07200770CC00FFB487 /* UserInfo.h in Headers */,
 				5A4F7FC91FDEB8A4006D5744 /* RTPersistence.h in Headers */,
 				5A4F7FBD1FDEB770006D5744 /* RTService.h in Headers */,
@@ -4302,10 +4348,6 @@
 				F96B1C7B1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */,
 				84B027E71DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h in Headers */,
 				F96B1C611DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */,
-				5A79B7C81FD01BEC00F7A37A /* InvokeObject.h in Headers */,
-				5A872EF91FC6FED300A6CCB3 /* SharedObjectChanges.h in Headers */,
-				5A74B1F61FC6E65100157850 /* SharedObject.h in Headers */,
-				5A872EED1FC6F82000A6CCB3 /* RTSharedObject.h in Headers */,
 				5A096D7D1FD1AF17009BF89E /* Channel.h in Headers */,
 				5A096D7B1FD1AF02009BF89E /* UserStatusObject.h in Headers */,
 				5A096D7A1FD1AEFA009BF89E /* RTSubscription.h in Headers */,
@@ -4316,6 +4358,11 @@
 				5A096D751FD1AE95009BF89E /* RTMessaging.h in Headers */,
 				5A633F411F7BB7F6004D7ACA /* BackendlessPushHelper.h in Headers */,
 				91F1399517D7240A00D1AC4C /* AbstractQuery.h in Headers */,
+				5A549868200795EF0042234F /* SharedObjectService.h in Headers */,
+				5A549867200795EB0042234F /* SharedObjectChanges.h in Headers */,
+				5A549866200795E80042234F /* SharedObject.h in Headers */,
+				5A549865200795E50042234F /* RTSharedObject.h in Headers */,
+				5A549864200795E00042234F /* InvokeObject.h in Headers */,
 				91F139A917D7240A00D1AC4C /* BackendlessCachePolicy.h in Headers */,
 				91F139AE17D7240A00D1AC4C /* BackendlessCacheProtocol.h in Headers */,
 				5AF2B72B1EB2138500D54442 /* MessagingService.h in Headers */,
@@ -4328,14 +4375,13 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A5498722007A2740042234F /* ReconnectAttemptObject.h in Headers */,
+				5AD17B20200775B200FFB487 /* RTFactory.h in Headers */,
 				5AD17B08200770CC00FFB487 /* UserInfo.h in Headers */,
 				5A4F7FCA1FDEB8A4006D5744 /* RTPersistence.h in Headers */,
 				5A4F7FBE1FDEB770006D5744 /* RTService.h in Headers */,
 				5A66A0751FD6CD1E002202BE /* RTHelper.h in Headers */,
 				5AF260541FD6B06F00306C3C /* BulkResultObject.h in Headers */,
-				5A872EFA1FC6FED300A6CCB3 /* SharedObjectChanges.h in Headers */,
-				5A79B7C91FD01BEC00F7A37A /* InvokeObject.h in Headers */,
-				5A872EEE1FC6F82000A6CCB3 /* RTSharedObject.h in Headers */,
 				5A8A15841FA0D3C3009A1394 /* RTDataStore.h in Headers */,
 				5A8A15601FA0CB22009A1394 /* RTClient.h in Headers */,
 				0F9AC9CD1E798C5D0087869F /* ISharedObjectMessage.h in Headers */,
@@ -4563,7 +4609,6 @@
 				5A633F421F7BB7F6004D7ACA /* BackendlessPushHelper.h in Headers */,
 				91F139AF17D7240A00D1AC4C /* BackendlessCacheProtocol.h in Headers */,
 				91F139B317D724C700D1AC4C /* QueryOptions.h in Headers */,
-				5A74B1F71FC6E65100157850 /* SharedObject.h in Headers */,
 				5A83935C1FD1AA8200FB5697 /* CommandObject.h in Headers */,
 				5A83935A1FD1AA4200FB5697 /* RTMessaging.h in Headers */,
 				5AF2B72C1EB2138F00D54442 /* MessagingService.h in Headers */,
@@ -4572,6 +4617,11 @@
 				5A8393621FD1AAC700FB5697 /* RTSubscription.h in Headers */,
 				5A8393601FD1AABC00FB5697 /* RTMethodRequest.h in Headers */,
 				5A83935F1FD1AAB400FB5697 /* RTMethod.h in Headers */,
+				5A549863200795D00042234F /* SharedObjectChanges.h in Headers */,
+				5A549862200795CC0042234F /* SharedObjectService.h in Headers */,
+				5A549861200795C90042234F /* SharedObject.h in Headers */,
+				5A549860200795C50042234F /* RTSharedObject.h in Headers */,
+				5A54985F200795BD0042234F /* InvokeObject.h in Headers */,
 				5A83935E1FD1AAAB00FB5697 /* RTListener.h in Headers */,
 				5A1052D820063BC80036A784 /* JSONHelper.h in Headers */,
 			);
@@ -4581,16 +4631,14 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A5498732007A2740042234F /* ReconnectAttemptObject.h in Headers */,
+				5AD17B21200775B200FFB487 /* RTFactory.h in Headers */,
 				5AD17B09200770CC00FFB487 /* UserInfo.h in Headers */,
 				5A4F7FCB1FDEB8A5006D5744 /* RTPersistence.h in Headers */,
 				5A4F7FBF1FDEB770006D5744 /* RTService.h in Headers */,
 				5ABF77691FB4ACF1006299F7 /* RTClient.h in Headers */,
 				5A66A0761FD6CD1E002202BE /* RTHelper.h in Headers */,
 				5AF260551FD6B06F00306C3C /* BulkResultObject.h in Headers */,
-				5A79B7CA1FD01BEC00F7A37A /* InvokeObject.h in Headers */,
-				5A872EFB1FC6FED300A6CCB3 /* SharedObjectChanges.h in Headers */,
-				5A74B1F81FC6E65100157850 /* SharedObject.h in Headers */,
-				5A872EEF1FC6F82000A6CCB3 /* RTSharedObject.h in Headers */,
 				5ABF776B1FB4AD04006299F7 /* RTListener.h in Headers */,
 				0F9ACCD51E798C5F0087869F /* ITypeWriter.h in Headers */,
 				0F9AC82A1E798C5C0087869F /* Responder.h in Headers */,
@@ -4826,6 +4874,11 @@
 				5ABF776E1FB4AD4C006299F7 /* RTSubscription.h in Headers */,
 				5A1052D620063BB80036A784 /* JSONHelper.h in Headers */,
 				5AEED9CE1FC5B90800CB7D9F /* UserStatusObject.h in Headers */,
+				5A54985E200795A50042234F /* SharedObjectChanges.h in Headers */,
+				5A54985D200795A10042234F /* SharedObjectService.h in Headers */,
+				5A54985C2007959E0042234F /* SharedObject.h in Headers */,
+				5A54985B2007959B0042234F /* RTSharedObject.h in Headers */,
+				5A54985A200795950042234F /* InvokeObject.h in Headers */,
 				5A3917D81FC5BE0C0084D24D /* CommandObject.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4834,12 +4887,13 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A5498742007A2740042234F /* ReconnectAttemptObject.h in Headers */,
+				5AD17B22200775B200FFB487 /* RTFactory.h in Headers */,
 				5AD17B0A200770CC00FFB487 /* UserInfo.h in Headers */,
 				5A4F7FCC1FDEB8A5006D5744 /* RTPersistence.h in Headers */,
 				5A4F7FC01FDEB770006D5744 /* RTService.h in Headers */,
 				5A66A0771FD6CD1E002202BE /* RTHelper.h in Headers */,
 				5AF260561FD6B06F00306C3C /* BulkResultObject.h in Headers */,
-				5A872EF01FC6F82000A6CCB3 /* RTSharedObject.h in Headers */,
 				5A8A15861FA0D3C3009A1394 /* RTDataStore.h in Headers */,
 				5A8A15621FA0CB22009A1394 /* RTClient.h in Headers */,
 				0F9ACCD61E798C5F0087869F /* ITypeWriter.h in Headers */,
@@ -5063,11 +5117,8 @@
 				F9F0AFD21CDBCAB500035C62 /* BackendlessFile.h in Headers */,
 				F9F0AFD31CDBCAB500035C62 /* HashMap.h in Headers */,
 				F9F0AFE11CDBCAB500035C62 /* AbstractQuery.h in Headers */,
-				5A872EFC1FC6FED300A6CCB3 /* SharedObjectChanges.h in Headers */,
 				F9F0AFE21CDBCAB500035C62 /* BackendlessCachePolicy.h in Headers */,
-				5A74B1F91FC6E65100157850 /* SharedObject.h in Headers */,
 				5A633F441F7BB7F6004D7ACA /* BackendlessPushHelper.h in Headers */,
-				5A79B7CB1FD01BEC00F7A37A /* InvokeObject.h in Headers */,
 				F9F0AFE41CDBCAB500035C62 /* BackendlessCacheProtocol.h in Headers */,
 				5AF2B7301EB213BD00D54442 /* MessagingService.h in Headers */,
 				5A83934C1FD1A7EB00FB5697 /* RTListener.h in Headers */,
@@ -5079,6 +5130,11 @@
 				5A8393571FD1A89D00FB5697 /* Channel.h in Headers */,
 				5A8393501FD1A82D00FB5697 /* RTMethodRequest.h in Headers */,
 				F9F0AFE51CDBCAB500035C62 /* QueryOptions.h in Headers */,
+				5A549859200795850042234F /* SharedObjectService.h in Headers */,
+				5A549858200795820042234F /* SharedObjectChanges.h in Headers */,
+				5A5498572007957D0042234F /* SharedObject.h in Headers */,
+				5A549856200795780042234F /* RTSharedObject.h in Headers */,
+				5A5498552007956F0042234F /* InvokeObject.h in Headers */,
 				5A1052D520063BB10036A784 /* JSONHelper.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5486,6 +5542,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A549840200795010042234F /* SharedObjectService.m in Sources */,
+				5A54983F200794FD0042234F /* SharedObjectChanges.m in Sources */,
+				5A54983E200794F70042234F /* SharedObject.m in Sources */,
+				5A54983D200794F20042234F /* RTSharedObject.m in Sources */,
+				5A54983C200794ED0042234F /* InvokeObject.m in Sources */,
 				5A1052CE20063B4E0036A784 /* JSONHelper.m in Sources */,
 				5AD1BEE31FD1B0ED00493038 /* Channel.m in Sources */,
 				5AD1BEE11FD1B0D900493038 /* UserStatusObject.m in Sources */,
@@ -5535,6 +5596,7 @@
 				0F9ACA611E798C5D0087869F /* DateReader.m in Sources */,
 				F9C7DE921B7CBF0300AFCD06 /* BEFileInfo.m in Sources */,
 				1C7BB4981A2E092900D3C2C1 /* UserProperty.m in Sources */,
+				5A5498752007A2740042234F /* ReconnectAttemptObject.m in Sources */,
 				0F9AC9DF1E798C5D0087869F /* SharedObjectEvent.m in Sources */,
 				0F9ACBC91E798C5E0087869F /* FlashorbBinaryReader.m in Sources */,
 				0F9ACBBF1E798C5E0087869F /* BinaryStream.m in Sources */,
@@ -5559,7 +5621,6 @@
 				0F9ACA431E798C5D0087869F /* BoundPropertyBagReader.m in Sources */,
 				0F9ACCFA1E798C5F0087869F /* NumberWriter.m in Sources */,
 				1C7BB4A01A2E092900D3C2C1 /* GeoCategory.m in Sources */,
-				5A79B7CC1FD01BEC00F7A37A /* InvokeObject.m in Sources */,
 				1C7BB4A11A2E092900D3C2C1 /* Events.m in Sources */,
 				0F9AC9031E798C5C0087869F /* BaseRTMPProtocolEncoder.m in Sources */,
 				0F9ACA571E798C5D0087869F /* ConcreteObject.m in Sources */,
@@ -5567,6 +5628,7 @@
 				0F9ACAA21E798C5D0087869F /* NotAReader.m in Sources */,
 				0F9ACD181E798C600087869F /* ObjectWriter.m in Sources */,
 				0F9ACC501E798C5F0087869F /* AmfFormatter.m in Sources */,
+				5AD17B23200775B200FFB487 /* RTFactory.m in Sources */,
 				0F9ACC461E798C5F0087869F /* AbstractUnreferenceableTypeWriter.m in Sources */,
 				1C7BB4A21A2E092900D3C2C1 /* AtomicCounters.m in Sources */,
 				0F9ACD0E1E798C5F0087869F /* ObjectSerializer.m in Sources */,
@@ -5586,7 +5648,6 @@
 				D3A064BB1AFCE61700779BB1 /* GeoMath.m in Sources */,
 				0F9ACB061E798C5E0087869F /* UndefinedType.m in Sources */,
 				1C7BB4A61A2E092900D3C2C1 /* DeviceRegistration.m in Sources */,
-				5A872EF11FC6F82000A6CCB3 /* RTSharedObject.m in Sources */,
 				0F9ACC3C1E798C5F0087869F /* AbstractReferenceableTypeWriter.m in Sources */,
 				D30FC9B41AE132C2007C9A83 /* LogBuffer.m in Sources */,
 				0F9ACC821E798C5F0087869F /* ArrayReferenceWriter.m in Sources */,
@@ -5597,7 +5658,6 @@
 				1C7BB4A81A2E092900D3C2C1 /* PublishOptions.m in Sources */,
 				0F9ACD541E798C600087869F /* V3ReferenceCache.m in Sources */,
 				D35DC33C1AD6CE1500EF2A68 /* Logging.m in Sources */,
-				5A74B1FA1FC6E65100157850 /* SharedObject.m in Sources */,
 				0F9AC86D1E798C5C0087869F /* Request.m in Sources */,
 				1C7BB4AB1A2E092900D3C2C1 /* Message.m in Sources */,
 				D3A064C31AFCE64D00779BB1 /* GeoFence.m in Sources */,
@@ -5669,7 +5729,6 @@
 				0F9AC8221E798C5C0087869F /* HttpEngine.m in Sources */,
 				F96B1C7F1DD4BF5F00A4B362 /* DataQueryBuilder.m in Sources */,
 				0F9ACC321E798C5F0087869F /* V3Message.m in Sources */,
-				5A872EFD1FC6FED300A6CCB3 /* SharedObjectChanges.m in Sources */,
 				0F9AC99E1E798C5D0087869F /* AttributeStore.m in Sources */,
 				0F9ACCCD1E798C5F0087869F /* IProtocolFormatter.m in Sources */,
 				0F9AC9851E798C5D0087869F /* Packet.m in Sources */,
@@ -5692,6 +5751,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A549845200795210042234F /* SharedObjectService.m in Sources */,
+				5A5498442007951D0042234F /* SharedObjectChanges.m in Sources */,
+				5A549843200795150042234F /* SharedObject.m in Sources */,
+				5A549842200795110042234F /* RTSharedObject.m in Sources */,
+				5A5498412007950C0042234F /* InvokeObject.m in Sources */,
 				5A1052D120063B9C0036A784 /* JSONHelper.m in Sources */,
 				5A096D731FD1AE12009BF89E /* UserStatusObject.m in Sources */,
 				5A096D721FD1AE06009BF89E /* RTSubscription.m in Sources */,
@@ -5710,7 +5774,6 @@
 				F9B360C31D65A78C00818EEF /* UICKeyChainStore.m in Sources */,
 				0F9ACA121E798C5D0087869F /* AnonymousObjectReader.m in Sources */,
 				0F9ACBB61E798C5E0087869F /* BinaryCodec.m in Sources */,
-				5A872EFE1FC6FED300A6CCB3 /* SharedObjectChanges.m in Sources */,
 				0F9AC8231E798C5C0087869F /* HttpEngine.m in Sources */,
 				0F9ACD051E798C5F0087869F /* ObjectReferenceWriter.m in Sources */,
 				0F9ACD2D1E798C600087869F /* ReferenceCache.m in Sources */,
@@ -5785,7 +5848,6 @@
 				0F9ACAF31E798C5E0087869F /* ReaderUtils.m in Sources */,
 				0F9AC9271E798C5C0087869F /* AudioData.m in Sources */,
 				F97969FC166CCB8200595F5E /* DeviceRegistration.m in Sources */,
-				5A872EF21FC6F82000A6CCB3 /* RTSharedObject.m in Sources */,
 				0F9AC9311E798C5C0087869F /* BaseEvent.m in Sources */,
 				0F9ACCAB1E798C5F0087869F /* BoundPropertyBagWriter.m in Sources */,
 				F97969FD166CCB8200595F5E /* DeliveryOptions.m in Sources */,
@@ -5796,8 +5858,10 @@
 				0F9ACA1C1E798C5D0087869F /* ArrayReader.m in Sources */,
 				0F9AC9FE1E798C5D0087869F /* RequestParser.m in Sources */,
 				0F9ACBC01E798C5E0087869F /* BinaryStream.m in Sources */,
+				5A5498762007A2740042234F /* ReconnectAttemptObject.m in Sources */,
 				0F9ACB071E798C5E0087869F /* UndefinedType.m in Sources */,
 				0F9ACD551E798C600087869F /* V3ReferenceCache.m in Sources */,
+				5AD17B24200775B200FFB487 /* RTFactory.m in Sources */,
 				D316BA3B1A83C649007215CA /* ProtectedBackendlessGeoQuery.m in Sources */,
 				0F9AC91D1E798C5C0087869F /* Aggregate.m in Sources */,
 				D3A064DC1B0242B900779BB1 /* ClientCallback.m in Sources */,
@@ -5819,7 +5883,6 @@
 				84B027EC1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */,
 				D36CF3FF1A2F68DA00B6468A /* DataPermission.m in Sources */,
 				0F9ACA081E798C5D0087869F /* AnonymousObject.m in Sources */,
-				5A74B1FB1FC6E65100157850 /* SharedObject.m in Sources */,
 				0F9ACC8D1E798C5F0087869F /* ArrayWriter.m in Sources */,
 				0F9ACAA31E798C5D0087869F /* NotAReader.m in Sources */,
 				F9796A02166CCB8200595F5E /* MessageStatus.m in Sources */,
@@ -5890,7 +5953,6 @@
 				D31700D61A84D2AA00772766 /* GeoCluster.m in Sources */,
 				0F9ACCDD1E798C5F0087869F /* MessageWriter.m in Sources */,
 				0F9ACC511E798C5F0087869F /* AmfFormatter.m in Sources */,
-				5A79B7CD1FD01BEC00F7A37A /* InvokeObject.m in Sources */,
 				0F9ACCB51E798C5F0087869F /* ClassDefinition.m in Sources */,
 				0F9AC84B1E798C5C0087869F /* WeborbClient.m in Sources */,
 				91F139B417D724C700D1AC4C /* QueryOptions.m in Sources */,
@@ -5901,6 +5963,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A54984A2007953A0042234F /* SharedObjectService.m in Sources */,
+				5A549849200795360042234F /* SharedObject.m in Sources */,
+				5A549848200795320042234F /* SharedObjectChanges.m in Sources */,
+				5A5498472007952E0042234F /* RTSharedObject.m in Sources */,
+				5A549846200795270042234F /* InvokeObject.m in Sources */,
 				5A1052D220063BA20036A784 /* JSONHelper.m in Sources */,
 				5A83936A1FD1AB3500FB5697 /* UserStatusObject.m in Sources */,
 				5A8393691FD1AB2F00FB5697 /* RTSubscription.m in Sources */,
@@ -5919,7 +5986,6 @@
 				F9B360C41D65A7AA00818EEF /* UICKeyChainStore.m in Sources */,
 				0F9ACA131E798C5D0087869F /* AnonymousObjectReader.m in Sources */,
 				0F9ACBB71E798C5E0087869F /* BinaryCodec.m in Sources */,
-				5A872EFF1FC6FED300A6CCB3 /* SharedObjectChanges.m in Sources */,
 				0F9AC8241E798C5C0087869F /* HttpEngine.m in Sources */,
 				0F9ACD061E798C5F0087869F /* ObjectReferenceWriter.m in Sources */,
 				0F9ACD2E1E798C600087869F /* ReferenceCache.m in Sources */,
@@ -5994,7 +6060,6 @@
 				0F9ACAF41E798C5E0087869F /* ReaderUtils.m in Sources */,
 				0F9AC9281E798C5C0087869F /* AudioData.m in Sources */,
 				F9796A46166CD3DB00595F5E /* DeviceRegistration.m in Sources */,
-				5A872EF31FC6F82000A6CCB3 /* RTSharedObject.m in Sources */,
 				0F9AC9321E798C5C0087869F /* BaseEvent.m in Sources */,
 				0F9ACCAC1E798C5F0087869F /* BoundPropertyBagWriter.m in Sources */,
 				F9796A47166CD3DB00595F5E /* DeliveryOptions.m in Sources */,
@@ -6005,8 +6070,10 @@
 				0F9ACA1D1E798C5D0087869F /* ArrayReader.m in Sources */,
 				0F9AC9FF1E798C5D0087869F /* RequestParser.m in Sources */,
 				0F9ACBC11E798C5E0087869F /* BinaryStream.m in Sources */,
+				5A5498772007A2740042234F /* ReconnectAttemptObject.m in Sources */,
 				0F9ACB081E798C5E0087869F /* UndefinedType.m in Sources */,
 				0F9ACD561E798C600087869F /* V3ReferenceCache.m in Sources */,
+				5AD17B25200775B200FFB487 /* RTFactory.m in Sources */,
 				D316BA3C1A83C649007215CA /* ProtectedBackendlessGeoQuery.m in Sources */,
 				0F9AC91E1E798C5C0087869F /* Aggregate.m in Sources */,
 				D3A064DD1B0242B900779BB1 /* ClientCallback.m in Sources */,
@@ -6028,7 +6095,6 @@
 				84B027ED1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */,
 				D36CF4001A2F68DA00B6468A /* DataPermission.m in Sources */,
 				0F9ACA091E798C5D0087869F /* AnonymousObject.m in Sources */,
-				5A74B1FC1FC6E65100157850 /* SharedObject.m in Sources */,
 				0F9ACC8E1E798C5F0087869F /* ArrayWriter.m in Sources */,
 				0F9ACAA41E798C5D0087869F /* NotAReader.m in Sources */,
 				F9796A4C166CD3DB00595F5E /* MessageStatus.m in Sources */,
@@ -6099,7 +6165,6 @@
 				D31700D71A84D2AA00772766 /* GeoCluster.m in Sources */,
 				0F9ACCDE1E798C5F0087869F /* MessageWriter.m in Sources */,
 				0F9ACC521E798C5F0087869F /* AmfFormatter.m in Sources */,
-				5A79B7CE1FD01BEC00F7A37A /* InvokeObject.m in Sources */,
 				0F9ACCB61E798C5F0087869F /* ClassDefinition.m in Sources */,
 				0F9AC84C1E798C5C0087869F /* WeborbClient.m in Sources */,
 				91F139B517D724C700D1AC4C /* QueryOptions.m in Sources */,
@@ -6110,6 +6175,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A54984F200795510042234F /* SharedObjectService.m in Sources */,
+				5A54984E2007954D0042234F /* SharedObjectChanges.m in Sources */,
+				5A54984D200795480042234F /* SharedObject.m in Sources */,
+				5A54984C200795440042234F /* RTSharedObject.m in Sources */,
+				5A54984B2007953F0042234F /* InvokeObject.m in Sources */,
 				5A1052D320063BA70036A784 /* JSONHelper.m in Sources */,
 				5AD743271FD6FDBE00A19D1A /* RTClient.m in Sources */,
 				5AA8FF1B1FCD945700F36C6D /* UserService.m in Sources */,
@@ -6150,7 +6220,6 @@
 				0F9ACA781E798C5D0087869F /* IntegerReader.m in Sources */,
 				0F9ACB271E798C5E0087869F /* V3ArrayReader.m in Sources */,
 				0F9AC9E21E798C5D0087869F /* SharedObjectEvent.m in Sources */,
-				5A872EF41FC6F82000A6CCB3 /* RTSharedObject.m in Sources */,
 				5A8A158A1FA0D3C3009A1394 /* RTDataStore.m in Sources */,
 				F9F0AE8C1CDBCA3900035C62 /* UserProperty.m in Sources */,
 				0F9AC9601E798C5D0087869F /* NotifyEvent.m in Sources */,
@@ -6213,9 +6282,11 @@
 				F9F0AEA01CDBCA3900035C62 /* ServerCallback.m in Sources */,
 				F9F0AEA21CDBCA3900035C62 /* Logger.m in Sources */,
 				0F9ACAC31E798C5E0087869F /* NumberObject.m in Sources */,
+				5A5498782007A2740042234F /* ReconnectAttemptObject.m in Sources */,
 				F9F0AEA31CDBCA3900035C62 /* DeviceRegistration.m in Sources */,
 				0F9AC96A1E798C5D0087869F /* Ping.m in Sources */,
 				F9F0AEA41CDBCA3900035C62 /* DeliveryOptions.m in Sources */,
+				5AD17B26200775B200FFB487 /* RTFactory.m in Sources */,
 				0F9ACC5D1E798C5F0087869F /* AmfV3Formatter.m in Sources */,
 				0F9ACCA31E798C5F0087869F /* BooleanWriter.m in Sources */,
 				F9F0AEA51CDBCA3900035C62 /* LogBuffer.m in Sources */,
@@ -6267,7 +6338,6 @@
 				0F9AC93D1E798C5D0087869F /* FlexMessage.m in Sources */,
 				F9F0AEB51CDBCA3900035C62 /* AuthorizationException.m in Sources */,
 				0F9ACB8B1E798C5E0087869F /* CrowdNode.m in Sources */,
-				5A872F001FC6FED300A6CCB3 /* SharedObjectChanges.m in Sources */,
 				0F9ACAB91E798C5E0087869F /* NullType.m in Sources */,
 				F9F0AEB61CDBCA3900035C62 /* backendless_simulator.m in Sources */,
 				0F9ACBC21E798C5E0087869F /* BinaryStream.m in Sources */,
@@ -6278,7 +6348,6 @@
 				0F9AC9B51E798C5D0087869F /* PendingCall.m in Sources */,
 				0F9ACA001E798C5D0087869F /* RequestParser.m in Sources */,
 				F9F0AEB81CDBCA3900035C62 /* BeaconMonitoring.m in Sources */,
-				5A74B1FD1FC6E65100157850 /* SharedObject.m in Sources */,
 				0F9AC9291E798C5C0087869F /* AudioData.m in Sources */,
 				0F9ACB3B1E798C5E0087869F /* V3DateReader.m in Sources */,
 				F9F0AEBA1CDBCA3900035C62 /* AtomicCountersFactory.m in Sources */,
@@ -6289,7 +6358,6 @@
 				0F9ACC211E798C5F0087869F /* ErrMessage.m in Sources */,
 				0F9ACCE91E798C5F0087869F /* MultiDimArrayWriter.m in Sources */,
 				0F9ACB951E798C5E0087869F /* DEBUG.m in Sources */,
-				5A79B7CF1FD01BEC00F7A37A /* InvokeObject.m in Sources */,
 				F9F0AEC41CDBCA3900035C62 /* AbstractQuery.m in Sources */,
 				F9F0AEC51CDBCA3900035C62 /* BackendlessCache.m in Sources */,
 				0F9ACA911E798C5D0087869F /* NamedObject.m in Sources */,
@@ -6319,6 +6387,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A549854200795670042234F /* SharedObjectService.m in Sources */,
+				5A549853200795630042234F /* SharedObjectChanges.m in Sources */,
+				5A549852200795600042234F /* SharedObject.m in Sources */,
+				5A5498512007955C0042234F /* RTSharedObject.m in Sources */,
+				5A549850200795550042234F /* InvokeObject.m in Sources */,
 				5A1052D420063BAC0036A784 /* JSONHelper.m in Sources */,
 				5A8393581FD1A8C100FB5697 /* Channel.m in Sources */,
 				5A8393551FD1A88100FB5697 /* UserStatusObject.m in Sources */,
@@ -6330,7 +6403,6 @@
 				5A83934B1FD1A7E400FB5697 /* RTListener.m in Sources */,
 				5A8393491FD1A7BB00FB5697 /* CommandObject.m in Sources */,
 				5A8393471FD1A78400FB5697 /* RTMessaging.m in Sources */,
-				5A8393461FD1A72E00FB5697 /* RTSharedObject.m in Sources */,
 				5AF2B7311EB213C600D54442 /* MessagingService.m in Sources */,
 				84B027EF1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */,
 				F9B360C61D65A7D000818EEF /* UICKeyChainStore.m in Sources */,
@@ -6338,7 +6410,6 @@
 				0F9AC85D1E798C5C0087869F /* Body.m in Sources */,
 				F9F0AF3D1CDBCAB500035C62 /* Backendless.m in Sources */,
 				0F9AC8711E798C5C0087869F /* Request.m in Sources */,
-				5A872F011FC6FED300A6CCB3 /* SharedObjectChanges.m in Sources */,
 				0F9ACB461E798C5E0087869F /* V3ObjectReader.m in Sources */,
 				F9F0AF3F1CDBCAB500035C62 /* Invoker.m in Sources */,
 				0F9ACC401E798C5F0087869F /* AbstractReferenceableTypeWriter.m in Sources */,
@@ -6423,8 +6494,10 @@
 				0F9AC84E1E798C5C0087869F /* WeborbClient.m in Sources */,
 				F9F0AF5A1CDBCAB500035C62 /* ServerCallback.m in Sources */,
 				F9F0AF5C1CDBCAB500035C62 /* Logger.m in Sources */,
+				5A5498792007A2740042234F /* ReconnectAttemptObject.m in Sources */,
 				0F9ACAC41E798C5E0087869F /* NumberObject.m in Sources */,
 				F9F0AF5D1CDBCAB500035C62 /* DeviceRegistration.m in Sources */,
+				5AD17B27200775B200FFB487 /* RTFactory.m in Sources */,
 				0F9AC96B1E798C5D0087869F /* Ping.m in Sources */,
 				F9F0AF5E1CDBCAB500035C62 /* DeliveryOptions.m in Sources */,
 				0F9ACC5E1E798C5F0087869F /* AmfV3Formatter.m in Sources */,
@@ -6446,7 +6519,6 @@
 				0F9ACB641E798C5E0087869F /* V3VectorReader.m in Sources */,
 				0F9ACC9A1E798C5F0087869F /* BodyHolderWriter.m in Sources */,
 				0F9ACB781E798C5E0087869F /* Types.m in Sources */,
-				5A74B1FE1FC6E65100157850 /* SharedObject.m in Sources */,
 				0F9AC9D91E798C5D0087869F /* WeborbSharedObject.m in Sources */,
 				0F9ACD121E798C5F0087869F /* ObjectSerializer.m in Sources */,
 				0F9ACAB01E798C5E0087869F /* NullReader.m in Sources */,
@@ -6517,7 +6589,6 @@
 				0F9ACCB81E798C5F0087869F /* ClassDefinition.m in Sources */,
 				0F9ACBB91E798C5E0087869F /* BinaryCodec.m in Sources */,
 				0F9AC9F21E798C5D0087869F /* SharedObjectMessage.m in Sources */,
-				5A79B7D01FD01BEC00F7A37A /* InvokeObject.m in Sources */,
 				F9F0AF841CDBCAB500035C62 /* FilePermission.m in Sources */,
 				F9F0AF851CDBCAB500035C62 /* GeoCluster.m in Sources */,
 				F9F0AF861CDBCAB500035C62 /* QueryOptions.m in Sources */,

@@ -49,7 +49,7 @@
 }
 
 -(void)removeErrorListeners:(void(^)(Fault *))onError {
-    [super removeSimpleListener:ERROR callBack:onError];
+    [super removeSimpleListeners:ERROR callBack:onError];
 }
 
 -(void)addConnectListener:(BOOL)isConnected onConnect:(void(^)(void))onConnect {
@@ -62,7 +62,7 @@
 }
 
 -(void)removeConnectListeners:(void(^)(void))onConnect {
-    [super removeSimpleListener:PUB_SUB_CONNECT callBack:[onConnectCallbacks objectForKey:onConnect]];
+    [super removeSimpleListeners:PUB_SUB_CONNECT callBack:[onConnectCallbacks objectForKey:onConnect]];
     [super stopSubscriptionWithChannel:channel event:PUB_SUB_CONNECT whereClause:nil onResult:[onConnectCallbacks objectForKey:onConnect]];
 }
 

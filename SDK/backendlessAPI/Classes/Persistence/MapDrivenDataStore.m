@@ -26,6 +26,7 @@
 #import "ObjectProperty.h"
 #import "ClassCastException.h"
 #import "ObjectSerializer.h"
+#import "RTFactory.h"
 
 #define FAULT_NO_ENTITY [Fault fault:@"Entity is missing or null" detail:@"Entity is missing or null" faultCode:@"1900"]
 #define FAULT_OBJECT_ID_IS_NOT_EXIST [Fault fault:@"objectId is missing or null" detail:@"objectId is missing or null" faultCode:@"1901"]
@@ -59,7 +60,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     if (self = [super init]) {
         _tableName = [tableName retain];
         [self setClassMapping];
-        self.rt = [[RTDataStore alloc] initWithTableName:_tableName withEntity:nil dataStoreType:MAPDRIVENDATASTORE];
+        self.rt = [rtFactory getDataStore:_tableName withEntity:nil dataStoreType:MAPDRIVENDATASTORE];
     }
     return self;
 }

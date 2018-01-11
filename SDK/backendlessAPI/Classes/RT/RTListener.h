@@ -40,6 +40,11 @@
 #define RSO_COMMAND @"RSO_COMMAND"
 #define RSO_INVOKE @"RSO_INVOKE"
 
+#define CONNECT_EVENT @"CONNECT_EVENT"
+#define CONNECT_ERROR_EVENT @"CONNECT_ERROR_EVENT"
+#define DISCONNECT_EVENT @"DISCONNECT_EVENT"
+#define RECONNECT_ATTEMPT_EVENT @"RECONNECT_ATTEMPT_EVENT"
+
 @interface RTListener : NSObject
 
 -(void)addSubscription:(NSString *)type options:(NSDictionary *)options onResult:(void(^)(id))onResult handleResultSelector:(SEL)handleResultSelector fromClass:(id)subscriptionClassInstance;
@@ -48,7 +53,7 @@
 -(void)stopSubscriptionWithSharedObject:(NSString *)sharedObjectName event:(NSString *)event onResult:(void(^)(id))onResult;
 
 -(void)addSimpleListener:(NSString *)type callBack:(void(^)(id))callback;
--(void)removeSimpleListener:(NSString *)type callBack:(void(^)(id))callback;
--(void)removeSimpleListener:(NSString *)type;
+-(void)removeSimpleListeners:(NSString *)type callBack:(void(^)(id))callback;
+-(void)removeSimpleListeners:(NSString *)type;
 
 @end

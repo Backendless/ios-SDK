@@ -219,7 +219,7 @@
     [simpleListeners setObject:listenersStack forKey:type];
 }
 
--(void)removeSimpleListener:(NSString *)type callBack:(void(^)(id))callback {
+-(void)removeSimpleListeners:(NSString *)type callBack:(void(^)(id))callback {
     if ([simpleListeners valueForKey:type]) {
         NSMutableArray *listenersStack = [simpleListeners valueForKey:type];
         if (listenersStack) {
@@ -227,13 +227,13 @@
                 [listenersStack removeObject:callback];
             }
             else {
-                [self removeSimpleListener:type];
+                [self removeSimpleListeners:type];
             }
         }
     }
 }
 
--(void)removeSimpleListener:(NSString *)type {
+-(void)removeSimpleListeners:(NSString *)type {
     if ([simpleListeners valueForKey:type]) {
         NSMutableArray *listenersStack = [simpleListeners valueForKey:type];
         if (listenersStack) {

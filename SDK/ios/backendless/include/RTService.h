@@ -21,9 +21,26 @@
 
 #import <Foundation/Foundation.h>
 #import "RTPersistence.h"
+#import "ReconnectAttemptObject.h"
 
 @interface RTService : NSObject
 
 @property (strong, nonatomic, readonly) RTPersistence *data;
+
+-(void)addConnectEventListener:(void(^)(void))connectBlock;
+-(void)removeConnectEventListeners:(void(^)(void))connectBlock;
+-(void)removeConnectEventListeners;
+
+-(void)addConnectErrorEventListener:(void(^)(NSString *))connectErrorBlock;
+-(void)removeConnectErrorEventListeners:(void(^)(NSString *))connectErrorBlock;
+-(void)removeConnectErrorEventListeners;
+
+-(void)addDisonnectEventListener:(void(^)(NSString *))disconnectBlock;
+-(void)removeDisconnectEventListeners:(void(^)(NSString *))disconnectBlock;
+-(void)removeDisconnectEventListeners;
+
+-(void)addReconnectAttemptEventListener:(void(^)(ReconnectAttemptObject *))reconnectAttemptBlock;
+-(void)removeReconnectAttemptEventListeners:(void(^)(ReconnectAttemptObject *))reconnectAttemptBlock;
+-(void)removeReconnectAttemptEventListeners;
 
 @end

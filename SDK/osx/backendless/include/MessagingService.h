@@ -25,7 +25,7 @@
 #import "RTMessaging.h"
 
 @class UIUserNotificationCategory;
-@class MessageStatus, PublishOptions, DeliveryOptions, Channel, RemoteSharedObject, BodyParts, Message, Fault;
+@class MessageStatus, PublishOptions, DeliveryOptions, Channel, SharedObject, BodyParts, Message, Fault;
 
 @interface MessagingService : NSObject
 @property (strong, nonatomic, readonly) HashMap *subscriptions;

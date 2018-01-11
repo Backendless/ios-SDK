@@ -50,16 +50,24 @@
     return self;
 }
 
+-(Class)getTableEntity {
+    return entity;
+}
+
+-(UInt32)getType {
+    return dataStore;
+}
+
 -(void)addErrorListener:(void(^)(Fault *))onError {
     [super addSimpleListener:ERROR callBack:onError];
 }
 
 -(void)removeErrorListeners:(void(^)(Fault *))onError {
-    [super removeSimpleListener:ERROR callBack:onError];
+    [super removeSimpleListeners:ERROR callBack:onError];
 }
 
 -(void)removeErrorListeners {
-    [super removeSimpleListener:ERROR];
+    [super removeSimpleListeners:ERROR];
 }
 
 -(void)addCreateListener:(void(^)(id))onCreate {

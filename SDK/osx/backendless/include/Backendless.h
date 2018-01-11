@@ -71,8 +71,9 @@
 #import "BackendlessBeacon.h"
 #import "Presence.h"
 #import "MapDrivenDataStore.h"
-#import "RemoteSharedObject.h"
+#import "SharedObject.h"
 #import "RTService.h"
+#import "SharedObject.h"
 
 //Cache
 #import "BackendlessCachePolicy.h"
@@ -110,6 +111,7 @@
 @property (strong, nonatomic, readonly) AtomicCounters *counters;
 @property (strong, nonatomic, readonly) Logging *logging;
 @property (strong, nonatomic, readonly) RTService *rt;
+@property (strong, nonatomic, readonly) SharedObject *sharedObject;
 // service shortcuts
 @property (assign, nonatomic, readonly) PersistenceService *data;
 @property (assign, nonatomic, readonly) GeoService *geo;

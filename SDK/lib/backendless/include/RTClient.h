@@ -33,7 +33,14 @@
 -(void)sendCommand:(id)data method:(RTMethodRequest *)method;
 -(void)userLoggedInWithToken:(NSString *)userToken;
 
-// System Events & Handlers
+// Native Socket.io events
+-(void)addConnectEventListener:(void(^)(void))onConnect;
+-(void)removeConnectEventListeners:(void(^)(void))onConnect;
+
+-(void)addEventListener:(NSString *)type callBack:(void(^)(id))callback;
+-(void)removeEventListeners:(NSString *)type callBack:(void(^)(id))callback;
+
+-(void)removeEventListeners:(NSString *)type;
 
 @end
 

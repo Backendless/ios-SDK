@@ -40,6 +40,7 @@
 #import "RTListener.h"
 #import "RTMethod.h"
 #import "JSONHelper.h"
+#import "RTFactory.h"
 
 #define FAULT_NO_DEVICE_ID [Fault fault:@"Device ID is not set" detail:@"Device ID is not set" faultCode:@"5900"]
 #define FAULT_NO_DEVICE_TOKEN [Fault fault:@"Device token is not set" detail:@"Device token is not set" faultCode:@"5901"]
@@ -165,7 +166,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 // Channel
 
 -(Channel *)subscribe:(NSString *)channelName {
-    return [[Channel alloc] initWithChannelName:channelName];
+    return [rtFactory getChannel:channelName];
 }
 
 // sync methods with fault return (as exception)
