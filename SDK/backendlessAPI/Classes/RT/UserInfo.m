@@ -1,5 +1,5 @@
 //
-//  RTService.m
+//  UserInfo.m
 //  backendlessAPI
 /*
  * *********************************************************************************************************************
@@ -18,19 +18,8 @@
  *
  *  ********************************************************************************************************************
  */
+#import "UserInfo.h"
 
-
-#import "RTService.h"
-
-@implementation RTService
-
-@synthesize data = _data;
-
--(RTPersistence *)data {
-    if (!_data) {
-        _data = [RTPersistence new];
-    }
-    return _data;
-}
+@implementation UserInfo
 
 @end

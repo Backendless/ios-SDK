@@ -1,5 +1,5 @@
 //
-//  RSOChangesObject.h
+//  UserInfo.h
 //  backendlessAPI
 /*
  * *********************************************************************************************************************
@@ -21,10 +21,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface RSOChangesObject : NSObject
+@interface UserInfo : NSObject
 
-@property (strong, nonatomic) NSString *key;
-@property (strong, nonatomic) id data;
 @property (strong, nonatomic) NSString *connectionId;
 @property (strong, nonatomic) NSString *userId;
 

@@ -1,5 +1,5 @@
 //
-//  RSOChangesObject.m
+//  RSOChangesObject.h
 //  backendlessAPI
 /*
  * *********************************************************************************************************************
@@ -19,7 +19,13 @@
  *  ********************************************************************************************************************
  */
 
-#import "RSOChangesObject.h"
+#import <Foundation/Foundation.h>
 
-@implementation RSOChangesObject
+@interface SharedObjectChanges : NSObject
+
+@property (strong, nonatomic) NSString *key;
+@property (strong, nonatomic) id data;
+@property (strong, nonatomic) NSString *connectionId;
+@property (strong, nonatomic) NSString *userId;
+
 @end

@@ -1,5 +1,5 @@
 //
-//  RTService.m
+//  RSOChangesObject.m
 //  backendlessAPI
 /*
  * *********************************************************************************************************************
@@ -19,18 +19,7 @@
  *  ********************************************************************************************************************
  */
 
+#import "SharedObjectChanges.h"
 
-#import "RTService.h"
-
-@implementation RTService
-
-@synthesize data = _data;
-
--(RTPersistence *)data {
-    if (!_data) {
-        _data = [RTPersistence new];
-    }
-    return _data;
-}
-
+@implementation SharedObjectChanges
 @end

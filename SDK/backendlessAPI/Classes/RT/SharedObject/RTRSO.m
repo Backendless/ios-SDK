@@ -69,19 +69,19 @@
     [super stopSubscriptionWithRSO:rso event:RSO_CONNECT onResult:[onConnectCallbacks objectForKey:onConnect]];
 }
 
--(void)addChangesListener:(void(^)(RSOChangesObject *))onChange {
+-(void)addChangesListener:(void(^)(SharedObjectChanges *))onChange {
     NSDictionary *options = @{@"name" : rso};
     [super addSubscription:RSO_CHANGES options:options onResult:onChange handleResultSelector:@selector(handleRSOChanges:) fromClass:self];
 }
 
--(void)removeChangesListener:(void(^)(RSOChangesObject *))onChange {
+-(void)removeChangesListener:(void(^)(SharedObjectChanges *))onChange {
     [super stopSubscriptionWithRSO:rso event:RSO_CHANGES onResult:onChange];
 }
 
--(RSOChangesObject *)handleRSOChanges:(NSDictionary *)jsonResult {    
+-(SharedObjectChanges *)handleRSOChanges:(NSDictionary *)jsonResult {    
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonResult options:NSJSONWritingPrettyPrinted error:nil];
     NSDictionary *rsoChangesData = [jsonHelper dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
-    RSOChangesObject *rsoChangesObject = [RSOChangesObject new];
+    SharedObjectChanges *rsoChangesObject = [SharedObjectChanges new];
     rsoChangesObject.key = [rsoChangesData valueForKey:@"key"];
     rsoChangesObject.data = [jsonHelper parseBackObjectForJSON:[rsoChangesData valueForKey:@"data"]];
     rsoChangesObject.connectionId = [rsoChangesData valueForKey:@"connectionId"];

@@ -1,5 +1,5 @@
 //
-//  UserStatusObjectData.m
+//  UserInfo.h
 //  backendlessAPI
 /*
  * *********************************************************************************************************************
@@ -19,7 +19,11 @@
  *  ********************************************************************************************************************
  */
 
-#import "UserStatusObjectData.h"
+#import <Foundation/Foundation.h>
 
-@implementation UserStatusObjectData
+@interface UserInfo : NSObject
+
+@property (strong, nonatomic) NSString *connectionId;
+@property (strong, nonatomic) NSString *userId;
+
 @end

@@ -1,5 +1,5 @@
 //
-//  SharedObject.h
+//  RemoteSharedObject.h
 //  backendlessAPI
 /*
  * *********************************************************************************************************************
@@ -22,12 +22,12 @@
 #import <Foundation/Foundation.h>
 #import "Responder.h"
 #import "SharedObjectChanges.h"
-#import "UserInfo.h"
+#import "RSOClearedObject.h"
 #import "CommandObject.h"
 #import "UserStatusObject.h"
 #import "InvokeObject.h"
 
-@interface SharedObject : NSObject
+@interface WeborbSharedObject : NSObject
 
 @property (strong, nonatomic, readonly) NSString *name;
 @property (nonatomic, readonly) BOOL isConnected;
@@ -49,8 +49,8 @@
 -(void)removeChangesListeners:(void(^)(SharedObjectChanges *))onChanges;
 -(void)removeChangesListeners;
 
--(void)addClearListener:(void(^)(UserInfo *))onClear;
--(void)removeClearListeners:(void(^)(UserInfo *))onClear;
+-(void)addClearListener:(void(^)(RSOClearedObject *))onClear;
+-(void)removeClearListeners:(void(^)(RSOClearedObject *))onClear;
 -(void)removeClearListeners;
 
 -(void)addCommandListener:(void(^)(CommandObject *))onCommand;

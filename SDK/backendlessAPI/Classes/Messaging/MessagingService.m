@@ -33,7 +33,7 @@
 #import "Backendless.h"
 #import "Invoker.h"
 #import "Channel.h"
-#import "RemoteSharedObject.h"
+#import "SharedObject.h"
 #import "BodyParts.h"
 #import "UICKeyChainStore.h"
 #import "KeychainDataStore.h"

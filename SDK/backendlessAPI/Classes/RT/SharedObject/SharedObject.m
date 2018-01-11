@@ -19,47 +19,57 @@
  *  ********************************************************************************************************************
  */
 
-#import "RemoteSharedObject.h"
+#import "WeborbSharedObject.h"
 #import "RTRSO.h"
 
-@interface RemoteSharedObject()
-@property (strong, nonatomic, readwrite) NSString *rsoName;
+@interface SharedObject()
+@property (strong, nonatomic, readwrite) NSString *name;
 @property (strong, nonatomic) RTRSO *rt;
 @property (nonatomic, readwrite) BOOL isConnected;
 @end
 
-@implementation RemoteSharedObject
-
--(instancetype)initWithName:(NSString *)sharedObjectName {
-    if (self = [super init]) {
-        self.rsoName = sharedObjectName;
-        self.rt = [[RTRSO alloc] initWithRSOName:sharedObjectName];
-        self.isConnected = NO;
-    }
-    return self;
-}
+@implementation SharedObject
 
 -(void)setInvocationTarget:(id)invocationTarget {
     self.rt.invocationTarget = invocationTarget;
 }
 
+-(instancetype)initWithRSOName:(NSString *)sharedObjectName {
+    if (self = [super init]) {
+        self.name = sharedObjectName;
+        self.rt = [[RTRSO alloc] initWithRSOName:sharedObjectName];
+        self.isConnected = NO;
+        [self connect];
+    }
+    return self;
+}
+
+-(instancetype)connect:(NSString *)sharedObjectName {
+    [self initWithRSOName:sharedObjectName];
+    return self;
+}
+
 -(void)connect {
-    __weak __typeof__(self) weakSelf = self;
-    [self.rt connect:^(id result) {
-        __typeof__(self) strongSelf = weakSelf;
-        strongSelf.isConnected = YES;
-    }];
+    if (!self.isConnected) {
+        __weak __typeof__(self) weakSelf = self;
+        [self.rt connect:^(id result) {
+            __typeof__(self) strongSelf = weakSelf;
+            strongSelf.isConnected = YES;
+        }];
+    }
 }
 
 -(void)disconnect {
-    [self removeErrorListeners];
-    [self removeConnectListeners];
-    [self removeChangesListeners];
-    [self removeClearListeners];
-    [self removeCommandListeners];
-    [self removeUserStatusListeners];
-    [self removeInvokeListeners];
-    self.isConnected = NO;
+    if (self.isConnected) {
+        [self removeErrorListeners];
+        [self removeConnectListeners];
+        [self removeChangesListeners];
+        [self removeClearListeners];
+        [self removeCommandListeners];
+        [self removeUserStatusListeners];
+        [self removeInvokeListeners];
+        self.isConnected = NO;
+    }
 }
 
 -(void)addErrorListener:(void(^)(Fault *))errorBlock {
@@ -86,11 +96,11 @@
     [self.rt removeConnectListener:nil];
 }
 
--(void)addChangesListener:(void(^)(RSOChangesObject *))onChanges {
+-(void)addChangesListener:(void(^)(SharedObjectChanges *))onChanges {
     [self.rt addChangesListener:onChanges];
 }
 
--(void)removeChangesListeners:(void(^)(RSOChangesObject *))onChanges {
+-(void)removeChangesListeners:(void(^)(SharedObjectChanges *))onChanges {
     [self.rt removeChangesListener:onChanges];
 }
 

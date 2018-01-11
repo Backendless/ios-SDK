@@ -203,6 +203,10 @@ static NSString *API_KEY_HEADER_KEY = @"API-key";
     return _rt;
 }
 
+-(SharedObject *)sharedObject {
+    return [SharedObject alloc];
+}
+
 #pragma mark -
 #pragma mark getters / setters
 

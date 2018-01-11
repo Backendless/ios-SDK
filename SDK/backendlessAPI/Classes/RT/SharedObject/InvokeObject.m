@@ -1,5 +1,5 @@
 //
-//  UserStatusObjectData.h
+//  InvokeObject.m
 //  backendlessAPI
 /*
  * *********************************************************************************************************************
@@ -19,11 +19,7 @@
  *  ********************************************************************************************************************
  */
 
-#import <Foundation/Foundation.h>
+#import "InvokeObject.h"
 
-@interface UserStatusObjectData : NSObject
-
-@property (strong, nonatomic) NSString *connectionId;
-@property (strong, nonatomic) NSString *userId;
-
+@implementation InvokeObject
 @end

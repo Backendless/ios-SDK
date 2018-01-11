@@ -45,7 +45,7 @@
 -(void)addSubscription:(NSString *)type options:(NSDictionary *)options onResult:(void(^)(id))onResult handleResultSelector:(SEL)handleResultSelector fromClass:(id)subscriptionClassInstance;
 -(void)stopSubscription:(NSString *)event whereClause:(NSString *)whereClause onResult:(void(^)(id))onResult;
 -(void)stopSubscriptionWithChannel:(NSString *)channel event:(NSString *)event whereClause:(NSString *)whereClause onResult:(void(^)(id))onResult;
--(void)stopSubscriptionWithRSO:(NSString *)rso event:(NSString *)event onResult:(void(^)(id))onResult;
+-(void)stopSubscriptionWithSharedObject:(NSString *)sharedObjectName event:(NSString *)event onResult:(void(^)(id))onResult;
 
 -(void)addSimpleListener:(NSString *)type callBack:(void(^)(id))callback;
 -(void)removeSimpleListener:(NSString *)type callBack:(void(^)(id))callback;

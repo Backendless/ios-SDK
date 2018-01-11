@@ -63,7 +63,7 @@
     
     onStop = ^(RTSubscription *subscription) {
         NSMutableArray *subscriptionStack = [NSMutableArray arrayWithArray:[weakSubscriptions valueForKey:subscription.type]] ? [NSMutableArray arrayWithArray:[weakSubscriptions valueForKey:type]] : [NSMutableArray new];
-        [subscriptionStack removeObject:subscription];        
+        [subscriptionStack removeObject:subscription];
     };
     
     onReady = ^{
@@ -85,7 +85,7 @@
     subscription.ready = NO;
     subscription.handleResult = handleResultSelector;
     subscription.classInstance = subscriptionClassInstance;
-        
+    
     [rtClient subscribe:data subscription:subscription];
     
     NSString *typeName = [data valueForKey:@"name"];
@@ -185,12 +185,12 @@
     }
 }
 
--(void)stopSubscriptionWithRSO:(NSString *)rso event:(NSString *)event onResult:(void(^)(id))onResult {
+-(void)stopSubscriptionWithSharedObject:(NSString *)sharedObjectName event:(NSString *)event onResult:(void (^)(id))onResult {
     NSMutableArray *subscriptionStack = [NSMutableArray arrayWithArray:[subscriptions valueForKey:event]];
-    if (rso && event && subscriptionStack) {        
+    if (sharedObjectName && event && subscriptionStack) {
         if (onResult) {
             for (RTSubscription *subscription in subscriptionStack) {
-                if ([subscription.options valueForKey:@"name"] && [[subscription.options valueForKey:@"name"] isEqualToString:rso] && subscription.onResult == onResult) {
+                if ([subscription.options valueForKey:@"name"] && [[subscription.options valueForKey:@"name"] isEqualToString:sharedObjectName] && subscription.onResult == onResult) {
                     [subscription stop];
                 }
             }

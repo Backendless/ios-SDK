@@ -22,8 +22,8 @@
 #import <Foundation/Foundation.h>
 #import "RTListener.h"
 #import "Responder.h"
-#import "RSOChangesObject.h"
-#import "RSOClearedObject.h"
+#import "SharedObjectChanges.h"
+#import "UserInfo.h"
 #import "CommandObject.h"
 #import "UserStatusObject.h"
 #import "InvokeObject.h"
@@ -41,11 +41,11 @@
 -(void)addConnectListener:(BOOL)isConnected onConnect:(void(^)(void))onConnect;
 -(void)removeConnectListener:(void(^)(void))onConnect;
 
--(void)addChangesListener:(void(^)(RSOChangesObject *))onChange;
--(void)removeChangesListener:(void(^)(RSOChangesObject *))onChange;
+-(void)addChangesListener:(void(^)(SharedObjectChanges *))onChange;
+-(void)removeChangesListener:(void(^)(SharedObjectChanges *))onChange;
 
--(void)addClearListener:(void(^)(RSOClearedObject *))onClear;
--(void)removeClearListener:(void(^)(RSOClearedObject *))onClear;
+-(void)addClearListener:(void(^)(UserInfo *))onClear;
+-(void)removeClearListener:(void(^)(UserInfo *))onClear;
 
 -(void)addCommandListener:(void(^)(CommandObject *))onCommand;
 -(void)removeCommandListener:(void(^)(CommandObject *))onCommand;

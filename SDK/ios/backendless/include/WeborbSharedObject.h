@@ -31,7 +31,7 @@
 
 @class FlashorbBinaryReader;
 
-@interface SharedObject : AttributeStore <IPersistable> {	
+@interface WeborbSharedObject : AttributeStore <IPersistable> {	
     /**
 	 * Shared Object name (identifier)
 	 */

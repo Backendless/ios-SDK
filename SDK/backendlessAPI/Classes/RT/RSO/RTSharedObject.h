@@ -1,5 +1,5 @@
 //
-//  SharedObject.h
+//  RTSharedObject.h
 //  backendlessAPI
 /*
  * *********************************************************************************************************************
@@ -20,6 +20,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "RTListener.h"
 #import "Responder.h"
 #import "SharedObjectChanges.h"
 #import "UserInfo.h"
@@ -27,56 +28,38 @@
 #import "UserStatusObject.h"
 #import "InvokeObject.h"
 
-@interface SharedObject : NSObject
+@interface RTSharedObject : RTListener
 
-@property (strong, nonatomic, readonly) NSString *name;
-@property (nonatomic, readonly) BOOL isConnected;
 @property (strong, nonatomic) id invocationTarget;
 
--(instancetype)connect:(NSString *)name;
--(void)connect;
--(void)disconnect;
+-(instancetype)initWithName:(NSString *)name;
+-(void)connect:(void(^)(id))onSuccessfulConnect;
 
 -(void)addErrorListener:(void(^)(Fault *))errorBlock;
--(void)removeErrorListeners:(void(^)(Fault *))errorBlock;
--(void)removeErrorListeners;
+-(void)removeErrorListener:(void(^)(Fault *))errorBlock;
 
--(void)addConnectListener:(void(^)(void))onConnect;
--(void)removeConnectListeners:(void(^)(void))onConnect;
--(void)removeConnectListeners;
+-(void)addConnectListener:(BOOL)isConnected onConnect:(void(^)(void))onConnect;
+-(void)removeConnectListener:(void(^)(void))onConnect;
 
--(void)addChangesListener:(void(^)(SharedObjectChanges *))onChanges;
--(void)removeChangesListeners:(void(^)(SharedObjectChanges *))onChanges;
--(void)removeChangesListeners;
+-(void)addChangesListener:(void(^)(SharedObjectChanges *))onChange;
+-(void)removeChangesListener:(void(^)(SharedObjectChanges *))onChange;
 
 -(void)addClearListener:(void(^)(UserInfo *))onClear;
--(void)removeClearListeners:(void(^)(UserInfo *))onClear;
--(void)removeClearListeners;
+-(void)removeClearListener:(void(^)(UserInfo *))onClear;
 
 -(void)addCommandListener:(void(^)(CommandObject *))onCommand;
--(void)removeCommandListeners:(void(^)(CommandObject *))onCommand;
--(void)removeCommandListeners;
+-(void)removeCommandListener:(void(^)(CommandObject *))onCommand;
 
 -(void)addUserStatusListener:(void(^)(UserStatusObject *))onUserStatus;
--(void)removeUserStatusListeners:(void(^)(UserStatusObject *))onUserStatus;
--(void)removeUserStatusListeners;
+-(void)removeUserStatusListener:(void(^)(UserStatusObject *))onUserStatus;
 
 -(void)addInvokeListener:(void(^)(InvokeObject *))onInvoke;
--(void)removeInvokeListeners:(void(^)(InvokeObject *))onInvoke;
--(void)removeInvokeListeners;
+-(void)removeInvokeListener:(void(^)(InvokeObject *))onInvoke;
 
--(void)removeAllListeners;
-
-// commands
-
--(void)get:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
 -(void)get:(NSString *)key onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
 -(void)set:(NSString *)key data:(id)data onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
 -(void)clear:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
 -(void)sendCommand:(NSString *)commandName data:(id)data onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
--(void)invokeOn:(NSString *)method targets:(NSArray *)targets args:(NSArray *)args onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
--(void)invokeOn:(NSString *)method targets:(NSArray *)targets onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
--(void)invoke:(NSString *)method args:(NSArray *)args onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
--(void)invoke:(NSString *)method onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
+-(void)invoke:(NSString *)method targets:(NSArray *)targets args:(NSArray *)args onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
 
 @end

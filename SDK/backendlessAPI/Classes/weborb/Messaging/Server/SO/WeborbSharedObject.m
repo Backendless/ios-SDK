@@ -6,19 +6,19 @@
 //  Copyright 2011 The Midnight Coders, Inc. All rights reserved.
 //
 
-#import "SharedObject.h"
+#import "WeborbSharedObject.h"
 #import "DEBUG.h"
 #import "SharedObjectEvent.h"
 #import "WebORBSerializer.h"
 #import "WebORBDeserializer.h"
 
-@interface SharedObject ()
+@interface WeborbSharedObject ()
 -(void)defaultInitialize;
 //-(void)notifyModified;
 @end;
 
 
-@implementation SharedObject
+@implementation WeborbSharedObject
 
 -(id)init {	
 	if( (self=[super init]) ) {

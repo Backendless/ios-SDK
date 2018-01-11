@@ -1,5 +1,5 @@
 //
-//  RTService.m
+//  InvokeObject.h
 //  backendlessAPI
 /*
  * *********************************************************************************************************************
@@ -19,18 +19,13 @@
  *  ********************************************************************************************************************
  */
 
+#import <Foundation/Foundation.h>
 
-#import "RTService.h"
+@interface InvokeObject : NSObject
 
-@implementation RTService
-
-@synthesize data = _data;
-
--(RTPersistence *)data {
-    if (!_data) {
-        _data = [RTPersistence new];
-    }
-    return _data;
-}
+@property (strong, nonatomic) NSString *method;
+@property (strong, nonatomic) NSArray *args;
+@property (strong, nonatomic) NSString *connectionId;
+@property (strong, nonatomic) NSString *userId;
 
 @end
