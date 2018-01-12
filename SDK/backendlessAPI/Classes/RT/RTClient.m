@@ -24,7 +24,10 @@
 #import "RTMethodRequest.h"
 #import "Backendless.h"
 #import "RTHelper.h"
+#import "ReconnectAttemptObject.h"
 @import SocketIO;
+
+#define MAX_TIME_INTERVAL 3600
 
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 
@@ -39,6 +42,8 @@
     BOOL needResubscribe;
     BOOL onConnectionHandlersReady;
     NSLock *_lock;
+    double timeInterval;
+    void(^onSocketConnectCallback)(void);
 }
 @end
 
@@ -63,42 +68,56 @@
         needResubscribe = NO;
         onConnectionHandlersReady = NO;
         _lock = [NSLock new];
+        timeInterval = 0.2;
     }
     return self;
 }
 
 -(void)connectSocket:(void(^)(void))connected {
+    if (!onSocketConnectCallback) {
+        onSocketConnectCallback = connected;
+    }
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [_lock lock];
-        if (!socketCreated) {
-            NSString *path = [@"/" stringByAppendingString:[backendless getAppId]];
-            NSURL *url = [[NSURL alloc] initWithString:[RTHelper lookup]];
-            NSDictionary *connectParams = @{@"apiKey":[backendless getAPIKey]};
-            NSString *userToken = [backendless.userService.currentUser getUserToken];
-            if (userToken) {
-                connectParams = @{@"apiKey":[backendless getAPIKey],
-                                  @"userToken": userToken};
+        @try {
+            [_lock lock];
+            if (!socketCreated) {
+                NSString *path = [@"/" stringByAppendingString:[backendless getAppId]];
+                NSURL *url = [[NSURL alloc] initWithString:[RTHelper lookup]];
+                NSDictionary *connectParams = @{@"apiKey":[backendless getAPIKey]};
+                NSString *userToken = [backendless.userService.currentUser getUserToken];
+                if (userToken) {
+                    connectParams = @{@"apiKey":[backendless getAPIKey],
+                                      @"userToken": userToken};
+                }
+                socketManager = [[SocketManager alloc] initWithSocketURL:url config:@{@"path": path, @"connectParams":connectParams}];
+                socketManager.reconnects = NO;
+                socket = [socketManager socketForNamespace:path];
+                if (socket) {
+                    socketCreated = YES;
+                    [self onConnectionHandlers:connected];
+                }
             }
-            socketManager = [[SocketManager alloc] initWithSocketURL:url config:@{@"path": path, @"connectParams":connectParams}];
-            socket = [socketManager socketForNamespace:path];
-            if (socket) {
-                socketCreated = YES;
-                [self onConnectionHandlers:connected];
+            
+            if (socketCreated && socketConnected) {
+                connected();
+                [_lock unlock];
+            }
+            else if (socketCreated && !socketConnected) {
+                [socket connect];
+                
             }
         }
-        
-        if (socketConnected) {
-            connected();
+        @catch (Fault *fault) {
             [_lock unlock];
-        }
-        else if (socketCreated) {
-            [socket connect];
+            [self onConnectError:fault.message event:CONNECT_ERROR_EVENT];
         }
     });
+    
 }
 
 -(void)subscribe:(NSDictionary *)data subscription:(RTSubscription *)subscription {
     if(socketConnected) {
+        NSLog(@"TRY TO SUBSCRIBE HERE");
         [socket emit:@"SUB_ON" with:[NSArray arrayWithObject:data]];
     }
     else {
@@ -144,8 +163,8 @@
         onConnectionHandlersReady = YES;
         
         [socket on:@"connect" callback:^(NSArray* data, SocketAckEmitter* ack) {
-            NSLog(@"***** Socket connected *****");
             socketConnected = YES;
+            timeInterval = 0.2;
             [_lock unlock];
             
             if (needResubscribe) {
@@ -172,11 +191,74 @@
                 connectBlock();
             }
         }];
+        
+        [socket on:@"connect_error" callback:^(NSArray* data, SocketAckEmitter* ack) {
+            socketConnected = NO;
+            needResubscribe = YES;
+            NSString *reason = data.firstObject;
+            [self onConnectError:reason event:CONNECT_EVENT];
+        }];
+        
+        [socket on:@"connect_timeout" callback:^(NSArray* data, SocketAckEmitter* ack) {
+            socketConnected = NO;
+            needResubscribe = YES;
+            NSString *reason = data.firstObject;
+            [self onConnectError:reason event:CONNECT_ERROR_EVENT];
+        }];
+        
+        [socket on:@"error" callback:^(NSArray* data, SocketAckEmitter* ack) {
+            socketConnected = NO;
+            needResubscribe = YES;
+            NSString *reason = data.firstObject;
+            [self onConnectError:reason event:ERROR_EVENT];
+        }];
+        
+        [socket on:@"disconnect" callback:^(NSArray* data, SocketAckEmitter* ack) {
+            [socketManager disconnectSocket:socket];
+            socketConnected = NO;
+            needResubscribe = YES;
+            NSString *reason = data.firstObject;
+            [self onConnectError:reason event:DISCONNECT_EVENT];
+        }];
+        
+        /*[socket on:@"reconnect_attempt" callback:^(NSArray* data, SocketAckEmitter* ack) {
+         NSDictionary *resultData = data.firstObject;
+         NSArray *reconnectAttemptListeners = [NSArray arrayWithArray:[eventListeners valueForKey:RECONNECT_ATTEMPT_EVENT]];
+         for (int i = 0; i < [reconnectAttemptListeners count]; i++) {
+         ReconnectAttemptObject *reconnectAttemptObject = [ReconnectAttemptObject new];
+         reconnectAttemptObject.attempt = [[resultData valueForKey:@"attempt"] integerValue];
+         reconnectAttemptObject.timeout = [[resultData valueForKey:@"timeout"] doubleValue];
+         void(^reconnectAttemptBlock)(ReconnectAttemptObject *) = [reconnectAttemptListeners objectAtIndex:i];
+         reconnectAttemptBlock(reconnectAttemptObject);
+         }
+         }];*/
+        
         [socket on:@"reconnect" callback:^(NSArray* data, SocketAckEmitter* ack) {
-            NSLog(@"***** Socket reconnected *****");
+            NSLog(@"RECONNECT CALLED");
             socketConnected = NO;
             needResubscribe = YES;
         }];
+    }
+}
+
+-(void)onConnectError:(NSString *)reason event:(NSString *)event {
+    
+    NSArray *connectListeners = [NSArray arrayWithArray:[eventListeners valueForKey:event]];
+    for (int i = 0; i < [connectListeners count]; i++) {
+        void(^connectBlock)(NSString *) = [connectListeners objectAtIndex:i];
+        connectBlock(reason);
+    }
+    [self tryToReconnectSocket];
+}
+
+-(void)tryToReconnectSocket {
+    if (timeInterval <= MAX_TIME_INTERVAL) {
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timeInterval * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+            [self connectSocket:onSocketConnectCallback];
+        });
+        timeInterval *= 2;
+        NSLog(@"TIME INTERVAL = %f", timeInterval);
     }
 }
 

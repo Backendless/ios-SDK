@@ -22,5 +22,4 @@
 #import "ReconnectAttemptObject.h"
 
 @implementation ReconnectAttemptObject
-
 @end

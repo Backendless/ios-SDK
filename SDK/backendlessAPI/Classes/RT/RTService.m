@@ -34,48 +34,48 @@
     return _data;
 }
 
--(void)addConnectEventListener:(void(^)(void))connectBlock {
-    [rtClient addConnectEventListener:connectBlock];
+-(void)addConnectEventListener:(void(^)(void))onConnect {
+    [rtClient addConnectEventListener:onConnect];
 }
 
--(void)removeConnectEventListeners:(void(^)(void))connectBlock {
-    [rtClient removeConnectEventListeners:connectBlock];
+-(void)removeConnectEventListeners:(void(^)(void))onConnect {
+    [rtClient removeConnectEventListeners:onConnect];
 }
 
 -(void)removeConnectEventListeners {
     [rtClient removeEventListeners:CONNECT_EVENT];
 }
 
--(void)addConnectErrorEventListener:(void(^)(NSString *))connectErrorBlock {
-    [rtClient addEventListener:CONNECT_ERROR_EVENT callBack:connectErrorBlock];
+-(void)addConnectErrorEventListener:(void(^)(NSString *))onConnectError {
+    [rtClient addEventListener:CONNECT_ERROR_EVENT callBack:onConnectError];
 }
 
--(void)removeConnectErrorEventListeners:(void(^)(NSString *))connectErrorBlock {
-    [rtClient removeEventListeners:CONNECT_ERROR_EVENT callBack:connectErrorBlock];
+-(void)removeConnectErrorEventListeners:(void(^)(NSString *))onConnectError {
+    [rtClient removeEventListeners:CONNECT_ERROR_EVENT callBack:onConnectError];
 }
 
 -(void)removeConnectErrorEventListeners {
     [rtClient removeEventListeners:CONNECT_ERROR_EVENT];
 }
 
--(void)addDisonnectEventListener:(void(^)(NSString *))disconnectBlock {
-    [rtClient addEventListener:DISCONNECT_EVENT callBack:disconnectBlock];
+-(void)addDisonnectEventListener:(void(^)(NSString *))onDisconnect {
+    [rtClient addEventListener:DISCONNECT_EVENT callBack:onDisconnect];
 }
 
--(void)removeDisconnectEventListeners:(void(^)(NSString *))disconnectBlock {
-    [rtClient removeEventListeners:DISCONNECT_EVENT callBack:disconnectBlock];
+-(void)removeDisconnectEventListeners:(void(^)(NSString *))onDisconnect {
+    [rtClient removeEventListeners:DISCONNECT_EVENT callBack:onDisconnect];
 }
 
 -(void)removeDisconnectEventListeners {
     [rtClient removeEventListeners:DISCONNECT_EVENT];
 }
 
--(void)addReconnectAttemptEventListener:(void(^)(ReconnectAttemptObject *))reconnectAttemptBlock {
-    [rtClient addEventListener:RECONNECT_ATTEMPT_EVENT callBack:reconnectAttemptBlock];
+-(void)addReconnectAttemptEventListener:(void(^)(ReconnectAttemptObject *))onReconnectAttempt {
+    [rtClient addEventListener:RECONNECT_ATTEMPT_EVENT callBack:onReconnectAttempt];
 }
 
--(void)removeReconnectAttemptEventListeners:(void(^)(ReconnectAttemptObject *))reconnectAttemptBlock {
-    [rtClient removeEventListeners:RECONNECT_ATTEMPT_EVENT callBack:reconnectAttemptBlock];
+-(void)removeReconnectAttemptEventListeners:(void(^)(ReconnectAttemptObject *))onReconnectAttempt {
+    [rtClient removeEventListeners:RECONNECT_ATTEMPT_EVENT callBack:onReconnectAttempt];
 }
 
 -(void)removeReconnectAttemptEventListeners {

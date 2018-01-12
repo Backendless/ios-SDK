@@ -40,20 +40,24 @@
 }
 
 -(void)connect {
-    __weak __typeof__(self) weakSelf = self;
-    [self.rt connect:^(id result) {
-        __typeof__(self) strongSelf = weakSelf;
-        strongSelf.isConnected = YES;
-    }];
+    if (!self.isConnected) {
+        __weak __typeof__(self) weakSelf = self;
+        [self.rt connect:^(id result) {
+            __typeof__(self) strongSelf = weakSelf;
+            strongSelf.isConnected = YES;
+        }];
+    }
 }
 
 -(void)disconnect {
-    [self removeErrorListeners];
-    [self removeConnectListeners];
-    [self removeMessageListeners];
-    [self removeCommandListeners];
-    [self removeUserStatusListeners];
-    self.isConnected = NO;
+    if (self.isConnected) {
+        [self removeErrorListeners];
+        [self removeConnectListeners];
+        [self removeMessageListeners];
+        [self removeCommandListeners];
+        [self removeUserStatusListeners];
+        self.isConnected = NO;
+    }
 }
 
 -(void)addErrorListener:(void(^)(Fault *))errorBlock {

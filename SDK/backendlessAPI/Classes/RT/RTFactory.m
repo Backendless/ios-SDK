@@ -51,11 +51,9 @@
 
 -(RTDataStore *)getDataStore:(NSString *)tableName withEntity:(Class)tableEntity dataStoreType:(UInt32)dataStoreType {
     RTDataStore *dataStore;
-    
     if ([[dataStores allKeys] containsObject:tableName] &&
-        [[dataStore valueForKey:tableName] getTableEntity] == tableEntity &&
         [[dataStore valueForKey:tableName] getType] == dataStoreType) {
-        dataStore = [dataStore valueForKey:tableName];
+        dataStore = [dataStores valueForKey:tableName];
     }
     else {
         dataStore = [[RTDataStore alloc] initWithTableName:tableName withEntity:tableEntity dataStoreType:dataStoreType];
