@@ -27,20 +27,20 @@
 
 @property (strong, nonatomic, readonly) RTPersistence *data;
 
--(void)addConnectEventListener:(void(^)(void))connectBlock;
--(void)removeConnectEventListeners:(void(^)(void))connectBlock;
+-(void)addConnectEventListener:(void(^)(void))onConnect;
+-(void)removeConnectEventListeners:(void(^)(void))onConnect;
 -(void)removeConnectEventListeners;
 
--(void)addConnectErrorEventListener:(void(^)(NSString *))connectErrorBlock;
--(void)removeConnectErrorEventListeners:(void(^)(NSString *))connectErrorBlock;
+-(void)addConnectErrorEventListener:(void(^)(NSString *))onConnectError;
+-(void)removeConnectErrorEventListeners:(void(^)(NSString *))onConnectError;
 -(void)removeConnectErrorEventListeners;
 
--(void)addDisonnectEventListener:(void(^)(NSString *))disconnectBlock;
--(void)removeDisconnectEventListeners:(void(^)(NSString *))disconnectBlock;
+-(void)addDisonnectEventListener:(void(^)(NSString *))onDisconnect;
+-(void)removeDisconnectEventListeners:(void(^)(NSString *))onDisconnect;
 -(void)removeDisconnectEventListeners;
 
--(void)addReconnectAttemptEventListener:(void(^)(ReconnectAttemptObject *))reconnectAttemptBlock;
--(void)removeReconnectAttemptEventListeners:(void(^)(ReconnectAttemptObject *))reconnectAttemptBlock;
+-(void)addReconnectAttemptEventListener:(void(^)(ReconnectAttemptObject *))onReconnectAttempt;
+-(void)removeReconnectAttemptEventListeners:(void(^)(ReconnectAttemptObject *))onReconnectAttempt;
 -(void)removeReconnectAttemptEventListeners;
 
 @end

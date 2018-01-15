@@ -41,7 +41,10 @@
     BOOL socketConnected;
     BOOL needResubscribe;
     BOOL onConnectionHandlersReady;
+    BOOL onResultReady;
+    BOOL onMethodResultReady;
     NSLock *_lock;
+    NSInteger reconnectAttempt;
     double timeInterval;
     void(^onSocketConnectCallback)(void);
 }
@@ -67,7 +70,10 @@
         socketConnected = NO;
         needResubscribe = NO;
         onConnectionHandlersReady = NO;
+        onResultReady = NO;
+        onMethodResultReady = NO;
         _lock = [NSLock new];
+        reconnectAttempt = 1;
         timeInterval = 0.2;
     }
     return self;
@@ -104,20 +110,17 @@
             }
             else if (socketCreated && !socketConnected) {
                 [socket connect];
-                
             }
         }
         @catch (Fault *fault) {
             [_lock unlock];
-            [self onConnectError:fault.message event:CONNECT_ERROR_EVENT];
+            [self onConnectErrorOrDisconnect:fault.message type:CONNECT_ERROR_EVENT];
         }
     });
-    
 }
 
 -(void)subscribe:(NSDictionary *)data subscription:(RTSubscription *)subscription {
     if(socketConnected) {
-        NSLog(@"TRY TO SUBSCRIBE HERE");
         [socket emit:@"SUB_ON" with:[NSArray arrayWithObject:data]];
     }
     else {
@@ -136,11 +139,13 @@
     if ([subscriptions count] == 0 && socket && socketManager) {
         [socketManager removeSocket:socket];
         socket = nil;
+        socketManager = nil;
         socketCreated = NO;
         socketConnected = NO;
         needResubscribe = NO;
         onConnectionHandlersReady = NO;
-        socketManager = nil;
+        onResultReady = NO;
+        onMethodResultReady = NO;
     }
 }
 
@@ -162,8 +167,9 @@
     if (!onConnectionHandlersReady) {
         onConnectionHandlersReady = YES;
         
-        [socket on:@"connect" callback:^(NSArray* data, SocketAckEmitter* ack) {
+        [socket on:@"connect" callback:^(NSArray *data, SocketAckEmitter *ack) {
             socketConnected = YES;
+            reconnectAttempt = 1;
             timeInterval = 0.2;
             [_lock unlock];
             
@@ -181,10 +187,11 @@
             }
             
             else if (!needResubscribe) {
-                [self onResult];
-                [self onMethodResult];
                 connected();
             }
+            
+            [self onResult];
+            [self onMethodResult];
             
             NSArray *connectListeners = [NSArray arrayWithArray:[eventListeners valueForKey:CONNECT_EVENT]];
             for (void(^connectBlock)(void) in connectListeners) {
@@ -192,63 +199,58 @@
             }
         }];
         
-        [socket on:@"connect_error" callback:^(NSArray* data, SocketAckEmitter* ack) {
-            socketConnected = NO;
-            needResubscribe = YES;
+        [socket on:@"connect_error" callback:^(NSArray *data, SocketAckEmitter *ack) {
             NSString *reason = data.firstObject;
-            [self onConnectError:reason event:CONNECT_EVENT];
+            [self onConnectErrorOrDisconnect:reason type:CONNECT_ERROR_EVENT];
         }];
         
-        [socket on:@"connect_timeout" callback:^(NSArray* data, SocketAckEmitter* ack) {
-            socketConnected = NO;
-            needResubscribe = YES;
+        [socket on:@"connect_timeout" callback:^(NSArray *data, SocketAckEmitter *ack) {
             NSString *reason = data.firstObject;
-            [self onConnectError:reason event:CONNECT_ERROR_EVENT];
+            [self onConnectErrorOrDisconnect:reason type:CONNECT_ERROR_EVENT];
         }];
         
-        [socket on:@"error" callback:^(NSArray* data, SocketAckEmitter* ack) {
-            socketConnected = NO;
-            needResubscribe = YES;
+        [socket on:@"error" callback:^(NSArray *data, SocketAckEmitter *ack) {
             NSString *reason = data.firstObject;
-            [self onConnectError:reason event:ERROR_EVENT];
+            [self onConnectErrorOrDisconnect:reason type:CONNECT_ERROR_EVENT];
         }];
         
-        [socket on:@"disconnect" callback:^(NSArray* data, SocketAckEmitter* ack) {
+        [socket on:@"disconnect" callback:^(NSArray *data, SocketAckEmitter *ack) {
             [socketManager disconnectSocket:socket];
-            socketConnected = NO;
-            needResubscribe = YES;
             NSString *reason = data.firstObject;
-            [self onConnectError:reason event:DISCONNECT_EVENT];
-        }];
-        
-        /*[socket on:@"reconnect_attempt" callback:^(NSArray* data, SocketAckEmitter* ack) {
-         NSDictionary *resultData = data.firstObject;
-         NSArray *reconnectAttemptListeners = [NSArray arrayWithArray:[eventListeners valueForKey:RECONNECT_ATTEMPT_EVENT]];
-         for (int i = 0; i < [reconnectAttemptListeners count]; i++) {
-         ReconnectAttemptObject *reconnectAttemptObject = [ReconnectAttemptObject new];
-         reconnectAttemptObject.attempt = [[resultData valueForKey:@"attempt"] integerValue];
-         reconnectAttemptObject.timeout = [[resultData valueForKey:@"timeout"] doubleValue];
-         void(^reconnectAttemptBlock)(ReconnectAttemptObject *) = [reconnectAttemptListeners objectAtIndex:i];
-         reconnectAttemptBlock(reconnectAttemptObject);
-         }
-         }];*/
-        
-        [socket on:@"reconnect" callback:^(NSArray* data, SocketAckEmitter* ack) {
-            NSLog(@"RECONNECT CALLED");
-            socketConnected = NO;
-            needResubscribe = YES;
+            [self onConnectErrorOrDisconnect:reason type:DISCONNECT_EVENT];
         }];
     }
 }
 
--(void)onConnectError:(NSString *)reason event:(NSString *)event {
-    
-    NSArray *connectListeners = [NSArray arrayWithArray:[eventListeners valueForKey:event]];
+-(void)onConnectErrorOrDisconnect:(NSString *)reason type:(NSString *)type {
+    [socketManager removeSocket:socket];
+    socket = nil;
+    socketManager = nil;
+    socketCreated = NO;
+    socketConnected = NO;
+    needResubscribe = YES;
+    onConnectionHandlersReady = NO;
+    onResultReady = NO;
+    onMethodResultReady = NO;    
+    NSArray *connectListeners = [NSArray arrayWithArray:[eventListeners valueForKey:type]];
     for (int i = 0; i < [connectListeners count]; i++) {
         void(^connectBlock)(NSString *) = [connectListeners objectAtIndex:i];
         connectBlock(reason);
     }
+    [self onReconnectAttempt];
     [self tryToReconnectSocket];
+}
+
+-(void)onReconnectAttempt {
+    NSArray *reconnectAttemptListeners = [NSArray arrayWithArray:[eventListeners valueForKey:RECONNECT_ATTEMPT_EVENT]];
+    for (int i = 0; i < [reconnectAttemptListeners count]; i++) {
+        ReconnectAttemptObject *reconnectAttemptObject = [ReconnectAttemptObject new];
+        reconnectAttemptObject.attempt = @(reconnectAttempt);
+        reconnectAttemptObject.timeout = @(MAX_TIME_INTERVAL * 1000);
+        void(^reconnectAttemptBlock)(ReconnectAttemptObject *) = [reconnectAttemptListeners objectAtIndex:i];
+        reconnectAttemptBlock(reconnectAttemptObject);
+    }
+    reconnectAttempt++;
 }
 
 -(void)tryToReconnectSocket {
@@ -258,83 +260,88 @@
             [self connectSocket:onSocketConnectCallback];
         });
         timeInterval *= 2;
-        NSLog(@"TIME INTERVAL = %f", timeInterval);
     }
 }
 
 -(void)onResult {
-    [socket on:@"SUB_RES" callback:^(NSArray* data, SocketAckEmitter* ack) {
-        NSDictionary *resultData = data.firstObject;
-        NSString *subscriptionId = [resultData valueForKey:@"id"];
-        RTSubscription *subscription = [subscriptions valueForKey:subscriptionId];
-        
-        if ([resultData valueForKey:@"data"]) {
-            id result = [resultData valueForKey:@"data"];
-            subscription.ready = YES;
+    if (!onResultReady) {
+        [socket on:@"SUB_RES" callback:^(NSArray *data, SocketAckEmitter *ack) {
+            onResultReady = YES;
+            NSDictionary *resultData = data.firstObject;
+            NSString *subscriptionId = [resultData valueForKey:@"id"];
+            RTSubscription *subscription = [subscriptions valueForKey:subscriptionId];
             
-            if (result && [result isKindOfClass:[NSString class]] && [result isEqualToString:@"connected"]) {
-                if (subscription && subscription.onReady) {
-                    subscription.onReady();
-                    subscription.onResult(result);
+            if ([resultData valueForKey:@"data"]) {
+                id result = [resultData valueForKey:@"data"];
+                subscription.ready = YES;
+                
+                if (result && [result isKindOfClass:[NSString class]] && [result isEqualToString:@"connected"]) {
+                    if (subscription && subscription.onReady) {
+                        subscription.onReady();
+                        subscription.onResult(result);
+                    }
+                }
+                else if (result && [result isKindOfClass:[NSDictionary class]]) {
+                    if (subscription && subscription.onResult) {
+                        subscription.onResult([subscription.classInstance performSelector:subscription.handleResult withObject:result]);
+                    }
+                }
+                else if ([result isKindOfClass:[NSNumber class]]) {
+                    if (subscription && subscription.onResult) {
+                        subscription.onResult(result);
+                    }
                 }
             }
-            else if (result && [result isKindOfClass:[NSDictionary class]]) {
-                if (subscription && subscription.onResult) {
-                    subscription.onResult([subscription.classInstance performSelector:subscription.handleResult withObject:result]);
+            else if ([resultData valueForKey:@"error"]) {
+                Fault *fault = [Fault fault:[[resultData valueForKey:@"error"] valueForKey:@"message"]
+                                     detail:[[resultData valueForKey:@"error"] valueForKey:@"message"]
+                                  faultCode:[[resultData valueForKey:@"details"] valueForKey:@"code"]];
+                
+                if (subscription && subscription.onError) {
+                    subscription.onError(fault);
+                }
+                if (subscription && subscription.onStop) {
+                    subscription.onStop(subscription);
+                    [self unsubscribe:subscriptionId];
                 }
             }
-            else if ([result isKindOfClass:[NSNumber class]]) {
-                if (subscription && subscription.onResult) {
-                    subscription.onResult(result);
-                }
-            }
-        }
-        else if ([resultData valueForKey:@"error"]) {
-            Fault *fault = [Fault fault:[[resultData valueForKey:@"error"] valueForKey:@"message"]
-                                 detail:[[resultData valueForKey:@"error"] valueForKey:@"message"]
-                              faultCode:[[resultData valueForKey:@"details"] valueForKey:@"code"]];
-            
-            if (subscription && subscription.onError) {
-                subscription.onError(fault);
-            }
-            if (subscription && subscription.onStop) {
-                subscription.onStop(subscription);
-                [self unsubscribe:subscriptionId];
-            }
-        }
-    }];
+        }];
+    }
 }
 
 -(void)onMethodResult {
-    [socket on:@"MET_RES" callback:^(NSArray* data, SocketAckEmitter* ack) {
-        NSDictionary *resultData = data.firstObject;
-        NSString *methodId = [resultData valueForKey:@"id"];
-        RTMethodRequest *method = [methods valueForKey:methodId];
-        if (method) {
-            if ([resultData valueForKey:@"error"]) {
-                Fault *fault = [Fault fault:[[resultData valueForKey:@"error"] valueForKey:@"message"]
-                                     detail:[[resultData valueForKey:@"error"] valueForKey:@"message"]
-                                  faultCode:[[resultData valueForKey:@"error"] valueForKey:@"code"]];
-                if (method && method.onError) {
-                    method.onError(fault);
+    if (!onMethodResultReady) {
+        onMethodResultReady = YES;
+        [socket on:@"MET_RES" callback:^(NSArray *data, SocketAckEmitter *ack) {
+            NSDictionary *resultData = data.firstObject;
+            NSString *methodId = [resultData valueForKey:@"id"];
+            RTMethodRequest *method = [methods valueForKey:methodId];
+            if (method) {
+                if ([resultData valueForKey:@"error"]) {
+                    Fault *fault = [Fault fault:[[resultData valueForKey:@"error"] valueForKey:@"message"]
+                                         detail:[[resultData valueForKey:@"error"] valueForKey:@"message"]
+                                      faultCode:[[resultData valueForKey:@"error"] valueForKey:@"code"]];
+                    if (method && method.onError) {
+                        method.onError(fault);
+                    }
+                    if (method && method.onStop) {
+                        method.onStop(method);
+                        [methods removeObjectForKey:methodId];
+                    }
                 }
-                if (method && method.onStop) {
+                else {
+                    if ([resultData valueForKey:@"result"]) {
+                        method.onResult([resultData valueForKey:@"result"]);
+                    }
+                    else if ([resultData valueForKey:@"id"] && ![resultData valueForKey:@"result"]) {
+                        method.onResult(nil);
+                    }
                     method.onStop(method);
                     [methods removeObjectForKey:methodId];
                 }
             }
-            else {
-                if ([resultData valueForKey:@"result"]) {
-                    method.onResult([resultData valueForKey:@"result"]);
-                }
-                else if ([resultData valueForKey:@"id"] && ![resultData valueForKey:@"result"]) {
-                    method.onResult(nil);
-                }
-                method.onStop(method);
-                [methods removeObjectForKey:methodId];
-            }
-        }
-    }];
+        }];
+    }
 }
 
 -(void)userLoggedInWithToken:(NSString *)userToken {
