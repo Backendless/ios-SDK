@@ -60,7 +60,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     if (self = [super init]) {
         _tableName = [tableName retain];
         [self setClassMapping];
-        self.rt = [rtFactory getDataStore:_tableName withEntity:nil dataStoreType:MAPDRIVENDATASTORE];
+        self.rt = [rtFactory createDataStore:_tableName withEntity:nil dataStoreType:MAPDRIVENDATASTORE];
     }
     return self;
 }

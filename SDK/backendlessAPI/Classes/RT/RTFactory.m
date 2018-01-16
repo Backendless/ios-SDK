@@ -22,13 +22,6 @@
 #import "RTFactory.h"
 #import "Backendless.h"
 
-@interface RTFactory() {
-    NSMutableDictionary<NSString *, RTDataStore *> *dataStores;
-    NSMutableDictionary<NSString *, Channel *> *channels;
-    NSMutableDictionary<NSString *, SharedObject *> *sharedObjects;
-}
-@end
-
 @implementation RTFactory
 
 +(instancetype)sharedInstance {
@@ -40,50 +33,16 @@
     return _sharedObjectFactory;
 }
 
--(instancetype)init {
-    if (self = [super init]) {
-        dataStores = [NSMutableDictionary new];
-        channels = [NSMutableDictionary new];
-        sharedObjects = [NSMutableDictionary new];
-    }
-    return self;
+-(RTDataStore *)createDataStore:(NSString *)tableName withEntity:(Class)tableEntity dataStoreType:(UInt32)dataStoreType {
+    return [[RTDataStore alloc] initWithTableName:tableName withEntity:tableEntity dataStoreType:dataStoreType];
 }
 
--(RTDataStore *)getDataStore:(NSString *)tableName withEntity:(Class)tableEntity dataStoreType:(UInt32)dataStoreType {
-    RTDataStore *dataStore;
-    if ([[dataStores allKeys] containsObject:tableName] &&
-        [[dataStore valueForKey:tableName] getType] == dataStoreType) {
-        dataStore = [dataStores valueForKey:tableName];
-    }
-    else {
-        dataStore = [[RTDataStore alloc] initWithTableName:tableName withEntity:tableEntity dataStoreType:dataStoreType];
-        [dataStores setObject:dataStore forKey:tableName];
-    }
-    return dataStore;
+-(Channel *)createChannel:(NSString *)channelName {
+    return [[Channel alloc] initWithChannelName:channelName];
 }
 
--(Channel *)getChannel:(NSString *)channelName {
-    Channel *channel;
-    if ([[channels allKeys] containsObject:channelName]) {
-        channel = [channels valueForKey:channelName];
-    }
-    else {
-        channel = [[Channel alloc] initWithChannelName:channelName];
-        [channels setObject:channel forKey:channelName];
-    }
-    return channel;
-}
-
--(SharedObject *)getSharedObject:(NSString *)sharedObjectName {
-    SharedObject *sharedObject;
-    if ([[sharedObjects allKeys] containsObject:sharedObjectName]) {
-        sharedObject = [sharedObjects valueForKey:sharedObjectName];
-    }
-    else {
-        sharedObject = [[SharedObject alloc] initWithName:sharedObjectName];
-        [sharedObjects setObject:sharedObject forKey:sharedObjectName];
-    }
-    return sharedObject;
+-(SharedObject *)createSharedObject:(NSString *)sharedObjectName {
+    return [[SharedObject alloc] initWithName:sharedObjectName];
 }
 
 @end

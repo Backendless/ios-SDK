@@ -30,8 +30,8 @@
 
 +(instancetype)sharedInstance;
 
--(RTDataStore *)getDataStore:(NSString *)tableName withEntity:(Class)tableEntity dataStoreType:(UInt32)dataStoreType;
--(Channel *)getChannel:(NSString *)channelName;
--(SharedObject *)getSharedObject:(NSString *)sharedObjectName;
+-(RTDataStore *)createDataStore:(NSString *)tableName withEntity:(Class)tableEntity dataStoreType:(UInt32)dataStoreType;
+-(Channel *)createChannel:(NSString *)channelName;
+-(SharedObject *)createSharedObject:(NSString *)sharedObjectName;
 
 @end

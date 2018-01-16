@@ -34,7 +34,7 @@
 }
 
 -(SharedObject *)connect:(NSString *)name {
-    SharedObject *sharedObject = [rtFactory getSharedObject:name];
+    SharedObject *sharedObject = [rtFactory createSharedObject:name];
     [sharedObject connect];
     return sharedObject;
 }
