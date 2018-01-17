@@ -20,15 +20,21 @@
  */
 
 #import "BackendlessPushHelper.h"
+#import "JSONHelper.h"
 
 @implementation BackendlessPushHelper
 
 #if TARGET_OS_IOS || TARGET_OS_SIMULATOR
 +(void)processMutableContent:(UNNotificationRequest *_Nonnull)request withContentHandler:(void(^_Nonnull)(UNNotificationContent *_Nonnull))contentHandler NS_AVAILABLE_IOS(10_0) {
+    
+    if ([request.content.userInfo valueForKey:@"ios_immediate_push"]) {
+        request = [self prepareNotificationRequestWithTemplate:request];
+    }
+    
     UNMutableNotificationContent *bestAttemptContent = [request.content mutableCopy];
     if ([request.content.userInfo valueForKey:@"attachment-url"]) {
-       NSString *urlString = [request.content.userInfo valueForKey:@"attachment-url"];
-       NSURL *fileUrl = [NSURL URLWithString:urlString];        
+        NSString *urlString = [request.content.userInfo valueForKey:@"attachment-url"];
+        NSURL *fileUrl = [NSURL URLWithString:urlString];
         [[[NSURLSession sharedSession] downloadTaskWithURL:fileUrl
                                          completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
                                              if (location) {
@@ -48,6 +54,61 @@
         contentHandler(bestAttemptContent);
     }
 }
+
++(UNNotificationRequest *)prepareNotificationRequestWithTemplate:(UNNotificationRequest *)request {
+    NSString *JSONString = [request.content.userInfo valueForKey:@"ios_immediate_push"];
+    NSMutableDictionary *iosPushTemplate = [NSMutableDictionary new];
+    
+    NSDictionary *dict = [jsonHelper dictionaryFromJson:JSONString];
+    for (NSString *key in [dict allKeys]) {
+        if (![[dict valueForKey:key] isKindOfClass:[NSNull class]]) {
+            [iosPushTemplate setObject:[dict valueForKey:key] forKey:key];
+        }
+    }
+    
+    
+    UNMutableNotificationContent *content = [UNMutableNotificationContent new];
+    content.body = [[[request.content.userInfo valueForKey:@"aps"] valueForKey:@"alert"] valueForKey:@"body"];
+    
+    if ([iosPushTemplate valueForKey:@"alertTitle"]) {
+        content.title = [iosPushTemplate valueForKey:@"alertTitle"];
+    }
+    else {
+        content.title = request.content.title;
+    }
+    
+    if ([iosPushTemplate valueForKey:@"alertSubtitle"]) {
+        content.subtitle = [iosPushTemplate valueForKey:@"alertSubtitle"];
+    }
+    else {
+        content.subtitle = request.content.subtitle;
+    }
+    
+    if ([iosPushTemplate valueForKey:@"sound"]) {
+        // ????
+    }
+    else {
+        content.sound = [UNNotificationSound defaultSound];
+    }
+    
+    if ([iosPushTemplate valueForKey:@"badge"]) {
+        NSNumber *badge = [iosPushTemplate valueForKey:@"badge"];
+        content.badge = badge;
+    }
+    else {
+        content.badge = request.content.badge ;
+    }
+    
+    if ([iosPushTemplate valueForKey:@"attachmentUrl"]) {
+        NSString *urlString = [iosPushTemplate valueForKey:@"attachmentUrl"];
+        NSDictionary *userInfo = @{@"attachment-url" : urlString};
+        content.userInfo = userInfo;
+    }
+    
+    UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:1 repeats:NO];
+    return [UNNotificationRequest requestWithIdentifier:@"request" content:content trigger:trigger];
+}
+
 #endif
 
 @end

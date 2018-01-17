@@ -1466,49 +1466,19 @@
 		5A633F461F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A633F471F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A633F481F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A6C37FD1FF5335100422E4D /* IOSPushTemplate.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A6C37FB1FF5335100422E4D /* IOSPushTemplate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A6C37FE1FF5335100422E4D /* IOSPushTemplate.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A6C37FB1FF5335100422E4D /* IOSPushTemplate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A6C37FF1FF5335100422E4D /* IOSPushTemplate.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A6C37FB1FF5335100422E4D /* IOSPushTemplate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A6C38001FF5335100422E4D /* IOSPushTemplate.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A6C37FB1FF5335100422E4D /* IOSPushTemplate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A6C38011FF5335100422E4D /* IOSPushTemplate.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A6C37FB1FF5335100422E4D /* IOSPushTemplate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A6C38021FF5335100422E4D /* IOSPushTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6C37FC1FF5335100422E4D /* IOSPushTemplate.m */; };
-		5A6C38031FF5335100422E4D /* IOSPushTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6C37FC1FF5335100422E4D /* IOSPushTemplate.m */; };
-		5A6C38041FF5335100422E4D /* IOSPushTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6C37FC1FF5335100422E4D /* IOSPushTemplate.m */; };
-		5A6C38051FF5335100422E4D /* IOSPushTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6C37FC1FF5335100422E4D /* IOSPushTemplate.m */; };
-		5A6C38061FF5335100422E4D /* IOSPushTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6C37FC1FF5335100422E4D /* IOSPushTemplate.m */; };
-		5A6C38091FF5336200422E4D /* ButtonTemplate.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A6C38071FF5336200422E4D /* ButtonTemplate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A6C380A1FF5336200422E4D /* ButtonTemplate.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A6C38071FF5336200422E4D /* ButtonTemplate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A6C380B1FF5336200422E4D /* ButtonTemplate.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A6C38071FF5336200422E4D /* ButtonTemplate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A6C380C1FF5336200422E4D /* ButtonTemplate.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A6C38071FF5336200422E4D /* ButtonTemplate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A6C380D1FF5336200422E4D /* ButtonTemplate.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A6C38071FF5336200422E4D /* ButtonTemplate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A6C380E1FF5336200422E4D /* ButtonTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6C38081FF5336200422E4D /* ButtonTemplate.m */; };
-		5A6C380F1FF5336200422E4D /* ButtonTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6C38081FF5336200422E4D /* ButtonTemplate.m */; };
-		5A6C38101FF5336200422E4D /* ButtonTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6C38081FF5336200422E4D /* ButtonTemplate.m */; };
-		5A6C38111FF5336200422E4D /* ButtonTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6C38081FF5336200422E4D /* ButtonTemplate.m */; };
-		5A6C38121FF5336200422E4D /* ButtonTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6C38081FF5336200422E4D /* ButtonTemplate.m */; };
-		5A6C38151FF5337600422E4D /* Action.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A6C38131FF5337600422E4D /* Action.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A6C38161FF5337600422E4D /* Action.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A6C38131FF5337600422E4D /* Action.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A6C38171FF5337600422E4D /* Action.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A6C38131FF5337600422E4D /* Action.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A6C38181FF5337600422E4D /* Action.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A6C38131FF5337600422E4D /* Action.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A6C38191FF5337600422E4D /* Action.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A6C38131FF5337600422E4D /* Action.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A6C381A1FF5337600422E4D /* Action.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6C38141FF5337600422E4D /* Action.m */; };
-		5A6C381B1FF5337600422E4D /* Action.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6C38141FF5337600422E4D /* Action.m */; };
-		5A6C381C1FF5337600422E4D /* Action.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6C38141FF5337600422E4D /* Action.m */; };
-		5A6C381D1FF5337600422E4D /* Action.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6C38141FF5337600422E4D /* Action.m */; };
-		5A6C381E1FF5337600422E4D /* Action.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6C38141FF5337600422E4D /* Action.m */; };
 		5A9DB6021FCC219200B0C3CD /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A9DB6031FCC22AD00B0C3CD /* BackendlessPushHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A633F3F1F7BB7F6004D7ACA /* BackendlessPushHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AAEFE321FB34099006EBC8F /* UserService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480515FF5AC500012DFC /* UserService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5AF2B7281EB2136300D54442 /* MessagingService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AFFBF7A1EB211EC0099A72F /* MessagingService.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5AF2B7291EB2137200D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; };
-		5AF2B72A1EB2137A00D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; };
+		5AF2B7291EB2137200D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5AF2B72A1EB2137A00D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5AF2B72B1EB2138500D54442 /* MessagingService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AFFBF7A1EB211EC0099A72F /* MessagingService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AF2B72C1EB2138F00D54442 /* MessagingService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AFFBF7A1EB211EC0099A72F /* MessagingService.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5AF2B72D1EB213A400D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; };
-		5AF2B72E1EB213AC00D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; };
+		5AF2B72D1EB213A400D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5AF2B72E1EB213AC00D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5AF2B72F1EB213B300D54442 /* MessagingService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AFFBF7A1EB211EC0099A72F /* MessagingService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AF2B7301EB213BD00D54442 /* MessagingService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AFFBF7A1EB211EC0099A72F /* MessagingService.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5AF2B7311EB213C600D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; };
+		5AF2B7311EB213C600D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		84B027E61DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 84B027E41DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		84B027E71DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 84B027E41DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		84B027E81DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 84B027E41DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2407,12 +2377,6 @@
 		5A507A741F3B41D80027ABAC /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		5A633F3F1F7BB7F6004D7ACA /* BackendlessPushHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BackendlessPushHelper.h; sourceTree = "<group>"; };
 		5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BackendlessPushHelper.m; sourceTree = "<group>"; };
-		5A6C37FB1FF5335100422E4D /* IOSPushTemplate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOSPushTemplate.h; sourceTree = "<group>"; };
-		5A6C37FC1FF5335100422E4D /* IOSPushTemplate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IOSPushTemplate.m; sourceTree = "<group>"; };
-		5A6C38071FF5336200422E4D /* ButtonTemplate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ButtonTemplate.h; sourceTree = "<group>"; };
-		5A6C38081FF5336200422E4D /* ButtonTemplate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ButtonTemplate.m; sourceTree = "<group>"; };
-		5A6C38131FF5337600422E4D /* Action.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Action.h; sourceTree = "<group>"; };
-		5A6C38141FF5337600422E4D /* Action.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Action.m; sourceTree = "<group>"; };
 		5AFFBF7A1EB211EC0099A72F /* MessagingService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagingService.h; sourceTree = "<group>"; };
 		5AFFBF7B1EB211EC0099A72F /* MessagingService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagingService.m; sourceTree = "<group>"; };
 		84B027E41DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadRelationsQueryBuilder.h; sourceTree = "<group>"; };
@@ -3121,19 +3085,6 @@
 			path = JSONHelper;
 			sourceTree = "<group>";
 		};
-		5A6C37FA1FF5331700422E4D /* PushTemplate */ = {
-			isa = PBXGroup;
-			children = (
-				5A6C37FB1FF5335100422E4D /* IOSPushTemplate.h */,
-				5A6C37FC1FF5335100422E4D /* IOSPushTemplate.m */,
-				5A6C38071FF5336200422E4D /* ButtonTemplate.h */,
-				5A6C38081FF5336200422E4D /* ButtonTemplate.m */,
-				5A6C38131FF5337600422E4D /* Action.h */,
-				5A6C38141FF5337600422E4D /* Action.m */,
-			);
-			path = PushTemplate;
-			sourceTree = "<group>";
-		};
 		91223DC7195AF68900F72F48 /* Events */ = {
 			isa = PBXGroup;
 			children = (
@@ -3416,7 +3367,6 @@
 		F91B480715FF655800012DFC /* Messaging */ = {
 			isa = PBXGroup;
 			children = (
-				5A6C37FA1FF5331700422E4D /* PushTemplate */,
 				5A633F3F1F7BB7F6004D7ACA /* BackendlessPushHelper.h */,
 				5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */,
 				5AFFBF7A1EB211EC0099A72F /* MessagingService.h */,
@@ -3777,11 +3727,8 @@
 				1C7BB5001A2E092900D3C2C1 /* AbstractQuery.h in Headers */,
 				1C7BB5021A2E092900D3C2C1 /* BackendlessCachePolicy.h in Headers */,
 				1C7BB5051A2E092900D3C2C1 /* BackendlessCacheProtocol.h in Headers */,
-				5A6C37FD1FF5335100422E4D /* IOSPushTemplate.h in Headers */,
 				1C7BB5061A2E092900D3C2C1 /* QueryOptions.h in Headers */,
-				5A6C38151FF5337600422E4D /* Action.h in Headers */,
 				5AF2B7281EB2136300D54442 /* MessagingService.h in Headers */,
-				5A6C38091FF5336200422E4D /* ButtonTemplate.h in Headers */,
 				5A42D0B72006412A00687EC0 /* JSONHelper.h in Headers */,
 				5A9DB6031FCC22AD00B0C3CD /* BackendlessPushHelper.h in Headers */,
 			);
@@ -4015,9 +3962,6 @@
 				F96B1C611DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */,
 				5A633F411F7BB7F6004D7ACA /* BackendlessPushHelper.h in Headers */,
 				91F1399517D7240A00D1AC4C /* AbstractQuery.h in Headers */,
-				5A6C37FE1FF5335100422E4D /* IOSPushTemplate.h in Headers */,
-				5A6C380A1FF5336200422E4D /* ButtonTemplate.h in Headers */,
-				5A6C38161FF5337600422E4D /* Action.h in Headers */,
 				91F139A917D7240A00D1AC4C /* BackendlessCachePolicy.h in Headers */,
 				91F139AE17D7240A00D1AC4C /* BackendlessCacheProtocol.h in Headers */,
 				5AF2B72B1EB2138500D54442 /* MessagingService.h in Headers */,
@@ -4254,9 +4198,6 @@
 				F96B1C621DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */,
 				91F1399617D7240A00D1AC4C /* AbstractQuery.h in Headers */,
 				91F139AA17D7240A00D1AC4C /* BackendlessCachePolicy.h in Headers */,
-				5A6C37FF1FF5335100422E4D /* IOSPushTemplate.h in Headers */,
-				5A6C380B1FF5336200422E4D /* ButtonTemplate.h in Headers */,
-				5A6C38171FF5337600422E4D /* Action.h in Headers */,
 				5A42D0B92006413B00687EC0 /* JSONHelper.h in Headers */,
 				5A633F421F7BB7F6004D7ACA /* BackendlessPushHelper.h in Headers */,
 				91F139AF17D7240A00D1AC4C /* BackendlessCacheProtocol.h in Headers */,
@@ -4493,9 +4434,6 @@
 				F9F0AF191CDBCA3900035C62 /* HashMap.h in Headers */,
 				F9F0AF261CDBCA3900035C62 /* AbstractQuery.h in Headers */,
 				5A633F431F7BB7F6004D7ACA /* BackendlessPushHelper.h in Headers */,
-				5A6C38001FF5335100422E4D /* IOSPushTemplate.h in Headers */,
-				5A6C380C1FF5336200422E4D /* ButtonTemplate.h in Headers */,
-				5A6C38181FF5337600422E4D /* Action.h in Headers */,
 				5A42D0BA2006414300687EC0 /* JSONHelper.h in Headers */,
 				F9F0AF271CDBCA3900035C62 /* BackendlessCachePolicy.h in Headers */,
 				F9F0AF291CDBCA3900035C62 /* BackendlessCacheProtocol.h in Headers */,
@@ -4732,9 +4670,6 @@
 				F9F0AFD31CDBCAB500035C62 /* HashMap.h in Headers */,
 				F9F0AFE11CDBCAB500035C62 /* AbstractQuery.h in Headers */,
 				F9F0AFE21CDBCAB500035C62 /* BackendlessCachePolicy.h in Headers */,
-				5A6C38011FF5335100422E4D /* IOSPushTemplate.h in Headers */,
-				5A6C380D1FF5336200422E4D /* ButtonTemplate.h in Headers */,
-				5A6C38191FF5337600422E4D /* Action.h in Headers */,
 				5A42D0BB2006414A00687EC0 /* JSONHelper.h in Headers */,
 				5A633F441F7BB7F6004D7ACA /* BackendlessPushHelper.h in Headers */,
 				F9F0AFE41CDBCAB500035C62 /* BackendlessCacheProtocol.h in Headers */,
@@ -4972,7 +4907,6 @@
 				5A42D0B2200640FC00687EC0 /* JSONHelper.m in Sources */,
 				5A9DB6021FCC219200B0C3CD /* BackendlessPushHelper.m in Sources */,
 				5AF2B7291EB2137200D54442 /* MessagingService.m in Sources */,
-				5A6C381A1FF5337600422E4D /* Action.m in Sources */,
 				F91AC5781D58CFA500511EA5 /* MapDrivenDataStore.m in Sources */,
 				0F9AC9B21E798C5D0087869F /* PendingCall.m in Sources */,
 				F96B1C711DD3B6CA00A4B362 /* QueryOptionsBuilder.m in Sources */,
@@ -4980,7 +4914,6 @@
 				0F9ACCDC1E798C5F0087869F /* MessageWriter.m in Sources */,
 				D35CA5321A668E1400F500B0 /* DataPermission.m in Sources */,
 				0F9ACAFC1E798C5E0087869F /* StringType.m in Sources */,
-				5A6C38021FF5335100422E4D /* IOSPushTemplate.m in Sources */,
 				D35CA5331A668E1400F500B0 /* FilePermission.m in Sources */,
 				1C7BB4901A2E092900D3C2C1 /* Backendless.m in Sources */,
 				0F9AC9441E798C5D0087869F /* Invoke.m in Sources */,
@@ -5086,7 +5019,6 @@
 				0F9AC9261E798C5C0087869F /* AudioData.m in Sources */,
 				1C7BB4AE1A2E092900D3C2C1 /* BackendlessFile.m in Sources */,
 				1C7BB4AF1A2E092900D3C2C1 /* HashMap.m in Sources */,
-				5A6C380E1FF5336200422E4D /* ButtonTemplate.m in Sources */,
 				0F9AC9EE1E798C5D0087869F /* SharedObjectMessage.m in Sources */,
 				F9CB13891BC53CDD00F3CA1D /* Presence.m in Sources */,
 				0F9ACD4A1E798C600087869F /* V3ObjectSerializer.m in Sources */,
@@ -5242,7 +5174,6 @@
 				D35DC3451AD7E19800EF2A68 /* Logger.m in Sources */,
 				0F9ACAF31E798C5E0087869F /* ReaderUtils.m in Sources */,
 				0F9AC9271E798C5C0087869F /* AudioData.m in Sources */,
-				5A6C380F1FF5336200422E4D /* ButtonTemplate.m in Sources */,
 				F97969FC166CCB8200595F5E /* DeviceRegistration.m in Sources */,
 				0F9AC9311E798C5C0087869F /* BaseEvent.m in Sources */,
 				0F9ACCAB1E798C5F0087869F /* BoundPropertyBagWriter.m in Sources */,
@@ -5291,7 +5222,6 @@
 				F9CB136F1BC284A900F3CA1D /* BeaconsInfo.m in Sources */,
 				0F9ACD371E798C600087869F /* StringReferenceWriter.m in Sources */,
 				0F9ACC331E798C5F0087869F /* V3Message.m in Sources */,
-				5A6C38031FF5335100422E4D /* IOSPushTemplate.m in Sources */,
 				D39A468519811D9B006CBD1B /* CacheService.m in Sources */,
 				0F9AC8191E798C5C0087869F /* Engine.m in Sources */,
 				0F9AC9E01E798C5D0087869F /* SharedObjectEvent.m in Sources */,
@@ -5346,7 +5276,6 @@
 				D31700D61A84D2AA00772766 /* GeoCluster.m in Sources */,
 				0F9ACCDD1E798C5F0087869F /* MessageWriter.m in Sources */,
 				0F9ACC511E798C5F0087869F /* AmfFormatter.m in Sources */,
-				5A6C381B1FF5337600422E4D /* Action.m in Sources */,
 				0F9ACCB51E798C5F0087869F /* ClassDefinition.m in Sources */,
 				0F9AC84B1E798C5C0087869F /* WeborbClient.m in Sources */,
 				91F139B417D724C700D1AC4C /* QueryOptions.m in Sources */,
@@ -5437,7 +5366,6 @@
 				D35DC3461AD7E19800EF2A68 /* Logger.m in Sources */,
 				0F9ACAF41E798C5E0087869F /* ReaderUtils.m in Sources */,
 				0F9AC9281E798C5C0087869F /* AudioData.m in Sources */,
-				5A6C38101FF5336200422E4D /* ButtonTemplate.m in Sources */,
 				F9796A46166CD3DB00595F5E /* DeviceRegistration.m in Sources */,
 				0F9AC9321E798C5C0087869F /* BaseEvent.m in Sources */,
 				0F9ACCAC1E798C5F0087869F /* BoundPropertyBagWriter.m in Sources */,
@@ -5486,7 +5414,6 @@
 				F9CB13701BC284A900F3CA1D /* BeaconsInfo.m in Sources */,
 				0F9ACD381E798C600087869F /* StringReferenceWriter.m in Sources */,
 				0F9ACC341E798C5F0087869F /* V3Message.m in Sources */,
-				5A6C38041FF5335100422E4D /* IOSPushTemplate.m in Sources */,
 				D39A468619811D9B006CBD1B /* CacheService.m in Sources */,
 				0F9AC81A1E798C5C0087869F /* Engine.m in Sources */,
 				0F9AC9E11E798C5D0087869F /* SharedObjectEvent.m in Sources */,
@@ -5541,7 +5468,6 @@
 				D31700D71A84D2AA00772766 /* GeoCluster.m in Sources */,
 				0F9ACCDE1E798C5F0087869F /* MessageWriter.m in Sources */,
 				0F9ACC521E798C5F0087869F /* AmfFormatter.m in Sources */,
-				5A6C381C1FF5337600422E4D /* Action.m in Sources */,
 				0F9ACCB61E798C5F0087869F /* ClassDefinition.m in Sources */,
 				0F9AC84C1E798C5C0087869F /* WeborbClient.m in Sources */,
 				91F139B517D724C700D1AC4C /* QueryOptions.m in Sources */,
@@ -5632,7 +5558,6 @@
 				0F9ACAE11E798C5E0087869F /* PointerReader.m in Sources */,
 				F9F0AE9F1CDBCA3900035C62 /* BackendlessGeoQuery.m in Sources */,
 				0F9AC9471E798C5D0087869F /* Invoke.m in Sources */,
-				5A6C38111FF5336200422E4D /* ButtonTemplate.m in Sources */,
 				F96B1C681DD3A23C00A4B362 /* PagedQueryBuilder.m in Sources */,
 				0F9ACA0A1E798C5D0087869F /* AnonymousObject.m in Sources */,
 				0F9AC97E1E798C5D0087869F /* Header.m in Sources */,
@@ -5681,7 +5606,6 @@
 				F9F0AEB21CDBCA3900035C62 /* BeaconsInfo.m in Sources */,
 				0F9ACBEF1E798C5F0087869F /* AckMessage.m in Sources */,
 				0F9ACAD71E798C5E0087869F /* ParseContext.m in Sources */,
-				5A6C38051FF5335100422E4D /* IOSPushTemplate.m in Sources */,
 				0F9ACD251E798C600087869F /* PropertyBagWriter.m in Sources */,
 				F9F0AEB31CDBCA3900035C62 /* CacheService.m in Sources */,
 				0F9ACA501E798C5D0087869F /* ByteArrayType.m in Sources */,
@@ -5736,7 +5660,6 @@
 				0F9ACCB71E798C5F0087869F /* ClassDefinition.m in Sources */,
 				0F9ACBB81E798C5E0087869F /* BinaryCodec.m in Sources */,
 				0F9AC9F11E798C5D0087869F /* SharedObjectMessage.m in Sources */,
-				5A6C381D1FF5337600422E4D /* Action.m in Sources */,
 				F9F0AECA1CDBCA3900035C62 /* FilePermission.m in Sources */,
 				F9F0AECB1CDBCA3900035C62 /* GeoCluster.m in Sources */,
 				F9F0AECC1CDBCA3900035C62 /* QueryOptions.m in Sources */,
@@ -5827,7 +5750,6 @@
 				0F9ACAE21E798C5E0087869F /* PointerReader.m in Sources */,
 				F9F0AF591CDBCAB500035C62 /* BackendlessGeoQuery.m in Sources */,
 				0F9AC9481E798C5D0087869F /* Invoke.m in Sources */,
-				5A6C38121FF5336200422E4D /* ButtonTemplate.m in Sources */,
 				F96B1C691DD3A23D00A4B362 /* PagedQueryBuilder.m in Sources */,
 				0F9ACA0B1E798C5D0087869F /* AnonymousObject.m in Sources */,
 				0F9AC97F1E798C5D0087869F /* Header.m in Sources */,
@@ -5876,7 +5798,6 @@
 				F9F0AF6C1CDBCAB500035C62 /* BeaconsInfo.m in Sources */,
 				0F9ACBF01E798C5F0087869F /* AckMessage.m in Sources */,
 				0F9ACAD81E798C5E0087869F /* ParseContext.m in Sources */,
-				5A6C38061FF5335100422E4D /* IOSPushTemplate.m in Sources */,
 				0F9ACD261E798C600087869F /* PropertyBagWriter.m in Sources */,
 				F9F0AF6D1CDBCAB500035C62 /* CacheService.m in Sources */,
 				0F9ACA511E798C5D0087869F /* ByteArrayType.m in Sources */,
@@ -5931,7 +5852,6 @@
 				0F9ACCB81E798C5F0087869F /* ClassDefinition.m in Sources */,
 				0F9ACBB91E798C5E0087869F /* BinaryCodec.m in Sources */,
 				0F9AC9F21E798C5D0087869F /* SharedObjectMessage.m in Sources */,
-				5A6C381E1FF5337600422E4D /* Action.m in Sources */,
 				F9F0AF841CDBCAB500035C62 /* FilePermission.m in Sources */,
 				F9F0AF851CDBCAB500035C62 /* GeoCluster.m in Sources */,
 				F9F0AF861CDBCAB500035C62 /* QueryOptions.m in Sources */,

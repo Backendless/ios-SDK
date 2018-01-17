@@ -36,7 +36,6 @@
 #import "BodyParts.h"
 #import "UICKeyChainStore.h"
 #import "KeychainDataStore.h"
-#import "IOSPushTemplate.h"
 
 #define FAULT_NO_DEVICE_ID [Fault fault:@"Device ID is not set" detail:@"Device ID is not set" faultCode:@"5900"]
 #define FAULT_NO_DEVICE_TOKEN [Fault fault:@"Device token is not set" detail:@"Device token is not set" faultCode:@"5901"]
@@ -48,6 +47,7 @@
 #define FAULT_NO_RECIPIENT [Fault fault:@"No recipient is set for email" detail:@"No recipient is set for email" faultCode:@"5907"]
 
 #define DEFAULT_POLLING_INTERVAL 5
+#define PUSH_TEMPLATES_USER_DEFAULTS @"iOSPushTemplates"
 
 // Default channel name
 static  NSString *DEFAULT_CHANNEL_NAME = @"default";
@@ -87,7 +87,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     NSString *UUID = data?[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]:nil;
     if (!UUID) {
         CFUUIDRef uuid = CFUUIDCreate(NULL);
-        UUID = (NSString *)CFUUIDCreateString(NULL, uuid);
+        UUID = (__bridge_transfer NSString *)CFUUIDCreateString(NULL, uuid);
         CFRelease(uuid);
         [keychainStore save:bundleId data:[UUID dataUsingEncoding:NSUTF8StringEncoding]];
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -107,7 +107,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     }
     NSString *serialNumberAsNSString = nil;
     if (serialNumberAsCFString) {
-        serialNumberAsNSString = [NSString stringWithString:(NSString *)serialNumberAsCFString];
+        serialNumberAsNSString = [NSString stringWithString:(__bridge_transfer NSString *)serialNumberAsCFString];
         CFRelease(serialNumberAsCFString);
     }
     return serialNumberAsNSString;
@@ -145,13 +145,6 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     return self;
 }
 
--(void)dealloc {
-    [DebLog logN:@"DEALLOC MessagingService"];
-    [deviceRegistration release];
-    [self.subscriptions release];
-    [super dealloc];
-}
-
 #pragma mark -
 #pragma mark Public Methods
 
@@ -164,6 +157,18 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 -(NSString *)deviceTokenAsString:(NSData *)token {
     NSString *str = [NSString stringWithFormat:@"%@", token];
     return [[[str stringByReplacingOccurrencesOfString:@" " withString:@""] stringByReplacingOccurrencesOfString:@"<" withString:@""] stringByReplacingOccurrencesOfString:@">" withString:@""];
+}
+
+-(void)writeTemplatesToTheUserDefaults:(NSDictionary *)dictionary {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:[NSKeyedArchiver archivedDataWithRootObject:dictionary] forKey:PUSH_TEMPLATES_USER_DEFAULTS];
+    [userDefaults synchronize];
+}
+
+-(NSDictionary *)readPushTemplatesFromTheUserDefaults {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSData *data = [userDefaults objectForKey:PUSH_TEMPLATES_USER_DEFAULTS];
+    return [[NSDictionary alloc] initWithDictionary:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
 }
 
 // sync methods with fault return (as exception)
@@ -439,7 +444,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     subscriptionOptions.deviceId = deviceRegistration.deviceId;
     [subscription startPolling];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onSubscribe:) selErrorHandler:nil];
-    _responder.context = [subscription retain];
+    _responder.context = subscription;
     _responder.chained = responder;
     [self subscribeForPollingAccess:subscription.channelName subscriptionOptions:subscriptionOptions responder:_responder];
 }
@@ -511,7 +516,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 
 -(id)onRegister:(id)response {
     NSArray *resultArray = [self jsonToNSArray:response];
-    NSLog(@"GOT: %@", [resultArray objectAtIndex:1]);
+    [self writeTemplatesToTheUserDefaults:[NSMutableDictionary dictionaryWithDictionary:[resultArray objectAtIndex:1]]];
     return resultArray.firstObject;
 }
 
@@ -530,7 +535,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 -(id)onSubscribe:(id)response {
     BESubscription *subscription = ((ResponseContext *)response).context;
     subscription.subscriptionId = (NSString *)((ResponseContext *)response).response;
-    return [subscription autorelease];
+    return subscription;
 }
 
 @end
