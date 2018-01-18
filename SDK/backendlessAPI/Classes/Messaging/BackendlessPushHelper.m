@@ -56,41 +56,44 @@
 }
 
 +(UNNotificationRequest *)prepareNotificationRequestWithTemplate:(UNNotificationRequest *)request {
+
     NSString *JSONString = [request.content.userInfo valueForKey:@"ios_immediate_push"];
     NSMutableDictionary *iosPushTemplate = [NSMutableDictionary new];
-    
+
     NSDictionary *dict = [jsonHelper dictionaryFromJson:JSONString];
     for (NSString *key in [dict allKeys]) {
         if (![[dict valueForKey:key] isKindOfClass:[NSNull class]]) {
             [iosPushTemplate setObject:[dict valueForKey:key] forKey:key];
         }
     }
-    
-    
+
     UNMutableNotificationContent *content = [UNMutableNotificationContent new];
     content.body = [[[request.content.userInfo valueForKey:@"aps"] valueForKey:@"alert"] valueForKey:@"body"];
-    
+
+    NSArray *actionsArray = [[iosPushTemplate valueForKey:@"buttonTemplate"] valueForKey:@"actions"];
+    content.categoryIdentifier = [self setActions:actionsArray];
+
     if ([iosPushTemplate valueForKey:@"alertTitle"]) {
         content.title = [iosPushTemplate valueForKey:@"alertTitle"];
     }
     else {
         content.title = request.content.title;
     }
-    
+
     if ([iosPushTemplate valueForKey:@"alertSubtitle"]) {
         content.subtitle = [iosPushTemplate valueForKey:@"alertSubtitle"];
     }
     else {
         content.subtitle = request.content.subtitle;
     }
-    
+
     if ([iosPushTemplate valueForKey:@"sound"]) {
         // ????
     }
     else {
         content.sound = [UNNotificationSound defaultSound];
     }
-    
+
     if ([iosPushTemplate valueForKey:@"badge"]) {
         NSNumber *badge = [iosPushTemplate valueForKey:@"badge"];
         content.badge = badge;
@@ -98,15 +101,33 @@
     else {
         content.badge = request.content.badge ;
     }
-    
+
     if ([iosPushTemplate valueForKey:@"attachmentUrl"]) {
         NSString *urlString = [iosPushTemplate valueForKey:@"attachmentUrl"];
         NSDictionary *userInfo = @{@"attachment-url" : urlString};
         content.userInfo = userInfo;
     }
-    
+
     UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:1 repeats:NO];
     return [UNNotificationRequest requestWithIdentifier:@"request" content:content trigger:trigger];
+}
+
++(NSString *)setActions:(NSArray *)actions {
+    NSMutableArray *categoryActions = [NSMutableArray new];
+    
+    for (NSDictionary *action in actions) {
+        NSString *actionId = [action valueForKey:@"id"];
+        NSString *actionTitle = [action valueForKey:@"title"];
+        NSInteger actionOptions = 3;
+        
+        UNNotificationActionOptions options = actionOptions;
+        [categoryActions addObject:[UNNotificationAction actionWithIdentifier:actionId title:actionTitle options:options]];
+    }
+    
+    NSString *categoryId = @"buttonActionsTemplate";
+    UNNotificationCategory *category = [UNNotificationCategory categoryWithIdentifier:categoryId actions:categoryActions intentIdentifiers:@[] options:UNNotificationCategoryOptionNone];
+    [UNUserNotificationCenter.currentNotificationCenter setNotificationCategories:[NSSet setWithObject:category]];
+    return categoryId;
 }
 
 #endif
