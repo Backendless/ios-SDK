@@ -65,6 +65,7 @@ static NSString *METHOD_POLLING_SUBSCRIBE = @"subscribeForPollingAccess";
 static NSString *METHOD_POLL_MESSAGES = @"pollMessages";
 static NSString *METHOD_SEND_EMAIL = @"send";
 static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
+static NSString *METHOD_PUSH_WITH_TEMPLATE = @"pushForTemplate";
 // UICKeyChainStore service name
 static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUIDKeychain";
 
@@ -209,6 +210,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
         return result;
     }
     NSArray *resultArray = [self jsonToNSArray:result];
+    [self writeTemplatesToTheUserDefaults:[NSMutableDictionary dictionaryWithDictionary:[resultArray objectAtIndex:1]]];
     return resultArray.firstObject;
 }
 
@@ -319,11 +321,16 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     return [invoker invokeSync:SERVER_MAIL_SERVICE_PATH method:METHOD_SEND_EMAIL args:args];
 }
 
--(MessageStatus*)getMessageStatus:(NSString*)messageId {
+-(MessageStatus *)getMessageStatus:(NSString*)messageId {
     if (!messageId)
         return [backendless throwFault:FAULT_NO_MESSAGE_ID];
     NSArray *args = [NSMutableArray arrayWithObjects:messageId, nil];
     return [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_MESSAGE_STATUS args:args];
+}
+
+-(MessageStatus *)pushWithTemplate:(NSString *)templateName {
+    NSArray *args = [NSArray arrayWithObjects:templateName, nil];
+    return [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_PUSH_WITH_TEMPLATE args:args];
 }
 
 // async methods with block-based callbacks
@@ -487,6 +494,14 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
         return [chainedResponder errorHandler:FAULT_NO_MESSAGE_ID];
     NSMutableArray *args = [NSMutableArray arrayWithObjects:messageId, nil];
     [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_MESSAGE_STATUS args:args responder:chainedResponder];
+}
+
+-(void)pushWithTemplate:(NSString *)templateName response:(void(^)(MessageStatus *))responseBlock error:(void (^)(Fault *))errorBlock {
+    if (templateName) {
+        Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+        NSMutableArray *args = [NSMutableArray arrayWithObjects:templateName, nil];
+        [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_PUSH_WITH_TEMPLATE args:args responder:chainedResponder];
+    }
 }
 
 #pragma mark -

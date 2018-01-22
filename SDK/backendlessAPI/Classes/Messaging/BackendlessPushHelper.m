@@ -88,7 +88,7 @@
     }
 
     if ([iosPushTemplate valueForKey:@"sound"]) {
-        // ????
+        content.sound = [UNNotificationSound soundNamed:[iosPushTemplate valueForKey:@"sound"]];
     }
     else {
         content.sound = [UNNotificationSound defaultSound];
@@ -118,9 +118,9 @@
     for (NSDictionary *action in actions) {
         NSString *actionId = [action valueForKey:@"id"];
         NSString *actionTitle = [action valueForKey:@"title"];
-        NSInteger actionOptions = 3;
+        NSNumber *actionOptions = [action valueForKey:@"options"];
         
-        UNNotificationActionOptions options = actionOptions;
+        UNNotificationActionOptions options = [actionOptions integerValue];
         [categoryActions addObject:[UNNotificationAction actionWithIdentifier:actionId title:actionTitle options:options]];
     }
     
