@@ -36,6 +36,7 @@
 #import "BodyParts.h"
 #import "UICKeyChainStore.h"
 #import "KeychainDataStore.h"
+#import "UserDefaultsHelper.h"
 
 #define FAULT_NO_DEVICE_ID [Fault fault:@"Device ID is not set" detail:@"Device ID is not set" faultCode:@"5900"]
 #define FAULT_NO_DEVICE_TOKEN [Fault fault:@"Device token is not set" detail:@"Device token is not set" faultCode:@"5901"]
@@ -160,18 +161,6 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     return [[[str stringByReplacingOccurrencesOfString:@" " withString:@""] stringByReplacingOccurrencesOfString:@"<" withString:@""] stringByReplacingOccurrencesOfString:@">" withString:@""];
 }
 
--(void)writeTemplatesToTheUserDefaults:(NSDictionary *)dictionary {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setObject:[NSKeyedArchiver archivedDataWithRootObject:dictionary] forKey:PUSH_TEMPLATES_USER_DEFAULTS];
-    [userDefaults synchronize];
-}
-
--(NSDictionary *)readPushTemplatesFromTheUserDefaults {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSData *data = [userDefaults objectForKey:PUSH_TEMPLATES_USER_DEFAULTS];
-    return [[NSDictionary alloc] initWithDictionary:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
-}
-
 // sync methods with fault return (as exception)
 
 -(NSString *)registerDevice:(NSData *)deviceToken {
@@ -210,7 +199,8 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
         return result;
     }
     NSArray *resultArray = [self jsonToNSArray:result];
-    [self writeTemplatesToTheUserDefaults:[NSMutableDictionary dictionaryWithDictionary:[resultArray objectAtIndex:1]]];
+    __weak Backendless *weakBackendless = backendless;
+    [userDefaultsHelper writeToUserDefaults:[NSMutableDictionary dictionaryWithDictionary:[resultArray objectAtIndex:1]] withKey:PUSH_TEMPLATES_USER_DEFAULTS withSuiteName:@"group.com.backendless.PushTemplates"];
     return resultArray.firstObject;
 }
 
@@ -531,7 +521,8 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 
 -(id)onRegister:(id)response {
     NSArray *resultArray = [self jsonToNSArray:response];
-    [self writeTemplatesToTheUserDefaults:[NSMutableDictionary dictionaryWithDictionary:[resultArray objectAtIndex:1]]];
+    __weak Backendless *weakBackendless = backendless;
+    [userDefaultsHelper writeToUserDefaults:[NSMutableDictionary dictionaryWithDictionary:[resultArray objectAtIndex:1]] withKey:PUSH_TEMPLATES_USER_DEFAULTS withSuiteName:@"group.com.backendless.PushTemplates"];
     return resultArray.firstObject;
 }
 

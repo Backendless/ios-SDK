@@ -21,6 +21,9 @@
 
 #import "BackendlessPushHelper.h"
 #import "JSONHelper.h"
+#import "UserDefaultsHelper.h"
+
+#define PUSH_TEMPLATES_USER_DEFAULTS @"iOSPushTemplates"
 
 @implementation BackendlessPushHelper
 
@@ -28,7 +31,11 @@
 +(void)processMutableContent:(UNNotificationRequest *_Nonnull)request withContentHandler:(void(^_Nonnull)(UNNotificationContent *_Nonnull))contentHandler NS_AVAILABLE_IOS(10_0) {
     
     if ([request.content.userInfo valueForKey:@"ios_immediate_push"]) {
-        request = [self prepareNotificationRequestWithTemplate:request];
+        request = [self prepareRequestWithIosImmediatePush:request];
+    }
+    
+    if ([request.content.userInfo valueForKey:@"template_name"]) {
+        request = [self prepareRequestWithTemplate:request];
     }
     
     UNMutableNotificationContent *bestAttemptContent = [request.content mutableCopy];
@@ -55,45 +62,54 @@
     }
 }
 
-+(UNNotificationRequest *)prepareNotificationRequestWithTemplate:(UNNotificationRequest *)request {
-
++(UNNotificationRequest *)prepareRequestWithIosImmediatePush:(UNNotificationRequest *)request {
     NSString *JSONString = [request.content.userInfo valueForKey:@"ios_immediate_push"];
-    NSMutableDictionary *iosPushTemplate = [NSMutableDictionary new];
+    NSDictionary *iosPushTemplate = [jsonHelper dictionaryFromJson:JSONString];
+    return [self createRequestFromTemplate:[self dictionaryWithoutNulls:iosPushTemplate] request:request];
+}
 
-    NSDictionary *dict = [jsonHelper dictionaryFromJson:JSONString];
-    for (NSString *key in [dict allKeys]) {
-        if (![[dict valueForKey:key] isKindOfClass:[NSNull class]]) {
-            [iosPushTemplate setObject:[dict valueForKey:key] forKey:key];
-        }
-    }
++(UNNotificationRequest *)prepareRequestWithTemplate:(UNNotificationRequest *)request {
+    NSString *templateName = [request.content.userInfo valueForKey:@"template_name"];
+    NSDictionary *iosPushTemplates = [userDefaultsHelper readFromUserDefaultsWithKey:PUSH_TEMPLATES_USER_DEFAULTS withSuiteName:@"group.com.backendless.PushTemplates"];
+    NSDictionary *iosPushTemplate = [iosPushTemplates valueForKey:templateName];
+    return [self createRequestFromTemplate:[self dictionaryWithoutNulls:iosPushTemplate] request:request];
+}
 
++(NSDictionary *)dictionaryWithoutNulls:(NSDictionary *)dictionary {
+    NSMutableDictionary *resultDictionary = [dictionary mutableCopy];
+    NSArray *keysForNullValues = [resultDictionary allKeysForObject:[NSNull null]];
+    [resultDictionary removeObjectsForKeys:keysForNullValues];
+    return resultDictionary;
+}
+
++(UNNotificationRequest *)createRequestFromTemplate:(NSDictionary *)iosPushTemplate request:(UNNotificationRequest *)request {
     UNMutableNotificationContent *content = [UNMutableNotificationContent new];
     content.body = [[[request.content.userInfo valueForKey:@"aps"] valueForKey:@"alert"] valueForKey:@"body"];
-
+    
     NSArray *actionsArray = [[iosPushTemplate valueForKey:@"buttonTemplate"] valueForKey:@"actions"];
     content.categoryIdentifier = [self setActions:actionsArray];
-
+    
     if ([iosPushTemplate valueForKey:@"alertTitle"]) {
         content.title = [iosPushTemplate valueForKey:@"alertTitle"];
     }
     else {
         content.title = request.content.title;
     }
-
+    
     if ([iosPushTemplate valueForKey:@"alertSubtitle"]) {
         content.subtitle = [iosPushTemplate valueForKey:@"alertSubtitle"];
     }
     else {
         content.subtitle = request.content.subtitle;
     }
-
+    
     if ([iosPushTemplate valueForKey:@"sound"]) {
         content.sound = [UNNotificationSound soundNamed:[iosPushTemplate valueForKey:@"sound"]];
     }
     else {
         content.sound = [UNNotificationSound defaultSound];
     }
-
+    
     if ([iosPushTemplate valueForKey:@"badge"]) {
         NSNumber *badge = [iosPushTemplate valueForKey:@"badge"];
         content.badge = badge;
@@ -101,13 +117,13 @@
     else {
         content.badge = request.content.badge ;
     }
-
+    
     if ([iosPushTemplate valueForKey:@"attachmentUrl"]) {
         NSString *urlString = [iosPushTemplate valueForKey:@"attachmentUrl"];
         NSDictionary *userInfo = @{@"attachment-url" : urlString};
         content.userInfo = userInfo;
     }
-
+    
     UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:1 repeats:NO];
     return [UNNotificationRequest requestWithIdentifier:@"request" content:content trigger:trigger];
 }

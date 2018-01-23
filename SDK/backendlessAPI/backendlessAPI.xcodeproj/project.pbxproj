@@ -1469,6 +1469,16 @@
 		5A9DB6021FCC219200B0C3CD /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A9DB6031FCC22AD00B0C3CD /* BackendlessPushHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A633F3F1F7BB7F6004D7ACA /* BackendlessPushHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AAEFE321FB34099006EBC8F /* UserService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480515FF5AC500012DFC /* UserService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5AC2EB87201754E60017AA67 /* UserDefaultsHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AC2EB85201754E60017AA67 /* UserDefaultsHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AC2EB88201754E60017AA67 /* UserDefaultsHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AC2EB85201754E60017AA67 /* UserDefaultsHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AC2EB89201754E60017AA67 /* UserDefaultsHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AC2EB85201754E60017AA67 /* UserDefaultsHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AC2EB8A201754E60017AA67 /* UserDefaultsHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AC2EB85201754E60017AA67 /* UserDefaultsHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AC2EB8B201754E60017AA67 /* UserDefaultsHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AC2EB85201754E60017AA67 /* UserDefaultsHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AC2EB8C201754E60017AA67 /* UserDefaultsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AC2EB86201754E60017AA67 /* UserDefaultsHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5AC2EB8D201754E60017AA67 /* UserDefaultsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AC2EB86201754E60017AA67 /* UserDefaultsHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5AC2EB8E201754E60017AA67 /* UserDefaultsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AC2EB86201754E60017AA67 /* UserDefaultsHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5AC2EB8F201754E60017AA67 /* UserDefaultsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AC2EB86201754E60017AA67 /* UserDefaultsHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5AC2EB90201754E60017AA67 /* UserDefaultsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AC2EB86201754E60017AA67 /* UserDefaultsHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5AF2B7281EB2136300D54442 /* MessagingService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AFFBF7A1EB211EC0099A72F /* MessagingService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AF2B7291EB2137200D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5AF2B72A1EB2137A00D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -2377,6 +2387,8 @@
 		5A507A741F3B41D80027ABAC /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		5A633F3F1F7BB7F6004D7ACA /* BackendlessPushHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BackendlessPushHelper.h; sourceTree = "<group>"; };
 		5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BackendlessPushHelper.m; sourceTree = "<group>"; };
+		5AC2EB85201754E60017AA67 /* UserDefaultsHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserDefaultsHelper.h; sourceTree = "<group>"; };
+		5AC2EB86201754E60017AA67 /* UserDefaultsHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserDefaultsHelper.m; sourceTree = "<group>"; };
 		5AFFBF7A1EB211EC0099A72F /* MessagingService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagingService.h; sourceTree = "<group>"; };
 		5AFFBF7B1EB211EC0099A72F /* MessagingService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagingService.m; sourceTree = "<group>"; };
 		84B027E41DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadRelationsQueryBuilder.h; sourceTree = "<group>"; };
@@ -3085,6 +3097,15 @@
 			path = JSONHelper;
 			sourceTree = "<group>";
 		};
+		5AC2EB84201754CB0017AA67 /* UserDefaultsHelper */ = {
+			isa = PBXGroup;
+			children = (
+				5AC2EB85201754E60017AA67 /* UserDefaultsHelper.h */,
+				5AC2EB86201754E60017AA67 /* UserDefaultsHelper.m */,
+			);
+			path = UserDefaultsHelper;
+			sourceTree = "<group>";
+		};
 		91223DC7195AF68900F72F48 /* Events */ = {
 			isa = PBXGroup;
 			children = (
@@ -3334,6 +3355,7 @@
 		F91B47E715FF448F00012DFC /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				5AC2EB84201754CB0017AA67 /* UserDefaultsHelper */,
 				5A42D0AF200640E400687EC0 /* JSONHelper */,
 				F91B47E815FF448F00012DFC /* Common */,
 			);
@@ -3504,6 +3526,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5AC2EB87201754E60017AA67 /* UserDefaultsHelper.h in Headers */,
 				0F9ACCD21E798C5F0087869F /* ITypeWriter.h in Headers */,
 				0F9AC8271E798C5C0087869F /* Responder.h in Headers */,
 				0F9ACBCE1E798C5E0087869F /* FlashorbBinaryWriter.h in Headers */,
@@ -3738,6 +3761,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5AC2EB88201754E60017AA67 /* UserDefaultsHelper.h in Headers */,
 				0F9AC9CC1E798C5D0087869F /* ISharedObjectMessage.h in Headers */,
 				0F9AC98B1E798C5D0087869F /* RTMPClient.h in Headers */,
 				0F9ACA491E798C5D0087869F /* ByteArrayType.h in Headers */,
@@ -3974,6 +3998,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5AC2EB89201754E60017AA67 /* UserDefaultsHelper.h in Headers */,
 				0F9AC9CD1E798C5D0087869F /* ISharedObjectMessage.h in Headers */,
 				0F9AC98C1E798C5D0087869F /* RTMPClient.h in Headers */,
 				0F9ACA4A1E798C5D0087869F /* ByteArrayType.h in Headers */,
@@ -4210,6 +4235,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5AC2EB8A201754E60017AA67 /* UserDefaultsHelper.h in Headers */,
 				0F9ACCD51E798C5F0087869F /* ITypeWriter.h in Headers */,
 				0F9AC82A1E798C5C0087869F /* Responder.h in Headers */,
 				0F9ACBD11E798C5E0087869F /* FlashorbBinaryWriter.h in Headers */,
@@ -4446,6 +4472,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5AC2EB8B201754E60017AA67 /* UserDefaultsHelper.h in Headers */,
 				0F9ACCD61E798C5F0087869F /* ITypeWriter.h in Headers */,
 				0F9AC82B1E798C5C0087869F /* Responder.h in Headers */,
 				0F9ACBD21E798C5E0087869F /* FlashorbBinaryWriter.h in Headers */,
@@ -5022,6 +5049,7 @@
 				0F9AC9EE1E798C5D0087869F /* SharedObjectMessage.m in Sources */,
 				F9CB13891BC53CDD00F3CA1D /* Presence.m in Sources */,
 				0F9ACD4A1E798C600087869F /* V3ObjectSerializer.m in Sources */,
+				5AC2EB8C201754E60017AA67 /* UserDefaultsHelper.m in Sources */,
 				0F9ACB2E1E798C5E0087869F /* V3ByteArrayReader.m in Sources */,
 				0F9ACB601E798C5E0087869F /* V3VectorReader.m in Sources */,
 				F9CB13991BC53D5100F3CA1D /* BeaconMonitoring.m in Sources */,
@@ -5264,6 +5292,7 @@
 				0F9ACAE91E798C5E0087869F /* ReaderReferenceCache.m in Sources */,
 				F96B1C721DD3B6CA00A4B362 /* QueryOptionsBuilder.m in Sources */,
 				5A633F451F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */,
+				5AC2EB8D201754E60017AA67 /* UserDefaultsHelper.m in Sources */,
 				91F139A117D7240A00D1AC4C /* BackendlessCacheData.m in Sources */,
 				91F139A617D7240A00D1AC4C /* BackendlessCacheKey.m in Sources */,
 				91F139AB17D7240A00D1AC4C /* BackendlessCachePolicy.m in Sources */,
@@ -5456,6 +5485,7 @@
 				0F9ACAEA1E798C5E0087869F /* ReaderReferenceCache.m in Sources */,
 				F96B1C731DD3B6CA00A4B362 /* QueryOptionsBuilder.m in Sources */,
 				5A633F461F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */,
+				5AC2EB8E201754E60017AA67 /* UserDefaultsHelper.m in Sources */,
 				91F139A217D7240A00D1AC4C /* BackendlessCacheData.m in Sources */,
 				91F139A717D7240A00D1AC4C /* BackendlessCacheKey.m in Sources */,
 				91F139AC17D7240A00D1AC4C /* BackendlessCachePolicy.m in Sources */,
@@ -5648,6 +5678,7 @@
 				0F9ACA911E798C5D0087869F /* NamedObject.m in Sources */,
 				F9F0AEC61CDBCA3900035C62 /* Presence.m in Sources */,
 				5A633F471F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */,
+				5AC2EB8F201754E60017AA67 /* UserDefaultsHelper.m in Sources */,
 				F9F0AEC71CDBCA3900035C62 /* BackendlessCacheData.m in Sources */,
 				F9F0AEC81CDBCA3900035C62 /* BackendlessCacheKey.m in Sources */,
 				0F9ACC851E798C5F0087869F /* ArrayReferenceWriter.m in Sources */,
@@ -5840,6 +5871,7 @@
 				0F9ACA921E798C5D0087869F /* NamedObject.m in Sources */,
 				F9F0AF801CDBCAB500035C62 /* Presence.m in Sources */,
 				5A633F481F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */,
+				5AC2EB90201754E60017AA67 /* UserDefaultsHelper.m in Sources */,
 				F9F0AF811CDBCAB500035C62 /* BackendlessCacheData.m in Sources */,
 				F9F0AF821CDBCAB500035C62 /* BackendlessCacheKey.m in Sources */,
 				0F9ACC861E798C5F0087869F /* ArrayReferenceWriter.m in Sources */,

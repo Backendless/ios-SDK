@@ -81,6 +81,5 @@
 // utilites
 -(DeviceRegistration *)currentDevice;
 -(NSString *)deviceTokenAsString:(NSData *)token;
--(NSDictionary *)readPushTemplatesFromTheUserDefaults;
 
 @end
