@@ -76,7 +76,7 @@
 -(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients attachment:(NSArray *)attachments response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getMessageStatus:(NSString *)messageId response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)pushWithTemplate:(NSString *)templateName response:(void(^)(MessageStatus* ))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)pushWithTemplate:(NSString *)templateName response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
 
 // utilites
 -(DeviceRegistration *)currentDevice;
