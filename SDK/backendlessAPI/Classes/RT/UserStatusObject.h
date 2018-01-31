@@ -25,6 +25,6 @@
 @interface UserStatusObject : NSObject
 
 @property (strong, nonatomic) NSString *status;
-@property (strong, nonatomic) NSArray<UserStatusObject *> *data;
+@property (strong, nonatomic) NSArray<NSDictionary *> *data;
 
 @end
