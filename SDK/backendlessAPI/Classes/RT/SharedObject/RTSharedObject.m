@@ -139,7 +139,6 @@
 -(UserStatusObject *)handleUserStatus:(NSDictionary *)jsonResult {
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonResult options:NSJSONWritingPrettyPrinted error:nil];
     NSDictionary *userStatusData = [jsonHelper dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
-    NSLog(@"USER STATUS: %@", userStatusData);    
     UserStatusObject *userStatus = [UserStatusObject new];
     userStatus.status = [userStatusData valueForKey:@"status"];
     userStatus.data = [userStatusData valueForKey:@"data"];

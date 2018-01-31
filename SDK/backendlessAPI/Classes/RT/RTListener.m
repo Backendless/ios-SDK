@@ -43,8 +43,7 @@
     return self;
 }
 
--(void)addSubscription:(NSString *)type options:(NSDictionary *)options onResult:(void(^)(id))onResult handleResultSelector:(SEL)handleResultSelector fromClass:(id)subscriptionClassInstance {
-    
+-(void)addSubscription:(NSString *)type options:(NSDictionary *)options onResult:(void(^)(id))onResult handleResultSelector:(SEL)handleResultSelector fromClass:(id)subscriptionClassInstance {    
     NSString *subscriptionId = [[NSUUID UUID] UUIDString];
     NSDictionary *data = @{@"id"        : subscriptionId,
                            @"name"      : type,
