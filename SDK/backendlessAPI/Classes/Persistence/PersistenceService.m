@@ -1037,6 +1037,10 @@ static NSString *REMOVE_BULK = @"removeBulk";
     [[Types sharedInstance] addClientClassMapping:tableName mapped:type];
 }
 
+-(void)mapColumnToProperty:(Class)classToMap columnName:(NSString *)columnName propertyName:(NSString *)propertyName {
+    
+}
+
 #pragma mark Private Methods
 
 -(NSDictionary *)filteringProperty:(id)object {

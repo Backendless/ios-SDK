@@ -125,6 +125,7 @@
 -(id)getObjectId:(id)object;
 -(NSDictionary *)getObjectMetadata:(id)object;
 -(void)mapTableToClass:(NSString *)tableName type:(Class)type;
+-(void)mapColumnToProperty:(Class)classToMap columnName:(NSString *)columnName propertyName:(NSString *)propertyName;
 -(NSString *)typeClassName:(Class)entity;
 -(NSString *)objectClassName:(id)object;
 -(NSDictionary *)propertyDictionary:(id)object;
