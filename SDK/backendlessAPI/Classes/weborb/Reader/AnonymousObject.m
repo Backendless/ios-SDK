@@ -14,6 +14,7 @@
 #import "BinaryStream.h"
 #import "V3Message.h"
 #import "NamedObject.h"
+#import "ArrayType.h"
 
 @implementation AnonymousObject
 @synthesize properties;
@@ -98,23 +99,12 @@
         id propValue = [properties valueForKey:memberName];
         
         // field to property mapping
-        if (![propValue isKindOfClass:[NSClassFromString(@"NullType") class]]) {
-            if([memberName isEqualToString:@"body"] &&
-               [[Types sharedInstance] getPropertiesMappingForClientClass:([propValue getMappedType])]) {
-                NSMutableDictionary *propertiesOfPropValue = ((AnonymousObject *)[propValue getCacheKey]).properties;
-                NSDictionary *mappedProperties = [[Types sharedInstance] getPropertiesMappingForClientClass:[propValue getMappedType]];
-                NSMutableDictionary *changedPropertiesOfPropValue = [NSMutableDictionary new];
-                for (NSString *key in [propertiesOfPropValue allKeys]) {
-                    if ([[mappedProperties allKeys] containsObject:key]) {
-                        [changedPropertiesOfPropValue setObject:[propertiesOfPropValue valueForKey:key] forKey:[mappedProperties valueForKey:key]];
-                    }
-                    else {
-                        [changedPropertiesOfPropValue setObject:[propertiesOfPropValue valueForKey:key] forKey:key];
-                    }
-                }
-                if (changedPropertiesOfPropValue) {
-                    ((AnonymousObject *)[propValue getCacheKey]).properties = changedPropertiesOfPropValue;
-                }
+        if ([propValue isKindOfClass:[NamedObject class]]) {
+            ((AnonymousObject *)[propValue getCacheKey]).properties = [self mapFieldToProperty:propValue];
+        }
+        else if ([propValue isKindOfClass:[ArrayType class]]) {
+            for (NamedObject *namedObject in [propValue getArray]) {
+                ((AnonymousObject *)[namedObject getCacheKey]).properties = [self mapFieldToProperty:namedObject];
             }
         }
         
@@ -218,6 +208,26 @@
 #endif
     [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> setFieldsDirect: FINISHED (1) obj = %@ <%@>\n%@\n\n\n", obj, [obj class], [Types propertyDictionary:obj]];
     return obj;
+}
+
+-(NSMutableDictionary *)mapFieldToProperty:(NamedObject *)propValue {
+    if ([[Types sharedInstance] getPropertiesMappingForClientClass:([propValue getMappedType])]) {
+        NSMutableDictionary *propertiesOfPropValue = ((AnonymousObject *)[propValue getCacheKey]).properties;
+        NSDictionary *mappedProperties = [[Types sharedInstance] getPropertiesMappingForClientClass:[propValue getMappedType]];
+        NSMutableDictionary *changedPropertiesOfPropValue = [NSMutableDictionary new];
+        for (NSString *key in [propertiesOfPropValue allKeys]) {
+            if ([[mappedProperties allKeys] containsObject:key]) {
+                [changedPropertiesOfPropValue setObject:[propertiesOfPropValue valueForKey:key] forKey:[mappedProperties valueForKey:key]];
+            }
+            else {
+                [changedPropertiesOfPropValue setObject:[propertiesOfPropValue valueForKey:key] forKey:key];
+            }
+        }
+        if (changedPropertiesOfPropValue) {
+            return changedPropertiesOfPropValue;
+        }
+    }
+    return nil;
 }
 
 #pragma mark -
