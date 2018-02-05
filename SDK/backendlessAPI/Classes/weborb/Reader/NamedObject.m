@@ -100,4 +100,8 @@
     return NO;
 }
 
+-(Class)getMappedType {
+    return mappedType;
+}
+
 @end

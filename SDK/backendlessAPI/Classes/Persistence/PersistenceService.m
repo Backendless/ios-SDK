@@ -1038,7 +1038,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
 }
 
 -(void)mapColumnToProperty:(Class)classToMap columnName:(NSString *)columnName propertyName:(NSString *)propertyName {
-    
+    [[Types sharedInstance] addClientPropertyMappingForClass:classToMap columnName:columnName propertyName:propertyName];
 }
 
 #pragma mark Private Methods

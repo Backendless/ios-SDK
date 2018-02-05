@@ -97,40 +97,33 @@
         [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> setFieldsDirect: PROPERTY %@ <%@>", memberName, [prop class]];
         id propValue = [properties valueForKey:memberName];
         
-        // ************************************
-        
-        // propValue.properties - dictionary ключей со значениями с консоли
-        // нужно мапить тут.
-        
-//        if ([memberName isEqualToString:@"body"]) {
-//            NamedObject *namedObj = propValue;
-//            NSMutableDictionary *propsOfObject = ((AnonymousObject *)[namedObj getCacheKey]).properties;
-//            NSMutableDictionary *propsToChange = [NSMutableDictionary new];
-//            for (NSString *key in [props1 allKeys]) {
-//                if ([key isEqualToString:@"objectId"] ||
-//                    [key isEqualToString:@"operatingSystemVersion"] ||
-//                    [key isEqualToString:@"operatingSystemName"]) {
-//                    
-//                }
-//                else {
-//                    
-//                }
-//            }
-//            
-//        
-//        }
-        
-        
-            
-        // ************************************
-            
-            
-            if (!propValue) {
-                // and with uppercased first char of property name?
-                NSString *upper = [memberName firstCharToUpper];
-                propValue = [properties valueForKey:upper];
-                [DebLog logN:@"AnonymousObject -> setFieldsDirect: (upper) %@ = %@", upper, propValue];
+        // field to property mapping
+        if (![propValue isKindOfClass:[NSClassFromString(@"NullType") class]]) {
+            if([memberName isEqualToString:@"body"] &&
+               [[Types sharedInstance] getPropertiesMappingForClientClass:([propValue getMappedType])]) {
+                NSMutableDictionary *propertiesOfPropValue = ((AnonymousObject *)[propValue getCacheKey]).properties;
+                NSDictionary *mappedProperties = [[Types sharedInstance] getPropertiesMappingForClientClass:[propValue getMappedType]];
+                NSMutableDictionary *changedPropertiesOfPropValue = [NSMutableDictionary new];
+                for (NSString *key in [propertiesOfPropValue allKeys]) {
+                    if ([[mappedProperties allKeys] containsObject:key]) {
+                        [changedPropertiesOfPropValue setObject:[propertiesOfPropValue valueForKey:key] forKey:[mappedProperties valueForKey:key]];
+                    }
+                    else {
+                        [changedPropertiesOfPropValue setObject:[propertiesOfPropValue valueForKey:key] forKey:key];
+                    }
+                }
+                if (changedPropertiesOfPropValue) {
+                    ((AnonymousObject *)[propValue getCacheKey]).properties = changedPropertiesOfPropValue;
+                }
             }
+        }
+        
+        if (!propValue) {
+            // and with uppercased first char of property name?
+            NSString *upper = [memberName firstCharToUpper];
+            propValue = [properties valueForKey:upper];
+            [DebLog logN:@"AnonymousObject -> setFieldsDirect: (upper) %@ = %@", upper, propValue];
+        }
         if (!propValue || [propValue isKindOfClass:[NSNull class]]) {
             [DebLog logN:@"AnonymousObject -> setFieldsDirect: PROPERTY %@ WAS NOT FOUND, propValue = %@", memberName, propValue];
             continue;
