@@ -23,8 +23,17 @@
 
 @implementation BackendlessPushHelper
 
++(BackendlessPushHelper *)sharedInstance {
+    static BackendlessPushHelper *sharedBackendlessPushHelper;
+    @synchronized(self) {
+        if (!sharedBackendlessPushHelper)
+            sharedBackendlessPushHelper = [BackendlessPushHelper new];
+    }
+    return sharedBackendlessPushHelper;
+}
+
 #if TARGET_OS_IOS || TARGET_OS_SIMULATOR
-+(void)processMutableContent:(UNNotificationRequest *_Nonnull)request withContentHandler:(void(^_Nonnull)(UNNotificationContent *_Nonnull))contentHandler NS_AVAILABLE_IOS(10_0) {
+-(void)processMutableContent:(UNNotificationRequest *_Nonnull)request withContentHandler:(void(^_Nonnull)(UNNotificationContent *_Nonnull))contentHandler NS_AVAILABLE_IOS(10_0) {
     UNMutableNotificationContent *bestAttemptContent = [request.content mutableCopy];
     if ([request.content.userInfo valueForKey:@"attachment-url"]) {
        NSString *urlString = [request.content.userInfo valueForKey:@"attachment-url"];
@@ -47,6 +56,28 @@
     else {
         contentHandler(bestAttemptContent);
     }
+}
+
+-(UNNotificationRequest *_Nonnull)requestWithIncrementedBadgeBy:(NSNumber *_Nonnull)value fromRequest:(UNNotificationRequest *_Nonnull)request {
+    NSNumber *badge = request.content.badge;
+    UNMutableNotificationContent *content = [request.content mutableCopy];
+    if (content.badge && value) {
+        content.badge = [NSNumber numberWithInteger:([badge integerValue] + [value integerValue])];
+        UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:1 repeats:NO];
+        return [UNNotificationRequest requestWithIdentifier:@"request" content:content trigger:trigger];
+    }
+    return request;
+}
+
+-(UNNotificationRequest *_Nonnull)requestWithDecrementedBadgeBy:(NSNumber *_Nonnull)value fromRequest:(UNNotificationRequest *_Nonnull)request {
+    NSNumber *badge = request.content.badge;
+    UNMutableNotificationContent *content = [request.content mutableCopy];
+    if (content.badge && value) {
+        content.badge = [NSNumber numberWithInteger:([badge integerValue] - [value integerValue])];
+        UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:1 repeats:NO];
+        return [UNNotificationRequest requestWithIdentifier:@"request" content:content trigger:trigger];
+    }
+    return request;
 }
 #endif
 

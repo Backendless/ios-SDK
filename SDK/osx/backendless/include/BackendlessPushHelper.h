@@ -24,10 +24,16 @@
 #import <UserNotifications/UserNotifications.h>
 #endif
 
+#define backendlessPushHelper [BackendlessPushHelper sharedInstance]
+
 @interface BackendlessPushHelper : NSObject
 
++(BackendlessPushHelper *_Nonnull)sharedInstance;
+
 #if TARGET_OS_IOS || TARGET_OS_SIMULATOR
-+(void)processMutableContent:(UNNotificationRequest *_Nonnull)request withContentHandler:(void (^_Nonnull)(UNNotificationContent *_Nonnull))contentHandler NS_AVAILABLE_IOS(10_0);
+-(void)processMutableContent:(UNNotificationRequest *_Nonnull)request withContentHandler:(void (^_Nonnull)(UNNotificationContent *_Nonnull))contentHandler NS_AVAILABLE_IOS(10_0);
+-(UNNotificationRequest *_Nonnull)requestWithIncrementedBadgeBy:(NSNumber *_Nonnull)value fromRequest:(UNNotificationRequest *_Nonnull)request NS_AVAILABLE_IOS(10_0);
+-(UNNotificationRequest *_Nonnull)requestWithDecrementedBadgeBy:(NSNumber *_Nonnull)value fromRequest:(UNNotificationRequest *_Nonnull)request NS_AVAILABLE_IOS(10_0);
 #endif
 
 @end
