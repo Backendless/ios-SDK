@@ -66,7 +66,7 @@ static NSString *METHOD_POLLING_SUBSCRIBE = @"subscribeForPollingAccess";
 static NSString *METHOD_POLL_MESSAGES = @"pollMessages";
 static NSString *METHOD_SEND_EMAIL = @"send";
 static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
-static NSString *METHOD_PUSH_WITH_TEMPLATE = @"pushForTemplate";
+static NSString *METHOD_PUSH_WITH_TEMPLATE = @"pushWithTemplate";
 // UICKeyChainStore service name
 static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUIDKeychain";
 
