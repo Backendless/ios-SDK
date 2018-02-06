@@ -27,8 +27,18 @@
 
 @implementation BackendlessPushHelper
 
++(BackendlessPushHelper *_Nonnull)sharedInstance {
+    static BackendlessPushHelper *sharedBackendlessPushHelper;
+    if (!sharedBackendlessPushHelper) {
+        @synchronized(self) {
+            sharedBackendlessPushHelper = [BackendlessPushHelper new];
+        }
+    }
+    return sharedBackendlessPushHelper;
+}
+
 #if TARGET_OS_IOS || TARGET_OS_SIMULATOR
-+(void)processMutableContent:(UNNotificationRequest *_Nonnull)request withContentHandler:(void(^_Nonnull)(UNNotificationContent *_Nonnull))contentHandler NS_AVAILABLE_IOS(10_0) {
+-(void)processMutableContent:(UNNotificationRequest *_Nonnull)request withContentHandler:(void(^_Nonnull)(UNNotificationContent *_Nonnull))contentHandler NS_AVAILABLE_IOS(10_0) {
     
     if ([request.content.userInfo valueForKey:@"ios_immediate_push"]) {
         request = [self prepareRequestWithIosImmediatePush:request];
@@ -62,27 +72,27 @@
     }
 }
 
-+(UNNotificationRequest *)prepareRequestWithIosImmediatePush:(UNNotificationRequest *)request {
+-(UNNotificationRequest *)prepareRequestWithIosImmediatePush:(UNNotificationRequest *)request {
     NSString *JSONString = [request.content.userInfo valueForKey:@"ios_immediate_push"];
     NSDictionary *iosPushTemplate = [jsonHelper dictionaryFromJson:JSONString];
     return [self createRequestFromTemplate:[self dictionaryWithoutNulls:iosPushTemplate] request:request];
 }
 
-+(UNNotificationRequest *)prepareRequestWithTemplate:(UNNotificationRequest *)request {
+-(UNNotificationRequest *)prepareRequestWithTemplate:(UNNotificationRequest *)request {
     NSString *templateName = [request.content.userInfo valueForKey:@"template_name"];
     NSDictionary *iosPushTemplates = [userDefaultsHelper readFromUserDefaultsWithKey:PUSH_TEMPLATES_USER_DEFAULTS withSuiteName:@"group.com.backendless.PushTemplates"];
     NSDictionary *iosPushTemplate = [iosPushTemplates valueForKey:templateName];
     return [self createRequestFromTemplate:[self dictionaryWithoutNulls:iosPushTemplate] request:request];
 }
 
-+(NSDictionary *)dictionaryWithoutNulls:(NSDictionary *)dictionary {
+-(NSDictionary *)dictionaryWithoutNulls:(NSDictionary *)dictionary {
     NSMutableDictionary *resultDictionary = [dictionary mutableCopy];
     NSArray *keysForNullValues = [resultDictionary allKeysForObject:[NSNull null]];
     [resultDictionary removeObjectsForKeys:keysForNullValues];
     return resultDictionary;
 }
 
-+(UNNotificationRequest *)createRequestFromTemplate:(NSDictionary *)iosPushTemplate request:(UNNotificationRequest *)request {
+-(UNNotificationRequest *)createRequestFromTemplate:(NSDictionary *)iosPushTemplate request:(UNNotificationRequest *)request {
     UNMutableNotificationContent *content = [UNMutableNotificationContent new];
     content.body = [[[request.content.userInfo valueForKey:@"aps"] valueForKey:@"alert"] valueForKey:@"body"];
     
@@ -128,7 +138,7 @@
     return [UNNotificationRequest requestWithIdentifier:@"request" content:content trigger:trigger];
 }
 
-+(NSString *)setActions:(NSArray *)actions {
+-(NSString *)setActions:(NSArray *)actions {
     NSMutableArray *categoryActions = [NSMutableArray new];
     
     for (NSDictionary *action in actions) {
