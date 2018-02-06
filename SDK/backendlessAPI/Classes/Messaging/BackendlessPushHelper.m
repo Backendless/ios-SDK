@@ -25,9 +25,10 @@
 
 +(BackendlessPushHelper *)sharedInstance {
     static BackendlessPushHelper *sharedBackendlessPushHelper;
-    @synchronized(self) {
-        if (!sharedBackendlessPushHelper)
+    if (!sharedBackendlessPushHelper) {
+        @synchronized(self) {
             sharedBackendlessPushHelper = [BackendlessPushHelper new];
+        }
     }
     return sharedBackendlessPushHelper;
 }
@@ -36,8 +37,8 @@
 -(void)processMutableContent:(UNNotificationRequest *_Nonnull)request withContentHandler:(void(^_Nonnull)(UNNotificationContent *_Nonnull))contentHandler NS_AVAILABLE_IOS(10_0) {
     UNMutableNotificationContent *bestAttemptContent = [request.content mutableCopy];
     if ([request.content.userInfo valueForKey:@"attachment-url"]) {
-       NSString *urlString = [request.content.userInfo valueForKey:@"attachment-url"];
-       NSURL *fileUrl = [NSURL URLWithString:urlString];        
+        NSString *urlString = [request.content.userInfo valueForKey:@"attachment-url"];
+        NSURL *fileUrl = [NSURL URLWithString:urlString];
         [[[NSURLSession sharedSession] downloadTaskWithURL:fileUrl
                                          completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
                                              if (location) {
