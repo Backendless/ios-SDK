@@ -16,6 +16,8 @@
 #import "NamedObject.h"
 #import "ArrayType.h"
 
+#import "BodyHolder.h"
+
 @implementation AnonymousObject
 @synthesize properties;
 
@@ -211,11 +213,11 @@
 }
 
 -(NSMutableDictionary *)mapFieldToProperty:(NamedObject *)propValue {
+    NSMutableDictionary *propertiesOfPropValue = ((AnonymousObject *)[propValue getCacheKey]).properties;
     if ([[Types sharedInstance] getPropertiesMappingForClientClass:([propValue getMappedType])]) {
-        NSMutableDictionary *propertiesOfPropValue = ((AnonymousObject *)[propValue getCacheKey]).properties;
         NSDictionary *mappedProperties = [[Types sharedInstance] getPropertiesMappingForClientClass:[propValue getMappedType]];
         NSMutableDictionary *changedPropertiesOfPropValue = [NSMutableDictionary new];
-        for (NSString *key in [propertiesOfPropValue allKeys]) {
+        for (NSString *key in [propertiesOfPropValue allKeys]) {            
             if ([[mappedProperties allKeys] containsObject:key]) {
                 [changedPropertiesOfPropValue setObject:[propertiesOfPropValue valueForKey:key] forKey:[mappedProperties valueForKey:key]];
             }
@@ -227,7 +229,7 @@
             return changedPropertiesOfPropValue;
         }
     }
-    return nil;
+    return propertiesOfPropValue;
 }
 
 #pragma mark -

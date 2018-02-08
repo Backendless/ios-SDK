@@ -26,6 +26,8 @@
 #import "ObjectProperty.h"
 #import "ClassCastException.h"
 #import "ObjectSerializer.h"
+#import "IResponseAdapter.h"
+#import "MapAdapter.h"
 
 #define FAULT_NO_ENTITY [Fault fault:@"Entity is missing or null" detail:@"Entity is missing or null" faultCode:@"1900"]
 #define FAULT_OBJECT_ID_IS_NOT_EXIST [Fault fault:@"objectId is missing or null" detail:@"objectId is missing or null" faultCode:@"1901"]
@@ -146,7 +148,10 @@ static NSString *REMOVE_BULK = @"removeBulk";
 
 -(id)findFirst {
     NSArray *args = @[_tableName];
-    id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIRST args:args];
+    id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIRST args:args responseAdapter:[MapAdapter new]];
+    if ([result isKindOfClass:[Fault class]]) {
+        return result;
+    }
     return [result isKindOfClass:NSDictionary.class]?[self setNullToNil:(NSMutableDictionary *) result]:[self setNullToNil:(NSMutableDictionary *) [Types propertyDictionary:result]];
 }
 
@@ -284,7 +289,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     Responder *responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onFind:) selErrorHandler:nil];
     _responder.chained = responder;
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIRST args:args responder:_responder];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIRST args:args responder:_responder responseAdapter:[MapAdapter new]];
 }
 
 -(void)findFirst:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -300,6 +305,10 @@ static NSString *REMOVE_BULK = @"removeBulk";
     Responder *responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onFind:) selErrorHandler:nil];
     _responder.chained = responder;
+    
+    if ([_tableName isEqualToString:@"DeviceRegistration"]) {
+        [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LAST args:args responder:_responder];
+    }
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LAST args:args responder:_responder];
 }
 

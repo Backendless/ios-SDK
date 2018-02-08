@@ -1444,6 +1444,21 @@
 		1C7BB5081A2E092900D3C2C1 /* BackendlessCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1398C17D7240A00D1AC4C /* BackendlessCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C7BB5091A2E092900D3C2C1 /* BackendlessCacheData.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1398E17D7240A00D1AC4C /* BackendlessCacheData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C7BB50A1A2E092900D3C2C1 /* BackendlessCacheKey.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1399017D7240A00D1AC4C /* BackendlessCacheKey.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A209472202B1F3C0068E6C9 /* IResponseAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A209471202B1F3C0068E6C9 /* IResponseAdapter.h */; };
+		5A209473202B1F3C0068E6C9 /* IResponseAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A209471202B1F3C0068E6C9 /* IResponseAdapter.h */; };
+		5A209474202B1F3C0068E6C9 /* IResponseAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A209471202B1F3C0068E6C9 /* IResponseAdapter.h */; };
+		5A209475202B1F3C0068E6C9 /* IResponseAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A209471202B1F3C0068E6C9 /* IResponseAdapter.h */; };
+		5A209476202B1F3C0068E6C9 /* IResponseAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A209471202B1F3C0068E6C9 /* IResponseAdapter.h */; };
+		5A209479202B1F830068E6C9 /* DefaultAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A209477202B1F830068E6C9 /* DefaultAdapter.h */; };
+		5A20947A202B1F830068E6C9 /* DefaultAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A209477202B1F830068E6C9 /* DefaultAdapter.h */; };
+		5A20947B202B1F830068E6C9 /* DefaultAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A209477202B1F830068E6C9 /* DefaultAdapter.h */; };
+		5A20947C202B1F830068E6C9 /* DefaultAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A209477202B1F830068E6C9 /* DefaultAdapter.h */; };
+		5A20947D202B1F830068E6C9 /* DefaultAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A209477202B1F830068E6C9 /* DefaultAdapter.h */; };
+		5A20947E202B1F830068E6C9 /* DefaultAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A209478202B1F830068E6C9 /* DefaultAdapter.m */; };
+		5A20947F202B1F830068E6C9 /* DefaultAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A209478202B1F830068E6C9 /* DefaultAdapter.m */; };
+		5A209480202B1F830068E6C9 /* DefaultAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A209478202B1F830068E6C9 /* DefaultAdapter.m */; };
+		5A209481202B1F830068E6C9 /* DefaultAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A209478202B1F830068E6C9 /* DefaultAdapter.m */; };
+		5A209482202B1F830068E6C9 /* DefaultAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A209478202B1F830068E6C9 /* DefaultAdapter.m */; };
 		5A507A751F3B41D80027ABAC /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A507A741F3B41D80027ABAC /* UserNotifications.framework */; };
 		5A507A761F3B42D80027ABAC /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A507A741F3B41D80027ABAC /* UserNotifications.framework */; };
 		5A507A771F3B42E10027ABAC /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A507A741F3B41D80027ABAC /* UserNotifications.framework */; };
@@ -1456,6 +1471,26 @@
 		5A633F461F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A633F471F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A633F481F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A934A0A202CAA5A006BB5F9 /* AdaptResponder.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A934A08202CAA5A006BB5F9 /* AdaptResponder.h */; };
+		5A934A0B202CAA5A006BB5F9 /* AdaptResponder.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A934A08202CAA5A006BB5F9 /* AdaptResponder.h */; };
+		5A934A0C202CAA5A006BB5F9 /* AdaptResponder.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A934A08202CAA5A006BB5F9 /* AdaptResponder.h */; };
+		5A934A0D202CAA5A006BB5F9 /* AdaptResponder.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A934A08202CAA5A006BB5F9 /* AdaptResponder.h */; };
+		5A934A0E202CAA5A006BB5F9 /* AdaptResponder.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A934A08202CAA5A006BB5F9 /* AdaptResponder.h */; };
+		5A934A0F202CAA5A006BB5F9 /* AdaptResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A934A09202CAA5A006BB5F9 /* AdaptResponder.m */; };
+		5A934A10202CAA5A006BB5F9 /* AdaptResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A934A09202CAA5A006BB5F9 /* AdaptResponder.m */; };
+		5A934A11202CAA5A006BB5F9 /* AdaptResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A934A09202CAA5A006BB5F9 /* AdaptResponder.m */; };
+		5A934A12202CAA5A006BB5F9 /* AdaptResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A934A09202CAA5A006BB5F9 /* AdaptResponder.m */; };
+		5A934A13202CAA5A006BB5F9 /* AdaptResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A934A09202CAA5A006BB5F9 /* AdaptResponder.m */; };
+		5A95F1F3202B3D60000D6EA5 /* MapAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A95F1F1202B3D60000D6EA5 /* MapAdapter.h */; };
+		5A95F1F4202B3D60000D6EA5 /* MapAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A95F1F1202B3D60000D6EA5 /* MapAdapter.h */; };
+		5A95F1F5202B3D60000D6EA5 /* MapAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A95F1F1202B3D60000D6EA5 /* MapAdapter.h */; };
+		5A95F1F6202B3D60000D6EA5 /* MapAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A95F1F1202B3D60000D6EA5 /* MapAdapter.h */; };
+		5A95F1F7202B3D60000D6EA5 /* MapAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A95F1F1202B3D60000D6EA5 /* MapAdapter.h */; };
+		5A95F1F8202B3D60000D6EA5 /* MapAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A95F1F2202B3D60000D6EA5 /* MapAdapter.m */; };
+		5A95F1F9202B3D60000D6EA5 /* MapAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A95F1F2202B3D60000D6EA5 /* MapAdapter.m */; };
+		5A95F1FA202B3D60000D6EA5 /* MapAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A95F1F2202B3D60000D6EA5 /* MapAdapter.m */; };
+		5A95F1FB202B3D60000D6EA5 /* MapAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A95F1F2202B3D60000D6EA5 /* MapAdapter.m */; };
+		5A95F1FC202B3D60000D6EA5 /* MapAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A95F1F2202B3D60000D6EA5 /* MapAdapter.m */; };
 		5A9DB6021FCC219200B0C3CD /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A9DB6031FCC22AD00B0C3CD /* BackendlessPushHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A633F3F1F7BB7F6004D7ACA /* BackendlessPushHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AAEFE321FB34099006EBC8F /* UserService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480515FF5AC500012DFC /* UserService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -2362,9 +2397,16 @@
 		0F9AC8111E798C5C0087869F /* V3ReferenceCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = V3ReferenceCache.h; sourceTree = "<group>"; };
 		0F9AC8121E798C5C0087869F /* V3ReferenceCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = V3ReferenceCache.m; sourceTree = "<group>"; };
 		1C7BB5101A2E092900D3C2C1 /* libbackendless-mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libbackendless-mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A209471202B1F3C0068E6C9 /* IResponseAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IResponseAdapter.h; sourceTree = "<group>"; };
+		5A209477202B1F830068E6C9 /* DefaultAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DefaultAdapter.h; sourceTree = "<group>"; };
+		5A209478202B1F830068E6C9 /* DefaultAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DefaultAdapter.m; sourceTree = "<group>"; };
 		5A507A741F3B41D80027ABAC /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		5A633F3F1F7BB7F6004D7ACA /* BackendlessPushHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BackendlessPushHelper.h; sourceTree = "<group>"; };
 		5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BackendlessPushHelper.m; sourceTree = "<group>"; };
+		5A934A08202CAA5A006BB5F9 /* AdaptResponder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdaptResponder.h; sourceTree = "<group>"; };
+		5A934A09202CAA5A006BB5F9 /* AdaptResponder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdaptResponder.m; sourceTree = "<group>"; };
+		5A95F1F1202B3D60000D6EA5 /* MapAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapAdapter.h; sourceTree = "<group>"; };
+		5A95F1F2202B3D60000D6EA5 /* MapAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapAdapter.m; sourceTree = "<group>"; };
 		5AFFBF7A1EB211EC0099A72F /* MessagingService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagingService.h; sourceTree = "<group>"; };
 		5AFFBF7B1EB211EC0099A72F /* MessagingService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagingService.m; sourceTree = "<group>"; };
 		84B027E41DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadRelationsQueryBuilder.h; sourceTree = "<group>"; };
@@ -3064,6 +3106,18 @@
 			path = Amf;
 			sourceTree = "<group>";
 		};
+		5A8D644B202B1C5400B24C6A /* PersistenceAdapter */ = {
+			isa = PBXGroup;
+			children = (
+				5A209471202B1F3C0068E6C9 /* IResponseAdapter.h */,
+				5A209477202B1F830068E6C9 /* DefaultAdapter.h */,
+				5A209478202B1F830068E6C9 /* DefaultAdapter.m */,
+				5A95F1F1202B3D60000D6EA5 /* MapAdapter.h */,
+				5A95F1F2202B3D60000D6EA5 /* MapAdapter.m */,
+			);
+			path = PersistenceAdapter;
+			sourceTree = "<group>";
+		};
 		91223DC7195AF68900F72F48 /* Events */ = {
 			isa = PBXGroup;
 			children = (
@@ -3266,6 +3320,7 @@
 		F91B47E515FF448F00012DFC /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
+				5A8D644B202B1C5400B24C6A /* PersistenceAdapter */,
 				F91B48131602254900012DFC /* PersistenceService.h */,
 				F91B48141602254900012DFC /* PersistenceService.m */,
 				D36CF3F91A2F68DA00B6468A /* DataPermission.h */,
@@ -3338,6 +3393,8 @@
 			children = (
 				F91B480115FF5AA900012DFC /* Invoker.h */,
 				F91B480215FF5AA900012DFC /* Invoker.m */,
+				5A934A08202CAA5A006BB5F9 /* AdaptResponder.h */,
+				5A934A09202CAA5A006BB5F9 /* AdaptResponder.m */,
 			);
 			path = IO;
 			sourceTree = "<group>";
@@ -3482,6 +3539,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A934A0A202CAA5A006BB5F9 /* AdaptResponder.h in Headers */,
 				0F9ACCD21E798C5F0087869F /* ITypeWriter.h in Headers */,
 				0F9AC8271E798C5C0087869F /* Responder.h in Headers */,
 				0F9ACBCE1E798C5E0087869F /* FlashorbBinaryWriter.h in Headers */,
@@ -3498,6 +3556,7 @@
 				0F9AC90D1E798C5C0087869F /* RTMProtocol.h in Headers */,
 				0F9ACB5B1E798C5E0087869F /* V3VectorReader.h in Headers */,
 				0F9AC8F41E798C5C0087869F /* BaseRTMPProtocolDecoder.h in Headers */,
+				5A209479202B1F830068E6C9 /* DefaultAdapter.h in Headers */,
 				0F9ACB1F1E798C5E0087869F /* V3ArrayReader.h in Headers */,
 				0F9ACB511E798C5E0087869F /* V3StringReader.h in Headers */,
 				0F9ACC0F1E798C5F0087869F /* CommandMessage.h in Headers */,
@@ -3524,6 +3583,7 @@
 				0F9ACB8D1E798C5E0087869F /* DEBUG.h in Headers */,
 				0F9ACA931E798C5D0087869F /* NamedObjectReader.h in Headers */,
 				0F9ACA481E798C5D0087869F /* ByteArrayType.h in Headers */,
+				5A95F1F3202B3D60000D6EA5 /* MapAdapter.h in Headers */,
 				0F9AC89A1E798C5C0087869F /* WebORBDeserializer.h in Headers */,
 				0F9ACB3D1E798C5E0087869F /* V3ObjectReader.h in Headers */,
 				0F9AC8EF1E798C5C0087869F /* IVideoStreamCodec.h in Headers */,
@@ -3631,6 +3691,7 @@
 				0F9ACBB01E798C5E0087869F /* BinaryCodec.h in Headers */,
 				0F9ACA161E798C5D0087869F /* ArrayReader.h in Headers */,
 				0F9ACD451E798C600087869F /* V3ObjectSerializer.h in Headers */,
+				5A209472202B1F3C0068E6C9 /* IResponseAdapter.h in Headers */,
 				0F9ACCAF1E798C5F0087869F /* ClassDefinition.h in Headers */,
 				0F9ACBD81E798C5E0087869F /* IServiceObjectFactory.h in Headers */,
 				0F9ACB0B1E798C5E0087869F /* UndefinedTypeReader.h in Headers */,
@@ -3751,6 +3812,7 @@
 				0F9ACBC51E798C5E0087869F /* FlashorbBinaryReader.h in Headers */,
 				0F9ACBBB1E798C5E0087869F /* BinaryStream.h in Headers */,
 				0F9AC8C81E798C5C0087869F /* IServiceHandlerProvider.h in Headers */,
+				5A20947A202B1F830068E6C9 /* DefaultAdapter.h in Headers */,
 				0F9AC9EA1E798C5D0087869F /* SharedObjectMessage.h in Headers */,
 				0F9ACCC41E798C5F0087869F /* IObjectSerializer.h in Headers */,
 				0F9ACB8E1E798C5E0087869F /* DEBUG.h in Headers */,
@@ -3796,6 +3858,7 @@
 				0F9AC8EB1E798C5C0087869F /* IStreamPacket.h in Headers */,
 				0F9AC8F01E798C5C0087869F /* IVideoStreamCodec.h in Headers */,
 				0F9AC8AF1E798C5C0087869F /* IPersistable.h in Headers */,
+				5A934A0B202CAA5A006BB5F9 /* AdaptResponder.h in Headers */,
 				0F9ACB3E1E798C5E0087869F /* V3ObjectReader.h in Headers */,
 				0F9AC8BE1E798C5C0087869F /* IPendingServiceCallback.h in Headers */,
 				0F9AC8731E798C5C0087869F /* EventType.h in Headers */,
@@ -3938,8 +4001,10 @@
 				84B027E71DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h in Headers */,
 				F96B1C611DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */,
 				5A633F411F7BB7F6004D7ACA /* BackendlessPushHelper.h in Headers */,
+				5A209473202B1F3C0068E6C9 /* IResponseAdapter.h in Headers */,
 				91F1399517D7240A00D1AC4C /* AbstractQuery.h in Headers */,
 				91F139A917D7240A00D1AC4C /* BackendlessCachePolicy.h in Headers */,
+				5A95F1F4202B3D60000D6EA5 /* MapAdapter.h in Headers */,
 				91F139AE17D7240A00D1AC4C /* BackendlessCacheProtocol.h in Headers */,
 				5AF2B72B1EB2138500D54442 /* MessagingService.h in Headers */,
 				91F139B217D724C700D1AC4C /* QueryOptions.h in Headers */,
@@ -3986,6 +4051,7 @@
 				0F9ACBC61E798C5E0087869F /* FlashorbBinaryReader.h in Headers */,
 				0F9ACBBC1E798C5E0087869F /* BinaryStream.h in Headers */,
 				0F9AC8C91E798C5C0087869F /* IServiceHandlerProvider.h in Headers */,
+				5A20947B202B1F830068E6C9 /* DefaultAdapter.h in Headers */,
 				0F9AC9EB1E798C5D0087869F /* SharedObjectMessage.h in Headers */,
 				0F9ACCC51E798C5F0087869F /* IObjectSerializer.h in Headers */,
 				0F9ACB8F1E798C5E0087869F /* DEBUG.h in Headers */,
@@ -4031,6 +4097,7 @@
 				0F9AC8EC1E798C5C0087869F /* IStreamPacket.h in Headers */,
 				0F9AC8F11E798C5C0087869F /* IVideoStreamCodec.h in Headers */,
 				0F9AC8B01E798C5C0087869F /* IPersistable.h in Headers */,
+				5A934A0C202CAA5A006BB5F9 /* AdaptResponder.h in Headers */,
 				0F9ACB3F1E798C5E0087869F /* V3ObjectReader.h in Headers */,
 				0F9AC8BF1E798C5C0087869F /* IPendingServiceCallback.h in Headers */,
 				0F9AC8741E798C5C0087869F /* EventType.h in Headers */,
@@ -4173,8 +4240,10 @@
 				84B027E81DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h in Headers */,
 				F96B1C621DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */,
 				91F1399617D7240A00D1AC4C /* AbstractQuery.h in Headers */,
+				5A209474202B1F3C0068E6C9 /* IResponseAdapter.h in Headers */,
 				91F139AA17D7240A00D1AC4C /* BackendlessCachePolicy.h in Headers */,
 				5A633F421F7BB7F6004D7ACA /* BackendlessPushHelper.h in Headers */,
+				5A95F1F5202B3D60000D6EA5 /* MapAdapter.h in Headers */,
 				91F139AF17D7240A00D1AC4C /* BackendlessCacheProtocol.h in Headers */,
 				91F139B317D724C700D1AC4C /* QueryOptions.h in Headers */,
 				5AF2B72C1EB2138F00D54442 /* MessagingService.h in Headers */,
@@ -4221,6 +4290,7 @@
 				0F9AC95B1E798C5D0087869F /* NotifyEvent.h in Headers */,
 				0F9ACB2C1E798C5E0087869F /* V3ByteArrayReader.h in Headers */,
 				0F9ACAFA1E798C5E0087869F /* StringType.h in Headers */,
+				5A20947C202B1F830068E6C9 /* DefaultAdapter.h in Headers */,
 				0F9ACD521E798C600087869F /* V3ReferenceCache.h in Headers */,
 				0F9ACC761E798C5F0087869F /* AMFMessageWriter.h in Headers */,
 				0F9AC8841E798C5C0087869F /* IEventListener.h in Headers */,
@@ -4266,6 +4336,7 @@
 				0F9ACA2D1E798C5D0087869F /* BooleanReader.h in Headers */,
 				0F9ACD2A1E798C600087869F /* ReferenceCache.h in Headers */,
 				0F9ACC801E798C5F0087869F /* ArrayReferenceWriter.h in Headers */,
+				5A934A0D202CAA5A006BB5F9 /* AdaptResponder.h in Headers */,
 				0F9AC8611E798C5C0087869F /* MHeader.h in Headers */,
 				0F9AC98D1E798C5D0087869F /* RTMPClient.h in Headers */,
 				0F9ACC081E798C5F0087869F /* BodyHolderFactory.h in Headers */,
@@ -4408,8 +4479,10 @@
 				F9F0AF181CDBCA3900035C62 /* BackendlessFile.h in Headers */,
 				F9F0AF191CDBCA3900035C62 /* HashMap.h in Headers */,
 				F9F0AF261CDBCA3900035C62 /* AbstractQuery.h in Headers */,
+				5A209475202B1F3C0068E6C9 /* IResponseAdapter.h in Headers */,
 				5A633F431F7BB7F6004D7ACA /* BackendlessPushHelper.h in Headers */,
 				F9F0AF271CDBCA3900035C62 /* BackendlessCachePolicy.h in Headers */,
+				5A95F1F6202B3D60000D6EA5 /* MapAdapter.h in Headers */,
 				F9F0AF291CDBCA3900035C62 /* BackendlessCacheProtocol.h in Headers */,
 				5AF2B72F1EB213B300D54442 /* MessagingService.h in Headers */,
 				F9F0AF2A1CDBCA3900035C62 /* QueryOptions.h in Headers */,
@@ -4456,6 +4529,7 @@
 				0F9AC95C1E798C5D0087869F /* NotifyEvent.h in Headers */,
 				0F9ACB2D1E798C5E0087869F /* V3ByteArrayReader.h in Headers */,
 				0F9ACAFB1E798C5E0087869F /* StringType.h in Headers */,
+				5A20947D202B1F830068E6C9 /* DefaultAdapter.h in Headers */,
 				0F9ACD531E798C600087869F /* V3ReferenceCache.h in Headers */,
 				0F9ACC771E798C5F0087869F /* AMFMessageWriter.h in Headers */,
 				0F9AC8851E798C5C0087869F /* IEventListener.h in Headers */,
@@ -4501,6 +4575,7 @@
 				0F9ACA2E1E798C5D0087869F /* BooleanReader.h in Headers */,
 				0F9ACD2B1E798C600087869F /* ReferenceCache.h in Headers */,
 				0F9ACC811E798C5F0087869F /* ArrayReferenceWriter.h in Headers */,
+				5A934A0E202CAA5A006BB5F9 /* AdaptResponder.h in Headers */,
 				0F9AC8621E798C5C0087869F /* MHeader.h in Headers */,
 				0F9AC98E1E798C5D0087869F /* RTMPClient.h in Headers */,
 				0F9ACC091E798C5F0087869F /* BodyHolderFactory.h in Headers */,
@@ -4643,8 +4718,10 @@
 				F9F0AFD21CDBCAB500035C62 /* BackendlessFile.h in Headers */,
 				F9F0AFD31CDBCAB500035C62 /* HashMap.h in Headers */,
 				F9F0AFE11CDBCAB500035C62 /* AbstractQuery.h in Headers */,
+				5A209476202B1F3C0068E6C9 /* IResponseAdapter.h in Headers */,
 				F9F0AFE21CDBCAB500035C62 /* BackendlessCachePolicy.h in Headers */,
 				5A633F441F7BB7F6004D7ACA /* BackendlessPushHelper.h in Headers */,
+				5A95F1F7202B3D60000D6EA5 /* MapAdapter.h in Headers */,
 				F9F0AFE41CDBCAB500035C62 /* BackendlessCacheProtocol.h in Headers */,
 				5AF2B7301EB213BD00D54442 /* MessagingService.h in Headers */,
 				F9F0AFE51CDBCAB500035C62 /* QueryOptions.h in Headers */,
@@ -4897,6 +4974,7 @@
 				0F9ACAE81E798C5E0087869F /* ReaderReferenceCache.m in Sources */,
 				0F9ACA1B1E798C5D0087869F /* ArrayReader.m in Sources */,
 				1C7BB4911A2E092900D3C2C1 /* CustomService.m in Sources */,
+				5A934A0F202CAA5A006BB5F9 /* AdaptResponder.m in Sources */,
 				0F9ACB7E1E798C5E0087869F /* AMFSerializer.m in Sources */,
 				1C7BB4921A2E092900D3C2C1 /* Invoker.m in Sources */,
 				0F9ACC8C1E798C5F0087869F /* ArrayWriter.m in Sources */,
@@ -4979,6 +5057,7 @@
 				1C7BB4AA1A2E092900D3C2C1 /* BESubscription.m in Sources */,
 				1C7BB4AB1A2E092900D3C2C1 /* Message.m in Sources */,
 				D3A064C31AFCE64D00779BB1 /* GeoFence.m in Sources */,
+				5A95F1F8202B3D60000D6EA5 /* MapAdapter.m in Sources */,
 				0F9AC84A1E798C5C0087869F /* WeborbClient.m in Sources */,
 				1C7BB4AC1A2E092900D3C2C1 /* MessageStatus.m in Sources */,
 				0F9ACB921E798C5E0087869F /* DEBUG.m in Sources */,
@@ -5005,6 +5084,7 @@
 				0F9ACB741E798C5E0087869F /* Types.m in Sources */,
 				1C7BB4B11A2E092900D3C2C1 /* backendless_simulator.m in Sources */,
 				1C7BB4B21A2E092900D3C2C1 /* CacheService.m in Sources */,
+				5A20947E202B1F830068E6C9 /* DefaultAdapter.m in Sources */,
 				0F9AC91C1E798C5C0087869F /* Aggregate.m in Sources */,
 				F9CB136E1BC284A900F3CA1D /* BeaconsInfo.m in Sources */,
 				0F9ACC281E798C5F0087869F /* ReqMessage.m in Sources */,
@@ -5120,6 +5200,7 @@
 				0F9AC9131E798C5C0087869F /* RTMProtocol.m in Sources */,
 				0F9ACB7F1E798C5E0087869F /* AMFSerializer.m in Sources */,
 				F9B361081D663FF500818EEF /* KeychainDataStore.m in Sources */,
+				5A95F1F9202B3D60000D6EA5 /* MapAdapter.m in Sources */,
 				0F9ACC471E798C5F0087869F /* AbstractUnreferenceableTypeWriter.m in Sources */,
 				F97969F4166CCB8200595F5E /* BackendlessDataQuery.m in Sources */,
 				D3FB9B6C19867EA500A13FB6 /* AtomicCounters.m in Sources */,
@@ -5147,6 +5228,7 @@
 				0F9AC9271E798C5C0087869F /* AudioData.m in Sources */,
 				F97969FC166CCB8200595F5E /* DeviceRegistration.m in Sources */,
 				0F9AC9311E798C5C0087869F /* BaseEvent.m in Sources */,
+				5A20947F202B1F830068E6C9 /* DefaultAdapter.m in Sources */,
 				0F9ACCAB1E798C5F0087869F /* BoundPropertyBagWriter.m in Sources */,
 				F97969FD166CCB8200595F5E /* DeliveryOptions.m in Sources */,
 				D30FC9B51AE132C2007C9A83 /* LogBuffer.m in Sources */,
@@ -5181,6 +5263,7 @@
 				0F9ACA081E798C5D0087869F /* AnonymousObject.m in Sources */,
 				0F9ACC8D1E798C5F0087869F /* ArrayWriter.m in Sources */,
 				0F9ACAA31E798C5D0087869F /* NotAReader.m in Sources */,
+				5A934A10202CAA5A006BB5F9 /* AdaptResponder.m in Sources */,
 				F9796A02166CCB8200595F5E /* MessageStatus.m in Sources */,
 				F9796A03166CCB8200595F5E /* FileService.m in Sources */,
 				F9796A04166CCB8200595F5E /* BackendlessFile.m in Sources */,
@@ -5311,6 +5394,7 @@
 				0F9AC9141E798C5C0087869F /* RTMProtocol.m in Sources */,
 				0F9ACB801E798C5E0087869F /* AMFSerializer.m in Sources */,
 				F9B361091D663FF500818EEF /* KeychainDataStore.m in Sources */,
+				5A95F1FA202B3D60000D6EA5 /* MapAdapter.m in Sources */,
 				0F9ACC481E798C5F0087869F /* AbstractUnreferenceableTypeWriter.m in Sources */,
 				F9796A3E166CD3DA00595F5E /* BackendlessDataQuery.m in Sources */,
 				D3FB9B6D19867EA500A13FB6 /* AtomicCounters.m in Sources */,
@@ -5338,6 +5422,7 @@
 				0F9AC9281E798C5C0087869F /* AudioData.m in Sources */,
 				F9796A46166CD3DB00595F5E /* DeviceRegistration.m in Sources */,
 				0F9AC9321E798C5C0087869F /* BaseEvent.m in Sources */,
+				5A209480202B1F830068E6C9 /* DefaultAdapter.m in Sources */,
 				0F9ACCAC1E798C5F0087869F /* BoundPropertyBagWriter.m in Sources */,
 				F9796A47166CD3DB00595F5E /* DeliveryOptions.m in Sources */,
 				D30FC9B61AE132C2007C9A83 /* LogBuffer.m in Sources */,
@@ -5372,6 +5457,7 @@
 				0F9ACA091E798C5D0087869F /* AnonymousObject.m in Sources */,
 				0F9ACC8E1E798C5F0087869F /* ArrayWriter.m in Sources */,
 				0F9ACAA41E798C5D0087869F /* NotAReader.m in Sources */,
+				5A934A11202CAA5A006BB5F9 /* AdaptResponder.m in Sources */,
 				F9796A4C166CD3DB00595F5E /* MessageStatus.m in Sources */,
 				F9796A4D166CD3DB00595F5E /* FileService.m in Sources */,
 				F9796A4E166CD3DB00595F5E /* BackendlessFile.m in Sources */,
@@ -5502,6 +5588,7 @@
 				0F9ACB131E798C5E0087869F /* UndefinedTypeReader.m in Sources */,
 				0F9ACD071E798C5F0087869F /* ObjectReferenceWriter.m in Sources */,
 				F9F0AE951CDBCA3900035C62 /* AtomicCounters.m in Sources */,
+				5A95F1FB202B3D60000D6EA5 /* MapAdapter.m in Sources */,
 				0F9ACBD61E798C5E0087869F /* FlashorbBinaryWriter.m in Sources */,
 				0F9AC9A11E798C5D0087869F /* AttributeStore.m in Sources */,
 				0F9ACA281E798C5D0087869F /* ArrayType.m in Sources */,
@@ -5529,6 +5616,7 @@
 				0F9AC9471E798C5D0087869F /* Invoke.m in Sources */,
 				F96B1C681DD3A23C00A4B362 /* PagedQueryBuilder.m in Sources */,
 				0F9ACA0A1E798C5D0087869F /* AnonymousObject.m in Sources */,
+				5A209481202B1F830068E6C9 /* DefaultAdapter.m in Sources */,
 				0F9AC97E1E798C5D0087869F /* Header.m in Sources */,
 				0F9ACA6E1E798C5D0087869F /* DateType.m in Sources */,
 				0F9ACCDF1E798C5F0087869F /* MessageWriter.m in Sources */,
@@ -5563,6 +5651,7 @@
 				F9F0AEAB1CDBCA3900035C62 /* BESubscription.m in Sources */,
 				0F9AC9D81E798C5D0087869F /* SharedObject.m in Sources */,
 				0F9ACD111E798C5F0087869F /* ObjectSerializer.m in Sources */,
+				5A934A12202CAA5A006BB5F9 /* AdaptResponder.m in Sources */,
 				0F9ACAAF1E798C5E0087869F /* NullReader.m in Sources */,
 				0F9ACA141E798C5D0087869F /* AnonymousObjectReader.m in Sources */,
 				F9B3610A1D663FF500818EEF /* KeychainDataStore.m in Sources */,
@@ -5693,6 +5782,7 @@
 				0F9ACB141E798C5E0087869F /* UndefinedTypeReader.m in Sources */,
 				0F9ACD081E798C5F0087869F /* ObjectReferenceWriter.m in Sources */,
 				F9F0AF4F1CDBCAB500035C62 /* AtomicCounters.m in Sources */,
+				5A95F1FC202B3D60000D6EA5 /* MapAdapter.m in Sources */,
 				0F9ACBD71E798C5E0087869F /* FlashorbBinaryWriter.m in Sources */,
 				0F9AC9A21E798C5D0087869F /* AttributeStore.m in Sources */,
 				0F9ACA291E798C5D0087869F /* ArrayType.m in Sources */,
@@ -5720,6 +5810,7 @@
 				0F9AC9481E798C5D0087869F /* Invoke.m in Sources */,
 				F96B1C691DD3A23D00A4B362 /* PagedQueryBuilder.m in Sources */,
 				0F9ACA0B1E798C5D0087869F /* AnonymousObject.m in Sources */,
+				5A209482202B1F830068E6C9 /* DefaultAdapter.m in Sources */,
 				0F9AC97F1E798C5D0087869F /* Header.m in Sources */,
 				0F9ACA6F1E798C5D0087869F /* DateType.m in Sources */,
 				0F9ACCE01E798C5F0087869F /* MessageWriter.m in Sources */,
@@ -5754,6 +5845,7 @@
 				F9F0AF651CDBCAB500035C62 /* BESubscription.m in Sources */,
 				0F9AC9D91E798C5D0087869F /* SharedObject.m in Sources */,
 				0F9ACD121E798C5F0087869F /* ObjectSerializer.m in Sources */,
+				5A934A13202CAA5A006BB5F9 /* AdaptResponder.m in Sources */,
 				0F9ACAB01E798C5E0087869F /* NullReader.m in Sources */,
 				0F9ACA151E798C5D0087869F /* AnonymousObjectReader.m in Sources */,
 				F9B3610B1D663FF500818EEF /* KeychainDataStore.m in Sources */,

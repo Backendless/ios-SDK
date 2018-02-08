@@ -23,7 +23,12 @@
 #import "DEBUG.h"
 #import "Backendless.h"
 #import "WeborbClient.h"
-#import "Responder.h"
+//#import "Responder.h"
+//#import "V3Message.h"
+//#import "ErrMessage.h"
+#import "DefaultAdapter.h"
+#import "AdaptResponder.h"
+
 
 static NSString *URL_ENDING = @"binary";
 static NSString *URL_DESTINATION = @"GenericDestination";
@@ -39,34 +44,34 @@ static NSString *URL_DESTINATION = @"GenericDestination";
 
 // Singleton accessor:  this is how you should ALWAYS get a reference to the class instance.  Never init your own.
 +(Invoker *)sharedInstance {
-	
+    
     static Invoker *sharedInvoker;
-	@synchronized(self)
-	{
-		if (!sharedInvoker)
-			sharedInvoker = [Invoker new];
-	}
-	return sharedInvoker;
+    @synchronized(self)
+    {
+        if (!sharedInvoker)
+            sharedInvoker = [Invoker new];
+    }
+    return sharedInvoker;
 }
 
 -(id)init {
-	
+    
     if ( (self=[super init]) ) {
         
         client = nil;
         _throwException = YES;
-	}
-	
-	return self;
+    }
+    
+    return self;
 }
 
 -(void)dealloc {
-	
-	[DebLog logN:@"DEALLOC Invoker"];
-
+    
+    [DebLog logN:@"DEALLOC Invoker"];
+    
     [client release];
-	
-	[super dealloc];
+    
+    [super dealloc];
 }
 
 
@@ -112,15 +117,25 @@ static NSString *URL_DESTINATION = @"GenericDestination";
     [client setNetworkActivityIndicatorOn:value];
 }
 
--(id)invokeSync:(NSString *)className method:(NSString *)methodName args:(NSArray *)args {
-    id result = [client invoke:className method:methodName args:args];
-    if (_throwException && [result isKindOfClass:[Fault class]])
-        @throw result;
-    return result;
+-(id)invokeSync:(NSString *)className method:(NSString *)methodName args:(NSArray *)args  {
+    return [self invokeSync:className method:methodName args:args responseAdapter:[DefaultAdapter new]];
 }
 
--(void)invokeAsync:(NSString *)className method:(NSString *)methodName args:(NSArray *)args responder:(id <IResponder>)responder {    
-    [client invoke:className method:methodName args:args responder:responder];
+-(id)invokeSync:(NSString *)className method:(NSString *)methodName args:(NSArray *)args responseAdapter:(id<IResponseAdapter>)responseAdapter {
+    id type = [client invoke:className method:methodName args:args];
+    if (_throwException && [type isKindOfClass:[Fault class]])
+        @throw type;
+    return [responseAdapter adapt:type];
+}
+
+-(void)invokeAsync:(NSString *)className method:(NSString *)methodName args:(NSArray *)args responder:(id <IResponder>)responder {
+    [self invokeAsync:className method:methodName args:args responder:responder responseAdapter:[DefaultAdapter new]];
+}
+
+-(void)invokeAsync:(NSString *)className method:(NSString *)methodName args:(NSArray *)args responder:(id <IResponder>)responder responseAdapter:(id<IResponseAdapter>)responseAdapter {
+    AdaptResponder *_responder = [[AdaptResponder alloc] initWithResponder:responder responseAdapter:responseAdapter];
+    _responder.chained = responder;
+    [client invoke:className method:methodName args:args responder:_responder];
 }
 
 @end
