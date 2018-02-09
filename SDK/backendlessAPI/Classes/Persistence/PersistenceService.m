@@ -1067,13 +1067,10 @@ static NSString *REMOVE_BULK = @"removeBulk";
 }
 
 -(BOOL)prepareClass:(Class)className {
-    if (![[className class] isKindOfClass:[DeviceRegistration class]]) {
-        id object = [__types classInstance:className];
-        BOOL result = [object resolveProperty:PERSIST_OBJECT_ID];
-        [object resolveProperty:@"__meta"];
-        return result;
-    }
-    return YES;
+    id object = [__types classInstance:className];
+    BOOL result = [object resolveProperty:PERSIST_OBJECT_ID];
+    [object resolveProperty:@"__meta"];
+    return result;
 }
 
 -(BOOL)prepareObject:(id)object {

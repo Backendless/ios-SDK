@@ -28,11 +28,20 @@
 #import "ErrMessage.h"
 #import "Responder.h"
 #import "DeviceRegistration.h"
-#import "NullType.h"
+#import "ArrayType.h"
 
 @implementation DeviceRegistrationAdapter
 
 -(id)adapt:(id)type {
+    
+    [backendless.data mapColumnToProperty:[DeviceRegistration class] columnName:@"objectId" propertyName:@"id"];
+    [backendless.data mapColumnToProperty:[DeviceRegistration class] columnName:@"operatingSystemName" propertyName:@"os"];
+    [backendless.data mapColumnToProperty:[DeviceRegistration class] columnName:@"operatingSystemVersion" propertyName:@"osVersion"];
+    
+    NSMutableDictionary *typeProperties = ((AnonymousObject *)[type getCacheKey]).properties;
+    NamedObject *body = [typeProperties valueForKey:@"body"];
+    NSMutableDictionary *bodyProperties = ((AnonymousObject *)[body getCacheKey]).properties;
+    NSString *channelName = [[bodyProperties valueForKey:@"channelName"] defaultAdapt];
     
     V3Message *v3 = (V3Message *)[type defaultAdapt];
     if (v3.isError) {
@@ -40,61 +49,12 @@
         return [Fault fault:result.faultString detail:result.faultDetail faultCode:result.faultCode];
     }
     
-    [backendless.data mapColumnToProperty:[DeviceRegistration class] columnName:@"objectId" propertyName:@"id"];
-    [backendless.data mapColumnToProperty:[DeviceRegistration class] columnName:@"operatingSystemName" propertyName:@"os"];
-    [backendless.data mapColumnToProperty:[DeviceRegistration class] columnName:@"operatingSystemVersion" propertyName:@"osVersion"];
-    
-    NSMutableDictionary *typeProperties = ((AnonymousObject *)[type getCacheKey]).properties;
-    for (NSString *key in typeProperties) {
-        if ([[typeProperties valueForKey:key] isKindOfClass:[NamedObject class]]) {
-            NamedObject *deviceRegistrationNamedObject = [typeProperties valueForKey:key];
-            NSMutableDictionary *deviceRegistrationFields = [self mapFieldToProperty:deviceRegistrationNamedObject];
-            DeviceRegistration *deviceRegistration = [DeviceRegistration new];
-            for (NSString *field in deviceRegistrationFields) {
-                id value = [deviceRegistrationFields valueForKey:field];                
-                if ([value isKindOfClass:[NSArray class]]) {
-                    NSMutableArray *channelsArray = [NSMutableArray new];
-                    for (id arrayValue in value) {
-                        [channelsArray addObject:[arrayValue defaultAdapt]];
-                    }
-                    [deviceRegistration setValue:channelsArray forKey:field];
-                }
-                else {
-                    [deviceRegistration setValue:[[deviceRegistrationFields valueForKey:field] defaultAdapt] forKey:field];
-                }
-            }
-            return deviceRegistration;
-        }
-    }
-    return nil;
-}
-
--(NSMutableDictionary *)mapFieldToProperty:(NamedObject *)namedObject {
-    NSMutableDictionary *propertiesOfPropValue = ((AnonymousObject *)[namedObject getCacheKey]).properties;
-    if ([[Types sharedInstance] getPropertiesMappingForClientClass:([namedObject getMappedType])]) {
-        NSDictionary *mappedProperties = [[Types sharedInstance] getPropertiesMappingForClientClass:[namedObject getMappedType]];
-        NSMutableDictionary *changedPropertiesOfPropValue = [NSMutableDictionary new];
-        for (NSString *key in [propertiesOfPropValue allKeys]) {
-            if ([key isEqualToString:@"channelName"]) {
-                [changedPropertiesOfPropValue setObject:[NSArray arrayWithObject:[propertiesOfPropValue valueForKey:key]] forKey:@"channels"];
-            }
-            if ([[mappedProperties allKeys] containsObject:key]) {
-                [changedPropertiesOfPropValue setObject:[propertiesOfPropValue valueForKey:key] forKey:[mappedProperties valueForKey:key]];
-            }
-            else {
-                [changedPropertiesOfPropValue setObject:[propertiesOfPropValue valueForKey:key] forKey:key];
-            }
-        }
-        if (changedPropertiesOfPropValue) {
-            [changedPropertiesOfPropValue removeObjectForKey:@"___class"];
-            [changedPropertiesOfPropValue removeObjectForKey:@"channelName"];
-            [changedPropertiesOfPropValue removeObjectForKey:@"created"];
-            [changedPropertiesOfPropValue removeObjectForKey:@"ownerId"];
-            [changedPropertiesOfPropValue removeObjectForKey:@"updated"];
-            return changedPropertiesOfPropValue;
-        }
-    }
-    return propertiesOfPropValue;
+    DeviceRegistration *deviceRegistration = v3.body.body;
+    deviceRegistration.channels = [NSArray arrayWithObject:channelName];
+    if ([deviceRegistration.expiration isKindOfClass:[NSNull class]]) {
+        deviceRegistration.expiration = nil;
+    }    
+    return deviceRegistration;
 }
 
 @end
