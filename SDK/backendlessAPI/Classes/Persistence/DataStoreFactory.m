@@ -35,7 +35,6 @@
     if (self = [super init]) {
         _entityClass = [entityClass retain];
         [[Types sharedInstance] addClientClassMapping:@"Users" mapped:[BackendlessUser class]];
-        [self setMappingForDeviceRegistration];
     }
     return self;
 }
@@ -50,12 +49,6 @@
         [_entityClass release];
     }
     [super dealloc];
-}
-
--(void)setMappingForDeviceRegistration {
-    [backendless.data mapColumnToProperty:[DeviceRegistration class] columnName:@"objectId" propertyName:@"id"];
-    [backendless.data mapColumnToProperty:[DeviceRegistration class] columnName:@"operatingSystemName" propertyName:@"os"];
-    [backendless.data mapColumnToProperty:[DeviceRegistration class] columnName:@"operatingSystemVersion" propertyName:@"osVersion"];
 }
 
 #pragma mark IDataStore Methods

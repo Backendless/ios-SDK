@@ -305,10 +305,6 @@ static NSString *REMOVE_BULK = @"removeBulk";
     Responder *responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onFind:) selErrorHandler:nil];
     _responder.chained = responder;
-    
-    if ([_tableName isEqualToString:@"DeviceRegistration"]) {
-        [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LAST args:args responder:_responder];
-    }
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LAST args:args responder:_responder];
 }
 

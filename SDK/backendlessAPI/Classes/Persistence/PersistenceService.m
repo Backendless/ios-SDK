@@ -36,6 +36,7 @@
 #import "ObjectProperty.h"
 #import "LoadRelationsQueryBuilder.h"
 #import "MapDrivenDataStore.h"
+#import "DeviceRegistrationAdapter.h"
 
 #define FAULT_NO_ENTITY [Fault fault:@"Entity is missing or null" detail:@"Entity is missing or null" faultCode:@"1900"]
 #define FAULT_OBJECT_ID_IS_NOT_EXIST [Fault fault:@"objectId is missing or null" detail:@"objectId is missing or null" faultCode:@"1901"]
@@ -259,6 +260,9 @@ static NSString *REMOVE_BULK = @"removeBulk";
     [self prepareClass:entity];
     NSString *className = [self typeClassName:entity];
     NSArray *args = @[[self getEntityName:className], [DataQueryBuilder new]];
+    if ([self isDeviceRegistrationClass:className]) {
+        return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args responseAdapter:[DeviceRegistrationAdapter new]];
+    }
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args];
 }
 
@@ -272,6 +276,9 @@ static NSString *REMOVE_BULK = @"removeBulk";
     [self prepareClass:entity];
     NSString *className = [self typeClassName:entity];
     NSArray *args = @[[self getEntityName:className], [queryBuilder build]];
+    if ([self isDeviceRegistrationClass:className]) {
+        return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args responseAdapter:[DeviceRegistrationAdapter new]];
+    }
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args];
 }
 
@@ -282,6 +289,9 @@ static NSString *REMOVE_BULK = @"removeBulk";
     [self prepareClass:entity];
     NSString *className = [self typeClassName:entity];
     NSArray *args = @[[self getEntityName:className]];
+    if ([self isDeviceRegistrationClass:className]) {
+        return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIRST args:args responseAdapter:[DeviceRegistrationAdapter new]];
+    }
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIRST args:args];
 }
 
@@ -292,6 +302,9 @@ static NSString *REMOVE_BULK = @"removeBulk";
     [self prepareClass:entity];
     NSString *className = [self typeClassName:entity];
     NSArray *args = @[[self getEntityName:className], [queryBuilder getRelated], [queryBuilder getRelationsDepth]?[queryBuilder getRelationsDepth]:[NSNull null], [queryBuilder getProperties]];
+    if ([self isDeviceRegistrationClass:className]) {
+        return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIRST args:args responseAdapter:[DeviceRegistrationAdapter new]];
+    }
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIRST args:args];
 }
 
@@ -302,6 +315,9 @@ static NSString *REMOVE_BULK = @"removeBulk";
     [self prepareClass:entity];
     NSString *className = [self typeClassName:entity];
     NSArray *args = @[[self getEntityName:className]];
+    if ([self isDeviceRegistrationClass:className]) {
+        return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LAST args:args responseAdapter:[DeviceRegistrationAdapter new]];
+    }
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LAST args:args];
 }
 
@@ -312,6 +328,9 @@ static NSString *REMOVE_BULK = @"removeBulk";
     [self prepareClass:entity];
     NSString *className = [self typeClassName:entity];
     NSArray *args = @[[self getEntityName:className], [queryBuilder getRelated], [queryBuilder getRelationsDepth]?[queryBuilder getRelationsDepth]:[NSNull null], [queryBuilder getProperties]];
+    if ([self isDeviceRegistrationClass:className]) {
+        return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LAST args:args responseAdapter:[DeviceRegistrationAdapter new]];
+    }
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LAST args:args];
 }
 
@@ -1048,10 +1067,13 @@ static NSString *REMOVE_BULK = @"removeBulk";
 }
 
 -(BOOL)prepareClass:(Class)className {
-    id object = [__types classInstance:className];
-    BOOL result = [object resolveProperty:PERSIST_OBJECT_ID];
-    [object resolveProperty:@"__meta"];
-    return result;
+    if (![[className class] isKindOfClass:[DeviceRegistration class]]) {
+        id object = [__types classInstance:className];
+        BOOL result = [object resolveProperty:PERSIST_OBJECT_ID];
+        [object resolveProperty:@"__meta"];
+        return result;
+    }
+    return YES;
 }
 
 -(BOOL)prepareObject:(id)object {
@@ -1109,6 +1131,13 @@ static NSString *REMOVE_BULK = @"removeBulk";
         [object setValue:value forKey:propertyName];
     }
     return object;
+}
+
+-(BOOL)isDeviceRegistrationClass:(NSString *)className {
+    if ([className isEqualToString:@"DeviceRegistration"]) {
+        return YES;
+    }
+    return NO;
 }
 
 #pragma mark Callback Methods
