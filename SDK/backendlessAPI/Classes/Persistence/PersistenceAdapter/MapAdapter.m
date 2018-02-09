@@ -24,6 +24,7 @@
 #import "IAdaptingType.h"
 #import "AnonymousObject.h"
 #import "NamedObject.h"
+#import "ArrayType.h"
 #import "V3Message.h"
 #import "ErrMessage.h"
 #import "Responder.h"
@@ -31,18 +32,22 @@
 @implementation MapAdapter
 
 -(id)adapt:(id)type {
-    V3Message *v3 = (V3Message *)[type defaultAdapt];
-    if (v3.isError) {
-        ErrMessage *result = (ErrMessage *)v3;
-        return [Fault fault:result.faultString detail:result.faultDetail faultCode:result.faultCode];
-    }
-    NSMutableDictionary *typeProperties = ((AnonymousObject *)[type getCacheKey]).properties; 
-    for (NSString *key in typeProperties) {
-        if ([[typeProperties valueForKey:key] isKindOfClass:[NamedObject class]]) {
-            NamedObject *namedObject = [typeProperties valueForKey:key];
-            return [namedObject adapt:[NSDictionary class]];
+    NSMutableDictionary *typeProperties = ((AnonymousObject *)[type getCacheKey]).properties;
+    id body = [typeProperties valueForKey:@"body"];
+        
+        if ([body isKindOfClass:[NamedObject class]]) {
+            return [body adapt:[NSDictionary class]];
         }
-    }    
+    
+        else if ([body isKindOfClass:[ArrayType class]]) {
+            NSMutableArray *result = [NSMutableArray new];
+            NSArray *bodyObjects = [body getArray];
+            for (NamedObject *namedObject in bodyObjects) {
+                [result addObject:[namedObject adapt:[NSDictionary class]]];
+            }
+            return result;
+        }
+    
     return nil;
 }
 

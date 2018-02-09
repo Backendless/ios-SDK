@@ -24,6 +24,7 @@
 #import "MapDrivenDataStore.h"
 #import "LoadRelationsQueryBuilder.h"
 #import "DataQueryBuilder.h"
+#import "IResponseAdapter.h"
 
 #define PERSIST_OBJECT_ID @"objectId"
 
@@ -50,15 +51,19 @@
 -(id)last:(Class)entity;
 -(id)last:(Class)entity queryBuilder:(DataQueryBuilder *)queryBuilder;
 -(id)findByObject:(id)entity;
+-(id)findByObject:(id)entity responseAdapter:(id<IResponseAdapter>)responseAdapter;
 -(id)findByObject:(id)entity queryBuilder:(DataQueryBuilder *)queryBuilder;
 -(id)findByObject:(id)entity relations:(NSArray *)relations;
 -(id)findByObject:(id)entity relations:(NSArray *)relations relationsDepth:(int)relationsDepth;
 -(id)findByObject:(NSString *)className keys:(NSDictionary *)props;
+-(id)findByObject:(NSString *)className keys:(NSDictionary *)props responseAdapter:(id<IResponseAdapter>)responseAdapter;
 -(id)findByObject:(NSString *)className keys:(NSDictionary *)props queryBuilder:(DataQueryBuilder *)queryBuilder;
 -(id)findByObject:(NSString *)className keys:(NSDictionary *)props relations:(NSArray *)relations;
 -(id)findByObject:(NSString *)className keys:(NSDictionary *)props relations:(NSArray *)relations relationsDepth:(int)relationsDepth;
 -(id)findById:(NSString *)entityName objectId:(NSString *)objectId;
+-(id)findById:(NSString *)entityName objectId:(NSString *)objectId responseAdapter:(id<IResponseAdapter>)responseAdapter;
 -(id)findById:(NSString *)entityName objectId:(NSString *)objectId queryBuilder:(DataQueryBuilder *)queryBuilder;
+-(id)findById:(NSString *)entityName objectId:(NSString *)objectId queryBuilder:(DataQueryBuilder *)queryBuilder responseAdapter:(id<IResponseAdapter>)responseAdapter;
 -(id)findByClassId:(Class)entity objectId:(NSString *)objectId;
 -(id)findByClassId:(Class)entity objectId:(NSString *)objectId queryBuilder:(DataQueryBuilder *)queryBuilder;
 -(NSNumber *)remove:(id)entity;

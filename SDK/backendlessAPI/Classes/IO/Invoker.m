@@ -24,11 +24,9 @@
 #import "DEBUG.h"
 #import "Backendless.h"
 #import "WeborbClient.h"
-//#import "Responder.h"
-//#import "V3Message.h"
-//#import "ErrMessage.h"
-#import "DefaultAdapter.h"
 #import "AdaptResponder.h"
+#import "DefaultAdapter.h"
+#import "DeviceRegistrationAdapter.h"
 
 
 static NSString *URL_ENDING = @"binary";
