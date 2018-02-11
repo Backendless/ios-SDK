@@ -190,16 +190,15 @@ static NSString *REMOVE_BULK = @"removeBulk";
 -(id)findById:(id)objectId queryBuilder:(DataQueryBuilder *)queryBuilder {
     NSMutableDictionary *result;
     if ([objectId isKindOfClass:[NSString class]]) {
-        result = [backendless.persistenceService findById:_tableName objectId:objectId queryBuilder:queryBuilder];
+        result = [backendless.persistenceService findById:_tableName objectId:objectId queryBuilder:queryBuilder responseAdapter:[MapAdapter new]];
     }
     else if ([objectId isKindOfClass:[NSDictionary class]]) {
-        result = [backendless.persistenceService findByObject:_tableName keys:objectId queryBuilder:queryBuilder];
+        result = [backendless.persistenceService findByObject:_tableName keys:objectId queryBuilder:queryBuilder responseAdapter:[MapAdapter new]];
     }
     else {
-        result = [backendless.persistenceService findByObject:objectId queryBuilder:queryBuilder];
+        result = [backendless.persistenceService findByObject:objectId queryBuilder:queryBuilder responseAdapter:[MapAdapter new]];
     }
-    result = [self setNullToNil:result];
-    return result;
+    return [self setNullToNil:result];
 }
 
 -(NSNumber *)getObjectCount {
@@ -316,38 +315,34 @@ static NSString *REMOVE_BULK = @"removeBulk";
 }
 
 -(void)findById:(id)objectId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    
     void (^wrappedBlock)(id) = ^(id dict) {
         dict = [self setNullToNil:dict];
         responseBlock(dict);
     };
-    
     if ([objectId isKindOfClass:[NSString class]]) {
-        [backendless.persistenceService findById:_tableName objectId:objectId response:wrappedBlock error:errorBlock];
+        [backendless.persistenceService findById:_tableName objectId:objectId response:wrappedBlock error:errorBlock responseAdapter:[MapAdapter new]];
     }
     else if ([objectId isKindOfClass:[NSDictionary class]]) {
-        [backendless.persistenceService findByObject:_tableName keys:objectId response:wrappedBlock error:errorBlock];
+        [backendless.persistenceService findByObject:_tableName keys:objectId response:wrappedBlock error:errorBlock responseAdapter:[MapAdapter new]];
     }
     else {
-        [backendless.persistenceService findByObject:objectId response:wrappedBlock error:errorBlock];
+        [backendless.persistenceService findByObject:objectId response:wrappedBlock error:errorBlock responseAdapter:[MapAdapter new]];
     }
 }
 
 -(void)findById:(id)objectId queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    
     void (^wrappedBlock)(id) = ^(id dict) {
         dict = [self setNullToNil:dict];
         responseBlock(dict);
     };
-    
     if ([objectId isKindOfClass:[NSString class]]) {
-        [backendless.persistenceService findById:_tableName objectId:objectId queryBuilder:queryBuilder response:wrappedBlock error:errorBlock];
+        [backendless.persistenceService findById:_tableName objectId:objectId queryBuilder:queryBuilder response:wrappedBlock error:errorBlock responseAdapter:[MapAdapter new]];
     }
     else if ([objectId isKindOfClass:[NSDictionary class]]) {
-        [backendless.persistenceService findByObject:_tableName keys:objectId queryBuilder:queryBuilder response:wrappedBlock error:errorBlock];
+        [backendless.persistenceService findByObject:_tableName keys:objectId queryBuilder:queryBuilder response:wrappedBlock error:errorBlock responseAdapter:[MapAdapter new]];
     }
     else {
-        [backendless.persistenceService findByObject:objectId queryBuilder:queryBuilder response:wrappedBlock error:errorBlock];
+        [backendless.persistenceService findByObject:objectId queryBuilder:queryBuilder response:wrappedBlock error:errorBlock responseAdapter:[MapAdapter new]];
     }
 }
 

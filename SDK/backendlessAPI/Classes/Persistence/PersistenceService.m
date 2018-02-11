@@ -36,8 +36,8 @@
 #import "ObjectProperty.h"
 #import "LoadRelationsQueryBuilder.h"
 #import "MapDrivenDataStore.h"
-#import "DeviceRegistrationAdapter.h"
 #import "DefaultAdapter.h"
+#import "DeviceRegistrationAdapter.h"
 
 #define FAULT_NO_ENTITY [Fault fault:@"Entity is missing or null" detail:@"Entity is missing or null" faultCode:@"1900"]
 #define FAULT_OBJECT_ID_IS_NOT_EXIST [Fault fault:@"objectId is missing or null" detail:@"objectId is missing or null" faultCode:@"1901"]
@@ -348,11 +348,15 @@ static NSString *REMOVE_BULK = @"removeBulk";
 }
 
 -(id)findByObject:(id)entity queryBuilder:(DataQueryBuilder *)queryBuilder {
+    return [self findByObject:entity queryBuilder:queryBuilder responseAdapter:[DefaultAdapter new]];
+}
+
+-(id)findByObject:(id)entity queryBuilder:(DataQueryBuilder *)queryBuilder responseAdapter:(id<IResponseAdapter>)responseAdapter {
     if (!entity) {
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     }
     NSArray *args = @[[self objectClassName:entity], [self propertyDictionary:entity], [queryBuilder build]];
-    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args];
+    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responseAdapter:responseAdapter];
 }
 
 -(id)findByObject:(id)entity relations:(NSArray *)relations {
@@ -387,6 +391,10 @@ static NSString *REMOVE_BULK = @"removeBulk";
 }
 
 -(id)findByObject:(NSString *)className keys:(NSDictionary *)props queryBuilder:(DataQueryBuilder *)queryBuilder {
+    return [self findByObject:className keys:props queryBuilder:queryBuilder responseAdapter:[DefaultAdapter new]];
+}
+
+-(id)findByObject:(NSString *)className keys:(NSDictionary *)props queryBuilder:(DataQueryBuilder *)queryBuilder responseAdapter:(id<IResponseAdapter>)responseAdapter {
     if (!className) {
         return [backendless throwFault:FAULT_NO_ENTITY];
     }
@@ -394,7 +402,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     }
     NSArray *args = @[className, props, [queryBuilder build]];
-    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args];
+    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responseAdapter:responseAdapter];
 }
 
 -(id)findByObject:(NSString *)className keys:(NSDictionary *)props relations:(NSArray *)relations {
@@ -749,21 +757,29 @@ static NSString *REMOVE_BULK = @"removeBulk";
 }
 
 -(void)findByObject:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self findByObject:entity response:responseBlock error:errorBlock responseAdapter:[DefaultAdapter new]];
+}
+
+-(void)findByObject:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock responseAdapter:(id<IResponseAdapter>)responseAdapter {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!entity) {
         return [chainedResponder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     }
     NSArray *args = @[[self objectClassName:entity], entity];
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder responseAdapter:responseAdapter];
 }
 
 -(void)findByObject:(id)entity queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self findByObject:entity queryBuilder:queryBuilder response:responseBlock error:errorBlock responseAdapter:[DefaultAdapter new]];
+}
+
+-(void)findByObject:(id)entity queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock responseAdapter:(id<IResponseAdapter>)responseAdapter {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!entity) {
         return [chainedResponder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     }
     NSArray *args = @[[self objectClassName:entity], entity, [queryBuilder build]];
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder responseAdapter:responseAdapter];
 }
 
 -(void)findByObject:(id)entity relations:(NSArray *)relations response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -785,6 +801,10 @@ static NSString *REMOVE_BULK = @"removeBulk";
 }
 
 -(void)findByObject:(NSString *)className keys:(NSDictionary *)props response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self findByObject:className keys:props response:responseBlock error:errorBlock responseAdapter:[DefaultAdapter new]];
+}
+
+-(void)findByObject:(NSString *)className keys:(NSDictionary *)props response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock responseAdapter:(id<IResponseAdapter>)responseAdapter {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!className) {
         return [chainedResponder errorHandler:FAULT_NO_ENTITY];
@@ -793,10 +813,14 @@ static NSString *REMOVE_BULK = @"removeBulk";
         return [chainedResponder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     }
     NSArray *args = [NSArray arrayWithObjects:className, props, nil];
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder responseAdapter:responseAdapter];
 }
 
 -(void)findByObject:(NSString *)className keys:(NSDictionary *)props queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self findByObject:className keys:props queryBuilder:queryBuilder response:responseBlock error:errorBlock responseAdapter:[DefaultAdapter new]];
+}
+
+-(void)findByObject:(NSString *)className keys:(NSDictionary *)props queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock responseAdapter:(id<IResponseAdapter>)responseAdapter {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!className) {
         return [chainedResponder errorHandler:FAULT_NO_ENTITY];
@@ -805,7 +829,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
         return [chainedResponder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
     }
     NSArray *args = [NSArray arrayWithObjects:className, props, [queryBuilder build], nil];
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder responseAdapter:responseAdapter];
 }
 
 -(void)findByObject:(NSString *)className keys:(NSDictionary *)props relations:(NSArray *)relations response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -833,6 +857,10 @@ static NSString *REMOVE_BULK = @"removeBulk";
 }
 
 -(void)findById:(NSString *)entityName objectId:(NSString *)objectId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self findById:entityName objectId:objectId response:responseBlock error:errorBlock responseAdapter:[DefaultAdapter new]];
+}
+
+-(void)findById:(NSString *)entityName objectId:(NSString *)objectId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock responseAdapter:(id<IResponseAdapter>)responseAdapter {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!entityName) {
         return [chainedResponder errorHandler:FAULT_NO_ENTITY];
@@ -842,10 +870,14 @@ static NSString *REMOVE_BULK = @"removeBulk";
     }
     [self prepareClass:NSClassFromString(entityName)];
     NSArray *args = [NSArray arrayWithObjects:entityName, objectId, nil];
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder responseAdapter:responseAdapter];
 }
 
 -(void)findById:(NSString *)entityName objectId:(NSString *)objectId queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self findById:entityName objectId:objectId queryBuilder:queryBuilder response:responseBlock error:errorBlock responseAdapter:[DefaultAdapter new]];
+}
+
+-(void)findById:(NSString *)entityName objectId:(NSString *)objectId queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock responseAdapter:(id<IResponseAdapter>)responseAdapter {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!entityName) {
         return [chainedResponder errorHandler:FAULT_NO_ENTITY];
@@ -855,7 +887,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     }
     [self prepareClass:NSClassFromString(entityName)];
     NSArray *args = [NSArray arrayWithObjects:entityName, objectId, [queryBuilder build], nil];
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder responseAdapter:responseAdapter];
 }
 
 -(void)findByClassId:(Class)entity objectId:(NSString *)objectId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
