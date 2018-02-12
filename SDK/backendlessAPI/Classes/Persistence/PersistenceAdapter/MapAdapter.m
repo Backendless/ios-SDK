@@ -32,22 +32,25 @@
 @implementation MapAdapter
 
 -(id)adapt:(id)type {
+    V3Message *v3 = (V3Message *)[type defaultAdapt];
+    if (v3.isError) {
+        ErrMessage *result = (ErrMessage *)v3;        
+        return [Fault fault:result.faultString detail:result.faultDetail faultCode:result.faultCode];
+    }
     NSMutableDictionary *typeProperties = ((AnonymousObject *)[type getCacheKey]).properties;
     id body = [typeProperties valueForKey:@"body"];
-        
-        if ([body isKindOfClass:[NamedObject class]]) {
-            return [body adapt:[NSDictionary class]];
-        }
     
-        else if ([body isKindOfClass:[ArrayType class]]) {
-            NSMutableArray *result = [NSMutableArray new];
-            NSArray *bodyObjects = [body getArray];
-            for (NamedObject *namedObject in bodyObjects) {
-                [result addObject:[namedObject adapt:[NSDictionary class]]];
-            }
-            return result;
+    if ([body isKindOfClass:[NamedObject class]]) {
+        return [body adapt:[NSDictionary class]];
+    }
+    else if ([body isKindOfClass:[ArrayType class]]) {
+        NSMutableArray *result = [NSMutableArray new];
+        NSArray *bodyObjects = [body getArray];
+        for (NamedObject *bodyObject in bodyObjects) {
+            [result addObject:[bodyObject adapt:[NSDictionary class]]];
         }
-    
+        return result;
+    }
     return nil;
 }
 

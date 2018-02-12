@@ -33,27 +33,46 @@
 @implementation DeviceRegistrationAdapter
 
 -(id)adapt:(id)type {
-    
-    [backendless.data mapColumnToProperty:[DeviceRegistration class] columnName:@"objectId" propertyName:@"id"];
-    [backendless.data mapColumnToProperty:[DeviceRegistration class] columnName:@"operatingSystemName" propertyName:@"os"];
-    [backendless.data mapColumnToProperty:[DeviceRegistration class] columnName:@"operatingSystemVersion" propertyName:@"osVersion"];
-    
-    NSMutableDictionary *typeProperties = ((AnonymousObject *)[type getCacheKey]).properties;
-    NamedObject *body = [typeProperties valueForKey:@"body"];
-    NSMutableDictionary *bodyProperties = ((AnonymousObject *)[body getCacheKey]).properties;
-    NSString *channelName = [[bodyProperties valueForKey:@"channelName"] defaultAdapt];
-    
     V3Message *v3 = (V3Message *)[type defaultAdapt];
     if (v3.isError) {
         ErrMessage *result = (ErrMessage *)v3;
         return [Fault fault:result.faultString detail:result.faultDetail faultCode:result.faultCode];
     }
+    NSMutableDictionary *typeProperties = ((AnonymousObject *)[type getCacheKey]).properties;
+    id body = [typeProperties valueForKey:@"body"];    
+    if ([body isKindOfClass:[NamedObject class]]) {
+        return [self adaptToDeviceRegistration:body];
+    }
+    else if ([body isKindOfClass:[ArrayType class]]) {
+        NSMutableArray *result = [NSMutableArray new];
+        NSArray *bodyObjects = [body getArray];
+        for (NamedObject *bodyObject in bodyObjects) {
+            [result addObject:[self adaptToDeviceRegistration:bodyObject]];
+        }
+        return result;
+    }
+    return nil;
+}
+
+-(DeviceRegistration *)adaptToDeviceRegistration:(NamedObject *)body {
+    DeviceRegistration *deviceRegistration = [DeviceRegistration new];
+    NSMutableDictionary *bodyProperties = ((AnonymousObject *)[body getCacheKey]).properties;
     
-    DeviceRegistration *deviceRegistration = v3.body.body;
+    [bodyProperties removeObjectForKey:@"___class"];
+    [bodyProperties removeObjectForKey:@"created"];
+    [bodyProperties removeObjectForKey:@"ownerId"];
+    [bodyProperties removeObjectForKey:@"updated"];
+    
+    for (NSString *property in [bodyProperties allKeys]) {
+        if (![property isEqualToString:@"channelName"]) {
+            [deviceRegistration setValue:[[bodyProperties valueForKey:property] defaultAdapt] forKey:property];
+        }
+    }
+    NSString *channelName = [[bodyProperties valueForKey:@"channelName"] defaultAdapt];
     deviceRegistration.channels = [NSArray arrayWithObject:channelName];
     if ([deviceRegistration.expiration isKindOfClass:[NSNull class]]) {
         deviceRegistration.expiration = nil;
-    }    
+    }
     return deviceRegistration;
 }
 

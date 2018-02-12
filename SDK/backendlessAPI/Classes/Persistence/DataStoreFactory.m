@@ -35,12 +35,21 @@
     if (self = [super init]) {
         _entityClass = [entityClass retain];
         [[Types sharedInstance] addClientClassMapping:@"Users" mapped:[BackendlessUser class]];
+        [self mapDeviceRegistrationTableToClass];
     }
     return self;
 }
 
 +(id <IDataStore>)createDataStore:(Class)entityClass {
     return [[DataStoreFactory alloc] init:entityClass];
+}
+
+-(void)mapDeviceRegistrationTableToClass {
+    if (_entityClass == [DeviceRegistration class]) {
+        [backendless.data mapColumnToProperty:[DeviceRegistration class] columnName:@"objectId" propertyName:@"id"];
+        [backendless.data mapColumnToProperty:[DeviceRegistration class] columnName:@"operatingSystemName" propertyName:@"os"];
+        [backendless.data mapColumnToProperty:[DeviceRegistration class] columnName:@"operatingSystemVersion" propertyName:@"osVersion"];
+    }
 }
 
 -(void)dealloc {

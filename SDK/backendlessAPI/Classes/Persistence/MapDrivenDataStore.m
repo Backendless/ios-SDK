@@ -1,4 +1,4 @@
- //
+//
 //  MapDrivenDataStore.m
 //  backendlessAPI
 /*
@@ -385,9 +385,11 @@ static NSString *REMOVE_BULK = @"removeBulk";
 }
 
 -(NSMutableDictionary *)setNullToNil:(NSMutableDictionary *)dictionary {
-    for (NSString *key in [dictionary allKeys]) {
-        if ([[dictionary valueForKey:key] isKindOfClass:[NSNull class]]) {
-            dictionary[key] = nil;
+    if ([dictionary isKindOfClass:[NSDictionary class]] || [dictionary isKindOfClass:[NSMutableDictionary class]]) {
+        for (NSString *key in [dictionary allKeys]) {
+            if ([[dictionary valueForKey:key] isKindOfClass:[NSNull class]]) {
+                dictionary[key] = nil;
+            }
         }
     }
     return dictionary;
