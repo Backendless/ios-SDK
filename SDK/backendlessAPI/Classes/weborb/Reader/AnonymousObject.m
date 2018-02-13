@@ -1,4 +1,4 @@
- //
+//
 //  AnonymousObject.m
 //  RTMPStream
 //
@@ -14,6 +14,9 @@
 #import "BinaryStream.h"
 #import "V3Message.h"
 #import "NamedObject.h"
+#import "ArrayType.h"
+
+#import "BodyHolder.h"
 
 @implementation AnonymousObject
 @synthesize properties;
@@ -96,6 +99,17 @@
         id prop = [props valueForKey:memberName];
         [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> setFieldsDirect: PROPERTY %@ <%@>", memberName, [prop class]];
         id propValue = [properties valueForKey:memberName];
+        
+        // field to property mapping
+        if ([propValue isKindOfClass:[NamedObject class]]) {
+            ((AnonymousObject *)[propValue getCacheKey]).properties = [self mapFieldToProperty:propValue];
+        }
+        else if ([propValue isKindOfClass:[ArrayType class]]) {
+            for (NamedObject *namedObject in [propValue getArray]) {
+                ((AnonymousObject *)[namedObject getCacheKey]).properties = [self mapFieldToProperty:namedObject];
+            }
+        }
+        
         if (!propValue) {
             // and with uppercased first char of property name?
             NSString *upper = [memberName firstCharToUpper];
@@ -157,9 +171,9 @@
                 [DebLog logY:@"AnonymousObject -> setFieldsDirect: <%@> %@ <%@> EXCEPTION = %@", [obj class], memberName, [propValue class], exception];
             }
         }
-    }    
+    }
     [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> setFieldsDirect: (!!!!!!) SET ALL PROPERTIES obj = %@ <%@>", obj, [obj class]];
-#if _ON_RESOLVING_ABSENT_PROPERTY_ 
+#if _ON_RESOLVING_ABSENT_fPROPERTY_
     // add "on the fly" properties to obj
     NSArray *_properties = [properties allKeys];
     for (NSString *prop in _properties) {
@@ -173,7 +187,7 @@
         [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> setFieldsDirect: PROPERTY '%@' OF CLASS %@ -> %@ <%@>", prop, [propertyValue class], value, [value class]];
         [obj resolveProperty:prop value:value];
     }
-    [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> setFieldsDirect: FINISHED (0) obj = %@ <%@>\n%@\n\n", obj, [obj class], [Types propertyDictionary:obj]];    
+    [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> setFieldsDirect: FINISHED (0) obj = %@ <%@>\n%@\n\n", obj, [obj class], [Types propertyDictionary:obj]];
 #endif
     
     // deserializer pastprocessor
@@ -196,6 +210,26 @@
 #endif
     [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> setFieldsDirect: FINISHED (1) obj = %@ <%@>\n%@\n\n\n", obj, [obj class], [Types propertyDictionary:obj]];
     return obj;
+}
+
+-(NSMutableDictionary *)mapFieldToProperty:(NamedObject *)propValue {
+    NSMutableDictionary *propertiesOfPropValue = ((AnonymousObject *)[propValue getCacheKey]).properties;
+    if ([[Types sharedInstance] getPropertiesMappingForClientClass:([propValue getMappedType])]) {
+        NSDictionary *mappedProperties = [[Types sharedInstance] getPropertiesMappingForClientClass:[propValue getMappedType]];
+        NSMutableDictionary *changedPropertiesOfPropValue = [NSMutableDictionary new];
+        for (NSString *key in [propertiesOfPropValue allKeys]) {            
+            if ([[mappedProperties allKeys] containsObject:key]) {
+                [changedPropertiesOfPropValue setObject:[propertiesOfPropValue valueForKey:key] forKey:[mappedProperties valueForKey:key]];
+            }
+            else {
+                [changedPropertiesOfPropValue setObject:[propertiesOfPropValue valueForKey:key] forKey:key];
+            }
+        }
+        if (changedPropertiesOfPropValue) {
+            return changedPropertiesOfPropValue;
+        }
+    }
+    return propertiesOfPropValue;
 }
 
 #pragma mark -
