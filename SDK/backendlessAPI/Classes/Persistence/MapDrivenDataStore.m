@@ -173,31 +173,13 @@ static NSString *REMOVE_BULK = @"removeBulk";
     return [result isKindOfClass:NSDictionary.class]?[self setNullToNil:(NSMutableDictionary *) result]:[self setNullToNil:(NSMutableDictionary *) [Types propertyDictionary:result]];
 }
 
--(id)findById:(id)objectId {
-    NSMutableDictionary *result;
-    if ([objectId isKindOfClass:[NSString class]]) {
-        result = [backendless.persistenceService findById:_tableName objectId:objectId responseAdapter:[MapAdapter new]];
-    }
-    else if ([objectId isKindOfClass:[NSDictionary class]]) {
-        result = [backendless.persistenceService findByObject:_tableName keys:objectId responseAdapter:[MapAdapter new]];
-    }
-    else {
-        result = [backendless.persistenceService findByObject:objectId responseAdapter:[MapAdapter new]];
-    }
+-(id)findById:(NSString *)objectId {
+    NSMutableDictionary *result = [backendless.persistenceService findById:_tableName objectId:objectId responseAdapter:[MapAdapter new]];
     return [self setNullToNil:result];
 }
 
--(id)findById:(id)objectId queryBuilder:(DataQueryBuilder *)queryBuilder {
-    NSMutableDictionary *result;
-    if ([objectId isKindOfClass:[NSString class]]) {
-        result = [backendless.persistenceService findById:_tableName objectId:objectId queryBuilder:queryBuilder responseAdapter:[MapAdapter new]];
-    }
-    else if ([objectId isKindOfClass:[NSDictionary class]]) {
-        result = [backendless.persistenceService findByObject:_tableName keys:objectId queryBuilder:queryBuilder responseAdapter:[MapAdapter new]];
-    }
-    else {
-        result = [backendless.persistenceService findByObject:objectId queryBuilder:queryBuilder responseAdapter:[MapAdapter new]];
-    }
+-(id)findById:(NSString *)objectId queryBuilder:(DataQueryBuilder *)queryBuilder {
+    NSMutableDictionary *result = [backendless.persistenceService findById:_tableName objectId:objectId queryBuilder:queryBuilder responseAdapter:[MapAdapter new]];
     return [self setNullToNil:result];
 }
 
@@ -314,36 +296,20 @@ static NSString *REMOVE_BULK = @"removeBulk";
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LAST args:args responder:_responder responseAdapter:[MapAdapter new]];
 }
 
--(void)findById:(id)objectId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)findById:(NSString *)objectId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     void (^wrappedBlock)(id) = ^(id dict) {
         dict = [self setNullToNil:dict];
         responseBlock(dict);
     };
-    if ([objectId isKindOfClass:[NSString class]]) {
-        [backendless.persistenceService findById:_tableName objectId:objectId response:wrappedBlock error:errorBlock responseAdapter:[MapAdapter new]];
-    }
-    else if ([objectId isKindOfClass:[NSDictionary class]]) {
-        [backendless.persistenceService findByObject:_tableName keys:objectId response:wrappedBlock error:errorBlock responseAdapter:[MapAdapter new]];
-    }
-    else {
-        [backendless.persistenceService findByObject:objectId response:wrappedBlock error:errorBlock responseAdapter:[MapAdapter new]];
-    }
+    [backendless.persistenceService findById:_tableName objectId:objectId response:wrappedBlock error:errorBlock responseAdapter:[MapAdapter new]];
 }
 
--(void)findById:(id)objectId queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)findById:(NSString *)objectId queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     void (^wrappedBlock)(id) = ^(id dict) {
         dict = [self setNullToNil:dict];
         responseBlock(dict);
     };
-    if ([objectId isKindOfClass:[NSString class]]) {
-        [backendless.persistenceService findById:_tableName objectId:objectId queryBuilder:queryBuilder response:wrappedBlock error:errorBlock responseAdapter:[MapAdapter new]];
-    }
-    else if ([objectId isKindOfClass:[NSDictionary class]]) {
-        [backendless.persistenceService findByObject:_tableName keys:objectId queryBuilder:queryBuilder response:wrappedBlock error:errorBlock responseAdapter:[MapAdapter new]];
-    }
-    else {
-        [backendless.persistenceService findByObject:objectId queryBuilder:queryBuilder response:wrappedBlock error:errorBlock responseAdapter:[MapAdapter new]];
-    }
+    [backendless.persistenceService findById:_tableName objectId:objectId queryBuilder:queryBuilder response:wrappedBlock error:errorBlock responseAdapter:[MapAdapter new]];
 }
 
 -(void)getObjectCount:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
