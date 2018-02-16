@@ -335,38 +335,6 @@ static NSString *REMOVE_BULK = @"removeBulk";
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LAST args:args];
 }
 
--(id)findByObject:(id)entity {
-    NSString *className = [self typeClassName:entity];
-    if ([self isDeviceRegistrationClass:[self getEntityName:className]]) {
-        return [self findByObject:entity responseAdapter:[DeviceRegistrationAdapter new]];
-    }
-    return [self findByObject:entity responseAdapter:[DefaultAdapter new]];
-}
-
--(id)findByObject:(id)entity responseAdapter:(id<IResponseAdapter>)responseAdapter {
-    if (!entity) {
-        return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
-    }
-    NSArray *args = @[[self objectClassName:entity], [self propertyDictionary:entity]];
-    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responseAdapter:responseAdapter];
-}
-
--(id)findByObject:(id)entity queryBuilder:(DataQueryBuilder *)queryBuilder {
-    NSString *className = [self typeClassName:entity];
-    if ([self isDeviceRegistrationClass:[self getEntityName:className]]) {
-        return [self findByObject:entity queryBuilder:queryBuilder responseAdapter:[DeviceRegistrationAdapter new]];
-    }
-    return [self findByObject:entity queryBuilder:queryBuilder responseAdapter:[DefaultAdapter new]];
-}
-
--(id)findByObject:(id)entity queryBuilder:(DataQueryBuilder *)queryBuilder responseAdapter:(id<IResponseAdapter>)responseAdapter {
-    if (!entity) {
-        return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
-    }
-    NSArray *args = @[[self objectClassName:entity], [self propertyDictionary:entity], [queryBuilder build]];
-    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responseAdapter:responseAdapter];
-}
-
 -(id)findByObject:(id)entity relations:(NSArray *)relations {
     if (!entity) {
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
@@ -381,42 +349,6 @@ static NSString *REMOVE_BULK = @"removeBulk";
     }
     NSArray *args = @[[self objectClassName:entity], [self propertyDictionary:entity], relations, @(relationsDepth)];
     return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args];
-}
-
--(id)findByObject:(NSString *)className keys:(NSDictionary *)props {
-    if ([self isDeviceRegistrationClass:[self getEntityName:className]]) {
-        return [self findByObject:className keys:props responseAdapter:[DeviceRegistrationAdapter new]];
-    }
-    return [self findByObject:className keys:props responseAdapter:[DefaultAdapter new]];
-}
-
--(id)findByObject:(NSString *)className keys:(NSDictionary *)props responseAdapter:(id<IResponseAdapter>)responseAdapter {
-    if (!className) {
-        return [backendless throwFault:FAULT_NO_ENTITY];
-    }
-    if (!props) {
-        return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
-    }
-    NSArray *args = @[className, props];
-    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responseAdapter:responseAdapter];
-}
-
--(id)findByObject:(NSString *)className keys:(NSDictionary *)props queryBuilder:(DataQueryBuilder *)queryBuilder {
-    if ([self isDeviceRegistrationClass:[self getEntityName:className]]) {
-        return [self findByObject:className keys:props queryBuilder:queryBuilder responseAdapter:[DeviceRegistrationAdapter new]];
-    }
-    return [self findByObject:className keys:props queryBuilder:queryBuilder responseAdapter:[DefaultAdapter new]];
-}
-
--(id)findByObject:(NSString *)className keys:(NSDictionary *)props queryBuilder:(DataQueryBuilder *)queryBuilder responseAdapter:(id<IResponseAdapter>)responseAdapter {
-    if (!className) {
-        return [backendless throwFault:FAULT_NO_ENTITY];
-    }
-    if (!props) {
-        return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
-    }
-    NSArray *args = @[className, props, [queryBuilder build]];
-    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responseAdapter:responseAdapter];
 }
 
 -(id)findByObject:(NSString *)className keys:(NSDictionary *)props relations:(NSArray *)relations {
@@ -804,42 +736,6 @@ static NSString *REMOVE_BULK = @"removeBulk";
     }
 }
 
--(void)findByObject:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    NSString *className = [self typeClassName:entity];
-    if ([self isDeviceRegistrationClass:[self getEntityName:className]]) {
-        [self findByObject:entity response:responseBlock error:errorBlock responseAdapter:[DeviceRegistrationAdapter new]];
-    }
-    else {
-        [self findByObject:entity response:responseBlock error:errorBlock responseAdapter:[DefaultAdapter new]];
-    }    
-}
-
--(void)findByObject:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock responseAdapter:(id<IResponseAdapter>)responseAdapter {
-    Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
-    if (!entity) {
-        return [chainedResponder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
-    }
-    NSArray *args = @[[self objectClassName:entity], entity];
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder responseAdapter:responseAdapter];
-}
-
--(void)findByObject:(id)entity queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    NSString *className = [self typeClassName:entity];
-    if ([self isDeviceRegistrationClass:[self getEntityName:className]]) {
-        [self findByObject:entity queryBuilder:queryBuilder response:responseBlock error:errorBlock responseAdapter:[DeviceRegistrationAdapter new]];
-    }
-    [self findByObject:entity queryBuilder:queryBuilder response:responseBlock error:errorBlock responseAdapter:[DefaultAdapter new]];
-}
-
--(void)findByObject:(id)entity queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock responseAdapter:(id<IResponseAdapter>)responseAdapter {
-    Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
-    if (!entity) {
-        return [chainedResponder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
-    }
-    NSArray *args = @[[self objectClassName:entity], entity, [queryBuilder build]];
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder responseAdapter:responseAdapter];
-}
-
 -(void)findByObject:(id)entity relations:(NSArray *)relations response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!entity) {
@@ -856,48 +752,6 @@ static NSString *REMOVE_BULK = @"removeBulk";
     }
     NSArray *args = @[[self objectClassName:entity], entity, relations, @(relationsDepth)];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder];
-}
-
--(void)findByObject:(NSString *)className keys:(NSDictionary *)props response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    if ([self isDeviceRegistrationClass:[self getEntityName:className]]) {
-        [self findByObject:className keys:props response:responseBlock error:errorBlock responseAdapter:[DeviceRegistrationAdapter new]];
-    }
-    else {
-        [self findByObject:className keys:props response:responseBlock error:errorBlock responseAdapter:[DefaultAdapter new]];
-    }
-}
-
--(void)findByObject:(NSString *)className keys:(NSDictionary *)props response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock responseAdapter:(id<IResponseAdapter>)responseAdapter {
-    Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
-    if (!className) {
-        return [chainedResponder errorHandler:FAULT_NO_ENTITY];
-    }
-    if (!props) {
-        return [chainedResponder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
-    }
-    NSArray *args = [NSArray arrayWithObjects:className, props, nil];
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder responseAdapter:responseAdapter];
-}
-
--(void)findByObject:(NSString *)className keys:(NSDictionary *)props queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    if ([self isDeviceRegistrationClass:[self getEntityName:className]]) {
-        [self findByObject:className keys:props queryBuilder:queryBuilder response:responseBlock error:errorBlock responseAdapter:[DeviceRegistrationAdapter new]];
-    }
-    else {
-        [self findByObject:className keys:props queryBuilder:queryBuilder response:responseBlock error:errorBlock responseAdapter:[DefaultAdapter new]];
-    }    
-}
-
--(void)findByObject:(NSString *)className keys:(NSDictionary *)props queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock responseAdapter:(id<IResponseAdapter>)responseAdapter {
-    Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
-    if (!className) {
-        return [chainedResponder errorHandler:FAULT_NO_ENTITY];
-    }
-    if (!props) {
-        return [chainedResponder errorHandler:FAULT_OBJECT_ID_IS_NOT_EXIST];
-    }
-    NSArray *args = [NSArray arrayWithObjects:className, props, [queryBuilder build], nil];
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FINDBYID args:args responder:chainedResponder responseAdapter:responseAdapter];
 }
 
 -(void)findByObject:(NSString *)className keys:(NSDictionary *)props relations:(NSArray *)relations response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
