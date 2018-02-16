@@ -1664,16 +1664,16 @@
 		5AD743271FD6FDBE00A19D1A /* RTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A155D1FA0CB22009A1394 /* RTClient.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5AEED9CE1FC5B90800CB7D9F /* UserStatusObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AEED9C91FC5B90800CB7D9F /* UserStatusObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AEED9D31FC5B90800CB7D9F /* UserStatusObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AEED9CA1FC5B90800CB7D9F /* UserStatusObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5AF260521FD6B06F00306C3C /* BulkResultObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF260501FD6B06F00306C3C /* BulkResultObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5AF260531FD6B06F00306C3C /* BulkResultObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF260501FD6B06F00306C3C /* BulkResultObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5AF260541FD6B06F00306C3C /* BulkResultObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF260501FD6B06F00306C3C /* BulkResultObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5AF260551FD6B06F00306C3C /* BulkResultObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF260501FD6B06F00306C3C /* BulkResultObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5AF260561FD6B06F00306C3C /* BulkResultObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF260501FD6B06F00306C3C /* BulkResultObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5AF260571FD6B06F00306C3C /* BulkResultObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF260511FD6B06F00306C3C /* BulkResultObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5AF260581FD6B06F00306C3C /* BulkResultObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF260511FD6B06F00306C3C /* BulkResultObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5AF260591FD6B06F00306C3C /* BulkResultObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF260511FD6B06F00306C3C /* BulkResultObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5AF2605A1FD6B06F00306C3C /* BulkResultObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF260511FD6B06F00306C3C /* BulkResultObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5AF2605B1FD6B06F00306C3C /* BulkResultObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF260511FD6B06F00306C3C /* BulkResultObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5AF260521FD6B06F00306C3C /* BulkEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF260501FD6B06F00306C3C /* BulkEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AF260531FD6B06F00306C3C /* BulkEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF260501FD6B06F00306C3C /* BulkEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AF260541FD6B06F00306C3C /* BulkEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF260501FD6B06F00306C3C /* BulkEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AF260551FD6B06F00306C3C /* BulkEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF260501FD6B06F00306C3C /* BulkEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AF260561FD6B06F00306C3C /* BulkEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF260501FD6B06F00306C3C /* BulkEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AF260571FD6B06F00306C3C /* BulkEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF260511FD6B06F00306C3C /* BulkEvent.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5AF260581FD6B06F00306C3C /* BulkEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF260511FD6B06F00306C3C /* BulkEvent.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5AF260591FD6B06F00306C3C /* BulkEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF260511FD6B06F00306C3C /* BulkEvent.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5AF2605A1FD6B06F00306C3C /* BulkEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF260511FD6B06F00306C3C /* BulkEvent.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5AF2605B1FD6B06F00306C3C /* BulkEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF260511FD6B06F00306C3C /* BulkEvent.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5AF2B7281EB2136300D54442 /* MessagingService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AFFBF7A1EB211EC0099A72F /* MessagingService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AF2B7291EB2137200D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; };
 		5AF2B72A1EB2137A00D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; };
@@ -2618,8 +2618,8 @@
 		5AD17B1D200775B200FFB487 /* RTFactory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RTFactory.m; sourceTree = "<group>"; };
 		5AEED9C91FC5B90800CB7D9F /* UserStatusObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserStatusObject.h; sourceTree = "<group>"; };
 		5AEED9CA1FC5B90800CB7D9F /* UserStatusObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserStatusObject.m; sourceTree = "<group>"; };
-		5AF260501FD6B06F00306C3C /* BulkResultObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BulkResultObject.h; sourceTree = "<group>"; };
-		5AF260511FD6B06F00306C3C /* BulkResultObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BulkResultObject.m; sourceTree = "<group>"; };
+		5AF260501FD6B06F00306C3C /* BulkEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BulkEvent.h; sourceTree = "<group>"; };
+		5AF260511FD6B06F00306C3C /* BulkEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BulkEvent.m; sourceTree = "<group>"; };
 		5AFFBF7A1EB211EC0099A72F /* MessagingService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagingService.h; sourceTree = "<group>"; };
 		5AFFBF7B1EB211EC0099A72F /* MessagingService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagingService.m; sourceTree = "<group>"; };
 		66B54B09751443A95F843B9B /* Pods_backendless_simulator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_backendless_simulator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3360,8 +3360,8 @@
 			children = (
 				5A8A15801FA0D3C3009A1394 /* EventHandler.h */,
 				5A8A15811FA0D3C3009A1394 /* EventHandler.m */,
-				5AF260501FD6B06F00306C3C /* BulkResultObject.h */,
-				5AF260511FD6B06F00306C3C /* BulkResultObject.m */,
+				5AF260501FD6B06F00306C3C /* BulkEvent.h */,
+				5AF260511FD6B06F00306C3C /* BulkEvent.m */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -3862,7 +3862,7 @@
 				5AD17B06200770CC00FFB487 /* UserInfo.h in Headers */,
 				5A4F7FBC1FDEB770006D5744 /* RTService.h in Headers */,
 				5A66A0731FD6CD1E002202BE /* RTHelper.h in Headers */,
-				5AF260521FD6B06F00306C3C /* BulkResultObject.h in Headers */,
+				5AF260521FD6B06F00306C3C /* BulkEvent.h in Headers */,
 				5A8A155E1FA0CB22009A1394 /* RTClient.h in Headers */,
 				0F9ACCD21E798C5F0087869F /* ITypeWriter.h in Headers */,
 				0F9AC8271E798C5C0087869F /* Responder.h in Headers */,
@@ -4109,7 +4109,7 @@
 				5AD17B07200770CC00FFB487 /* UserInfo.h in Headers */,
 				5A4F7FBD1FDEB770006D5744 /* RTService.h in Headers */,
 				5A66A0741FD6CD1E002202BE /* RTHelper.h in Headers */,
-				5AF260531FD6B06F00306C3C /* BulkResultObject.h in Headers */,
+				5AF260531FD6B06F00306C3C /* BulkEvent.h in Headers */,
 				5A8A15831FA0D3C3009A1394 /* EventHandler.h in Headers */,
 				5A8A155F1FA0CB22009A1394 /* RTClient.h in Headers */,
 				0F9AC9CC1E798C5D0087869F /* ISharedObjectMessage.h in Headers */,
@@ -4364,7 +4364,7 @@
 				5AD17B08200770CC00FFB487 /* UserInfo.h in Headers */,
 				5A4F7FBE1FDEB770006D5744 /* RTService.h in Headers */,
 				5A66A0751FD6CD1E002202BE /* RTHelper.h in Headers */,
-				5AF260541FD6B06F00306C3C /* BulkResultObject.h in Headers */,
+				5AF260541FD6B06F00306C3C /* BulkEvent.h in Headers */,
 				5A8A15841FA0D3C3009A1394 /* EventHandler.h in Headers */,
 				5A8A15601FA0CB22009A1394 /* RTClient.h in Headers */,
 				0F9AC9CD1E798C5D0087869F /* ISharedObjectMessage.h in Headers */,
@@ -4620,7 +4620,7 @@
 				5A4F7FBF1FDEB770006D5744 /* RTService.h in Headers */,
 				5ABF77691FB4ACF1006299F7 /* RTClient.h in Headers */,
 				5A66A0761FD6CD1E002202BE /* RTHelper.h in Headers */,
-				5AF260551FD6B06F00306C3C /* BulkResultObject.h in Headers */,
+				5AF260551FD6B06F00306C3C /* BulkEvent.h in Headers */,
 				5ABF776B1FB4AD04006299F7 /* RTListener.h in Headers */,
 				0F9ACCD51E798C5F0087869F /* ITypeWriter.h in Headers */,
 				0F9AC82A1E798C5C0087869F /* Responder.h in Headers */,
@@ -4874,7 +4874,7 @@
 				5AD17B0A200770CC00FFB487 /* UserInfo.h in Headers */,
 				5A4F7FC01FDEB770006D5744 /* RTService.h in Headers */,
 				5A66A0771FD6CD1E002202BE /* RTHelper.h in Headers */,
-				5AF260561FD6B06F00306C3C /* BulkResultObject.h in Headers */,
+				5AF260561FD6B06F00306C3C /* BulkEvent.h in Headers */,
 				5A8A15861FA0D3C3009A1394 /* EventHandler.h in Headers */,
 				5A8A15621FA0CB22009A1394 /* RTClient.h in Headers */,
 				0F9ACCD61E798C5F0087869F /* ITypeWriter.h in Headers */,
@@ -5534,7 +5534,7 @@
 				5AD1BEE01FD1B0D200493038 /* RTSubscription.m in Sources */,
 				5AD1BEDF1FD1B0CA00493038 /* RTMethodRequest.m in Sources */,
 				5A096D811FD1B091009BF89E /* RTMethod.m in Sources */,
-				5AF260571FD6B06F00306C3C /* BulkResultObject.m in Sources */,
+				5AF260571FD6B06F00306C3C /* BulkEvent.m in Sources */,
 				5A096D801FD1B088009BF89E /* RTListener.m in Sources */,
 				5A096D7F1FD1B07E009BF89E /* CommandObject.m in Sources */,
 				5A096D7E1FD1B072009BF89E /* RTMessaging.m in Sources */,
@@ -5831,7 +5831,7 @@
 				0F9ACCAB1E798C5F0087869F /* BoundPropertyBagWriter.m in Sources */,
 				F97969FD166CCB8200595F5E /* DeliveryOptions.m in Sources */,
 				D30FC9B51AE132C2007C9A83 /* LogBuffer.m in Sources */,
-				5AF260581FD6B06F00306C3C /* BulkResultObject.m in Sources */,
+				5AF260581FD6B06F00306C3C /* BulkEvent.m in Sources */,
 				5A8A15641FA0CB22009A1394 /* RTClient.m in Sources */,
 				F97969FE166CCB8200595F5E /* PublishOptions.m in Sources */,
 				0F9ACA1C1E798C5D0087869F /* ArrayReader.m in Sources */,
@@ -6042,7 +6042,7 @@
 				0F9ACCAC1E798C5F0087869F /* BoundPropertyBagWriter.m in Sources */,
 				F9796A47166CD3DB00595F5E /* DeliveryOptions.m in Sources */,
 				D30FC9B61AE132C2007C9A83 /* LogBuffer.m in Sources */,
-				5AF260591FD6B06F00306C3C /* BulkResultObject.m in Sources */,
+				5AF260591FD6B06F00306C3C /* BulkEvent.m in Sources */,
 				5A8A15651FA0CB22009A1394 /* RTClient.m in Sources */,
 				F9796A48166CD3DB00595F5E /* PublishOptions.m in Sources */,
 				0F9ACA1D1E798C5D0087869F /* ArrayReader.m in Sources */,
@@ -6255,7 +6255,7 @@
 				0F9ACCDF1E798C5F0087869F /* MessageWriter.m in Sources */,
 				0F9AC9921E798C5D0087869F /* RTMPClient.m in Sources */,
 				0F9AC84D1E798C5C0087869F /* WeborbClient.m in Sources */,
-				5AF2605A1FD6B06F00306C3C /* BulkResultObject.m in Sources */,
+				5AF2605A1FD6B06F00306C3C /* BulkEvent.m in Sources */,
 				F9F0AEA01CDBCA3900035C62 /* ServerCallback.m in Sources */,
 				F9F0AEA21CDBCA3900035C62 /* Logger.m in Sources */,
 				0F9ACAC31E798C5E0087869F /* NumberObject.m in Sources */,
@@ -6464,7 +6464,7 @@
 				0F9AC97F1E798C5D0087869F /* Header.m in Sources */,
 				0F9ACA6F1E798C5D0087869F /* DateType.m in Sources */,
 				0F9ACCE01E798C5F0087869F /* MessageWriter.m in Sources */,
-				5AF2605B1FD6B06F00306C3C /* BulkResultObject.m in Sources */,
+				5AF2605B1FD6B06F00306C3C /* BulkEvent.m in Sources */,
 				5A8A15671FA0CB22009A1394 /* RTClient.m in Sources */,
 				0F9AC9931E798C5D0087869F /* RTMPClient.m in Sources */,
 				0F9AC84E1E798C5C0087869F /* WeborbClient.m in Sources */,

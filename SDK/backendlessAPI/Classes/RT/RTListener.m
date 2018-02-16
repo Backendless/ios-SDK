@@ -91,8 +91,7 @@
     [subscriptions setObject:subscriptionStack forKey:typeName];
 }
 
--(void)stopSubscription:(NSString *)event whereClause:(NSString *)whereClause onResult:(void(^)(id))onResult {
-    
+-(void)stopSubscription:(NSString *)event whereClause:(NSString *)whereClause onResult:(void(^)(id))onResult {    
     NSMutableArray *subscriptionStack = [NSMutableArray arrayWithArray:[subscriptions valueForKey:event]];
     if (event && subscriptionStack) {
         if (whereClause && !onResult) {

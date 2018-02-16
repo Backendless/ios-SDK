@@ -1,5 +1,5 @@
 //
-//  BulkResultObject.m
+//  BulkEvent.h
 //  backendlessAPI
 /*
  * *********************************************************************************************************************
@@ -19,7 +19,11 @@
  *  ********************************************************************************************************************
  */
 
-#import "BulkEvent.h"
+#import <Foundation/Foundation.h>
 
-@implementation BulkEvent
+@interface BulkEvent : NSObject
+
+@property (strong, nonatomic) NSString *whereClause;
+@property (strong, nonatomic) NSNumber *count;
+
 @end

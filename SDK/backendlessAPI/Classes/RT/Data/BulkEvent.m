@@ -1,5 +1,5 @@
 //
-//  BulkResultObject.h
+//  BulkEvent.m
 //  backendlessAPI
 /*
  * *********************************************************************************************************************
@@ -19,12 +19,7 @@
  *  ********************************************************************************************************************
  */
 
-#import <Foundation/Foundation.h>
+#import "BulkEvent.h"
 
-@interface BulkResultObject : NSObject
-
-@property (strong, nonatomic) NSString *className;
-@property (strong, nonatomic) NSNumber *updated;
-@property (strong, nonatomic) NSDictionary *values;
-
+@implementation BulkEvent
 @end

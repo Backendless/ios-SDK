@@ -118,15 +118,15 @@
     [super stopSubscription:DELETED whereClause:nil onResult:nil];
 }
 
--(void)addBulkUpdateListener:(void(^)(BulkResultObject *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)addBulkUpdateListener:(void(^)(BulkEvent *))responseBlock error:(void (^)(Fault *))errorBlock {
     [self subscribeForObjectChanges:BULK_UPDATED tableName:table whereClause:nil response:responseBlock error:errorBlock];
 }
 
--(void)addBulkUpdateListener:(NSString *)whereClause response:(void(^)(BulkResultObject *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)addBulkUpdateListener:(NSString *)whereClause response:(void(^)(BulkEvent *))responseBlock error:(void (^)(Fault *))errorBlock {
     [self subscribeForObjectChanges:BULK_UPDATED tableName:table whereClause:whereClause response:responseBlock error:errorBlock];
 }
 
--(void)removeBulkUpdateListener:(void(^)(BulkResultObject *))responseBlock {
+-(void)removeBulkUpdateListener:(void(^)(BulkEvent *))responseBlock {
     [super stopSubscription:BULK_UPDATED whereClause:nil onResult:responseBlock];
 }
 
@@ -198,14 +198,13 @@
     return result;
 }
 
--(BulkResultObject *)handleBulkUpdate:(NSDictionary *)jsonResult {
+-(BulkEvent *)handleBulkUpdate:(NSDictionary *)jsonResult {
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonResult options:NSJSONWritingPrettyPrinted error:nil];
-    NSDictionary *bulkResultDictionary = [jsonHelper dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
-    BulkResultObject *bulkResult = [BulkResultObject new];
-    bulkResult.className = [bulkResultDictionary valueForKey:@"___class"];
-    bulkResult.values = @{[[bulkResultDictionary allKeys] firstObject]:[bulkResultDictionary valueForKey:[[bulkResultDictionary allKeys] firstObject]]};
-    bulkResult.updated = [bulkResultDictionary valueForKey:@"updated"];
-    return bulkResult;
+    NSDictionary *bulkEventDictionary = [jsonHelper dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
+    BulkEvent *bulkEvent = [BulkEvent new];
+    bulkEvent.whereClause = [bulkEventDictionary valueForKey:@"whereClause"];
+    bulkEvent.count = [bulkEventDictionary valueForKey:@"count"];
+    return bulkEvent;
 }
 
 @end
