@@ -25,15 +25,6 @@
 
 @implementation RTService
 
-@synthesize data = _data;
-
--(RTPersistence *)data {
-    if (!_data) {
-        _data = [RTPersistence new];
-    }
-    return _data;
-}
-
 -(void)addConnectEventListener:(void(^)(void))onConnect {
     [rtClient addConnectEventListener:onConnect];
 }

@@ -35,9 +35,6 @@
 -(instancetype)initWithName:(NSString *)name;
 -(void)connect:(void(^)(id))onSuccessfulConnect;
 
--(void)addErrorListener:(void(^)(Fault *))errorBlock;
--(void)removeErrorListener:(void(^)(Fault *))errorBlock;
-
 -(void)addConnectListener:(BOOL)isConnected onConnect:(void(^)(void))onConnect;
 -(void)removeConnectListener:(void(^)(void))onConnect;
 

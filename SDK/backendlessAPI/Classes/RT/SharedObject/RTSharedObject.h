@@ -35,26 +35,23 @@
 -(instancetype)initWithName:(NSString *)name;
 -(void)connect:(void(^)(id))onSuccessfulConnect;
 
--(void)addErrorListener:(void(^)(Fault *))errorBlock;
--(void)removeErrorListener:(void(^)(Fault *))errorBlock;
+-(void)addConnectListener:(BOOL)isConnected response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)removeConnectListener:(void(^)(void))responseBlock;
 
--(void)addConnectListener:(BOOL)isConnected onConnect:(void(^)(void))onConnect;
--(void)removeConnectListener:(void(^)(void))onConnect;
+-(void)addChangesListener:(void(^)(SharedObjectChanges *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)removeChangesListener:(void(^)(SharedObjectChanges *))responseBlock;
 
--(void)addChangesListener:(void(^)(SharedObjectChanges *))onChange;
--(void)removeChangesListener:(void(^)(SharedObjectChanges *))onChange;
+-(void)addClearListener:(void(^)(UserInfo *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)removeClearListener:(void(^)(UserInfo *))responseBlock;
 
--(void)addClearListener:(void(^)(UserInfo *))onClear;
--(void)removeClearListener:(void(^)(UserInfo *))onClear;
+-(void)addCommandListener:(void(^)(CommandObject *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)removeCommandListener:(void(^)(CommandObject *))responseBlock;
 
--(void)addCommandListener:(void(^)(CommandObject *))onCommand;
--(void)removeCommandListener:(void(^)(CommandObject *))onCommand;
+-(void)addUserStatusListener:(void(^)(UserStatusObject *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)removeUserStatusListener:(void(^)(UserStatusObject *))responseBlock;
 
--(void)addUserStatusListener:(void(^)(UserStatusObject *))onUserStatus;
--(void)removeUserStatusListener:(void(^)(UserStatusObject *))onUserStatus;
-
--(void)addInvokeListener:(void(^)(InvokeObject *))onInvoke;
--(void)removeInvokeListener:(void(^)(InvokeObject *))onInvoke;
+-(void)addInvokeListener:(void(^)(InvokeObject *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)removeInvokeListener:(void(^)(InvokeObject *))responseBlock;
 
 -(void)get:(NSString *)key onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
 -(void)set:(NSString *)key data:(id)data onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;

@@ -22,14 +22,14 @@
 #import <Foundation/Foundation.h>
 #import "LoadRelationsQueryBuilder.h"
 #import "DataQueryBuilder.h"
-#import "RTDataStore.h"
+#import "EventHandler.h"
 
 @class QueryOptions, Fault, ObjectProperty;
 @protocol IResponder;
 
 @protocol IDataStore <NSObject>
 
-@property (strong, nonatomic) RTDataStore *rt;
+@property (strong, nonatomic) EventHandler *rt;
 
 // sync methods with fault return (as exception)
 -(id)save:(id)entity;

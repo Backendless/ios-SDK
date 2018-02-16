@@ -25,6 +25,11 @@
 
 #define rtClient [RTClient sharedInstance]
 
+#define CONNECT_EVENT @"CONNECT_EVENT"
+#define CONNECT_ERROR_EVENT @"CONNECT_ERROR_EVENT"
+#define DISCONNECT_EVENT @"DISCONNECT_EVENT"
+#define RECONNECT_ATTEMPT_EVENT @"RECONNECT_ATTEMPT_EVENT"
+
 @interface RTClient : NSObject
 
 +(instancetype)sharedInstance;

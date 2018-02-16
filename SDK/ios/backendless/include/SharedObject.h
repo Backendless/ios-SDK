@@ -38,32 +38,28 @@
 -(void)connect;
 -(void)disconnect;
 
--(void)addErrorListener:(void(^)(Fault *))errorBlock;
--(void)removeErrorListeners:(void(^)(Fault *))errorBlock;
--(void)removeErrorListeners;
-
--(void)addConnectListener:(void(^)(void))onConnect;
--(void)removeConnectListeners:(void(^)(void))onConnect;
+-(void)addConnectListener:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)removeConnectListeners:(void(^)(void))responseBlock;
 -(void)removeConnectListeners;
 
--(void)addChangesListener:(void(^)(SharedObjectChanges *))onChanges;
--(void)removeChangesListeners:(void(^)(SharedObjectChanges *))onChanges;
+-(void)addChangesListener:(void(^)(SharedObjectChanges *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)removeChangesListeners:(void(^)(SharedObjectChanges *))responseBlock;
 -(void)removeChangesListeners;
 
--(void)addClearListener:(void(^)(UserInfo *))onClear;
--(void)removeClearListeners:(void(^)(UserInfo *))onClear;
+-(void)addClearListener:(void(^)(UserInfo *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)removeClearListeners:(void(^)(UserInfo *))responseBlock;
 -(void)removeClearListeners;
 
--(void)addCommandListener:(void(^)(CommandObject *))onCommand;
--(void)removeCommandListeners:(void(^)(CommandObject *))onCommand;
+-(void)addCommandListener:(void(^)(CommandObject *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)removeCommandListeners:(void(^)(CommandObject *))responseBlock;
 -(void)removeCommandListeners;
 
--(void)addUserStatusListener:(void(^)(UserStatusObject *))onUserStatus;
--(void)removeUserStatusListeners:(void(^)(UserStatusObject *))onUserStatus;
+-(void)addUserStatusListener:(void(^)(UserStatusObject *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)removeUserStatusListeners:(void(^)(UserStatusObject *))responseBlock;
 -(void)removeUserStatusListeners;
 
--(void)addInvokeListener:(void(^)(InvokeObject *))onInvoke;
--(void)removeInvokeListeners:(void(^)(InvokeObject *))onInvoke;
+-(void)addInvokeListener:(void(^)(InvokeObject *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)removeInvokeListeners:(void(^)(InvokeObject *))responseBlock;
 -(void)removeInvokeListeners;
 
 -(void)removeAllListeners;

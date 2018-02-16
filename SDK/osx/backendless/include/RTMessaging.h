@@ -31,19 +31,16 @@
 -(instancetype)initWithChannelName:(NSString *)channelName;
 -(void)connect:(void(^)(id))onSuccessfulConnect;
 
--(void)addErrorListener:(void(^)(Fault *))errorBlock;
--(void)removeErrorListeners:(void(^)(Fault *))errorBlock;
+-(void)addConnectListener:(BOOL)isConnected response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)removeConnectListeners:(void(^)(void))responseBlock;
 
--(void)addConnectListener:(BOOL)isConnected onConnect:(void(^)(void))onConnect;
--(void)removeConnectListeners:(void(^)(void))onConnect;
+-(void)addMessageListener:(NSString *)selector response:(void(^)(Message *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)removeMessageListeners:(NSString *)selector response:(void(^)(Message *))responseBlock;
 
--(void)addMessageListener:(NSString *)selector onMessage:(void(^)(Message *))onMessage;
--(void)removeMessageListeners:(NSString *)selector onMessage:(void(^)(Message *))onMessage;
+-(void)addCommandListener:(void(^)(CommandObject *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)removeCommandListeners:(void(^)(CommandObject *))responseBlock;
 
--(void)addCommandListener:(void(^)(CommandObject *))onCommand;
--(void)removeCommandListeners:(void(^)(CommandObject *))onCommand;
-
--(void)addUserStatusListener:(void(^)(UserStatusObject *))onUserStatus;
--(void)removeUserStatusListeners:(void(^)(UserStatusObject *))onUserStatus;
+-(void)addUserStatusListener:(void(^)(UserStatusObject *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)removeUserStatusListeners:(void(^)(UserStatusObject *))responseBlock;
 
 @end

@@ -20,6 +20,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "Responder.h"
 
 #define ERROR @"ERROR"
 #define OBJECTS_CHANGES @"OBJECTS_CHANGES"
@@ -40,14 +41,9 @@
 #define RSO_COMMAND @"RSO_COMMAND"
 #define RSO_INVOKE @"RSO_INVOKE"
 
-#define CONNECT_EVENT @"CONNECT_EVENT"
-#define CONNECT_ERROR_EVENT @"CONNECT_ERROR_EVENT"
-#define DISCONNECT_EVENT @"DISCONNECT_EVENT"
-#define RECONNECT_ATTEMPT_EVENT @"RECONNECT_ATTEMPT_EVENT"
-
 @interface RTListener : NSObject
 
--(void)addSubscription:(NSString *)type options:(NSDictionary *)options onResult:(void(^)(id))onResult handleResultSelector:(SEL)handleResultSelector fromClass:(id)subscriptionClassInstance;
+-(void)addSubscription:(NSString *)type options:(NSDictionary *)options onResult:(void(^)(id))onResult onError:(void(^)(Fault *))onError handleResultSelector:(SEL)handleResultSelector fromClass:(id)subscriptionClassInstance;
 -(void)stopSubscription:(NSString *)event whereClause:(NSString *)whereClause onResult:(void(^)(id))onResult;
 -(void)stopSubscriptionWithChannel:(NSString *)channel event:(NSString *)event whereClause:(NSString *)whereClause onResult:(void(^)(id))onResult;
 -(void)stopSubscriptionWithSharedObject:(NSString *)sharedObjectName event:(NSString *)event onResult:(void(^)(id))onResult;

@@ -33,8 +33,8 @@
     return _sharedObjectFactory;
 }
 
--(RTDataStore *)createDataStore:(NSString *)tableName withEntity:(Class)tableEntity dataStoreType:(UInt32)dataStoreType {
-    return [[RTDataStore alloc] initWithTableName:tableName withEntity:tableEntity dataStoreType:dataStoreType];
+-(EventHandler *)createDataStore:(NSString *)tableName withEntity:(Class)tableEntity dataStoreType:(UInt32)dataStoreType {
+    return [[EventHandler alloc] initWithTableName:tableName withEntity:tableEntity dataStoreType:dataStoreType];
 }
 
 -(Channel *)createChannel:(NSString *)channelName {

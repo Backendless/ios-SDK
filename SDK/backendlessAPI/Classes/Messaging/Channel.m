@@ -51,7 +51,6 @@
 
 -(void)disconnect {
     if (self.isConnected) {
-        [self removeErrorListeners];
         [self removeConnectListeners];
         [self removeMessageListeners];
         [self removeCommandListeners];
@@ -60,72 +59,60 @@
     }
 }
 
--(void)addErrorListener:(void(^)(Fault *))errorBlock {
-    [self.rt addErrorListener:errorBlock];
+-(void)addConnectListener:(void(^)(void))responseBlock error:(void (^)(Fault *))errorBlock {
+    [self.rt addConnectListener:self.isConnected response:responseBlock error:errorBlock];
 }
 
--(void)removeErrorListeners:(void(^)(Fault *))errorBlock {
-    [self.rt removeErrorListeners:errorBlock];
-}
-
--(void)removeErrorListeners {
-    [self.rt removeErrorListeners:nil];
-}
-
--(void)addConnectListener:(void(^)(void))onConnect {
-    [self.rt addConnectListener:self.isConnected onConnect:onConnect];
-}
-
--(void)removeConnectListeners:(void(^)(void))onConnect {
-    [self.rt removeConnectListeners:onConnect];
+-(void)removeConnectListeners:(void(^)(void))responseBlock {
+    [self.rt removeConnectListeners:responseBlock];
 }
 
 -(void)removeConnectListeners {
     [self.rt removeConnectListeners:nil];
 }
 
--(void)addMessageListener:(void(^)(Message *))onMessage {
-    [self.rt addMessageListener:nil onMessage:onMessage];
+-(void)addMessageListener:(void(^)(Message *))responseBlock error:(void (^)(Fault *))errorBlock {
+    [self.rt addMessageListener:nil response:responseBlock error:errorBlock];
 }
 
--(void)addMessageListener:(NSString *)selector onMessage:(void(^)(Message *))onMessage {
-    [self.rt addMessageListener:selector onMessage:onMessage];
+-(void)addMessageListener:(NSString *)selector response:(void (^)(Message *))responseBlock error:(void (^)(Fault *))errorBlock {
+    [self.rt addMessageListener:selector response:responseBlock error:errorBlock];
 }
 
--(void)removeMessageListeners:(NSString *)selector onMessage:(void(^)(Message *))onMessage {
-    [self.rt removeMessageListeners:selector onMessage:onMessage];
+-(void)removeMessageListeners:(NSString *)selector response:(void (^)(Message *))responseBlock {
+    [self.rt removeMessageListeners:selector response:responseBlock];
 }
 
--(void)removeMessageListenersWithCallback:(void(^)(Message *))onMessage {
-    [self.rt removeMessageListeners:nil onMessage:onMessage];
+-(void)removeMessageListenersWithCallback:(void(^)(Message *))responseBlock {
+    [self.rt removeMessageListeners:nil response:responseBlock];
 }
 
 -(void)removeMessageListenersWithSelector:(NSString *)selector {
-    [self.rt removeMessageListeners:selector onMessage:nil];
+    [self.rt removeMessageListeners:selector response:nil];
 }
 
 -(void)removeMessageListeners {
-    [self.rt removeMessageListeners:nil onMessage:nil];
+    [self.rt removeMessageListeners:nil response:nil];
 }
 
--(void)addCommandListener:(void (^)(CommandObject *))onCommand {
-    [self.rt addCommandListener:onCommand];
+-(void)addCommandListener:(void (^)(CommandObject *))responseBlock error:(void(^)(Fault *))errorBlock; {
+    [self.rt addCommandListener:responseBlock error:errorBlock];
 }
 
--(void)removeCommandListeners:(void (^)(CommandObject *))onCommand {
-    [self.rt removeCommandListeners:onCommand];
+-(void)removeCommandListeners:(void (^)(CommandObject *))responseBlock {
+    [self.rt removeCommandListeners:responseBlock];
 }
 
 -(void)removeCommandListeners {
     [self.rt removeCommandListeners:nil];
 }
 
--(void)addUserStatusListener:(void (^)(UserStatusObject *))onUserStatus {
-    [self.rt addUserStatusListener:onUserStatus];
+-(void)addUserStatusListener:(void (^)(UserStatusObject *))responseBlock error:(void (^)(Fault *))errorBlock {
+    [self.rt addUserStatusListener:responseBlock error:errorBlock];
 }
 
--(void)removeUserStatusListeners:(void (^)(UserStatusObject *))onUserStatus {
-    [self.rt removeUserStatusListeners:onUserStatus];
+-(void)removeUserStatusListeners:(void (^)(UserStatusObject *))responseBlock {
+    [self.rt removeUserStatusListeners:responseBlock];
 }
 
 -(void)removeUserStatusListeners {
@@ -133,7 +120,6 @@
 }
 
 -(void)removeAllListeners {
-    [self removeErrorListeners];
     [self removeConnectListeners];
     [self removeMessageListeners];
     [self removeCommandListeners];

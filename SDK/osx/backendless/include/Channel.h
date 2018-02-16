@@ -34,27 +34,23 @@
 -(void)connect;
 -(void)disconnect;
 
--(void)addErrorListener:(void(^)(Fault *))errorBlock;
--(void)removeErrorListeners:(void(^)(Fault *))errorBlock;
--(void)removeErrorListeners;
-
--(void)addConnectListener:(void(^)(void))onConnect;
--(void)removeConnectListeners:(void(^)(void))onConnect;
+-(void)addConnectListener:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)removeConnectListeners:(void(^)(void))responseBlock;
 -(void)removeConnectListeners;
 
--(void)addMessageListener:(void(^)(Message *))onMessage;
--(void)addMessageListener:(NSString *)selector onMessage:(void(^)(Message *))onMessage;
--(void)removeMessageListeners:(NSString *)selector onMessage:(void(^)(Message *))onMessage;
--(void)removeMessageListenersWithCallback:(void(^)(Message *))onMessage;
+-(void)addMessageListener:(void(^)(Message *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)addMessageListener:(NSString *)selector response:(void(^)(Message *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)removeMessageListeners:(NSString *)selector response:(void(^)(Message *))responseBlock;
+-(void)removeMessageListenersWithCallback:(void(^)(Message *))responseBlock;
 -(void)removeMessageListenersWithSelector:(NSString *)selector;
 -(void)removeMessageListeners;
 
--(void)addCommandListener:(void(^)(CommandObject *))onCommand;
--(void)removeCommandListeners:(void(^)(CommandObject *))onCommand;
+-(void)addCommandListener:(void(^)(CommandObject *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)removeCommandListeners:(void(^)(CommandObject *))responseBlock;
 -(void)removeCommandListeners;
 
--(void)addUserStatusListener:(void(^)(UserStatusObject *))onUserStatus;
--(void)removeUserStatusListeners:(void(^)(UserStatusObject *))onUserStatus;
+-(void)addUserStatusListener:(void(^)(UserStatusObject *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)removeUserStatusListeners:(void(^)(UserStatusObject *))responseBlock;
 -(void)removeUserStatusListeners;
 
 -(void)removeAllListeners;

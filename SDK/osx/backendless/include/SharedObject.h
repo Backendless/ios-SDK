@@ -38,10 +38,6 @@
 -(void)connect;
 -(void)disconnect;
 
--(void)addErrorListener:(void(^)(Fault *))errorBlock;
--(void)removeErrorListeners:(void(^)(Fault *))errorBlock;
--(void)removeErrorListeners;
-
 -(void)addConnectListener:(void(^)(void))onConnect;
 -(void)removeConnectListeners:(void(^)(void))onConnect;
 -(void)removeConnectListeners;

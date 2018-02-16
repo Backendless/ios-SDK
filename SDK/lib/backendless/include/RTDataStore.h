@@ -35,37 +35,33 @@ typedef enum {
 -(Class)getTableEntity;
 -(UInt32)getType;
 
--(void)addErrorListener:(void(^)(Fault *))errorBlock;
--(void)removeErrorListeners:(void(^)(Fault *))errorBlock;
--(void)removeErrorListeners;
-
--(void)addCreateListener:(void(^)(id))onCreate;
--(void)addCreateListener:(NSString *)whereClause onCreate:(void(^)(id))onCreate;
--(void)removeCreateListeners:(NSString *)whereClause onCreate:(void(^)(id))onCreate;
--(void)removeCreateListenersWithCallback:(void(^)(id))onCreate;
+-(void)addCreateListener:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)addCreateListener:(NSString *)whereClause response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)removeCreateListeners:(NSString *)whereClause response:(void(^)(id))responseBlock;
+-(void)removeCreateListenersWithCallback:(void(^)(id))responseBlock;
 -(void)removeCreateListenersWithWhereClause:(NSString *)whereClause;
 -(void)removeCreateListeners;
 
--(void)addUpdateListener:(void(^)(id))onUpdate;
--(void)addUpdateListener:(NSString *)whereClause onUpdate:(void(^)(id))onUpdate;
--(void)removeUpdateListeners:(NSString *)whereClause onUpdate:(void(^)(id))onUpdate;
--(void)removeUpdateListenersWithCallback:(void(^)(id))onUpdate;
+-(void)addUpdateListener:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)addUpdateListener:(NSString *)whereClause response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)removeUpdateListeners:(NSString *)whereClause response:(void(^)(id))responseBlock;
+-(void)removeUpdateListenersWithCallback:(void(^)(id))responseBlock;
 -(void)removeUpdateListenersWithWhereClause:(NSString *)whereClause;
 -(void)removeUpdateListeners;
 
--(void)addDeleteListener:(void(^)(id))onDelete;
--(void)addDeleteListener:(NSString *)whereClause onDelete:(void(^)(id))onDelete;
--(void)removeDeleteListeners:(NSString *)whereClause onDelete:(void(^)(id))onDelete;
--(void)removeDeleteListenersWithCallback:(void(^)(id))onDelete;
+-(void)addDeleteListener:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)addDeleteListener:(NSString *)whereClause response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)removeDeleteListeners:(NSString *)whereClause response:(void(^)(id))responseBlock;
+-(void)removeDeleteListenersWithCallback:(void(^)(id))responseBlock;
 -(void)removeDeleteListenersWithWhereClause:(NSString *)whereClause;
 -(void)removeDeleteListeners;
 
--(void)addBulkUpdateListener:(void(^)(BulkResultObject *))onBulkUpdate;
--(void)removeBulkUpdateListeners:(void(^)(BulkResultObject *))onBulkUpdate;
+-(void)addBulkUpdateListener:(void(^)(BulkResultObject *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)removeBulkUpdateListeners:(void(^)(BulkResultObject *))responseBlock;
 -(void)removeBulkUpdateListeners;
 
--(void)addBulkDeleteListener:(void(^)(NSNumber *))onBulkDelete;
--(void)removeBulkDeleteListeners:(void(^)(NSNumber *))onBulkDelete;
+-(void)addBulkDeleteListener:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;;
+-(void)removeBulkDeleteListeners:(void(^)(NSNumber *))responseBlock;
 -(void)removeBulkDeleteListeners;
 
 -(void)removeAllListeners;

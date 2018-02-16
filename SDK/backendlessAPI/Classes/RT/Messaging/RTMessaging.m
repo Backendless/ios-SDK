@@ -41,42 +41,31 @@
 
 -(void)connect:(void(^)(id))onSuccessfulConnect {
     NSDictionary *options = @{@"channel"  : channel};
-    [super addSubscription:PUB_SUB_CONNECT options:options onResult:onSuccessfulConnect handleResultSelector:nil fromClass:nil];
+    [super addSubscription:PUB_SUB_CONNECT options:options onResult:onSuccessfulConnect onError:nil handleResultSelector:nil fromClass:nil];
 }
 
--(void)addErrorListener:(void(^)(Fault *))onError {
-    [super addSimpleListener:ERROR callBack:onError];
+-(void)addConnectListener:(BOOL)isConnected response:(void (^)(void))responseBlock error:(void (^)(Fault *))errorBlock {
+    void(^wrappedBlock)(id) = ^(id result) { responseBlock(); };
+    [onConnectCallbacks setObject:wrappedBlock forKey:responseBlock];
+    NSDictionary *options = @{@"channel"  : channel};
+    [super addSubscription:PUB_SUB_CONNECT options:options onResult:wrappedBlock onError:errorBlock handleResultSelector:nil fromClass:nil];
 }
 
--(void)removeErrorListeners:(void(^)(Fault *))onError {
-    [super removeSimpleListeners:ERROR callBack:onError];
+-(void)removeConnectListeners:(void(^)(void))responseBlock {
+    [super stopSubscriptionWithChannel:channel event:PUB_SUB_CONNECT whereClause:nil onResult:[onConnectCallbacks objectForKey:responseBlock]];
 }
 
--(void)addConnectListener:(BOOL)isConnected onConnect:(void(^)(void))onConnect {
-    void(^wrappedOnConnect)(id) = ^(id result) { onConnect(); };
-    [onConnectCallbacks setObject:wrappedOnConnect forKey:onConnect];
-    [super addSimpleListener:PUB_SUB_CONNECT callBack:wrappedOnConnect];
-    if (isConnected) {
-        onConnect();
-    }
-}
-
--(void)removeConnectListeners:(void(^)(void))onConnect {
-    [super removeSimpleListeners:PUB_SUB_CONNECT callBack:[onConnectCallbacks objectForKey:onConnect]];
-    [super stopSubscriptionWithChannel:channel event:PUB_SUB_CONNECT whereClause:nil onResult:[onConnectCallbacks objectForKey:onConnect]];
-}
-
--(void)addMessageListener:(NSString *)selector onMessage:(void(^)(Message *))onMessage {
+-(void)addMessageListener:(NSString *)selector response:(void(^)(Message *))responseBlock error:(void (^)(Fault *))errorBlock {
     NSDictionary *options = @{@"channel"  : channel};
     if (selector) {
         options = @{@"channel"  : channel,
                     @"selector" : selector};
     }
-    [super addSubscription:PUB_SUB_MESSAGES options:options onResult:onMessage handleResultSelector:@selector(handleMessage:) fromClass:self];
+    [super addSubscription:PUB_SUB_MESSAGES options:options onResult:responseBlock onError:errorBlock handleResultSelector:@selector(handleMessage:) fromClass:self];
 }
 
--(void)removeMessageListeners:(NSString *)selector onMessage:(void(^)(Message *))onMessage {
-    [super stopSubscriptionWithChannel:channel event:PUB_SUB_MESSAGES whereClause:selector onResult:onMessage];
+-(void)removeMessageListeners:(NSString *)selector response:(void(^)(Message *))responseBlock {
+    [super stopSubscriptionWithChannel:channel event:PUB_SUB_MESSAGES whereClause:selector onResult:responseBlock];
 }
 
 -(Message *)handleMessage:(NSDictionary *)jsonResult {
@@ -89,13 +78,13 @@
     return message;
 }
 
--(void) addCommandListener:(void(^)(CommandObject *))onCommand {
+-(void) addCommandListener:(void(^)(CommandObject *))responseBlock error:(void (^)(Fault *))errorBlock {
     NSDictionary *options = @{@"channel" : channel};
-    [super addSubscription:PUB_SUB_COMMANDS options:options onResult:onCommand handleResultSelector:@selector(handleCommand:) fromClass:self];
+    [super addSubscription:PUB_SUB_COMMANDS options:options onResult:responseBlock onError:errorBlock handleResultSelector:@selector(handleCommand:) fromClass:self];
 }
 
--(void)removeCommandListeners:(void(^)(CommandObject *))onCommand {
-    [super stopSubscriptionWithChannel:channel event:PUB_SUB_COMMANDS whereClause:nil onResult:onCommand];
+-(void)removeCommandListeners:(void(^)(CommandObject *))responseBlock {
+    [super stopSubscriptionWithChannel:channel event:PUB_SUB_COMMANDS whereClause:nil onResult:responseBlock];
 }
 
 -(CommandObject *)handleCommand:(NSDictionary *)jsonResult {
@@ -109,9 +98,9 @@
     return command;
 }
 
--(void)addUserStatusListener:(void(^)(UserStatusObject *))onUserStatus {
+-(void)addUserStatusListener:(void(^)(UserStatusObject *))responseBlock error:(void (^)(Fault *))errorBlock {
     NSDictionary *options = @{@"channel" : channel};
-    [super addSubscription:PUB_SUB_USERS options:options onResult:onUserStatus handleResultSelector:@selector(handleUserStatus:) fromClass:self];
+    [super addSubscription:PUB_SUB_USERS options:options onResult:responseBlock onError:errorBlock handleResultSelector:@selector(handleUserStatus:) fromClass:self];
 }
 
 -(void)removeUserStatusListeners:(void(^)(UserStatusObject *))onUserStatus {

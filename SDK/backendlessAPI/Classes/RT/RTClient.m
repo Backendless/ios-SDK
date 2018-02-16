@@ -29,6 +29,8 @@
 
 #define MAX_TIME_INTERVAL 3600
 
+
+
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 
 @interface RTClient() {
@@ -136,7 +138,7 @@
 -(void)unsubscribe:(NSString *)subscriptionId {
     [socket emit:@"SUB_OFF" with:[NSArray arrayWithObject:@{@"id":subscriptionId}]];
     [subscriptions removeObjectForKey:subscriptionId];
-    if ([subscriptions count] == 0 && socket && socketManager) {
+    if ([subscriptions count] == 0 && [eventListeners count] == 0 && socket && socketManager) {
         [socketManager removeSocket:socket];
         socket = nil;
         socketManager = nil;
