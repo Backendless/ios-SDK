@@ -25,6 +25,6 @@
 
 @interface AdaptResponder : Responder
 
--(instancetype)initWithResponder:(Responder *)respoder responseAdapter:(id<IResponseAdapter>)responseAdapter;
+-(instancetype)initWithResponder:(Responder *)responder responseAdapter:(id<IResponseAdapter>)responseAdapter;
 
 @end
