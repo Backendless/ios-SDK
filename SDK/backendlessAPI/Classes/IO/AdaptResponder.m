@@ -31,9 +31,9 @@
 
 @implementation AdaptResponder
 
--(instancetype)initWithResponder:(Responder *)respoder responseAdapter:(id<IResponseAdapter>)responseAdapter {
+-(instancetype)initWithResponder:(Responder *)responder responseAdapter:(id<IResponseAdapter>)responseAdapter {
     if (self = [super init]) {
-        _responder = respoder;
+        _responder = responder;
         _adapter = responseAdapter;
     }
     return self;
@@ -41,7 +41,13 @@
 
 -(id)responseHandler:(id)response {
     id adaptedResponse = [_adapter adapt:response];
-    return [_responder responseHandler:adaptedResponse];
+    if ([adaptedResponse isKindOfClass:[Fault class]]) {
+        [_responder errorHandler:adaptedResponse];
+    }
+    else {
+       [_responder responseHandler:adaptedResponse];
+    }
+    return _responder;
 }
 
 @end
