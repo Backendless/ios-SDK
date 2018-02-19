@@ -20,7 +20,7 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "RTDataStore.h"
+#import "EventHandler.h"
 #import "Channel.h"
 #import "SharedObject.h"
 
@@ -30,7 +30,7 @@
 
 +(instancetype)sharedInstance;
 
--(RTDataStore *)createDataStore:(NSString *)tableName withEntity:(Class)tableEntity dataStoreType:(UInt32)dataStoreType;
+-(EventHandler *)createDataStore:(NSString *)tableName withEntity:(Class)tableEntity dataStoreType:(UInt32)dataStoreType;
 -(Channel *)createChannel:(NSString *)channelName;
 -(SharedObject *)createSharedObject:(NSString *)sharedObjectName;
 

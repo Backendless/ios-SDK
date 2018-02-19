@@ -1,5 +1,5 @@
 //
-//  RTPersistence.h
+//  BulkEvent.h
 //  backendlessAPI
 /*
  * *********************************************************************************************************************
@@ -20,11 +20,10 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "RTDataStore.h"
 
-@interface RTPersistence : NSObject
+@interface BulkEvent : NSObject
 
--(RTDataStore *)of:(Class)entityClass;
--(RTDataStore *)ofTable:(NSString *)tableName;
+@property (strong, nonatomic) NSString *whereClause;
+@property (strong, nonatomic) NSNumber *count;
 
 @end

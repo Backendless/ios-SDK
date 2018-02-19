@@ -70,6 +70,10 @@
     [super stopSubscription:CREATED whereClause:nil onResult:responseBlock];
 }
 
+-(void)removeCreateListener:(NSString *)whereClause response:(void(^)(id))responseBlock {
+    [super stopSubscription:CREATED whereClause:whereClause onResult:responseBlock];
+}
+
 -(void)removeCreateListeners:(NSString *)whereClause {
     [super stopSubscription:CREATED whereClause:whereClause onResult:nil];
 }
@@ -88,6 +92,10 @@
 
 -(void)removeUpdateListener:(void(^)(id))responseBlock {
     [super stopSubscription:UPDATED whereClause:nil onResult:responseBlock];
+}
+
+-(void)removeUpdateListener:(NSString *)whereClause response:(void(^)(id))responseBlock {
+    [super stopSubscription:UPDATED whereClause:whereClause onResult:responseBlock];
 }
 
 -(void)removeUpdateListeners:(NSString *)whereClause {
@@ -110,6 +118,10 @@
     [super stopSubscription:DELETED whereClause:nil onResult:responseBlock];
 }
 
+-(void)removeDeleteListener:(NSString *)whereClause response:(void(^)(id))responseBlock {
+    [super stopSubscription:DELETED whereClause:whereClause onResult:responseBlock];
+}
+
 -(void)removeDeleteListeners:(NSString *)whereClause {
     [super stopSubscription:DELETED whereClause:whereClause onResult:nil];
 }
@@ -130,6 +142,10 @@
     [super stopSubscription:BULK_UPDATED whereClause:nil onResult:responseBlock];
 }
 
+-(void)removeBulkUpdateListener:(NSString *)whereClause response:(void(^)(BulkEvent *))responseBlock {
+    [super stopSubscription:BULK_UPDATED whereClause:whereClause onResult:responseBlock];
+}
+
 -(void)removeBulkUpdateListeners:(NSString *)whereClause {
     [super stopSubscription:BULK_UPDATED whereClause:whereClause onResult:nil];
 }
@@ -138,16 +154,20 @@
     [super stopSubscription:BULK_UPDATED whereClause:nil onResult:nil];
 }
 
--(void)addBulkDeleteListener:(void(^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)addBulkDeleteListener:(void(^)(BulkEvent *))responseBlock error:(void (^)(Fault *))errorBlock {
     [self subscribeForObjectChanges:BULK_DELETED tableName:table whereClause:nil response:responseBlock error:errorBlock];
 }
 
--(void)addBulkDeleteListener:(NSString *)whereClause response:(void(^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)addBulkDeleteListener:(NSString *)whereClause response:(void(^)(BulkEvent *))responseBlock error:(void (^)(Fault *))errorBlock {
     [self subscribeForObjectChanges:BULK_DELETED tableName:table whereClause:whereClause response:responseBlock error:errorBlock];
 }
 
--(void)removeBulkDeleteListener:(void(^)(NSNumber *))responseBlock {
+-(void)removeBulkDeleteListener:(void(^)(BulkEvent *))responseBlock {
     [super stopSubscription:BULK_DELETED whereClause:nil onResult:responseBlock];
+}
+
+-(void)removeBulkDeleteListener:(NSString *)whereClause response:(void(^)(BulkEvent *))responseBlock {
+    [super stopSubscription:BULK_DELETED whereClause:whereClause onResult:responseBlock];
 }
 
 -(void)removeBulkDeleteListeners:(NSString *)whereClause {
@@ -179,10 +199,10 @@
         [super addSubscription:OBJECTS_CHANGES options:options onResult:responseBlock onError:errorBlock handleResultSelector:@selector(handleData:) fromClass:self];
     }
     else if ([event isEqualToString:BULK_UPDATED]) {
-        [super addSubscription:OBJECTS_CHANGES options:options onResult:responseBlock onError:errorBlock handleResultSelector:@selector(handleBulkUpdate:) fromClass:self];
+        [super addSubscription:OBJECTS_CHANGES options:options onResult:responseBlock onError:errorBlock handleResultSelector:@selector(handleBulkEvent:) fromClass:self];
     }
     else if ([event isEqualToString:BULK_DELETED]) {
-        [super addSubscription:OBJECTS_CHANGES options:options onResult:responseBlock onError:errorBlock handleResultSelector:nil fromClass:nil];
+        [super addSubscription:OBJECTS_CHANGES options:options onResult:responseBlock onError:errorBlock handleResultSelector:@selector(handleBulkEvent:) fromClass:self];
     }
 };
 
@@ -198,7 +218,7 @@
     return result;
 }
 
--(BulkEvent *)handleBulkUpdate:(NSDictionary *)jsonResult {
+-(BulkEvent *)handleBulkEvent:(NSDictionary *)jsonResult {
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonResult options:NSJSONWritingPrettyPrinted error:nil];
     NSDictionary *bulkEventDictionary = [jsonHelper dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
     BulkEvent *bulkEvent = [BulkEvent new];

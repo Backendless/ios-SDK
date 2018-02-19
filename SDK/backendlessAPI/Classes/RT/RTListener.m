@@ -93,8 +93,16 @@
 
 -(void)stopSubscription:(NSString *)event whereClause:(NSString *)whereClause onResult:(void(^)(id))onResult {    
     NSMutableArray *subscriptionStack = [NSMutableArray arrayWithArray:[subscriptions valueForKey:event]];
+    
     if (event && subscriptionStack) {
-        if (whereClause && !onResult) {
+        if (whereClause && onResult) {
+            for (RTSubscription *subscription in subscriptionStack) {
+                if ([subscription.options valueForKey:@"whereClause"] && [[subscription.options valueForKey:@"whereClause"] isEqualToString:whereClause] && subscription.onResult == onResult) {
+                    [subscription stop];
+                }
+            }
+        }
+        else if (whereClause && !onResult) {
             for (RTSubscription *subscription in subscriptionStack) {
                 if ([subscription.options valueForKey:@"whereClause"] && [[subscription.options valueForKey:@"whereClause"] isEqualToString:whereClause]) {
                     [subscription stop];
