@@ -71,7 +71,7 @@
 -(NSNumber *)remove:(id)entity {
     NSString *objectId = [backendless.persistenceService getObjectId:entity];
     if ([objectId isKindOfClass:[NSString class]]) {
-        return [backendless.persistenceService remove:[entity class] objectId:objectId];
+        return [backendless.persistenceService remove:_entityClass objectId:objectId];
     }
     else {
         return [backendless.persistenceService remove:entity];
@@ -167,7 +167,7 @@
 -(void)remove:(id)entity response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     NSString *objectId = [backendless.persistenceService getObjectId:entity];
     if ([objectId isKindOfClass:[NSString class]]) {
-        [backendless.persistenceService remove:[entity class] objectId:objectId response:responseBlock error:errorBlock];
+        [backendless.persistenceService remove:_entityClass objectId:objectId response:responseBlock error:errorBlock];
     }
     else {
         [backendless.persistenceService remove:entity response:responseBlock error:errorBlock];
