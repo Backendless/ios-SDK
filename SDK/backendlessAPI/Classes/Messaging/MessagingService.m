@@ -167,7 +167,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 
 -(Channel *)subscribe:(NSString *)channelName {
     Channel *channel = [rtFactory createChannel:channelName];
-    [channel connect];
+    [channel connect];    
     return channel;
 }
 

@@ -39,12 +39,12 @@
     return self;
 }
 
--(void)connect:(void(^)(id))onSuccessfulConnect {
+-(void)connect:(void(^)(id))onSuccessfulConnect onError:(void(^)(Fault *))onError {
     NSDictionary *options = @{@"channel"  : channel};
-    [super addSubscription:PUB_SUB_CONNECT options:options onResult:onSuccessfulConnect onError:nil handleResultSelector:nil fromClass:nil];
+    [super addSubscription:PUB_SUB_CONNECT options:options onResult:onSuccessfulConnect onError:onError handleResultSelector:nil fromClass:nil];
 }
 
--(void)addConnectListener:(BOOL)isConnected response:(void (^)(void))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)addConnectListener:(BOOL)isConnected response:(void(^)(void))responseBlock error:(void (^)(Fault *))errorBlock {
     void(^wrappedBlock)(id) = ^(id result) { responseBlock(); };
     [onConnectCallbacks setObject:wrappedBlock forKey:responseBlock];
     NSDictionary *options = @{@"channel"  : channel};
