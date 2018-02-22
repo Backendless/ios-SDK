@@ -66,14 +66,14 @@
 
 // commands
 
--(void)get:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
--(void)get:(NSString *)key onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
--(void)set:(NSString *)key data:(id)data onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
--(void)clear:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
--(void)sendCommand:(NSString *)commandName data:(id)data onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
--(void)invokeOn:(NSString *)method targets:(NSArray *)targets args:(NSArray *)args onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
--(void)invokeOn:(NSString *)method targets:(NSArray *)targets onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
--(void)invoke:(NSString *)method args:(NSArray *)args onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
--(void)invoke:(NSString *)method onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
+-(void)get:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)get:(NSString *)key response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)set:(NSString *)key data:(id)data response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)clear:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)sendCommand:(NSString *)commandName data:(id)data response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)invokeOn:(NSString *)method targets:(NSArray *)targets args:(NSArray *)args response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)invokeOn:(NSString *)method targets:(NSArray *)targets response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)invoke:(NSString *)method args:(NSArray *)args response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)invoke:(NSString *)method response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 
 @end

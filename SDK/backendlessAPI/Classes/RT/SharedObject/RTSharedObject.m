@@ -42,7 +42,7 @@
     return self;
 }
 
--(void)connect:(void(^)(id))onSuccessfulConnect {    
+-(void)connect:(void(^)(id))onSuccessfulConnect onError:(void (^)(Fault *))onError {    
     NSDictionary *options = @{@"name"  : sharedObjectName};
     [super addSubscription:RSO_CONNECT options:options onResult:onSuccessfulConnect onError:nil handleResultSelector:nil fromClass:nil];
 }

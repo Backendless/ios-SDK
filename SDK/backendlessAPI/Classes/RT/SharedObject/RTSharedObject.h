@@ -33,7 +33,7 @@
 @property (strong, nonatomic) id invocationTarget;
 
 -(instancetype)initWithName:(NSString *)name;
--(void)connect:(void(^)(id))onSuccessfulConnect;
+-(void)connect:(void(^)(id))onSuccessfulConnect onError:(void(^)(Fault *))onError;
 
 -(void)addConnectListener:(BOOL)isConnected response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)removeConnectListener:(void(^)(void))responseBlock;

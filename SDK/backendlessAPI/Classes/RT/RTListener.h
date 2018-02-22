@@ -32,13 +32,13 @@
 #define PUB_SUB_USERS @"PUB_SUB_USERS"
 #define RSO_CONNECT @"RSO_CONNECT"
 #define RSO_CHANGES @"RSO_CHANGES"
+#define RSO_CLEAR @"RSO_CLEAR"
 #define RSO_CLEARED @"RSO_CLEARED"
+#define RSO_COMMAND @"RSO_COMMAND"
 #define RSO_COMMANDS @"RSO_COMMANDS"
 #define RSO_USERS @"RSO_USERS"
 #define RSO_GET @"RSO_GET"
 #define RSO_SET @"RSO_SET"
-#define RSO_CLEAR @"RSO_CLEAR"
-#define RSO_COMMAND @"RSO_COMMAND"
 #define RSO_INVOKE @"RSO_INVOKE"
 
 @interface RTListener : NSObject
