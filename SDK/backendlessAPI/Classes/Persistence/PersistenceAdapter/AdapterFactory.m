@@ -29,27 +29,13 @@
 @implementation AdapterFactory
 
 -(id<IResponseAdapter>)adapterForClassName:(NSString *)className {
-    if ([self isDeviceRegistrationClass:className]) {
+    if ([className isEqualToString:@"DeviceRegistration"]) {
         return [DeviceRegistrationAdapter new];
     }
-    else if ([self isBackendlessUserClass:className]) {
+    if ([className isEqualToString:@"Users"]) {
         return [BackendlessUserAdapter new];
     }
     return [DefaultAdapter new];
-}
-
--(BOOL)isDeviceRegistrationClass:(NSString *)className {
-    if ([className isEqualToString:@"DeviceRegistration"]) {
-        return YES;
-    }
-    return NO;
-}
-
--(BOOL)isBackendlessUserClass:(NSString *)className {
-    if ([className isEqualToString:@"Users"]) {
-        return YES;
-    }
-    return NO;
 }
 
 @end
