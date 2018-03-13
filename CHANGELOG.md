@@ -1,5 +1,8 @@
 # RELEASE HISTORY
 
+## 4.0.22 March 13, 2018
+* BackendlessUser adaptation fixed for DataStoreFactory
+
 ## 4.0.21 February 20, 2018
 * The mapColumnToProperty method added
 * The findById method changed to take only NSString objectId
