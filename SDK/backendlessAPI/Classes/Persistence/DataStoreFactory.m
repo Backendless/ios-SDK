@@ -34,7 +34,6 @@
 -(id)init:(Class)entityClass {
     if (self = [super init]) {
         _entityClass = [entityClass retain];
-        [[Types sharedInstance] addClientClassMapping:@"Users" mapped:[BackendlessUser class]];
         [self mapDeviceRegistrationTableToClass];
     }
     return self;

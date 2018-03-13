@@ -97,7 +97,10 @@
     if (token)
         return token;
     BackendlessUser *currentUser = backendless.userService.currentUser;
-    return (currentUser && (self.objectId == currentUser.objectId))?[backendless.headers valueForKey:BACKENDLESS_USER_TOKEN]:nil;
+    if (currentUser && self.objectId == currentUser.objectId) {
+        return [backendless.headers valueForKey:BACKENDLESS_USER_TOKEN];
+    }
+    return nil;
 }
 
 -(void)assignProperties:(NSDictionary<NSString*, id> *)props {

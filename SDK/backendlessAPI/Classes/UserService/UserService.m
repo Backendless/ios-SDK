@@ -157,7 +157,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 -(BackendlessUser *)login:(NSString *)login password:(NSString *)password {
     if (!login || !password || ![login length] || ![password length])
         return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
-    NSArray *args = [NSArray arrayWithObjects:login, password, nil];
+    NSArray *args = [NSArray arrayWithObjects:login, password, nil];    
     self.currentUser = [self castFromDictionary:[invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_LOGIN args:args]];
     if (self.currentUser.getUserToken)
         [backendless.headers setValue:self.currentUser.getUserToken forKey:BACKENDLESS_USER_TOKEN];
