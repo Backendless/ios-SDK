@@ -57,13 +57,7 @@
     BackendlessUser *user = [BackendlessUser new];
     NSMutableDictionary *bodyProperties = ((AnonymousObject *)[body getCacheKey]).properties;
     for (NSString *key in [bodyProperties allKeys]) {
-        id value = [bodyProperties valueForKey:key];
-        if (![value isEqual:[NSNull null]]) {
-            [user setProperty:key object:value];
-        }
-        else {
-            [user setProperty:key object:nil];
-        }
+            [user setProperty:key object:[[bodyProperties valueForKey:key] defaultAdapt]];
     }
     return user;
 }
