@@ -1,5 +1,8 @@
 # RELEASE HISTORY
 
+## 4.0.23 March 14, 2018
+* BackendlessUser adaptation incorrect type mapping fixed
+
 ## 4.0.22 March 13, 2018
 * BackendlessUser adaptation fixed for DataStoreFactory
 
