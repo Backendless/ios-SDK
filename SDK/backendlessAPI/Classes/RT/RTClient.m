@@ -27,9 +27,7 @@
 #import "ReconnectAttemptObject.h"
 @import SocketIO;
 
-#define MAX_TIME_INTERVAL 3600
-
-
+#define MAX_TIME_INTERVAL 60 // seconds
 
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 
@@ -90,7 +88,7 @@
             [_lock lock];
             if (!socketCreated) {
                 NSString *path = [@"/" stringByAppendingString:[backendless getAppId]];
-                NSURL *url = [[NSURL alloc] initWithString:[RTHelper lookup]];
+                NSURL *url = [NSURL URLWithString:[RTHelper lookup]];
                 NSDictionary *connectParams = @{@"apiKey":[backendless getAPIKey]};
                 NSString *userToken = [backendless.userService.currentUser getUserToken];
                 if (userToken) {
@@ -172,7 +170,7 @@
         [socket on:@"connect" callback:^(NSArray *data, SocketAckEmitter *ack) {
             socketConnected = YES;
             reconnectAttempt = 1;
-            timeInterval = 0.2;
+            timeInterval = 0.2; // seconds
             [_lock unlock];
             
             if (needResubscribe) {
@@ -256,12 +254,20 @@
 }
 
 -(void)tryToReconnectSocket {
-    if (timeInterval <= MAX_TIME_INTERVAL) {
+    if (timeInterval < MAX_TIME_INTERVAL) {
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timeInterval * NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
             [self connectSocket:onSocketConnectCallback];
         });
-        timeInterval *= 2;
+        if (reconnectAttempt % 10 == 0) {
+            timeInterval *= 2;
+        }
+    }
+    else {
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(MAX_TIME_INTERVAL * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+            [self connectSocket:onSocketConnectCallback];
+        });
     }
 }
 
