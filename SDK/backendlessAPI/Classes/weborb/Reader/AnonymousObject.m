@@ -15,8 +15,8 @@
 #import "V3Message.h"
 #import "NamedObject.h"
 #import "ArrayType.h"
-
 #import "BodyHolder.h"
+#import "BackendlessUserAdapter.h"
 
 @implementation AnonymousObject
 @synthesize properties;
@@ -107,6 +107,21 @@
         else if ([propValue isKindOfClass:[ArrayType class]]) {
             for (NamedObject *namedObject in [propValue getArray]) {
                 ((AnonymousObject *)[namedObject getCacheKey]).properties = [self mapFieldToProperty:namedObject];
+            }
+        }
+        
+        // BackendlessUser/DeviceRegistration adaptation for ArrayType
+        if ([propValue isKindOfClass:[ArrayType class]]) {
+            NSMutableArray *newPropValueArray = [NSMutableArray new];
+            for (NamedObject *namedObject in [propValue getArray]) {
+                id classTypeString = [((AnonymousObject *)[namedObject getCacheKey]).properties valueForKey:@"___class"];
+                if ([[classTypeString defaultAdapt] isEqualToString:@"Users"]) {
+                    BackendlessUser *user = [[BackendlessUserAdapter new] adaptToBackendlessUser:namedObject];
+                    [newPropValueArray addObject:user];
+                }
+            }            
+            if ([newPropValueArray count] > 0) {
+                propValue = [ArrayType objectType:newPropValueArray];
             }
         }
         
@@ -217,7 +232,7 @@
     if ([[Types sharedInstance] getPropertiesMappingForClientClass:([propValue getMappedType])]) {
         NSDictionary *mappedProperties = [[Types sharedInstance] getPropertiesMappingForClientClass:[propValue getMappedType]];
         NSMutableDictionary *changedPropertiesOfPropValue = [NSMutableDictionary new];
-        for (NSString *key in [propertiesOfPropValue allKeys]) {            
+        for (NSString *key in [propertiesOfPropValue allKeys]) {
             if ([[mappedProperties allKeys] containsObject:key]) {
                 [changedPropertiesOfPropValue setObject:[propertiesOfPropValue valueForKey:key] forKey:[mappedProperties valueForKey:key]];
             }

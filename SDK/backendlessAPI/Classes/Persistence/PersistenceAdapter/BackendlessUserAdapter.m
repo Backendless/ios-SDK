@@ -24,8 +24,6 @@
 #import "V3Message.h"
 #import "ErrMessage.h"
 #import "Responder.h"
-#import "BackendlessUser.h"
-#import "NamedObject.h"
 #import "AnonymousObject.h"
 #import "ArrayType.h"
 

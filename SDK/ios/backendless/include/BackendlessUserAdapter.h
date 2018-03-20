@@ -21,7 +21,11 @@
 
 #import <Foundation/Foundation.h>
 #import "IResponseAdapter.h"
+#import "BackendlessUser.h"
+#import "NamedObject.h"
 
 @interface BackendlessUserAdapter : NSObject <IResponseAdapter>
+
+-(BackendlessUser *)adaptToBackendlessUser:(NamedObject *)body;
 
 @end
