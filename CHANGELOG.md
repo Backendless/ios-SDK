@@ -1,5 +1,8 @@
 # RELEASE HISTORY
 
+## 4.0.24 March 20, 2018
+* BackendlessUser adaptation for ArrayType fixed
+
 ## 4.0.23 March 14, 2018
 * BackendlessUser adaptation incorrect type mapping fixed
 
