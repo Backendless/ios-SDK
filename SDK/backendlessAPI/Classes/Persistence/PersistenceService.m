@@ -260,7 +260,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     NSArray *args = @[[self objectClassName:object], [objectId isKindOfClass:[NSString class]] ? objectId:object, relations, @(relationsDepth)];
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LOAD args:args];
     if ([result isKindOfClass:[Fault class]]) {
-        return [backendless throwFault:result];
+         return [backendless throwFault:result];
     }
     return [self setRelations:relations object:object response:result];
 }

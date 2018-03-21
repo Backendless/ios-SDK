@@ -1,4 +1,4 @@
- //
+//
 //  AnonymousObject.m
 //  RTMPStream
 //
@@ -99,7 +99,7 @@
         id prop = [props valueForKey:memberName];
         [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> setFieldsDirect: PROPERTY %@ <%@>", memberName, [prop class]];
         id propValue = [properties valueForKey:memberName];
-        
+
         // field to property mapping
         if ([propValue isKindOfClass:[NamedObject class]]) {
             ((AnonymousObject *)[propValue getCacheKey]).properties = [self mapFieldToProperty:propValue];
@@ -109,7 +109,7 @@
                 ((AnonymousObject *)[namedObject getCacheKey]).properties = [self mapFieldToProperty:namedObject];
             }
         }
-        
+
         // BackendlessUser/DeviceRegistration adaptation for ArrayType
         if ([propValue isKindOfClass:[ArrayType class]]) {
             NSMutableArray *newPropValueArray = [NSMutableArray new];
@@ -185,9 +185,9 @@
                 [DebLog logY:@"AnonymousObject -> setFieldsDirect: <%@> %@ <%@> EXCEPTION = %@", [obj class], memberName, [propValue class], exception];
             }
         }
-    }    
+    }
     [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> setFieldsDirect: (!!!!!!) SET ALL PROPERTIES obj = %@ <%@>", obj, [obj class]];
-#if _ON_RESOLVING_ABSENT_PROPERTY_ 
+#if _ON_RESOLVING_ABSENT_fPROPERTY_
     // add "on the fly" properties to obj
     NSArray *_properties = [properties allKeys];
     for (NSString *prop in _properties) {
@@ -201,7 +201,7 @@
         [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> setFieldsDirect: PROPERTY '%@' OF CLASS %@ -> %@ <%@>", prop, [propertyValue class], value, [value class]];
         [obj resolveProperty:prop value:value];
     }
-    [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> setFieldsDirect: FINISHED (0) obj = %@ <%@>\n%@\n\n", obj, [obj class], [Types propertyDictionary:obj]];    
+    [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> setFieldsDirect: FINISHED (0) obj = %@ <%@>\n%@\n\n", obj, [obj class], [Types propertyDictionary:obj]];
 #endif
     
     // deserializer pastprocessor

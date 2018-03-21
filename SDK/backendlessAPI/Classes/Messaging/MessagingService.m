@@ -166,7 +166,7 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 
 -(Channel *)subscribe:(NSString *)channelName {
     Channel *channel = [rtFactory createChannel:channelName];
-    [channel connect];    
+    [channel connect];
     return channel;
 }
 
@@ -281,7 +281,11 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     if (!recipients || !recipients.count)
         return [backendless throwFault:FAULT_NO_RECIPIENT];
     NSArray *args = @[(subject)?subject:@"", bodyParts, recipients, (attachments)?attachments:@[]];
-    return [invoker invokeSync:SERVER_MAIL_SERVICE_PATH method:METHOD_SEND_EMAIL args:args];
+    id result = [invoker invokeSync:SERVER_MAIL_SERVICE_PATH method:METHOD_SEND_EMAIL args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        return [backendless throwFault:result];
+    }
+    return result;
 }
 
 -(MessageStatus *)getMessageStatus:(NSString*)messageId {

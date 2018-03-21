@@ -29,6 +29,8 @@
 #import "IResponseAdapter.h"
 #import "MapAdapter.h"
 #import "RTFactory.h"
+#import "IResponseAdapter.h"
+#import "MapAdapter.h"
 
 #define FAULT_NO_ENTITY [Fault fault:@"Entity is missing or null" detail:@"Entity is missing or null" faultCode:@"1900"]
 #define FAULT_OBJECT_ID_IS_NOT_EXIST [Fault fault:@"objectId is missing or null" detail:@"objectId is missing or null" faultCode:@"1901"]

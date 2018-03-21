@@ -54,7 +54,7 @@
     
     [propertyMappings removeAllObjects];
     [propertyMappings release];
-    
+
     [super dealloc];
 }
 
@@ -163,7 +163,7 @@
         return;
     }
     NSMutableDictionary *propertyMappingsForClass = [propertyMappings objectForKey:[clientClass class]] ? [propertyMappings objectForKey:[clientClass class]] : [NSMutableDictionary new];
-    
+
     [propertyMappingsForClass setObject:propertyName forKey:columnName];
     [propertyMappings setObject:propertyMappingsForClass forKey:[clientClass class]];
 }
@@ -193,10 +193,10 @@
     
     [DebLog logN:@"Types -> classInstance: (!!!!!!!!!!!!!!! CREATE !!!!!!!!!!!!!!!) %@", type];
     
-    
+
     id instance = class_createInstance(type, 0);
-    
-    
+
+
     if (!instance) {
 #if SWIFT_ON // try to get swift client class instance
         Class swift = [__types classByName:[NSString stringWithFormat:@"%@.%@", self.swiftClassPrefix, [Types typeClassName:type]]];
@@ -348,7 +348,7 @@
     if (parts.count > 1) {
         prefix = parts[0];
     }
-    
+
     
     self.swiftClassPrefix = prefix;
     //NSLog(@"Types.swiftClassPrefix = '%@'", self.swiftClassPrefix);
@@ -374,7 +374,7 @@
         return nil;
     }
     
-    
+
     NSError *error = nil;
     NSDictionary *result = (NSDictionary *)[NSPropertyListSerialization propertyListWithData:plistXML
                                                                                      options:NSPropertyListMutableContainersAndLeaves

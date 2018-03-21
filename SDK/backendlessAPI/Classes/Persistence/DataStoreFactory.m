@@ -39,6 +39,7 @@
         _entityClass = [entityClass retain];
         [self mapDeviceRegistrationTableToClass];
         self.rt = [rtFactory createDataStore:[backendless.persistenceService getEntityName:NSStringFromClass(_entityClass)] withEntity:_entityClass dataStoreType:DATASTOREFACTORY];
+        [self mapDeviceRegistrationTableToClass];
     }
     return self;
 }
