@@ -14,6 +14,9 @@
 #import "BinaryStream.h"
 #import "V3Message.h"
 #import "NamedObject.h"
+#import "ArrayType.h"
+#import "BodyHolder.h"
+#import "BackendlessUserAdapter.h"
 
 @implementation AnonymousObject
 @synthesize properties;
@@ -96,6 +99,31 @@
         id prop = [props valueForKey:memberName];
         [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> setFieldsDirect: PROPERTY %@ <%@>", memberName, [prop class]];
         id propValue = [properties valueForKey:memberName];
+        
+        // field to property mapping
+        if ([propValue isKindOfClass:[NamedObject class]]) {
+            ((AnonymousObject *)[propValue getCacheKey]).properties = [self mapFieldToProperty:propValue];
+        }
+        else if ([propValue isKindOfClass:[ArrayType class]]) {
+            for (NamedObject *namedObject in [propValue getArray]) {
+                ((AnonymousObject *)[namedObject getCacheKey]).properties = [self mapFieldToProperty:namedObject];
+            }
+        }
+        
+        // BackendlessUser/DeviceRegistration adaptation for ArrayType
+        if ([propValue isKindOfClass:[ArrayType class]]) {
+            NSMutableArray *newPropValueArray = [NSMutableArray new];
+            for (NamedObject *namedObject in [propValue getArray]) {
+                id classTypeString = [((AnonymousObject *)[namedObject getCacheKey]).properties valueForKey:@"___class"];
+                if ([[classTypeString defaultAdapt] isEqualToString:@"Users"]) {
+                    BackendlessUser *user = [[BackendlessUserAdapter new] adaptToBackendlessUser:namedObject];
+                    [newPropValueArray addObject:user];
+                }
+            }
+            if ([newPropValueArray count] > 0) {
+                propValue = [ArrayType objectType:newPropValueArray];
+            }
+        }
         if (!propValue) {
             // and with uppercased first char of property name?
             NSString *upper = [memberName firstCharToUpper];
@@ -196,6 +224,26 @@
 #endif
     [DebLog log:_ON_READERS_LOG_ text:@"AnonymousObject -> setFieldsDirect: FINISHED (1) obj = %@ <%@>\n%@\n\n\n", obj, [obj class], [Types propertyDictionary:obj]];
     return obj;
+}
+
+-(NSMutableDictionary *)mapFieldToProperty:(NamedObject *)propValue {
+    NSMutableDictionary *propertiesOfPropValue = ((AnonymousObject *)[propValue getCacheKey]).properties;
+    if ([[Types sharedInstance] getPropertiesMappingForClientClass:([propValue getMappedType])]) {
+        NSDictionary *mappedProperties = [[Types sharedInstance] getPropertiesMappingForClientClass:[propValue getMappedType]];
+        NSMutableDictionary *changedPropertiesOfPropValue = [NSMutableDictionary new];
+        for (NSString *key in [propertiesOfPropValue allKeys]) {
+            if ([[mappedProperties allKeys] containsObject:key]) {
+                [changedPropertiesOfPropValue setObject:[propertiesOfPropValue valueForKey:key] forKey:[mappedProperties valueForKey:key]];
+            }
+            else {
+                [changedPropertiesOfPropValue setObject:[propertiesOfPropValue valueForKey:key] forKey:key];
+            }
+        }
+        if (changedPropertiesOfPropValue) {
+            return changedPropertiesOfPropValue;
+        }
+    }
+    return propertiesOfPropValue;
 }
 
 #pragma mark -

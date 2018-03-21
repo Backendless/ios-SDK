@@ -160,12 +160,10 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
         return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
     NSArray *args = [NSArray arrayWithObjects:login, password, nil];
     self.currentUser = [self castFromDictionary:[invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_LOGIN args:args]];
-    if (self.currentUser.getUserToken) {
+    if (self.currentUser.getUserToken)
         [backendless.headers setValue:self.currentUser.getUserToken forKey:BACKENDLESS_USER_TOKEN];
-    }
-    else {
+    else
         [backendless.headers removeObjectForKey:BACKENDLESS_USER_TOKEN];
-    }    
     [self setPersistentUser];
     return self.currentUser;
 }
@@ -283,10 +281,10 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 }
 
 -(void)login:(NSString *)login password:(NSString *)password response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {
-    Responder *responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!login || !password || ![login length] || ![password length])
-        return [responder errorHandler:FAULT_NO_USER_CREDENTIALS];
-    NSArray *args = [NSArray arrayWithObjects:login, password, nil];    
+        [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
+    NSArray *args = [NSArray arrayWithObjects:login, password, nil];
+    Responder *responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onLogin:) selErrorHandler:nil];
     _responder.chained = responder;
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_LOGIN args:args responder:_responder];

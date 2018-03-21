@@ -50,10 +50,22 @@
         return;
     }
     
-    // NSNumber correction bridged from swift Bool on 32-bit device/simulator    
+    // NSNumber correction bridged from swift Bool on 32-bit device/simulator
     NSMutableDictionary *objectFields = [NSMutableDictionary dictionaryWithDictionary:[Types propertyDictionary:obj]];
     NSDictionary *attrs = [Types propertyKeysWithAttributes:obj];
     NSArray *props = [objectFields allKeys];
+    
+    // property to field mapping
+    NSDictionary *fieldMappings = [[Types sharedInstance] getPropertiesMappingForClientClass:[obj class]];
+    for (NSString *fieldName in [fieldMappings allKeys]) {
+        NSString *propName = [fieldMappings valueForKey:fieldName];
+        
+        if ([[objectFields allKeys] containsObject:propName]) {
+            [objectFields setObject:[objectFields valueForKey:propName] forKey:fieldName];
+            [objectFields removeObjectForKey:propName];
+        }
+    }
+    
     for (NSString *prop in props) {
         id field = objectFields[prop];
         if ([field isKindOfClass:NSNumber.class]) {

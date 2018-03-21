@@ -11,7 +11,6 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = D3CF37E61A387DEB0070B746 /* Build configuration list for PBXAggregateTarget "backendless-dev-fat" */;
 			buildPhases = (
-				D3CF37E51A387DEB0070B746 /* Run Script */,
 			);
 			dependencies = (
 			);
@@ -22,7 +21,6 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = F9796A70166CD49A00595F5E /* Build configuration list for PBXAggregateTarget "backendless-fat" */;
 			buildPhases = (
-				F9796A73166CD4F800595F5E /* ShellScript */,
 			);
 			dependencies = (
 			);
@@ -1469,6 +1467,71 @@
 		5A1052D820063BC80036A784 /* JSONHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A1052CC20063B320036A784 /* JSONHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A3917D71FC5BDFF0084D24D /* CommandObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9AD1FC4788700B192D9 /* CommandObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A3917D81FC5BE0C0084D24D /* CommandObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A9FC9AC1FC4788700B192D9 /* CommandObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A3B2C1320626AFB00FA0047 /* AdaptResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3B2C0620625A4800FA0047 /* AdaptResponder.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A3B2C1420626B0700FA0047 /* AdaptResponder.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A3B2C0420625A4800FA0047 /* AdaptResponder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A3B2C1520626B1300FA0047 /* AdaptResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3B2C0620625A4800FA0047 /* AdaptResponder.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A3B2C1620626B1900FA0047 /* AdaptResponder.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A3B2C0420625A4800FA0047 /* AdaptResponder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A3B2C1720626B2300FA0047 /* AdaptResponder.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A3B2C0420625A4800FA0047 /* AdaptResponder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A3B2C1820626B2B00FA0047 /* AdaptResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3B2C0620625A4800FA0047 /* AdaptResponder.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A3B2C1920626B3100FA0047 /* AdaptResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3B2C0620625A4800FA0047 /* AdaptResponder.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A3B2C1B20626B3B00FA0047 /* AdaptResponder.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A3B2C0420625A4800FA0047 /* AdaptResponder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A3B2C1C20626B4500FA0047 /* AdaptResponder.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A3B2C0420625A4800FA0047 /* AdaptResponder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A3B2C1D20626B4B00FA0047 /* AdaptResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3B2C0620625A4800FA0047 /* AdaptResponder.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A3B2C1E20626B6800FA0047 /* AdapterFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3B2C11206268F300FA0047 /* AdapterFactory.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A3B2C1F20626B6D00FA0047 /* AdapterFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A3B2C0D206268F300FA0047 /* AdapterFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A3B2C2020626B7300FA0047 /* AdapterFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A3B2C0D206268F300FA0047 /* AdapterFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A3B2C2120626B7900FA0047 /* AdapterFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3B2C11206268F300FA0047 /* AdapterFactory.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A3B2C2220626B7F00FA0047 /* AdapterFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3B2C11206268F300FA0047 /* AdapterFactory.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A3B2C2320626B8300FA0047 /* AdapterFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A3B2C0D206268F300FA0047 /* AdapterFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A3B2C2420626B8900FA0047 /* AdapterFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A3B2C0D206268F300FA0047 /* AdapterFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A3B2C2520626B8E00FA0047 /* AdapterFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3B2C11206268F300FA0047 /* AdapterFactory.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A3B2C2620626B9200FA0047 /* AdapterFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3B2C11206268F300FA0047 /* AdapterFactory.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A3B2C2720626B9600FA0047 /* AdapterFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A3B2C0D206268F300FA0047 /* AdapterFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A3B2C2820626C3100FA0047 /* BackendlessUserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3B2C0C206268F300FA0047 /* BackendlessUserAdapter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A3B2C2920626C3600FA0047 /* BackendlessUserAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A3B2C12206268F300FA0047 /* BackendlessUserAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A3B2C2A20626C3C00FA0047 /* BackendlessUserAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A3B2C12206268F300FA0047 /* BackendlessUserAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A3B2C2B20626C4200FA0047 /* BackendlessUserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3B2C0C206268F300FA0047 /* BackendlessUserAdapter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A3B2C2C20626C4B00FA0047 /* BackendlessUserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3B2C0C206268F300FA0047 /* BackendlessUserAdapter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A3B2C2D20626C5000FA0047 /* BackendlessUserAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A3B2C12206268F300FA0047 /* BackendlessUserAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A3B2C2E20626C5700FA0047 /* BackendlessUserAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A3B2C12206268F300FA0047 /* BackendlessUserAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A3B2C2F20626C5F00FA0047 /* BackendlessUserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3B2C0C206268F300FA0047 /* BackendlessUserAdapter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A3B2C3020626C6500FA0047 /* BackendlessUserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3B2C0C206268F300FA0047 /* BackendlessUserAdapter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A3B2C3120626C6900FA0047 /* BackendlessUserAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A3B2C12206268F300FA0047 /* BackendlessUserAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A3B2C3220626C7E00FA0047 /* DefaultAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3B2C0B206268F300FA0047 /* DefaultAdapter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A3B2C3320626C8200FA0047 /* DefaultAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A3B2C10206268F300FA0047 /* DefaultAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A3B2C3420626C8A00FA0047 /* DefaultAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A3B2C10206268F300FA0047 /* DefaultAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A3B2C3520626C9000FA0047 /* DefaultAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3B2C0B206268F300FA0047 /* DefaultAdapter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A3B2C3620626C9400FA0047 /* DefaultAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3B2C0B206268F300FA0047 /* DefaultAdapter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A3B2C3720626C9800FA0047 /* DefaultAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A3B2C10206268F300FA0047 /* DefaultAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A3B2C3820626C9E00FA0047 /* DefaultAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A3B2C10206268F300FA0047 /* DefaultAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A3B2C3920626CA300FA0047 /* DefaultAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3B2C0B206268F300FA0047 /* DefaultAdapter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A3B2C3A20626CA700FA0047 /* DefaultAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3B2C0B206268F300FA0047 /* DefaultAdapter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A3B2C3B20626CAB00FA0047 /* DefaultAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A3B2C10206268F300FA0047 /* DefaultAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A3B2C3C20626CC000FA0047 /* DeviceRegistrationAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3B2C0F206268F300FA0047 /* DeviceRegistrationAdapter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A3B2C3D20626CC500FA0047 /* DeviceRegistrationAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A3B2C0A206268F300FA0047 /* DeviceRegistrationAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A3B2C3E20626CD100FA0047 /* DeviceRegistrationAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3B2C0F206268F300FA0047 /* DeviceRegistrationAdapter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A3B2C3F20626CD500FA0047 /* DeviceRegistrationAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A3B2C0A206268F300FA0047 /* DeviceRegistrationAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A3B2C4020626CD900FA0047 /* DeviceRegistrationAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A3B2C0A206268F300FA0047 /* DeviceRegistrationAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A3B2C4120626CDE00FA0047 /* DeviceRegistrationAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3B2C0F206268F300FA0047 /* DeviceRegistrationAdapter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A3B2C4220626CE400FA0047 /* DeviceRegistrationAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3B2C0F206268F300FA0047 /* DeviceRegistrationAdapter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A3B2C4320626CEB00FA0047 /* DeviceRegistrationAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A3B2C0A206268F300FA0047 /* DeviceRegistrationAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A3B2C4420626CF200FA0047 /* DeviceRegistrationAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A3B2C0A206268F300FA0047 /* DeviceRegistrationAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A3B2C4520626CF800FA0047 /* DeviceRegistrationAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3B2C0F206268F300FA0047 /* DeviceRegistrationAdapter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A3B2C4620626D0F00FA0047 /* MapAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3B2C0E206268F300FA0047 /* MapAdapter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A3B2C4720626D1300FA0047 /* MapAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A3B2C09206268F300FA0047 /* MapAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A3B2C4820626D1B00FA0047 /* MapAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A3B2C09206268F300FA0047 /* MapAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A3B2C4920626D2300FA0047 /* MapAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3B2C0E206268F300FA0047 /* MapAdapter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A3B2C4A20626D2800FA0047 /* MapAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3B2C0E206268F300FA0047 /* MapAdapter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A3B2C4B20626D2C00FA0047 /* MapAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A3B2C09206268F300FA0047 /* MapAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A3B2C4C20626D3100FA0047 /* MapAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A3B2C09206268F300FA0047 /* MapAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A3B2C4D20626D3800FA0047 /* MapAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3B2C0E206268F300FA0047 /* MapAdapter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A3B2C4E20626D3D00FA0047 /* MapAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3B2C0E206268F300FA0047 /* MapAdapter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A3B2C4F20626D4100FA0047 /* MapAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A3B2C09206268F300FA0047 /* MapAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A3B2C5020626D5100FA0047 /* IResponseAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A3B2C08206268F300FA0047 /* IResponseAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A3B2C5120626D5800FA0047 /* IResponseAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A3B2C08206268F300FA0047 /* IResponseAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A3B2C5220626D5C00FA0047 /* IResponseAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A3B2C08206268F300FA0047 /* IResponseAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A3B2C5320626D6100FA0047 /* IResponseAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A3B2C08206268F300FA0047 /* IResponseAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A3B2C5420626D6700FA0047 /* IResponseAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A3B2C08206268F300FA0047 /* IResponseAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A4A3A9C1FC570CB00C0ADBA /* RTMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9B01FC4788700B192D9 /* RTMethod.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A4A3A9D1FC570D000C0ADBA /* RTMethodRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9AF1FC4788700B192D9 /* RTMethodRequest.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A4A3A9E1FC570D500C0ADBA /* RTMethod.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A9FC9AE1FC4788700B192D9 /* RTMethod.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2562,6 +2625,19 @@
 		1C7BB5101A2E092900D3C2C1 /* libbackendless-mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libbackendless-mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A1052CC20063B320036A784 /* JSONHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONHelper.h; sourceTree = "<group>"; };
 		5A1052CD20063B320036A784 /* JSONHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONHelper.m; sourceTree = "<group>"; };
+		5A3B2C0420625A4800FA0047 /* AdaptResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdaptResponder.h; sourceTree = "<group>"; };
+		5A3B2C0620625A4800FA0047 /* AdaptResponder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdaptResponder.m; sourceTree = "<group>"; };
+		5A3B2C08206268F300FA0047 /* IResponseAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IResponseAdapter.h; sourceTree = "<group>"; };
+		5A3B2C09206268F300FA0047 /* MapAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapAdapter.h; sourceTree = "<group>"; };
+		5A3B2C0A206268F300FA0047 /* DeviceRegistrationAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceRegistrationAdapter.h; sourceTree = "<group>"; };
+		5A3B2C0B206268F300FA0047 /* DefaultAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultAdapter.m; sourceTree = "<group>"; };
+		5A3B2C0C206268F300FA0047 /* BackendlessUserAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackendlessUserAdapter.m; sourceTree = "<group>"; };
+		5A3B2C0D206268F300FA0047 /* AdapterFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdapterFactory.h; sourceTree = "<group>"; };
+		5A3B2C0E206268F300FA0047 /* MapAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapAdapter.m; sourceTree = "<group>"; };
+		5A3B2C0F206268F300FA0047 /* DeviceRegistrationAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceRegistrationAdapter.m; sourceTree = "<group>"; };
+		5A3B2C10206268F300FA0047 /* DefaultAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultAdapter.h; sourceTree = "<group>"; };
+		5A3B2C11206268F300FA0047 /* AdapterFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdapterFactory.m; sourceTree = "<group>"; };
+		5A3B2C12206268F300FA0047 /* BackendlessUserAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackendlessUserAdapter.h; sourceTree = "<group>"; };
 		5A4F7FBA1FDEB770006D5744 /* RTService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTService.h; sourceTree = "<group>"; };
 		5A4F7FBB1FDEB770006D5744 /* RTService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RTService.m; sourceTree = "<group>"; };
 		5A507A741F3B41D80027ABAC /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
@@ -3313,6 +3389,24 @@
 			path = JSONHelper;
 			sourceTree = "<group>";
 		};
+		5A3B2C07206268F300FA0047 /* PersistenceAdapter */ = {
+			isa = PBXGroup;
+			children = (
+				5A3B2C08206268F300FA0047 /* IResponseAdapter.h */,
+				5A3B2C09206268F300FA0047 /* MapAdapter.h */,
+				5A3B2C0E206268F300FA0047 /* MapAdapter.m */,
+				5A3B2C0A206268F300FA0047 /* DeviceRegistrationAdapter.h */,
+				5A3B2C0F206268F300FA0047 /* DeviceRegistrationAdapter.m */,
+				5A3B2C10206268F300FA0047 /* DefaultAdapter.h */,
+				5A3B2C0B206268F300FA0047 /* DefaultAdapter.m */,
+				5A3B2C12206268F300FA0047 /* BackendlessUserAdapter.h */,
+				5A3B2C0C206268F300FA0047 /* BackendlessUserAdapter.m */,
+				5A3B2C0D206268F300FA0047 /* AdapterFactory.h */,
+				5A3B2C11206268F300FA0047 /* AdapterFactory.m */,
+			);
+			path = PersistenceAdapter;
+			sourceTree = "<group>";
+		};
 		5A549831200794D20042234F /* SharedObject */ = {
 			isa = PBXGroup;
 			children = (
@@ -3587,6 +3681,7 @@
 		F91B47E515FF448F00012DFC /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
+				5A3B2C07206268F300FA0047 /* PersistenceAdapter */,
 				F91B48131602254900012DFC /* PersistenceService.h */,
 				F91B48141602254900012DFC /* PersistenceService.m */,
 				D36CF3F91A2F68DA00B6468A /* DataPermission.h */,
@@ -3658,6 +3753,8 @@
 		F91B47EC15FF48AF00012DFC /* IO */ = {
 			isa = PBXGroup;
 			children = (
+				5A3B2C0420625A4800FA0047 /* AdaptResponder.h */,
+				5A3B2C0620625A4800FA0047 /* AdaptResponder.m */,
 				F91B480115FF5AA900012DFC /* Invoker.h */,
 				F91B480215FF5AA900012DFC /* Invoker.m */,
 			);
@@ -3804,6 +3901,13 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A3B2C5020626D5100FA0047 /* IResponseAdapter.h in Headers */,
+				5A3B2C4720626D1300FA0047 /* MapAdapter.h in Headers */,
+				5A3B2C3D20626CC500FA0047 /* DeviceRegistrationAdapter.h in Headers */,
+				5A3B2C3320626C8200FA0047 /* DefaultAdapter.h in Headers */,
+				5A3B2C2920626C3600FA0047 /* BackendlessUserAdapter.h in Headers */,
+				5A3B2C2720626B9600FA0047 /* AdapterFactory.h in Headers */,
+				5A3B2C1620626B1900FA0047 /* AdaptResponder.h in Headers */,
 				5A5498702007A2740042234F /* ReconnectAttemptObject.h in Headers */,
 				5AD17B1E200775B200FFB487 /* RTFactory.h in Headers */,
 				5A54986D2007960C0042234F /* SharedObjectService.h in Headers */,
@@ -4056,6 +4160,13 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A3B2C5120626D5800FA0047 /* IResponseAdapter.h in Headers */,
+				5A3B2C4820626D1B00FA0047 /* MapAdapter.h in Headers */,
+				5A3B2C3F20626CD500FA0047 /* DeviceRegistrationAdapter.h in Headers */,
+				5A3B2C3420626C8A00FA0047 /* DefaultAdapter.h in Headers */,
+				5A3B2C2A20626C3C00FA0047 /* BackendlessUserAdapter.h in Headers */,
+				5A3B2C2420626B8900FA0047 /* AdapterFactory.h in Headers */,
+				5A3B2C1720626B2300FA0047 /* AdaptResponder.h in Headers */,
 				5A5498712007A2740042234F /* ReconnectAttemptObject.h in Headers */,
 				5AD17B1F200775B200FFB487 /* RTFactory.h in Headers */,
 				5AD17B07200770CC00FFB487 /* UserInfo.h in Headers */,
@@ -4311,6 +4422,13 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A3B2C5220626D5C00FA0047 /* IResponseAdapter.h in Headers */,
+				5A3B2C4B20626D2C00FA0047 /* MapAdapter.h in Headers */,
+				5A3B2C4020626CD900FA0047 /* DeviceRegistrationAdapter.h in Headers */,
+				5A3B2C3720626C9800FA0047 /* DefaultAdapter.h in Headers */,
+				5A3B2C2D20626C5000FA0047 /* BackendlessUserAdapter.h in Headers */,
+				5A3B2C2320626B8300FA0047 /* AdapterFactory.h in Headers */,
+				5A3B2C1B20626B3B00FA0047 /* AdaptResponder.h in Headers */,
 				5A5498722007A2740042234F /* ReconnectAttemptObject.h in Headers */,
 				5AD17B20200775B200FFB487 /* RTFactory.h in Headers */,
 				5AD17B08200770CC00FFB487 /* UserInfo.h in Headers */,
@@ -4566,6 +4684,13 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A3B2C5320626D6100FA0047 /* IResponseAdapter.h in Headers */,
+				5A3B2C4C20626D3100FA0047 /* MapAdapter.h in Headers */,
+				5A3B2C4320626CEB00FA0047 /* DeviceRegistrationAdapter.h in Headers */,
+				5A3B2C3820626C9E00FA0047 /* DefaultAdapter.h in Headers */,
+				5A3B2C2E20626C5700FA0047 /* BackendlessUserAdapter.h in Headers */,
+				5A3B2C2020626B7300FA0047 /* AdapterFactory.h in Headers */,
+				5A3B2C1C20626B4500FA0047 /* AdaptResponder.h in Headers */,
 				5A5498732007A2740042234F /* ReconnectAttemptObject.h in Headers */,
 				5AD17B21200775B200FFB487 /* RTFactory.h in Headers */,
 				5AD17B09200770CC00FFB487 /* UserInfo.h in Headers */,
@@ -4821,6 +4946,13 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A3B2C5420626D6700FA0047 /* IResponseAdapter.h in Headers */,
+				5A3B2C4F20626D4100FA0047 /* MapAdapter.h in Headers */,
+				5A3B2C4420626CF200FA0047 /* DeviceRegistrationAdapter.h in Headers */,
+				5A3B2C3B20626CAB00FA0047 /* DefaultAdapter.h in Headers */,
+				5A3B2C3120626C6900FA0047 /* BackendlessUserAdapter.h in Headers */,
+				5A3B2C1F20626B6D00FA0047 /* AdapterFactory.h in Headers */,
+				5A3B2C1420626B0700FA0047 /* AdaptResponder.h in Headers */,
 				5A5498742007A2740042234F /* ReconnectAttemptObject.h in Headers */,
 				5AD17B22200775B200FFB487 /* RTFactory.h in Headers */,
 				5AD17B0A200770CC00FFB487 /* UserInfo.h in Headers */,
@@ -5082,7 +5214,6 @@
 				1C7BB48F1A2E092900D3C2C1 /* Sources */,
 				1C7BB4C11A2E092900D3C2C1 /* Frameworks */,
 				1C7BB4C21A2E092900D3C2C1 /* Headers */,
-				1C7BB5161A319F4200D3C2C1 /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -5100,7 +5231,6 @@
 				F97969D8166CC8C300595F5E /* Sources */,
 				F97969D9166CC8C300595F5E /* Frameworks */,
 				F97969E9166CC94900595F5E /* Headers */,
-				1C7BB5171A31B9A700D3C2C1 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -5118,7 +5248,6 @@
 				F9796A24166CD3A400595F5E /* Sources */,
 				F9796A25166CD3A400595F5E /* Frameworks */,
 				F9796A50166CD3E500595F5E /* Headers */,
-				1C7BB5191A3306A900D3C2C1 /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -5136,7 +5265,6 @@
 				F9F0AE811CDBCA3900035C62 /* Sources */,
 				F9F0AECD1CDBCA3900035C62 /* Frameworks */,
 				F9F0AECE1CDBCA3900035C62 /* Headers */,
-				F9F0AF351CDBCA3900035C62 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -5154,7 +5282,6 @@
 				F9F0AF3B1CDBCAB500035C62 /* Sources */,
 				F9F0AF871CDBCAB500035C62 /* Frameworks */,
 				F9F0AF881CDBCAB500035C62 /* Headers */,
-				F9F0AFEF1CDBCAB500035C62 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -5203,6 +5330,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A3B2C4620626D0F00FA0047 /* MapAdapter.m in Sources */,
+				5A3B2C3C20626CC000FA0047 /* DeviceRegistrationAdapter.m in Sources */,
+				5A3B2C3220626C7E00FA0047 /* DefaultAdapter.m in Sources */,
+				5A3B2C2820626C3100FA0047 /* BackendlessUserAdapter.m in Sources */,
+				5A3B2C2620626B9200FA0047 /* AdapterFactory.m in Sources */,
+				5A3B2C1520626B1300FA0047 /* AdaptResponder.m in Sources */,
 				5A549840200795010042234F /* SharedObjectService.m in Sources */,
 				5A54983F200794FD0042234F /* SharedObjectChanges.m in Sources */,
 				5A54983E200794F70042234F /* SharedObject.m in Sources */,
@@ -5411,6 +5544,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A3B2C4920626D2300FA0047 /* MapAdapter.m in Sources */,
+				5A3B2C3E20626CD100FA0047 /* DeviceRegistrationAdapter.m in Sources */,
+				5A3B2C3520626C9000FA0047 /* DefaultAdapter.m in Sources */,
+				5A3B2C2B20626C4200FA0047 /* BackendlessUserAdapter.m in Sources */,
+				5A3B2C2520626B8E00FA0047 /* AdapterFactory.m in Sources */,
+				5A3B2C1820626B2B00FA0047 /* AdaptResponder.m in Sources */,
 				5A549845200795210042234F /* SharedObjectService.m in Sources */,
 				5A5498442007951D0042234F /* SharedObjectChanges.m in Sources */,
 				5A549843200795150042234F /* SharedObject.m in Sources */,
@@ -5622,6 +5761,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A3B2C4A20626D2800FA0047 /* MapAdapter.m in Sources */,
+				5A3B2C4120626CDE00FA0047 /* DeviceRegistrationAdapter.m in Sources */,
+				5A3B2C3620626C9400FA0047 /* DefaultAdapter.m in Sources */,
+				5A3B2C2C20626C4B00FA0047 /* BackendlessUserAdapter.m in Sources */,
+				5A3B2C2220626B7F00FA0047 /* AdapterFactory.m in Sources */,
+				5A3B2C1920626B3100FA0047 /* AdaptResponder.m in Sources */,
 				5A54984A2007953A0042234F /* SharedObjectService.m in Sources */,
 				5A549849200795360042234F /* SharedObject.m in Sources */,
 				5A549848200795320042234F /* SharedObjectChanges.m in Sources */,
@@ -5833,6 +5978,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A3B2C4D20626D3800FA0047 /* MapAdapter.m in Sources */,
+				5A3B2C4220626CE400FA0047 /* DeviceRegistrationAdapter.m in Sources */,
+				5A3B2C3920626CA300FA0047 /* DefaultAdapter.m in Sources */,
+				5A3B2C2F20626C5F00FA0047 /* BackendlessUserAdapter.m in Sources */,
+				5A3B2C2120626B7900FA0047 /* AdapterFactory.m in Sources */,
+				5A3B2C1D20626B4B00FA0047 /* AdaptResponder.m in Sources */,
 				5A54984F200795510042234F /* SharedObjectService.m in Sources */,
 				5A54984E2007954D0042234F /* SharedObjectChanges.m in Sources */,
 				5A54984D200795480042234F /* SharedObject.m in Sources */,
@@ -6044,6 +6195,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A3B2C4E20626D3D00FA0047 /* MapAdapter.m in Sources */,
+				5A3B2C4520626CF800FA0047 /* DeviceRegistrationAdapter.m in Sources */,
+				5A3B2C3A20626CA700FA0047 /* DefaultAdapter.m in Sources */,
+				5A3B2C3020626C6500FA0047 /* BackendlessUserAdapter.m in Sources */,
+				5A3B2C1E20626B6800FA0047 /* AdapterFactory.m in Sources */,
+				5A3B2C1320626AFB00FA0047 /* AdaptResponder.m in Sources */,
 				5A549854200795670042234F /* SharedObjectService.m in Sources */,
 				5A549853200795630042234F /* SharedObjectChanges.m in Sources */,
 				5A549852200795600042234F /* SharedObject.m in Sources */,

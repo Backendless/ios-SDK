@@ -214,43 +214,11 @@
     Request *responseObject = [RequestParser readMessage:reader];
     NSArray *responseData = [responseObject getRequestBodyData];
     id <ICacheableAdaptingType> type = [responseData objectAtIndex:0];
-    V3Message *v3 = (V3Message *)[type defaultAdapt];
 #if _ReaderReferenceCache_IS_SINGLETON_
     [[ReaderReferenceCache cache] cleanCache];
 #endif
+    [responder responseHandler:type];
     [reader release];
-    
-    [DebLog log:ON_PRINT_RESPONSE text:@"HttpEngine -> processAsyncAMFResponse: type: %@, type.typedObject = '%@', v3 = '%@'", type, [type getCacheKey], v3];
-    
-    if (v3) {
-        if (idInfo) {
-            if (!idInfo.dsId && v3.headers)
-                idInfo.dsId = (NSString *)v3.headers[@"DSId"];
-            if (!idInfo.clientId)
-                idInfo.clientId = (NSString *)v3.clientId;
-            
-            [DebLog logN:@"@@@@@ idInfo: dsId = '%@', clientId = '%@', destination = '%@'", idInfo.dsId, idInfo.clientId, idInfo.destination];
-        }
-        
-        if (v3.isError) {
-            
-            //typing and sent to delegate
-            ErrMessage *result = (ErrMessage *)v3;
-            Fault *fault = [Fault fault:result.faultString detail:result.faultDetail faultCode:result.faultCode];
-            [responder errorHandler:fault];
-        }
-        else {
-            
-            id result = v3.body.body;
-            
-            [DebLog log:_ON_HEADERS_LOG_ text:@"HttpEngine -> processAsyncAMFResponse: v3.headers = %@\n", v3.headers];
-            [DebLog logN:@"HttpEngine -> processAsyncAMFResponse: type = %@, returnValue: %@", [result class], result];
-            
-            [responder responseHandler:result];
-        }
-    }
-    
-    // clean up received data
     [async release];
 }
 
@@ -293,7 +261,7 @@
     
     [self sendRequest:[Subscription getCommandMessage:@"2" subTopic:subTopic selector:selector idInfo:idInfo] responder:
      [Responder responder:self selResponseHandler:@selector(pollingResponse:) selErrorHandler:@selector(pollingError:)] repeated:NO];
-
+    
     dispatch_time_t interval = dispatch_time(DISPATCH_TIME_NOW, 1ull*NSEC_PER_SEC*3);
     dispatch_after(interval, dispatch_get_main_queue(), ^{
         [self receiveMessages:obj];
@@ -402,47 +370,12 @@
     
     Request *responseObject = [RequestParser readMessage:reader];
     NSArray *responseData = [responseObject getRequestBodyData];
-    id <IAdaptingType> type = [responseData objectAtIndex:0];
-    V3Message *v3 = (V3Message *)[type defaultAdapt];
+    id<IAdaptingType> type = [responseData objectAtIndex:0];
 #if _ReaderReferenceCache_IS_SINGLETON_
     [[ReaderReferenceCache cache] cleanCache];
 #endif
     [reader release];
-    
-    [DebLog log:ON_PRINT_RESPONSE text:@"HttpEngine -> sendRequest: (SYNC) type: %@, type.defaultAdapt = '%@', v3 = '%@'", type, [v3 class], v3];
-    
-    if (v3) {
-        if (idInfo) {
-            
-            if (!idInfo.dsId && v3.headers)
-                idInfo.dsId = (NSString *)v3.headers[@"DSId"];
-            if (!idInfo.clientId)
-                idInfo.clientId = (NSString *)v3.clientId;
-            
-            [DebLog logN:@"@@@@@ idInfo (2): dsId = '%@', clientId = '%@', destination = '%@'", idInfo.dsId, idInfo.clientId, idInfo.destination];
-        }
-        
-        if (v3.isError) {
-            
-            //typing and sent to delegate
-            ErrMessage *result = (ErrMessage *)v3;
-            
-            [DebLog log:@"HttpEngine -> sendRequest: (SYNC) isError = YES, result: %@", result];
-            
-            return [Fault fault:result.faultString detail:result.faultDetail faultCode:result.faultCode];
-        }
-        else {
-            
-            id result = v3.body.body;
-            
-            [DebLog log:_ON_HEADERS_LOG_ text:@"HttpEngine -> sendRequest: v3.headers = %@\n", v3.headers];
-            [DebLog log:@"HttpEngine -> sendRequest: (SYNC) type = %@, returnValue: %@", [result class], result];
-            
-            return result;
-        }
-    }
-    
-    return UNKNOWN_FAULT;
+    return type;
 }
 
 //async
@@ -534,7 +467,7 @@
     
     AsyncHttpResponse *async = [self asyncHttpResponse:connection];
     if (!async)
-        return;    
+        return;
     NSHTTPURLResponse *responseUrl = (NSHTTPURLResponse *)response;
     // connection is starting, clear buffer
     [async.receivedData setLength:0];

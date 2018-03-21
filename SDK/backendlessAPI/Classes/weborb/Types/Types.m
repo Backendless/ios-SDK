@@ -6,9 +6,9 @@
 //  Copyright 2011 The Midnight Coders, Inc. All rights reserved.
 //
 
+#import <objc/runtime.h>
 #import "Types.h"
 #import "DEBUG.h"
-#import <objc/runtime.h>
 
 #define SWIFT_ON 1
 
@@ -31,6 +31,7 @@
         abstractMappings = [[NSMutableDictionary alloc] init];
         clientMappings = [[NSMutableDictionary alloc] init];
         serverMappings = [[NSMutableDictionary alloc] init];
+        propertyMappings = [[NSMapTable<Class, NSMutableDictionary *> alloc] init];
         self.swiftClassPrefix = [Types targetName];
     }
     return self;
@@ -50,6 +51,9 @@
     
     [serverMappings removeAllObjects];
     [serverMappings release];
+    
+    [propertyMappings removeAllObjects];
+    [propertyMappings release];
     
     [super dealloc];
 }
@@ -154,6 +158,20 @@
     return mapped?mapped:name;
 }
 
+-(void)addClientPropertyMappingForClass:(Class)clientClass columnName:(NSString *)columnName propertyName:(NSString *)propertyName {
+    if (!clientClass || !columnName || !propertyName) {
+        return;
+    }
+    NSMutableDictionary *propertyMappingsForClass = [propertyMappings objectForKey:[clientClass class]] ? [propertyMappings objectForKey:[clientClass class]] : [NSMutableDictionary new];
+    
+    [propertyMappingsForClass setObject:propertyName forKey:columnName];
+    [propertyMappings setObject:propertyMappingsForClass forKey:[clientClass class]];
+}
+
+-(NSDictionary *)getPropertiesMappingForClientClass:(Class)clientClass {
+    return [propertyMappings objectForKey:[clientClass class]] ? [propertyMappings objectForKey:[clientClass class]] : [NSDictionary new];
+}
+
 // type reflecting
 
 +(NSString *)objectClassName:(id)obj {
@@ -175,7 +193,10 @@
     
     [DebLog logN:@"Types -> classInstance: (!!!!!!!!!!!!!!! CREATE !!!!!!!!!!!!!!!) %@", type];
     
+    
     id instance = class_createInstance(type, 0);
+    
+    
     if (!instance) {
 #if SWIFT_ON // try to get swift client class instance
         Class swift = [__types classByName:[NSString stringWithFormat:@"%@.%@", self.swiftClassPrefix, [Types typeClassName:type]]];
@@ -327,7 +348,7 @@
     if (parts.count > 1) {
         prefix = parts[0];
     }
-
+    
     
     self.swiftClassPrefix = prefix;
     //NSLog(@"Types.swiftClassPrefix = '%@'", self.swiftClassPrefix);
@@ -353,7 +374,7 @@
         return nil;
     }
     
-
+    
     NSError *error = nil;
     NSDictionary *result = (NSDictionary *)[NSPropertyListSerialization propertyListWithData:plistXML
                                                                                      options:NSPropertyListMutableContainersAndLeaves
@@ -600,4 +621,3 @@
 }
 
 @end
-

@@ -58,7 +58,7 @@ static NSString *EMPTY_STRING = @"";
         faultCode = (_faultCode) ? _faultCode : EMPTY_STRING;
     }
     
-    return self;    
+    return self;
 }
 
 -(id)initWithMessage:(NSString *)_message detail:(NSString *)_detail faultCode:(NSString *)_faultCode {
@@ -69,7 +69,7 @@ static NSString *EMPTY_STRING = @"";
         faultCode = (_faultCode) ? _faultCode : EMPTY_STRING;
     }
     
-    return self;    
+    return self;
 }
 
 +(id)fault:(NSString *)_message {
@@ -189,14 +189,14 @@ static NSString *EMPTY_STRING = @"";
 }
 
 -(void)dealloc {
-	
-	[DebLog logN:@"DEALLOC Responder"];
+    
+    [DebLog logN:@"DEALLOC Responder"];
     
     [_responder release];
     [_chained release];
     [_context release];
-	
-	[super dealloc];
+    
+    [super dealloc];
 }
 
 #pragma mark -
@@ -207,22 +207,20 @@ static NSString *EMPTY_STRING = @"";
     if (_responder && _responseHandler && [_responder respondsToSelector:_responseHandler])
         response = [_responder performSelector:_responseHandler
                                     withObject:_context?[ResponseContext response:response context:_context]:response];
-    
     if (_chained)
-        [_chained responseHandler:response]; 
-    
+        [_chained responseHandler:response];
     return response;
 }
- 
--(void)errorHandler:(Fault *)fault {
 
+-(void)errorHandler:(Fault *)fault {
+    
     fault.context = self;
     if (_responder && _errorHandler && [_responder respondsToSelector:_errorHandler])
         [_responder performSelector:_errorHandler withObject:fault];
     
     fault.context = nil;
     if (_chained)
-        [_chained errorHandler:fault];    
+        [_chained errorHandler:fault];
 }
 
 @end
@@ -284,13 +282,13 @@ typedef void (^ErrorHandlerBlock)(Fault *);
 }
 
 -(void)dealloc {
-	
-	[DebLog logN:@"DEALLOC ResponderBlocksContext"];
+    
+    [DebLog logN:@"DEALLOC ResponderBlocksContext"];
     
     [responseBlock release];
     [errorBlock release];
- 	
-	[super dealloc];
+    
+    [super dealloc];
 }
 
 #pragma mark -
@@ -308,5 +306,3 @@ typedef void (^ErrorHandlerBlock)(Fault *);
 }
 
 @end
-
-

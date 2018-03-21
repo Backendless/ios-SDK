@@ -14,9 +14,10 @@
 #define __types [Types sharedInstance]
 
 @interface Types : NSObject {
-    NSMutableDictionary	*abstractMappings;
-    NSMutableDictionary	*clientMappings;
-    NSMutableDictionary	*serverMappings;
+    NSMutableDictionary    *abstractMappings;
+    NSMutableDictionary    *clientMappings;
+    NSMutableDictionary    *serverMappings;
+    NSMapTable<Class, NSMutableDictionary *> *propertyMappings;
 }
 
 @property (nonatomic, retain) NSString *swiftClassPrefix;
@@ -32,6 +33,8 @@
 -(NSString *)getClientClassForServerType:(NSString *)serverClassName;
 -(NSString *)objectMappedClassName:(id)obj;
 -(NSString *)typeMappedClassName:(Class)type;
+-(void)addClientPropertyMappingForClass:(Class)clientClass columnName:(NSString *)columnName propertyName:(NSString *)propertyName;
+-(NSDictionary *)getPropertiesMappingForClientClass:(Class)clientClass;
 // type reflection
 +(NSString *)objectClassName:(id)obj;
 +(NSString *)typeClassName:(Class)type;
