@@ -1,5 +1,21 @@
 # RELEASE HISTORY
 
+## 4.0.24 March 20, 2018
+* BackendlessUser adaptation for ArrayType fixed
+
+## 4.0.23 March 14, 2018
+* BackendlessUser adaptation incorrect type mapping fixed
+
+## 4.0.22 March 13, 2018
+* BackendlessUser adaptation fixed for DataStoreFactory
+
+## 4.0.21 February 20, 2018
+* The mapColumnToProperty method added
+* The findById method changed to take only NSString objectId
+* The sendEmail method signature of the MessagingService changed to return MessageStatus
+* The remove method of DataStoreFactory fixed and returns fault when trying to access the table that doesn't exist
+* Sync methods of MapDrivenDataStore and DataStoreFactory fixed to return fault correctly
+
 ## 4.0.20 December 7, 2017
 * The updateBulk and removeBulk methods added to the IDataStore
 * Aggregate functions added
