@@ -16,4 +16,5 @@
 
 +(id)objectType:(NSArray *)data;
 -(NSArray *)getArray;
+
 @end

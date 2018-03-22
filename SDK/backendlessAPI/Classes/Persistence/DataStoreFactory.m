@@ -34,13 +34,21 @@
 -(id)init:(Class)entityClass {
     if (self = [super init]) {
         _entityClass = [entityClass retain];
-        [[Types sharedInstance] addClientClassMapping:@"Users" mapped:[BackendlessUser class]];
+        [self mapDeviceRegistrationTableToClass];
     }
     return self;
 }
 
 +(id <IDataStore>)createDataStore:(Class)entityClass {
     return [[DataStoreFactory alloc] init:entityClass];
+}
+
+-(void)mapDeviceRegistrationTableToClass {
+    if (_entityClass == [DeviceRegistration class]) {
+        [backendless.data mapColumnToProperty:[DeviceRegistration class] columnName:@"objectId" propertyName:@"id"];
+        [backendless.data mapColumnToProperty:[DeviceRegistration class] columnName:@"operatingSystemName" propertyName:@"os"];
+        [backendless.data mapColumnToProperty:[DeviceRegistration class] columnName:@"operatingSystemVersion" propertyName:@"osVersion"];
+    }
 }
 
 -(void)dealloc {
@@ -62,7 +70,7 @@
 -(NSNumber *)remove:(id)entity {
     NSString *objectId = [backendless.persistenceService getObjectId:entity];
     if ([objectId isKindOfClass:[NSString class]]) {
-        return [backendless.persistenceService remove:[entity class] objectId:objectId];
+        return [backendless.persistenceService remove:_entityClass objectId:objectId];
     }
     else {
         return [backendless.persistenceService remove:entity];
@@ -97,24 +105,12 @@
     return [backendless.persistenceService last:_entityClass queryBuilder:queryBuilder];
 }
 
--(id)findById:(id)objectId {
-    if ([objectId isKindOfClass:[NSString class]]) {
-        return [backendless.persistenceService findByClassId:_entityClass objectId:objectId];
-    }
-    if ([objectId isKindOfClass:[NSDictionary class]]) {
-        return [backendless.persistenceService findByObject:[backendless.persistenceService getEntityName:NSStringFromClass(_entityClass)] keys:objectId];
-    }
-    return [backendless.persistenceService findByObject:objectId];
+-(id)findById:(NSString *)objectId {
+    return [backendless.persistenceService findByClassId:_entityClass objectId:objectId];
 }
 
--(id)findById:(id)objectId queryBuilder:(DataQueryBuilder *)queryBuilder {
-    if ([objectId isKindOfClass:[NSString class]]) {
-        return [backendless.persistenceService findByClassId:_entityClass objectId:objectId queryBuilder:queryBuilder];
-    }
-    if ([objectId isKindOfClass:[NSDictionary class]]) {
-        return [backendless.persistenceService findByObject:[backendless.persistenceService getEntityName:NSStringFromClass(_entityClass)] keys:objectId queryBuilder:queryBuilder];
-    }
-    return [backendless.persistenceService findByObject:objectId queryBuilder:queryBuilder];
+-(id)findById:(NSString *)objectId queryBuilder:(DataQueryBuilder *)queryBuilder {
+    return [backendless.persistenceService findByClassId:_entityClass objectId:objectId queryBuilder:queryBuilder];
 }
 
 -(NSNumber *)getObjectCount {
@@ -170,7 +166,7 @@
 -(void)remove:(id)entity response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     NSString *objectId = [backendless.persistenceService getObjectId:entity];
     if ([objectId isKindOfClass:[NSString class]]) {
-        [backendless.persistenceService remove:[entity class] objectId:objectId response:responseBlock error:errorBlock];
+        [backendless.persistenceService remove:_entityClass objectId:objectId response:responseBlock error:errorBlock];
     }
     else {
         [backendless.persistenceService remove:entity response:responseBlock error:errorBlock];
@@ -205,32 +201,12 @@
     [backendless.persistenceService last:_entityClass queryBuilder:queryBuilder response:responseBlock error:errorBlock];
 }
 
--(void)findById:(id)objectId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    if ([objectId isKindOfClass:[NSString class]]) {
-        [backendless.persistenceService findByClassId:_entityClass objectId:objectId response:responseBlock error:errorBlock];
-    }
-    else {
-        if ([objectId isKindOfClass:[NSDictionary class]]) {
-            [backendless.persistenceService findByObject:[backendless.persistenceService getEntityName:NSStringFromClass(_entityClass)] keys:objectId response:responseBlock error:errorBlock];
-        }
-        else {
-            [backendless.persistenceService findByObject:objectId response:responseBlock error:errorBlock];
-        }
-    }
+-(void)findById:(NSString *)objectId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+    [backendless.persistenceService findByClassId:_entityClass objectId:objectId response:responseBlock error:errorBlock];
 }
 
--(void)findById:(id)objectId queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    if ([objectId isKindOfClass:[NSString class]]) {
-        [backendless.persistenceService findByClassId:_entityClass objectId:objectId queryBuilder:queryBuilder response:responseBlock error:errorBlock];
-    }
-    else {
-        if ([objectId isKindOfClass:[NSDictionary class]]) {
-            [backendless.persistenceService findByObject:[backendless.persistenceService getEntityName:NSStringFromClass(_entityClass)] keys:objectId queryBuilder:queryBuilder response:responseBlock error:errorBlock];
-        }
-        else {
-            [backendless.persistenceService findByObject:objectId queryBuilder:queryBuilder response:responseBlock error:errorBlock];
-        }
-    }
+-(void)findById:(NSString *)objectId queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+    [backendless.persistenceService findByClassId:_entityClass objectId:objectId queryBuilder:queryBuilder response:responseBlock error:errorBlock];
 }
 
 -(void)getObjectCount:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {

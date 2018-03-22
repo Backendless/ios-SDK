@@ -26,10 +26,12 @@
 #import "ObjectProperty.h"
 #import "ClassCastException.h"
 #import "ObjectSerializer.h"
+#import "IResponseAdapter.h"
+#import "MapAdapter.h"
 
 #define FAULT_NO_ENTITY [Fault fault:@"Entity is missing or null" detail:@"Entity is missing or null" faultCode:@"1900"]
 #define FAULT_OBJECT_ID_IS_NOT_EXIST [Fault fault:@"objectId is missing or null" detail:@"objectId is missing or null" faultCode:@"1901"]
-#define FAULT_NAME_IS_NULL [Fault fault:@"Name is missing or null" detail:@"Name is missing or null" faultCode:@"1902"]
+#define FAULT_FIELD_IS_NULL [Fault fault:@"Field is missing or null" detail:@"Field is missing or null" faultCode:@"1903"]
 
 // SERVICE NAME
 static NSString *SERVER_PERSISTENCE_SERVICE_PATH  = @"com.backendless.services.persistence.PersistenceService";
@@ -102,7 +104,10 @@ static NSString *REMOVE_BULK = @"removeBulk";
         return [backendless throwFault:FAULT_NO_ENTITY];
     }
     NSArray *args = @[_tableName, entity];
-    id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_SAVE args:args];
+    id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_SAVE args:args responseAdapter:[MapAdapter new]];
+    if ([result isKindOfClass:[Fault class]]) {
+        return [backendless throwFault:result];
+    }    
     return [result isKindOfClass:NSDictionary.class]?result:[Types propertyDictionary:result];
 }
 
@@ -111,7 +116,11 @@ static NSString *REMOVE_BULK = @"removeBulk";
         return [backendless throwFault:FAULT_NO_ENTITY];
     }
     NSArray *args = @[_tableName, entity];
-    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_REMOVE args:args];
+    id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_REMOVE args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        return [backendless throwFault:result];
+    }
+    return result;
 }
 
 -(NSNumber *)removeById:(NSString *)objectId {
@@ -119,12 +128,19 @@ static NSString *REMOVE_BULK = @"removeBulk";
         return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     }
     NSArray *args = @[_tableName, objectId];
-    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_REMOVE args:args];
+    id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_REMOVE args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        return [backendless throwFault:result];
+    }
+    return result;
 }
 
 -(NSArray *)find {
     NSArray *args = @[_tableName, [DataQueryBuilder new]];
-    NSMutableArray *result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args];
+    id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args responseAdapter:[MapAdapter new]];
+    if ([result isKindOfClass:[Fault class]]) {
+        return [backendless throwFault:result];
+    }
     for (NSMutableDictionary *dictionary in result) {
         [self setNullToNil:dictionary];
     }
@@ -132,10 +148,13 @@ static NSString *REMOVE_BULK = @"removeBulk";
 }
 
 -(NSArray *)find:(DataQueryBuilder *)queryBuilder {
+    if (!queryBuilder) {
+        [backendless throwFault:FAULT_FIELD_IS_NULL];
+    }
     NSArray *args = @[_tableName, [queryBuilder build]];
-    id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args];
+    id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args responseAdapter:[MapAdapter new]];
     if ([result isKindOfClass:[Fault class]]) {
-        return result;
+        return [backendless throwFault:result];
     }
     for (NSMutableDictionary *dictionary in (NSMutableArray *)result) {
         [self setNullToNil:dictionary];
@@ -146,111 +165,171 @@ static NSString *REMOVE_BULK = @"removeBulk";
 
 -(id)findFirst {
     NSArray *args = @[_tableName];
-    id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIRST args:args];
+    id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIRST args:args responseAdapter:[MapAdapter new]];
+    if ([result isKindOfClass:[Fault class]]) {
+        return [backendless throwFault:result];
+    }
     return [result isKindOfClass:NSDictionary.class]?[self setNullToNil:(NSMutableDictionary *) result]:[self setNullToNil:(NSMutableDictionary *) [Types propertyDictionary:result]];
 }
 
 -(id)findFirst:(DataQueryBuilder *)queryBuilder {
+    if (!queryBuilder) {
+        [backendless throwFault:FAULT_FIELD_IS_NULL];
+    }
     NSArray *args = @[_tableName, [queryBuilder getRelated]?[queryBuilder getRelated]:@[], [queryBuilder getRelationsDepth]?[queryBuilder getRelationsDepth]:[NSNull null], [queryBuilder getProperties]];
-    id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIRST args:args];
+    id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIRST args:args responseAdapter:[MapAdapter new]];
+    if ([result isKindOfClass:[Fault class]]) {
+        return [backendless throwFault:result];
+    }
     return [result isKindOfClass:NSDictionary.class]?[self setNullToNil:(NSMutableDictionary *) result]:[self setNullToNil:(NSMutableDictionary *) [Types propertyDictionary:result]];
 }
 
 -(id)findLast {
     NSArray *args = @[_tableName];
-    id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LAST args:args];
+    id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LAST args:args responseAdapter:[MapAdapter new]];
+    if ([result isKindOfClass:[Fault class]]) {
+        return [backendless throwFault:result];
+    }
     return [result isKindOfClass:NSDictionary.class]?[self setNullToNil:(NSMutableDictionary *) result]:[self setNullToNil:(NSMutableDictionary *) [Types propertyDictionary:result]];
 }
 
 -(id)findLast:(DataQueryBuilder *)queryBuilder {
+    if (!queryBuilder) {
+        [backendless throwFault:FAULT_FIELD_IS_NULL];
+    }
     NSArray *args = @[_tableName, [queryBuilder getRelated]?[queryBuilder getRelated]:@[], [queryBuilder getRelationsDepth]?[queryBuilder getRelationsDepth]:[NSNull null], [queryBuilder getProperties]];
-    id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LAST args:args];
+    id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LAST args:args responseAdapter:[MapAdapter new]];
+    if ([result isKindOfClass:[Fault class]]) {
+        return [backendless throwFault:result];
+    }
     return [result isKindOfClass:NSDictionary.class]?[self setNullToNil:(NSMutableDictionary *) result]:[self setNullToNil:(NSMutableDictionary *) [Types propertyDictionary:result]];
 }
 
--(id)findById:(id)objectId {
-    NSMutableDictionary *result;
-    if ([objectId isKindOfClass:[NSString class]]) {
-        result = [backendless.persistenceService findById:_tableName objectId:objectId];
+-(id)findById:(NSString *)objectId {
+    if (!objectId) {
+        [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     }
-    else if ([objectId isKindOfClass:[NSDictionary class]]) {
-        result = [backendless.persistenceService findByObject:_tableName keys:objectId];
+    id result = [backendless.persistenceService findById:_tableName objectId:objectId responseAdapter:[MapAdapter new]];
+    if ([result isKindOfClass:[Fault class]]) {
+        return [backendless throwFault:result];
     }
-    else {
-        result = [backendless.persistenceService findByObject:objectId];
-    }
-    result = [self setNullToNil:result];
-    return result;
+    return [self setNullToNil:result];
 }
 
--(id)findById:(id)objectId queryBuilder:(DataQueryBuilder *)queryBuilder {
-    NSMutableDictionary *result;
-    if ([objectId isKindOfClass:[NSString class]]) {
-        result = [backendless.persistenceService findById:_tableName objectId:objectId queryBuilder:queryBuilder];
+-(id)findById:(NSString *)objectId queryBuilder:(DataQueryBuilder *)queryBuilder {
+    if (!objectId) {
+        [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     }
-    else if ([objectId isKindOfClass:[NSDictionary class]]) {
-        result = [backendless.persistenceService findByObject:_tableName keys:objectId queryBuilder:queryBuilder];
+    if (!queryBuilder) {
+        [backendless throwFault:FAULT_FIELD_IS_NULL];
     }
-    else {
-        result = [backendless.persistenceService findByObject:objectId queryBuilder:queryBuilder];
+    id result = [backendless.persistenceService findById:_tableName objectId:objectId queryBuilder:queryBuilder responseAdapter:[MapAdapter new]];
+    if ([result isKindOfClass:[Fault class]]) {
+        return [backendless throwFault:result];
     }
-    result = [self setNullToNil:result];
-    return result;
+    return [self setNullToNil:result];
 }
 
 -(NSNumber *)getObjectCount {
     NSArray *args = @[_tableName];
-    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_COUNT args:args];
+    id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_COUNT args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        return [backendless throwFault:result];
+    }
+    return result;
 }
 
 -(NSNumber *)getObjectCount:(DataQueryBuilder *)dataQuery{
+    if (!dataQuery) {
+        [backendless throwFault:FAULT_FIELD_IS_NULL];
+    }
     NSArray *args = @[_tableName, [dataQuery build]];
-    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_COUNT args:args];
+    id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_COUNT args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        return [backendless throwFault:result];
+    }
+    return result;
 }
 
 -(NSNumber *)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects {
-    return [backendless.persistenceService setRelation:_tableName columnName:columnName parentObjectId:parentObjectId childObjects:childObjects];
+    id result = [backendless.persistenceService setRelation:_tableName columnName:columnName parentObjectId:parentObjectId childObjects:childObjects];
+    if ([result isKindOfClass:[Fault class]]) {
+        return [backendless throwFault:result];
+    }
+    return result;
 }
 
 -(NSNumber *)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause{
-    return [backendless.persistenceService setRelation:_tableName columnName:columnName parentObjectId:parentObjectId whereClause:whereClause];
+    id result = [backendless.persistenceService setRelation:_tableName columnName:columnName parentObjectId:parentObjectId whereClause:whereClause];
+    if ([result isKindOfClass:[Fault class]]) {
+        return [backendless throwFault:result];
+    }
+    return result;
 }
 
 -(NSNumber *)addRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects{
-    return [backendless.persistenceService addRelation:_tableName columnName:columnName parentObjectId:parentObjectId childObjects:childObjects];
+    id result = [backendless.persistenceService addRelation:_tableName columnName:columnName parentObjectId:parentObjectId childObjects:childObjects];
+    if ([result isKindOfClass:[Fault class]]) {
+        return [backendless throwFault:result];
+    }
+    return result;
 }
 
 -(NSNumber *)addRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause{
-    return [backendless.persistenceService addRelation:_tableName columnName:columnName parentObjectId:parentObjectId whereClause:whereClause];
+    id result = [backendless.persistenceService addRelation:_tableName columnName:columnName parentObjectId:parentObjectId whereClause:whereClause];
+    if ([result isKindOfClass:[Fault class]]) {
+        return [backendless throwFault:result];
+    }
+    return result;
 }
 
 -(NSNumber *)deleteRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects{
-    return [backendless.persistenceService deleteRelation:_tableName columnName:columnName parentObjectId:parentObjectId childObjects:childObjects];
+    id result = [backendless.persistenceService deleteRelation:_tableName columnName:columnName parentObjectId:parentObjectId childObjects:childObjects];
+    if ([result isKindOfClass:[Fault class]]) {
+        return [backendless throwFault:result];
+    }
+    return result;
 }
 
 -(NSNumber *)deleteRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause{
-    return [backendless.persistenceService deleteRelation:_tableName columnName:columnName parentObjectId:parentObjectId whereClause:whereClause];
+    id result = [backendless.persistenceService deleteRelation:_tableName columnName:columnName parentObjectId:parentObjectId whereClause:whereClause];
+    if ([result isKindOfClass:[Fault class]]) {
+        return [backendless throwFault:result];
+    }
+    return result;
 }
 
 -(NSArray*)loadRelations:(NSString *)objectId queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder {
-    return [backendless.persistenceService loadRelations:_tableName objectId:(NSString *)objectId  queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder];
+    id result = [backendless.persistenceService loadRelations:_tableName objectId:(NSString *)objectId  queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder];
+    if ([result isKindOfClass:[Fault class]]) {
+        return [backendless throwFault:result];
+    }
+    return result;
 }
 
 -(NSNumber *)updateBulk:(NSString *)whereClause changes:(NSDictionary<NSString *,id> *)changes {
     NSArray *args = @[_tableName, whereClause, changes];
-    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:UPDATE_BULK args:args];
+    id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:UPDATE_BULK args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        return [backendless throwFault:result];
+    }
+    return result;
 }
 
 -(NSNumber *)removeBulk:(NSString *)whereClause {
     NSArray *args = @[_tableName, whereClause];
-    return [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:REMOVE_BULK args:args];
+    id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:REMOVE_BULK args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        return [backendless throwFault:result];
+    }
+    return result;
 }
 
 // async methods with block-based callbacks
 
 -(void)save:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     NSArray *args = @[_tableName, entity];
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_SAVE args:args responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_SAVE args:args responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock] responseAdapter:[MapAdapter new]];
 }
 
 -(void)remove:(NSDictionary<NSString*,id> *)entity response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -268,7 +347,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     Responder *responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onFind:) selErrorHandler:nil];
     _responder.chained = responder;
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args responder:_responder];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args responder:_responder responseAdapter:[MapAdapter new]];
 }
 
 -(void)find:(DataQueryBuilder *)queryBuilder response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -276,7 +355,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     Responder *responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onFind:) selErrorHandler:nil];
     _responder.chained = responder;
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args responder:_responder];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args responder:_responder responseAdapter:[MapAdapter new]];
 }
 
 -(void)findFirst:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -284,7 +363,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     Responder *responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onFind:) selErrorHandler:nil];
     _responder.chained = responder;
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIRST args:args responder:_responder];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIRST args:args responder:_responder responseAdapter:[MapAdapter new]];
 }
 
 -(void)findFirst:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -292,7 +371,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     Responder *responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onFind:) selErrorHandler:nil];
     _responder.chained = responder;
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIRST args:args responder:_responder];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIRST args:args responder:_responder responseAdapter:[MapAdapter new]];
 }
 
 -(void)findLast:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -300,7 +379,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     Responder *responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onFind:) selErrorHandler:nil];
     _responder.chained = responder;
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LAST args:args responder:_responder];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LAST args:args responder:_responder responseAdapter:[MapAdapter new]];
 }
 
 -(void)findLast:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -308,43 +387,23 @@ static NSString *REMOVE_BULK = @"removeBulk";
     Responder *responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onFind:) selErrorHandler:nil];
     _responder.chained = responder;
-    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LAST args:args responder:_responder];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LAST args:args responder:_responder responseAdapter:[MapAdapter new]];
 }
 
--(void)findById:(id)objectId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    
+-(void)findById:(NSString *)objectId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     void (^wrappedBlock)(id) = ^(id dict) {
         dict = [self setNullToNil:dict];
         responseBlock(dict);
     };
-    
-    if ([objectId isKindOfClass:[NSString class]]) {
-        [backendless.persistenceService findById:_tableName objectId:objectId response:wrappedBlock error:errorBlock];
-    }
-    else if ([objectId isKindOfClass:[NSDictionary class]]) {
-        [backendless.persistenceService findByObject:_tableName keys:objectId response:wrappedBlock error:errorBlock];
-    }
-    else {
-        [backendless.persistenceService findByObject:objectId response:wrappedBlock error:errorBlock];
-    }
+    [backendless.persistenceService findById:_tableName objectId:objectId response:wrappedBlock error:errorBlock responseAdapter:[MapAdapter new]];
 }
 
--(void)findById:(id)objectId queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    
+-(void)findById:(NSString *)objectId queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     void (^wrappedBlock)(id) = ^(id dict) {
         dict = [self setNullToNil:dict];
         responseBlock(dict);
     };
-    
-    if ([objectId isKindOfClass:[NSString class]]) {
-        [backendless.persistenceService findById:_tableName objectId:objectId queryBuilder:queryBuilder response:wrappedBlock error:errorBlock];
-    }
-    else if ([objectId isKindOfClass:[NSDictionary class]]) {
-        [backendless.persistenceService findByObject:_tableName keys:objectId queryBuilder:queryBuilder response:wrappedBlock error:errorBlock];
-    }
-    else {
-        [backendless.persistenceService findByObject:objectId queryBuilder:queryBuilder response:wrappedBlock error:errorBlock];
-    }
+    [backendless.persistenceService findById:_tableName objectId:objectId queryBuilder:queryBuilder response:wrappedBlock error:errorBlock responseAdapter:[MapAdapter new]];
 }
 
 -(void)getObjectCount:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -386,9 +445,11 @@ static NSString *REMOVE_BULK = @"removeBulk";
 }
 
 -(NSMutableDictionary *)setNullToNil:(NSMutableDictionary *)dictionary {
-    for (NSString *key in [dictionary allKeys]) {
-        if ([[dictionary valueForKey:key] isKindOfClass:[NSNull class]]) {
-            dictionary[key] = nil;
+    if ([dictionary isKindOfClass:[NSDictionary class]] || [dictionary isKindOfClass:[NSMutableDictionary class]]) {
+        for (NSString *key in [dictionary allKeys]) {
+            if ([[dictionary valueForKey:key] isKindOfClass:[NSNull class]]) {
+                dictionary[key] = nil;
+            }
         }
     }
     return dictionary;

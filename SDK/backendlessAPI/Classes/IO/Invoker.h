@@ -20,6 +20,9 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "IAdaptingType.h"
+#import "IResponseAdapter.h"
+#import "Responder.h"
 
 /***********************************************************************************************************
  * Invoker singleton accessor: this is how you should ALWAYS get a reference to the Invoker class instance *
@@ -40,5 +43,7 @@
 -(void)removeRequestHeader:(NSString *)header;
 -(void)setNetworkActivityIndicatorOn:(BOOL)value;
 -(id)invokeSync:(NSString *)className method:(NSString *)methodName args:(NSArray *)args;
+-(id)invokeSync:(NSString *)className method:(NSString *)methodName args:(NSArray *)args responseAdapter:(id<IResponseAdapter>)responseAdapter;
 -(void)invokeAsync:(NSString *)className method:(NSString *)methodName args:(NSArray *)args responder:(id <IResponder>)responder;
+-(void)invokeAsync:(NSString *)className method:(NSString *)methodName args:(NSArray *)args responder:(id <IResponder>)responder responseAdapter:(id<IResponseAdapter>)responseAdapter;
 @end

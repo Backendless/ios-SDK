@@ -24,6 +24,7 @@
 #import "MapDrivenDataStore.h"
 #import "LoadRelationsQueryBuilder.h"
 #import "DataQueryBuilder.h"
+#import "IResponseAdapter.h"
 
 #define PERSIST_OBJECT_ID @"objectId"
 
@@ -49,16 +50,14 @@
 -(id)first:(Class)entity queryBuilder:(DataQueryBuilder *)queryBuilder;
 -(id)last:(Class)entity;
 -(id)last:(Class)entity queryBuilder:(DataQueryBuilder *)queryBuilder;
--(id)findByObject:(id)entity;
--(id)findByObject:(id)entity queryBuilder:(DataQueryBuilder *)queryBuilder;
 -(id)findByObject:(id)entity relations:(NSArray *)relations;
 -(id)findByObject:(id)entity relations:(NSArray *)relations relationsDepth:(int)relationsDepth;
--(id)findByObject:(NSString *)className keys:(NSDictionary *)props;
--(id)findByObject:(NSString *)className keys:(NSDictionary *)props queryBuilder:(DataQueryBuilder *)queryBuilder;
 -(id)findByObject:(NSString *)className keys:(NSDictionary *)props relations:(NSArray *)relations;
 -(id)findByObject:(NSString *)className keys:(NSDictionary *)props relations:(NSArray *)relations relationsDepth:(int)relationsDepth;
 -(id)findById:(NSString *)entityName objectId:(NSString *)objectId;
+-(id)findById:(NSString *)entityName objectId:(NSString *)objectId responseAdapter:(id<IResponseAdapter>)responseAdapter;
 -(id)findById:(NSString *)entityName objectId:(NSString *)objectId queryBuilder:(DataQueryBuilder *)queryBuilder;
+-(id)findById:(NSString *)entityName objectId:(NSString *)objectId queryBuilder:(DataQueryBuilder *)queryBuilder responseAdapter:(id<IResponseAdapter>)responseAdapter;
 -(id)findByClassId:(Class)entity objectId:(NSString *)objectId;
 -(id)findByClassId:(Class)entity objectId:(NSString *)objectId queryBuilder:(DataQueryBuilder *)queryBuilder;
 -(NSNumber *)remove:(id)entity;
@@ -89,16 +88,14 @@
 -(void)first:(Class)entity queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)last:(Class)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)last:(Class)entity queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)findByObject:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)findByObject:(id)entity queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)findByObject:(id)entity relations:(NSArray *)relations response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)findByObject:(id)entity relations:(NSArray *)relations relationsDepth:(int)relationsDepth response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)findByObject:(NSString *)className keys:(NSDictionary *)props response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)findByObject:(NSString *)className keys:(NSDictionary *)props queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)findByObject:(NSString *)className keys:(NSDictionary *)props relations:(NSArray *)relations response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)findByObject:(NSString *)className keys:(NSDictionary *)props relations:(NSArray *)relations relationsDepth:(int)relationsDepth response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)findById:(NSString *)entityName objectId:(NSString *)objectId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)findById:(NSString *)entityName objectId:(NSString *)objectId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock responseAdapter:(id<IResponseAdapter>)responseAdapter;
 -(void)findById:(NSString *)entityName objectId:(NSString *)objectId queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)findById:(NSString *)entityName objectId:(NSString *)objectId queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock responseAdapter:(id<IResponseAdapter>)responseAdapter;
 -(void)findByClassId:(Class)entity objectId:(NSString *)sid response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)findByClassId:(Class)entity objectId:(NSString *)objectId queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)remove:(id)entity response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
@@ -125,6 +122,7 @@
 -(id)getObjectId:(id)object;
 -(NSDictionary *)getObjectMetadata:(id)object;
 -(void)mapTableToClass:(NSString *)tableName type:(Class)type;
+-(void)mapColumnToProperty:(Class)classToMap columnName:(NSString *)columnName propertyName:(NSString *)propertyName;
 -(NSString *)typeClassName:(Class)entity;
 -(NSString *)objectClassName:(id)object;
 -(NSDictionary *)propertyDictionary:(id)object;
