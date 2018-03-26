@@ -105,19 +105,23 @@
             ((AnonymousObject *)[propValue getCacheKey]).properties = [self mapFieldToProperty:propValue];
         }
         else if ([propValue isKindOfClass:[ArrayType class]]) {
-            for (NamedObject *namedObject in [propValue getArray]) {
-                ((AnonymousObject *)[namedObject getCacheKey]).properties = [self mapFieldToProperty:namedObject];
+            for (id propObject in [propValue getArray]) {
+                if ([propObject isKindOfClass:[NamedObject class]]) {
+                    ((AnonymousObject *)[propObject getCacheKey]).properties = [self mapFieldToProperty:propObject];
+                }
             }
         }
         
         // BackendlessUser/DeviceRegistration adaptation for ArrayType
         if ([propValue isKindOfClass:[ArrayType class]]) {
             NSMutableArray *newPropValueArray = [NSMutableArray new];
-            for (NamedObject *namedObject in [propValue getArray]) {
-                id classTypeString = [((AnonymousObject *)[namedObject getCacheKey]).properties valueForKey:@"___class"];
-                if ([[classTypeString defaultAdapt] isEqualToString:@"Users"]) {
-                    BackendlessUser *user = [[BackendlessUserAdapter new] adaptToBackendlessUser:namedObject];
-                    [newPropValueArray addObject:user];
+            for (id propObject in [propValue getArray]) {
+                if ([propObject isKindOfClass:[NamedObject class]]) {
+                    id classTypeString = [((AnonymousObject *)[propObject getCacheKey]).properties valueForKey:@"___class"];
+                    if ([[classTypeString defaultAdapt] isEqualToString:@"Users"]) {
+                        BackendlessUser *user = [[BackendlessUserAdapter new] adaptToBackendlessUser:propObject];
+                        [newPropValueArray addObject:user];
+                    }
                 }
             }            
             if ([newPropValueArray count] > 0) {
