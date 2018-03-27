@@ -1,5 +1,8 @@
 # RELEASE HISTORY
 
+## 4.0.25 March 27, 2018
+BackendlessUser relations adaptation fixed for Default adapter
+
 ## 4.0.24 March 20, 2018
 * BackendlessUser adaptation for ArrayType fixed
 
