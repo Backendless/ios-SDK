@@ -111,7 +111,7 @@
                 }
             }
         }
-        
+    
         // BackendlessUser adaptation (for relations)
         if ([propValue isKindOfClass:[ArrayType class]]) {
             NSMutableArray *newPropValueArray = [NSMutableArray new];
