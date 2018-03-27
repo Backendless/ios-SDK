@@ -1,5 +1,8 @@
 # RELEASE HISTORY
 
+## 4.0.26 March 27, 2018
+* Adapters error handling fixed
+
 ## 4.0.25 March 27, 2018
 BackendlessUser adaptation fixed
 
