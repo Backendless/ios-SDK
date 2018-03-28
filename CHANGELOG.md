@@ -1,6 +1,6 @@
 # RELEASE HISTORY
 
-## 4.0.26 March 28, 2018
+## 4.0.27 March 28, 2018
 * UserSevice fixed to work correctly with BackendlessUserAdapter
 
 ## 4.0.26 March 27, 2018
