@@ -22,6 +22,7 @@
 #import "CustomService.h"
 #import "Backendless.h"
 #import "Invoker.h"
+#import "CustomServiceAdapter.h"
 
 #define FAULT_NO_SERVICE [Fault  fault:@"Service not found" detail:@"Service not found" faultCode:@"14001"]
 #define FAULT_NO_SERVICE_METHOD [Fault fault:@"Service method not found" detail:@"Service method not found" faultCode:@"14002"]
@@ -42,7 +43,7 @@ static NSString *METHOD_DISPATCH_SERVICE = @"dispatchService";
         return [backendless throwFault:FAULT_NO_SERVICE_METHOD];
     }
     NSArray *_args = @[serviceName, method, args?args:@[]];
-    return [invoker invokeSync:SERVER_CUSTOM_SERVICE_PATH method:METHOD_DISPATCH_SERVICE args:_args];
+    return [invoker invokeSync:SERVER_CUSTOM_SERVICE_PATH method:METHOD_DISPATCH_SERVICE args:_args responseAdapter:[CustomServiceAdapter new]];
 }
 
 // async methods with responder
@@ -54,7 +55,7 @@ static NSString *METHOD_DISPATCH_SERVICE = @"dispatchService";
         return [responder errorHandler:FAULT_NO_SERVICE_METHOD];
     }
     NSArray *_args = @[serviceName, method, args?args:@[]];
-    [invoker invokeAsync:SERVER_CUSTOM_SERVICE_PATH method:METHOD_DISPATCH_SERVICE args:_args responder:responder];
+    [invoker invokeAsync:SERVER_CUSTOM_SERVICE_PATH method:METHOD_DISPATCH_SERVICE args:_args responder:responder responseAdapter:[CustomServiceAdapter new]];
 }
 
 // async methods with block-based callbacks
