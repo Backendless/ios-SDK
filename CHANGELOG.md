@@ -1,5 +1,18 @@
 # RELEASE HISTORY
 
+## 4.0.28 March 29, 2018
+* CustomServiceAdapter added
+* CustomService fixed to work correctly with CustomServiceAdapter
+
+## 4.0.27 March 28, 2018
+* UserSevice fixed to work correctly with BackendlessUserAdapter
+
+## 4.0.26 March 27, 2018
+* Adapters error handling fixed
+
+## 4.0.25 March 27, 2018
+* BackendlessUser adaptation fixed
+
 ## 4.0.24 March 20, 2018
 * BackendlessUser adaptation for ArrayType fixed
 

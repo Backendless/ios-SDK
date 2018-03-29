@@ -24,16 +24,26 @@
 #import "V3Message.h"
 #import "ErrMessage.h"
 #import "Responder.h"
+#import "AnonymousObject.h"
+#import "NamedObject.h"
+#import "ArrayType.h"
 
 @implementation DefaultAdapter
 
 -(id)adapt:(id)type {
-    V3Message *v3 = (V3Message *)[type defaultAdapt];
-    if (v3.isError) {
-        ErrMessage *result = (ErrMessage *)v3;
-        return [Fault fault:result.faultString detail:result.faultDetail faultCode:result.faultCode];
+    if ([type isKindOfClass:[NamedObject class]] || [type isKindOfClass:[ArrayType class]]) {
+        NSMutableDictionary *typeProperties = ((AnonymousObject *)[type getCacheKey]).properties;
+        if ([typeProperties valueForKey:@"body"]) {
+            V3Message *v3 = (V3Message *)[type defaultAdapt];
+            if (v3.isError) {
+                ErrMessage *result = (ErrMessage *)v3;
+                return [Fault fault:result.faultString detail:result.faultDetail faultCode:result.faultCode];
+            }
+            return v3.body.body;
+        }
+        return [type defaultAdapt];
     }
-    return v3.body.body;
+    return [type defaultAdapt];
 }
 
 @end
