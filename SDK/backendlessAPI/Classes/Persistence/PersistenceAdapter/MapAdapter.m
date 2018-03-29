@@ -32,24 +32,29 @@
 @implementation MapAdapter
 
 -(id)adapt:(id)type {
-    V3Message *v3 = (V3Message *)[type defaultAdapt];
-    if (v3.isError) {
-        ErrMessage *result = (ErrMessage *)v3;        
-        return [Fault fault:result.faultString detail:result.faultDetail faultCode:result.faultCode];
-    }
     NSMutableDictionary *typeProperties = ((AnonymousObject *)[type getCacheKey]).properties;
-    id body = [typeProperties valueForKey:@"body"];
-    
-    if ([body isKindOfClass:[NamedObject class]]) {
-        return [body adapt:[NSDictionary class]];
+    if ([typeProperties valueForKey:@"faultCode"] ||
+        [typeProperties valueForKey:@"faultDetail"] ||
+        [typeProperties valueForKey:@"faultString"]) {
+        Fault *fault = [[Fault alloc] initWithMessage:[[typeProperties valueForKey:@"faultString"] defaultAdapt]
+                                               detail:[[typeProperties valueForKey:@"faultDetail"] defaultAdapt]
+                                            faultCode:[[typeProperties valueForKey:@"faultCode"] defaultAdapt]];
+        return fault;
     }
-    else if ([body isKindOfClass:[ArrayType class]]) {
-        NSMutableArray *result = [NSMutableArray new];
-        NSArray *bodyObjects = [body getArray];
-        for (NamedObject *bodyObject in bodyObjects) {
-            [result addObject:[bodyObject adapt:[NSDictionary class]]];
+    else {
+        id body = [typeProperties valueForKey:@"body"];
+        
+        if ([body isKindOfClass:[NamedObject class]]) {
+            return [body adapt:[NSDictionary class]];
         }
-        return result;
+        else if ([body isKindOfClass:[ArrayType class]]) {
+            NSMutableArray *result = [NSMutableArray new];
+            NSArray *bodyObjects = [body getArray];
+            for (NamedObject *bodyObject in bodyObjects) {
+                [result addObject:[bodyObject adapt:[NSDictionary class]]];
+            }
+            return result;
+        }
     }
     return nil;
 }

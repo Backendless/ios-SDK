@@ -105,24 +105,25 @@
             ((AnonymousObject *)[propValue getCacheKey]).properties = [self mapFieldToProperty:propValue];
         }
         else if ([propValue isKindOfClass:[ArrayType class]]) {
-            for (NamedObject *namedObject in [propValue getArray]) {
-                ((AnonymousObject *)[namedObject getCacheKey]).properties = [self mapFieldToProperty:namedObject];
+            for (id propObject in [propValue getArray]) {
+                if ([propObject isKindOfClass:[NamedObject class]]) {
+                    ((AnonymousObject *)[propObject getCacheKey]).properties = [self mapFieldToProperty:propObject];
+                }
             }
         }
-        
-        // BackendlessUser/DeviceRegistration adaptation for ArrayType
+    
+        // BackendlessUser adaptation (for relations)
         if ([propValue isKindOfClass:[ArrayType class]]) {
             NSMutableArray *newPropValueArray = [NSMutableArray new];
-            for (NamedObject *namedObject in [propValue getArray]) {
-                id classTypeString = [((AnonymousObject *)[namedObject getCacheKey]).properties valueForKey:@"___class"];
-                if ([[classTypeString defaultAdapt] isEqualToString:@"Users"]) {
-                    BackendlessUser *user = [[BackendlessUserAdapter new] adaptToBackendlessUser:namedObject];
-                    [newPropValueArray addObject:user];
-                }
-            }            
+            for (id propObject in [propValue getArray]) {
+                [newPropValueArray addObject:[self checkAndAdaptToBackendlessUser:propObject]];
+            }
             if ([newPropValueArray count] > 0) {
                 propValue = [ArrayType objectType:newPropValueArray];
             }
+        }
+        else {
+            propValue = [self checkAndAdaptToBackendlessUser:propValue];
         }
         
         if (!propValue) {
@@ -245,6 +246,17 @@
         }
     }
     return propertiesOfPropValue;
+}
+
+-(id)checkAndAdaptToBackendlessUser:(id)namedObject {
+    if ([namedObject isKindOfClass:[NamedObject class]]) {
+        id classTypeString = [((AnonymousObject *)[namedObject getCacheKey]).properties valueForKey:@"___class"];
+        if ([[classTypeString defaultAdapt] isEqualToString:@"Users"]) {
+            BackendlessUser *user = [[BackendlessUserAdapter new] adaptToBackendlessUser:namedObject];
+            return user;
+        }
+    }
+    return namedObject;
 }
 
 #pragma mark -
