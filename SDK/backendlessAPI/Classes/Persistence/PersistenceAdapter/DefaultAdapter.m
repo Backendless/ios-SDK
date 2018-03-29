@@ -32,12 +32,16 @@
 
 -(id)adapt:(id)type {
     if ([type isKindOfClass:[NamedObject class]] || [type isKindOfClass:[ArrayType class]]) {
-        V3Message *v3 = (V3Message *)[type defaultAdapt];
-        if (v3.isError) {
-            ErrMessage *result = (ErrMessage *)v3;
-            return [Fault fault:result.faultString detail:result.faultDetail faultCode:result.faultCode];
+        NSMutableDictionary *typeProperties = ((AnonymousObject *)[type getCacheKey]).properties;
+        if ([typeProperties valueForKey:@"body"]) {
+            V3Message *v3 = (V3Message *)[type defaultAdapt];
+            if (v3.isError) {
+                ErrMessage *result = (ErrMessage *)v3;
+                return [Fault fault:result.faultString detail:result.faultDetail faultCode:result.faultCode];
+            }
+            return v3.body.body;
         }
-        return v3.body.body;
+        return [type defaultAdapt];
     }
     return [type defaultAdapt];
 }

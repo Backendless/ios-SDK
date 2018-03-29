@@ -32,7 +32,6 @@
 
 -(id)adapt:(id)type {
     NSMutableDictionary *typeProperties = ((AnonymousObject *)[type getCacheKey]).properties;
-
     if ([typeProperties valueForKey:@"faultCode"] ||
         [typeProperties valueForKey:@"faultDetail"] ||
         [typeProperties valueForKey:@"faultString"]) {
@@ -55,6 +54,10 @@
                 [result addObject:[adapter adapt:bodyObject]];
             }
             return result;
+        }
+        else {
+            id<IResponseAdapter>adapter = [self adapterForBody:body];
+            return [adapter adapt:body];
         }
     }
     return nil;
