@@ -32,6 +32,7 @@
 #define FAULT_NO_ENTITY [Fault fault:@"Entity is missing or null" detail:@"Entity is missing or null" faultCode:@"1900"]
 #define FAULT_OBJECT_ID_IS_NOT_EXIST [Fault fault:@"objectId is missing or null" detail:@"objectId is missing or null" faultCode:@"1901"]
 #define FAULT_FIELD_IS_NULL [Fault fault:@"Field is missing or null" detail:@"Field is missing or null" faultCode:@"1903"]
+#define NULL_BULK [Fault fault:@"Object array for bulk operations cannot be null"]
 
 // SERVICE NAME
 static NSString *SERVER_PERSISTENCE_SERVICE_PATH  = @"com.backendless.services.persistence.PersistenceService";
@@ -42,6 +43,7 @@ static NSString *METHOD_FIND = @"find";
 static NSString *METHOD_COUNT = @"count";
 static NSString *METHOD_FIRST = @"first";
 static NSString *METHOD_LAST = @"last";
+static NSString *CREATE_BULK = @"createBulk";
 static NSString *UPDATE_BULK = @"updateBulk";
 static NSString *REMOVE_BULK = @"removeBulk";
 
@@ -107,7 +109,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_SAVE args:args responseAdapter:[MapAdapter new]];
     if ([result isKindOfClass:[Fault class]]) {
         return [backendless throwFault:result];
-    }    
+    }
     return [result isKindOfClass:NSDictionary.class]?result:[Types propertyDictionary:result];
 }
 
@@ -307,6 +309,21 @@ static NSString *REMOVE_BULK = @"removeBulk";
     return result;
 }
 
+-(void)createBulk:(NSArray *)objects {
+    if (!objects) {
+        [backendless throwFault:NULL_BULK];
+    }
+    if ([objects count] == 0) {
+        return;
+    }
+    NSArray *args = @[_tableName, objects];
+    id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:CREATE_BULK args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        [backendless throwFault:result];
+    }
+    return;
+}
+
 -(NSNumber *)updateBulk:(NSString *)whereClause changes:(NSDictionary<NSString *,id> *)changes {
     NSArray *args = @[_tableName, whereClause, changes];
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:UPDATE_BULK args:args];
@@ -453,6 +470,18 @@ static NSString *REMOVE_BULK = @"removeBulk";
         }
     }
     return dictionary;
+}
+
+-(void)createBulk:(NSArray *)objects response:(void (^)(void))responseBlock error:(void (^)(Fault *))errorBlock {
+    void (^wrappedBlock)(id) = ^(id result){
+        responseBlock();
+    };
+    Responder *responder = [ResponderBlocksContext responderBlocksContext:wrappedBlock error:errorBlock];
+    if (!objects) {
+        return [responder errorHandler:NULL_BULK];
+    }
+    NSArray *args = @[_tableName, objects];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:CREATE_BULK args:args responder:responder];
 }
 
 -(void)updateBulk:(NSString *)whereClause changes:(NSDictionary<NSString *,id> *)changes response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
