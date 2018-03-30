@@ -37,9 +37,6 @@
 #import "LoadRelationsQueryBuilder.h"
 #import "MapDrivenDataStore.h"
 #import "AdapterFactory.h"
-
-
-
 #import "DefaultAdapter.h"
 #import "DeviceRegistrationAdapter.h"
 
@@ -47,6 +44,7 @@
 #define FAULT_OBJECT_ID_IS_NOT_EXIST [Fault fault:@"objectId is missing or null" detail:@"objectId is missing or null" faultCode:@"1901"]
 #define FAULT_NAME_IS_NULL [Fault fault:@"Name is missing or null" detail:@"Name is missing or null" faultCode:@"1902"]
 #define FAULT_FIELD_IS_NULL [Fault fault:@"Field is missing or null" detail:@"Field is missing or null" faultCode:@"1903"]
+#define NULL_BULK [Fault fault:@"Object array for bulk operations cannot be null"]
 
 // SERVICE NAME
 static NSString *SERVER_PERSISTENCE_SERVICE_PATH  = @"com.backendless.services.persistence.PersistenceService";
@@ -66,6 +64,7 @@ static NSString *DELETE_RELATION = @"deleteRelation";
 static NSString *LOAD_RELATION = @"loadRelations";
 static NSString *CREATE_RELATION = @"setRelation";
 static NSString *ADD_RELATION = @"addRelation";
+static NSString *CREATE_BULK = @"createBulk";
 static NSString *UPDATE_BULK = @"updateBulk";
 static NSString *REMOVE_BULK = @"removeBulk";
 
@@ -663,6 +662,21 @@ static NSString *REMOVE_BULK = @"removeBulk";
     return result;
 }
 
+-(void)createBulk:(id)entity objects:(NSArray *)objects {
+    if (!entity) {
+        [backendless throwFault:FAULT_NO_ENTITY];
+    }
+    if (!objects) {
+        [backendless throwFault:NULL_BULK];
+    }
+    NSArray *args = @[[self objectClassName:entity], objects];
+    id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:CREATE_BULK args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        [backendless throwFault:result];
+    }
+    return;
+}
+
 -(NSNumber *)updateBulk:(id)entity whereClause:(NSString *)whereClause changes:(NSDictionary<NSString *, id> *)changes {
     if (!entity) {
         return [backendless throwFault:FAULT_NO_ENTITY];
@@ -1064,6 +1078,24 @@ static NSString *REMOVE_BULK = @"removeBulk";
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:LOAD_RELATION args:args responder:chainedResponder];
 }
 
+-(void)createBulk:(id)entity objects:(NSArray *)objects response:(void (^)(void))responseBlock error:(void (^)(Fault *))errorBlock {
+    void (^wrappedBlock)(id) = ^(id result){
+        responseBlock();
+    };
+    Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:wrappedBlock error:errorBlock];
+    if (!entity) {
+        return [chainedResponder errorHandler:FAULT_NO_ENTITY];
+    }
+    if (!objects) {
+        return [chainedResponder errorHandler:NULL_BULK];
+    }
+    NSArray *args = @[[self objectClassName:entity], objects];
+    Responder *_responder = [Responder responder:chainedResponder selResponseHandler:@selector(createResponse:) selErrorHandler:nil];
+    _responder.chained = chainedResponder;
+    _responder.context = entity;
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:CREATE_BULK args:args responder:_responder];
+}
+
 -(void)updateBulk:(id)entity whereClause:(NSString *)whereClause changes:(NSDictionary<NSString *,id> *)changes response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!entity) {
@@ -1218,6 +1250,9 @@ static NSString *REMOVE_BULK = @"removeBulk";
     id object = response.context;
     [self onCurrentUserUpdate:response.response];
     response.context = nil;
+    if ([response.response isKindOfClass:[NSNull class]]) {
+        return nil;
+    }
     return response.response;
 }
 
