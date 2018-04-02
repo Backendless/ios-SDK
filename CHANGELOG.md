@@ -1,5 +1,9 @@
 # RELEASE HISTORY
 
+## 4.0.29 April 2, 2018
+* Bulk create method added
+* CustomServiceAdapter fault handle fixed
+
 ## 4.0.28 March 29, 2018
 * CustomServiceAdapter added
 * CustomService fixed to work correctly with CustomServiceAdapter
