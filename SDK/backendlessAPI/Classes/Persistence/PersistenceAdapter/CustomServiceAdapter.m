@@ -38,7 +38,7 @@
         Fault *fault = [[Fault alloc] initWithMessage:[[typeProperties valueForKey:@"faultString"] defaultAdapt]
                                                detail:[[typeProperties valueForKey:@"faultDetail"] defaultAdapt]
                                             faultCode:[[typeProperties valueForKey:@"faultCode"] defaultAdapt]];
-        return [backendless throwFault:fault];
+        return fault;
     }
     else {
         id body = [typeProperties valueForKey:@"body"];
