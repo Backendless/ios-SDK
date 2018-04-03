@@ -52,6 +52,7 @@
 -(NSNumber *)deleteRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects;
 -(NSNumber *)deleteRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause;
 -(NSArray *)loadRelations:(NSString *)objectId queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder;
+-(void)createBulk:(NSArray *)objects;
 -(NSNumber *)updateBulk:(NSString *)whereClause changes:(NSDictionary<NSString *, id> *)changes;
 -(NSNumber *)removeBulk:(NSString *)whereClause;
 
@@ -76,6 +77,7 @@
 -(void)deleteRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)deleteRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)loadRelations:(NSString *)objectId queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)createBulk:(NSArray *)objects response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)updateBulk:(NSString *)whereClause changes:(NSDictionary<NSString *,id> *)changes response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
 -(void)removeBulk:(NSString *)whereClause response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
 

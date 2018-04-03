@@ -153,6 +153,10 @@
     return [backendless.persistenceService loadRelations:[backendless.persistenceService getEntityName:NSStringFromClass(_entityClass)] objectId:(NSString *)objectId  queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder];
 }
 
+-(void)createBulk:(NSArray *)objects {
+    [backendless.persistenceService createBulk:_entityClass objects:objects];
+}
+
 -(NSNumber *)updateBulk:(NSString *)whereClause changes:(NSDictionary<NSString *, id> *)changes {
     return [backendless.persistenceService updateBulk:_entityClass whereClause:whereClause changes:changes];
 }
@@ -253,8 +257,15 @@
     [backendless.persistenceService updateBulk:_entityClass whereClause:whereClause changes:changes response:responseBlock error:errorBlock];
 }
 
+- (void)createBulk:(NSArray *)objects response:(void (^)(void))responseBlock error:(void (^)(Fault *))errorBlock {
+    [backendless.persistenceService createBulk:_entityClass objects:objects response:responseBlock error:errorBlock];
+}
+
 -(void)removeBulk:(NSString *)whereClause response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
     [backendless.persistenceService removeBulk:_entityClass whereClause:whereClause response:responseBlock error:errorBlock];
 }
+
+
+
 
 @end
