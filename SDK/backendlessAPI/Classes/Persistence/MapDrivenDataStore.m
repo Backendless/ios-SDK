@@ -309,19 +309,16 @@ static NSString *REMOVE_BULK = @"removeBulk";
     return result;
 }
 
--(void)createBulk:(NSArray *)objects {
+-(NSArray *)createBulk:(NSArray *)objects {
     if (!objects) {
         [backendless throwFault:NULL_BULK];
-    }
-    if ([objects count] == 0) {
-        return;
     }
     NSArray *args = @[_tableName, objects];
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:CREATE_BULK args:args];
     if ([result isKindOfClass:[Fault class]]) {
         [backendless throwFault:result];
     }
-    return;
+    return result;
 }
 
 -(NSNumber *)updateBulk:(NSString *)whereClause changes:(NSDictionary<NSString *,id> *)changes {
@@ -472,11 +469,8 @@ static NSString *REMOVE_BULK = @"removeBulk";
     return dictionary;
 }
 
--(void)createBulk:(NSArray *)objects response:(void (^)(void))responseBlock error:(void (^)(Fault *))errorBlock {
-    void (^wrappedBlock)(id) = ^(id result){
-        responseBlock();
-    };
-    Responder *responder = [ResponderBlocksContext responderBlocksContext:wrappedBlock error:errorBlock];
+-(void)createBulk:(NSArray *)objects response:(void (^)(NSArray *))responseBlock error:(void (^)(Fault *))errorBlock {
+    Responder *responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!objects) {
         return [responder errorHandler:NULL_BULK];
     }
