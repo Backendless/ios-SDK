@@ -1,6 +1,6 @@
 # RELEASE HISTORY
 
-## 4.0.30 April 4, 2018
+## 4.5.0 April 4, 2018
 * Bulk create method now returns array of objectIds
 
 ## 4.0.29 April 2, 2018
