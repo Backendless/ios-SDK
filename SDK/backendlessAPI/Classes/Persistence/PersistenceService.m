@@ -662,7 +662,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     return result;
 }
 
--(void)createBulk:(id)entity objects:(NSArray *)objects {
+-(NSArray *)createBulk:(id)entity objects:(NSArray *)objects {
     if (!entity) {
         [backendless throwFault:FAULT_NO_ENTITY];
     }
@@ -674,7 +674,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     if ([result isKindOfClass:[Fault class]]) {
         [backendless throwFault:result];
     }
-    return;
+    return result;
 }
 
 -(NSNumber *)updateBulk:(id)entity whereClause:(NSString *)whereClause changes:(NSDictionary<NSString *, id> *)changes {
@@ -1078,11 +1078,8 @@ static NSString *REMOVE_BULK = @"removeBulk";
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:LOAD_RELATION args:args responder:chainedResponder];
 }
 
--(void)createBulk:(id)entity objects:(NSArray *)objects response:(void (^)(void))responseBlock error:(void (^)(Fault *))errorBlock {
-    void (^wrappedBlock)(id) = ^(id result){
-        responseBlock();
-    };
-    Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:wrappedBlock error:errorBlock];
+-(void)createBulk:(id)entity objects:(NSArray *)objects response:(void(^)(NSArray *))responseBlock error:(void (^)(Fault *))errorBlock {
+    Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!entity) {
         return [chainedResponder errorHandler:FAULT_NO_ENTITY];
     }
