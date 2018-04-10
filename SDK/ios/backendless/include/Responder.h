@@ -14,7 +14,7 @@
     NSString    *message;
     NSString    *detail;
     NSString    *faultCode;
-    id context;
+    __unsafe_unretained id context;
 }
 @property (nonatomic, readonly) NSString *message;
 @property (nonatomic, readonly) NSString *detail;
