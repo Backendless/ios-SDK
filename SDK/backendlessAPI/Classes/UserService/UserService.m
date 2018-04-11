@@ -429,9 +429,6 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     return [AMFSerializer serializeToFile:nil fileName:PERSIST_USER_FILE_NAME];
 }
 
-#pragma mark -
-#pragma mark Private Methods
-
 // callbacks
 
 -(id)registerError:(id)error {
