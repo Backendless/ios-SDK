@@ -410,29 +410,6 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
     [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_MESSAGE_STATUS args:args responder:chainedResponder];
 }
 
-#pragma mark -
-#pragma mark Private Methods
-
-// sync
--(NSString *)subscribeForPollingAccess:(NSString *)channelName subscriptionOptions:(SubscriptionOptions *)subscriptionOptions {
-    if (!channelName)
-        return [backendless throwFault:FAULT_NO_CHANNEL];
-    if (!subscriptionOptions)
-        subscriptionOptions = [SubscriptionOptions new];
-    NSArray *args = @[channelName, subscriptionOptions];
-    return [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_POLLING_SUBSCRIBE args:args];
-}
-
-// async
--(void)subscribeForPollingAccess:(NSString *)channelName subscriptionOptions:(SubscriptionOptions *)subscriptionOptions responder:(id <IResponder>)responder {
-    if (!channelName)
-        return [responder errorHandler:FAULT_NO_CHANNEL];
-    if (!subscriptionOptions)
-        subscriptionOptions = [SubscriptionOptions new];
-    NSArray *args = @[channelName, subscriptionOptions];
-    [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_POLLING_SUBSCRIBE args:args responder:responder];
-}
-
 // callbacks
 
 -(id)onRegistering:(id)response {
