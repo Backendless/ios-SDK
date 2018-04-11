@@ -48,11 +48,11 @@
 #define DEFAULT_POLLING_INTERVAL 5
 #define PUSH_TEMPLATES_USER_DEFAULTS @"iOSPushTemplates"
 
-static  NSString *DEFAULT_CHANNEL_NAME = @"default";
+static NSString *DEFAULT_CHANNEL_NAME = @"default";
 static NSString *SERVER_DEVICE_REGISTRATION_PATH = @"com.backendless.services.messaging.DeviceRegistrationService";
 static NSString *SERVER_MESSAGING_SERVICE_PATH = @"com.backendless.services.messaging.MessagingService";
 static NSString *SERVER_MAIL_SERVICE_PATH = @"com.backendless.services.mail.CustomersEmailService";
-static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUIDKeychain";
+static NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUIDKeychain";
 static NSString *METHOD_REGISTER_DEVICE = @"registerDevice";
 static NSString *METHOD_GET_REGISTRATIONS = @"getDeviceRegistrationByDeviceId";
 static NSString *METHOD_UNREGISTER_DEVICE = @"unregisterDevice";
@@ -63,11 +63,9 @@ static NSString *METHOD_POLL_MESSAGES = @"pollMessages";
 static NSString *METHOD_SEND_EMAIL = @"send";
 static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
 static NSString *METHOD_PUSH_WITH_TEMPLATE = @"pushWithTemplate";
-// UICKeyChainStore service name
-static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUIDKeychain";
 
 @interface MessagingService() {
-    DeviceRegistration  *deviceRegistration;
+    DeviceRegistration *deviceRegistration;
 }
 @end
 
@@ -139,9 +137,6 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     }
     return self;
 }
-
-#pragma mark -
-#pragma mark Public Methods
 
 // utilites
 
@@ -490,9 +485,6 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
         [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_PUSH_WITH_TEMPLATE args:args responder:chainedResponder];
     }
 }
-
-#pragma mark -
-#pragma mark Private Methods
 
 // sync
 -(NSString *)subscribeForPollingAccess:(NSString *)channelName subscriptionOptions:(SubscriptionOptions *)subscriptionOptions {
