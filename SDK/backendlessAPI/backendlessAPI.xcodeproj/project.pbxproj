@@ -1514,6 +1514,8 @@
 		5AC55C332057DFB0006A8951 /* BackendlessUserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AC55C2B2057DFB0006A8951 /* BackendlessUserAdapter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5AC55C342057DFB0006A8951 /* BackendlessUserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AC55C2B2057DFB0006A8951 /* BackendlessUserAdapter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5AC55C352057DFB0006A8951 /* BackendlessUserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AC55C2B2057DFB0006A8951 /* BackendlessUserAdapter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5AD9A944207E445100D8B294 /* FilePermission.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EA53001A3077C1009C5FE0 /* FilePermission.m */; };
+		5AD9A945207E445700D8B294 /* FilePermission.h in Headers */ = {isa = PBXBuildFile; fileRef = D3EA52FF1A3077C1009C5FE0 /* FilePermission.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AF2B7281EB2136300D54442 /* MessagingService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AFFBF7A1EB211EC0099A72F /* MessagingService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AF2B7291EB2137200D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; };
 		5AF2B72A1EB2137A00D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; };
@@ -1963,7 +1965,6 @@
 		F9F0AEC71CDBCA3900035C62 /* BackendlessCacheData.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1398F17D7240A00D1AC4C /* BackendlessCacheData.m */; };
 		F9F0AEC81CDBCA3900035C62 /* BackendlessCacheKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1399117D7240A00D1AC4C /* BackendlessCacheKey.m */; };
 		F9F0AEC91CDBCA3900035C62 /* BackendlessCachePolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F1399317D7240A00D1AC4C /* BackendlessCachePolicy.m */; };
-		F9F0AECA1CDBCA3900035C62 /* FilePermission.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EA53001A3077C1009C5FE0 /* FilePermission.m */; };
 		F9F0AECB1CDBCA3900035C62 /* GeoCluster.m in Sources */ = {isa = PBXBuildFile; fileRef = D31700D11A84D2AA00772766 /* GeoCluster.m */; };
 		F9F0AECC1CDBCA3900035C62 /* QueryOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F139B117D724C600D1AC4C /* QueryOptions.m */; };
 		F9F0AECF1CDBCA3900035C62 /* IPresenceListener.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13801BC53B0200F3CA1D /* IPresenceListener.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2018,7 +2019,6 @@
 		F9F0AF131CDBCA3900035C62 /* Logging.h in Headers */ = {isa = PBXBuildFile; fileRef = D35DC3371AD6CE1500EF2A68 /* Logging.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AF141CDBCA3900035C62 /* BeaconsInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = F9CB13691BC284A900F3CA1D /* BeaconsInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AF151CDBCA3900035C62 /* GeoCluster.h in Headers */ = {isa = PBXBuildFile; fileRef = D31700D01A84D2AA00772766 /* GeoCluster.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F9F0AF161CDBCA3900035C62 /* FilePermission.h in Headers */ = {isa = PBXBuildFile; fileRef = D3EA52FF1A3077C1009C5FE0 /* FilePermission.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AF171CDBCA3900035C62 /* DataPermission.h in Headers */ = {isa = PBXBuildFile; fileRef = D36CF3F91A2F68DA00B6468A /* DataPermission.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AF181CDBCA3900035C62 /* BackendlessFile.h in Headers */ = {isa = PBXBuildFile; fileRef = F9184132163AB29600D36A61 /* BackendlessFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9F0AF191CDBCA3900035C62 /* HashMap.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B47E915FF448F00012DFC /* HashMap.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -4547,7 +4547,6 @@
 				84B027E91DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h in Headers */,
 				F96B1C6F1DD3B6CA00A4B362 /* QueryOptionsBuilder.h in Headers */,
 				F96B1C7D1DD4BF5F00A4B362 /* DataQueryBuilder.h in Headers */,
-				F9F0AF161CDBCA3900035C62 /* FilePermission.h in Headers */,
 				F9F0AF171CDBCA3900035C62 /* DataPermission.h in Headers */,
 				F96B1C631DD3A23C00A4B362 /* PagedQueryBuilder.h in Headers */,
 				F9F0AF181CDBCA3900035C62 /* BackendlessFile.h in Headers */,
@@ -4555,6 +4554,7 @@
 				F9F0AF261CDBCA3900035C62 /* AbstractQuery.h in Headers */,
 				5A633F431F7BB7F6004D7ACA /* BackendlessPushHelper.h in Headers */,
 				F9F0AF271CDBCA3900035C62 /* BackendlessCachePolicy.h in Headers */,
+				5AD9A945207E445700D8B294 /* FilePermission.h in Headers */,
 				F9F0AF291CDBCA3900035C62 /* BackendlessCacheProtocol.h in Headers */,
 				5AF2B72F1EB213B300D54442 /* MessagingService.h in Headers */,
 				F9F0AF2A1CDBCA3900035C62 /* QueryOptions.h in Headers */,
@@ -5622,6 +5622,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5AD9A944207E445100D8B294 /* FilePermission.m in Sources */,
 				5AAEFE321FB34099006EBC8F /* UserService.m in Sources */,
 				5AF2B72E1EB213AC00D54442 /* MessagingService.m in Sources */,
 				84B027EE1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */,
@@ -5810,7 +5811,6 @@
 				0F9ACCB71E798C5F0087869F /* ClassDefinition.m in Sources */,
 				0F9ACBB81E798C5E0087869F /* BinaryCodec.m in Sources */,
 				0F9AC9F11E798C5D0087869F /* SharedObjectMessage.m in Sources */,
-				F9F0AECA1CDBCA3900035C62 /* FilePermission.m in Sources */,
 				F9F0AECB1CDBCA3900035C62 /* GeoCluster.m in Sources */,
 				F9F0AECC1CDBCA3900035C62 /* QueryOptions.m in Sources */,
 			);
