@@ -25,15 +25,10 @@
 #import "GeoPoint.h"
 #import "GeoFence.h"
 
-
-@interface ServerCallback ()
-@end
-
-
 @implementation ServerCallback
 
 -(id)init {
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         self.responder = [Responder responder:self selResponseHandler:@selector(getResponse:) selErrorHandler:@selector(getError:)];
         _geoPoint = nil;
     }
@@ -41,7 +36,7 @@
 }
 
 -(id)init:(GeoPoint *)geoPoint {
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         self.responder = [Responder responder:self selResponseHandler:@selector(getResponse:) selErrorHandler:@selector(getError:)];
         self.geoPoint = geoPoint;
     }
@@ -49,21 +44,15 @@
 }
 
 -(void)dealloc {
-    
     [DebLog logN:@"DEALLOC ServerCallback"];
-    
     [_responder release];
     [_geoPoint release];
-    
     [super dealloc];
 }
 
 +(id)callback:(GeoPoint *)geoPoint {
     return [[ServerCallback alloc] init:geoPoint];
 }
-
-#pragma mark -
-#pragma mark ICallback Methods
 
 #define _ASYNC_INVOKE_ 0
 #define _ASYNC_WAIT_RESPONSE_ 1
@@ -138,25 +127,17 @@
 }
 
 -(BOOL)equalCallbackParameter:(id)object {
-    
     if (![object isKindOfClass:GeoPoint.class]) {
         return NO;
     }
-    
     GeoPoint *gp = (GeoPoint *)object;
     return [_geoPoint.metadata isEqualToDictionary:gp.metadata] && [_geoPoint.categories isEqualToArray:gp.categories];
 }
-
-#pragma mark -
-#pragma mark Private Methods
 
 -(void)updatePoint:(CLLocation *)location {
     [_geoPoint latitude:location.coordinate.latitude];
     [_geoPoint longitude:location.coordinate.longitude];
 }
-
-#pragma mark -
-#pragma mark IResponder Methods
 
 -(id)getResponse:(id)response {
     [DebLog log:@"ServerCallback -> getResponse: (RESPONSE) %@", response];

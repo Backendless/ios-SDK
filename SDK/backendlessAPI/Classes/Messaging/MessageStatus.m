@@ -22,7 +22,6 @@
 #import "MessageStatus.h"
 #import "DEBUG.h"
 
-
 @implementation MessageStatus
 
 -(id)init {
@@ -68,9 +67,6 @@
 	[_errorMessage release];
 	[super dealloc];
 }
-
-#pragma mark -
-#pragma mark Public Methods
 
 -(PublishStatusEnum)valStatus {
     return (PublishStatusEnum)[_status intValue];

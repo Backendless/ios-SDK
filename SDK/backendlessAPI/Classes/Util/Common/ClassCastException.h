@@ -22,9 +22,11 @@
 #import <Foundation/Foundation.h>
 
 @interface ClassCastException : NSObject
+
 @property (strong, nonatomic) NSString *message;
 @property (strong, nonatomic) NSString *localizedMessage;
 @property (strong, nonatomic) id cause;
 @property (strong, nonatomic) NSArray *stackTrace;
 @property (strong, nonatomic) NSArray *supperessed;
+
 @end

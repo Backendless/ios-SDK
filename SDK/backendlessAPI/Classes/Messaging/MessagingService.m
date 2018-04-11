@@ -45,17 +45,14 @@
 #define FAULT_NO_SUBSCRIPTION_ID [Fault fault:@"Subscription ID is not set" detail:@"Subscription ID is not set" faultCode:@"5905"]
 #define FAULT_NO_BODY [Fault fault:@"Message body is not set for email" detail:@"Message body is not set for email" faultCode:@"5906"]
 #define FAULT_NO_RECIPIENT [Fault fault:@"No recipient is set for email" detail:@"No recipient is set for email" faultCode:@"5907"]
-
 #define DEFAULT_POLLING_INTERVAL 5
 #define PUSH_TEMPLATES_USER_DEFAULTS @"iOSPushTemplates"
 
-// Default channel name
 static  NSString *DEFAULT_CHANNEL_NAME = @"default";
-// SERVICE NAME
 static NSString *SERVER_DEVICE_REGISTRATION_PATH = @"com.backendless.services.messaging.DeviceRegistrationService";
 static NSString *SERVER_MESSAGING_SERVICE_PATH = @"com.backendless.services.messaging.MessagingService";
 static NSString *SERVER_MAIL_SERVICE_PATH = @"com.backendless.services.mail.CustomersEmailService";
-// METHOD NAMES
+static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUIDKeychain";
 static NSString *METHOD_REGISTER_DEVICE = @"registerDevice";
 static NSString *METHOD_GET_REGISTRATIONS = @"getDeviceRegistrationByDeviceId";
 static NSString *METHOD_UNREGISTER_DEVICE = @"unregisterDevice";
@@ -72,8 +69,6 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 @interface MessagingService() {
     DeviceRegistration  *deviceRegistration;
 }
-// utils
--(NSString *)serialNumber;
 @end
 
 @implementation MessagingService
@@ -97,7 +92,6 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     }
     return UUID;
 }
-
 #else // OSX
 -(NSString *)serialNumber {
     io_service_t    platformExpert = IOServiceGetMatchingService(kIOMasterPortDefault, IOServiceMatching("IOPlatformExpertDevice"));
@@ -346,19 +340,19 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     [self registerDeviceAsync:responseBlock error:errorBlock];
 }
 
--(void)registerDevice:(NSData *)deviceToken channels:(NSArray<NSString *> *)channels response:(void (^)(NSString *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)registerDevice:(NSData *)deviceToken channels:(NSArray<NSString *> *)channels response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
     deviceRegistration.deviceToken = [self deviceTokenAsString:deviceToken];
     deviceRegistration.channels = channels;
     [self registerDeviceAsync:responseBlock error:errorBlock];
 }
 
--(void)registerDevice:(NSData *)deviceToken expiration:(NSDate *)expiration response:(void (^)(NSString *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)registerDevice:(NSData *)deviceToken expiration:(NSDate *)expiration response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
     deviceRegistration.deviceToken = [self deviceTokenAsString:deviceToken];
     deviceRegistration.expiration = expiration;
     [self registerDeviceAsync:responseBlock error:errorBlock];
 }
 
--(void)registerDevice:(NSData *)deviceToken channels:(NSArray<NSString *> *)channels expiration:(NSDate *)expiration response:(void (^)(NSString *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)registerDevice:(NSData *)deviceToken channels:(NSArray<NSString *> *)channels expiration:(NSDate *)expiration response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
     deviceRegistration.deviceToken = [self deviceTokenAsString:deviceToken];
     deviceRegistration.channels = channels;
     deviceRegistration.expiration = expiration;

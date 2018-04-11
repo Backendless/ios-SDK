@@ -24,14 +24,14 @@
 #import "AbstractQuery.h"
 
 @interface BackendlessCacheKey : NSObject<NSCopying>
+
 @property (nonatomic, strong) AbstractQuery *query;
 @property (nonatomic, strong) NSString *className;
 
 -(BackendlessCacheKey *)initWithClass:(Class)_class query:(id)query;
 -(BackendlessCacheKey *)initWithClassName:(NSString *)className query:(id)query;
-
 +(BackendlessCacheKey *)cacheKeyWithClass:(Class)_class query:(id)query;
 +(BackendlessCacheKey *)cacheKeyWithClassName:(NSString *)className query:(id)query;
-
 -(BOOL)isEqual:(id)object;
+
 @end

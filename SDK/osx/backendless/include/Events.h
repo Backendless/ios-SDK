@@ -20,15 +20,16 @@
  */
 
 #import <Foundation/Foundation.h>
-
 @protocol IResponder;
 @class Fault;
 
 @interface Events : NSObject
+
 // sync methods with fault return (as exception)
 -(NSDictionary *)dispatch:(NSString *)name args:(NSDictionary *)eventArgs;
 // async methods with responder
 -(void)dispatch:(NSString *)name args:(NSDictionary *)eventArgs responder:(id <IResponder>)responder;
 // async methods with block-based callbacks
 -(void)dispatch:(NSString *)name args:(NSDictionary *)eventArgs response:(void(^)(NSDictionary *data))responseBlock error:(void(^)(Fault *fault))errorBlock;
+
 @end

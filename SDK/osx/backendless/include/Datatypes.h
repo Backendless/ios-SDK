@@ -11,14 +11,12 @@ typedef enum amf0_datatype amf0_datatype_t;
 typedef enum amf3_datatype amf3_datatype_t;
 typedef enum rtmp_datatype rtmp_datatype_t;
 
-enum amf_protocol_encoding
-{
+enum amf_protocol_encoding {
 	AMF0 = 0,
 	AMF3 = 3,
 };
 
-enum amf0_datatype
-{
+enum amf0_datatype {
 	NUMBER_DATATYPE_V1 = 0,				// 0x00
 	BOOLEAN_DATATYPE_V1 = 1,			// 0x01
 	UTFSTRING_DATATYPE_V1 = 2,			// 0x02
@@ -39,8 +37,7 @@ enum amf0_datatype
 	TOTAL_V1TYPES = 18,					// 0x12
 };
 
-enum amf3_datatype
-{
+enum amf3_datatype {
 	UNKNOWN_DATATYPE_V3 = 0,			// 0x00
 	NULL_DATATYPE_V3 = 1,				// 0x01
 	BOOLEAN_DATATYPE_FALSEV3 = 2,		// 0x02
@@ -61,9 +58,7 @@ enum amf3_datatype
     TOTAL_V3TYPES = 17,					// 0x11
 };
 
-
-enum rtmp_datatype
-{
+enum rtmp_datatype {
     RTMP_DATATYPE_SKIPTYPE = 0,			// 0x00
     RTMP_DATATYPE_NULL = 1,				// 0x01
     RTMP_DATATYPE_BOOLEAN = 2,			// 0x02

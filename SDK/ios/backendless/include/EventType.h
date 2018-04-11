@@ -8,8 +8,7 @@
 
 typedef enum enent_type EventType;
 
-enum enent_type
-{
+enum enent_type {
 	SYSTEM,
 	STATUS,
 	SERVICE_CALL,

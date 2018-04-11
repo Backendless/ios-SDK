@@ -27,9 +27,12 @@
     NSDate      *created;
     NSDate      *updated;
 }
+
 @property (strong, nonatomic) NSString *objectId;
 @property (strong, nonatomic) NSString *__meta;
 @property (strong, nonatomic) NSDate *created;
 @property (strong, nonatomic) NSDate *updated;
+
 +(id)entity;
+
 @end

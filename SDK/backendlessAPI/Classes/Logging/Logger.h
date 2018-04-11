@@ -22,7 +22,8 @@
 #import <Foundation/Foundation.h>
 
 @interface Logger : NSObject
-+(id)logger:(NSString *)loggerName;
+
++(instancetype)logger:(NSString *)loggerName;
 -(void)debug:(NSString *)message;
 -(void)info:(NSString *)message;
 -(void)trace:(NSString *)message;
@@ -32,4 +33,5 @@
 -(void)error:(NSString *)message exception:(NSException *)exception;
 -(void)fatal:(NSString *)message;
 -(void)fatal:(NSString *)message exception:(NSException *)exception;
+
 @end

@@ -28,8 +28,8 @@
 @property (strong, nonatomic) NSNumber *relationsDepth;
 
 +(instancetype)query;
-
 -(BOOL)addSortByOption:(NSString *)sortBy;
 -(BOOL)addRelated:(NSString *)related;
 -(QueryOptions *)newInstanse;
+
 @end

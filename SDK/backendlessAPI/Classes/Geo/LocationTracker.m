@@ -34,16 +34,13 @@
 
 @implementation LocationTracker
 
-// Singleton accessor:  this is how you should ALWAYS get a reference to the class instance.  Never init your own.
-+(LocationTracker *)sharedInstance {
++(instancetype)sharedInstance {
     static LocationTracker *sharedLocationTracker;
-    @synchronized(self)
-    {
+    @synchronized(self) {
         if (!sharedLocationTracker) {
             sharedLocationTracker = [LocationTracker new];
             [DebLog log:@"CREATE LocationTracker: sharedLocationTracker = %@", sharedLocationTracker];
         }
-        
     }
     return sharedLocationTracker;
 }
@@ -54,7 +51,6 @@
         _monitoringSignificantLocationChanges = YES;
         _distanceFilter = kCLDistanceFilterNone;
         _desiredAccuracy = kCLLocationAccuracyBest;
-        
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
         _activityType = CLActivityTypeOther;
         _pausesLocationUpdatesAutomatically = YES;
@@ -71,11 +67,7 @@
     [super dealloc];
 }
 
-#pragma mark -
-#pragma mark setters
-
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-
 -(void)setActivityType:(CLActivityType)activityType {
     _activityType = activityType;
     _locationManager.activityType = activityType;
@@ -85,7 +77,6 @@
     _pausesLocationUpdatesAutomatically = pausesLocationUpdatesAutomatically;
     _locationManager.pausesLocationUpdatesAutomatically = pausesLocationUpdatesAutomatically;
 }
-
 #endif
 
 -(void)setMonitoringSignificantLocationChanges:(BOOL)monitoringSignificantLocationChanges {    
@@ -108,9 +99,6 @@
     _desiredAccuracy = desiredAccuracy;
     _locationManager.desiredAccuracy = desiredAccuracy;
 }
-
-#pragma mark -
-#pragma mark Public Methods
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 -(BOOL)isSuspendedRefreshAvailable {
@@ -157,9 +145,6 @@
 -(CLLocation *)getLocation {
     return _locationManager.location;
 }
-
-#pragma mark -
-#pragma mark Private Methods
 
 -(void)onLocationChanged:(CLLocation *)location {
     NSArray *listeners = [_locationListeners values];
@@ -215,9 +200,6 @@
     CFRelease(theUUID);
     return [(NSString *)string autorelease];
 }
-
-#pragma mark -
-#pragma mark CLLocationManagerDelegate Methods
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
     CLLocation *location = [locations lastObject];

@@ -39,11 +39,8 @@
 #define FAULT_NO_USER_EMAIL [Fault fault:@"user email is missing or null" detail:@"user email is missing or null" faultCode:@"3903"]
 #define FAULT_USER_IS_NOT_LOGGED_IN [Fault fault:@"user is not logged in" detail:@"user is not logged in" faultCode:@"3904"]
 
-// PERSISTENT USER
 static NSString *PERSIST_USER_FILE_NAME = @"user.bin";
-// SERVICE NAME
 static NSString *SERVER_USER_SERVICE_PATH = @"com.backendless.services.users.UserService";
-// METHOD NAMES
 static NSString *METHOD_REGISTER = @"register";
 static NSString *METHOD_UPDATE = @"update";
 static NSString *METHOD_LOGIN = @"login";
@@ -110,9 +107,6 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     }
     return castedUser;
 }
-
-#pragma mark -
-#pragma mark Public Methods
 
 -(BOOL)setStayLoggedIn:(BOOL)value {
     if (value == _isStayLoggedIn)
@@ -359,11 +353,11 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_DESCRIBE_USER_CLASS args:@[] responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)getUserRoles:(void (^)(NSArray<NSString*> *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)getUserRoles:(void(^)(NSArray<NSString*> *))responseBlock error:(void(^)(Fault *))errorBlock {
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_GET_USER_ROLES args:@[] responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)loginWithFacebookSDK:(NSString *)userId tokenString:(NSString *)tokenString expirationDate:(NSDate *)expirationDate fieldsMapping:(id)fieldsMapping response:(void (^)(BackendlessUser *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)loginWithFacebookSDK:(NSString *)userId tokenString:(NSString *)tokenString expirationDate:(NSDate *)expirationDate fieldsMapping:(id)fieldsMapping response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {
     id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!userId||!userId.length||!tokenString||!tokenString.length) {
         return [responder errorHandler:FAULT_NO_USER_CREDENTIALS];
@@ -385,7 +379,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_GOOGLEPLUS_SDK args:args responder:_responder responseAdapter:[BackendlessUserAdapter new]];
 }
 
--(void)loginWithTwitterSDK:(NSString *)authToken authTokenSecret:(NSString *)authTokenSecret fieldsMapping:(id)fieldsMapping response:(void (^)(BackendlessUser *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)loginWithTwitterSDK:(NSString *)authToken authTokenSecret:(NSString *)authTokenSecret fieldsMapping:(id)fieldsMapping response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {
     id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!authToken||!authToken.length||!authTokenSecret||!authTokenSecret.length) {
         return [responder errorHandler:FAULT_NO_USER_CREDENTIALS];
@@ -434,9 +428,6 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 -(BOOL)resetPersistentUser {
     return [AMFSerializer serializeToFile:nil fileName:PERSIST_USER_FILE_NAME];
 }
-
-#pragma mark -
-#pragma mark Private Methods
 
 // callbacks
 

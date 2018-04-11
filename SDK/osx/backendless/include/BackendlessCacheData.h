@@ -24,6 +24,7 @@
 typedef void(^BackendlessCacheDataSaveCompletion)(BOOL done);
 
 @interface BackendlessCacheData : NSObject
+
 @property (nonatomic, strong) id data;
 @property (nonatomic, strong) NSNumber *timeToLive;
 @property (nonatomic, strong) NSNumber *priority;
@@ -37,4 +38,5 @@ typedef void(^BackendlessCacheDataSaveCompletion)(BOOL done);
 -(id)initWithCache:(BackendlessCacheData *)cache;
 -(void)remove;
 -(void)removeFromDisc;
+
 @end

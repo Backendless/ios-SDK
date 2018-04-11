@@ -41,15 +41,12 @@
 #define FAULT_REMOVE_CATEGORY_NAME_IS_NULL [Fault fault:@"Category name is NULL" detail:@"Cannot remove category. Category name is NULL" faultCode:@"4015"]
 #define FAULT_REMOVE_CATEGORY_NAME_IS_EMPTY [Fault fault:@"Category name is empty" detail:@"Cannot remove category. Category name is empty" faultCode:@"4016"]
 #define FAULT_REMOVE_CATEGORY_NAME_IS_DEFAULT [Fault fault:@"Category name is 'Default'" detail:@"Cannot remove category. Category name is 'Default'" faultCode:@"4017"]
-
 #define FAULT_GEO_POINT_ID_IS_NULL [Fault fault:@"Geo point ID is NULL" detail:@"Unable to operate with geo point. GeoPoint ID is NULL" faultCode:@"4900"]
 #define FAULT_GEO_FENCE_NAME_IS_NULL [Fault fault:@"Geo fence name is NULL"  detail:@"Unable to operate with geo fence. GeoFence is NULL" faultCode:@"4901"]
 #define FAULT_CALLBACK_IS_INVALID [Fault fault:@"Callback instance is not valid" detail:@"Callback instance is not valid" faultCode:@"4902"]
 #define FAULT_GEO_QUERY_IS_NULL [Fault fault:@"Geo query is NULL" detail:@"Unable to operate with geo query. GeoQuery is NULL" faultCode:@"4903"]
 
-// SERVICE NAME
 static NSString *SERVER_GEO_SERVICE_PATH = @"com.backendless.services.geo.GeoService";
-// METHOD NAMES
 static NSString *METHOD_ADD_CATEGORY = @"addCategory";
 static NSString *METHOD_DELETE_CATEGORY = @"deleteCategory";
 static NSString *METHOD_ADD_POINT = @"addPoint";
@@ -68,6 +65,7 @@ static NSString *METHOD_GET_FENCES = @"getFences";
 static NSString *METHOD_COUNT = @"count";
 
 @interface GeoService ()
+
 -(Fault *)isFaultAddCategoryName:(NSString *)categoryName responder:(id <IResponder>)responder;
 -(Fault *)isFaultRemoveCategoryName:(NSString *)categoryName responder:(id <IResponder>)responder;
 -(Fault *)isFaultGeoPoint:(GeoPoint *)geoPoint responder:(id <IResponder>)responder;
@@ -76,13 +74,13 @@ static NSString *METHOD_COUNT = @"count";
 -(id)getResponse:(ResponseContext *)response;
 -(id)getMetadata:(ResponseContext *)response;
 -(id)getError:(id)error;
-@end
 
+@end
 
 @implementation GeoService
 
 -(id)init {
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.model.GeoCategory" mapped:[GeoCategory class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.model.GeoPoint" mapped:[GeoPoint class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.model.GeoCluster" mapped:[GeoCluster class]];
@@ -100,10 +98,6 @@ static NSString *METHOD_COUNT = @"count";
     [_presence release];
     [super dealloc];
 }
-
-
-#pragma mark -
-#pragma mark Public Methods
 
 // sync methods with fault return (as exception)
 
@@ -202,7 +196,7 @@ static NSString *METHOD_COUNT = @"count";
 
 -(void)setReferenceToCluster:(NSArray<GeoPoint *> *)collection geoQuery:(BackendlessGeoQuery *)geoQuery {
     BackendlessGeoQuery *protectedQuery = [[ProtectedBackendlessGeoQuery alloc] initWithQuery:geoQuery];
-    for(GeoPoint *geoPoint in collection) {
+    for (GeoPoint *geoPoint in collection) {
         if ([geoPoint isKindOfClass:[GeoCluster class]]) {
             [(GeoCluster *)geoPoint setGeoQuery:protectedQuery];
         }
@@ -365,7 +359,7 @@ static NSString *METHOD_COUNT = @"count";
     [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_POINTS_WITH_MATCHES args:args responder:_responder];
 }
 
--(void)removePoint:(GeoPoint *)geoPoint response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)removePoint:(GeoPoint *)geoPoint response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if ([self isFaultGeoPoint:geoPoint responder:responder] || [self isFaultGeoPointId:geoPoint.objectId responder:responder])
         return;
@@ -373,7 +367,7 @@ static NSString *METHOD_COUNT = @"count";
     [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_DELETE_GEOPOINT args:args responder:responder];
 }
 
--(void)loadMetadata:(GeoPoint *)geoPoint response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)loadMetadata:(GeoPoint *)geoPoint response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if ([self isFaultGeoPoint:geoPoint responder:responder] || [self isFaultGeoPointId:geoPoint.objectId responder:responder])
         return;
@@ -473,19 +467,19 @@ static NSString *METHOD_COUNT = @"count";
     [self startGeofenceMonitoringCallback:[ClientCallback callback:callback] responder:responder];
 }
 
--(void)startGeofenceMonitoringGeoPoint:(GeoPoint *)geoPoint response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)startGeofenceMonitoringGeoPoint:(GeoPoint *)geoPoint response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [self startGeofenceMonitoringCallback:[ServerCallback callback:geoPoint] responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)startGeofenceMonitoring:(id <IGeofenceCallback>)callback response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)startGeofenceMonitoring:(id <IGeofenceCallback>)callback response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [self startGeofenceMonitoringCallback:[ClientCallback callback:callback] responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)startGeofenceMonitoringGeoPoint:(NSString *)geofenceName geoPoint:(GeoPoint *)geoPoint response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)startGeofenceMonitoringGeoPoint:(NSString *)geofenceName geoPoint:(GeoPoint *)geoPoint response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [self startGeofenceMonitoringCallback:[ServerCallback callback:geoPoint] name:geofenceName responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)startGeofenceMonitoring:(NSString *)geofenceName callback:(id <IGeofenceCallback>)callback response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)startGeofenceMonitoring:(NSString *)geofenceName callback:(id <IGeofenceCallback>)callback response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [self startGeofenceMonitoringCallback:[ClientCallback callback:callback] name:geofenceName responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
@@ -502,9 +496,6 @@ static NSString *METHOD_COUNT = @"count";
         [[LocationTracker sharedInstance] removeListener:[monitoring listenerName]];
     }
 }
-
-#pragma mark -
-#pragma mark Private Methods
 
 -(void)startGeofenceMonitoringCallback:(id <ICallback>)callback responder:(id <IResponder>)responder {
     if ([self isFaultCallbackIsInvalid:callback responder:responder])
@@ -594,9 +585,6 @@ static NSString *METHOD_COUNT = @"count";
         responder ? [responder errorHandler:fault] : [backendless throwFault:fault];
     return fault;
 }
-
-#pragma mark -
-#pragma mark Callback Methods
 
 -(id)getResponse:(ResponseContext *)response {
     NSArray<GeoPoint *> *collection = response.response;

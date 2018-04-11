@@ -39,12 +39,10 @@ typedef struct {
 -(id)initWithPoint:(GEO_POINT)point;
 -(id)initWithPoint:(GEO_POINT)point categories:(NSArray *)categories;
 -(id)initWithPoint:(GEO_POINT)point categories:(NSArray *)categories metadata:(NSDictionary *)metadata;
-
 +(id)geoPoint;
 +(id)geoPoint:(GEO_POINT)point;
 +(id)geoPoint:(GEO_POINT)point categories:(NSArray *)categories;
 +(id)geoPoint:(GEO_POINT)point categories:(NSArray *)categories metadata:(NSDictionary *)metadata;
-
 -(double)valLatitude;
 -(void)latitude:(double)latitude;
 -(double)valLongitude;
@@ -55,13 +53,15 @@ typedef struct {
 -(void)categories:(NSArray *)categories;
 -(NSDictionary *)valMetadata;
 -(void)metadata:(NSDictionary *)metadata;
-//
 -(BOOL)addCategory:(NSString *)category;
 -(BOOL)addMetadata:(NSString *)key value:(id)value;
+
 @end
 
 @interface SearchMatchesResult : NSObject
-@property (nonatomic, strong) NSString *objectId;
-@property (nonatomic, strong) GeoPoint *geoPoint;
-@property (nonatomic, strong) NSNumber *matches;
+
+@property (strong, nonatomic) NSString *objectId;
+@property (strong, nonatomic) GeoPoint *geoPoint;
+@property (strong, nonatomic) NSNumber *matches;
+
 @end

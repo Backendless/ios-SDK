@@ -30,32 +30,22 @@
 #define FAULT_NO_USER_ID [Fault fault:@"UserId is not valid"]
 #define FAULT_NO_ROLE_NAME [Fault fault:@"RoleName is not valid"]
 #define FAULT_OBJECT_ID_IS_NOT_EXIST [Fault fault:@"Object ID does not exist"]
-
 #define DATA_PERMISSION_OPERATION @[@"UPDATE", @"FIND", @"REMOVE"]
 
-// SERVICE NAME
 static NSString *SERVER_PERSISTENCE_PERMISSIONS_SERVICE_PATH = @"com.backendless.services.persistence.permissions.ClientPermissionService";
-// METHOD NAMES
+static NSString *_GRANT = @"GRANT";
+static NSString *_DENY = @"DENY";
 static NSString *METHOD_UPDATE_USER_PERMISSION = @"updateUserPermission";
 static NSString *METHOD_UPDATE_ROLE_PERMISSION = @"updateRolePermission";
 static NSString *METHOD_UPDATE_ALL_USER_PERMISSION = @"updateAllUserPermission";
 static NSString *METHOD_UPDATE_ALL_ROLE_PERMISSION = @"updateAllRolePermission";
-// PERMISSION TYPES
-static NSString *_GRANT = @"GRANT";
-static NSString *_DENY = @"DENY";
 
 @implementation DataPermission
-
-#pragma mark -
-#pragma mark Private Methods
 
 -(id)getEntityId:(id)object {
     NSString *objectId = [backendless.persistenceService getObjectId:object];
     return [objectId isKindOfClass:[NSString class]]?objectId:object;
 }
-
-#pragma mark -
-#pragma mark Public Methods
 
 // sync methods with fault return (as exception)
 

@@ -955,7 +955,7 @@ static NSString *_defaultService;
 #pragma mark -
 
 #if TARGET_OS_IOS
--(void)sharedPasswordWithCompletion:(void (^)(NSString *account, NSString *password, NSError *error))completion
+-(void)sharedPasswordWithCompletion:(void(^)(NSString *account, NSString *password, NSError *error))completion
 {
     NSString *domain = self.server.host;
     if (domain.length > 0) {
@@ -981,7 +981,7 @@ static NSString *_defaultService;
     }
 }
 
--(void)sharedPasswordForAccount:(NSString *)account completion:(void (^)(NSString *password, NSError *error))completion
+-(void)sharedPasswordForAccount:(NSString *)account completion:(void(^)(NSString *password, NSError *error))completion
 {
     NSString *domain = self.server.host;
     if (domain.length > 0) {
@@ -1006,7 +1006,7 @@ static NSString *_defaultService;
     }
 }
 
--(void)setSharedPassword:(NSString *)password forAccount:(NSString *)account completion:(void (^)(NSError *error))completion
+-(void)setSharedPassword:(NSString *)password forAccount:(NSString *)account completion:(void(^)(NSError *error))completion
 {
     NSString *domain = self.server.host;
     if (domain.length > 0) {
@@ -1023,17 +1023,17 @@ static NSString *_defaultService;
     }
 }
 
--(void)removeSharedPasswordForAccount:(NSString *)account completion:(void (^)(NSError *error))completion
+-(void)removeSharedPasswordForAccount:(NSString *)account completion:(void(^)(NSError *error))completion
 {
     [self setSharedPassword:nil forAccount:account completion:completion];
 }
 
-+ (void)requestSharedWebCredentialWithCompletion:(void (^)(NSArray UIC_CREDENTIAL_TYPE *credentials, NSError *error))completion
++ (void)requestSharedWebCredentialWithCompletion:(void(^)(NSArray UIC_CREDENTIAL_TYPE *credentials, NSError *error))completion
 {
     [self requestSharedWebCredentialForDomain:nil account:nil completion:completion];
 }
 
-+ (void)requestSharedWebCredentialForDomain:(NSString *)domain account:(NSString *)account completion:(void (^)(NSArray UIC_CREDENTIAL_TYPE *credentials, NSError *error))completion
++ (void)requestSharedWebCredentialForDomain:(NSString *)domain account:(NSString *)account completion:(void(^)(NSArray UIC_CREDENTIAL_TYPE *credentials, NSError *error))completion
 {
     SecRequestSharedWebCredential((__bridge CFStringRef)domain, (__bridge CFStringRef)account, ^(CFArrayRef credentials, CFErrorRef error) {
         if (error) {

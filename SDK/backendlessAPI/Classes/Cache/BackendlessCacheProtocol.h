@@ -22,5 +22,7 @@
 #import <Foundation/Foundation.h>
 
 @protocol BackendlessCacheProtocol <NSObject>
+
 -(BOOL)isEqualToQuery:(id)query;
+
 @end

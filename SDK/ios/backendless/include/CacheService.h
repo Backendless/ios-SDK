@@ -21,7 +21,6 @@
 
 #import <Foundation/Foundation.h>
 #import "ICacheService.h"
-
 @class Fault;
 
 @interface CacheService : NSObject
@@ -36,13 +35,13 @@
 -(id)remove:(NSString *)key;
 
 // async methods with block-based callbacks
--(void)put:(NSString *)key object:(id)entity response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
--(void)put:(NSString *)key object:(id)entity timeToLive:(int)seconds response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
--(void)get:(NSString *)key response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
--(void)contains:(NSString *)key response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
--(void)expireIn:(NSString *)key timeToLive:(int)seconds response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
--(void)expireAt:(NSString *)key timestamp:(NSDate *)timestamp response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
--(void)remove:(NSString *)key response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
+-(void)put:(NSString *)key object:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)put:(NSString *)key object:(id)entity timeToLive:(int)seconds response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)get:(NSString *)key response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)contains:(NSString *)key response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)expireIn:(NSString *)key timeToLive:(int)seconds response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)expireAt:(NSString *)key timestamp:(NSDate *)timestamp response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)remove:(NSString *)key response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 
 // ICacheService factory
 -(id <ICacheService>)with:(NSString *)key;

@@ -81,9 +81,6 @@
     [super dealloc];
 }
 
-#pragma mark -
-#pragma mark Public Methods
-
 -(uint)getPollingInterval {
     return pollingInterval;
 }

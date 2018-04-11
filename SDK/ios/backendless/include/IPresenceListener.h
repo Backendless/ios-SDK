@@ -20,9 +20,10 @@
  */
 
 #import <Foundation/Foundation.h>
-
 @class BackendlessBeacon;
 
 @protocol IPresenceListener <NSObject>
+
 -(void)onDetectedBeacons:(NSDictionary<BackendlessBeacon*, NSNumber*> *)beaconToDistances;
+
 @end

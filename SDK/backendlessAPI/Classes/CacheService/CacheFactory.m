@@ -33,7 +33,7 @@
 @implementation CacheFactory
 
 -(id)init {
-    if ( (self=[super init]) ) {
+    if ( (self = [super init]) ) {
         _key = @"DEFAULT_KEY";
         _entityClass = nil;
     }
@@ -41,7 +41,7 @@
 }
 
 -(id)init:(NSString *)key type:(Class)entityClass {
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         _key = [key retain];
         _entityClass = [entityClass retain];
     }
@@ -63,15 +63,9 @@
     [super dealloc];
 }
 
-#pragma mark -
-#pragma mark Private Methods
-
 -(Fault *)entityValidation:(id)entity {
     return (_entityClass && ![(NSObject *)entity isKindOfClass:_entityClass]) ? [backendless throwFault:FAULT_NO_ENTITY_TYPE] : nil;
 }
-
-#pragma mark -
-#pragma mark ICacheService Methods
 
 // sync methods with fault return (as exception)
 
@@ -106,33 +100,33 @@
 
 // async methods with block-based callback
 
--(void)put:(id)entity response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)put:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [self put:entity timeToLive:0 response:responseBlock error:errorBlock];
 }
 
--(void)put:(id)entity timeToLive:(int)seconds response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)put:(id)entity timeToLive:(int)seconds response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     id<IResponder> responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     Fault *noValid = [self entityValidation:entity];
     noValid ? [responder errorHandler:noValid] : [backendless.cache put:_key object:entity timeToLive:seconds response:responseBlock error:errorBlock];
 }
 
--(void)get:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)get:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.cache get:_key response:responseBlock error:errorBlock];
 }
 
--(void)contains:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)contains:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.cache contains:_key response:responseBlock error:errorBlock];
 }
 
--(void)expireIn:(int)seconds response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)expireIn:(int)seconds response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.cache expireIn:_key timeToLive:seconds response:responseBlock error:errorBlock];
 }
 
--(void)expireAt:(NSDate *)timestamp response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)expireAt:(NSDate *)timestamp response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.cache expireAt:_key timestamp:timestamp response:responseBlock error:errorBlock];
 }
 
--(void)remove:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)remove:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.cache remove:_key response:responseBlock error:errorBlock];
 }
 

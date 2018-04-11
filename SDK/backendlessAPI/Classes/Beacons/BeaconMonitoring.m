@@ -86,9 +86,6 @@
     [super dealloc];
 }
 
-#pragma mark -
-#pragma mark Private Methods
-
 -(void)flush {
     if (_discoveryBeacons.count) {
         [self sendBeacons:_discoveryBeacons];
@@ -109,9 +106,6 @@
     });
 }
 
-#pragma mark -
-#pragma mark Public Methods
-
 -(NSSet<BackendlessBeacon*> *)getMonitoredBeacons {
     return _monitoredBeacons;
 }
@@ -131,8 +125,7 @@
      }
      error:^(Fault *fault) {
          [[backendless.logging getLoggerClass:BeaconTracker.class] error:[fault description]];
-     }
-     ];
+     }];
 }
 
 -(void)sendEntered:(BackendlessBeacon *)beacon distance:(double)distance  {
@@ -140,45 +133,14 @@
     [backendless.customService invoke:BEACON_SERVICE_NAME method:@"proximity" args:args responder:nil];
 }
 
-#pragma mark -
-#pragma mark IPresenceListener Methods
-
-/*
- 
- @Override
- public void onDetectedBeacons( Map<BackendlessBeacon, Double> beaconToDistances )
- {
- for( BackendlessBeacon beacon : beaconToDistances.keySet() )
- {
- readLock.lock();
- boolean enubledBeacon = monitoredBeacons.contains( beacon );
- readLock.unlock();
- 
- if( enubledBeacon )
- {
- sendEntered( beacon, beaconToDistances.get( beacon ) );
- }
- 
- if( discovery )
- {
- discoveryBeacons.add( beacon );
- }
- }
- }
- */
-
 -(void)onDetectedBeacons:(NSDictionary<BackendlessBeacon*, NSNumber*> *)beaconToDistances {
-    
     NSLog(@"onDetectedBeacons: %@ [%@]", beaconToDistances, _discovery?@"YES":@"NO");
-    
     NSArray *keys = [beaconToDistances allKeys];
     for (BackendlessBeacon *beacon in keys) {
-        
         if ([_monitoredBeacons member:beacon]) {
             NSLog(@"onDetectedBeacons: beacon.objectId = %@, distance = %@", beacon.objectId, beaconToDistances[beacon]);
             [self sendEntered:beacon distance:beaconToDistances[beacon].doubleValue];
-        }
-        
+        }        
         if (_discovery) {
             [_discoveryBeacons addObject:beacon];
         }

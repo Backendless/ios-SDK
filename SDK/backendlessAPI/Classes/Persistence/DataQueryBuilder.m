@@ -34,9 +34,6 @@
     return self;
 }
 
-#pragma mark -
-#pragma mark Public Methods
-
 -(BackendlessDataQuery *)build {
     BackendlessDataQuery *dataQuery = [BackendlessDataQuery new];
     dataQuery = [_pagedQueryBuilder build];
@@ -58,17 +55,11 @@
     return self;
 }
 
-/**
- * Updates offset to point at next data page by adding pageSize.
- */
 -(instancetype)prepareNextPage {
     [_pagedQueryBuilder prepareNextPage];
     return self;
 }
 
-/**
- * Updates offset to point at previous data page by subtracting pageSize.
- */
 -(instancetype)preparePreviousPage {
     [_pagedQueryBuilder preparePreviousPage];
     return self;

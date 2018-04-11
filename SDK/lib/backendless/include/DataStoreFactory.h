@@ -23,5 +23,7 @@
 #import "IDataStore.h"
 
 @interface DataStoreFactory : NSObject <IDataStore>
+
 +(id <IDataStore>)createDataStore:(Class)entityClass;
+
 @end

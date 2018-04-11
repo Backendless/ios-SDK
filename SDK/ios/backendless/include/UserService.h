@@ -20,9 +20,7 @@
  */
 
 #import <Foundation/Foundation.h>
-
 @class BackendlessUser, Fault, UserProperty;
-// FB
 @class FBSDKAccessToken;
 
 @interface UserService : NSObject
@@ -30,10 +28,9 @@
 @property (strong, nonatomic) BackendlessUser *currentUser;
 @property (readonly) BOOL isStayLoggedIn;
 
-// switch on/off the persistent user mode
 -(BOOL)setStayLoggedIn:(BOOL)value;
 
-// sync methods with fault return  (as exception)
+// sync methods with fault return (as exception)
 -(BackendlessUser *)registerUser:(BackendlessUser *)user;
 -(BackendlessUser *)update:(BackendlessUser *)user;
 -(BackendlessUser *)login:(NSString *)login password:(NSString *)password;

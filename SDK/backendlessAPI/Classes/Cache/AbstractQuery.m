@@ -25,7 +25,7 @@
 @implementation AbstractQuery
 
 -(id)init {
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         self.cachePolicy = nil;
     }
     return self;

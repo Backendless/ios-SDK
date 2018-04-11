@@ -21,13 +21,13 @@
 
 #import <Foundation/Foundation.h>
 #import "IDataStore.h"
-
 @class Fault;
 @protocol IResponder;
 
 @interface MapDrivenDataStore : NSObject <IDataStore>
 
 @property (strong, nonatomic, readonly) NSString *tableName;
+
 +(id)createDataStore:(NSString *)tableName;
 
 @end

@@ -23,11 +23,10 @@
 #import "HashMap.h"
 #import "DeviceRegistration.h"
 #import "BodyParts.h"
-
-@class UIUserNotificationCategory;
-@class MessageStatus, PublishOptions, DeliveryOptions, SubscriptionOptions, BESubscription, Message, Fault;
+@class UIUserNotificationCategory, MessageStatus, PublishOptions, DeliveryOptions, SubscriptionOptions, BESubscription, Message, Fault;
 
 @interface MessagingService : NSObject
+
 @property (nonatomic) uint pollingFrequencySec;
 @property (strong, nonatomic, readonly) HashMap *subscriptions;
 
