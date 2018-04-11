@@ -26,8 +26,7 @@
 @synthesize message, publisherId, subtopic, pushBroadcast, pushSinglecast, headers;
 
 -(id)init {
-	
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         message = nil;
         publisherId = nil;
         subtopic = nil;
@@ -35,13 +34,11 @@
         pushSinglecast = nil;
         headers = nil;
 	}
-	
 	return self;
 }
 
 -(id)initWithMessage:(NSString *)_message {
-	
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         message = [_message retain];
         publisherId = nil;
         subtopic = nil;
@@ -49,26 +46,19 @@
         pushSinglecast = nil;
         headers = nil;
 	}
-	
 	return self;
 }
 
 -(void)dealloc {
-	
-	[DebLog logN:@"DEALLOC PublishMessageInfo"];
-    
+	[DebLog logN:@"DEALLOC PublishMessageInfo"];    
     if (message) [message release];
     if (publisherId) [publisherId release];
     if (subtopic) [subtopic release];
     if (pushBroadcast) [pushBroadcast release];
     if (pushSinglecast) [pushSinglecast release];
     if (headers) [headers release];
-	
 	[super dealloc];
 }
-
-#pragma mark -
-#pragma mark Public Methods
 
 -(void)addHeaders:(NSDictionary *)_headers {
     headers ? [headers addEntriesFromDictionary:_headers] : [[NSMutableDictionary alloc] initWithDictionary:_headers];
