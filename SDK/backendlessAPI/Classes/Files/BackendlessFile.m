@@ -25,27 +25,22 @@
 @implementation BackendlessFile
 
 -(id)init {
-	if ( (self=[super init]) ) {
+	if (self = [super init]) {
         _fileURL = nil;
 	}
-	
 	return self;
 }
 
 -(id)initWithUrl:(NSString *)url {
-	if ( (self=[super init]) ) {
+	if (self = [super init]) {
         _fileURL = [url retain];
 	}
-	
 	return self;
 }
 
 -(void)dealloc {
-	
 	[DebLog logN:@"DEALLOC BackendlessFile"];
-    
     [_fileURL release];
-	
 	[super dealloc];
 }
 
@@ -53,18 +48,11 @@
     return [[[BackendlessFile alloc] initWithUrl:url] autorelease];
 }
 
-#pragma mark -
-#pragma mark Public Methods
-
-// sync
-
 -(void)remove {
     [backendless.fileService remove:_fileURL];
 }
 
-// async
-
--(void)remove:(void (^)(id))responseBlock error:(void (^)(id))errorBlock {
+-(void)remove:(void(^)(id))responseBlock error:(void(^)(id))errorBlock {
     [backendless.fileService remove:_fileURL response:responseBlock error:errorBlock];
 }
 

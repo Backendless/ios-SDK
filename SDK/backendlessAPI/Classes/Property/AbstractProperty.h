@@ -37,15 +37,18 @@ typedef enum {
 } ObjectDataType;
 
 @interface AbstractProperty : NSObject
+
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSNumber *required;
 @property (strong, nonatomic) NSString *type;
 @property (strong, nonatomic) NSNumber *selected;
 @property (strong, nonatomic) id defaultValue;
+
 -(BOOL)isRequired;
 -(void)isRequired:(BOOL)required;
 -(BOOL)isSelected;
 -(void)isSelected:(BOOL)selected;
 -(ObjectDataType)objectDataType;
 -(void)objectDataType:(ObjectDataType)dataType;
+
 @end

@@ -23,7 +23,7 @@
 #import "Backendless.h"
 #import "HashMap.h"
 
-@interface BackendlessUser () {
+@interface BackendlessUser() {
     HashMap *__properties;
 }
 @end
@@ -31,14 +31,14 @@
 @implementation BackendlessUser
 
 -(id)init {
-    if ( (self=[super init]) ) {
+    if (self=[super init]) {
         __properties = nil;
     }
     return self;
 }
 
 -(id)initWithProperties:(NSDictionary<NSString*, id> *)props {
-    if ( (self=[super init]) ) {
+    if (self=[super init]) {
         __properties = (props) ? [[HashMap alloc] initWithNode:props] : nil;
     }
     return self;
@@ -49,9 +49,6 @@
     [__properties release];
     [super dealloc];
 }
-
-#pragma mark -
-#pragma mark getters / setters
 
 -(NSString *)getObjectId {
     return [self getProperty:PERSIST_OBJECT_ID];
@@ -84,9 +81,6 @@
 -(void)setName:(NSString *)name {
     [self setProperty:BACKENDLESS_NAME_KEY object:name];
 }
-
-#pragma mark -
-#pragma mark Public Methods
 
 -(BOOL)isUserRegistered {
     return [[self getProperty:BACKENDLESS_USER_REGISTERED] isKindOfClass:NSNumber.class];
@@ -176,9 +170,6 @@
         [backendless.userService setPersistentUser];
     }
 }
-
-#pragma mark -
-#pragma mark NSCopying Methods
 
 -(id)copyWithZone:(NSZone *)zone {
     return [[BackendlessUser alloc] initWithProperties:[self getProperties]];

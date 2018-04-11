@@ -46,9 +46,7 @@
 #define FAULT_FIELD_IS_NULL [Fault fault:@"Field is missing or null" detail:@"Field is missing or null" faultCode:@"1903"]
 #define NULL_BULK [Fault fault:@"Object array for bulk operations cannot be null"]
 
-// SERVICE NAME
 static NSString *SERVER_PERSISTENCE_SERVICE_PATH  = @"com.backendless.services.persistence.PersistenceService";
-// METHOD NAMES
 static NSString *METHOD_CREATE = @"create";
 static NSString *METHOD_UPDATE = @"update";
 static NSString *METHOD_SAVE = @"save";
@@ -69,6 +67,7 @@ static NSString *UPDATE_BULK = @"updateBulk";
 static NSString *REMOVE_BULK = @"removeBulk";
 
 @interface PersistenceService()
+
 -(NSDictionary *)filteringProperty:(id)object;
 -(BOOL)prepareClass:(Class)className;
 -(BOOL)prepareObject:(id)object;
@@ -77,9 +76,11 @@ static NSString *REMOVE_BULK = @"removeBulk";
 -(NSDictionary *)propertyDictionary:(id)object;
 -(id)propertyObject:(id)object;
 -(id)setRelations:(NSArray *)relations object:(id)object response:(id)response;
+
 // callbacks
 -(id)loadRelations:(ResponseContext *)response;
 -(id)createResponse:(ResponseContext *)response;
+
 @end
 
 @implementation BackendlessUser (AMF)
@@ -777,7 +778,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_UPDATE args:args responder:_responder];
 }
 
--(void)find:(Class)entity response:(void (^)(NSArray *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)find:(Class)entity response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!entity) {
         return [chainedResponder errorHandler:FAULT_NO_ENTITY];
@@ -1078,7 +1079,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:LOAD_RELATION args:args responder:chainedResponder];
 }
 
--(void)createBulk:(id)entity objects:(NSArray *)objects response:(void(^)(NSArray *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)createBulk:(id)entity objects:(NSArray *)objects response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!entity) {
         return [chainedResponder errorHandler:FAULT_NO_ENTITY];
@@ -1093,7 +1094,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:CREATE_BULK args:args responder:_responder];
 }
 
--(void)updateBulk:(id)entity whereClause:(NSString *)whereClause changes:(NSDictionary<NSString *,id> *)changes response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)updateBulk:(id)entity whereClause:(NSString *)whereClause changes:(NSDictionary<NSString *,id> *)changes response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!entity) {
         return [chainedResponder errorHandler:FAULT_NO_ENTITY];
@@ -1105,7 +1106,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:UPDATE_BULK args:args responder:_responder];
 }
 
--(void)removeBulk:(id)entity whereClause:(NSString *)whereClause response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)removeBulk:(id)entity whereClause:(NSString *)whereClause response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!entity) {
         return [chainedResponder errorHandler:FAULT_NO_ENTITY];

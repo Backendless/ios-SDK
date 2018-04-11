@@ -20,13 +20,14 @@
  */
 
 #import <Foundation/Foundation.h>
-
 @class Logger, Responder;
 
 @interface Logging : NSObject
+
 -(void)setLogReportingPolicy:(int)numOfMessages time:(int)timeFrequencySec;
 -(void)setLogResponder:(Responder *)responder;
 -(Logger *)getLoggerClass:(Class)clazz;
 -(Logger *)getLogger:(NSString *)loggerName;
 -(void)flush;
+
 @end

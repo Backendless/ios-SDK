@@ -23,6 +23,8 @@
 #import "ICacheService.h"
 
 @interface CacheFactory : NSObject <ICacheService>
+
 +(id <ICacheService>)create:(NSString *)key;
 +(id <ICacheService>)create:(NSString *)key type:(Class)entityClass;
+
 @end

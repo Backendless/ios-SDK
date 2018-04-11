@@ -21,8 +21,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef enum
-{
+typedef enum {
     BackendlessCachePolicyIgnoreCache,
     BackendlessCachePolicyCacheOnly,
     BackendlessCachePolicyRemoteDataOnly,
@@ -31,12 +30,10 @@ typedef enum
     BackendlessCachePolicyFromCacheAndRemote
 } BackendlessCachePolicyEnum;
 
-typedef enum
-{
+typedef enum {
     BackendlessCacheStoredMemory,
     BackendlessCacheStoredDisc
 } BackendlessCacheStoredEnum;
-
 
 @interface BackendlessCachePolicy : NSObject <NSCopying>
 
@@ -47,4 +44,5 @@ typedef enum
 -(BackendlessCachePolicyEnum)valCachePolicy;
 -(void)timeToLive:(int)timeToLive;
 -(int)valTimeToLive;
+
 @end

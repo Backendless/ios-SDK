@@ -28,9 +28,7 @@
 #define FAULT_NO_ENTITY [Fault fault:@"Entity is NULL" detail:@"Entity is NULL" faultCode:@"16901"]
 #define FAULT_NO_KEY [Fault fault:@"Key is NULL" detail:@"Key is NULL" faultCode:@"16902"]
 
-// SERVICE NAME
 static NSString *SERVER_CACHE_SERVICE_PATH = @"com.backendless.services.redis.CacheService";
-// METHOD NAMES
 static NSString *METHOD_PUT_BYTES = @"putBytes";
 static NSString *METHOD_CONTAINS_KEY = @"containsKey";
 static NSString *METHOD_GET_BYTES = @"getBytes";
@@ -38,24 +36,12 @@ static NSString *METHOD_EXPIRE_IN = @"expireIn";
 static NSString *METHOD_EXPIRE_AT = @"expireAt";
 static NSString *METHOD_DELETE = @"delete";
 
-@interface CacheService ()
--(id)onGet:(id)response;
-@end
-
 @implementation CacheService
-
--(id)init {
-    if (self=[super init]) {
-    }
-    return self;
-}
 
 -(void)dealloc {
     [DebLog logN:@"DEALLOC CacheService"];
     [super dealloc];
 }
-
-#pragma mark Public Methods
 
 // sync methods with fault return (as exception)
 
@@ -118,11 +104,11 @@ static NSString *METHOD_DELETE = @"delete";
 
 // async methods with block-based callbacks
 
--(void)put:(NSString *)key object:(id)entity response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)put:(NSString *)key object:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [self put:key object:entity timeToLive:0 response:responseBlock error:errorBlock];
 }
 
--(void)put:(NSString *)key object:(id)entity timeToLive:(int)seconds response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)put:(NSString *)key object:(id)entity timeToLive:(int)seconds response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!key)
         return [responder errorHandler:FAULT_NO_KEY];
@@ -135,7 +121,7 @@ static NSString *METHOD_DELETE = @"delete";
     [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_PUT_BYTES args:args responder:responder];
 }
 
--(void)get:(NSString *)key response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)get:(NSString *)key response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!key)
         return [responder errorHandler:FAULT_NO_KEY];
@@ -145,7 +131,7 @@ static NSString *METHOD_DELETE = @"delete";
     [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_GET_BYTES args:args responder:_responder];
 }
 
--(void)contains:(NSString *)key response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)contains:(NSString *)key response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!key)
         return [responder errorHandler:FAULT_NO_KEY];
@@ -153,7 +139,7 @@ static NSString *METHOD_DELETE = @"delete";
     [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_CONTAINS_KEY args:args responder:responder];
 }
 
--(void)expireIn:(NSString *)key timeToLive:(int)seconds response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)expireIn:(NSString *)key timeToLive:(int)seconds response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!key)
         return [responder errorHandler:FAULT_NO_KEY];
@@ -162,7 +148,7 @@ static NSString *METHOD_DELETE = @"delete";
     [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_EXPIRE_IN args:args responder:responder];
 }
 
--(void)expireAt:(NSString *)key timestamp:(NSDate *)timestamp response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)expireAt:(NSString *)key timestamp:(NSDate *)timestamp response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!key)
         return [responder errorHandler:FAULT_NO_KEY];
@@ -170,7 +156,7 @@ static NSString *METHOD_DELETE = @"delete";
     [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_EXPIRE_AT args:args responder:responder];
 }
 
--(void)remove:(NSString *)key response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)remove:(NSString *)key response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!key)
         return [responder errorHandler:FAULT_NO_KEY];
@@ -187,9 +173,6 @@ static NSString *METHOD_DELETE = @"delete";
 -(id <ICacheService>)with:(NSString *)key type:(Class)entityClass {
     return [CacheFactory create:key type:entityClass];
 }
-
-#pragma mark -
-#pragma mark Private Methods
 
 // callbacks
 

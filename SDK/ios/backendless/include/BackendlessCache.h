@@ -21,17 +21,18 @@
 
 #import <Foundation/Foundation.h>
 #import "BackendlessCachePolicy.h"
+@class BackendlessCacheKey;
+@protocol IResponder;
 
 #define backendlessCache [BackendlessCache sharedInstance]
-@class BackendlessCacheKey;
-
-@protocol IResponder;
 
 @interface BackendlessCache : NSObject
 
 @property (nonatomic, strong) BackendlessCachePolicy *cachePolicy;
 @property (nonatomic, strong, readonly) NSNumber *storedType;
 @property (nonatomic, strong, readonly) NSMutableDictionary *cacheData;
+
++(BackendlessCache *)sharedInstance;
 
 -(void)addCacheObject:(id)object forKey:(BackendlessCacheKey *)key;
 -(void)addCacheObject:(id)object forClassName:(NSString *)className query:(id)query;
@@ -43,11 +44,9 @@
 -(void)clearAllCache;
 -(void)storedType:(BackendlessCacheStoredEnum)storedType;
 -(void)clearFromDisc;
-
 -(void)saveOnDisc;
 -(void)loadFromDisc;
-+(BackendlessCache *)sharedInstance;
-
 -(id)invokeSync:(NSString *)className method:(NSString *)methodName args:(NSArray *)args;
 -(void)invokeAsync:(NSString *)className method:(NSString *)methodName args:(NSArray *)args responder:(id <IResponder>)responder;
+
 @end

@@ -32,9 +32,7 @@
 #define FAULT_NO_FILE_DATA [Fault fault:@"File data is not set" detail:@"File data is not set" faultCode:@"6903"]
 #define FAULT_NO_PATTERN [Fault fault:@"Pattern is not set" detail:@"Pattern is not set" faultCode:@"6904"]
 
-// SERVICE NAME
 static NSString *SERVER_FILE_SERVICE_PATH = @"com.backendless.services.file.FileService";
-// METHOD NAMES
 static NSString *METHOD_DELETE = @"deleteFileOrDirectory";
 static NSString *METHOD_SAVE_FILE = @"saveFile";
 static NSString *METHOD_RENAME_FILE = @"renameFile";
@@ -44,27 +42,26 @@ static NSString *METHOD_LISTING = @"listing";
 static NSString *METHOD_EXISTS = @"exists";
 static NSString *METHOD_COUNT = @"count";
 
-
-#pragma mark -
-#pragma mark AsyncResponse Class
-
 @interface AsyncResponse : NSObject {
     NSURLConnection     *connection;
     NSMutableData       *receivedData;
     NSHTTPURLResponse   *responseUrl;
     id <IResponder>     responder;
 }
+
 @property (nonatomic, assign) NSURLConnection *connection;
 @property (nonatomic, retain) NSMutableData *receivedData;
 @property (nonatomic, retain) NSHTTPURLResponse *responseUrl;
 @property (nonatomic, retain) id <IResponder> responder;
+
 @end
 
 @implementation AsyncResponse
+
 @synthesize connection, receivedData, responseUrl, responder;
 
 -(id)init {
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         connection = nil;
         receivedData = nil;
         responseUrl = nil;
@@ -82,9 +79,6 @@ static NSString *METHOD_COUNT = @"count";
 }
 @end
 
-#pragma mark -
-#pragma mark FileService Class
-
 @interface FileService () {
     NSMutableArray  *asyncResponses;
 }
@@ -96,7 +90,7 @@ static NSString *METHOD_COUNT = @"count";
 @implementation FileService
 
 -(id)init {
-    if (self=[super init]) {
+    if (self = [super init]) {
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.NSArray" mapped:[NSArray class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.management.files.FileDetailedInfo" mapped:BEFileInfo.class];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.management.files.FileInfo" mapped:BEFileInfo.class];
@@ -114,9 +108,6 @@ static NSString *METHOD_COUNT = @"count";
     [_permissions release];
     [super dealloc];
 }
-
-#pragma mark -
-#pragma mark Public Methods
 
 // sync methods with fault return (as exception)
 
@@ -350,9 +341,6 @@ static NSString *METHOD_COUNT = @"count";
     [self getFileCount:path pattern:@"*" recursive:NO countDirectories:NO response:responseBlock error:errorBlock];
 }
 
-#pragma mark -
-#pragma mark Private Methods
-
 // callbacks
 
 -(id)saveFileResponse:(id)response {
@@ -396,9 +384,6 @@ static NSString *METHOD_COUNT = @"count";
     [asyncResponses removeObject:async];
     [async release];
 }
-
-#pragma mark -
-#pragma mark NSURLConnection Delegate Methods
 
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
     NSHTTPURLResponse *responseUrl = [(NSHTTPURLResponse *)response copy];

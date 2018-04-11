@@ -20,7 +20,6 @@
  */
 
 #import <Foundation/Foundation.h>
-
 @class Fault;
 @protocol IResponder;
 
@@ -29,10 +28,7 @@
 @property (strong, nonatomic) NSString *fileURL;
 
 +(id)file:(NSString *)url;
-
-// sync
 -(void)remove;
-
-// async
 -(void)remove:(void(^)(id))responseBlock error:(void(^)(id))errorBlock;
+
 @end

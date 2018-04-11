@@ -27,9 +27,7 @@
 #define FAULT_NO_SERVICE [Fault  fault:@"Service not found" detail:@"Service not found" faultCode:@"14001"]
 #define FAULT_NO_SERVICE_METHOD [Fault fault:@"Service method not found" detail:@"Service method not found" faultCode:@"14002"]
 
-// SERVICE NAME
 static NSString *SERVER_CUSTOM_SERVICE_PATH = @"com.backendless.services.servercode.CustomServiceHandler";
-// METHOD NAMES
 static NSString *METHOD_DISPATCH_SERVICE = @"dispatchService";
 
 @implementation CustomService

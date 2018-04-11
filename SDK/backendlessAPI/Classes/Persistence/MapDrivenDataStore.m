@@ -34,9 +34,7 @@
 #define FAULT_FIELD_IS_NULL [Fault fault:@"Field is missing or null" detail:@"Field is missing or null" faultCode:@"1903"]
 #define NULL_BULK [Fault fault:@"Object array for bulk operations cannot be null"]
 
-// SERVICE NAME
 static NSString *SERVER_PERSISTENCE_SERVICE_PATH  = @"com.backendless.services.persistence.PersistenceService";
-// METHOD NAMES
 static NSString *METHOD_SAVE = @"save";
 static NSString *METHOD_REMOVE = @"remove";
 static NSString *METHOD_FIND = @"find";
@@ -75,8 +73,6 @@ static NSString *REMOVE_BULK = @"removeBulk";
     [super dealloc];
 }
 
-#pragma mark Private Methods
-
 -(void)setClassMapping {
     if (backendless.data) {
         return;
@@ -98,9 +94,8 @@ static NSString *REMOVE_BULK = @"removeBulk";
     return bc;
 }
 
-#pragma mark Public Methods
-
 // sync methods with fault return (as exception)
+
 -(id)save:(id)entity {
     if (!entity) {
         return [backendless throwFault:FAULT_NO_ENTITY];
@@ -351,7 +346,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_REMOVE args:args responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)removeById:(NSString *)objectId response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)removeById:(NSString *)objectId response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     NSArray *args = @[_tableName, objectId];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_REMOVE args:args responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
@@ -405,7 +400,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
 }
 
 -(void)findById:(NSString *)objectId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    void (^wrappedBlock)(id) = ^(id dict) {
+    void(^wrappedBlock)(id) = ^(id dict) {
         dict = [self setNullToNil:dict];
         responseBlock(dict);
     };
@@ -413,7 +408,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
 }
 
 -(void)findById:(NSString *)objectId queryBuilder:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    void (^wrappedBlock)(id) = ^(id dict) {
+    void(^wrappedBlock)(id) = ^(id dict) {
         dict = [self setNullToNil:dict];
         responseBlock(dict);
     };
@@ -469,7 +464,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     return dictionary;
 }
 
--(void)createBulk:(NSArray *)objects response:(void (^)(NSArray *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)createBulk:(NSArray *)objects response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     Responder *responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!objects) {
         return [responder errorHandler:NULL_BULK];
@@ -478,7 +473,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:CREATE_BULK args:args responder:responder];
 }
 
--(void)updateBulk:(NSString *)whereClause changes:(NSDictionary<NSString *,id> *)changes response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)updateBulk:(NSString *)whereClause changes:(NSDictionary<NSString *,id> *)changes response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     NSArray *args = @[_tableName, whereClause, changes];
     Responder *responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onFind:) selErrorHandler:nil];
@@ -486,7 +481,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:UPDATE_BULK args:args responder:_responder];
 }
 
-- (void)removeBulk:(NSString *)whereClause response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+- (void)removeBulk:(NSString *)whereClause response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     NSArray *args = @[_tableName, whereClause];
     Responder *responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onFind:) selErrorHandler:nil];

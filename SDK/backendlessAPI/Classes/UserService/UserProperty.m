@@ -25,24 +25,17 @@
 @implementation UserProperty
 
 -(id)init {
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         self.identity = nil;
     }
-    
     return self;
 }
 
 -(void)dealloc {
-    
     [DebLog logN:@"DEALLOC UserProperty"];
-    
     [_identity release];
-    
     [super dealloc];
 }
-
-#pragma mark -
-#pragma mark Public Methods
 
 -(BOOL)isIdentity {
     return _identity && [_identity boolValue];

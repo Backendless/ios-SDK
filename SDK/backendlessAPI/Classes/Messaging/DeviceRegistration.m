@@ -49,9 +49,6 @@
 	[super dealloc];
 }
 
-#pragma mark -
-#pragma mark Public Methods
-
 -(BOOL)addChannel:(NSString *)channel {
     if (!channel) {
         return NO;

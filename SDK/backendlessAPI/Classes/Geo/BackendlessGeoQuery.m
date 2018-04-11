@@ -34,7 +34,6 @@
 @implementation BackendlessGeoQuery
 
 -(void)defaultInit {
-    
     self.latitude = @0.0;
     self.longitude = @0.0;
     self.radius = @0.0;
@@ -50,21 +49,18 @@
     self.relativeFindMetadata = nil;
     self.dpp = nil;
     self.clusterGridSize = nil;
-    
     queryUnits = -1;
 }
 
 -(id)init {
-	
-    if ( (self=[super init]) ) {
+    if (self=[super init]) {
         [self defaultInit];
 	}
 	return self;
 }
 
 -(id)initWithCategories:(NSArray *)categories {
-	
-    if ( (self=[super init]) ) {
+    if (self=[super init]) {
         [self defaultInit];
         [self categories:categories];
 	}
@@ -72,8 +68,7 @@
 }
 
 -(id)initWithPoint:(GEO_POINT)point {
-	
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         [self defaultInit];
         self.latitude = @(point.latitude);
         self.longitude = @(point.longitude);
@@ -82,8 +77,7 @@
 }
 
 -(id)initWithPoint:(GEO_POINT)point pageSize:(int)pageSize offset:(int)offset {
-	
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         [self defaultInit];
         self.latitude = @(point.latitude);
         self.longitude = @(point.longitude);
@@ -94,8 +88,7 @@
 }
 
 -(id)initWithPoint:(GEO_POINT)point categories:(NSArray *)categories {
-    
-	if ( (self=[super init]) ) {
+	if (self=[super init]) {
         [self defaultInit];
         self.latitude = @(point.latitude);
         self.longitude = @(point.longitude);
@@ -105,8 +98,7 @@
 }
 
 -(id)initWithPoint:(GEO_POINT)point radius:(double)radius units:(UNITS)units {
-    
-	if ( (self=[super init]) ) {
+	if (self=[super init]) {
         [self defaultInit];
         self.latitude = @(point.latitude);
         self.longitude = @(point.longitude);
@@ -117,8 +109,7 @@
 }
 
 -(id)initWithPoint:(GEO_POINT)point radius:(double)radius units:(UNITS)units categories:(NSArray *)categories {
-    
-	if ( (self=[super init]) ) {
+	if (self = [super init]) {
         [self defaultInit];
         self.latitude = @(point.latitude);
         self.longitude = @(point.longitude);
@@ -130,8 +121,7 @@
 }
 
 -(id)initWithPoint:(GEO_POINT)point radius:(double)radius units:(UNITS)units categories:(NSArray *)categories metadata:(NSDictionary *)metadata {
-    
-	if ( (self=[super init]) ) {
+	if (self=[super init]) {
         [self defaultInit];
         self.latitude = @(point.latitude);
         self.longitude = @(point.longitude);
@@ -144,8 +134,7 @@
 }
 
 -(id)initWithRect:(GEO_POINT)nordWest southEast:(GEO_POINT)southEast {
-    
-	if ( (self=[super init]) ) {
+	if (self=[super init]) {
         [self defaultInit];
         [self searchRectangle:nordWest southEast:southEast];
 	}
@@ -153,8 +142,7 @@
 }
 
 -(id)initWithRect:(GEO_POINT)nordWest southEast:(GEO_POINT)southEast categories:(NSArray *)categories {
-    
-	if ( (self=[super init]) ) {
+	if (self=[super init]) {
         [self defaultInit];
         [self searchRectangle:nordWest southEast:southEast];
         [self categories:categories];
@@ -207,9 +195,7 @@
 }
 
 -(void)dealloc {
-	
 	[DebLog logN:@"DEALLOC BackendlessGeoQuery: %@", self];
-    
     [self.latitude release];
     [self.longitude release];
     [self.radius release];
@@ -225,12 +211,8 @@
     [self.relativeFindMetadata release];
     [self.dpp release];
     [self.clusterGridSize release];
-    
     [super dealloc];
 }
-
-#pragma mark -
-#pragma mark Public Methods
 
 -(double)valLatitude {
     return self.latitude.doubleValue;
@@ -347,28 +329,22 @@ static const char * const backendless_geo_query_units[] = { "METERS", "MILES", "
 }
 
 -(BOOL)addCategory:(NSString *)category {
-    
     if (!category)
         return NO;
-    
     self.categories? [self.categories addObject:category] : [self categories:@[category]];
     return YES;
 }
 
 -(BOOL)putMetadata:(NSString *)key value:(id)value {
-    
     if (!key || !value)
         return NO;
-    
     self.metadata? [self.metadata setValue:value forKey:key] : [self metadata:@{key:value}];
     return YES;
 }
 
 -(BOOL)putRelativeFindMetadata:(NSString *)key value:(id)value {
-    
     if (!key || !value)
         return NO;
-    
     if (self.relativeFindMetadata) {
         NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:self.relativeFindMetadata];
         [dict setValue:value forKey:key];
@@ -390,21 +366,15 @@ static const char * const backendless_geo_query_units[] = { "METERS", "MILES", "
 }
 
 -(void)setClusteringParams:(double)westLongitude eastLongitude:(double)eastLongitude mapWidth:(int)mapWidth clusterGridSize:(int)clusterGridSize {
-    
     double longDiff = eastLongitude - westLongitude;
     if( longDiff < 0 ) {
         longDiff += 360;
     }
-    
     double degreePerPixel = longDiff/mapWidth;
     [self setClusteringParams:degreePerPixel clusterGridSize:clusterGridSize];
 }
 
-#pragma mark -
-#pragma mark NSCopying Methods
-
--(id)copyWithZone:(NSZone *)zone {
-    
+-(id)copyWithZone:(NSZone *)zone {    
     BackendlessGeoQuery *query = [BackendlessGeoQuery query];
     query.latitude = self.latitude.copy;
     query.longitude = self.longitude.copy;

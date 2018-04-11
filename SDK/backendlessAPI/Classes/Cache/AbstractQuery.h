@@ -24,5 +24,7 @@
 #import "BackendlessCachePolicy.h"
 
 @interface AbstractQuery : NSObject<BackendlessCacheProtocol>
+
 @property (nonatomic, strong) BackendlessCachePolicy *cachePolicy;
+
 @end

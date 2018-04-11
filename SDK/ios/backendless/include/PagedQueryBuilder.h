@@ -7,17 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
+@class BackendlessDataQuery;
 
 @protocol IPagedQueryBuilder <NSObject>
+
 -(id)setPageSize:(int)pageSize;
 -(id)setOffset:(int)offset;
 -(id)prepareNextPage;
 -(id)preparePreviousPage;
+
 @end
 
-@class BackendlessDataQuery;
-
 @interface PagedQueryBuilder : NSObject <IPagedQueryBuilder>
+
 -(instancetype)init:(id)builder;
 -(BackendlessDataQuery *)build;
+
 @end

@@ -82,7 +82,6 @@
         _iBeaconProps = beacon.iBeaconProps.copy;
         _eddystoneProps = beacon.eddystoneProps.copy;
     }
-    //NSLog(@"Backendless->initWithBackendlessBeacon: (1) %@ from %@", self, beacon);
     return self;
 }
 
@@ -94,13 +93,9 @@
     [super dealloc];
 }
 
-#pragma mark -
-#pragma mark Public Methods
-
 -(NSString *)key {
     switch (_type) {
         case BEACON_IBEACON: {
-            //NSLog(@"Backendless->key: %@", _iBeaconProps);
             return [NSString stringWithFormat:@"%@,%@,%@", _iBeaconProps[IBEACON_UUID_STR], _iBeaconProps[IBEACON_MAJOR_STR], _iBeaconProps[IBEACON_MINOR_STR]];
         }
         case BEACON_EDDYSTONE: {
@@ -112,15 +107,9 @@
     }
 }
 
-#pragma mark -
-#pragma mark NSCopying Methods
-
 -(id)copyWithZone:(NSZone *)zone {
     return [[BackendlessBeacon alloc] initWithBackendlessBeacon:self];
 }
-
-#pragma mark -
-#pragma mark overwrided NSObject Methods
 
 -(BOOL)isEqual:(id)object {
     return object && [object isKindOfClass:self.class] && [self.key isEqualToString:[(BackendlessBeacon *)object key]];

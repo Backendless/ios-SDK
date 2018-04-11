@@ -26,22 +26,22 @@
 #define FAULT_GEO_QUERY_METHOD_PERMISSION [Fault fault:@"Changing the property may result in invalid cluster formation. As a result the property is immutable and cannot be changed" faultCode:@"4000"]
 
 @interface ProtectedBackendlessGeoQuery ()
-@property (nonatomic,strong) BackendlessGeoQuery *query;
+
+@property (strong, nonatomic) BackendlessGeoQuery *query;
+
 @end
 
 @implementation ProtectedBackendlessGeoQuery
 
 -(id)init {
-    
-    if ( (self=[super init]) ) {
+    if (self = [super init]){
         _query = [BackendlessGeoQuery new];
     }
     return self;
 }
 
 -(id)initWithCategories:(NSArray *)categories {
-    
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         _query = [BackendlessGeoQuery new];
         [_query categories:categories];
     }
@@ -49,8 +49,7 @@
 }
 
 -(id)initWithPoint:(GEO_POINT)point {
-    
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         _query = [BackendlessGeoQuery new];
         _query.latitude = @(point.latitude);
         _query.longitude = @(point.longitude);
@@ -59,8 +58,7 @@
 }
 
 -(id)initWithPoint:(GEO_POINT)point pageSize:(int)pageSize offset:(int)offset {
-    
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         _query = [BackendlessGeoQuery new];
         _query.latitude = @(point.latitude);
         _query.longitude = @(point.longitude);
@@ -71,8 +69,7 @@
 }
 
 -(id)initWithPoint:(GEO_POINT)point categories:(NSArray *)categories {
-    
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         _query = [BackendlessGeoQuery new];
         _query.latitude = @(point.latitude);
         _query.longitude = @(point.longitude);
@@ -82,8 +79,7 @@
 }
 
 -(id)initWithPoint:(GEO_POINT)point radius:(double)radius units:(UNITS)units {
-    
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         _query = [BackendlessGeoQuery new];
         _query.latitude = @(point.latitude);
         _query.longitude = @(point.longitude);
@@ -94,8 +90,7 @@
 }
 
 -(id)initWithPoint:(GEO_POINT)point radius:(double)radius units:(UNITS)units categories:(NSArray *)categories {
-    
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         _query = [BackendlessGeoQuery new];
         _query.latitude = @(point.latitude);
         _query.longitude = @(point.longitude);
@@ -107,8 +102,7 @@
 }
 
 -(id)initWithPoint:(GEO_POINT)point radius:(double)radius units:(UNITS)units categories:(NSArray *)categories metadata:(NSDictionary *)metadata {
-    
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         _query = [BackendlessGeoQuery new];
         _query.latitude = @(point.latitude);
         _query.longitude = @(point.longitude);
@@ -121,8 +115,7 @@
 }
 
 -(id)initWithRect:(GEO_POINT)nordWest southEast:(GEO_POINT)southEast {
-    
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         _query = [BackendlessGeoQuery new];
         [_query searchRectangle:nordWest southEast:southEast];
     }
@@ -130,8 +123,7 @@
 }
 
 -(id)initWithRect:(GEO_POINT)nordWest southEast:(GEO_POINT)southEast categories:(NSArray *)categories {
-    
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         _query = [BackendlessGeoQuery new];
         [_query searchRectangle:nordWest southEast:southEast];
         [_query categories:categories];
@@ -140,23 +132,17 @@
 }
 
 -(id)initWithQuery:(BackendlessGeoQuery *)query {
-    
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         _query = [query retain];
     }
     return self;
 }
 
 -(void)dealloc {
-    
     [DebLog logN:@"DEALLOC ProtectedBackendlessGeoQuery: %@", self];
-    
     [_query release];
     [super dealloc];
 }
-
-#pragma mark -
-#pragma mark Public Methods
 
 +(id)protectedQuery:(BackendlessGeoQuery *)query {
     return [[[ProtectedBackendlessGeoQuery alloc] initWithQuery:query] autorelease];
@@ -166,15 +152,13 @@
     return _query.copy;
 }
 
-#pragma mark -
-#pragma mark Overrided Getters / Setters
-
 -(NSNumber *)latitude {
     return _query.latitude.copy;
 }
 
 -(void)setLatitude:(NSNumber *)latitude {
-    if (_query) @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
+    if (_query)
+        @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
 }
 
 -(NSNumber *)longitude {
@@ -182,7 +166,8 @@
 }
 
 -(void)setLongitude:(NSNumber *)longitude {
-    if (_query) @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
+    if (_query)
+        @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
 }
 
 -(NSNumber *)radius {
@@ -190,7 +175,8 @@
 }
 
 -(void)setRadius:(NSNumber *)radius {
-    if (_query) @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
+    if (_query)
+        @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
 }
 
 -(NSString *)units {
@@ -198,7 +184,8 @@
 }
 
 -(void)setUnits:(NSString *)units {
-    if (_query) @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
+    if (_query)
+        @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
 }
 
 -(NSMutableArray *)categories {
@@ -206,7 +193,8 @@
 }
 
 -(void)setCategories:(NSMutableArray *)categories {
-    if (_query) @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
+    if (_query)
+        @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
 }
 
 -(NSNumber *)includeMeta {
@@ -214,7 +202,8 @@
 }
 
 -(void)setIncludeMeta:(NSNumber *)includeMeta {
-    if (_query) @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
+    if (_query)
+        @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
 }
 
 -(NSMutableDictionary *)metadata {
@@ -222,7 +211,8 @@
 }
 
 -(void)setMetadata:(NSMutableDictionary *)metadata {
-    if (_query) @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
+    if (_query)
+        @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
 }
 
 -(NSArray *)searchRectangle {
@@ -230,7 +220,8 @@
 }
 
 -(void)setSearchRectangle:(NSArray *)searchRectangle {
-    if (_query) @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
+    if (_query)
+        @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
 }
 
 -(NSNumber *)pageSize {
@@ -254,7 +245,8 @@
 }
 
 -(void)setWhereClause:(NSString *)whereClause {
-    if (_query) @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
+    if (_query)
+        @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
 }
 
 -(NSDictionary *)relativeFindMetadata {
@@ -262,7 +254,8 @@
 }
 
 -(void)setRelativeFindMetadata:(NSDictionary *)relativeFindMetadata {
-    if (_query) @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
+    if (_query)
+        @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
 }
 
 -(NSNumber *)relativeFindPercentThreshold {
@@ -270,7 +263,8 @@
 }
 
 -(void)setRelativeFindPercentThreshold:(NSNumber *)relativeFindPercentThreshold {
-    if (_query) @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
+    if (_query)
+        @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
 }
 
 -(NSNumber *)dpp {
@@ -278,7 +272,8 @@
 }
 
 -(void)setDpp:(NSNumber *)dpp {
-    if (_query) @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
+    if (_query)
+        @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
 }
 
 -(NSNumber *)clusterGridSize {
@@ -286,11 +281,9 @@
 }
 
 -(void)setClusterGridSize:(NSNumber *)clusterGridSize {
-    if (_query) @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
+    if (_query)
+        @throw FAULT_GEO_QUERY_METHOD_PERMISSION;
 }
-
-#pragma mark -
-#pragma mark NSCopying Methods
 
 -(id)copyWithZone:(NSZone *)zone {
     return [ProtectedBackendlessGeoQuery protectedQuery:_query];

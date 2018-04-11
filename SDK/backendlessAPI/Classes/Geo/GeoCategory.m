@@ -41,10 +41,6 @@
 	[super dealloc];
 }
 
-
-#pragma mark -
-#pragma mark Public Methods
-
 -(int)valSize {
     return (_size) ? [_size intValue] : 0;
 }

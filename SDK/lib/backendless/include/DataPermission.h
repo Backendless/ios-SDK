@@ -20,14 +20,13 @@
  */
 
 #import <Foundation/Foundation.h>
+@class Fault;
 
 typedef enum {
     DATA_UPDATE,
     DATA_FIND,
     DATA_REMOVE,
 } DataPermissionOperation;
-
-@class Fault;
 
 @interface DataPermission : NSObject
 
