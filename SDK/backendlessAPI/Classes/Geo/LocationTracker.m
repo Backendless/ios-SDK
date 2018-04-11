@@ -34,7 +34,7 @@
 
 @implementation LocationTracker
 
-+(LocationTracker *)sharedInstance {
++(instancetype)sharedInstance {
     static LocationTracker *sharedLocationTracker;
     @synchronized(self) {
         if (!sharedLocationTracker) {

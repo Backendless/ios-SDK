@@ -191,7 +191,7 @@
     [backendless.persistenceService first:_entityClass response:responseBlock error:errorBlock];
 }
 
--(void)findFirst:(DataQueryBuilder *)queryBuilder response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)findFirst:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.persistenceService first:_entityClass queryBuilder:queryBuilder response:responseBlock error:errorBlock];
 }
 
@@ -199,7 +199,7 @@
     [backendless.persistenceService last:_entityClass response:responseBlock error:errorBlock];
 }
 
--(void)findLast:(DataQueryBuilder *)queryBuilder response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)findLast:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.persistenceService last:_entityClass queryBuilder:queryBuilder response:responseBlock error:errorBlock];
 }
 
@@ -247,15 +247,15 @@
     [backendless.persistenceService loadRelations:[backendless.persistenceService getEntityName:NSStringFromClass(_entityClass)] objectId:(NSString *)objectId  queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder response:responseBlock error:errorBlock];
 }
 
--(void)updateBulk:(NSString *)whereClause changes:(NSDictionary<NSString *,id> *)changes response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)updateBulk:(NSString *)whereClause changes:(NSDictionary<NSString *,id> *)changes response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.persistenceService updateBulk:_entityClass whereClause:whereClause changes:changes response:responseBlock error:errorBlock];
 }
 
-- (void)createBulk:(NSArray *)objects response:(void(^)(NSArray *))responseBlock error:(void (^)(Fault *))errorBlock {
+- (void)createBulk:(NSArray *)objects response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.persistenceService createBulk:_entityClass objects:objects response:responseBlock error:errorBlock];
 }
 
--(void)removeBulk:(NSString *)whereClause response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)removeBulk:(NSString *)whereClause response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.persistenceService removeBulk:_entityClass whereClause:whereClause response:responseBlock error:errorBlock];
 }
 

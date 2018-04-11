@@ -243,7 +243,7 @@
         
         unsigned int outCount;
         objc_property_t *properties = class_copyPropertyList(class, &outCount);
-        for(int i = 0; i < outCount; i++) {
+        for (int i = 0; i < outCount; i++) {
             objc_property_t property = properties[i];
             //fprintf(stdout, "%s %s\n", property_getName(property), property_getAttributes(property));
             [attrs addObject:[NSString stringWithUTF8String:property_getName(property)]];
@@ -275,7 +275,7 @@
         
         unsigned int outCount;
         objc_property_t *properties = class_copyPropertyList(class, &outCount);
-        for(int i = 0; i < outCount; i++) {
+        for (int i = 0; i < outCount; i++) {
             objc_property_t property = properties[i];
             //fprintf(stdout, "%s %s\n", property_getName(property), property_getAttributes(property));
             [attrs addObject:[NSString stringWithUTF8String:property_getAttributes(property)]];
@@ -301,7 +301,7 @@
         
         unsigned int outCount;
         objc_property_t *properties = class_copyPropertyList(class, &outCount);
-        for(int i = 0; i < outCount; i++) {
+        for (int i = 0; i < outCount; i++) {
             objc_property_t property = properties[i];
             //fprintf(stdout, "%s %s\n", property_getName(property), property_getAttributes(property));
             NSString *key = [NSString stringWithUTF8String:property_getName(property)];
@@ -500,7 +500,7 @@
     static char const possibleChars[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     int len = (numCharacters > _RANDOM_MAX_LENGTH || numCharacters == 0)? (int)rand() % (_RANDOM_MAX_LENGTH) : numCharacters;
     unichar characters[len];
-    for( int i=0; i < len; ++i ) {
+    for ( int i=0; i < len; ++i ) {
         characters[i] = possibleChars[arc4random_uniform(sizeof(possibleChars)-1)];
     }
     return [NSString stringWithCharacters:characters length:len] ;

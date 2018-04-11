@@ -111,7 +111,7 @@ static NSString *METHOD_RESET = @"reset";
 
 // async methods with block-based callbacks
 
--(void)get:(NSString *)counterName response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)get:(NSString *)counterName response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!counterName)
         return [responder errorHandler:FAULT_NO_NAME];
@@ -119,7 +119,7 @@ static NSString *METHOD_RESET = @"reset";
     [invoker invokeAsync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET args:args responder:responder];
 }
 
--(void)getAndIncrement:(NSString *)counterName response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)getAndIncrement:(NSString *)counterName response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!counterName)
         return [responder errorHandler:FAULT_NO_NAME];
@@ -127,7 +127,7 @@ static NSString *METHOD_RESET = @"reset";
     [invoker invokeAsync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET_AND_INCREMENT args:args responder:responder];
 }
 
--(void)incrementAndGet:(NSString *)counterName response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)incrementAndGet:(NSString *)counterName response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!counterName)
         return [responder errorHandler:FAULT_NO_NAME];
@@ -135,7 +135,7 @@ static NSString *METHOD_RESET = @"reset";
     [invoker invokeAsync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_INCREMENT_AND_GET args:args responder:responder];
 }
 
--(void)getAndDecrement:(NSString *)counterName response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)getAndDecrement:(NSString *)counterName response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!counterName)
         return [responder errorHandler:FAULT_NO_NAME];
@@ -143,7 +143,7 @@ static NSString *METHOD_RESET = @"reset";
     [invoker invokeAsync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET_AND_DECREMENT args:args responder:responder];
 }
 
--(void)decrementAndGet:(NSString *)counterName response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)decrementAndGet:(NSString *)counterName response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!counterName)
         return [responder errorHandler:FAULT_NO_NAME];
@@ -151,7 +151,7 @@ static NSString *METHOD_RESET = @"reset";
     [invoker invokeAsync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_DECREMENT_AND_GET args:args responder:responder];
 }
 
--(void)addAndGet:(NSString *)counterName value:(NSNumber *)value response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)addAndGet:(NSString *)counterName value:(NSNumber *)value response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!counterName)
         return [responder errorHandler:FAULT_NO_NAME];
@@ -159,7 +159,7 @@ static NSString *METHOD_RESET = @"reset";
     [invoker invokeAsync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_ADD_AND_GET args:args responder:responder];
 }
 
--(void)getAndAdd:(NSString *)counterName value:(NSNumber *)value response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)getAndAdd:(NSString *)counterName value:(NSNumber *)value response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!counterName)
         return [responder errorHandler:FAULT_NO_NAME];
@@ -167,7 +167,7 @@ static NSString *METHOD_RESET = @"reset";
     [invoker invokeAsync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET_AND_ADD args:args responder:responder];
 }
 
--(void)compareAndSet:(NSString *)counterName expected:(NSNumber *)expected updated:(NSNumber *)updated response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)compareAndSet:(NSString *)counterName expected:(NSNumber *)expected updated:(NSNumber *)updated response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!counterName)
         return [responder errorHandler:FAULT_NO_NAME];
@@ -175,7 +175,7 @@ static NSString *METHOD_RESET = @"reset";
     [invoker invokeAsync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_COMPARE_AND_SET args:args responder:responder];
 }
 
--(void)reset:(NSString *)counterName response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)reset:(NSString *)counterName response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!counterName)
         return [responder errorHandler:FAULT_NO_NAME];

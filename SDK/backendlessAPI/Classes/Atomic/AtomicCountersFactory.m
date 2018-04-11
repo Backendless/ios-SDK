@@ -93,39 +93,39 @@
 
 // async methods with block-based callback
 
--(void)get:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)get:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.counters get:_name response:responseBlock error:errorBlock];
 }
 
--(void)getAndIncrement:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)getAndIncrement:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.counters getAndIncrement:_name response:responseBlock error:errorBlock];
 }
 
--(void)incrementAndGet:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)incrementAndGet:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.counters incrementAndGet:_name response:responseBlock error:errorBlock];
 }
 
--(void)getAndDecrement:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)getAndDecrement:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.counters getAndDecrement:_name response:responseBlock error:errorBlock];
 }
 
--(void)decrementAndGet:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)decrementAndGet:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.counters decrementAndGet:_name response:responseBlock error:errorBlock];
 }
 
--(void)addAndGet:(NSNumber *)value response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)addAndGet:(NSNumber *)value response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.counters addAndGet:_name value:value response:responseBlock error:errorBlock];
 }
 
--(void)getAndAdd:(NSNumber *)value response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)getAndAdd:(NSNumber *)value response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.counters getAndAdd:_name value:value response:responseBlock error:errorBlock];
 }
 
--(void)compareAndSet:(NSNumber *)expected updated:(NSNumber *)updated response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)compareAndSet:(NSNumber *)expected updated:(NSNumber *)updated response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.counters compareAndSet:_name expected:expected updated:updated response:responseBlock error:errorBlock];
 }
 
--(void)reset:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)reset:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.counters reset:_name response:responseBlock error:errorBlock];
 }
 

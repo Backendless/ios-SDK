@@ -43,7 +43,7 @@
 @implementation BeaconTracker
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-+(BeaconTracker *)sharedInstance {
++(instancetype)sharedInstance {
     static BeaconTracker *sharedBeaconTracker;
     @synchronized(self) {
         if (!sharedBeaconTracker) {

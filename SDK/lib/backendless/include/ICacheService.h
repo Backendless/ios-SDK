@@ -35,12 +35,12 @@
 -(id)remove;
 
 // async methods with block-based callback
--(void)put:(id)entity response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
--(void)put:(id)entity timeToLive:(int)seconds response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
--(void)get:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
--(void)contains:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
--(void)expireIn:(int)seconds response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
--(void)expireAt:(NSDate *)timestamp response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
--(void)remove:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock;
+-(void)put:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)put:(id)entity timeToLive:(int)seconds response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)get:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)contains:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)expireIn:(int)seconds response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)expireAt:(NSDate *)timestamp response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)remove:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 
 @end

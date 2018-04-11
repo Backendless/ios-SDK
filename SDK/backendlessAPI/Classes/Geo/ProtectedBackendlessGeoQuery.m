@@ -27,7 +27,7 @@
 
 @interface ProtectedBackendlessGeoQuery ()
 
-@property (nonatomic,strong) BackendlessGeoQuery *query;
+@property (strong, nonatomic) BackendlessGeoQuery *query;
 
 @end
 

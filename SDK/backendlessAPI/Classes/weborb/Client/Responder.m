@@ -221,8 +221,8 @@ static NSString *EMPTY_STRING = @"";
 @end
 
 
-typedef void (^ResponseHandlerBlock)(id);
-typedef void (^ErrorHandlerBlock)(Fault *);
+typedef void(^ResponseHandlerBlock)(id);
+typedef void(^ErrorHandlerBlock)(Fault *);
 
 @interface ResponderBlocksContext () <IResponder>
 

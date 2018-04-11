@@ -42,7 +42,7 @@ static NSString *GEOFENCES_MONITORING = @"Cannot start geofence monitoring for a
 
 @implementation GeoFenceMonitoring
 
-+(GeoFenceMonitoring *)sharedInstance {
++(instancetype)sharedInstance {
     static GeoFenceMonitoring *sharedGeoFenceMonitoring;
     @synchronized(self) {
         if (!sharedGeoFenceMonitoring) {

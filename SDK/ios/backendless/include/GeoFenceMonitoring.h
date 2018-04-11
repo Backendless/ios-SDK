@@ -27,7 +27,7 @@
 
 @interface GeoFenceMonitoring : NSObject <ILocationTrackerListener>
 
-+(GeoFenceMonitoring *)sharedInstance;
++(instancetype)sharedInstance;
 -(NSString *)listenerName;
 -(Fault *)addGeoFences:(NSArray *)geoFences callback:(id <ICallback>)callback;
 -(Fault *)addGeoFence:(GeoFence *)geoFence callback:(id <ICallback>)callback;

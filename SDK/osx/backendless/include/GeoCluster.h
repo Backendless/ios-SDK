@@ -25,8 +25,8 @@
 
 @interface GeoCluster : GeoPoint
 
-@property (nonatomic, strong) NSNumber *totalPoints;
-@property (nonatomic, strong) BackendlessGeoQuery *geoQuery;
+@property (strong, nonatomic) NSNumber *totalPoints;
+@property (strong, nonatomic) BackendlessGeoQuery *geoQuery;
 
 -(int)valTotalPoints;
 -(void)totalPoints:(int)totalPoints;

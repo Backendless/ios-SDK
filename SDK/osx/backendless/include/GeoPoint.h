@@ -60,8 +60,8 @@ typedef struct {
 
 @interface SearchMatchesResult : NSObject
 
-@property (nonatomic, strong) NSString *objectId;
-@property (nonatomic, strong) GeoPoint *geoPoint;
-@property (nonatomic, strong) NSNumber *matches;
+@property (strong, nonatomic) NSString *objectId;
+@property (strong, nonatomic) GeoPoint *geoPoint;
+@property (strong, nonatomic) NSNumber *matches;
 
 @end

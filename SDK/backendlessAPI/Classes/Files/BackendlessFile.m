@@ -52,7 +52,7 @@
     [backendless.fileService remove:_fileURL];
 }
 
--(void)remove:(void (^)(id))responseBlock error:(void (^)(id))errorBlock {
+-(void)remove:(void(^)(id))responseBlock error:(void(^)(id))errorBlock {
     [backendless.fileService remove:_fileURL response:responseBlock error:errorBlock];
 }
 

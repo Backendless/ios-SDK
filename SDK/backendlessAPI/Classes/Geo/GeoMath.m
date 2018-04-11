@@ -77,7 +77,7 @@ static const double EARTH_RADIUS = 6378100.0; // meters
     double seLat = [(GeoPoint *)geoPoints[0] valLatitude];
     double seLon = [(GeoPoint *)geoPoints[0] valLongitude];
     double minLon = 0, maxLon = 0, lon = 0;
-    for(int i = 1; i < geoPoints.count; i++) {
+    for (int i = 1; i < geoPoints.count; i++) {
         if ([(GeoPoint *)geoPoints[i] valLatitude] > nwLat) {
             nwLat = [(GeoPoint *)geoPoints[i] valLatitude];
         }

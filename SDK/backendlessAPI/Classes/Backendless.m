@@ -279,7 +279,7 @@ static NSString *API_KEY_HEADER_KEY = @"API-key";
     static char const possibleChars[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     int len = (numCharacters > _RANDOM_MAX_LENGTH || numCharacters == 0)? (int)rand() % (_RANDOM_MAX_LENGTH) : numCharacters;
     unichar characters[len];
-    for(int i = 0; i < len; ++i) {
+    for (int i = 0; i < len; ++i) {
         characters[i] = possibleChars[arc4random_uniform(sizeof(possibleChars)-1)];
     }
     return [NSString stringWithCharacters:characters length:len] ;
