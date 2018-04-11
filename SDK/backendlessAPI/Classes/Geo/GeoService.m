@@ -497,9 +497,6 @@ static NSString *METHOD_COUNT = @"count";
     }
 }
 
-#pragma mark -
-#pragma mark Private Methods
-
 -(void)startGeofenceMonitoringCallback:(id <ICallback>)callback responder:(id <IResponder>)responder {
     if ([self isFaultCallbackIsInvalid:callback responder:responder])
         return;
@@ -588,9 +585,6 @@ static NSString *METHOD_COUNT = @"count";
         responder ? [responder errorHandler:fault] : [backendless throwFault:fault];
     return fault;
 }
-
-#pragma mark -
-#pragma mark Callback Methods
 
 -(id)getResponse:(ResponseContext *)response {
     NSArray<GeoPoint *> *collection = response.response;

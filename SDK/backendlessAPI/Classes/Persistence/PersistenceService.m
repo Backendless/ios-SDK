@@ -139,8 +139,6 @@ static NSString *REMOVE_BULK = @"removeBulk";
     [super dealloc];
 }
 
-#pragma mark Public Methods
-
 -(NSString *)getEntityName:(NSString *)entityName {
     if ([entityName containsString:@"."]) {
         NSArray *Array = [entityName componentsSeparatedByString:@"."];
@@ -1159,8 +1157,6 @@ static NSString *REMOVE_BULK = @"removeBulk";
     [[Types sharedInstance] addClientPropertyMappingForClass:classToMap columnName:columnName propertyName:propertyName];
 }
 
-#pragma mark Private Methods
-
 -(NSDictionary *)filteringProperty:(id)object {
     return [self propertyDictionary:object];
 }
@@ -1235,8 +1231,6 @@ static NSString *REMOVE_BULK = @"removeBulk";
     }
     return NO;
 }
-
-#pragma mark Callback Methods
 
 -(id)loadRelations:(ResponseContext *)response {
     NSArray *relations = [response.context valueForKey:@"relations"];

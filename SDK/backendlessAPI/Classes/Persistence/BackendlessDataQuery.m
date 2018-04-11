@@ -63,9 +63,6 @@
     return [[BackendlessDataQuery alloc] init:properties where:whereClause query:queryOptions groupBy:groupBy havingClause:havingClause];
 }
 
-#pragma mark -
-#pragma mark getters / setters
-
 -(NSNumber *)pageSize {
     return @(pageSize);
 }
@@ -81,9 +78,6 @@
 -(void)setOffset:(NSNumber *)_offset {
     offset = [_offset intValue];
 }
-
-#pragma mark -
-#pragma mark Public Methods
 
 -(BOOL)addProperty:(NSString *)property {
     if (!property || !property.length) {
@@ -107,9 +101,6 @@
 -(NSString *)description {
     return [NSString stringWithFormat:@"<BackendlessDataQuery> -> pageSize: %@, offset: %@ properties: %@, whereClause: %@, queryOptions: %@", self.pageSize, self.offset, self.properties, self.whereClause, self.queryOptions];
 }
-
-#pragma mark -
-#pragma mark NSCopying Methods
 
 -(id)copyWithZone:(NSZone *)zone {
     BackendlessDataQuery *query = [BackendlessDataQuery query];
