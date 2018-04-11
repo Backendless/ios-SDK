@@ -39,11 +39,8 @@
 #define FAULT_NO_USER_EMAIL [Fault fault:@"user email is missing or null" detail:@"user email is missing or null" faultCode:@"3903"]
 #define FAULT_USER_IS_NOT_LOGGED_IN [Fault fault:@"user is not logged in" detail:@"user is not logged in" faultCode:@"3904"]
 
-// PERSISTENT USER
 static NSString *PERSIST_USER_FILE_NAME = @"user.bin";
-// SERVICE NAME
 static NSString *SERVER_USER_SERVICE_PATH = @"com.backendless.services.users.UserService";
-// METHOD NAMES
 static NSString *METHOD_REGISTER = @"register";
 static NSString *METHOD_UPDATE = @"update";
 static NSString *METHOD_LOGIN = @"login";
@@ -110,9 +107,6 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     }
     return castedUser;
 }
-
-#pragma mark -
-#pragma mark Public Methods
 
 -(BOOL)setStayLoggedIn:(BOOL)value {
     if (value == _isStayLoggedIn)

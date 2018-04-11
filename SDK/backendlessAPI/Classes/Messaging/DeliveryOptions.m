@@ -53,9 +53,6 @@
 	[super dealloc];
 }
 
-#pragma mark -
-#pragma mark Public Methods
-
 -(void)publishPolicy:(UInt32)publishPolicy {
     self.publishPolicy = [[NSNumber alloc] initWithUnsignedInt:publishPolicy];
 }

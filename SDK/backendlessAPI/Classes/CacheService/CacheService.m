@@ -28,9 +28,7 @@
 #define FAULT_NO_ENTITY [Fault fault:@"Entity is NULL" detail:@"Entity is NULL" faultCode:@"16901"]
 #define FAULT_NO_KEY [Fault fault:@"Key is NULL" detail:@"Key is NULL" faultCode:@"16902"]
 
-// SERVICE NAME
 static NSString *SERVER_CACHE_SERVICE_PATH = @"com.backendless.services.redis.CacheService";
-// METHOD NAMES
 static NSString *METHOD_PUT_BYTES = @"putBytes";
 static NSString *METHOD_CONTAINS_KEY = @"containsKey";
 static NSString *METHOD_GET_BYTES = @"getBytes";
@@ -38,24 +36,12 @@ static NSString *METHOD_EXPIRE_IN = @"expireIn";
 static NSString *METHOD_EXPIRE_AT = @"expireAt";
 static NSString *METHOD_DELETE = @"delete";
 
-@interface CacheService ()
--(id)onGet:(id)response;
-@end
-
 @implementation CacheService
-
--(id)init {
-    if (self=[super init]) {
-    }
-    return self;
-}
 
 -(void)dealloc {
     [DebLog logN:@"DEALLOC CacheService"];
     [super dealloc];
 }
-
-#pragma mark Public Methods
 
 // sync methods with fault return (as exception)
 
@@ -187,9 +173,6 @@ static NSString *METHOD_DELETE = @"delete";
 -(id <ICacheService>)with:(NSString *)key type:(Class)entityClass {
     return [CacheFactory create:key type:entityClass];
 }
-
-#pragma mark -
-#pragma mark Private Methods
 
 // callbacks
 

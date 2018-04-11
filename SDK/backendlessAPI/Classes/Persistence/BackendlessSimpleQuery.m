@@ -12,11 +12,10 @@
 @implementation BackendlessSimpleQuery
 
 -(id)init {
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         self.pageSize = @(DEFAULT_PAGE_SIZE);
         self.offset = @(DEFAULT_OFFSET);
     }
-    
     return self;
 }
 
@@ -32,12 +31,9 @@
 }
 
 -(void)dealloc {
-    
     [DebLog logN:@"DEALLOC BackendlessSimpleQuery"];
-    
     [_pageSize release];
-    [_offset release];
-    
+    [_offset release];    
     [super dealloc];
 }
 

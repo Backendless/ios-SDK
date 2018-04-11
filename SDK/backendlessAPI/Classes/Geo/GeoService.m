@@ -41,15 +41,12 @@
 #define FAULT_REMOVE_CATEGORY_NAME_IS_NULL [Fault fault:@"Category name is NULL" detail:@"Cannot remove category. Category name is NULL" faultCode:@"4015"]
 #define FAULT_REMOVE_CATEGORY_NAME_IS_EMPTY [Fault fault:@"Category name is empty" detail:@"Cannot remove category. Category name is empty" faultCode:@"4016"]
 #define FAULT_REMOVE_CATEGORY_NAME_IS_DEFAULT [Fault fault:@"Category name is 'Default'" detail:@"Cannot remove category. Category name is 'Default'" faultCode:@"4017"]
-
 #define FAULT_GEO_POINT_ID_IS_NULL [Fault fault:@"Geo point ID is NULL" detail:@"Unable to operate with geo point. GeoPoint ID is NULL" faultCode:@"4900"]
 #define FAULT_GEO_FENCE_NAME_IS_NULL [Fault fault:@"Geo fence name is NULL"  detail:@"Unable to operate with geo fence. GeoFence is NULL" faultCode:@"4901"]
 #define FAULT_CALLBACK_IS_INVALID [Fault fault:@"Callback instance is not valid" detail:@"Callback instance is not valid" faultCode:@"4902"]
 #define FAULT_GEO_QUERY_IS_NULL [Fault fault:@"Geo query is NULL" detail:@"Unable to operate with geo query. GeoQuery is NULL" faultCode:@"4903"]
 
-// SERVICE NAME
 static NSString *SERVER_GEO_SERVICE_PATH = @"com.backendless.services.geo.GeoService";
-// METHOD NAMES
 static NSString *METHOD_ADD_CATEGORY = @"addCategory";
 static NSString *METHOD_DELETE_CATEGORY = @"deleteCategory";
 static NSString *METHOD_ADD_POINT = @"addPoint";
@@ -68,6 +65,7 @@ static NSString *METHOD_GET_FENCES = @"getFences";
 static NSString *METHOD_COUNT = @"count";
 
 @interface GeoService ()
+
 -(Fault *)isFaultAddCategoryName:(NSString *)categoryName responder:(id <IResponder>)responder;
 -(Fault *)isFaultRemoveCategoryName:(NSString *)categoryName responder:(id <IResponder>)responder;
 -(Fault *)isFaultGeoPoint:(GeoPoint *)geoPoint responder:(id <IResponder>)responder;
@@ -76,13 +74,13 @@ static NSString *METHOD_COUNT = @"count";
 -(id)getResponse:(ResponseContext *)response;
 -(id)getMetadata:(ResponseContext *)response;
 -(id)getError:(id)error;
-@end
 
+@end
 
 @implementation GeoService
 
 -(id)init {
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.model.GeoCategory" mapped:[GeoCategory class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.model.GeoPoint" mapped:[GeoPoint class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.geo.model.GeoCluster" mapped:[GeoCluster class]];
@@ -100,10 +98,6 @@ static NSString *METHOD_COUNT = @"count";
     [_presence release];
     [super dealloc];
 }
-
-
-#pragma mark -
-#pragma mark Public Methods
 
 // sync methods with fault return (as exception)
 

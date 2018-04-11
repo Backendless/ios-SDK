@@ -33,7 +33,7 @@
 @implementation CacheFactory
 
 -(id)init {
-    if ( (self=[super init]) ) {
+    if ( (self = [super init]) ) {
         _key = @"DEFAULT_KEY";
         _entityClass = nil;
     }
@@ -41,7 +41,7 @@
 }
 
 -(id)init:(NSString *)key type:(Class)entityClass {
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         _key = [key retain];
         _entityClass = [entityClass retain];
     }
@@ -63,15 +63,9 @@
     [super dealloc];
 }
 
-#pragma mark -
-#pragma mark Private Methods
-
 -(Fault *)entityValidation:(id)entity {
     return (_entityClass && ![(NSObject *)entity isKindOfClass:_entityClass]) ? [backendless throwFault:FAULT_NO_ENTITY_TYPE] : nil;
 }
-
-#pragma mark -
-#pragma mark ICacheService Methods
 
 // sync methods with fault return (as exception)
 

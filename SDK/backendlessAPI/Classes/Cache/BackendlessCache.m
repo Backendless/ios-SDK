@@ -30,31 +30,29 @@
 #import "Types.h"
 
 @interface BackendlessCache()
+
 +(NSString *)filePath;
 -(id)responseHandler:(id)response;
 -(id)responseError:(id)error;
 -(void)prepareToClear:(BackendlessCacheKey *)key;
+
 @end
 
 @implementation BackendlessCache
 
 +(BackendlessCache *)sharedInstance {
-	static BackendlessCache *sharedBackendlessCache;
-	@synchronized(self)
-	{
-		if (!sharedBackendlessCache)
-        {
-			sharedBackendlessCache = [BackendlessCache new];
+    static BackendlessCache *sharedBackendlessCache;
+    @synchronized(self) {
+        if (!sharedBackendlessCache) {
+            sharedBackendlessCache = [BackendlessCache new];
             [sharedBackendlessCache loadFromDisc];
         }
-	}
-	return sharedBackendlessCache;
+    }
+    return sharedBackendlessCache;
 }
 
--(id)init
-{
-    self = [super init];
-    if (self) { 
+-(id)init {
+    if (self = [super init]) {
         _cacheData = [NSMutableDictionary new];
         _cachePolicy = [[BackendlessCachePolicy alloc] init];
         _storedType = [[NSNumber alloc] initWithInt:BackendlessCacheStoredMemory];
@@ -62,70 +60,58 @@
     }
     return self;
 }
--(void)dealloc
-{
+
+-(void)dealloc {
     [_storedType release];
     [_cacheData release];
     [_cachePolicy release];
     [super dealloc];
 }
--(void)storedType:(BackendlessCacheStoredEnum)storedType
-{
+
+-(void)storedType:(BackendlessCacheStoredEnum)storedType {
     [_storedType release];
     _storedType = [[NSNumber alloc] initWithInt:storedType];
 }
-+(NSString *)filePath
-{
+
++(NSString *)filePath {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0]; // Get documents folder
     NSString *filePath = [documentsDirectory stringByAppendingString:@"/BackendlessCache"];
     return filePath;
 }
--(void)saveOnDisc
-{
-//    dispatch_queue_t queue = dispatch_queue_create("BackendlessSaveCacheOnDisc", NULL);
+
+-(void)saveOnDisc {
     dispatch_async(dispatch_get_main_queue(), ^{
         @synchronized(self) {
-//            @autoreleasepool
-//            {
-//            NSLog(@"start write");
-                NSMutableDictionary *notEditData = self.cacheData;
-                NSArray *keyes = [notEditData allKeys];
-                
-                NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-                
-                int i = 1;
-                for (BackendlessCacheKey *key in keyes)
-                {
-                    BackendlessCacheData *cacheData = [notEditData objectForKey:key];
-                    if (cacheData.file.length > 0)
-                    {
-                        BackendlessCacheData *newData = [[[BackendlessCacheData alloc] initWithCache:cacheData] autorelease];
-                        newData.data = nil;
-                        [dictionary setValue:@[key, newData] forKey:[NSString stringWithFormat:@"%i", i]];
-                    }
-                    else
-                        [dictionary setValue:@[key, cacheData] forKey:[NSString stringWithFormat:@"%i", i]];
-                    i++;
+            NSMutableDictionary *notEditData = self.cacheData;
+            NSArray *keyes = [notEditData allKeys];
+            NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+            int i = 1;
+            for (BackendlessCacheKey *key in keyes) {
+                BackendlessCacheData *cacheData = [notEditData objectForKey:key];
+                if (cacheData.file.length > 0) {
+                    BackendlessCacheData *newData = [[[BackendlessCacheData alloc] initWithCache:cacheData] autorelease];
+                    newData.data = nil;
+                    [dictionary setValue:@[key, newData] forKey:[NSString stringWithFormat:@"%i", i]];
                 }
-                _cacheData = dictionary;
-                
-                BinaryStream *stream = [AMFSerializer serializeToBytes:self];
-                NSData *data = [NSData dataWithBytes:stream.buffer length:stream.size];
-                [[NSFileManager defaultManager] removeItemAtPath:[BackendlessCache filePath] error:nil];
-                [data writeToFile:[BackendlessCache filePath] atomically:YES];
-                _cacheData = notEditData;
-//            NSLog(@"end write");
-                [DebLog log:@"backendless cache saved on disc"];
-//                dispatch_release(queue);
-//            }
+                else {
+                    [dictionary setValue:@[key, cacheData] forKey:[NSString stringWithFormat:@"%i", i]];
+                }
+                i++;
+            }
+            _cacheData = dictionary;
+            BinaryStream *stream = [AMFSerializer serializeToBytes:self];
+            NSData *data = [NSData dataWithBytes:stream.buffer length:stream.size];
+            [[NSFileManager defaultManager] removeItemAtPath:[BackendlessCache filePath] error:nil];
+            [data writeToFile:[BackendlessCache filePath] atomically:YES];
+            _cacheData = notEditData;
+            [DebLog log:@"backendless cache saved on disc"];
         }
     });
 }
--(void)loadFromDisc
-{
-    @synchronized(self)
-    {
+
+-(void)loadFromDisc {
+    @synchronized(self) {
         NSData *data = [NSData dataWithContentsOfFile:[BackendlessCache filePath]];
         if (data) {
             BinaryStream *stream = [BinaryStream streamWithStream:(char *)[data bytes] andSize:data.length];
@@ -136,11 +122,9 @@
             _storedType = [cache.storedType retain];
             _cacheData = [[NSMutableDictionary alloc] init];
             NSArray *data = [cache.cacheData allValues];
-            for (NSArray *val in data)
-            {
+            for (NSArray *val in data) {
                 BackendlessCacheData *cacheData = [val objectAtIndex:1];
                 BackendlessCacheKey *key = [val objectAtIndex:0];
-                
                 if (!cacheData.data) {
                     [cacheData dataFromDisc];
                 }
@@ -149,11 +133,10 @@
         }
     }
 }
--(void)clearFromDisc
-{
+
+-(void)clearFromDisc {
     dispatch_async(dispatch_get_main_queue(), ^{
-        @synchronized(self)
-        {
+        @synchronized(self) {
             NSArray *data = [_cacheData allValues];
             for (BackendlessCacheData *d in data) {
                 [d removeFromDisc];
@@ -162,58 +145,45 @@
     });
 }
 
--(void)prepareToClear:(BackendlessCacheKey *)key
-{
-    @synchronized(self)
-    {
+-(void)prepareToClear:(BackendlessCacheKey *)key {
+    @synchronized(self) {
         BackendlessCacheData *data = [_cacheData objectForKey:key];
         [data decreasePriority];
         if (data.valPriority == 0) {
             [self clearCacheForKey:key];
         }
-        else
-        {
+        else {
             [self performSelector:@selector(prepareToClear:) withObject:key afterDelay:data.timeToLive.integerValue];
         }
     }
 }
 
--(void)addCacheObject:(id)object forKey:(BackendlessCacheKey *)key
-{
+-(void)addCacheObject:(id)object forKey:(BackendlessCacheKey *)key {
     @synchronized(self) {
-
         BackendlessCacheData *data = [BackendlessCacheData new];
-        
         BackendlessCachePolicy *policy = (key.query.cachePolicy) ? key.query.cachePolicy : self.cachePolicy;
         NSInteger timeToLive = policy.timeToLive.integerValue;
         if (timeToLive > 0) {
             data.timeToLive = [NSNumber numberWithInteger:timeToLive];
         }
-        
         [DebLog log:@"BackendlessCache -> addCacheObject: %@ [policy: %i, timeToLive: %d]", object, (int)policy.valCachePolicy, timeToLive];
-
         switch (policy.valCachePolicy) {
             case BackendlessCachePolicyIgnoreCache:
                 break;
             default:
                 switch (self.storedType.intValue) {
-                        
                     case BackendlessCacheStoredMemory:
                         data.data = object;
                         break;
-                        
                     case BackendlessCacheStoredDisc:
                         //save to disc
                         data.data = object;
-                        [data saveOnDiscCompletion:^(BOOL done) {
-//                            [self saveOnDisc];
-                        }];
+                        [data saveOnDiscCompletion:^(BOOL done) { }];
                         break;
                     default:
                         data.data = object;
                         break;
                 }
-                
                 [_cacheData setObject:data forKey:key];
                 if (timeToLive>0) {
                     [self performSelector:@selector(prepareToClear:) withObject:key afterDelay:timeToLive];
@@ -224,16 +194,13 @@
     }
 }
 
--(void)addCacheObject:(id)object forClassName:(NSString *)className query:(AbstractQuery *)query
-{
+-(void)addCacheObject:(id)object forClassName:(NSString *)className query:(AbstractQuery *)query {
     BackendlessCacheKey *key = [BackendlessCacheKey cacheKeyWithClassName:className query:query];
     [self addCacheObject:object forKey:key];
 }
 
--(BOOL)hasResultForClassName:(NSString *)className query:(id)query
-{
-    @synchronized(self)
-    {
+-(BOOL)hasResultForClassName:(NSString *)className query:(id)query {
+    @synchronized(self) {
         BackendlessCacheKey *key = [BackendlessCacheKey cacheKeyWithClassName:className query:query];
         if ([_cacheData objectForKey:key]) {
             return YES;
@@ -242,16 +209,13 @@
     }
 }
 
--(id)objectForClassName:(NSString *)className query:(id)query
-{
+-(id)objectForClassName:(NSString *)className query:(id)query {
     BackendlessCacheKey *key = [BackendlessCacheKey cacheKeyWithClassName:className query:query];
     return [self objectForCacheKey:key];
 }
 
--(id)objectForCacheKey:(BackendlessCacheKey *)key
-{
-    @synchronized(self)
-    {
+-(id)objectForCacheKey:(BackendlessCacheKey *)key {
+    @synchronized(self) {
         BackendlessCacheData *data = [_cacheData objectForKey:key];
         if (data) {
             [data increasePriority];
@@ -261,29 +225,23 @@
     }
 }
 
--(void)clearCacheForClassName:(NSString *)className query:(id)query
-{
+-(void)clearCacheForClassName:(NSString *)className query:(id)query {
     @synchronized(self) {
         BackendlessCacheKey *key = [BackendlessCacheKey cacheKeyWithClassName:className query:query];
         [self clearCacheForKey:key];
     }
 }
 
--(void)clearCacheForKey:(BackendlessCacheKey *)key
-{
-    @synchronized(self)
-    {
+-(void)clearCacheForKey:(BackendlessCacheKey *)key {
+    @synchronized(self) {
         [[_cacheData objectForKey:key] remove];
         [_cacheData removeObjectForKey:key];
     }
 }
 
--(void)clearAllCache
-{
+-(void)clearAllCache {
     [DebLog log:@"backendless cache is clearing:\n%@", _cacheData];
-    
-    @synchronized(self)
-    {
+    @synchronized(self) {
         NSArray *data = [_cacheData allValues];
         for (BackendlessCacheData *d in data) {
             [d remove];
@@ -294,15 +252,12 @@
 
 #pragma mark - invoker methods
 
--(id)invokeSync:(NSString *)name method:(NSString *)methodName args:(NSArray *)args
-{
+-(id)invokeSync:(NSString *)name method:(NSString *)methodName args:(NSArray *)args {
     AbstractQuery *query = [args objectAtIndex:3];
     NSString *className = [args objectAtIndex:2];
     BackendlessCacheKey *key = [BackendlessCacheKey cacheKeyWithClassName:className query:query];
     BackendlessCachePolicy *policy = (query.cachePolicy)?query.cachePolicy:_cachePolicy;
-    
     [DebLog log:@"BackendlessCache -> invokeSync: '%@':'%@' [policy: %i]", name, methodName, (int)policy.valCachePolicy];
-    
     switch (policy.valCachePolicy) {
         case BackendlessCachePolicyIgnoreCache:
             return [invoker invokeSync:name method:methodName args:args];
@@ -348,8 +303,7 @@
     return nil;
 }
 
--(void)invokeAsync:(NSString *)name method:(NSString *)methodName args:(NSArray *)args responder:(Responder *)responder
-{
+-(void)invokeAsync:(NSString *)name method:(NSString *)methodName args:(NSArray *)args responder:(Responder *)responder {
     Responder *cacheResponder = [Responder responder:self selResponseHandler:@selector(responseHandler:) selErrorHandler:@selector(responseError:)];
     cacheResponder.chained = responder;
     AbstractQuery *query = [args objectAtIndex:1];
@@ -357,9 +311,7 @@
     BackendlessCacheKey *key = [BackendlessCacheKey cacheKeyWithClassName:className query:query];
     BackendlessCachePolicy *policy = (query.cachePolicy)?query.cachePolicy:_cachePolicy;
     cacheResponder.context = key;
-    
     [DebLog log:@"BackendlessCache -> invokeAsync: '%@':'%@' [policy: %i]", name, methodName, (int)policy.valCachePolicy];
-    
     switch (policy.valCachePolicy) {
         case BackendlessCachePolicyIgnoreCache:
             [invoker invokeAsync:name method:methodName args:args responder:responder];
@@ -382,7 +334,6 @@
             }
             return;
         }
-            
         case BackendlessCachePolicyFromCacheAndRemote:
         {
             id data = [self objectForCacheKey:key];
@@ -392,7 +343,6 @@
             [invoker invokeAsync:name method:methodName args:args responder:cacheResponder];
             return;
         }
-            
         case BackendlessCachePolicyFromRemoteOrCache:
             [invoker invokeAsync:name method:methodName args:args responder:cacheResponder];
             return;
@@ -403,14 +353,11 @@
 
 #pragma mark - Responder
 
--(id)responseHandler:(ResponseContext *)response
-{
+-(id)responseHandler:(ResponseContext *)response {
     BackendlessCacheKey *key = response.context;
     id data = response.response;
     BackendlessCachePolicy *policy = key.query.cachePolicy?key.query.cachePolicy:_cachePolicy;
-    
     [DebLog log:@"BackendlessCache -> responseHandler: '%@' [policy: %i]", data, (int)policy.valCachePolicy];
-   
     switch (policy.valCachePolicy) {
         case BackendlessCachePolicyIgnoreCache:
             break;
@@ -434,22 +381,18 @@
     return response.response;
 }
 
--(id)responseError:(Fault *)error
-{
+-(id)responseError:(Fault *)error {
     Responder *responder = error.context;
     id val = error.context;
     BackendlessCacheKey *key = nil;
     if ([val isKindOfClass:[Responder class]]) {
         key = ((Responder*) error.context).context;
     }
-    else
-    {
+    else {
         key = error.context;
     }
     BackendlessCachePolicy *policy = (key.query.cachePolicy)?key.query.cachePolicy:_cachePolicy;
-    
     [DebLog log:@"BackendlessCache -> responseError: '%@' [policy: %i]", error, (int)policy.valCachePolicy];
-    
     switch (policy.valCachePolicy) {
         case BackendlessCachePolicyIgnoreCache:
             break;
@@ -477,4 +420,5 @@
     }
     return error;
 }
+
 @end

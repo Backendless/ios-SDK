@@ -28,7 +28,6 @@
 #define FAULT_INVALID_MONITORING_POLICY [Fault fault:@"Invalid monitoring policy" faultCode:@"4000"]
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-
 @interface BeaconTracker() <CLLocationManagerDelegate> {
     id <IPresenceListener> _listener;
     BOOL _discovery;
@@ -41,16 +40,12 @@
 @end
 #endif
 
-
 @implementation BeaconTracker
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-
-// Singleton accessor:  this is how you should ALWAYS get a reference to the class instance.  Never init your own.
 +(BeaconTracker *)sharedInstance {
     static BeaconTracker *sharedBeaconTracker;
-    @synchronized(self)
-    {
+    @synchronized(self) {
         if (!sharedBeaconTracker) {
             sharedBeaconTracker = [BeaconTracker new];
             [DebLog log:@"CREATE BeaconTracker: sharedBeaconTracker = %@", sharedBeaconTracker];
@@ -60,15 +55,13 @@
 }
 
 -(id)init {
-    if ( (self=[super init]) ) {
-        
+    if (self = [super init]) {
         self.locationManager = [[CLLocationManager alloc] init];
         self.locationManager.delegate = self;
         // Check for iOS 8
         if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
             [self.locationManager requestAlwaysAuthorization];
         }
-        
         self.beaconMonitor = nil;
         self.stayedBeacons = [NSDictionary new];
     }
@@ -76,24 +69,14 @@
 }
 
 -(void)dealloc {
-    
     [DebLog logN:@"DEALLOC BeaconTracker"];
-    
     [_locationManager release];
     [_beaconMonitor release];
     [_stayedBeacons release];
-    
     [super dealloc];
 }
 
-
-#pragma mark -
-#pragma mark Private Methods
-
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-
 -(CLBeaconRegion *)beaconRegion:(BackendlessBeacon *)beacon {
-    
     switch (beacon.type) {
         case BEACON_IBEACON: {
             NSUUID *proximityUUID = [[NSUUID alloc] initWithUUIDString:beacon.iBeaconProps[IBEACON_UUID_STR]];
@@ -124,24 +107,16 @@
     [self.locationManager stopMonitoringForRegion:beaconRegion];
     [self.locationManager stopRangingBeaconsInRegion:beaconRegion];
 }
-#endif
-
-#pragma mark -
-#pragma mark Public Methods
 
 -(void)startMonitoring:(BOOL)runDiscovery frequency:(int)frequency listener:(id<IPresenceListener>)listener distanceChange:(double)distanceChange responder:(id<IResponder>)responder {
-    
     if (_beaconMonitor)
         return [responder errorHandler:FAULT_PRESENCE_MONITORING];
-    
     if (frequency < 0 || distanceChange < 0)
         return [responder errorHandler:FAULT_INVALID_MONITORING_POLICY];
-    
     _discovery = runDiscovery;
     _frequency = frequency;
     _listener = listener;
     _distanceChange = distanceChange;
-    
     BackendlessBeacon *beacon = [BackendlessBeacon new];
     self.beaconMonitor = [BeaconMonitoring beaconMonitoring:_discovery timeFrequency:_frequency monitoredBeacons:[NSSet setWithObject:beacon]];
     [self startMonitoringBeacon:beacon];
@@ -149,20 +124,14 @@
 }
 
 -(void)stopMonitoring {
-    
     if (!_beaconMonitor)
         return;
-    
     NSSet *beacons = [_beaconMonitor getMonitoredBeacons];
     for (BackendlessBeacon *beacon in beacons)
         [self stopMonitoringBeacon:beacon];
-    
     [_beaconMonitor release];
     _beaconMonitor = nil;
-    
 }
-
-#pragma mark - CLLocationManagerDelegate
 
 -(void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
     [DebLog log:@"locationManager:monitoringDidFailForRegion:withError: %@", error];
@@ -173,21 +142,15 @@
 }
 
 -(void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region {
-    
     [DebLog log:@"locationManager:didRangeBeacons: %@ inRegion: %@", beacons, region];
-    
     NSMutableDictionary<BackendlessBeacon*, NSNumber*> *notifiedBeacons = [NSMutableDictionary new];
     NSMutableDictionary<NSString*, NSNumber*> *currentBeacons = [NSMutableDictionary new];
-    
     for (CLBeacon *beacon in beacons) {
-        
         BackendlessBeacon *backendlessBeacon = [[BackendlessBeacon alloc] initWithClass:beacon];
         NSString *key = backendlessBeacon.key;
         double distance = beacon.accuracy;
         NSNumber *prevDistance = self.stayedBeacons[key];
-        
         NSLog(@">>>> beacon: %@ [%f - %@]", beacon, distance, prevDistance);
-        
         if (!prevDistance || fabs(distance - prevDistance.doubleValue) >= _distanceChange) {
             notifiedBeacons[backendlessBeacon] = @(distance);
             currentBeacons[key] = @(distance);
@@ -196,15 +159,12 @@
             currentBeacons[key] = prevDistance;
         }
     }
-    
     self.stayedBeacons = currentBeacons;
-    
     if (notifiedBeacons.count) {
         [_beaconMonitor onDetectedBeacons:notifiedBeacons];
         [_listener onDetectedBeacons:notifiedBeacons];
     }
 }
-
 #endif
 
 @end

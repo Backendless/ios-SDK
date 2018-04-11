@@ -59,8 +59,6 @@
     [super dealloc];
 }
 
-#pragma mark IDataStore Methods
-
 // sync methods with fault return (as exception)
 
 -(id)save:(id)entity {
@@ -260,8 +258,5 @@
 -(void)removeBulk:(NSString *)whereClause response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
     [backendless.persistenceService removeBulk:_entityClass whereClause:whereClause response:responseBlock error:errorBlock];
 }
-
-
-
 
 @end

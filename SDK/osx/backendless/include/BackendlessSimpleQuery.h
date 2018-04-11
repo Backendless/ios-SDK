@@ -17,4 +17,5 @@
 
 +(id)query;
 +(id)query:(int)pageSize offset:(int)offset;
+
 @end

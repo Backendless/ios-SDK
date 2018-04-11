@@ -29,37 +29,31 @@
 #define FAULT_NO_URL [Fault fault:@"URL is not valid"]
 #define FAULT_NO_USER_ID [Fault fault:@"UserId is not valid"]
 #define FAULT_NO_ROLE_NAME [Fault fault:@"RoleName is not valid"]
-
 #define FILE_PERMISSION_OPERATION @[@"READ", @"WRITE", @"DELETE"]
 
-// SERVICE NAME
 static NSString *SERVER_FILE_PERMISSIONS_SERVICE_PATH = @"com.backendless.services.file.FileService";
-// METHOD NAMES
+
 static NSString *METHOD_UPDATE_USER_PERMISSION = @"updateUserPermission";
 static NSString *METHOD_UPDATE_ROLE_PERMISSION = @"updateRolePermissions";
 static NSString *METHOD_UPDATE_ALL_USER_PERMISSION = @"updatePermissionForAllUsers";
 static NSString *METHOD_UPDATE_ALL_ROLE_PERMISSION = @"updateRolePermissionsForAllRoles";
-// PERMISSION TYPES
+
 static NSString *_GRANT = @"GRANT";
 static NSString *_DENY = @"DENY";
 
-#pragma mark -
-#pragma mark Private Classes
-
-// -------------------------------------- PRIVATE CLASSES -------------------------------------------
-
 @interface Permission : NSObject
+
 @property (strong, nonatomic) NSString *folder;
 @property (strong, nonatomic) NSString *access;
 @property (strong, nonatomic) NSString *operation;
-@end
 
-@implementation Permission
 @end
 
 @interface FileUserPermission : Permission
+
 +(id)grant:(NSString *)url operation:(FilePermissionOperation)operation;
 +(id)deny:(NSString *)url operation:(FilePermissionOperation)operation;
+
 @end
 
 @implementation FileUserPermission
@@ -83,8 +77,10 @@ static NSString *_DENY = @"DENY";
 @end
 
 @interface FileRolePermission : Permission
+
 +(id)grant:(NSString *)url operation:(FilePermissionOperation)operation;
 +(id)deny:(NSString *)url operation:(FilePermissionOperation)operation;
+
 @end
 
 @implementation FileRolePermission
@@ -107,11 +103,6 @@ static NSString *_DENY = @"DENY";
 
 @end
 
-// ------------------------------------------------------------------------------------------------
-
-#pragma mark -
-#pragma mark Public Class
-
 @implementation FilePermission
 
 -(id)init {
@@ -127,15 +118,9 @@ static NSString *_DENY = @"DENY";
     [super dealloc];
 }
 
-#pragma mark -
-#pragma mark Private Methods
-
 -(BOOL)isUrlValid:(NSString *)url {
     return (url != nil);
 }
-
-#pragma mark -
-#pragma mark Public Methods
 
 // sync methods with fault return (as exception)
 

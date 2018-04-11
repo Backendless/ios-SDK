@@ -34,9 +34,7 @@
 #define FAULT_FIELD_IS_NULL [Fault fault:@"Field is missing or null" detail:@"Field is missing or null" faultCode:@"1903"]
 #define NULL_BULK [Fault fault:@"Object array for bulk operations cannot be null"]
 
-// SERVICE NAME
 static NSString *SERVER_PERSISTENCE_SERVICE_PATH  = @"com.backendless.services.persistence.PersistenceService";
-// METHOD NAMES
 static NSString *METHOD_SAVE = @"save";
 static NSString *METHOD_REMOVE = @"remove";
 static NSString *METHOD_FIND = @"find";
@@ -75,8 +73,6 @@ static NSString *REMOVE_BULK = @"removeBulk";
     [super dealloc];
 }
 
-#pragma mark Private Methods
-
 -(void)setClassMapping {
     if (backendless.data) {
         return;
@@ -98,9 +94,8 @@ static NSString *REMOVE_BULK = @"removeBulk";
     return bc;
 }
 
-#pragma mark Public Methods
-
 // sync methods with fault return (as exception)
+
 -(id)save:(id)entity {
     if (!entity) {
         return [backendless throwFault:FAULT_NO_ENTITY];

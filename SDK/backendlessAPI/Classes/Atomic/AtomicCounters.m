@@ -26,9 +26,7 @@
 
 #define FAULT_NO_NAME [Fault fault:@"Name is NULL" detail:@"Name is NULL" faultCode:@"8900"]
 
-// SERVICE NAME
 static NSString *SERVER_ATOMIC_OPERATION_SERVICE_PATH = @"com.backendless.services.redis.AtomicOperationService";
-// METHOD NAMES
 static NSString *METHOD_GET = @"get";
 static NSString *METHOD_GET_AND_INCREMENT = @"getAndIncrement";
 static NSString *METHOD_INCREMENT_AND_GET = @"incrementAndGet";
@@ -41,18 +39,10 @@ static NSString *METHOD_RESET = @"reset";
 
 @implementation AtomicCounters
 
--(id)init {
-    if (self=[super init]) {
-    }
-    return self;
-}
-
 -(void)dealloc {
     [DebLog logN:@"DEALLOC AtomicCounters"];
     [super dealloc];
 }
-
-#pragma mark Public Methods
 
 // sync methods with fault return (as exception)
 

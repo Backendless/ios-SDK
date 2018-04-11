@@ -20,11 +20,13 @@
  */
 
 #import <Foundation/Foundation.h>
-
 @class BackendlessBeacon;
 
 @interface BeaconsInfo : NSObject
+
 @property (readonly) BOOL discovery;
 @property (strong, nonatomic, readonly) NSSet<BackendlessBeacon*> *beacons;
+
 +(BeaconsInfo *)beaconsInfo:(BOOL)discovery beacons:(NSSet<BackendlessBeacon*> *)beacons;
+
 @end

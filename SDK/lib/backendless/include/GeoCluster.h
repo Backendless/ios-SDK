@@ -21,12 +21,14 @@
 
 #import <Foundation/Foundation.h>
 #import "GeoPoint.h"
-
 @class BackendlessGeoQuery;
 
 @interface GeoCluster : GeoPoint
+
 @property (nonatomic, strong) NSNumber *totalPoints;
 @property (nonatomic, strong) BackendlessGeoQuery *geoQuery;
+
 -(int)valTotalPoints;
 -(void)totalPoints:(int)totalPoints;
+
 @end

@@ -51,9 +51,6 @@
 	[super dealloc];
 }
 
-#pragma mark -
-#pragma mark Public Methods
-
 +(id)subscriptionOptionsWithDeliveryMethod:(DeliveryMethodEnum)deliveryMethod {
     SubscriptionOptions *subscriptionOptions = [SubscriptionOptions new];
     [subscriptionOptions deliveryMethod:deliveryMethod];

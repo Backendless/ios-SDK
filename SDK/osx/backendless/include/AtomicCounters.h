@@ -21,7 +21,6 @@
 
 #import <Foundation/Foundation.h>
 #import "IAtomicCounters.h"
-
 @class Fault;
 
 @interface AtomicCounters : NSObject

@@ -23,7 +23,9 @@
 #import "BackendlessGeoQuery.h"
 
 @interface ProtectedBackendlessGeoQuery : BackendlessGeoQuery
+
 -(id)initWithQuery:(BackendlessGeoQuery *)query;
 +(id)protectedQuery:(BackendlessGeoQuery *)query;
 -(BackendlessGeoQuery *)geoQuery;
+
 @end

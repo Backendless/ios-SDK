@@ -30,18 +30,16 @@
 @implementation AtomicCountersFactory
 
 -(id)init {
-	if ( (self=[super init]) ) {
+	if (self = [super init]) {
         _name = @"DEFAULT_NAME";
 	}
-	
 	return self;
 }
 
 -(id)init:(NSString *)counterName {
-	if ( (self=[super init]) ) {
+	if (self=[super init]) {
         _name = counterName?[counterName retain]:@"DEFAULT_NAME";
 	}
-	
 	return self;
 }
 
@@ -50,16 +48,10 @@
 }
 
 -(void)dealloc {
-	
 	[DebLog logN:@"DEALLOC AtomicCountersFactory"];
-    
     [_name release];
-	
 	[super dealloc];
 }
-
-#pragma mark -
-#pragma mark ICacheService Methods
 
 // sync methods with fault return (as exception)
 

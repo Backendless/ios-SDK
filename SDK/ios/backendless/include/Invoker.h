@@ -24,9 +24,6 @@
 #import "IResponseAdapter.h"
 #import "Responder.h"
 
-/***********************************************************************************************************
- * Invoker singleton accessor: this is how you should ALWAYS get a reference to the Invoker class instance *
- ***********************************************************************************************************/
 #define invoker [Invoker sharedInstance]
 
 @protocol IResponder;
@@ -35,7 +32,6 @@
 
 @property BOOL throwException;
 
-// Singleton accessor:  this is how you should ALWAYS get a reference to the class instance.  Never init your own.
 +(Invoker *)sharedInstance;
 
 -(void)setup;
@@ -46,4 +42,5 @@
 -(id)invokeSync:(NSString *)className method:(NSString *)methodName args:(NSArray *)args responseAdapter:(id<IResponseAdapter>)responseAdapter;
 -(void)invokeAsync:(NSString *)className method:(NSString *)methodName args:(NSArray *)args responder:(id <IResponder>)responder;
 -(void)invokeAsync:(NSString *)className method:(NSString *)methodName args:(NSArray *)args responder:(id <IResponder>)responder responseAdapter:(id<IResponseAdapter>)responseAdapter;
+
 @end

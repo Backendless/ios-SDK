@@ -21,7 +21,6 @@
 
 #import <Foundation/Foundation.h>
 #import "ICacheService.h"
-
 @class Fault;
 
 @interface CacheService : NSObject

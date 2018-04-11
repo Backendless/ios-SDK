@@ -7,8 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+@class QueryOptions;
 
 @protocol IQueryOptionsBuilder <NSObject>
+
 -(NSMutableArray<NSString *> *)getSortBy;
 -(id)setSortBy:(NSArray<NSString *> *)sortBy;
 -(id)addSortBy:(NSString *)sortBy;
@@ -19,11 +21,12 @@
 -(id)addListRelated:(NSArray<NSString *> *)related;
 -(NSNumber *)getRelationsDepth;
 -(id)setRelationsDepth:(int)relationsDepth;
+
 @end
 
-@class QueryOptions;
-
 @interface QueryOptionsBuilder : NSObject <IQueryOptionsBuilder>
+
 -(instancetype)init:(id)builder;
 -(QueryOptions *)build;
+
 @end

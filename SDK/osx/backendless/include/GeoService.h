@@ -24,15 +24,15 @@
 #import "GeoCluster.h"
 #import "Presence.h"
 
+@class GeoPoint, BackendlessGeoQuery, GeoCategory, Fault;
+@protocol IGeofenceCallback;
+
 #define DEFAULT_CATEGORY_NAME @"Default"
 
 typedef struct {
     GEO_POINT nordWest;
     GEO_POINT southEast;
 } GEO_RECT;
-
-@class GeoPoint, BackendlessGeoQuery, GeoCategory, Fault;
-@protocol IGeofenceCallback;
 
 @interface GeoService : NSObject
 

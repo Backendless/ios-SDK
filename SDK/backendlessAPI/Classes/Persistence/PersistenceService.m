@@ -46,9 +46,7 @@
 #define FAULT_FIELD_IS_NULL [Fault fault:@"Field is missing or null" detail:@"Field is missing or null" faultCode:@"1903"]
 #define NULL_BULK [Fault fault:@"Object array for bulk operations cannot be null"]
 
-// SERVICE NAME
 static NSString *SERVER_PERSISTENCE_SERVICE_PATH  = @"com.backendless.services.persistence.PersistenceService";
-// METHOD NAMES
 static NSString *METHOD_CREATE = @"create";
 static NSString *METHOD_UPDATE = @"update";
 static NSString *METHOD_SAVE = @"save";
@@ -69,6 +67,7 @@ static NSString *UPDATE_BULK = @"updateBulk";
 static NSString *REMOVE_BULK = @"removeBulk";
 
 @interface PersistenceService()
+
 -(NSDictionary *)filteringProperty:(id)object;
 -(BOOL)prepareClass:(Class)className;
 -(BOOL)prepareObject:(id)object;
@@ -77,9 +76,11 @@ static NSString *REMOVE_BULK = @"removeBulk";
 -(NSDictionary *)propertyDictionary:(id)object;
 -(id)propertyObject:(id)object;
 -(id)setRelations:(NSArray *)relations object:(id)object response:(id)response;
+
 // callbacks
 -(id)loadRelations:(ResponseContext *)response;
 -(id)createResponse:(ResponseContext *)response;
+
 @end
 
 @implementation BackendlessUser (AMF)

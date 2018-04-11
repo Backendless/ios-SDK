@@ -27,7 +27,6 @@
 @property (nonatomic, strong) NSString *htmlMessage;
 
 +(id)bodyText:(NSString *)text html:(NSString *)html;
-
 -(BOOL)isBody;
 
 @end

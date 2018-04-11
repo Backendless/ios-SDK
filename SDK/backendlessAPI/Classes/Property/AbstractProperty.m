@@ -27,27 +27,23 @@ static char *types[] = {"UNKNOWN", "INT" , "STRING", "BOOLEAN", "DATETIME", "DOU
 @implementation AbstractProperty
 
 -(id)init {
-	if ( (self=[super init]) ) {
+	if (self = [super init]) {
         self.name = nil;
         self.required = nil;
         self.type = nil;
         self.selected = nil;
         self.defaultValue = nil;
-	}
-	
+    }
 	return self;
 }
 
 -(void)dealloc {
-	
 	[DebLog logN:@"DEALLOC AbstractProperty"];
-    
     [_name release];
     [_required release];
     [_type release];
     [_selected release];
     [_defaultValue release];
-	
 	[super dealloc];
 }
 
@@ -71,17 +67,13 @@ static char *types[] = {"UNKNOWN", "INT" , "STRING", "BOOLEAN", "DATETIME", "DOU
 }
 
 -(ObjectDataType)objectDataType {
-    
     if (_type) {
-    
         if ([_type isEqualToString:@"$"])
             return DOUBLE_DATATYPE;
-    
         for (int i = 0; i <= TEXT_DATATYPE; i++)
             if ([_type isEqualToString:[NSString stringWithUTF8String:types[i]]])
                 return (ObjectDataType)i;
-    }
-    
+    }    
     return UNKNOWN_DATATYPE;
 }
 

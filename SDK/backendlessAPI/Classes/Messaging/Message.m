@@ -45,9 +45,6 @@
 	[super dealloc];
 }
 
-#pragma mark -
-#pragma mark Public Methods
-
 -(long)valTimestamp {
     return _timestamp ? [_timestamp longValue] : 0;
 }

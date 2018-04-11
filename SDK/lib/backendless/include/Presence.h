@@ -20,12 +20,14 @@
  */
 
 #import <Foundation/Foundation.h>
-
 @protocol IResponder, IPresenceListener;
 @class Fault;
 
 @interface Presence : NSObject
+
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+// sync methods
+-(void)stopMonitoring;
 
 // async methods with block-based callbacks
 -(void)startMonitoring:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
@@ -33,9 +35,6 @@
 -(void)startMonitoring:(BOOL)runDiscovery frequency:(int)frequency response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)startMonitoring:(BOOL)runDiscovery frequency:(int)frequency listener:(id<IPresenceListener>)listener response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)startMonitoring:(BOOL)runDiscovery frequency:(int)frequency listener:(id<IPresenceListener>)listener distanceChange:(double)distanceChange response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
-
-// sync methods
--(void)stopMonitoring;
-
 #endif
+
 @end

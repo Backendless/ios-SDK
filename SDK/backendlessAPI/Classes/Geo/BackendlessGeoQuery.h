@@ -57,7 +57,6 @@ typedef enum {
 -(id)initWithPoint:(GEO_POINT)point radius:(double)radius units:(UNITS)units categories:(NSArray *)categories metadata:(NSDictionary *)metadata;
 -(id)initWithRect:(GEO_POINT)nordWest southEast:(GEO_POINT)southEast;
 -(id)initWithRect:(GEO_POINT)nordWest southEast:(GEO_POINT)southEast categories:(NSArray *)categories;
-
 +(id)query;
 +(id)queryWithCategories:(NSArray *)categories;
 +(id)queryWithPoint:(GEO_POINT)point;
@@ -68,7 +67,6 @@ typedef enum {
 +(id)queryWithPoint:(GEO_POINT)point radius:(double)radius units:(UNITS)units categories:(NSArray *)categories metadata:(NSDictionary *)metadata;
 +(id)queryWithRect:(GEO_POINT)nordWest southEast:(GEO_POINT)southEast;
 +(id)queryWithRect:(GEO_POINT)nordWest southEast:(GEO_POINT)southEast categories:(NSArray *)categories;
-
 -(double)valLatitude;
 -(void)latitude:(double)latitude;
 -(double)valLongitude;
@@ -95,7 +93,6 @@ typedef enum {
 -(void)dpp:(double)_pp;
 -(int)valClusterGridSize;
 -(void)clusterGridSize:(int)size;
-//
 -(void)searchRectangle:(GEO_POINT)nordWest southEast:(GEO_POINT)southEast;
 -(BOOL)addCategory:(NSString *)category;
 -(BOOL)putMetadata:(NSString *)key value:(id)value;
@@ -103,4 +100,5 @@ typedef enum {
 -(void)setClusteringParams:(double)degreePerPixel clusterGridSize:(int)size;
 -(void)setClusteringParams:(double)westLongitude eastLongitude:(double)eastLongitude mapWidth:(int)mapWidth;
 -(void)setClusteringParams:(double)westLongitude eastLongitude:(double)eastLongitude mapWidth:(int)mapWidth clusterGridSize:(int)clusterGridSize;
+
 @end
