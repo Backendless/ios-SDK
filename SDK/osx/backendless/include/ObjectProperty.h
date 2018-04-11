@@ -27,10 +27,12 @@
 @property (strong, nonatomic) NSString *customRegex;
 @property (strong, nonatomic) NSNumber *primaryKey;
 @property (strong, nonatomic) NSNumber *autoLoad;
+
 +(id)objectProperty:(NSString *)name;
 +(id)objectProperty:(NSString *)name dataType:(ObjectDataType)type required:(BOOL)required;
 -(BOOL)isPrimaryKey;
 -(void)isPrimaryKey:(BOOL)primaryKey;
 -(BOOL)isAutoLoad;
 -(void)isAutoLoad:(BOOL)autoLoad;
+
 @end

@@ -23,5 +23,7 @@
 #import "IAtomicCounters.h"
 
 @interface AtomicCountersFactory : NSObject <IAtomic>
+
 +(id <IAtomic>)create:(NSString *)counterName;
+
 @end

@@ -22,5 +22,4 @@
 #import "AuthorizationException.h"
 
 @implementation AuthorizationException
-
 @end

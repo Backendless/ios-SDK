@@ -33,7 +33,7 @@
 @implementation Logging
 
 -(id)init {
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         loggers = [NSMutableDictionary new];
     }
     return self;
@@ -45,9 +45,6 @@
     [loggers release];
     [super dealloc];
 }
-
-#pragma mark -
-#pragma mark Public Methods
 
 -(void)setLogReportingPolicy:(int)numOfMessages time:(int)timeFrequencySec {
     [[LogBuffer sharedInstance] setLogReportingPolicy:numOfMessages time:timeFrequencySec];
@@ -62,7 +59,6 @@
 }
 
 -(Logger *)getLogger:(NSString *)loggerName {
-    
     Logger *logger = loggers[loggerName];
     if (!logger) {
         loggers[loggerName] = logger = [Logger logger:loggerName];

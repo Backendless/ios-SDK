@@ -20,14 +20,13 @@
  */
 
 #import <Foundation/Foundation.h>
+@class Fault;
 
 typedef enum {
     FILE_READ,
     FILE_WRITE,
     FILE_REMOVE,
 } FilePermissionOperation;
-
-@class Fault;
 
 @interface FilePermission : NSObject
 

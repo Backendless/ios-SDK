@@ -48,9 +48,6 @@
     [super dealloc];
 }
 
-#pragma mark -
-#pragma mark Public Methods
-
 -(QueryOptions *)build {
     QueryOptions *queryOptions =  [QueryOptions new];
     queryOptions.sortBy = [[NSMutableArray alloc] initWithArray:_sortBy];
@@ -58,9 +55,6 @@
     queryOptions.relationsDepth = _relationsDepth;
     return queryOptions;
 }
-
-#pragma mark -
-#pragma mark IQueryOptionsBuilder Methods
 
 -(NSMutableArray<NSString *> *)getSortBy {
     return _sortBy;

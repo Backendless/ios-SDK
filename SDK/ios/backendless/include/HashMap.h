@@ -21,12 +21,11 @@
 
 #import <Foundation/Foundation.h>
 
-
 @interface HashMap : NSObject
-@property (nonatomic, strong, readonly) NSMutableDictionary	*node;
+
+@property (strong, nonatomic, readonly) NSMutableDictionary	*node;
 
 -(id)initWithNode:(NSDictionary *)dict;
-
 -(BOOL)push:(NSString *)key withObject:(id)it;
 -(BOOL)add:(NSString *)key withObject:(id)it;
 -(id)get:(NSString *)key;
@@ -37,4 +36,5 @@
 -(NSArray *)values;
 -(void)clear;
 -(Class)hashClass;
+
 @end

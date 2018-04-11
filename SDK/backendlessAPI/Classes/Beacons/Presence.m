@@ -24,7 +24,14 @@
 #import "BeaconTracker.h"
 
 @implementation Presence
+
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+
+// sync methods
+
+-(void)stopMonitoring  {
+    [[BeaconTracker sharedInstance] stopMonitoring];
+}
 
 // async methods with block-based callbacks
 
@@ -47,12 +54,6 @@
 -(void)startMonitoring:(BOOL)runDiscovery frequency:(int)frequency listener:(id<IPresenceListener>)listener distanceChange:(double)distanceChange response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
     [[BeaconTracker sharedInstance] startMonitoring:runDiscovery frequency:frequency listener:listener distanceChange:distanceChange responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
-
-// sync methods
-
--(void)stopMonitoring  {
-    [[BeaconTracker sharedInstance] stopMonitoring];
-}
-
 #endif
+
 @end

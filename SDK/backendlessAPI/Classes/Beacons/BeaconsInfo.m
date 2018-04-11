@@ -25,8 +25,7 @@
 @implementation BeaconsInfo
 
 -(id)init:(BOOL)discovery beacons:(NSSet<BackendlessBeacon*> *)beacons {
-    
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         _discovery = discovery;
         _beacons = [beacons retain];
     }
@@ -38,11 +37,8 @@
 }
 
 -(void)dealloc {
-    
     [DebLog logN:@"DEALLOC BeaconsInfo"];
-    
-    [_beacons release];
-    
+    [_beacons release];    
     [super dealloc];
 }
 

@@ -53,11 +53,10 @@
 
 // Default channel name
 static  NSString *DEFAULT_CHANNEL_NAME = @"default";
-// SERVICE NAME
 static NSString *SERVER_DEVICE_REGISTRATION_PATH = @"com.backendless.services.messaging.DeviceRegistrationService";
 static NSString *SERVER_MESSAGING_SERVICE_PATH = @"com.backendless.services.messaging.MessagingService";
 static NSString *SERVER_MAIL_SERVICE_PATH = @"com.backendless.services.mail.CustomersEmailService";
-// METHOD NAMES
+static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUIDKeychain";
 static NSString *METHOD_REGISTER_DEVICE = @"registerDevice";
 static NSString *METHOD_GET_REGISTRATIONS = @"getDeviceRegistrationByDeviceId";
 static NSString *METHOD_UNREGISTER_DEVICE = @"unregisterDevice";
@@ -65,14 +64,10 @@ static NSString *METHOD_PUBLISH = @"publish";
 static NSString *METHOD_CANCEL = @"cancel";
 static NSString *METHOD_SEND_EMAIL = @"send";
 static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
-// UICKeyChainStore service name
-static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUIDKeychain";
 
 @interface MessagingService() {
     DeviceRegistration  *deviceRegistration;
 }
-// utils
--(NSString *)serialNumber;
 @end
 
 @implementation MessagingService
@@ -94,7 +89,6 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     }
     return UUID;
 }
-
 #else // OSX
 -(NSString *)serialNumber {
     io_service_t    platformExpert = IOServiceGetMatchingService(kIOMasterPortDefault, IOServiceMatching("IOPlatformExpertDevice"));
@@ -148,9 +142,6 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     [self.subscriptions release];
     [super dealloc];
 }
-
-#pragma mark -
-#pragma mark Public Methods
 
 // utilites
 
@@ -316,19 +307,19 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
     [self registerDeviceAsync:responseBlock error:errorBlock];
 }
 
--(void)registerDevice:(NSData *)deviceToken channels:(NSArray<NSString *> *)channels response:(void (^)(NSString *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)registerDevice:(NSData *)deviceToken channels:(NSArray<NSString *> *)channels response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
     deviceRegistration.deviceToken = [self deviceTokenAsString:deviceToken];
     deviceRegistration.channels = channels;
     [self registerDeviceAsync:responseBlock error:errorBlock];
 }
 
--(void)registerDevice:(NSData *)deviceToken expiration:(NSDate *)expiration response:(void (^)(NSString *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)registerDevice:(NSData *)deviceToken expiration:(NSDate *)expiration response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
     deviceRegistration.deviceToken = [self deviceTokenAsString:deviceToken];
     deviceRegistration.expiration = expiration;
     [self registerDeviceAsync:responseBlock error:errorBlock];
 }
 
--(void)registerDevice:(NSData *)deviceToken channels:(NSArray<NSString *> *)channels expiration:(NSDate *)expiration response:(void (^)(NSString *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)registerDevice:(NSData *)deviceToken channels:(NSArray<NSString *> *)channels expiration:(NSDate *)expiration response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
     deviceRegistration.deviceToken = [self deviceTokenAsString:deviceToken];
     deviceRegistration.channels = channels;
     deviceRegistration.expiration = expiration;
@@ -421,6 +412,26 @@ static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUID
 
 #pragma mark -
 #pragma mark Private Methods
+
+// sync
+-(NSString *)subscribeForPollingAccess:(NSString *)channelName subscriptionOptions:(SubscriptionOptions *)subscriptionOptions {
+    if (!channelName)
+        return [backendless throwFault:FAULT_NO_CHANNEL];
+    if (!subscriptionOptions)
+        subscriptionOptions = [SubscriptionOptions new];
+    NSArray *args = @[channelName, subscriptionOptions];
+    return [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_POLLING_SUBSCRIBE args:args];
+}
+
+// async
+-(void)subscribeForPollingAccess:(NSString *)channelName subscriptionOptions:(SubscriptionOptions *)subscriptionOptions responder:(id <IResponder>)responder {
+    if (!channelName)
+        return [responder errorHandler:FAULT_NO_CHANNEL];
+    if (!subscriptionOptions)
+        subscriptionOptions = [SubscriptionOptions new];
+    NSArray *args = @[channelName, subscriptionOptions];
+    [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_POLLING_SUBSCRIBE args:args responder:responder];
+}
 
 // callbacks
 

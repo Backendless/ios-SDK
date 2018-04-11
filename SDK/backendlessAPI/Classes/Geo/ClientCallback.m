@@ -23,40 +23,31 @@
 #import "DEBUG.h"
 #import "GeoFence.h"
 
-@interface ClientCallback ()
-@end
-
 @implementation ClientCallback
 
 -(id)init {
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         _geofenceCallback = nil;
     }
     return self;
 }
 
 -(id)init:(id <IGeofenceCallback>)geofenceCallback {
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         self.geofenceCallback = geofenceCallback;
     }
     return self;
 }
 
 -(void)dealloc {
-    
     [DebLog logN:@"DEALLOC ClientCallback"];
-    
     [_geofenceCallback release];
-    
     [super dealloc];
 }
 
 +(id)callback:(id <IGeofenceCallback>)geofenceCallback {
     return [[ClientCallback alloc] init:geofenceCallback];
 }
-
-#pragma mark -
-#pragma mark ICallback Methods
 
 #define _MAIN_THREAD_INVOKE_ 1
 

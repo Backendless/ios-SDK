@@ -25,30 +25,23 @@
 @implementation ObjectProperty
 
 -(id)init {
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         self.relatedTable = nil;
         self.customRegex = nil;
         self.primaryKey = nil;
         self.autoLoad = nil;
     }
-    
     return self;
 }
 
 -(void)dealloc {
-	
 	[DebLog logN:@"DEALLOC ObjectProperty"];
-    
     [_relatedTable release];
     [_customRegex release];
     [_primaryKey release];
-    [_autoLoad release];
-	
+    [_autoLoad release];	
 	[super dealloc];
 }
-
-#pragma mark -
-#pragma mark Public Methods
 
 +(id)objectProperty:(NSString *)name {
     ObjectProperty *instance = [ObjectProperty new];

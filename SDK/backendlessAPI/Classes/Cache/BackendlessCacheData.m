@@ -23,23 +23,23 @@
 #import "AMFSerializer.h"
 
 @interface BackendlessCacheData()
+
 -(NSString *)createFilePath;
+
 @end
 
 @implementation BackendlessCacheData
--(id)init
-{
-    self = [super init];
-    if (self) {
+
+-(id)init {
+    if (self = [super init]) {
         _priority = [[NSNumber alloc] initWithInt:1];
         _file = nil;
     }
     return self;
 }
--(id)initWithCache:(BackendlessCacheData *)cache
-{
-    self = [super init];
-    if (self) {
+
+-(id)initWithCache:(BackendlessCacheData *)cache {
+    if (self = [super init]) {
         _file = [cache.file copy];
         _data = [cache.data retain];
         _timeToLive = [[NSNumber alloc] initWithInt:cache.timeToLive.intValue];
@@ -47,32 +47,32 @@
     }
     return self;
 }
--(void)dealloc
-{
+
+-(void)dealloc {
     [_file release];
     [_priority release];
     [_timeToLive release];
     [_data release];
     [super dealloc];
 }
--(void)increasePriority
-{
+
+-(void)increasePriority {
     NSInteger priority = _priority.integerValue;
     priority++;
     _priority = [[NSNumber alloc] initWithInteger:priority];
 }
--(void)decreasePriority
-{
+
+-(void)decreasePriority {
     NSInteger priority = _priority.integerValue;
     priority--;
     _priority = [[NSNumber alloc] initWithInteger:priority];
 }
--(NSInteger)valPriority
-{
+
+-(NSInteger)valPriority {
     return _priority.integerValue;
 }
--(void)saveOnDiscCompletion:(BackendlessCacheDataSaveCompletion)block
-{
+
+-(void)saveOnDiscCompletion:(BackendlessCacheDataSaveCompletion)block {
     _file = [[self createFilePath] retain];
     dispatch_queue_t queue = dispatch_queue_create("BackendlessSaveOnDiscCompletion", nil);
     dispatch_async(queue, ^{
@@ -88,15 +88,14 @@
         }
     });
 }
--(NSString *)createFilePath
-{
+-(NSString *)createFilePath {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0]; // Get documents folder
     NSString *filePath = [documentsDirectory stringByAppendingFormat:@"/%i.cache", (int)[[NSDate date] timeIntervalSince1970]];
     return filePath;
 }
--(id)dataFromDisc
-{
+
+-(id)dataFromDisc {
     if ([_file length]>0) {
         NSData *data = [NSData dataWithContentsOfFile:_file];
         BinaryStream *stream = [BinaryStream streamWithStream:(char *)[data bytes] andSize:data.length];
@@ -104,14 +103,14 @@
     }
     return _data;
 }
--(void)remove
-{
+
+-(void)remove {
     if (_file.length > 0) {
         [[NSFileManager defaultManager] removeItemAtPath:_file error:nil];
     }
 }
--(void)removeFromDisc
-{
+
+-(void)removeFromDisc {
     if (_file.length > 0) {
         if (!_data) {
             [self dataFromDisc];
@@ -121,4 +120,5 @@
         _file = nil;
     }
 }
+
 @end

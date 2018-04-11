@@ -21,40 +21,35 @@
 
 #import "BackendlessCacheKey.h"
 
-@interface BackendlessCacheKey()
-@end
-
 @implementation BackendlessCacheKey
--(BackendlessCacheKey *)initWithClass:(Class)_class query:(id)query
-{
-    self = [super init];
-    if (self) {
+
+-(BackendlessCacheKey *)initWithClass:(Class)_class query:(id)query {
+    if (self = [super init]) {
         _className = NSStringFromClass(_class);
         _query = [query retain];
     }
     return self;
 }
--(BackendlessCacheKey *)initWithClassName:(NSString *)className query:(id)query
-{
-    self = [super init];
-    if (self) {
+
+-(BackendlessCacheKey *)initWithClassName:(NSString *)className query:(id)query {
+    if (self = [super init]) {
         _className = [className retain];
         _query = [query retain];
     }
     return self;
 }
--(void)dealloc
-{
+
+-(void)dealloc {
     [_className release];
     [_query release];
     [super dealloc];
 }
--(NSUInteger)hash
-{
+
+-(NSUInteger)hash {
     return [_className hash];
 }
--(BOOL)isEqual:(BackendlessCacheKey *)object
-{
+
+-(BOOL)isEqual:(BackendlessCacheKey *)object {
     if (![_className isEqualToString:object.className]) {
         return NO;
     }
@@ -65,17 +60,15 @@
     return YES;
 }
 
-+(BackendlessCacheKey *)cacheKeyWithClass:(Class)_class query:(id)query
-{
++(BackendlessCacheKey *)cacheKeyWithClass:(Class)_class query:(id)query {
     return [[[BackendlessCacheKey alloc] initWithClass:_class query:query] autorelease];
 }
-+(BackendlessCacheKey *)cacheKeyWithClassName:(NSString *)className query:(id)query
-{
+
++(BackendlessCacheKey *)cacheKeyWithClassName:(NSString *)className query:(id)query {
     return [[[BackendlessCacheKey alloc] initWithClassName:className query:query] autorelease];
 }
 
--(id)copyWithZone:(NSZone *)zone
-{
+-(id)copyWithZone:(NSZone *)zone {
     return [self retain];
 }
 

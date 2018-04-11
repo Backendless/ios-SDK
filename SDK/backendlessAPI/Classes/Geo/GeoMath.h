@@ -20,6 +20,7 @@
  */
 
 #import <Foundation/Foundation.h>
+@class GeoPoint;
 
 typedef struct {
     double northLat;
@@ -28,9 +29,8 @@ typedef struct {
     double eastLong;
 } GEO_RECTANGLE;
 
-@class GeoPoint;
-
 @interface GeoMath : NSObject
+
 +(double)distance:(double)lat1 lon1:(double)lon1 lat2:(double)lat2 lon2:(double)lon2;
 +(GEO_RECTANGLE)getOutRectangle:(double)latitude lon:(double)longitude radius:(double)r;
 +(GEO_RECTANGLE)getOutRectangle:(GeoPoint *)center bounded:(GeoPoint *)bounded;
@@ -39,4 +39,5 @@ typedef struct {
 +(BOOL)isPointInCircle:(GeoPoint *)point center:(GeoPoint *)center radius:(double)radius;
 +(BOOL)isPointInRectangular:(GeoPoint *)point nw:(GeoPoint *)nwPoint se:(GeoPoint *)sePoint;
 +(BOOL)isPointInShape:(GeoPoint *)point shape:(NSArray *)shape;
+
 @end

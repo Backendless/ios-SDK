@@ -23,7 +23,9 @@
 #import "DEBUG.h"
 
 @interface PublishOptions()
+
 @property (strong, nonatomic) NSMutableDictionary *headers;
+
 @end
 
 @implementation PublishOptions
@@ -45,17 +47,9 @@
 	[super dealloc];
 }
 
-
-#pragma mark -
-#pragma mark Private Methods
-
 -(void)defaultHeaders {
     self.headers = [NSMutableDictionary dictionaryWithDictionary:@{@"ios-content-available":@"1"}];
 }
-
-
-#pragma mark -
-#pragma mark Public Methods
 
 -(BOOL)addHeader:(NSString *)key value:(NSString *)value {
     if (!key || !value) {

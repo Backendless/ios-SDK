@@ -21,10 +21,9 @@
 
 #import <Foundation/Foundation.h>
 #import "AbstractQuery.h"
+@class QueryOptions;
 
 #define BACKENDLESS_DATA_QUERY [BackendlessDataQuery query]
-
-@class QueryOptions;
 
 @interface BackendlessDataQuery : NSObject <NSCopying> {
     int offset;

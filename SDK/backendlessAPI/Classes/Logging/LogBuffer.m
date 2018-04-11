@@ -25,22 +25,22 @@
 
 #define FAULT_WRONG_POLICY [Fault fault:@"Invalid or missing fields for Policy" detail:@"Invalid or missing fields for Policy" faultCode:@"21000"]
 
-// SERVICE NAME
 static NSString *SERVER_LOG_SERVICE_PATH = @"com.backendless.services.logging.LogService";
-// METHOD NAMES
 static NSString *METHOD_LOG = @"log";
 static NSString *METHOD_BATCHLOG = @"batchLog";
 
 @interface LogMessage : NSObject
+
 @property (strong, nonatomic) NSString *logger;
 @property (strong, nonatomic) NSString *level;
 @property (strong, nonatomic) NSDate *timestamp;
 @property (strong, nonatomic) NSString *message;
 @property (strong, nonatomic) NSString *exception;
-+(LogMessage *)logMessage:(NSString *)logger level:(NSString *)level time:(NSDate *)timestamp message:(NSString *)message exception:(NSString *)exception;
+
 @end
 
 @implementation LogMessage
+
 +(LogMessage *)logMessage:(NSString *)logger level:(NSString *)level time:(NSDate *)timestamp message:(NSString *)message exception:(NSString *)exception {
     LogMessage *instance = [LogMessage new];
     instance.logger = logger;
@@ -50,6 +50,7 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
     instance.exception = exception;
     return instance;
 }
+
 @end
 
 @interface LogBuffer () {
@@ -61,23 +62,21 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
 
 @implementation LogBuffer
 
-// Singleton accessor:  this is how you should ALWAYS get a reference to the class instance.  Never init your own.
-+(LogBuffer *)sharedInstance {
++(instancetype)sharedInstance {
     static LogBuffer *sharedLogBuffer;
-    @synchronized(self)
-    {
+    @synchronized(self) {
         if (!sharedLogBuffer)
             sharedLogBuffer = [LogBuffer new];
     }
     return sharedLogBuffer;
 }
 
--(id)init {
+-(instancetype)init {
     if (self = [super init]) {
         self.responder = [Responder responder:self selResponseHandler:@selector(getResponse:) selErrorHandler:@selector(getError:)];
         _logMessages = [NSMutableArray new];
         _numOfMessages = 100;
-        _timeFrequency = 60*5; // 5 minutes
+        _timeFrequency = 60 * 5; // 5 minutes
         [self flushMessages];
     }
     return self;
@@ -90,9 +89,6 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
     [_responder release];
     [super dealloc];
 }
-
-#pragma mark -
-#pragma mark Public Methods
 
 -(id)setLogReportingPolicy:(int)messagesNum time:(int)timeFrequencySec {
     if (messagesNum <= 0 && timeFrequencySec <= 0)
@@ -126,9 +122,6 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
     });
 }
 
-#pragma mark -
-#pragma mark Private Methods
-
 -(void)reportSingleLogMessage:(NSString *)logger level:(NSString *)level message:(NSString *)message exception:(NSString *)exception {
     if (!logger || !level || !message)
         return;
@@ -161,9 +154,6 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
         [self flushMessages];
     });
 }
-
-#pragma mark -
-#pragma mark Callback Methods
 
 -(id)getResponse:(id)response {
     [DebLog log:@"LogBuffer -> getResponse: %@", response];

@@ -24,7 +24,9 @@
 #import "LogBuffer.h"
 
 @interface Logger ()
+
 @property (strong, nonatomic) NSString *name;
+
 @end
 
 @implementation Logger
@@ -42,15 +44,11 @@
     [super dealloc];
 }
 
-+(id)logger:(NSString *)loggerName {
++(instancetype)logger:(NSString *)loggerName {
     Logger *logger = [Logger new];
     logger.name = loggerName;
     return logger;
 }
-
-
-#pragma mark -
-#pragma mark Public Methods
 
 -(void)debug:(NSString *)message {
     [[LogBuffer sharedInstance] enqueue:_name level:@"DEBUG" message:message exception:nil];

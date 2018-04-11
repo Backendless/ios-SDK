@@ -22,5 +22,4 @@
 #import "ClassCastException.h"
 
 @implementation ClassCastException
-
 @end

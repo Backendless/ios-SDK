@@ -19,9 +19,8 @@
  *  ********************************************************************************************************************
  */
 
-#include <mach/mach.h>
-#include <sys/sysctl.h>
-
+#import <mach/mach.h>
+#import <sys/sysctl.h>
 #import "Backendless.h"
 #import "Invoker.h"
 #import "BackendlessCache.h"
@@ -29,23 +28,17 @@
 #define MISSING_SERVER_URL @"Missing server URL. You should set hostURL property"
 #define MISSING_APP_ID @"Missing application ID argument. Login to Backendless Console, select your app and get the ID and key from the Manage > App Settings screen. Copy/paste the values into the [backendless initApp:APIKey:]"
 #define MISSING_API_KEY @"Missing API key argument. Login to Backendless Console, select your app and get the ID and key from the Manage > App Settings screen. Copy/paste the values into the [backendless initApp:APIKey:]"
+#define _RANDOM_MAX_LENGTH 4000
 
-// backendless default url
 static NSString *BACKENDLESS_HOST_URL = @"https://api.backendless.com";
-
 static NSString *APP_TYPE = @"IOS";
 static NSString *APP_ID_HEADER_KEY = @"application-id";
 static NSString *API_KEY_HEADER_KEY = @"API-key";
 
 @implementation Backendless
 
-@synthesize hostURL = _hostURL, appID = _appID, apiKey = _apiKey;
-@synthesize userService = _userService, persistenceService = _persistenceService, messagingService = _messagingService;
-@synthesize geoService = _geoService, fileService = _fileService;
-@synthesize customService = _customService, events = _events, cache = _cache, counters = _counters, logging = _logging;
-@synthesize data = _data, geo = _geo, messaging = _messaging, file = _file, rt = _rt;
+@synthesize hostURL = _hostURL, appID = _appID, apiKey = _apiKey, userService = _userService, persistenceService = _persistenceService, messagingService = _messagingService, geoService = _geoService, fileService = _fileService, customService = _customService, events = _events, cache = _cache, counters = _counters, logging = _logging, data = _data, geo = _geo, messaging = _messaging, file = _file, rt = _rt;
 
-// Singleton accessor:  this is how you should ALWAYS get a reference to the class instance.  Never init your own.
 +(Backendless *)sharedInstance {
     static Backendless *sharedBackendless;
     @synchronized(self) {
@@ -56,7 +49,7 @@ static NSString *API_KEY_HEADER_KEY = @"API-key";
 }
 
 -(id)init {
-    if (self=[super init]) {
+    if (self = [super init]) {
         _hostURL = [BACKENDLESS_HOST_URL retain];
         _appID = nil;
         _apiKey = nil;
@@ -71,7 +64,6 @@ static NSString *API_KEY_HEADER_KEY = @"API-key";
     [_headers removeAllObjects];
     [_headers release];
     [_appConf release];
-    // services
     [_userService release];
     [_persistenceService release];
     [_geoService release];
@@ -85,8 +77,6 @@ static NSString *API_KEY_HEADER_KEY = @"API-key";
     [_rt release];
     [super dealloc];
 }
-
-#pragma mark - service getters
 
 -(UserService *)userService {
     if (!_userService) {
@@ -246,18 +236,7 @@ static NSString *API_KEY_HEADER_KEY = @"API-key";
     [invoker setup];
 }
 
-#pragma mark -
-#pragma mark Public Methods
-
-/**
- * Initializes the Backendless class and all Backendless dependencies.
- * This is the first step in using the client API.
- *
- @param applicationId a Backendless application ID, which could be retrieved at the Backendless console
- @param apiKey a Backendless application API key, which could be retrieved at the Backendless console
- */
 -(void)initApp:(NSString *)applicationId APIKey:(NSString *)apiKey {
-    // get swift class prefix from caller class (usually AppDelegate)
     [__types makeSwiftClassPrefix:[NSThread callStackSymbols][1]];
     [_appID release];
     _appID = [applicationId retain];
@@ -310,14 +289,12 @@ static NSString *API_KEY_HEADER_KEY = @"API-key";
     return [(NSString *)string autorelease];
 }
 
-#define _RANDOM_MAX_LENGTH 4000
-
 // Generates a random string of up to 4000 characters in length. Generates a random length up to 4000 if numCharacters is set to 0
 -(NSString *)randomString:(int)numCharacters {
     static char const possibleChars[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     int len = (numCharacters > _RANDOM_MAX_LENGTH || numCharacters == 0)? (int)rand() % (_RANDOM_MAX_LENGTH) : numCharacters;
     unichar characters[len];
-    for(int i = 0; i < len; ++i) {
+    for (int i = 0; i < len; ++i) {
         characters[i] = possibleChars[arc4random_uniform(sizeof(possibleChars)-1)];
     }
     return [NSString stringWithCharacters:characters length:len] ;
@@ -326,8 +303,6 @@ static NSString *API_KEY_HEADER_KEY = @"API-key";
 -(NSString *)applicationType {
     return APP_TYPE;
 }
-
-#pragma mark - cache
 
 -(void)clearAllCache {
     [backendlessCache clearAllCache];
@@ -378,7 +353,6 @@ static NSString *API_KEY_HEADER_KEY = @"API-key";
     long numberOfRunningProcesses = 0;
     struct kinfo_proc* BSDProcessInformationStructure = NULL;
     size_t sizeOfBufferRequired = 0;
-    
     /* Here we have a loop set up where we keep calling sysctl until we finally get an unrecoverable error
      * (and we return) or we finally get a succesful result.  Note with how dynamic the process list can
      * be you can expect to have a failure here and there since the process list can change between
@@ -386,7 +360,6 @@ static NSString *API_KEY_HEADER_KEY = @"API-key";
      */
     BOOL successfullyGotProcessInformation = NO;
     int error = 0;
-    
     while (successfullyGotProcessInformation == NO) {
         /* Now that we have the MIB for looking up process information we will pass it to sysctl to get the
          * information we want on BSD processes.  However, before we do this we must know the size of the buffer to
@@ -415,14 +388,12 @@ static NSString *API_KEY_HEADER_KEY = @"API-key";
         error = sysctl(mib, 3, NULL, &sizeOfBufferRequired, NULL, 0);
         if (error)
             return NO;
-        
         /* Now we successful obtained the size of the buffer required for the sysctl call.  This is stored in the
          * SizeOfBufferRequired variable.  We will malloc a buffer of that size to hold the sysctl result.
          */
         BSDProcessInformationStructure = (struct kinfo_proc*) malloc(sizeOfBufferRequired);
         if (BSDProcessInformationStructure == NULL)
             return NO;
-        
         /* Now we have the buffer of the correct size to hold the result we can now call sysctl
          * and get the process information.
          *
@@ -458,8 +429,6 @@ static NSString *API_KEY_HEADER_KEY = @"API-key";
             free(BSDProcessInformationStructure);
         }
     } //end while loop
-    
-    
     /* Now that we have the BSD structure describing the running processes we will parse it for the desired
      * process name.  First we will the number of running processes.  We can determine
      * the number of processes running because there is a kinfo_proc structure for each process.
@@ -489,7 +458,6 @@ static NSString *API_KEY_HEADER_KEY = @"API-key";
     static BOOL sIs64bitHardware = NO;
     if(!sHardwareChecked) {
         sHardwareChecked = YES;
-        
 #if TARGET_IPHONE_SIMULATOR
         // The app was compiled as 32-bit for the iOS Simulator.
         // We check if the Simulator is a 32-bit or 64-bit simulator using the function is64bitSimulator()

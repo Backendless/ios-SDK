@@ -24,17 +24,14 @@
 @implementation BackendlessCachePolicy
 
 -(id)init {
-    
-    self = [super init];
-    if (self) {
+    if (self = [super init]) {
         _timeToLive = [[NSNumber alloc] initWithInt:-1];
         _cachePolicy = [[NSNumber alloc] initWithInt:BackendlessCachePolicyIgnoreCache];
     }
     return self;
 }
 
--(void)dealloc
-{
+-(void)dealloc {
     [_timeToLive release];
     [_cachePolicy release];
     [super dealloc];
@@ -56,11 +53,7 @@
     self.timeToLive = @(timeToLive);
 }
 
-#pragma mark -
-#pragma mark NSCopying Methods
-
 -(id)copyWithZone:(NSZone *)zone {
-    
     BackendlessCachePolicy *instance = [BackendlessCachePolicy new];
     instance.timeToLive = _timeToLive.copy;
     instance.cachePolicy = _cachePolicy.copy;

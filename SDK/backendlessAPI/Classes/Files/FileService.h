@@ -21,7 +21,6 @@
 
 #import <Foundation/Foundation.h>
 #import "FilePermission.h"
-
 @class BackendlessFile, Fault, NSArray, BEFileInfo;
 
 @interface FileService : NSObject

@@ -23,11 +23,10 @@
 
 @interface BodyParts : NSObject
 
-@property (nonatomic, strong) NSString *textMessage;
-@property (nonatomic, strong) NSString *htmlMessage;
+@property (strong, nonatomic) NSString *textMessage;
+@property (strong, nonatomic) NSString *htmlMessage;
 
 +(id)bodyText:(NSString *)text html:(NSString *)html;
-
 -(BOOL)isBody;
 
 @end

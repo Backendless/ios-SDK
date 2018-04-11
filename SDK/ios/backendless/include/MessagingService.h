@@ -24,9 +24,7 @@
 #import "DeviceRegistration.h"
 #import "RTMessaging.h"
 #import "BodyParts.h"
-
-@class UIUserNotificationCategory;
-@class MessageStatus, PublishOptions, DeliveryOptions, Channel, SharedObject, Message, Fault;
+@class UIUserNotificationCategory, MessageStatus, PublishOptions, DeliveryOptions, Channel, SharedObject, Message, Fault;
 
 @interface MessagingService : NSObject
 @property (strong, nonatomic, readonly) HashMap *subscriptions;

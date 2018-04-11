@@ -21,12 +21,11 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+@class GeoPoint;
 
 typedef enum {
     CIRCLE_FENCE, RECT_FENCE, SHAPE_FENCE
 } FenceType;
-
-@class GeoPoint;
 
 @interface GeoFence : NSObject <NSCopying>
 @property (strong, nonatomic) NSString *objectId;
@@ -38,9 +37,9 @@ typedef enum {
 @property (strong, nonatomic) GeoPoint *sePoint;
 
 +(id)geoFence:(NSString *)geofenceName;
-
 -(long)valOnStayDuration;
 -(void)onStayDuration:(long)onStayDuration;
 -(FenceType)valType;
 -(void)type:(FenceType)type;
+
 @end

@@ -32,4 +32,5 @@
 @property (strong, nonatomic) NSArray<NSString *> *channels;
 
 -(BOOL)addChannel:(NSString *)channel;
+
 @end

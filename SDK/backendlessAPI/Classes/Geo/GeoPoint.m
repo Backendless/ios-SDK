@@ -25,8 +25,7 @@
 @implementation GeoPoint 
 
 -(id)init {
-	
-    if ( (self=[super init]) ) {
+    if (self=[super init]) {
         _objectId = nil;
         _latitude = [[NSNumber alloc] initWithDouble:0.0];
         _longitude = [[NSNumber alloc] initWithDouble:0.0];
@@ -34,13 +33,11 @@
         _categories = [NSMutableArray new];
         _metadata = [NSMutableDictionary new];
 	}
-	
 	return self;
 }
 
 -(id)initWithPoint:(GEO_POINT)point {
-	
-    if ( (self=[super init]) ) {
+    if (self = [super init]) {
         _objectId = nil;
         _latitude = [[NSNumber alloc] initWithDouble:point.latitude];
         _longitude = [[NSNumber alloc] initWithDouble:point.longitude];
@@ -48,14 +45,11 @@
         _categories = [NSMutableArray new];
         _metadata = [NSMutableDictionary new];
 	}
-	
 	return self;
-    
 }
 
 -(id)initWithPoint:(GEO_POINT)point categories:(NSArray *)categories {
-    
-	if ( (self=[super init]) ) {
+	if (self = [super init]) {
         _objectId = nil;
         _latitude = [[NSNumber alloc] initWithDouble:point.latitude];
         _longitude = [[NSNumber alloc] initWithDouble:point.longitude];
@@ -63,13 +57,11 @@
         _categories = [[NSMutableArray alloc] initWithArray:categories];
         _metadata = [NSMutableDictionary new];
 	}
-	
 	return self;
 }
 
 -(id)initWithPoint:(GEO_POINT)point categories:(NSArray *)categories metadata:(NSDictionary *)metadata {
-    
-	if ( (self=[super init]) ) {
+	if (self = [super init]) {
         _objectId = nil;
         _latitude = [[NSNumber alloc] initWithDouble:point.latitude];
         _longitude = [[NSNumber alloc] initWithDouble:point.longitude];
@@ -77,7 +69,6 @@
         _categories = [[NSMutableArray alloc] initWithArray:categories];
         _metadata = [[NSMutableDictionary alloc] initWithDictionary:metadata];
 	}
-	
 	return self;
 }
 
@@ -98,28 +89,21 @@
 }
 
 -(void)dealloc {
-	
 	[DebLog logN:@"DEALLOC GeoPoint"];
-    
     [_objectId release];
     [_latitude release];
     [_longitude release];
-    
     [_categories release];
     [_metadata release];
 	[_distance release];
 	[super dealloc];
 }
 
-#pragma mark -
-#pragma mark Public Methods
-
 -(double)valLatitude {
     return _latitude.doubleValue;
 }
 
 -(void)latitude:(double)latitude {
-    
     [_latitude release];
     _latitude = [[NSNumber alloc] initWithDouble:latitude];
 }
@@ -129,7 +113,6 @@
 }
 
 -(void)longitude:(double)longitude {
-    
     [_longitude release];
     _longitude = [[NSNumber alloc] initWithDouble:longitude];
 }
@@ -139,7 +122,6 @@
 }
 
 -(void)distance:(double)distance {
-    
     [_distance release];
     _distance = [[NSNumber alloc] initWithDouble:distance];
 }
@@ -149,7 +131,6 @@
 }
 
 -(void)categories:(NSArray *)categories {
-    
     [_categories release];
     _categories = categories? [[NSMutableArray alloc] initWithArray:categories] : [NSMutableArray new];
 }
@@ -159,27 +140,22 @@
 }
 
 -(void)metadata:(NSDictionary *)metadata {
-    
     [_metadata release];
     _metadata = (metadata) ? [[NSMutableDictionary alloc] initWithDictionary:metadata] : [NSMutableDictionary new];
 }
 
 -(BOOL)addCategory:(NSString *)category {
-    
     if (!category) {
         return NO;
     }
-    
     [_categories addObject:category];
     return YES;
 }
 
 -(BOOL)addMetadata:(NSString *)key value:(id)value {
-    
     if (!key || !value) {
         return NO;
     }
-    
     [_metadata setValue:value forKey:key];
     return YES;
 }
@@ -190,9 +166,10 @@
 
 @end
 
-
 @implementation SearchMatchesResult
+
 -(NSString *)description {
     return [NSString stringWithFormat:@"GEOPOINT: %@ MATCHES: %@", _geoPoint, _matches];
 }
+
 @end

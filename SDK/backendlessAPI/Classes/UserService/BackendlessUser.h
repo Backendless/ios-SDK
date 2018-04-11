@@ -36,7 +36,6 @@
 @property (nonatomic, assign, getter = getName, setter = setName:) NSString *name;
 
 -(id)initWithProperties:(NSDictionary<NSString*, id> *)props;
-
 -(BOOL)isUserRegistered;
 -(NSString *)getUserToken;
 -(void)setProperties:(NSDictionary<NSString*, id> *)props;
@@ -48,4 +47,5 @@
 -(void)removeProperty:(NSString *)key;
 -(void)removeProperties:(NSArray<NSString*> *)keys;
 -(void)persistCurrentUser;
+
 @end
