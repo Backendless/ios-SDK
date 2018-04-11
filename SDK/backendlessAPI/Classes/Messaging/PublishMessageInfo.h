@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface PublishMessageInfo : NSObject {
-    
     NSString *message;
     NSString *publisherId;
     NSString *subtopic;
@@ -17,6 +16,7 @@
     NSArray  *pushSinglecast;
     NSMutableDictionary *headers;
 }
+
 @property (strong, nonatomic) NSString *message;
 @property (strong, nonatomic) NSString *publisherId;
 @property (strong, nonatomic) NSString *subtopic;
@@ -26,4 +26,5 @@
 
 -(id)initWithMessage:(NSString *)_message;
 -(void)addHeaders:(NSDictionary *)_headers;
+
 @end
