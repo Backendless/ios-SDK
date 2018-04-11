@@ -73,4 +73,11 @@
     [rtClient removeEventListeners:RECONNECT_ATTEMPT_EVENT];
 }
 
+-(void)removeConnectionListeners {
+    [self removeConnectionListeners];
+    [self removeConnectErrorEventListeners];
+    [self removeDisconnectEventListeners];
+    [self removeReconnectAttemptEventListeners];
+}
+
 @end

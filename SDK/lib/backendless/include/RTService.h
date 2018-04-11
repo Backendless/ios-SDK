@@ -40,4 +40,6 @@
 -(void)removeReconnectAttemptEventListeners:(void(^)(ReconnectAttemptObject *))onReconnectAttempt;
 -(void)removeReconnectAttemptEventListeners;
 
+-(void)removeConnectionListeners;
+
 @end
