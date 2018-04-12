@@ -28,9 +28,9 @@
 
 @interface BackendlessCache : NSObject
 
-@property (nonatomic, strong) BackendlessCachePolicy *cachePolicy;
-@property (nonatomic, strong, readonly) NSNumber *storedType;
-@property (nonatomic, strong, readonly) NSMutableDictionary *cacheData;
+@property (strong, nonatomic) BackendlessCachePolicy *cachePolicy;
+@property (strong, nonatomic, readonly) NSNumber *storedType;
+@property (strong, nonatomic, readonly) NSMutableDictionary *cacheData;
 
 +(BackendlessCache *)sharedInstance;
 

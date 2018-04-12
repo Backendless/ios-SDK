@@ -87,8 +87,8 @@
     return [backendless.counters compareAndSet:_name expected:expected updated:updated];
 }
 
--(id)reset {
-    return [backendless.counters reset:_name];
+-(void)reset {
+    [backendless.counters reset:_name];
 }
 
 // async methods with block-based callback
@@ -125,7 +125,7 @@
     [backendless.counters compareAndSet:_name expected:expected updated:updated response:responseBlock error:errorBlock];
 }
 
--(void)reset:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)reset:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.counters reset:_name response:responseBlock error:errorBlock];
 }
 

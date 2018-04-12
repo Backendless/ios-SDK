@@ -31,6 +31,7 @@
 #import "AMFSerializer.h"
 #import "AuthorizationException.h"
 #import "BackendlessUserAdapter.h"
+#import "VoidResponseWrapper.h"
 
 #define FAULT_NO_USER_CREDENTIALS [Fault fault:@"Login or password is missing or null" detail:@"Login or password is missing or null" faultCode:@"3006"]
 #define FAULT_NO_USER [Fault fault:@"User is missing or null" detail:@"User is missing or null" faultCode:@"3900"]
@@ -180,7 +181,6 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
         [self onLogoutError:result];
         [backendless throwFault:result];
     }
-    return;
 }
 
 -(NSNumber *)isValidUserToken {
@@ -208,7 +208,6 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     if ([result isKindOfClass:[Fault class]]) {
         [backendless throwFault:result];
     }
-    return;
 }
 
 -(NSArray<UserProperty*> *)describeUserClass {
@@ -320,10 +319,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 }
 
 -(void)logout:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock {
-    void(^wrappedBlock)(id) = ^(id result) {
-        responseBlock();
-    };
-    id <IResponder>responder = [ResponderBlocksContext responderBlocksContext:wrappedBlock error:errorBlock];
+    id <IResponder>responder = [ResponderBlocksContext responderBlocksContext:[voidResponseWrapper wrapResponseBlock:responseBlock] error:errorBlock];
     Responder *_responder = [Responder responder:responder selResponseHandler:@selector(onLogout:) selErrorHandler:@selector(onLogoutError:)];
     _responder.chained = responder;
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_LOGOUT args:@[] responder:_responder];
@@ -343,10 +339,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 }
 
 -(void)restorePassword:(NSString *)login response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock {
-    void(^wrappedBlock)(id) = ^(id result) {
-        responseBlock();
-    };
-    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:wrappedBlock error:errorBlock];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:[voidResponseWrapper wrapResponseBlock:responseBlock] error:errorBlock];
     if (!login||!login.length)
         return [responder errorHandler:FAULT_NO_USER_CREDENTIALS];
     NSArray *args = [NSArray arrayWithObjects:login, nil];
@@ -395,10 +388,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 }
 
 -(void)resendEmailConfirmation:(NSString *)email response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock {
-    void(^wrappedBlock)(id) = ^(id result) {
-        responseBlock();
-    };
-    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:wrappedBlock error:errorBlock];
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:[voidResponseWrapper wrapResponseBlock:responseBlock] error:errorBlock];
     if (!email||!email.length)
         [responder errorHandler:FAULT_NO_USER_EMAIL];
     NSArray *args = @[email];

@@ -1536,6 +1536,16 @@
 		5E2B5677206BD5BF0090F3BD /* CustomServiceAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E2B566F206BD5BF0090F3BD /* CustomServiceAdapter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5E2B5678206BD5BF0090F3BD /* CustomServiceAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E2B566F206BD5BF0090F3BD /* CustomServiceAdapter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5E2B5679206BD5BF0090F3BD /* CustomServiceAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E2B566F206BD5BF0090F3BD /* CustomServiceAdapter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5E3EB796207F9A4D00C5C09D /* VoidResponseWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E3EB794207F9A4D00C5C09D /* VoidResponseWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E3EB797207F9A4D00C5C09D /* VoidResponseWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E3EB794207F9A4D00C5C09D /* VoidResponseWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E3EB798207F9A4D00C5C09D /* VoidResponseWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E3EB794207F9A4D00C5C09D /* VoidResponseWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E3EB799207F9A4D00C5C09D /* VoidResponseWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E3EB794207F9A4D00C5C09D /* VoidResponseWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E3EB79A207F9A4D00C5C09D /* VoidResponseWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E3EB794207F9A4D00C5C09D /* VoidResponseWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E3EB79B207F9A4D00C5C09D /* VoidResponseWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E3EB795207F9A4D00C5C09D /* VoidResponseWrapper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5E3EB79C207F9A4D00C5C09D /* VoidResponseWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E3EB795207F9A4D00C5C09D /* VoidResponseWrapper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5E3EB79D207F9A4D00C5C09D /* VoidResponseWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E3EB795207F9A4D00C5C09D /* VoidResponseWrapper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5E3EB79E207F9A4D00C5C09D /* VoidResponseWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E3EB795207F9A4D00C5C09D /* VoidResponseWrapper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5E3EB79F207F9A4D00C5C09D /* VoidResponseWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E3EB795207F9A4D00C5C09D /* VoidResponseWrapper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5EEF294F202DA40C00449F43 /* DeviceRegistrationAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5EEF294D202DA40C00449F43 /* DeviceRegistrationAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5EEF2950202DA40C00449F43 /* DeviceRegistrationAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5EEF294D202DA40C00449F43 /* DeviceRegistrationAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5EEF2951202DA40C00449F43 /* DeviceRegistrationAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5EEF294D202DA40C00449F43 /* DeviceRegistrationAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2455,6 +2465,8 @@
 		5AFFBF7B1EB211EC0099A72F /* MessagingService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagingService.m; sourceTree = "<group>"; };
 		5E2B566E206BD5BF0090F3BD /* CustomServiceAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomServiceAdapter.h; sourceTree = "<group>"; };
 		5E2B566F206BD5BF0090F3BD /* CustomServiceAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomServiceAdapter.m; sourceTree = "<group>"; };
+		5E3EB794207F9A4D00C5C09D /* VoidResponseWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VoidResponseWrapper.h; sourceTree = "<group>"; };
+		5E3EB795207F9A4D00C5C09D /* VoidResponseWrapper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VoidResponseWrapper.m; sourceTree = "<group>"; };
 		5EEF294D202DA40C00449F43 /* DeviceRegistrationAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceRegistrationAdapter.h; sourceTree = "<group>"; };
 		5EEF294E202DA40C00449F43 /* DeviceRegistrationAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceRegistrationAdapter.m; sourceTree = "<group>"; };
 		84B027E41DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadRelationsQueryBuilder.h; sourceTree = "<group>"; };
@@ -3174,6 +3186,15 @@
 			path = PersistenceAdapter;
 			sourceTree = "<group>";
 		};
+		5E3EB793207F9A3000C5C09D /* Wrapper */ = {
+			isa = PBXGroup;
+			children = (
+				5E3EB794207F9A4D00C5C09D /* VoidResponseWrapper.h */,
+				5E3EB795207F9A4D00C5C09D /* VoidResponseWrapper.m */,
+			);
+			path = Wrapper;
+			sourceTree = "<group>";
+		};
 		91223DC7195AF68900F72F48 /* Events */ = {
 			isa = PBXGroup;
 			children = (
@@ -3424,6 +3445,7 @@
 		F91B47E715FF448F00012DFC /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				5E3EB793207F9A3000C5C09D /* Wrapper */,
 				F91B47E815FF448F00012DFC /* Common */,
 			);
 			path = Util;
@@ -3595,6 +3617,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E3EB796207F9A4D00C5C09D /* VoidResponseWrapper.h in Headers */,
 				5AC55C2C2057DFB0006A8951 /* BackendlessUserAdapter.h in Headers */,
 				5E2B5670206BD5BF0090F3BD /* CustomServiceAdapter.h in Headers */,
 				5AC55C202057DF00006A8951 /* AdapterFactory.h in Headers */,
@@ -3836,6 +3859,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E3EB797207F9A4D00C5C09D /* VoidResponseWrapper.h in Headers */,
 				5AC55C2D2057DFB0006A8951 /* BackendlessUserAdapter.h in Headers */,
 				5E2B5671206BD5BF0090F3BD /* CustomServiceAdapter.h in Headers */,
 				5AC55C212057DF00006A8951 /* AdapterFactory.h in Headers */,
@@ -4079,6 +4103,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E3EB798207F9A4D00C5C09D /* VoidResponseWrapper.h in Headers */,
 				5AC55C2E2057DFB0006A8951 /* BackendlessUserAdapter.h in Headers */,
 				5E2B5672206BD5BF0090F3BD /* CustomServiceAdapter.h in Headers */,
 				5AC55C222057DF00006A8951 /* AdapterFactory.h in Headers */,
@@ -4322,6 +4347,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E3EB799207F9A4D00C5C09D /* VoidResponseWrapper.h in Headers */,
 				5AC55C2F2057DFB0006A8951 /* BackendlessUserAdapter.h in Headers */,
 				5E2B5673206BD5BF0090F3BD /* CustomServiceAdapter.h in Headers */,
 				5AC55C232057DF00006A8951 /* AdapterFactory.h in Headers */,
@@ -4565,6 +4591,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E3EB79A207F9A4D00C5C09D /* VoidResponseWrapper.h in Headers */,
 				5AC55C302057DFB0006A8951 /* BackendlessUserAdapter.h in Headers */,
 				5E2B5674206BD5BF0090F3BD /* CustomServiceAdapter.h in Headers */,
 				5AC55C242057DF00006A8951 /* AdapterFactory.h in Headers */,
@@ -5062,6 +5089,7 @@
 				F9CB13911BC53D2300F3CA1D /* BeaconTracker.m in Sources */,
 				0F9ACA111E798C5D0087869F /* AnonymousObjectReader.m in Sources */,
 				0F9ACA251E798C5D0087869F /* ArrayType.m in Sources */,
+				5E3EB79B207F9A4D00C5C09D /* VoidResponseWrapper.m in Sources */,
 				0F9ACCAA1E798C5F0087869F /* BoundPropertyBagWriter.m in Sources */,
 				0F9ACB881E798C5E0087869F /* CrowdNode.m in Sources */,
 				1C7BB4961A2E092900D3C2C1 /* BackendlessUser.m in Sources */,
@@ -5404,6 +5432,7 @@
 				91F139A117D7240A00D1AC4C /* BackendlessCacheData.m in Sources */,
 				91F139A617D7240A00D1AC4C /* BackendlessCacheKey.m in Sources */,
 				5EEF2955202DA40C00449F43 /* DeviceRegistrationAdapter.m in Sources */,
+				5E3EB79C207F9A4D00C5C09D /* VoidResponseWrapper.m in Sources */,
 				91F139AB17D7240A00D1AC4C /* BackendlessCachePolicy.m in Sources */,
 				0F9ACB391E798C5E0087869F /* V3DateReader.m in Sources */,
 				0F9ACA851E798C5D0087869F /* LongUTFStringReader.m in Sources */,
@@ -5602,6 +5631,7 @@
 				91F139A217D7240A00D1AC4C /* BackendlessCacheData.m in Sources */,
 				91F139A717D7240A00D1AC4C /* BackendlessCacheKey.m in Sources */,
 				5EEF2956202DA40C00449F43 /* DeviceRegistrationAdapter.m in Sources */,
+				5E3EB79D207F9A4D00C5C09D /* VoidResponseWrapper.m in Sources */,
 				91F139AC17D7240A00D1AC4C /* BackendlessCachePolicy.m in Sources */,
 				0F9ACB3A1E798C5E0087869F /* V3DateReader.m in Sources */,
 				0F9ACA861E798C5D0087869F /* LongUTFStringReader.m in Sources */,
@@ -5800,6 +5830,7 @@
 				5A633F471F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */,
 				F9F0AEC71CDBCA3900035C62 /* BackendlessCacheData.m in Sources */,
 				F9F0AEC81CDBCA3900035C62 /* BackendlessCacheKey.m in Sources */,
+				5E3EB79E207F9A4D00C5C09D /* VoidResponseWrapper.m in Sources */,
 				5EEF2957202DA40C00449F43 /* DeviceRegistrationAdapter.m in Sources */,
 				0F9ACC851E798C5F0087869F /* ArrayReferenceWriter.m in Sources */,
 				0F9ACC7B1E798C5F0087869F /* AMFMessageWriter.m in Sources */,
@@ -5998,6 +6029,7 @@
 				F9F0AF811CDBCAB500035C62 /* BackendlessCacheData.m in Sources */,
 				F9F0AF821CDBCAB500035C62 /* BackendlessCacheKey.m in Sources */,
 				5EEF2958202DA40C00449F43 /* DeviceRegistrationAdapter.m in Sources */,
+				5E3EB79F207F9A4D00C5C09D /* VoidResponseWrapper.m in Sources */,
 				0F9ACC861E798C5F0087869F /* ArrayReferenceWriter.m in Sources */,
 				0F9ACC7C1E798C5F0087869F /* AMFMessageWriter.m in Sources */,
 				F9F0AF831CDBCAB500035C62 /* BackendlessCachePolicy.m in Sources */,
