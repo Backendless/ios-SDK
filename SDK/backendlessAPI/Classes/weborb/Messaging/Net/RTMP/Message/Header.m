@@ -13,7 +13,7 @@
 @synthesize channelId, size, dataType, streamId, timerBase, timerDelta, timerExt;
 
 -(id)init {	
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		channelId = 0;
 		size = 0;
 		dataType = 0;
@@ -31,7 +31,7 @@
     if (!header)
         return [self init];
     
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		channelId = header.channelId;
 		size = header.size;
 		dataType = header.dataType;

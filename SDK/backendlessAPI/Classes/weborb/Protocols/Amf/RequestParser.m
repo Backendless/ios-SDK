@@ -86,7 +86,7 @@
     NSMutableArray *headers = [NSMutableArray array];
     for (int i = 0; i < totalHeaders; i++) {
         MHeader *header = [RequestParser readHeader:reader];
-        if(!header) {
+        if (!header) {
             [DebLog logY:@"RequestParser -> readMessage: ERROR: break HEADERS"];
             return nil;
         }

@@ -218,7 +218,7 @@
     if (chunk.size<packetSize){
         [DebLog logY:@"RTMProtocol -> removeFirstChunk: chunk size is less than packet size"];
     }
-    if(chunk.size == packetSize) {
+    if (chunk.size == packetSize) {
         [inputChunks removeObjectAtIndex:0];
         return;
     }

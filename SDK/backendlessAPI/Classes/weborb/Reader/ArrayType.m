@@ -16,7 +16,7 @@
 
 -(id)initWithArray:(NSArray *)data
 {	
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		arrayObject = data;
 	}
 	

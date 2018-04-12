@@ -138,7 +138,7 @@
 @synthesize looseProps, className, externalizable, props;
 
 -(id)init {
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
         looseProps = NO;
         className = nil;
         externalizable = NO;

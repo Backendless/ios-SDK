@@ -203,12 +203,12 @@ static NSString *METHOD_COUNT = @"count";
     }
 }
 
--(id)removePoint:(GeoPoint *)geoPoint {
+-(void)removePoint:(GeoPoint *)geoPoint {
     id fault = nil;
     if ((fault = [self isFaultGeoPoint:geoPoint responder:nil]) || (fault = [self isFaultGeoPointId:geoPoint.objectId responder:nil]))
-        return fault;
+        [backendless throwFault:fault];
     NSArray *args = @[geoPoint.objectId];
-    return [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_DELETE_GEOPOINT args:args];
+    [invoker invokeSync:SERVER_GEO_SERVICE_PATH method:METHOD_DELETE_GEOPOINT args:args];
 }
 
 -(GeoPoint *)loadMetadata:(GeoPoint *)geoPoint {
@@ -359,8 +359,11 @@ static NSString *METHOD_COUNT = @"count";
     [invoker invokeAsync:SERVER_GEO_SERVICE_PATH method:METHOD_GET_POINTS_WITH_MATCHES args:args responder:_responder];
 }
 
--(void)removePoint:(GeoPoint *)geoPoint response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+-(void)removePoint:(GeoPoint *)geoPoint response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock {
+    void(^wrappedBlock)(id) = ^(id result) {
+        responseBlock();
+    };
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:wrappedBlock error:errorBlock];
     if ([self isFaultGeoPoint:geoPoint responder:responder] || [self isFaultGeoPointId:geoPoint.objectId responder:responder])
         return;
     NSArray *args = [NSArray arrayWithObjects:geoPoint.objectId, nil];

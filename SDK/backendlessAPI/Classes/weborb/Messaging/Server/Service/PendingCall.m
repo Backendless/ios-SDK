@@ -13,7 +13,7 @@
 @implementation PendingCall
 
 -(id)init {	
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		_result = nil;
 		callbacks = [[NSMutableArray alloc] init];
 	}
@@ -22,7 +22,7 @@
 }
 
 -(id)initWithMethod:(NSString *)method {	
-	if( (self=[super initWithMethod:method]) ) {
+	if ( (self=[super initWithMethod:method]) ) {
 		_result = nil;
 		callbacks = [[NSMutableArray alloc] init];
 	}
@@ -31,7 +31,7 @@
 }
 
 -(id)initWithMethod:(NSString *)method andArguments:(NSArray *)args {	
-	if( (self=[super initWithMethod:method andArguments:args]) ) {
+	if ( (self=[super initWithMethod:method andArguments:args]) ) {
 		_result = nil;
 		callbacks = [[NSMutableArray alloc] init];
 	}
@@ -40,7 +40,7 @@
 }
 
 -(id)initWithName:(NSString *)name andMethod:(NSString *)method andArguments:(NSArray *)args {	
-	if( (self=[super initWithName:name andMethod:method andArguments:args]) ) {
+	if ( (self=[super initWithName:name andMethod:method andArguments:args]) ) {
 		_result = nil;
 		callbacks = [[NSMutableArray alloc] init];
 	}

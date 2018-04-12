@@ -422,7 +422,7 @@ static NSString *API_KEY_HEADER_KEY = @"API-key";
     for (int i = 0; i < numberOfRunningProcesses; i++) {
         //Getting name of process we are examining
         const char *name = BSDProcessInformationStructure[i].kp_proc.p_comm;
-        if(strcmp(name, "SimulatorBridge") == 0) {
+        if (strcmp(name, "SimulatorBridge") == 0) {
             int p_flag = BSDProcessInformationStructure[i].kp_proc.p_flag;
             is64bitSimulator = (p_flag & P_LP64) == P_LP64;
             break;
@@ -441,7 +441,7 @@ static NSString *API_KEY_HEADER_KEY = @"API-key";
     // Use some static variables to avoid performing the tasks several times.
     static BOOL sHardwareChecked = NO;
     static BOOL sIs64bitHardware = NO;
-    if(!sHardwareChecked) {
+    if (!sHardwareChecked) {
         sHardwareChecked = YES;        
 #if TARGET_IPHONE_SIMULATOR
         // The app was compiled as 32-bit for the iOS Simulator.
@@ -453,7 +453,7 @@ static NSString *API_KEY_HEADER_KEY = @"API-key";
         struct host_basic_info host_basic_info;
         unsigned int count;
         kern_return_t returnValue = host_info(mach_host_self(), HOST_BASIC_INFO, (host_info_t)(&host_basic_info), &count);
-        if(returnValue != KERN_SUCCESS) {
+        if (returnValue != KERN_SUCCESS) {
             sIs64bitHardware = NO;
         }
         sIs64bitHardware = (host_basic_info.cpu_type == CPU_TYPE_ARM64);

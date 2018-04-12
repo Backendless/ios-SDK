@@ -18,7 +18,7 @@
 @synthesize msgId, msgLength, msgTime, streamId, version, command;
 
 -(id)init {	
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
         [self defaultInit];
 	}
 	
@@ -26,7 +26,7 @@
 }
 
 -(id)initWithStream:(BinaryStream *)stream {	
-	if( (self=[super initWithStream:stream]) ) {
+	if ( (self=[super initWithStream:stream]) ) {
         [self defaultInit];
 	}
 	
@@ -34,7 +34,7 @@
 }
 
 -(id)initWithCall:(id <IServiceCall>)_call {	
-	if( (self=[super initWithCall:_call]) ) {
+	if ( (self=[super initWithCall:_call]) ) {
         [self defaultInit];
 	}
 	

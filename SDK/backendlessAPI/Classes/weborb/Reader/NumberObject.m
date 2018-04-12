@@ -15,7 +15,7 @@
 
 -(id)initWithNumber:(NSNumber *)data
 {	
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		number = data;
 	}
 	

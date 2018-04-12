@@ -21,7 +21,7 @@
 @implementation DateWriter
 
 -(id)init {
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 #if _ON_REFERENCEBLE_TYPE_WRITER_
 		isReferenceable = YES;
 #else
@@ -33,7 +33,7 @@
 }
 
 -(id)initIsReferenceable:(BOOL)value {
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		isReferenceable = value;
 	}
 	

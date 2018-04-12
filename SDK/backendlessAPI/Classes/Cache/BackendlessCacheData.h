@@ -25,10 +25,10 @@ typedef void(^BackendlessCacheDataSaveCompletion)(BOOL done);
 
 @interface BackendlessCacheData : NSObject
 
-@property (nonatomic, strong) id data;
-@property (nonatomic, strong) NSNumber *timeToLive;
-@property (nonatomic, strong) NSNumber *priority;
-@property (nonatomic, strong, readonly) NSString *file;
+@property (strong, nonatomic) id data;
+@property (strong, nonatomic) NSNumber *timeToLive;
+@property (strong, nonatomic) NSNumber *priority;
+@property (strong, nonatomic, readonly) NSString *file;
 
 -(void)increasePriority;
 -(void)decreasePriority;
