@@ -166,7 +166,6 @@
 -(void)onConnectionHandlers:(void(^)(void))connected {
     if (!onConnectionHandlersReady) {
         onConnectionHandlersReady = YES;
-        
         [socket on:@"connect" callback:^(NSArray *data, SocketAckEmitter *ack) {
             socketConnected = YES;
             reconnectAttempt = 1;
@@ -232,7 +231,7 @@
     onConnectionHandlersReady = NO;
     onResultReady = NO;
     onMethodResultReady = NO;    
-    NSArray *connectListeners = [NSArray arrayWithArray:[eventListeners valueForKey:type]];
+    NSArray *connectListeners = [NSArray arrayWithArray:[eventListeners valueForKey:type]];    
     for (int i = 0; i < [connectListeners count]; i++) {
         void(^connectBlock)(NSString *) = [connectListeners objectAtIndex:i];
         connectBlock(reason);
@@ -281,7 +280,6 @@
             if ([resultData valueForKey:@"data"]) {
                 id result = [resultData valueForKey:@"data"];
                 subscription.ready = YES;
-                
                 if (result && [result isKindOfClass:[NSString class]] && [result isEqualToString:@"connected"]) {
                     if (subscription && subscription.onReady) {
                         subscription.onReady();

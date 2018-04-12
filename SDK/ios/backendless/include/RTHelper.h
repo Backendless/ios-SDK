@@ -23,6 +23,6 @@
 
 @interface RTHelper : NSObject
 
-+(NSString *)lookup;
++(id)lookup;
 
 @end

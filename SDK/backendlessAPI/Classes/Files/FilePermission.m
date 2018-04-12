@@ -32,22 +32,25 @@
 #define FILE_PERMISSION_OPERATION @[@"READ", @"WRITE", @"DELETE"]
 
 static NSString *SERVER_FILE_PERMISSIONS_SERVICE_PATH = @"com.backendless.services.file.FileService";
-
 static NSString *METHOD_UPDATE_USER_PERMISSION = @"updateUserPermission";
 static NSString *METHOD_UPDATE_ROLE_PERMISSION = @"updateRolePermissions";
 static NSString *METHOD_UPDATE_ALL_USER_PERMISSION = @"updatePermissionForAllUsers";
 static NSString *METHOD_UPDATE_ALL_ROLE_PERMISSION = @"updateRolePermissionsForAllRoles";
-
 static NSString *_GRANT = @"GRANT";
 static NSString *_DENY = @"DENY";
 
-@interface Permission : NSObject
+// ****************************************
 
+@interface Permission : NSObject
 @property (strong, nonatomic) NSString *folder;
 @property (strong, nonatomic) NSString *access;
 @property (strong, nonatomic) NSString *operation;
-
 @end
+
+@implementation Permission
+@end
+
+// ****************************************
 
 @interface FileUserPermission : Permission
 
@@ -76,6 +79,8 @@ static NSString *_DENY = @"DENY";
 
 @end
 
+// ****************************************
+
 @interface FileRolePermission : Permission
 
 +(id)grant:(NSString *)url operation:(FilePermissionOperation)operation;
@@ -102,6 +107,8 @@ static NSString *_DENY = @"DENY";
 }
 
 @end
+
+// ****************************************
 
 @implementation FilePermission
 
