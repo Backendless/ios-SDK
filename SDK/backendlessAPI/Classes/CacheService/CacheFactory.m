@@ -33,7 +33,7 @@
 @implementation CacheFactory
 
 -(id)init {
-    if ( (self = [super init]) ) {
+    if (self = [super init]) {
         _key = @"DEFAULT_KEY";
         _entityClass = nil;
     }
