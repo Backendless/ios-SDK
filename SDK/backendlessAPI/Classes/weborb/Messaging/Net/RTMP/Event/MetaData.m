@@ -15,7 +15,7 @@
 @synthesize dataSet = _dataSet, eventName = _eventName, metadata = _metadata, object = _object;
 
 -(id)init {
-	if( (self=[super initWithType:STREAM_DATA]) ) {
+	if ( (self=[super initWithType:STREAM_DATA]) ) {
         _dataSet = [[NSString alloc] initWithString:SET_DATA_FRAME];
         _eventName = [[NSString alloc] initWithString:ON_METADATA];
 		_metadata = nil;
@@ -26,7 +26,7 @@
 }
 
 -(id)initWithMetadata:(NSDictionary *)metadata {
-	if( (self=[super initWithType:STREAM_DATA]) ) {
+	if ( (self=[super initWithType:STREAM_DATA]) ) {
         _dataSet = [[NSString alloc] initWithString:SET_DATA_FRAME];
         _eventName = [[NSString alloc] initWithString:ON_METADATA];
 		_metadata = [metadata retain];
@@ -37,7 +37,7 @@
 }
 
 -(id)initWithObject:(id)object {
-	if( (self=[super initWithType:STREAM_DATA]) ) {
+	if ( (self=[super initWithType:STREAM_DATA]) ) {
         _dataSet = [[NSString alloc] initWithString:SET_DATA_FRAME];
         _eventName = [[NSString alloc] initWithString:ON_METADATA];
 		_metadata = nil;

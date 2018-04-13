@@ -15,7 +15,7 @@
 @synthesize call, data, invokeId, connectionParams;
 
 -(id)init {	
-	if( (self=[super initWithType:SERVICE_CALL]) ) {
+	if ( (self=[super initWithType:SERVICE_CALL]) ) {
 		call = nil;
 		data = nil;
 		invokeId = 0;
@@ -26,7 +26,7 @@
 }
 
 -(id)initWithStream:(BinaryStream *)stream {	
-	if( (self=[super initWithType:SERVICE_CALL]) ) {
+	if ( (self=[super initWithType:SERVICE_CALL]) ) {
 		call = nil;
 		data = stream;
 		invokeId = 0;
@@ -37,7 +37,7 @@
 }
 
 -(id)initWithCall:(id <IServiceCall>)_call {	
-	if( (self=[super initWithType:SERVICE_CALL]) ) {
+	if ( (self=[super initWithType:SERVICE_CALL]) ) {
 		call = _call;
 		data = nil;
 		invokeId = 0;

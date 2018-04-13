@@ -33,7 +33,7 @@
 @implementation CacheFactory
 
 -(id)init {
-    if ( (self = [super init]) ) {
+    if (self = [super init]) {
         _key = @"DEFAULT_KEY";
         _entityClass = nil;
     }
@@ -86,16 +86,16 @@
     return [backendless.cache contains:_key];
 }
 
--(id)expireIn:(int)seconds {
-    return [backendless.cache expireIn:_key timeToLive:seconds];
+-(void)expireIn:(int)seconds {
+    [backendless.cache expireIn:_key timeToLive:seconds];
 }
 
--(id)expireAt:(NSDate *)timestamp {
-    return [backendless.cache expireAt:_key timestamp:timestamp];
+-(void)expireAt:(NSDate *)timestamp {
+    [backendless.cache expireAt:_key timestamp:timestamp];
 }
 
--(id)remove {
-    return [backendless.cache remove:_key];
+-(void)remove {
+    [backendless.cache remove:_key];
 }
 
 // async methods with block-based callback
@@ -118,15 +118,15 @@
     [backendless.cache contains:_key response:responseBlock error:errorBlock];
 }
 
--(void)expireIn:(int)seconds response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)expireIn:(int)seconds response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.cache expireIn:_key timeToLive:seconds response:responseBlock error:errorBlock];
 }
 
--(void)expireAt:(NSDate *)timestamp response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)expireAt:(NSDate *)timestamp response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.cache expireAt:_key timestamp:timestamp response:responseBlock error:errorBlock];
 }
 
--(void)remove:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)remove:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.cache remove:_key response:responseBlock error:errorBlock];
 }
 

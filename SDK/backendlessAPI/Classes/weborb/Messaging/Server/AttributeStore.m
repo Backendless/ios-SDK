@@ -13,14 +13,14 @@
 @implementation AttributeStore
 
 -(id)init {	
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		attributes = [[NSMutableDictionary alloc] init];
 	}
 	return self;
 }
 
 -(id)initWithAttributes:(NSDictionary *)values {
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		attributes = [[NSMutableDictionary alloc] init];
 		[self setAttributes:values];
 	}	
@@ -28,7 +28,7 @@
 }
 
 -(id)initWithAttributeStore:(id <IAttributeStore>)values {
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		attributes = [[NSMutableDictionary alloc] init];
 		[self setAttributeStore:values];
 	}	

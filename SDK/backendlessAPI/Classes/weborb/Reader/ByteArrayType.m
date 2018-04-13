@@ -13,7 +13,7 @@
 @implementation ByteArrayType
 
 -(id)initWithData:(NSData *)data {	
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		dataValue = [data retain];
 	}
 	

@@ -40,8 +40,8 @@
 }
 
 -(void)LoadRelationsQueryBuilder:(Class)relationType{
-        _pagedQueryBuilder = [[PagedQueryBuilder alloc] init:self];
-        _relationType = relationType;
+    _pagedQueryBuilder = [[PagedQueryBuilder alloc] init:self];
+    _relationType = relationType;
 }
 
 +(instancetype)ofMap {
@@ -53,11 +53,14 @@
     return [[LoadRelationsQueryBuilder alloc] initWithClass:relationType];
 }
 
+#pragma mark -
+#pragma mark Public Methods
+
 -(BackendlessDataQuery *)build {
     BackendlessDataQuery *dataQuery = [_pagedQueryBuilder build];
     QueryOptions *queryOptions = [QueryOptions new];
     [queryOptions addRelated:_relationName];
-    dataQuery.queryOptions = queryOptions;    
+    dataQuery.queryOptions = queryOptions;
     return dataQuery;
 }
 

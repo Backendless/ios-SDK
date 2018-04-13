@@ -19,7 +19,7 @@
 @implementation AmfV3Formatter
 
 -(id)init {
-    if( (self=[super init]) ) {
+    if ( (self=[super init]) ) {
         writers = [NSMutableDictionary new];
         objectSerializer = [V3ObjectSerializer new];
         referenceCache = [V3ReferenceCache new];

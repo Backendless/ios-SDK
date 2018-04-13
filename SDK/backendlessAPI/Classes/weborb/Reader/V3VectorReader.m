@@ -18,7 +18,7 @@
 @implementation V3VectorReader
 
 -(id)initWithType:(int)type {	
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
         _type = type;
 	}
 	

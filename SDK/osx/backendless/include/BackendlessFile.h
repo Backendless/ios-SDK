@@ -29,6 +29,6 @@
 
 +(id)file:(NSString *)url;
 -(void)remove;
--(void)remove:(void(^)(id))responseBlock error:(void(^)(id))errorBlock;
+-(void)remove:(void(^)(void))responseBlock error:(void(^)(id))errorBlock;
 
 @end

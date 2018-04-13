@@ -15,7 +15,7 @@
 @synthesize timestamp, body, timeToLive, destination, messageId, clientId, headers, correlationId, isError;
 
 -(id)init {	
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
         timestamp = 0;
         body = nil;
         timeToLive = 0;

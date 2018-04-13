@@ -23,6 +23,7 @@
 #import "Backendless.h"
 #import "Invoker.h"
 #import "CacheFactory.h"
+#import "VoidResponseWrapper.h"
 
 #define FAULT_NO_RESULT [Fault fault:@"Result is NULL" detail:@"Result is NULL" faultCode:@"16900"]
 #define FAULT_NO_ENTITY [Fault fault:@"Entity is NULL" detail:@"Entity is NULL" faultCode:@"16901"]
@@ -80,26 +81,35 @@ static NSString *METHOD_DELETE = @"delete";
     return [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_CONTAINS_KEY args:args];
 }
 
--(id)expireIn:(NSString *)key timeToLive:(int)seconds {
+-(void)expireIn:(NSString *)key timeToLive:(int)seconds {
     if (!key)
-        return [backendless throwFault:FAULT_NO_KEY];
+        [backendless throwFault:FAULT_NO_KEY];
     NSNumber *time = [NSNumber numberWithInt:((seconds > 0) && (seconds <= 7200))?seconds:0];
     NSArray *args = @[key, time];
-    return [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_EXPIRE_IN args:args];
+    id result = [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_EXPIRE_IN args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        [backendless throwFault:result];
+    }
 }
 
--(id)expireAt:(NSString *)key timestamp:(NSDate *)timestamp {
+-(void)expireAt:(NSString *)key timestamp:(NSDate *)timestamp {
     if (!key)
-        return [backendless throwFault:FAULT_NO_KEY];
+        [backendless throwFault:FAULT_NO_KEY];
     NSArray *args = @[key, timestamp];
-    return [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_EXPIRE_AT args:args];
+    id result = [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_EXPIRE_AT args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        [backendless throwFault:result];
+    }
 }
 
--(id)remove:(NSString *)key {
+-(void)remove:(NSString *)key {
     if (!key)
-        return [backendless throwFault:FAULT_NO_KEY];
+        [backendless throwFault:FAULT_NO_KEY];
     NSArray *args = @[key];
-    return [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_DELETE args:args];
+    id result = [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_DELETE args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        [backendless throwFault:result];
+    }
 }
 
 // async methods with block-based callbacks
@@ -139,8 +149,8 @@ static NSString *METHOD_DELETE = @"delete";
     [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_CONTAINS_KEY args:args responder:responder];
 }
 
--(void)expireIn:(NSString *)key timeToLive:(int)seconds response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+-(void)expireIn:(NSString *)key timeToLive:(int)seconds response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock {
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:[voidResponseWrapper wrapResponseBlock:responseBlock] error:errorBlock];
     if (!key)
         return [responder errorHandler:FAULT_NO_KEY];
     NSNumber *time = [NSNumber numberWithInt:((seconds > 0) && (seconds <= 7200))?seconds:0];
@@ -148,16 +158,16 @@ static NSString *METHOD_DELETE = @"delete";
     [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_EXPIRE_IN args:args responder:responder];
 }
 
--(void)expireAt:(NSString *)key timestamp:(NSDate *)timestamp response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+-(void)expireAt:(NSString *)key timestamp:(NSDate *)timestamp response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock {
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:[voidResponseWrapper wrapResponseBlock:responseBlock] error:errorBlock];
     if (!key)
         return [responder errorHandler:FAULT_NO_KEY];
     NSArray *args = @[key, timestamp];
     [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_EXPIRE_AT args:args responder:responder];
 }
 
--(void)remove:(NSString *)key response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+-(void)remove:(NSString *)key response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock {
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:[voidResponseWrapper wrapResponseBlock:responseBlock] error:errorBlock];
     if (!key)
         return [responder errorHandler:FAULT_NO_KEY];
     NSArray *args = @[key];

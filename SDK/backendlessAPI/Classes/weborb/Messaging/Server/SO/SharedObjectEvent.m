@@ -13,7 +13,7 @@
 @implementation SharedObjectEvent
 
 -(id)init {	
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		type = UNKNOWN;
 		key = nil;
 		value = nil;
@@ -23,7 +23,7 @@
 }
 
 -(id)initWithType:(SharedObjectEventType)_type withKey:(NSString *)_key andValue:(id)_value {	
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		type = _type;
 		key = _key;
 		value = _value;

@@ -43,6 +43,9 @@
         }
         return [type defaultAdapt];
     }
+    else if ([type isKindOfClass:[Fault class]]) {
+        return type;
+    }
     return [type defaultAdapt];
 }
 

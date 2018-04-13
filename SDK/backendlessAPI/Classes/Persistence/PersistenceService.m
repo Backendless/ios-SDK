@@ -570,7 +570,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     return result;
 }
 
--(NSNumber *)setRelation:(NSString *)parentObject columnName: (NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects {
+-(NSNumber *)setRelation:(NSString *)parentObject columnName: (NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray<NSString *> *)childObjects {
     if (!parentObject) {
         return [backendless throwFault:FAULT_NO_ENTITY];
     }
@@ -594,7 +594,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     return result;
 }
 
--(NSNumber *)addRelation:(NSString *)parentObject columnName: (NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects {
+-(NSNumber *)addRelation:(NSString *)parentObject columnName: (NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray<NSString *> *)childObjects {
     if (!parentObject) {
         return [backendless throwFault:FAULT_NO_ENTITY];
     }
@@ -618,7 +618,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     return result;
 }
 
--(NSNumber *)deleteRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects {
+-(NSNumber *)deleteRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray<NSString *> *)childObjects {
     if (!parentObject) {
         return [backendless throwFault:FAULT_NO_ENTITY];
     }
@@ -661,7 +661,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     return result;
 }
 
--(NSArray *)createBulk:(id)entity objects:(NSArray *)objects {
+-(NSArray<NSString *> *)createBulk:(id)entity objects:(NSArray<NSString *> *)objects {
     if (!entity) {
         [backendless throwFault:FAULT_NO_ENTITY];
     }
@@ -1006,7 +1006,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_COUNT args:args responder:chainedResponder];
 }
 
--(void)setRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)setRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray<NSString *> *)childObjects response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!parentObject) {
         return [chainedResponder errorHandler:FAULT_NO_ENTITY];
@@ -1024,7 +1024,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:CREATE_RELATION args:args responder:chainedResponder];
 }
 
--(void)addRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)addRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray<NSString *> *)childObjects response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!parentObject) {
         return [chainedResponder errorHandler:FAULT_NO_ENTITY];
@@ -1043,7 +1043,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
 }
 
 
--(void)deleteRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)deleteRelation:(NSString *)parentObject columnName:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray<NSString *> *)childObjects response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!parentObject) {
         return [chainedResponder errorHandler:FAULT_NO_ENTITY];
@@ -1077,7 +1077,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:LOAD_RELATION args:args responder:chainedResponder];
 }
 
--(void)createBulk:(id)entity objects:(NSArray *)objects response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)createBulk:(id)entity objects:(NSArray *)objects response:(void(^)(NSArray<NSString *> *))responseBlock error:(void(^)(Fault *))errorBlock {
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!entity) {
         return [chainedResponder errorHandler:FAULT_NO_ENTITY];

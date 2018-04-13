@@ -56,7 +56,7 @@
 @implementation BaseRTMPProtocolDecoder
 
 -(id)init {
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		decoder = nil;
 		input = nil;
 		event = nil;
@@ -66,7 +66,7 @@
 }
 
 -(id)initWithDecoder:(id <IDeserializer>)deserializer {
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		[self setDeserializer:deserializer];
 		event = nil;
 	}

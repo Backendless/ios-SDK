@@ -14,7 +14,7 @@
 @synthesize sender, serviceName, serviceMethodName, arguments, status, exception;
 
 -(id)init {	
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		sender = nil;
 		serviceName = nil;
 		serviceMethodName = nil;
@@ -28,7 +28,7 @@
 }
 
 -(id)initWithMethod:(NSString *)method {	
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		sender = nil;
 		serviceName = nil;
 		serviceMethodName = method;
@@ -42,7 +42,7 @@
 }
 
 -(id)initWithMethod:(NSString *)method andArguments:(NSArray *)args {	
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		sender = nil;
 		serviceName = nil;
 		serviceMethodName = method;
@@ -56,7 +56,7 @@
 }
 
 -(id)initWithName:(NSString *)name andMethod:(NSString *)method andArguments:(NSArray *)args {	
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		sender = nil;
 		serviceName = name;
 		serviceMethodName = method;
