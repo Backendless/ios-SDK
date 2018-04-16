@@ -30,18 +30,18 @@
 -(void)put:(NSString *)key object:(id)entity timeToLive:(int)seconds;
 -(id)get:(NSString *)key;
 -(NSNumber *)contains:(NSString *)key;
--(id)expireIn:(NSString *)key timeToLive:(int)seconds;
--(id)expireAt:(NSString *)key timestamp:(NSDate *)timestamp;
--(id)remove:(NSString *)key;
+-(void)expireIn:(NSString *)key timeToLive:(int)seconds;
+-(void)expireAt:(NSString *)key timestamp:(NSDate *)timestamp;
+-(void)remove:(NSString *)key;
 
 // async methods with block-based callbacks
 -(void)put:(NSString *)key object:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)put:(NSString *)key object:(id)entity timeToLive:(int)seconds response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)get:(NSString *)key response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)contains:(NSString *)key response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)expireIn:(NSString *)key timeToLive:(int)seconds response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)expireAt:(NSString *)key timestamp:(NSDate *)timestamp response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)remove:(NSString *)key response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)expireIn:(NSString *)key timeToLive:(int)seconds response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)expireAt:(NSString *)key timestamp:(NSDate *)timestamp response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)remove:(NSString *)key response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
 
 // ICacheService factory
 -(id <ICacheService>)with:(NSString *)key;

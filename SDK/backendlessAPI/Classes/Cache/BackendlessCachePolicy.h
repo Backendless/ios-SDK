@@ -37,8 +37,8 @@ typedef enum {
 
 @interface BackendlessCachePolicy : NSObject <NSCopying>
 
-@property (nonatomic, strong) NSNumber *timeToLive;
-@property (nonatomic, strong) NSNumber *cachePolicy;
+@property (strong, nonatomic) NSNumber *timeToLive;
+@property (strong, nonatomic) NSNumber *cachePolicy;
 
 -(void)cachePolicy:(BackendlessCachePolicyEnum)cachePolicy;
 -(BackendlessCachePolicyEnum)valCachePolicy;

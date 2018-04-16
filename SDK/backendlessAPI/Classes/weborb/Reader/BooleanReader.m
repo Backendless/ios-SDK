@@ -13,7 +13,7 @@
 @implementation BooleanReader
 
 -(id)init {	
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
         val = NO;
         initialized = NO;
 	}
@@ -22,7 +22,7 @@
 }
 
 -(id)initWithValue:(BOOL)value {	
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
         val = value;
         initialized = YES;
 	}

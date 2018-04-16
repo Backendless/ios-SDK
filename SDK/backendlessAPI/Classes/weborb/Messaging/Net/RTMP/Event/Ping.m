@@ -15,7 +15,7 @@
 @synthesize value2, value3, value4, eventType;
 
 -(id)init {	
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		self.value2 = UNDEFINED;
 		self.value3 = UNDEFINED;
 		self.value4 = UNDEFINED;
@@ -26,7 +26,7 @@
 }
 
 -(id)initWithType:(short)_eventType value2:(int)_value2 {	
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		self.value2 = _value2;
 		self.value3 = UNDEFINED;
 		self.value4 = UNDEFINED;
@@ -37,7 +37,7 @@
 }
 
 -(id)initWithType:(short)_eventType value2:(int)_value2 value3:(int)_value3 {	
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		self.value2 = _value2;
 		self.value3 = _value3;
 		self.value4 = UNDEFINED;
@@ -48,7 +48,7 @@
 }
 
 -(id)initWithType:(short)_eventType value2:(int)_value2  value3:(int)_value3 value4:(int)_value4 {
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		self.value2 = _value2;
 		self.value3 = _value3;
 		self.value4 = _value4;

@@ -13,7 +13,7 @@
 
 -(id)init {
     
-    if ( (self = [super init]) ) {
+    if (self = [super init]) {
         operation = nil;
     }
     
@@ -22,7 +22,7 @@
  
 -(id)initWithOperation:(NSString *)_operation {
     
-    if ( (self = [super init]) ) {
+    if (self = [super init]) {
         operation = [NSString stringWithString:_operation];
     }
     

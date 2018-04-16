@@ -248,7 +248,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     return result;
 }
 
--(NSNumber *)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects {
+-(NSNumber *)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray<NSString *> *)childObjects {
     id result = [backendless.persistenceService setRelation:_tableName columnName:columnName parentObjectId:parentObjectId childObjects:childObjects];
     if ([result isKindOfClass:[Fault class]]) {
         return [backendless throwFault:result];
@@ -264,7 +264,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     return result;
 }
 
--(NSNumber *)addRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects{
+-(NSNumber *)addRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray<NSString *> *)childObjects{
     id result = [backendless.persistenceService addRelation:_tableName columnName:columnName parentObjectId:parentObjectId childObjects:childObjects];
     if ([result isKindOfClass:[Fault class]]) {
         return [backendless throwFault:result];
@@ -280,7 +280,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     return result;
 }
 
--(NSNumber *)deleteRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects{
+-(NSNumber *)deleteRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray<NSString *> *)childObjects{
     id result = [backendless.persistenceService deleteRelation:_tableName columnName:columnName parentObjectId:parentObjectId childObjects:childObjects];
     if ([result isKindOfClass:[Fault class]]) {
         return [backendless throwFault:result];
@@ -304,7 +304,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     return result;
 }
 
--(NSArray *)createBulk:(NSArray *)objects {
+-(NSArray<NSString *> *)createBulk:(NSArray *)objects {
     if (!objects) {
         [backendless throwFault:NULL_BULK];
     }
@@ -425,7 +425,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_COUNT args:args responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)setRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray<NSString *> *)childObjects response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.persistenceService setRelation:(_tableName) columnName:columnName parentObjectId:parentObjectId childObjects:childObjects response:responseBlock error:errorBlock];
 }
 
@@ -433,7 +433,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     [backendless.persistenceService setRelation:(_tableName) columnName:columnName parentObjectId:parentObjectId whereClause:whereClause response:responseBlock error:errorBlock];
 }
 
--(void)addRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)addRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray<NSString *> *)childObjects response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.persistenceService addRelation:(_tableName) columnName:columnName parentObjectId:parentObjectId childObjects:childObjects response:responseBlock error:errorBlock];
 }
 
@@ -441,7 +441,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     [backendless.persistenceService addRelation:(_tableName) columnName:columnName parentObjectId:parentObjectId whereClause:whereClause response:responseBlock error:errorBlock];
 }
 
--(void)deleteRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray *)childObjects response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)deleteRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId childObjects:(NSArray<NSString *> *)childObjects response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.persistenceService deleteRelation:(_tableName) columnName:columnName parentObjectId:parentObjectId childObjects:childObjects response:responseBlock error:errorBlock];
 }
 
@@ -464,7 +464,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     return dictionary;
 }
 
--(void)createBulk:(NSArray *)objects response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)createBulk:(NSArray<NSString *> *)objects response:(void(^)(NSArray<NSString *> *))responseBlock error:(void(^)(Fault *))errorBlock {
     Responder *responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!objects) {
         return [responder errorHandler:NULL_BULK];

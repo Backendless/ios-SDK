@@ -16,7 +16,7 @@
 @synthesize delegate, owner;
 
 -(id)initWithName:(NSString *)_name persistent:(BOOL)_persistent {	
-	if( (self=[super initWithName:_name path:nil persistent:_persistent]) ) {
+	if ( (self=[super initWithName:_name path:nil persistent:_persistent]) ) {
         owner = nil;
         initialSyncReceived = NO;
         persistentSO = persistent;

@@ -15,7 +15,7 @@
 
 -(id)init {	
 	
-    if( (self=[super init] )) {
+    if ( (self=[super init] )) {
         responder = nil;
         selGetMemory = nil;
         inBytes = NO;
@@ -28,7 +28,7 @@
 
 -(id)initWithResponder:(id)_responder andMethod:(SEL)method {	
 	
-    if( (self=[super init] )) {
+    if ( (self=[super init] )) {
         responder = [_responder retain];
         selGetMemory = method;
         inBytes = NO;
@@ -71,7 +71,7 @@
                                    TASK_BASIC_INFO,
                                    (task_info_t)&info,
                                    &size);
-    if( kerr == KERN_SUCCESS ) {
+    if ( kerr == KERN_SUCCESS ) {
         NSLog(@"REPORT MEMORY: App uses %u Kb", (uint)info.resident_size/1024);
     } else {
         NSLog(@"REPORT MEMORY: ERROR = %s", mach_error_string(kerr));

@@ -1,5 +1,5 @@
 //
-//  BackendlessCacheData.h
+//  VoidResponseWrapper.h
 //  backendlessAPI
 /*
  * *********************************************************************************************************************
@@ -8,7 +8,7 @@
  *
  *  ********************************************************************************************************************
  *
- *  Copyright 2014 BACKENDLESS.COM. All Rights Reserved.
+ *  Copyright 2018 BACKENDLESS.COM. All Rights Reserved.
  *
  *  NOTICE: All information contained herein is, and remains the property of Backendless.com and its suppliers,
  *  if any. The intellectual and technical concepts contained herein are proprietary to Backendless.com and its
@@ -21,22 +21,11 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void(^BackendlessCacheDataSaveCompletion)(BOOL done);
+#define voidResponseWrapper [VoidResponseWrapper sharedInstance]
 
-@interface BackendlessCacheData : NSObject
+@interface VoidResponseWrapper : NSObject
 
-@property (strong, nonatomic) id data;
-@property (strong, nonatomic) NSNumber *timeToLive;
-@property (strong, nonatomic) NSNumber *priority;
-@property (strong, nonatomic, readonly) NSString *file;
-
--(void)increasePriority;
--(void)decreasePriority;
--(NSInteger)valPriority;
--(void)saveOnDiscCompletion:(BackendlessCacheDataSaveCompletion)block;
--(id)dataFromDisc;
--(id)initWithCache:(BackendlessCacheData *)cache;
--(void)remove;
--(void)removeFromDisc;
++(instancetype)sharedInstance;
+-(void(^)(id))wrapResponseBlock:(void(^)(void))responseBlock;
 
 @end

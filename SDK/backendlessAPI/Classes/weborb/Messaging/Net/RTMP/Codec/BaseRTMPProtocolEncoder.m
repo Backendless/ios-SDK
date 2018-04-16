@@ -44,7 +44,7 @@
 @implementation BaseRTMPProtocolEncoder
 
 -(id)init {
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		serializer = [WebORBSerializer writer];
 		event = nil;
 	}	

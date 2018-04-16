@@ -15,7 +15,7 @@
 @implementation SharedObjectMessage
 
 -(id)init {	
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		name = nil;
 		events = [[NSMutableArray alloc] init];
 		version = -1;
@@ -26,7 +26,7 @@
 }
 
 -(id)initWithName:(NSString *)_name version:(int)_version persistent:(BOOL)_persistent {	
-	if( (self=[super initWithType:SHARED_OBJECT andSource:nil]) ) {
+	if ( (self=[super initWithType:SHARED_OBJECT andSource:nil]) ) {
 		name = _name;
 		events = [[NSMutableArray alloc] init];
 		version = _version;
@@ -37,7 +37,7 @@
 }
 
 -(id)initWithSource:(id <IEventListener>)_source name:(NSString *)_name version:(int)_version persistent:(BOOL)_persistent {	
-	if( (self=[super initWithType:SHARED_OBJECT andSource:_source]) ) {
+	if ( (self=[super initWithType:SHARED_OBJECT andSource:_source]) ) {
 		name = _name;
 		events = [[NSMutableArray alloc] init];
 		version = _version;

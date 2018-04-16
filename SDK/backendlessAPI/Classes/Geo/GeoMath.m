@@ -55,7 +55,7 @@ static const double EARTH_RADIUS = 6378100.0; // meters
         westLong = -180;
         eastLong = 180;
     }
-    if(latitude > 0) {
+    if (latitude > 0) {
         northLat = boundLat;
         southLat = 2 * latitude - boundLat;
     }
@@ -102,7 +102,7 @@ static const double EARTH_RADIUS = 6378100.0; // meters
     }
     nwLon += minLon;
     seLon += maxLon;
-    if(seLon - nwLon >= 360) {
+    if (seLon - nwLon >= 360) {
         seLon = 180;
         nwLon = -180;
     }

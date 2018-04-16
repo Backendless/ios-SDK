@@ -13,7 +13,7 @@
 @synthesize operation, source, messageRefType;
 
 -(id)init {	
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
         operation = nil;
         source = nil;
         messageRefType = nil;

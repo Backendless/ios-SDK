@@ -145,7 +145,6 @@ static NSString *GEOFENCES_MONITORING = @"Cannot start geofence monitoring for a
             [self.fencesToCallback removeObjectForKey:geoFence];
             [self cancelOnStayGeoFence:geoFence];
             [self.pointFences removeObject:geoFence];
-            return;
         }
     }
 }

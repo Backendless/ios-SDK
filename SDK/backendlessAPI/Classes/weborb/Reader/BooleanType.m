@@ -14,7 +14,7 @@
 
 -(id)initWithBoolean:(BOOL)data
 {	
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		boolean = [NSNumber numberWithBool:data];
 	}
 	

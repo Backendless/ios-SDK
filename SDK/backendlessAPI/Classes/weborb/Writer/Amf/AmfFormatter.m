@@ -15,7 +15,7 @@
 @implementation AmfFormatter
 
 -(id)init {	
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
         objectSerializer = [[ObjectSerializer alloc] init];
 		referenceCache = [[ReferenceCache alloc] init];
 	}

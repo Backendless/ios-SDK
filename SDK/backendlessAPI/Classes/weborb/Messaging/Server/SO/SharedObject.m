@@ -21,7 +21,7 @@
 @implementation SharedObject
 
 -(id)init {	
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		[self defaultInitialize];
 		ownerMessage = [[SharedObjectMessage alloc] initWithSource:nil name:nil version:-1 persistent:NO];
 	}
@@ -29,7 +29,7 @@
 }
 
 -(id)initWithStream:(FlashorbBinaryReader *)input {	
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		[self defaultInitialize];
 		ownerMessage = [[SharedObjectMessage alloc] initWithSource:nil name:nil version:-1 persistent:NO];
         [self deserialize:input];
@@ -38,7 +38,7 @@
 }
 
 -(id)initWithName:(NSString *)_name path:(NSString *)_path persistent:(BOOL)_persistent {	
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		[self defaultInitialize];
 		name = [_name retain];
 		path = [_path retain];
@@ -49,7 +49,7 @@
 }
 
 -(id)initWithName:(NSString *)_name path:(NSString *)_path persistent:(BOOL)_persistent storage:(id <IPersistenceStore>)_storage {	
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		[self defaultInitialize];
         name = [_name retain];
         path = [_path retain];

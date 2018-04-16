@@ -25,6 +25,7 @@
 #import "Responder.h"
 #import "Backendless.h"
 #import "Invoker.h"
+#import "VoidResponseWrapper.h"
 
 #define FAULT_NO_FILE_URL [Fault fault:@"File URL is not set" detail:@"File URL is not set" faultCode:@"6900"]
 #define FAULT_NO_FILE_NAME [Fault fault:@"File name is not set" detail:@"File name is not set" faultCode:@"6901"]
@@ -111,18 +112,24 @@ static NSString *METHOD_COUNT = @"count";
 
 // sync methods with fault return (as exception)
 
--(id)remove:(NSString *)fileURL {
+-(void)remove:(NSString *)fileURL {
     if (!fileURL || !fileURL.length)
-        return [backendless throwFault:FAULT_NO_FILE_URL];
+        [backendless throwFault:FAULT_NO_FILE_URL];
     NSArray *args = [NSArray arrayWithObjects:fileURL, nil];
-    return [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_DELETE args:args];
+    id result = [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_DELETE args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        [backendless throwFault:result];
+    }
 }
 
--(id)removeDirectory:(NSString *)path {
+-(void)removeDirectory:(NSString *)path {
     if (!path || !path.length)
-        return [backendless throwFault:FAULT_NO_DIRECTORY_PATH];
+        [backendless throwFault:FAULT_NO_DIRECTORY_PATH];
     NSArray *args = [NSArray arrayWithObjects:path, nil];
-    return [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_DELETE args:args];
+    id result = [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_DELETE args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        [backendless throwFault:result];
+    }
 }
 
 -(BackendlessFile *)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content {
@@ -178,11 +185,11 @@ static NSString *METHOD_COUNT = @"count";
     return [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_MOVE_FILE args:args];
 }
 
--(NSArray *)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive {
+-(NSArray<BEFileInfo *> *)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive {
     return [self listing:path pattern:pattern recursive:recursive pagesize:DEFAULT_PAGE_SIZE offset:DEFAULT_OFFSET];
 }
 
--(NSArray *)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive pagesize:(int)pagesize offset:(int)offset {
+-(NSArray<BEFileInfo *> *)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive pagesize:(int)pagesize offset:(int)offset {
     if (!path || !path.length)
         return [backendless throwFault:FAULT_NO_FILE_NAME];
     NSArray *args = @[path, pattern, @(recursive), @(pagesize), @(offset)];
@@ -220,16 +227,16 @@ static NSString *METHOD_COUNT = @"count";
 
 // async methods with block-base callbacks
 
--(void)remove:(NSString *)fileURL response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+-(void)remove:(NSString *)fileURL response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock {
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:[voidResponseWrapper wrapResponseBlock:responseBlock] error:errorBlock];
     if (!fileURL || !fileURL.length)
         return [responder errorHandler:FAULT_NO_FILE_URL];
     NSArray *args = [NSArray arrayWithObjects:fileURL, nil];
     [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_DELETE args:args responder:responder];
 }
 
--(void)removeDirectory:(NSString *)path response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+-(void)removeDirectory:(NSString *)path response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock {
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:[voidResponseWrapper wrapResponseBlock:responseBlock] error:errorBlock];
     if (!path || !path.length)
         return [responder errorHandler:FAULT_NO_DIRECTORY_PATH];
     NSArray *args = [NSArray arrayWithObjects:path, nil];
@@ -296,11 +303,11 @@ static NSString *METHOD_COUNT = @"count";
     [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_MOVE_FILE args:args responder:responder];
 }
 
--(void)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive response:(void(^)(NSArray<BEFileInfo *> *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self listing:path pattern:pattern recursive:recursive pagesize:DEFAULT_PAGE_SIZE offset:DEFAULT_OFFSET response:responseBlock error:errorBlock];
 }
 
--(void)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive pagesize:(int)pagesize offset:(int)offset response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)listing:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive pagesize:(int)pagesize offset:(int)offset response:(void(^)(NSArray<BEFileInfo *> *))responseBlock error:(void(^)(Fault *))errorBlock {
     id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!path || !path.length)
         return [responder errorHandler:FAULT_NO_FILE_NAME];

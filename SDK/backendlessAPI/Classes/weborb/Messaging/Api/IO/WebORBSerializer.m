@@ -18,7 +18,7 @@
 @synthesize buffer, version;
 
 -(id)init {
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		version = AMF0;
 		buffer = [[[FlashorbBinaryWriter alloc] initWithAllocation:1] autorelease];
 	}
@@ -27,7 +27,7 @@
 }
 
 -(id)initWithWriter:(FlashorbBinaryWriter *)source {
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		version = AMF0;
 		buffer = source;
 	}
@@ -36,7 +36,7 @@
 }
 
 -(id)initWithWriter:(FlashorbBinaryWriter *)source andVersion:(int)ver {
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		version = ver;
 		buffer = source;
 	}

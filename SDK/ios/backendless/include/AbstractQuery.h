@@ -25,6 +25,6 @@
 
 @interface AbstractQuery : NSObject<BackendlessCacheProtocol>
 
-@property (nonatomic, strong) BackendlessCachePolicy *cachePolicy;
+@property (strong, nonatomic) BackendlessCachePolicy *cachePolicy;
 
 @end
