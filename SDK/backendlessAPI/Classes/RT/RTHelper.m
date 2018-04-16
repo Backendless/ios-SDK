@@ -22,14 +22,19 @@
 #import "RTHelper.h"
 #import "Invoker.h"
 #import "Responder.h"
+#import "Backendless.h"
 
 static NSString *SERVER_RT_SERVICE_PATH  = @"com.backendless.rt.RTService";
 static NSString *METHOD_LOOKUP  = @"lookup";
 
 @implementation RTHelper
 
-+(NSString *)lookup {
-    return [invoker invokeSync:SERVER_RT_SERVICE_PATH method:METHOD_LOOKUP args:@[]];
++(id)lookup {
+    id result = [invoker invokeSync:SERVER_RT_SERVICE_PATH method:METHOD_LOOKUP args:@[]];
+    if ([result isKindOfClass:[Fault class]]) {
+        return [backendless throwFault:result];
+    }
+    return result;
 }
 
 @end
