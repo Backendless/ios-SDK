@@ -14,7 +14,7 @@
 @implementation AbstractReferenceableTypeWriter
 
 -(id)init {	
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 #if _ON_REFERENCEBLE_TYPE_WRITER_
 		referenceWriter = [ObjectReferenceWriter new];
 #else

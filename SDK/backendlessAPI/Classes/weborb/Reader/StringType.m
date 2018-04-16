@@ -12,7 +12,7 @@
 @implementation StringType
 
 -(id)initWithString:(NSString *)string {	
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		stringValue = string;
 	}
 	

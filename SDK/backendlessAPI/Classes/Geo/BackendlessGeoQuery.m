@@ -367,7 +367,7 @@ static const char * const backendless_geo_query_units[] = { "METERS", "MILES", "
 
 -(void)setClusteringParams:(double)westLongitude eastLongitude:(double)eastLongitude mapWidth:(int)mapWidth clusterGridSize:(int)clusterGridSize {
     double longDiff = eastLongitude - westLongitude;
-    if( longDiff < 0 ) {
+    if ( longDiff < 0 ) {
         longDiff += 360;
     }
     double degreePerPixel = longDiff/mapWidth;

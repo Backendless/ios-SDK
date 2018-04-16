@@ -15,7 +15,7 @@
 @synthesize contextWriter, writer;
 
 -(id)init {	
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		cachedWriters = [NSMutableDictionary new];
 		contextWriter = nil;
 		writer = [[FlashorbBinaryWriter alloc] initWithAllocation:1];

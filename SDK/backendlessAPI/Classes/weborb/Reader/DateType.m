@@ -13,7 +13,7 @@
 @implementation DateType
 
 -(id)initWithDate:(NSDate *)date {	
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		dateObj = date;
 	}
 	

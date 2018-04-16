@@ -15,7 +15,7 @@
 @synthesize buffer;
 
 -(id)init {
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		version = AMF0;
 		buffer = nil;
 		context = [[ParseContext alloc] initWithVersion:version];
@@ -25,7 +25,7 @@
 }
 
 -(id)initWithReader:(FlashorbBinaryReader *)source {
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		version = AMF0;
 		buffer = source;
 		context = [[ParseContext alloc] initWithVersion:version];
@@ -35,7 +35,7 @@
 }
 
 -(id)initWithReader:(FlashorbBinaryReader *)source andVersion:(int)ver {
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		version = ver;
 		buffer = source;
 		context = [[ParseContext alloc] initWithVersion:version];

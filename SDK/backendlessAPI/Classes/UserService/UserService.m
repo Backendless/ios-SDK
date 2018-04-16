@@ -32,6 +32,7 @@
 #import "AuthorizationException.h"
 #import "RTClient.h"
 #import "BackendlessUserAdapter.h"
+#import "VoidResponseWrapper.h"
 
 #define FAULT_NO_USER_CREDENTIALS [Fault fault:@"Login or password is missing or null" detail:@"Login or password is missing or null" faultCode:@"3006"]
 #define FAULT_NO_USER [Fault fault:@"User is missing or null" detail:@"User is missing or null" faultCode:@"3900"]
@@ -68,8 +69,8 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 -(id)registerError:(id)error;
 -(id)onLogin:(id)response;
 -(id)onUpdate:(ResponseContext *)response;
--(id)onLogout:(id)response;
--(id)onLogoutError:(Fault *)fault;
+-(void)onLogout:(id)response;
+-(void)onLogoutError:(Fault *)fault;
 
 @end
 
@@ -177,15 +178,12 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     return [[backendless.data of:[BackendlessUser class]] findById:objectId];
 }
 
--(id)logout {
-    BOOL throwException = invoker.throwException;
-    invoker.throwException = NO;
+-(void)logout {
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_LOGOUT args:@[]];
     if ([result isKindOfClass:[Fault class]]) {
         [self onLogoutError:result];
-        return [backendless throwFault:result];
+        [backendless throwFault:result];
     }
-    return [self onLogout:result];
 }
 
 -(NSNumber *)isValidUserToken {
@@ -205,15 +203,14 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     return result;
 }
 
--(id)restorePassword:(NSString *)login {
+-(void)restorePassword:(NSString *)login {
     if (!login||!login.length)
-        return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
+        [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
     NSArray *args = [NSArray arrayWithObjects:login, nil];
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_RESTORE_PASSWORD args:args];
     if ([result isKindOfClass:[Fault class]]) {
-        return [backendless throwFault:result];
+        [backendless throwFault:result];
     }
-    return result;
 }
 
 -(NSArray<UserProperty*> *)describeUserClass {
@@ -232,7 +229,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     return result;
 }
 
--(BackendlessUser *)loginWithFacebookSDK:(NSString *)userId tokenString:(NSString *)tokenString expirationDate:(NSDate *)expirationDate fieldsMapping:(id)fieldsMapping {
+-(BackendlessUser *)loginWithFacebookSDK:(NSString *)userId tokenString:(NSString *)tokenString expirationDate:(NSDate *)expirationDate fieldsMapping:(NSDictionary *)fieldsMapping {
     if (!userId||!userId.length||!tokenString||!tokenString.length) {
         return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
     }
@@ -256,7 +253,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     return [self onLogin:result];
 }
 
--(BackendlessUser *)loginWithTwitterSDK:(NSString *)authToken authTokenSecret:(NSString *)authTokenSecret fieldsMapping:(id)fieldsMapping {
+-(BackendlessUser *)loginWithTwitterSDK:(NSString *)authToken authTokenSecret:(NSString *)authTokenSecret fieldsMapping:(NSDictionary *)fieldsMapping {
     if (!authToken||!authToken.length||!authTokenSecret||!authTokenSecret.length) {
         return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
     }
@@ -268,16 +265,16 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     return [self onLogin:result];
 }
 
--(id)resendEmailConfirmation:(NSString *)email {
+-(void)resendEmailConfirmation:(NSString *)email {
     if (!email||!email.length) {
-        return [backendless throwFault:FAULT_NO_USER_EMAIL];
+        [backendless throwFault:FAULT_NO_USER_EMAIL];
     }
     NSArray *args = @[email];
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_RESEND_EMAIL_CONFIRMATION args:args];
     if ([result isKindOfClass:[Fault class]]) {
-        return [backendless throwFault:result];
+        [backendless throwFault:result];
     }
-    return [self onLogin:result];
+    [self onLogin:result];
 }
 
 // async methods with block-based callbacks
@@ -324,9 +321,9 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     [[backendless.data of:[BackendlessUser class]] findById:objectId response:responseBlock error:errorBlock];
 }
 
--(void)logout:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    id <IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onLogout:) selErrorHandler:@selector(onLogoutError:)];
+-(void)logout:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock {
+    id <IResponder>responder = [ResponderBlocksContext responderBlocksContext:[voidResponseWrapper wrapResponseBlock:responseBlock] error:errorBlock];
+    Responder *_responder = [Responder responder:responder selResponseHandler:@selector(onLogout:) selErrorHandler:@selector(onLogoutError:)];
     _responder.chained = responder;
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_LOGOUT args:@[] responder:_responder];
 }
@@ -344,8 +341,8 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_IS_VALID_USER_TOKEN args:args responder:_responder];
 }
 
--(void)restorePassword:(NSString *)login response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+-(void)restorePassword:(NSString *)login response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock {
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:[voidResponseWrapper wrapResponseBlock:responseBlock] error:errorBlock];
     if (!login||!login.length)
         return [responder errorHandler:FAULT_NO_USER_CREDENTIALS];
     NSArray *args = [NSArray arrayWithObjects:login, nil];
@@ -360,7 +357,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_GET_USER_ROLES args:@[] responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
--(void)loginWithFacebookSDK:(NSString *)userId tokenString:(NSString *)tokenString expirationDate:(NSDate *)expirationDate fieldsMapping:(id)fieldsMapping response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)loginWithFacebookSDK:(NSString *)userId tokenString:(NSString *)tokenString expirationDate:(NSDate *)expirationDate fieldsMapping:(NSDictionary *)fieldsMapping response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {
     id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!userId||!userId.length||!tokenString||!tokenString.length) {
         return [responder errorHandler:FAULT_NO_USER_CREDENTIALS];
@@ -382,7 +379,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_GOOGLEPLUS_SDK args:args responder:_responder responseAdapter:[BackendlessUserAdapter new]];
 }
 
--(void)loginWithTwitterSDK:(NSString *)authToken authTokenSecret:(NSString *)authTokenSecret fieldsMapping:(id)fieldsMapping response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)loginWithTwitterSDK:(NSString *)authToken authTokenSecret:(NSString *)authTokenSecret fieldsMapping:(NSDictionary *)fieldsMapping response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {
     id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!authToken||!authToken.length||!authTokenSecret||!authTokenSecret.length) {
         return [responder errorHandler:FAULT_NO_USER_CREDENTIALS];
@@ -393,10 +390,10 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_TWITTER_SDK args:args responder:_responder responseAdapter:[BackendlessUserAdapter new]];
 }
 
--(void)resendEmailConfirmation:(NSString *)email response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+-(void)resendEmailConfirmation:(NSString *)email response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock {
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:[voidResponseWrapper wrapResponseBlock:responseBlock] error:errorBlock];
     if (!email||!email.length)
-        return [responder errorHandler:FAULT_NO_USER_EMAIL];
+        [responder errorHandler:FAULT_NO_USER_EMAIL];
     NSArray *args = @[email];
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_RESEND_EMAIL_CONFIRMATION args:args responder:responder];
 }
@@ -494,32 +491,30 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     return user;
 }
 
--(id)onLogout:(id)response {
+-(void)onLogout:(id)response {
     [DebLog log:@"UserService -> onLogout: %@", response];
     if (self.currentUser) {
         self.currentUser = nil;
     }
     [backendless.headers removeObjectForKey:BACKENDLESS_USER_TOKEN];
     [self resetPersistentUser];
-    return response;
 }
 
--(id)onLogoutError:(Fault *)fault {
+-(void)onLogoutError:(Fault *)fault {
     [DebLog log:@"UserService -> onLogoutError: %@", fault];
     NSArray *faultCodes = @[@"3023", @"3064", @"3090", @"3091"];
     for (NSString *code in faultCodes) {
         if ([fault.faultCode isEqualToString:code]) {
-            return [self onLogout:fault];
+            [self onLogout:fault];
         }
     }
-    return fault;
 }
 
--(id)onValidUserTokenFault:(Fault *)fault {
+-(void)onValidUserTokenFault:(Fault *)fault {
     if ([fault.faultCode isEqualToString:@"3048"]) {
         [backendless.headers removeObjectForKey:BACKENDLESS_USER_TOKEN];
     }
-    return fault;
+    [backendless throwFault:fault];;
 }
 
 @end

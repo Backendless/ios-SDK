@@ -17,7 +17,7 @@
 @implementation Aggregate
 
 -(id)init {
-	if( (self=[super initWithType:STREAM_DATA]) ) {
+	if ( (self=[super initWithType:STREAM_DATA]) ) {
         data = [[BinaryReader alloc] initWithAllocation:1];
 	}
 	
@@ -25,7 +25,7 @@
 }
 
 -(id)initWithStream:(char *)stream andSize:(size_t)length {
-	if( (self=[super initWithType:STREAM_DATA]) ) {
+	if ( (self=[super initWithType:STREAM_DATA]) ) {
         data = [[BinaryReader alloc] initWithStream:stream andSize:length];
 	}
 	

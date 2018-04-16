@@ -20,7 +20,7 @@
 
 -(id)init {
     
-    if ( (self = [super init]) ) {
+    if (self = [super init]) {
         
         subTopic = nil;
         selector = nil;
@@ -38,7 +38,7 @@
 
 -(id)initWithSubTopic:(NSString *)_subTopic selector:(NSString *)_selector engine:(Engine *)_engine {
     
-    if ( (self = [super init]) ) {
+    if (self = [super init]) {
         
         subTopic = [_subTopic retain];
         selector = [_selector retain];

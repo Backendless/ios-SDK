@@ -23,6 +23,7 @@
 #import "Backendless.h"
 #import "Invoker.h"
 #import "AtomicCountersFactory.h"
+#import "VoidResponseWrapper.h"
 
 #define FAULT_NO_NAME [Fault fault:@"Name is NULL" detail:@"Name is NULL" faultCode:@"8900"]
 
@@ -102,11 +103,14 @@ static NSString *METHOD_RESET = @"reset";
     return [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_COMPARE_AND_SET args:args];
 }
 
--(id)reset:(NSString *)counterName  {
+-(void)reset:(NSString *)counterName  {
     if (!counterName)
-        return [backendless throwFault:FAULT_NO_NAME];
+        [backendless throwFault:FAULT_NO_NAME];
     NSArray *args = @[counterName];
-    return [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_RESET args:args];
+    id result = [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_RESET args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        [backendless throwFault:result];
+    }
 }
 
 // async methods with block-based callbacks
@@ -175,8 +179,8 @@ static NSString *METHOD_RESET = @"reset";
     [invoker invokeAsync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_COMPARE_AND_SET args:args responder:responder];
 }
 
--(void)reset:(NSString *)counterName response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+-(void)reset:(NSString *)counterName response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock {
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:[voidResponseWrapper wrapResponseBlock:responseBlock] error:errorBlock];
     if (!counterName)
         return [responder errorHandler:FAULT_NO_NAME];
     NSArray *args = @[counterName];

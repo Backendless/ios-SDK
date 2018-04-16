@@ -14,7 +14,7 @@
 @synthesize type, obj, source, timestamp, header, sourceType;
 
 -(id)init {	
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		type = SYSTEM;
 		source = nil;
         timestamp = 0;
@@ -24,7 +24,7 @@
 }
 
 -(id)initWithType:(EventType)eventType {	
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		type = eventType;
 		source = nil;
         timestamp = 0;
@@ -34,7 +34,7 @@
 }
 
 -(id)initWithType:(EventType)eventType andSource:(id <IEventListener>)eventSource {	
-	if( (self=[super init]) ) {
+	if ( (self=[super init]) ) {
 		type = eventType;
 		source = eventSource;
         timestamp = 0;

@@ -20,7 +20,7 @@
 @implementation VideoData
 
 -(id)init {	
-	if( (self=[super initWithType:STREAM_DATA]) ) {
+	if ( (self=[super initWithType:STREAM_DATA]) ) {
         [self defaultInit];
 	}
 	
@@ -28,7 +28,7 @@
 }
 
 -(id)initWithBinaryStream:(BinaryStream *)stream {
-	if( (self=[super initWithType:STREAM_DATA]) ) {
+	if ( (self=[super initWithType:STREAM_DATA]) ) {
         [self defaultInit];
         [self setData:stream];
 	}
@@ -37,7 +37,7 @@
 }
 
 -(id)initWithCodec:(id <IVideoStreamCodec>)videoCodec {
-	if( (self=[super initWithType:STREAM_DATA]) ) {
+	if ( (self=[super initWithType:STREAM_DATA]) ) {
         [self defaultInit];
         [self setCodec:videoCodec];
 	}
@@ -46,7 +46,7 @@
 }
 
 -(id)initWithBinaryStream:(BinaryStream *)stream videoCodec:(id <IVideoStreamCodec>)videoCodec {
-	if( (self=[super initWithType:STREAM_DATA]) ) {
+	if ( (self=[super initWithType:STREAM_DATA]) ) {
         [self defaultInit];
         [self setCodec:videoCodec];
         [self setData:stream];

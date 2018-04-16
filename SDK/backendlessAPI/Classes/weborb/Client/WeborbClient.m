@@ -367,7 +367,7 @@
 
 -(id)init {
     
-    if ( (self = [super init]) ) {
+    if (self = [super init]) {
         _responder = nil;
         _subscribedHandler = nil;
     }
@@ -377,7 +377,7 @@
 
 -(id)initWithResponder:(id)responder selSubscribedHandler:(SEL)selSubscribedHandler {
     
-    if ( (self = [super init]) ) {
+    if (self = [super init]) {
         _responder = [responder retain];
         _subscribedHandler = selSubscribedHandler;
     }
