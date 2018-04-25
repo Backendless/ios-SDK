@@ -183,21 +183,21 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     }
 }
 
--(NSNumber *)isValidUserToken {
+-(BOOL)isValidUserToken {
     NSString *userToken = [backendless.headers valueForKey:BACKENDLESS_USER_TOKEN];
-    if (!self.currentUser || !userToken)
-        return @(NO);
+    if (!self.currentUser || !userToken) {
+        return NO;
+    }
     NSArray *args = @[userToken];
-    BOOL throwException = invoker.throwException;
-    invoker.throwException = NO;
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_IS_VALID_USER_TOKEN args:args];
     if ([result isKindOfClass:[Fault class]]) {
         if ([((Fault *)result).faultCode isEqualToString:@"3048"]) {
             [backendless.headers removeObjectForKey:BACKENDLESS_USER_TOKEN];
         }
-        return [backendless throwFault:result];
+        [backendless throwFault:result];
+        return NO;
     }
-    return result;
+    return [result boolValue];
 }
 
 -(void)restorePassword:(NSString *)login {
@@ -254,7 +254,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     if (!authToken||!authToken.length||!authTokenSecret||!authTokenSecret.length) {
         return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
     }
-    NSArray *args = @[authToken, authTokenSecret, (NSDictionary<NSString *, NSString*> *)fieldsMapping?fieldsMapping:@{}];    
+    NSArray *args = @[authToken, authTokenSecret, (NSDictionary<NSString *, NSString*> *)fieldsMapping?fieldsMapping:@{}];
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_USER_LOGIN_WITH_TWITTER_SDK args:args responseAdapter:[BackendlessUserAdapter new]];
     if ([result isKindOfClass:[Fault class]]) {
         return [backendless throwFault:result];
@@ -325,11 +325,14 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_LOGOUT args:@[] responder:_responder];
 }
 
--(void)isValidUserToken:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
-    id <IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+-(void)isValidUserToken:(void(^)(BOOL))responseBlock error:(void(^)(Fault *))errorBlock {
+    void(^wrappedBlock)(NSNumber *) = ^(NSNumber *result) {
+        responseBlock([result boolValue]);
+    };
+    id <IResponder>responder = [ResponderBlocksContext responderBlocksContext:wrappedBlock error:errorBlock];
     NSString *userToken = [backendless.headers valueForKey:BACKENDLESS_USER_TOKEN];
     if (!self.currentUser || !userToken) {
-        [responder responseHandler:@(NO)];
+        [responder responseHandler:@0];
         return;
     }
     NSArray *args = @[userToken];
