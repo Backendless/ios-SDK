@@ -89,10 +89,19 @@
             if (!socketCreated) {
                 NSString *path = [@"/" stringByAppendingString:[backendless getAppId]];
                 NSURL *url = [NSURL URLWithString:[RTHelper lookup]];
-                NSDictionary *connectParams = @{@"apiKey":[backendless getAPIKey]};
+                
+                NSString *clientId = @"";
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+                clientId =[[[UIDevice currentDevice] identifierForVendor] UUIDString];
+#else
+                clientId = [[NSHost currentHost] name];
+#endif
+                NSDictionary *connectParams = @{@"apiKey":[backendless getAPIKey],
+                                                @"clientId":clientId};
                 NSString *userToken = [backendless.userService.currentUser getUserToken];
                 if (userToken) {
                     connectParams = @{@"apiKey":[backendless getAPIKey],
+                                      @"clientId":clientId,
                                       @"userToken": userToken};
                 }
                 socketManager = [[SocketManager alloc] initWithSocketURL:url config:@{@"path": path, @"connectParams":connectParams}];
