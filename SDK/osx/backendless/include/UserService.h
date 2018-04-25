@@ -36,7 +36,7 @@
 -(BackendlessUser *)login:(NSString *)login password:(NSString *)password;
 -(BackendlessUser *)findById:(NSString *)objectId;
 -(void)logout;
--(NSNumber *)isValidUserToken;
+-(BOOL)isValidUserToken;
 -(void)restorePassword:(NSString *)login;
 -(NSArray<UserProperty*> *)describeUserClass;
 -(NSArray<NSString*> *)getUserRoles;
@@ -51,7 +51,7 @@
 -(void)login:(NSString *)login password:(NSString *)password response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)findById:(NSString *)objectId response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)logout:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)isValidUserToken:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)isValidUserToken:(void(^)(BOOL))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)restorePassword:(NSString *)login response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)describeUserClass:(void(^)(NSArray<UserProperty*> *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getUserRoles:(void(^)(NSArray<NSString*> *))responseBlock error:(void(^)(Fault *))errorBlock;
