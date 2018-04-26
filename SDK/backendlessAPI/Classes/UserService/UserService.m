@@ -181,6 +181,11 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
         [self onLogoutError:result];
         [backendless throwFault:result];
     }
+    if (self.currentUser) {
+        self.currentUser = nil;
+    }
+    [backendless.headers removeObjectForKey:BACKENDLESS_USER_TOKEN];
+    [self resetPersistentUser];
 }
 
 -(BOOL)isValidUserToken {
@@ -283,8 +288,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
         [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
     NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
     [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
-    NSArray *args = [NSArray arrayWithObjects:props, nil];
-    
+    NSArray *args = [NSArray arrayWithObjects:props, nil];    
     void(^wrappedBlock)(NSDictionary *) = ^(NSDictionary *regUserDict) {
         responseBlock([self castFromDictionary:regUserDict]);
     };
