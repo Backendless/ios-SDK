@@ -21,23 +21,20 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PublishMessageInfo : NSObject {
-    NSString *message;
-    NSString *publisherId;
-    NSString *subtopic;
-    NSNumber *pushBroadcast;
-    NSArray  *pushSinglecast;
-    NSMutableDictionary *headers;
-}
+@interface PublishMessageInfo : NSObject
 
-@property (strong, nonatomic) NSString *message;
+@property (strong, nonatomic) NSString *messageId;
+@property (strong, nonatomic) NSNumber *timestamp;
+@property (strong, nonatomic) id message;
 @property (strong, nonatomic) NSString *publisherId;
 @property (strong, nonatomic) NSString *subtopic;
-@property (strong, nonatomic) NSNumber *pushBroadcast;
 @property (strong, nonatomic) NSArray  *pushSinglecast;
-@property (strong, nonatomic) NSMutableDictionary *headers;
-
--(id)initWithMessage:(NSString *)_message;
--(void)addHeaders:(NSDictionary *)_headers;
+@property (strong, nonatomic) NSNumber *pushBroadcast;
+@property (strong, nonatomic) NSString *publishPolicy;
+@property (strong, nonatomic) NSString *query;
+@property (strong, nonatomic) NSNumber *publishAt;
+@property (strong, nonatomic) NSNumber *repeatEvery;
+@property (strong, nonatomic) NSNumber *repeatExpiresAt;
+@property (strong, nonatomic) NSDictionary *headers;
 
 @end

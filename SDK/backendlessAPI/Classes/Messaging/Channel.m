@@ -21,12 +21,14 @@
 
 #import "Channel.h"
 #import "RTMessaging.h"
+#import "PublishMessageInfoWrapper.h"
 
 @interface Channel()
 @property (strong, nonatomic, readwrite) NSString *channelName;
 @property (strong, nonatomic) RTMessaging *rt;
 @property (nonatomic, readwrite) BOOL isConnected;
 @property (nonatomic, readwrite) NSMutableArray *waitingSubscriptions;
+@property (strong, nonatomic) NSMapTable *wrappedSubscriptions;
 @end
 
 @implementation Channel
@@ -37,6 +39,7 @@
         self.rt = [[RTMessaging alloc] initWithChannelName:channelName];
         self.isConnected = NO;
         self.waitingSubscriptions = [NSMutableArray new];
+        self.wrappedSubscriptions = [NSMapTable new];
     }
     return self;
 }
@@ -80,7 +83,7 @@
         [self.rt addConnectListener:self.isConnected response:responseBlock error:errorBlock];
     }
     else {
-        [self addWaitingListener:PUB_SUB_CONNECT connectResponse:responseBlock response:nil error:errorBlock];
+        [self addWaitingListener:PUB_SUB_CONNECT selector:nil connectResponse:responseBlock response:nil error:errorBlock];
     }
 }
 
@@ -92,24 +95,91 @@
     [self.rt removeConnectListeners:nil];
 }
 
--(void)addMessageListener:(void(^)(Message *))responseBlock error:(void (^)(Fault *))errorBlock {
+// ************************************************
+
+-(void)addMessageListenerString:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
+    void(^onMessage)(PublishMessageInfo *) = [publishMessageInfoWrapper wrapResponseBlock:responseBlock error:errorBlock class:[NSString class]];
+    [self.wrappedSubscriptions setObject:onMessage forKey:responseBlock];
+    [self addMessageListener:onMessage error:errorBlock];
+}
+
+-(void)addMessageListenerString:(NSString *)selector response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
+    void(^onMessage)(PublishMessageInfo *) = [publishMessageInfoWrapper wrapResponseBlock:responseBlock error:errorBlock class:[NSString class]];
+    [self.wrappedSubscriptions setObject:onMessage forKey:responseBlock];
+    [self addMessageListener:selector response:onMessage error:errorBlock];
+}
+
+-(void)removeMessageListenersString:(NSString *)selector response:(void(^)(NSString *))responseBlock {
+    [self removeMessageListeners:selector response:[self.wrappedSubscriptions objectForKey:responseBlock]];
+}
+
+-(void)removeMessageListenersStringWithCallback:(void(^)(NSString *))responseBlock {
+    [self removeMessageListenersWithCallback:[self.wrappedSubscriptions objectForKey:responseBlock]];
+}
+
+// ************************************************
+
+-(void)addMessageListenerDictionary:(void(^)(NSDictionary *))responseBlock error:(void(^)(Fault *))errorBlock {
+    void(^onMessage)(PublishMessageInfo *) = [publishMessageInfoWrapper wrapResponseBlock:responseBlock error:errorBlock class:[NSDictionary class]];
+    [self.wrappedSubscriptions setObject:onMessage forKey:responseBlock];
+    [self addMessageListener:onMessage error:errorBlock];}
+
+-(void)addMessageListenerDictionary:(NSString *)selector response:(void(^)(NSDictionary *))responseBlock error:(void(^)(Fault *))errorBlock {
+    void(^onMessage)(PublishMessageInfo *) = [publishMessageInfoWrapper wrapResponseBlock:responseBlock error:errorBlock class:[NSDictionary class]];
+    [self.wrappedSubscriptions setObject:onMessage forKey:responseBlock];
+    [self addMessageListener:selector response:onMessage error:errorBlock];
+}
+
+-(void)removeMessageListenersDictionary:(NSString *)selector response:(void(^)(NSDictionary *))responseBlock {
+    [self removeMessageListeners:selector response:[self.wrappedSubscriptions objectForKey:responseBlock]];
+}
+
+-(void)removeMessageListenersDictionaryWithCallback:(void(^)(NSDictionary *))responseBlock {
+    [self removeMessageListenersWithCallback:[self.wrappedSubscriptions objectForKey:responseBlock]];
+}
+
+// ************************************************
+
+-(void)addMessageListenerCustomObject:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock class:(Class)classType {
+    void(^onMessage)(PublishMessageInfo *) = [publishMessageInfoWrapper wrapResponseBlockToCustomObject:responseBlock error:errorBlock class:classType];
+    [self.wrappedSubscriptions setObject:onMessage forKey:responseBlock];
+    [self addMessageListener:onMessage error:errorBlock];
+}
+
+-(void)addMessageListenerCustomObject:(NSString *)selector response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock class:(Class)classType {
+    void(^onMessage)(PublishMessageInfo *) = [publishMessageInfoWrapper wrapResponseBlockToCustomObject:responseBlock error:errorBlock class:classType];
+    [self.wrappedSubscriptions setObject:onMessage forKey:responseBlock];
+    [self addMessageListener:selector response:onMessage error:errorBlock];
+}
+
+-(void)removeMessageListenersCustomObject:(NSString *)selector response:(void(^)(id))responseBlock {
+    [self removeMessageListeners:selector response:[self.wrappedSubscriptions objectForKey:responseBlock]];
+}
+
+-(void)removeMessageListenersCustomObjectWithCallback:(void(^)(id))responseBlock {
+    [self removeMessageListenersWithCallback:[self.wrappedSubscriptions objectForKey:responseBlock]];
+}
+
+// ************************************************
+
+-(void)addMessageListener:(void(^)(PublishMessageInfo *))responseBlock error:(void (^)(Fault *))errorBlock {
     [self addMessageListener:nil response:responseBlock error:errorBlock];
 }
 
--(void)addMessageListener:(NSString *)selector response:(void (^)(Message *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)addMessageListener:(NSString *)selector response:(void (^)(PublishMessageInfo *))responseBlock error:(void (^)(Fault *))errorBlock {
     if (self.isConnected) {
         [self.rt addMessageListener:selector response:responseBlock error:errorBlock];
     }
     else {
-        [self addWaitingListener:PUB_SUB_MESSAGES connectResponse:nil response:responseBlock error:errorBlock];
+        [self addWaitingListener:PUB_SUB_MESSAGES selector:selector connectResponse:nil response:responseBlock error:errorBlock];
     }
 }
 
--(void)removeMessageListeners:(NSString *)selector response:(void (^)(Message *))responseBlock {
+-(void)removeMessageListeners:(NSString *)selector response:(void (^)(PublishMessageInfo *))responseBlock {
     [self.rt removeMessageListeners:selector response:responseBlock];
 }
 
--(void)removeMessageListenersWithCallback:(void(^)(Message *))responseBlock {
+-(void)removeMessageListenersWithCallback:(void(^)(PublishMessageInfo *))responseBlock {
     [self.rt removeMessageListeners:nil response:responseBlock];
 }
 
@@ -126,7 +196,7 @@
         [self.rt addCommandListener:responseBlock error:errorBlock];
     }
     else {
-        [self addWaitingListener:PUB_SUB_COMMANDS connectResponse:nil response:responseBlock error:errorBlock];
+        [self addWaitingListener:PUB_SUB_COMMANDS selector:nil connectResponse:nil response:responseBlock error:errorBlock];
     }
 }
 
@@ -143,7 +213,7 @@
         [self.rt addUserStatusListener:responseBlock error:errorBlock];
     }
     else {
-        [self addWaitingListener:PUB_SUB_USERS connectResponse:nil response:responseBlock error:errorBlock];
+        [self addWaitingListener:PUB_SUB_USERS selector:nil connectResponse:nil response:responseBlock error:errorBlock];
     }
 }
 
@@ -162,17 +232,33 @@
     [self removeUserStatusListeners];
 }
 
--(void)addWaitingListener:(NSString *)event connectResponse:(void(^)(void))connectResponseBlock response:(void(^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)addWaitingListener:(NSString *)event selector:(NSString *)selector connectResponse:(void(^)(void))connectResponseBlock response:(void(^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
     NSDictionary *waitingObject;
     if (connectResponseBlock) {
-        waitingObject = @{@"event"                : event,
-                          @"onConnectResponse"    : connectResponseBlock,
-                          @"onError"              : errorBlock};
+        if (selector) {
+            waitingObject = @{@"event"              : event,
+                              @"selector"           : selector,
+                              @"onConnectResponse"  : connectResponseBlock,
+                              @"onError"            : errorBlock};
+        }
+        else {
+            waitingObject = @{@"event"              : event,
+                              @"onConnectResponse"  : connectResponseBlock,
+                              @"onError"            : errorBlock};
+        }
     }
     else if (responseBlock) {
-        waitingObject = @{@"event"                : event,
-                          @"onResponse"           : responseBlock,
-                          @"onError"              : errorBlock};
+        if (selector) {
+            waitingObject = @{@"event"      : event,
+                              @"selector"   : selector,
+                              @"onResponse" : responseBlock,
+                              @"onError"    : errorBlock};
+        }
+        else {
+            waitingObject = @{@"event"      : event,
+                              @"onResponse" : responseBlock,
+                              @"onError"    : errorBlock};
+        }
     }
     [self.waitingSubscriptions addObject:waitingObject];
 }
@@ -180,7 +266,12 @@
 -(void)subscribeForWaitingListeners {
     for (NSDictionary *waitingSubscription in self.waitingSubscriptions) {
         if ([[waitingSubscription valueForKey:@"event"] isEqualToString:PUB_SUB_MESSAGES]) {
-            [self addMessageListener:[waitingSubscription valueForKey:@"onResponse"] error:[waitingSubscription valueForKey:@"onError"]];
+            if ([waitingSubscription valueForKey:@"selector"]) {
+                [self addMessageListener:[waitingSubscription valueForKey:@"selector"] response:[waitingSubscription valueForKey:@"onResponse"] error:[waitingSubscription valueForKey:@"onError"]];
+            }
+            else {
+                [self addMessageListener:[waitingSubscription valueForKey:@"onResponse"] error:[waitingSubscription valueForKey:@"onError"]];
+            }
         }
         else if ([[waitingSubscription valueForKey:@"event"] isEqualToString:PUB_SUB_COMMANDS]) {
             [self addCommandListener:[waitingSubscription valueForKey:@"onResponse"] error:[waitingSubscription valueForKey:@"onError"]];

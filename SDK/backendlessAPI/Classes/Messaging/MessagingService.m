@@ -110,7 +110,7 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
     if (self = [super init]) {
         _subscriptions = [HashMap new];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.management.DeviceRegistrationDto" mapped:[DeviceRegistration class]];
-        [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.messaging.Message" mapped:[Message class]];
+        [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.messaging.Message" mapped:[PublishMessageInfo class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.messaging.MessageStatus" mapped:[MessageStatus class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.messaging.PublishOptions" mapped:[PublishOptions class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.messaging.DeliveryOptions" mapped:[DeliveryOptions class]];
@@ -155,6 +155,10 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
 }
 
 // Channel
+
+-(Channel *)subscribe {
+    return [self subscribe:DEFAULT_CHANNEL_NAME];
+}
 
 -(Channel *)subscribe:(NSString *)channelName {
     Channel *channel = [rtFactory createChannel:channelName];

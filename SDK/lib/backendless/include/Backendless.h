@@ -46,7 +46,7 @@
 #import "ICallback.h"
 #import "GeoFence.h"
 #import "LocationTracker.h"
-#import "Message.h"
+#import "PublishMessageInfo.h"
 #import "MessageStatus.h"
 #import "DeliveryOptions.h"
 #import "PublishOptions.h"

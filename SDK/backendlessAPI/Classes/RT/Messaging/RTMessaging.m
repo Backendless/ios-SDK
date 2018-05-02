@@ -55,27 +55,37 @@
     [super stopSubscriptionWithChannel:channel event:PUB_SUB_CONNECT whereClause:nil onResult:[onConnectCallbacks objectForKey:responseBlock]];
 }
 
--(void)addMessageListener:(NSString *)selector response:(void(^)(Message *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)addMessageListener:(NSString *)selector response:(void(^)(PublishMessageInfo *))responseBlock error:(void (^)(Fault *))errorBlock {
     NSDictionary *options = @{@"channel"  : channel};
     if (selector) {
         options = @{@"channel"  : channel,
                     @"selector" : selector};
-    }
-    [super addSubscription:PUB_SUB_MESSAGES options:options onResult:responseBlock onError:errorBlock handleResultSelector:@selector(handleMessage:) fromClass:self];
+    }    
+    [super addSubscription:PUB_SUB_MESSAGES options:options onResult:responseBlock onError:errorBlock handleResultSelector:@selector(handlePublishMessageInfo:) fromClass:self];
 }
 
--(void)removeMessageListeners:(NSString *)selector response:(void(^)(Message *))responseBlock {
+-(void)removeMessageListeners:(NSString *)selector response:(void(^)(PublishMessageInfo *))responseBlock {
     [super stopSubscriptionWithChannel:channel event:PUB_SUB_MESSAGES whereClause:selector onResult:responseBlock];
 }
 
--(Message *)handleMessage:(NSDictionary *)jsonResult {
+-(PublishMessageInfo *)handlePublishMessageInfo:(NSDictionary *)jsonResult {
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonResult options:NSJSONWritingPrettyPrinted error:nil];
     NSDictionary *messageData = [jsonHelper dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
-    Message *message = [Message new];
-    message.data = messageData;
-    message.headers = [messageData valueForKey:@"headers"];
-    message.publisherId = [messageData valueForKey:@"publisherId"];
-    return message;
+    PublishMessageInfo *messageInfo = [PublishMessageInfo new];
+    messageInfo.messageId = [messageData valueForKey:@"messageId"];
+    messageInfo.timestamp = [messageData valueForKey:@"timestamp"];
+    messageInfo.message = [messageData valueForKey:@"message"];
+    messageInfo.publisherId = [messageData valueForKey:@"publisherId"];
+    messageInfo.subtopic = [messageData valueForKey:@"subtopic"];
+    messageInfo.pushSinglecast = [messageData valueForKey:@"pushSinglecast"];
+    messageInfo.pushBroadcast = [messageData valueForKey:@"pushBroadcast"];
+    messageInfo.publishPolicy = [messageData valueForKey:@"publishPolicy"];
+    messageInfo.query = [messageData valueForKey:@"query"];
+    messageInfo.publishAt = [messageData valueForKey:@"publishAt"];
+    messageInfo.repeatEvery = [messageData valueForKey:@"repeatEvery"];
+    messageInfo.repeatExpiresAt = [messageData valueForKey:@"repeatExpiresAt"];
+    messageInfo.headers = [messageData valueForKey:@"headers"];
+    return messageInfo;
 }
 
 -(void) addCommandListener:(void(^)(CommandObject *))responseBlock error:(void (^)(Fault *))errorBlock {

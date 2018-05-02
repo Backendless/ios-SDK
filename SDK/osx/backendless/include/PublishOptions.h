@@ -26,7 +26,7 @@
 @property (strong, nonatomic) NSString *publisherId;
 @property (strong, nonatomic) NSString *subtopic;
 
--(BOOL)addHeader:(NSString *)key value:(NSString *)value;
+-(BOOL)addHeader:(NSString *)key value:(id)value;
 -(BOOL)removeHeader:(NSString *)key;
 -(void)assignHeaders:(NSDictionary *)headers;
 

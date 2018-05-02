@@ -21,7 +21,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Responder.h"
-#import "Message.h"
+#import "PublishMessageInfo.h"
 #import "CommandObject.h"
 #import "UserStatusObject.h"
 
@@ -38,10 +38,29 @@
 -(void)removeConnectListeners:(void(^)(void))responseBlock;
 -(void)removeConnectListeners;
 
--(void)addMessageListener:(void(^)(Message *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)addMessageListener:(NSString *)selector response:(void(^)(Message *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)removeMessageListeners:(NSString *)selector response:(void(^)(Message *))responseBlock;
--(void)removeMessageListenersWithCallback:(void(^)(Message *))responseBlock;
+// **************************************************************
+-(void)addMessageListenerString:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)addMessageListenerString:(NSString *)selector response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)removeMessageListenersString:(NSString *)selector response:(void(^)(NSString *))responseBlock;
+-(void)removeMessageListenersStringWithCallback:(void(^)(NSString *))responseBlock;
+// **************************************************************
+-(void)addMessageListenerDictionary:(void(^)(NSDictionary *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)addMessageListenerDictionary:(NSString *)selector response:(void(^)(NSDictionary *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)removeMessageListenersDictionary:(NSString *)selector response:(void(^)(NSDictionary *))responseBlock;
+-(void)removeMessageListenersDictionaryWithCallback:(void(^)(NSDictionary *))responseBlock;
+// **************************************************************
+-(void)addMessageListenerCustomObject:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock class:(Class)classType;
+-(void)addMessageListenerCustomObject:(NSString *)selector response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock class:(Class)classType;
+-(void)removeMessageListenersCustomObject:(NSString *)selector response:(void(^)(id))responseBlock;
+-(void)removeMessageListenersCustomObjectWithCallback:(void(^)(id))responseBlock;
+// **************************************************************
+-(void)addMessageListener:(void(^)(PublishMessageInfo *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)addMessageListener:(NSString *)selector response:(void(^)(PublishMessageInfo *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)removeMessageListeners:(NSString *)selector response:(void(^)(PublishMessageInfo *))responseBlock;
+-(void)removeMessageListenersWithCallback:(void(^)(PublishMessageInfo *))responseBlock;
+// **************************************************************
+
+
 -(void)removeMessageListenersWithSelector:(NSString *)selector;
 -(void)removeMessageListeners;
 

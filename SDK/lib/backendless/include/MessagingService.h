@@ -24,12 +24,13 @@
 #import "DeviceRegistration.h"
 #import "RTMessaging.h"
 #import "BodyParts.h"
-@class UIUserNotificationCategory, MessageStatus, PublishOptions, DeliveryOptions, Channel, SharedObject, Message, Fault;
+@class UIUserNotificationCategory, MessageStatus, PublishOptions, DeliveryOptions, Channel, SharedObject, PublishMessageInfo, Fault;
 
 @interface MessagingService : NSObject
 @property (strong, nonatomic, readonly) HashMap *subscriptions;
 
 // Channel
+-(Channel *)subscribe;
 -(Channel *)subscribe:(NSString *)channelName;
 
 // sync methods with fault return (as exception)

@@ -27,7 +27,6 @@
 @interface RTListener() {
     NSMutableDictionary<NSString *, NSMutableArray<RTSubscription *> *> *subscriptions;
     NSMutableDictionary<NSString *, NSMutableArray *> *simpleListeners;
-    //void(^onError)(Fault *);
     void(^onStop)(RTSubscription *);
     void(^onReady)(void);
 }
@@ -153,9 +152,9 @@
         }
         else if (!whereClause && onResult) {
             for (RTSubscription *subscription in subscriptionStack) {
-                if ([subscription.options valueForKey:@"channel"] && [[subscription.options valueForKey:@"channel"] isEqualToString:channel] && subscription.onResult == onResult) {
+                if ([subscription.options valueForKey:@"channel"] && [[subscription.options valueForKey:@"channel"] isEqualToString:channel] && subscription.onResult == onResult && ![subscription.options valueForKey:@"selector"]) {
                     [subscription stop];
-                }
+                }         
             }
         }
         else if (!whereClause && !onResult) {

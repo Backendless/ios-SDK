@@ -22,7 +22,7 @@
 #import <Foundation/Foundation.h>
 #import "RTListener.h"
 #import "Responder.h"
-#import "Message.h"
+#import "PublishMessageInfo.h"
 #import "CommandObject.h"
 #import "UserStatusObject.h"
 
@@ -34,8 +34,8 @@
 -(void)addConnectListener:(BOOL)isConnected response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)removeConnectListeners:(void(^)(void))responseBlock;
 
--(void)addMessageListener:(NSString *)selector response:(void(^)(Message *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)removeMessageListeners:(NSString *)selector response:(void(^)(Message *))responseBlock;
+-(void)addMessageListener:(NSString *)selector response:(void(^)(PublishMessageInfo *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)removeMessageListeners:(NSString *)selector response:(void(^)(PublishMessageInfo *))responseBlock;
 
 -(void)addCommandListener:(void(^)(CommandObject *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)removeCommandListeners:(void(^)(CommandObject *))responseBlock;
