@@ -162,7 +162,7 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
 
 -(Channel *)subscribe:(NSString *)channelName {
     Channel *channel = [rtFactory createChannel:channelName];
-    [channel connect];
+    [channel join];
     return channel;
 }
 

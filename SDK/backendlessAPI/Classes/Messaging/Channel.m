@@ -26,7 +26,7 @@
 @interface Channel()
 @property (strong, nonatomic, readwrite) NSString *channelName;
 @property (strong, nonatomic) RTMessaging *rt;
-@property (nonatomic, readwrite) BOOL isConnected;
+@property (nonatomic, readwrite) BOOL isJoined;
 @property (nonatomic, readwrite) NSMutableArray *waitingSubscriptions;
 @property (strong, nonatomic) NSMapTable *wrappedSubscriptions;
 @end
@@ -37,19 +37,19 @@
     if (self = [super init]) {
         self.channelName = channelName;
         self.rt = [[RTMessaging alloc] initWithChannelName:channelName];
-        self.isConnected = NO;
+        self.isJoined = NO;
         self.waitingSubscriptions = [NSMutableArray new];
         self.wrappedSubscriptions = [NSMapTable new];
     }
     return self;
 }
 
--(void)connect {
-    if (!self.isConnected) {
+-(void)join {
+    if (!self.isJoined) {
         __weak __typeof__(self) weakSelf = self;
         [self.rt connect:^(id result) {
             __typeof__(self) strongSelf = weakSelf;
-            strongSelf.isConnected = YES;
+            strongSelf.isJoined = YES;
             for (NSDictionary *waitingSubscription in self.waitingSubscriptions) {
                 if ([[waitingSubscription valueForKey:@"event"] isEqualToString:PUB_SUB_CONNECT]) {
                     void(^onConnectResponse)(void) = [waitingSubscription valueForKey:@"onConnectResponse"];
@@ -68,19 +68,19 @@
     }
 }
 
--(void)disconnect {
-    if (self.isConnected) {
+-(void)leave {
+    if (self.isJoined) {
         [self removeConnectListeners];
         [self removeMessageListeners];
         [self removeCommandListeners];
         [self removeUserStatusListeners];
-        self.isConnected = NO;
+        self.isJoined = NO;
     }
 }
 
 -(void)addConnectListener:(void(^)(void))responseBlock error:(void (^)(Fault *))errorBlock {
-    if (self.isConnected) {
-        [self.rt addConnectListener:self.isConnected response:responseBlock error:errorBlock];
+    if (self.isJoined) {
+        [self.rt addConnectListener:self.isJoined response:responseBlock error:errorBlock];
     }
     else {
         [self addWaitingListener:PUB_SUB_CONNECT selector:nil connectResponse:responseBlock response:nil error:errorBlock];
@@ -167,7 +167,7 @@
 }
 
 -(void)addMessageListener:(NSString *)selector response:(void (^)(PublishMessageInfo *))responseBlock error:(void (^)(Fault *))errorBlock {
-    if (self.isConnected) {
+    if (self.isJoined) {
         [self.rt addMessageListener:selector response:responseBlock error:errorBlock];
     }
     else {
@@ -192,7 +192,7 @@
 }
 
 -(void)addCommandListener:(void (^)(CommandObject *))responseBlock error:(void(^)(Fault *))errorBlock; {
-    if (self.isConnected) {
+    if (self.isJoined) {
         [self.rt addCommandListener:responseBlock error:errorBlock];
     }
     else {
@@ -209,7 +209,7 @@
 }
 
 -(void)addUserStatusListener:(void (^)(UserStatusObject *))responseBlock error:(void (^)(Fault *))errorBlock {
-    if (self.isConnected) {
+    if (self.isJoined) {
         [self.rt addUserStatusListener:responseBlock error:errorBlock];
     }
     else {
