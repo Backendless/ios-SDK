@@ -31,16 +31,16 @@
 -(instancetype)initWithChannelName:(NSString *)channelName;
 -(void)connect:(void(^)(id))onSuccessfulConnect onError:(void(^)(Fault *))onError ;
 
--(void)addConnectListener:(BOOL)isConnected response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)removeConnectListeners:(void(^)(void))responseBlock;
+-(void)addJoinListener:(BOOL)isConnected response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)removeJoinListeners;
 
 -(void)addMessageListener:(NSString *)selector response:(void(^)(PublishMessageInfo *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)removeMessageListeners:(NSString *)selector response:(void(^)(PublishMessageInfo *))responseBlock;
+-(void)removeMessageListeners:(NSString *)selector;
 
 -(void)addCommandListener:(void(^)(CommandObject *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)removeCommandListeners:(void(^)(CommandObject *))responseBlock;
+-(void)removeCommandListeners;
 
 -(void)addUserStatusListener:(void(^)(UserStatusObject *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)removeUserStatusListeners:(void(^)(UserStatusObject *))responseBlock;
+-(void)removeUserStatusListeners;
 
 @end

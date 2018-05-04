@@ -98,12 +98,8 @@
     }
 }
 
--(void)removeConnectListeners:(void(^)(void))responseBlock {
-    [self.rt removeConnectListener:responseBlock];
-}
-
 -(void)removeConnectListeners {
-    [self.rt removeConnectListener:nil];
+    [self.rt removeConnectListeners];
 }
 
 -(void)addChangesListener:(void(^)(SharedObjectChanges *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -115,12 +111,8 @@
     }
 }
 
--(void)removeChangesListeners:(void(^)(SharedObjectChanges *))responseBlock {
-    [self.rt removeChangesListener:responseBlock];
-}
-
 -(void)removeChangesListeners {
-    [self.rt removeChangesListener:nil];
+    [self.rt removeChangesListeners];
 }
 
 -(void)addClearListener:(void(^)(UserInfo *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -132,12 +124,8 @@
     }
 }
 
--(void)removeClearListeners:(void(^)(UserInfo *))responseBlock {
-    [self.rt removeClearListener:responseBlock];
-}
-
 -(void)removeClearListeners {
-    [self.rt removeClearListener:nil];
+    [self.rt removeClearListeners];
 }
 
 -(void)addCommandListener:(void(^)(CommandObject *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -149,12 +137,8 @@
     }
 }
 
--(void)removeCommandListeners:(void(^)(CommandObject *))responseBlock {
-    [self.rt removeCommandListener:responseBlock];
-}
-
 -(void)removeCommandListeners {
-    [self.rt removeCommandListener:nil];
+    [self.rt removeCommandListeners];
 }
 
 -(void)addUserStatusListener:(void(^)(UserStatusObject *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -166,12 +150,8 @@
     }
 }
 
--(void)removeUserStatusListeners:(void(^)(UserStatusObject *))responseBlock {
-    [self.rt removeUserStatusListener:responseBlock];
-}
-
 -(void)removeUserStatusListeners {
-    [self.rt removeUserStatusListener:nil];
+    [self.rt removeUserStatusListeners];
 }
 
 -(void)addInvokeListener:(void(^)(InvokeObject *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -183,12 +163,8 @@
     }
 }
 
--(void)removeInvokeListeners:(void(^)(InvokeObject *))responseBlock {
-    [self.rt removeInvokeListener:responseBlock];
-}
-
 -(void)removeInvokeListeners {
-    [self.rt removeInvokeListener:nil];
+    [self.rt removeInvokeListeners];
 }
 
 -(void)removeAllListeners {

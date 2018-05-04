@@ -34,39 +34,28 @@
 -(void)join;
 -(void)leave;
 
--(void)addConnectListener:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)removeConnectListeners:(void(^)(void))responseBlock;
--(void)removeConnectListeners;
+-(void)addJoinListener:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)removeJoinListeners;
 
 -(void)addMessageListenerString:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)addMessageListenerString:(NSString *)selector response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)removeMessageListenersString:(NSString *)selector response:(void(^)(NSString *))responseBlock;
--(void)removeMessageListenersStringWithCallback:(void(^)(NSString *))responseBlock;
 
 -(void)addMessageListenerDictionary:(void(^)(NSDictionary *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)addMessageListenerDictionary:(NSString *)selector response:(void(^)(NSDictionary *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)removeMessageListenersDictionary:(NSString *)selector response:(void(^)(NSDictionary *))responseBlock;
--(void)removeMessageListenersDictionaryWithCallback:(void(^)(NSDictionary *))responseBlock;
 
 -(void)addMessageListenerCustomObject:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock class:(Class)classType;
 -(void)addMessageListenerCustomObject:(NSString *)selector response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock class:(Class)classType;
--(void)removeMessageListenersCustomObject:(NSString *)selector response:(void(^)(id))responseBlock;
--(void)removeMessageListenersCustomObjectWithCallback:(void(^)(id))responseBlock;
 
 -(void)addMessageListener:(void(^)(PublishMessageInfo *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)addMessageListener:(NSString *)selector response:(void(^)(PublishMessageInfo *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)removeMessageListeners:(NSString *)selector response:(void(^)(PublishMessageInfo *))responseBlock;
--(void)removeMessageListenersWithCallback:(void(^)(PublishMessageInfo *))responseBlock;
 
--(void)removeMessageListenersWithSelector:(NSString *)selector;
+-(void)removeMessageListeners:(NSString *)selector;
 -(void)removeMessageListeners;
 
 -(void)addCommandListener:(void(^)(CommandObject *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)removeCommandListeners:(void(^)(CommandObject *))responseBlock;
 -(void)removeCommandListeners;
 
 -(void)addUserStatusListener:(void(^)(UserStatusObject *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)removeUserStatusListeners:(void(^)(UserStatusObject *))responseBlock;
 -(void)removeUserStatusListeners;
 
 -(void)removeAllListeners;

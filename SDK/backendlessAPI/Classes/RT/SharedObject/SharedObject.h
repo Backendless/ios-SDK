@@ -39,27 +39,21 @@
 -(void)disconnect;
 
 -(void)addConnectListener:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)removeConnectListeners:(void(^)(void))responseBlock;
 -(void)removeConnectListeners;
 
 -(void)addChangesListener:(void(^)(SharedObjectChanges *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)removeChangesListeners:(void(^)(SharedObjectChanges *))responseBlock;
 -(void)removeChangesListeners;
 
 -(void)addClearListener:(void(^)(UserInfo *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)removeClearListeners:(void(^)(UserInfo *))responseBlock;
 -(void)removeClearListeners;
 
 -(void)addCommandListener:(void(^)(CommandObject *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)removeCommandListeners:(void(^)(CommandObject *))responseBlock;
 -(void)removeCommandListeners;
 
 -(void)addUserStatusListener:(void(^)(UserStatusObject *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)removeUserStatusListeners:(void(^)(UserStatusObject *))responseBlock;
 -(void)removeUserStatusListeners;
 
 -(void)addInvokeListener:(void(^)(InvokeObject *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)removeInvokeListeners:(void(^)(InvokeObject *))responseBlock;
 -(void)removeInvokeListeners;
 
 -(void)removeAllListeners;

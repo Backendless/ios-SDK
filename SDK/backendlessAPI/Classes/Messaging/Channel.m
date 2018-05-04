@@ -28,7 +28,6 @@
 @property (strong, nonatomic) RTMessaging *rt;
 @property (nonatomic, readwrite) BOOL isJoined;
 @property (nonatomic, readwrite) NSMutableArray *waitingSubscriptions;
-@property (strong, nonatomic) NSMapTable *wrappedSubscriptions;
 @end
 
 @implementation Channel
@@ -39,7 +38,6 @@
         self.rt = [[RTMessaging alloc] initWithChannelName:channelName];
         self.isJoined = NO;
         self.waitingSubscriptions = [NSMutableArray new];
-        self.wrappedSubscriptions = [NSMapTable new];
     }
     return self;
 }
@@ -70,97 +68,46 @@
 
 -(void)leave {
     if (self.isJoined) {
-        [self removeConnectListeners];
-        [self removeMessageListeners];
-        [self removeCommandListeners];
-        [self removeUserStatusListeners];
+        [self removeAllListeners];
         self.isJoined = NO;
     }
 }
 
--(void)addConnectListener:(void(^)(void))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)addJoinListener:(void(^)(void))responseBlock error:(void (^)(Fault *))errorBlock {
     if (self.isJoined) {
-        [self.rt addConnectListener:self.isJoined response:responseBlock error:errorBlock];
+        [self.rt addJoinListener:self.isJoined response:responseBlock error:errorBlock];
     }
     else {
         [self addWaitingListener:PUB_SUB_CONNECT selector:nil connectResponse:responseBlock response:nil error:errorBlock];
     }
 }
 
--(void)removeConnectListeners:(void(^)(void))responseBlock {
-    [self.rt removeConnectListeners:responseBlock];
+-(void)removeJoinListeners {
+    [self.rt removeJoinListeners];
 }
-
--(void)removeConnectListeners {
-    [self.rt removeConnectListeners:nil];
-}
-
-// ************************************************
 
 -(void)addMessageListenerString:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
-    void(^onMessage)(PublishMessageInfo *) = [publishMessageInfoWrapper wrapResponseBlock:responseBlock error:errorBlock class:[NSString class]];
-    [self.wrappedSubscriptions setObject:onMessage forKey:responseBlock];
-    [self addMessageListener:onMessage error:errorBlock];
+    [self addMessageListener:[publishMessageInfoWrapper wrapResponseBlock:responseBlock error:errorBlock class:[NSString class]] error:errorBlock];
 }
 
 -(void)addMessageListenerString:(NSString *)selector response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
-    void(^onMessage)(PublishMessageInfo *) = [publishMessageInfoWrapper wrapResponseBlock:responseBlock error:errorBlock class:[NSString class]];
-    [self.wrappedSubscriptions setObject:onMessage forKey:responseBlock];
-    [self addMessageListener:selector response:onMessage error:errorBlock];
+    [self addMessageListener:selector response:[publishMessageInfoWrapper wrapResponseBlock:responseBlock error:errorBlock class:[NSString class]] error:errorBlock];
 }
-
--(void)removeMessageListenersString:(NSString *)selector response:(void(^)(NSString *))responseBlock {
-    [self removeMessageListeners:selector response:[self.wrappedSubscriptions objectForKey:responseBlock]];
-}
-
--(void)removeMessageListenersStringWithCallback:(void(^)(NSString *))responseBlock {
-    [self removeMessageListenersWithCallback:[self.wrappedSubscriptions objectForKey:responseBlock]];
-}
-
-// ************************************************
 
 -(void)addMessageListenerDictionary:(void(^)(NSDictionary *))responseBlock error:(void(^)(Fault *))errorBlock {
-    void(^onMessage)(PublishMessageInfo *) = [publishMessageInfoWrapper wrapResponseBlock:responseBlock error:errorBlock class:[NSDictionary class]];
-    [self.wrappedSubscriptions setObject:onMessage forKey:responseBlock];
-    [self addMessageListener:onMessage error:errorBlock];}
+    [self addMessageListener:[publishMessageInfoWrapper wrapResponseBlock:responseBlock error:errorBlock class:[NSDictionary class]] error:errorBlock];}
 
 -(void)addMessageListenerDictionary:(NSString *)selector response:(void(^)(NSDictionary *))responseBlock error:(void(^)(Fault *))errorBlock {
-    void(^onMessage)(PublishMessageInfo *) = [publishMessageInfoWrapper wrapResponseBlock:responseBlock error:errorBlock class:[NSDictionary class]];
-    [self.wrappedSubscriptions setObject:onMessage forKey:responseBlock];
-    [self addMessageListener:selector response:onMessage error:errorBlock];
+    [self addMessageListener:selector response:[publishMessageInfoWrapper wrapResponseBlock:responseBlock error:errorBlock class:[NSDictionary class]] error:errorBlock];
 }
-
--(void)removeMessageListenersDictionary:(NSString *)selector response:(void(^)(NSDictionary *))responseBlock {
-    [self removeMessageListeners:selector response:[self.wrappedSubscriptions objectForKey:responseBlock]];
-}
-
--(void)removeMessageListenersDictionaryWithCallback:(void(^)(NSDictionary *))responseBlock {
-    [self removeMessageListenersWithCallback:[self.wrappedSubscriptions objectForKey:responseBlock]];
-}
-
-// ************************************************
 
 -(void)addMessageListenerCustomObject:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock class:(Class)classType {
-    void(^onMessage)(PublishMessageInfo *) = [publishMessageInfoWrapper wrapResponseBlockToCustomObject:responseBlock error:errorBlock class:classType];
-    [self.wrappedSubscriptions setObject:onMessage forKey:responseBlock];
-    [self addMessageListener:onMessage error:errorBlock];
+    [self addMessageListener:[publishMessageInfoWrapper wrapResponseBlockToCustomObject:responseBlock error:errorBlock class:classType] error:errorBlock];
 }
 
 -(void)addMessageListenerCustomObject:(NSString *)selector response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock class:(Class)classType {
-    void(^onMessage)(PublishMessageInfo *) = [publishMessageInfoWrapper wrapResponseBlockToCustomObject:responseBlock error:errorBlock class:classType];
-    [self.wrappedSubscriptions setObject:onMessage forKey:responseBlock];
-    [self addMessageListener:selector response:onMessage error:errorBlock];
+    [self addMessageListener:selector response:[publishMessageInfoWrapper wrapResponseBlockToCustomObject:responseBlock error:errorBlock class:classType] error:errorBlock];
 }
-
--(void)removeMessageListenersCustomObject:(NSString *)selector response:(void(^)(id))responseBlock {
-    [self removeMessageListeners:selector response:[self.wrappedSubscriptions objectForKey:responseBlock]];
-}
-
--(void)removeMessageListenersCustomObjectWithCallback:(void(^)(id))responseBlock {
-    [self removeMessageListenersWithCallback:[self.wrappedSubscriptions objectForKey:responseBlock]];
-}
-
-// ************************************************
 
 -(void)addMessageListener:(void(^)(PublishMessageInfo *))responseBlock error:(void (^)(Fault *))errorBlock {
     [self addMessageListener:nil response:responseBlock error:errorBlock];
@@ -175,20 +122,12 @@
     }
 }
 
--(void)removeMessageListeners:(NSString *)selector response:(void (^)(PublishMessageInfo *))responseBlock {
-    [self.rt removeMessageListeners:selector response:responseBlock];
-}
-
--(void)removeMessageListenersWithCallback:(void(^)(PublishMessageInfo *))responseBlock {
-    [self.rt removeMessageListeners:nil response:responseBlock];
-}
-
--(void)removeMessageListenersWithSelector:(NSString *)selector {
-    [self.rt removeMessageListeners:selector response:nil];
+-(void)removeMessageListeners:(NSString *)selector {
+    [self.rt removeMessageListeners:selector];
 }
 
 -(void)removeMessageListeners {
-    [self.rt removeMessageListeners:nil response:nil];
+    [self.rt removeMessageListeners:nil];
 }
 
 -(void)addCommandListener:(void (^)(CommandObject *))responseBlock error:(void(^)(Fault *))errorBlock; {
@@ -200,12 +139,8 @@
     }
 }
 
--(void)removeCommandListeners:(void (^)(CommandObject *))responseBlock {
-    [self.rt removeCommandListeners:responseBlock];
-}
-
 -(void)removeCommandListeners {
-    [self.rt removeCommandListeners:nil];
+    [self.rt removeCommandListeners];
 }
 
 -(void)addUserStatusListener:(void (^)(UserStatusObject *))responseBlock error:(void (^)(Fault *))errorBlock {
@@ -217,16 +152,12 @@
     }
 }
 
--(void)removeUserStatusListeners:(void (^)(UserStatusObject *))responseBlock {
-    [self.rt removeUserStatusListeners:responseBlock];
-}
-
 -(void)removeUserStatusListeners {
-    [self.rt removeUserStatusListeners:nil];
+    [self.rt removeUserStatusListeners];
 }
 
 -(void)removeAllListeners {
-    [self removeConnectListeners];
+    [self removeJoinListeners];
     [self removeMessageListeners];
     [self removeCommandListeners];
     [self removeUserStatusListeners];

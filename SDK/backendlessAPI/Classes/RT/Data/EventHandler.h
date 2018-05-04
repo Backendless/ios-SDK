@@ -37,36 +37,26 @@ typedef enum {
 
 -(void)addCreateListener:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)addCreateListener:(NSString *)whereClause response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)removeCreateListener:(void(^)(id))responseBlock;
--(void)removeCreateListener:(NSString *)whereClause response:(void(^)(id))responseBlock;
 -(void)removeCreateListeners:(NSString *)whereClause;
 -(void)removeCreateListeners;
 
 -(void)addUpdateListener:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)addUpdateListener:(NSString *)whereClause response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)removeUpdateListener:(void(^)(id))responseBlock;
--(void)removeUpdateListener:(NSString *)whereClause response:(void(^)(id))responseBlock;
 -(void)removeUpdateListeners:(NSString *)whereClause;
 -(void)removeUpdateListeners;
 
 -(void)addDeleteListener:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)addDeleteListener:(NSString *)whereClause response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)removeDeleteListener:(void(^)(id))responseBlock;
--(void)removeDeleteListener:(NSString *)whereClause response:(void(^)(id))responseBlock;
 -(void)removeDeleteListeners:(NSString *)whereClause;
 -(void)removeDeleteListeners;
 
 -(void)addBulkUpdateListener:(void(^)(BulkEvent *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)addBulkUpdateListener:(NSString *)whereClause response:(void(^)(BulkEvent *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)removeBulkUpdateListener:(void(^)(BulkEvent *))responseBlock;
--(void)removeBulkUpdateListener:(NSString *)whereClause response:(void(^)(BulkEvent *))responseBlock;
 -(void)removeBulkUpdateListeners:(NSString *)whereClause;
 -(void)removeBulkUpdateListeners;
 
 -(void)addBulkDeleteListener:(void(^)(BulkEvent *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)addBulkDeleteListener:(NSString *)whereClause response:(void(^)(BulkEvent *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)removeBulkDeleteListener:(void(^)(BulkEvent *))responseBlock;
--(void)removeBulkDeleteListener:(NSString *)whereClause response:(void(^)(BulkEvent *))responseBlock;
 -(void)removeBulkDeleteListeners:(BulkEvent *)whereClause;
 -(void)removeBulkDeleteListeners;
 

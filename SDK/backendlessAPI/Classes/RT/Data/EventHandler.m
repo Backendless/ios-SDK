@@ -66,20 +66,12 @@
     [self subscribeForObjectChanges:CREATED tableName:table whereClause:whereClause response:responseBlock error:errorBlock];
 }
 
--(void)removeCreateListener:(void(^)(id))responseBlock {
-    [super stopSubscription:CREATED whereClause:nil onResult:responseBlock];
-}
-
--(void)removeCreateListener:(NSString *)whereClause response:(void(^)(id))responseBlock {
-    [super stopSubscription:CREATED whereClause:whereClause onResult:responseBlock];
-}
-
 -(void)removeCreateListeners:(NSString *)whereClause {
-    [super stopSubscription:CREATED whereClause:whereClause onResult:nil];
+    [super stopSubscription:CREATED whereClause:whereClause];
 }
 
 -(void)removeCreateListeners {
-    [super stopSubscription:CREATED whereClause:nil onResult:nil];
+    [super stopSubscription:CREATED whereClause:nil];
 }
 
 -(void)addUpdateListener:(void (^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -90,20 +82,12 @@
     [self subscribeForObjectChanges:UPDATED tableName:table whereClause:whereClause response:responseBlock error:errorBlock];
 }
 
--(void)removeUpdateListener:(void(^)(id))responseBlock {
-    [super stopSubscription:UPDATED whereClause:nil onResult:responseBlock];
-}
-
--(void)removeUpdateListener:(NSString *)whereClause response:(void(^)(id))responseBlock {
-    [super stopSubscription:UPDATED whereClause:whereClause onResult:responseBlock];
-}
-
 -(void)removeUpdateListeners:(NSString *)whereClause {
-    [super stopSubscription:UPDATED whereClause:whereClause onResult:nil];
+    [super stopSubscription:UPDATED whereClause:whereClause];
 }
 
 -(void)removeUpdateListeners {
-    [super stopSubscription:UPDATED whereClause:nil onResult:nil];
+    [super stopSubscription:UPDATED whereClause:nil];
 }
 
 -(void)addDeleteListener:(void(^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
@@ -114,20 +98,12 @@
     [self subscribeForObjectChanges:DELETED tableName:table whereClause:whereClause response:responseBlock error:errorBlock];
 }
 
--(void)removeDeleteListener:(void(^)(id))responseBlock {
-    [super stopSubscription:DELETED whereClause:nil onResult:responseBlock];
-}
-
--(void)removeDeleteListener:(NSString *)whereClause response:(void(^)(id))responseBlock {
-    [super stopSubscription:DELETED whereClause:whereClause onResult:responseBlock];
-}
-
 -(void)removeDeleteListeners:(NSString *)whereClause {
-    [super stopSubscription:DELETED whereClause:whereClause onResult:nil];
+    [super stopSubscription:DELETED whereClause:whereClause];
 }
 
 -(void)removeDeleteListeners {
-    [super stopSubscription:DELETED whereClause:nil onResult:nil];
+    [super stopSubscription:DELETED whereClause:nil];
 }
 
 -(void)addBulkUpdateListener:(void(^)(BulkEvent *))responseBlock error:(void (^)(Fault *))errorBlock {
@@ -138,20 +114,12 @@
     [self subscribeForObjectChanges:BULK_UPDATED tableName:table whereClause:whereClause response:responseBlock error:errorBlock];
 }
 
--(void)removeBulkUpdateListener:(void(^)(BulkEvent *))responseBlock {
-    [super stopSubscription:BULK_UPDATED whereClause:nil onResult:responseBlock];
-}
-
--(void)removeBulkUpdateListener:(NSString *)whereClause response:(void(^)(BulkEvent *))responseBlock {
-    [super stopSubscription:BULK_UPDATED whereClause:whereClause onResult:responseBlock];
-}
-
 -(void)removeBulkUpdateListeners:(NSString *)whereClause {
-    [super stopSubscription:BULK_UPDATED whereClause:whereClause onResult:nil];
+    [super stopSubscription:BULK_UPDATED whereClause:whereClause];
 }
 
 -(void)removeBulkUpdateListeners {
-    [super stopSubscription:BULK_UPDATED whereClause:nil onResult:nil];
+    [super stopSubscription:BULK_UPDATED whereClause:nil];
 }
 
 -(void)addBulkDeleteListener:(void(^)(BulkEvent *))responseBlock error:(void (^)(Fault *))errorBlock {
@@ -162,20 +130,12 @@
     [self subscribeForObjectChanges:BULK_DELETED tableName:table whereClause:whereClause response:responseBlock error:errorBlock];
 }
 
--(void)removeBulkDeleteListener:(void(^)(BulkEvent *))responseBlock {
-    [super stopSubscription:BULK_DELETED whereClause:nil onResult:responseBlock];
-}
-
--(void)removeBulkDeleteListener:(NSString *)whereClause response:(void(^)(BulkEvent *))responseBlock {
-    [super stopSubscription:BULK_DELETED whereClause:whereClause onResult:responseBlock];
-}
-
 -(void)removeBulkDeleteListeners:(NSString *)whereClause {
-    [super stopSubscription:BULK_DELETED whereClause:whereClause onResult:nil];
+    [super stopSubscription:BULK_DELETED whereClause:whereClause];
 }
 
 -(void)removeBulkDeleteListeners {
-   [super stopSubscription:BULK_DELETED whereClause:nil onResult:nil];
+   [super stopSubscription:BULK_DELETED whereClause:nil];
 }
 
 -(void)removeAllListeners {

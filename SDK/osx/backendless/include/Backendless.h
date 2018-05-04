@@ -71,7 +71,6 @@
 #import "Presence.h"
 #import "MapDrivenDataStore.h"
 #import "SharedObject.h"
-#import "SharedObject.h"
 #import "RTService.h"
 
 //Cache

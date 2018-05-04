@@ -28,7 +28,6 @@
 
 @interface RTSharedObject() {
     NSString *sharedObjectName;
-    NSMapTable *onConnectCallbacks;
 }
 @end
 
@@ -37,7 +36,6 @@
 -(instancetype)initWithName:(NSString *)name {
     if (self = [super init]) {
         sharedObjectName = name;
-        onConnectCallbacks = [NSMapTable new];
     }
     return self;
 }
@@ -49,13 +47,12 @@
 
 -(void)addConnectListener:(BOOL)isConnected response:(void (^)(void))responseBlock error:(void(^)(Fault *))errorBlock {
     void(^wrappedBlock)(id) = ^(id result) { responseBlock(); };
-    [onConnectCallbacks setObject:wrappedBlock forKey:responseBlock];
     NSDictionary *options = @{@"name"  : sharedObjectName};
     [super addSubscription:RSO_CONNECT options:options onResult:wrappedBlock onError:errorBlock handleResultSelector:nil fromClass:nil];
 }
 
--(void)removeConnectListener:(void(^)(void))responseBlock {
-    [super stopSubscriptionWithSharedObject:sharedObjectName event:RSO_CONNECT onResult:[onConnectCallbacks objectForKey:responseBlock]];
+-(void)removeConnectListeners {
+    [super stopSubscriptionWithSharedObject:sharedObjectName event:RSO_CONNECT];
 }
 
 -(void)addChangesListener:(void(^)(SharedObjectChanges *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -63,8 +60,8 @@
     [super addSubscription:RSO_CHANGES options:options onResult:responseBlock onError:errorBlock handleResultSelector:@selector(handleSharedObjectChanges:) fromClass:self];
 }
 
--(void)removeChangesListener:(void(^)(SharedObjectChanges *))responseBlock {
-    [super stopSubscriptionWithSharedObject:sharedObjectName event:RSO_CHANGES onResult:responseBlock];
+-(void)removeChangesListeners {
+    [super stopSubscriptionWithSharedObject:sharedObjectName event:RSO_CHANGES];
 }
 
 -(SharedObjectChanges *)handleSharedObjectChanges:(NSDictionary *)jsonResult {
@@ -83,8 +80,8 @@
     [super addSubscription:RSO_CLEARED options:options onResult:responseBlock onError:errorBlock handleResultSelector:@selector(handleUserInfo:) fromClass:self];
 }
 
--(void)removeClearListener:(void(^)(UserInfo *))responseBlock {
-    [super stopSubscriptionWithSharedObject:sharedObjectName event:RSO_CLEARED onResult:responseBlock];
+-(void)removeClearListeners {
+    [super stopSubscriptionWithSharedObject:sharedObjectName event:RSO_CLEARED];
 }
 
 -(UserInfo *)handleUserInfo:(NSDictionary *)jsonResult {
@@ -101,8 +98,8 @@
     [super addSubscription:RSO_COMMANDS options:options onResult:responseBlock onError:errorBlock handleResultSelector:@selector(handleCommand:) fromClass:self];
 }
 
--(void)removeCommandListener:(void(^)(CommandObject *))responseBlock {
-    [super stopSubscriptionWithSharedObject:sharedObjectName event:RSO_COMMANDS onResult:responseBlock];
+-(void)removeCommandListeners {
+    [super stopSubscriptionWithSharedObject:sharedObjectName event:RSO_COMMANDS];
 }
 
 -(CommandObject *)handleCommand:(NSDictionary *)jsonResult {
@@ -121,8 +118,8 @@
     [super addSubscription:RSO_USERS options:options onResult:responseBlock onError:errorBlock handleResultSelector:@selector(handleUserStatus:) fromClass:self];
 }
 
--(void)removeUserStatusListener:(void(^)(UserStatusObject *))responseBlock {
-    [super stopSubscriptionWithSharedObject:sharedObjectName event:RSO_USERS onResult:responseBlock];
+-(void)removeUserStatusListeners {
+    [super stopSubscriptionWithSharedObject:sharedObjectName event:RSO_USERS];
 }
 
 -(UserStatusObject *)handleUserStatus:(NSDictionary *)jsonResult {
@@ -139,8 +136,8 @@
     [super addSubscription:RSO_INVOKE options:options onResult:responseBlock onError:errorBlock handleResultSelector:@selector(handleInvoke:) fromClass:self];
 }
 
--(void)removeInvokeListener:(void(^)(InvokeObject *))responseBlock {
-    [super stopSubscriptionWithSharedObject:sharedObjectName event:RSO_INVOKE onResult:responseBlock];
+-(void)removeInvokeListeners {
+    [super stopSubscriptionWithSharedObject:sharedObjectName event:RSO_INVOKE];
 }
 
 -(InvokeObject *)handleInvoke:(NSDictionary *)jsonResult {

@@ -25,7 +25,6 @@
 
 @interface RTMessaging() {
     NSString *channel;
-    NSMapTable *onConnectCallbacks;
 }
 @end
 
@@ -34,7 +33,6 @@
 -(instancetype)initWithChannelName:(NSString *)channelName {
     if (self = [super init]) {
         channel = channelName;
-        onConnectCallbacks = [NSMapTable new];
     }
     return self;
 }
@@ -44,15 +42,14 @@
     [super addSubscription:PUB_SUB_CONNECT options:options onResult:onSuccessfulConnect onError:onError handleResultSelector:nil fromClass:nil];
 }
 
--(void)addConnectListener:(BOOL)isConnected response:(void(^)(void))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)addJoinListener:(BOOL)isConnected response:(void(^)(void))responseBlock error:(void (^)(Fault *))errorBlock {
     void(^wrappedBlock)(id) = ^(id result) { responseBlock(); };
-    [onConnectCallbacks setObject:wrappedBlock forKey:responseBlock];
     NSDictionary *options = @{@"channel"  : channel};
     [super addSubscription:PUB_SUB_CONNECT options:options onResult:wrappedBlock onError:errorBlock handleResultSelector:nil fromClass:nil];
 }
 
--(void)removeConnectListeners:(void(^)(void))responseBlock {
-    [super stopSubscriptionWithChannel:channel event:PUB_SUB_CONNECT whereClause:nil onResult:[onConnectCallbacks objectForKey:responseBlock]];
+-(void)removeJoinListeners {
+    [super stopSubscriptionWithChannel:channel event:PUB_SUB_CONNECT whereClause:nil];
 }
 
 -(void)addMessageListener:(NSString *)selector response:(void(^)(PublishMessageInfo *))responseBlock error:(void (^)(Fault *))errorBlock {
@@ -64,8 +61,8 @@
     [super addSubscription:PUB_SUB_MESSAGES options:options onResult:responseBlock onError:errorBlock handleResultSelector:@selector(handlePublishMessageInfo:) fromClass:self];
 }
 
--(void)removeMessageListeners:(NSString *)selector response:(void(^)(PublishMessageInfo *))responseBlock {
-    [super stopSubscriptionWithChannel:channel event:PUB_SUB_MESSAGES whereClause:selector onResult:responseBlock];
+-(void)removeMessageListeners:(NSString *)selector {
+    [super stopSubscriptionWithChannel:channel event:PUB_SUB_MESSAGES whereClause:selector];
 }
 
 -(PublishMessageInfo *)handlePublishMessageInfo:(NSDictionary *)jsonResult {
@@ -93,8 +90,8 @@
     [super addSubscription:PUB_SUB_COMMANDS options:options onResult:responseBlock onError:errorBlock handleResultSelector:@selector(handleCommand:) fromClass:self];
 }
 
--(void)removeCommandListeners:(void(^)(CommandObject *))responseBlock {
-    [super stopSubscriptionWithChannel:channel event:PUB_SUB_COMMANDS whereClause:nil onResult:responseBlock];
+-(void)removeCommandListeners {
+    [super stopSubscriptionWithChannel:channel event:PUB_SUB_COMMANDS whereClause:nil];
 }
 
 -(CommandObject *)handleCommand:(NSDictionary *)jsonResult {
@@ -113,8 +110,8 @@
     [super addSubscription:PUB_SUB_USERS options:options onResult:responseBlock onError:errorBlock handleResultSelector:@selector(handleUserStatus:) fromClass:self];
 }
 
--(void)removeUserStatusListeners:(void(^)(UserStatusObject *))onUserStatus {
-    [super stopSubscriptionWithChannel:channel event:PUB_SUB_USERS whereClause:nil onResult:onUserStatus];
+-(void)removeUserStatusListeners {
+    [super stopSubscriptionWithChannel:channel event:PUB_SUB_USERS whereClause:nil];
 }
 
 -(UserStatusObject *)handleUserStatus:(NSDictionary *)jsonResult {

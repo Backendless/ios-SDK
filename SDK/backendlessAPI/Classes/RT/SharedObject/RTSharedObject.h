@@ -36,22 +36,22 @@
 -(void)connect:(void(^)(id))onSuccessfulConnect onError:(void(^)(Fault *))onError;
 
 -(void)addConnectListener:(BOOL)isConnected response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)removeConnectListener:(void(^)(void))responseBlock;
+-(void)removeConnectListeners;
 
 -(void)addChangesListener:(void(^)(SharedObjectChanges *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)removeChangesListener:(void(^)(SharedObjectChanges *))responseBlock;
+-(void)removeChangesListeners;
 
 -(void)addClearListener:(void(^)(UserInfo *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)removeClearListener:(void(^)(UserInfo *))responseBlock;
+-(void)removeClearListeners;
 
 -(void)addCommandListener:(void(^)(CommandObject *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)removeCommandListener:(void(^)(CommandObject *))responseBlock;
+-(void)removeCommandListeners;
 
 -(void)addUserStatusListener:(void(^)(UserStatusObject *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)removeUserStatusListener:(void(^)(UserStatusObject *))responseBlock;
+-(void)removeUserStatusListeners;
 
 -(void)addInvokeListener:(void(^)(InvokeObject *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)removeInvokeListener:(void(^)(InvokeObject *))responseBlock;
+-(void)removeInvokeListeners;
 
 -(void)get:(NSString *)key onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
 -(void)set:(NSString *)key data:(id)data onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
