@@ -20,6 +20,7 @@
  */
 
 #import "PublishMessageInfoWrapper.h"
+#import "Backendless.h"
 
 @implementation PublishMessageInfoWrapper
 
@@ -39,28 +40,30 @@
         }
         else {
             errorBlock([Fault fault:@"Received incorrect object type" detail:[NSString stringWithFormat:@"Expected: %@, received: %@", NSStringFromClass(classType), [messageInfo.message class]]]);
-        }         
+        }
     };
     return wrappedBlock;
 }
 
 -(void(^)(PublishMessageInfo *))wrapResponseBlockToCustomObject:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock class:(Class)classType {
+    NSString *classTypeName = [backendless.persistenceService getEntityName:NSStringFromClass(classType)];
     void(^wrappedBlock)(PublishMessageInfo *) = ^(PublishMessageInfo *messageInfo) {
         if ([messageInfo.message isKindOfClass:[NSDictionary class]]) {
             NSDictionary *message = messageInfo.message;
             if ([message valueForKey:@"___class"]) {
                 NSString *className = [message valueForKey:@"___class"];
-                id resultObject = [NSClassFromString(className) new];
-                for (NSString *field in [message allKeys]) {
-                    if (![field isEqualToString:@"___class"] && [resultObject respondsToSelector:NSSelectorFromString(field)]) {
-                        [resultObject setValue:[message valueForKey:field] forKey:field];
+                if ([className isEqualToString:classTypeName]) {
+                    id resultObject = [classType new];
+                    for (NSString *field in [message allKeys]) {
+                        if (![field isEqualToString:@"___class"] && [resultObject respondsToSelector:NSSelectorFromString(field)]) {
+                            [resultObject setValue:[message valueForKey:field] forKey:field];                                         }
                     }
+                    responseBlock(resultObject);
                 }
-                responseBlock(resultObject);
-            }
-            else {
-                errorBlock([Fault fault:@"Received incorrect object type" detail:[NSString stringWithFormat:@"Expected: %@, received: %@", NSStringFromClass(classType), [messageInfo.message class]]]);
-            }
+                else {
+                    errorBlock([Fault fault:@"Received incorrect object type" detail:[NSString stringWithFormat:@"Expected: %@, received: %@", classTypeName, [messageInfo.message class]]]);
+                }
+            }      
         }
         else {
             errorBlock([Fault fault:@"Received incorrect object type" detail:[NSString stringWithFormat:@"Expected: %@, received: %@", NSStringFromClass(classType), [messageInfo.message class]]]);
