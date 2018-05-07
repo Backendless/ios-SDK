@@ -1570,6 +1570,16 @@
 		5A633F461F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A633F471F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; };
 		5A633F481F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A65ABB420A039A500EA2AFB /* NullHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A65ABB220A039A500EA2AFB /* NullHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A65ABB520A039A500EA2AFB /* NullHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A65ABB220A039A500EA2AFB /* NullHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A65ABB620A039A500EA2AFB /* NullHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A65ABB220A039A500EA2AFB /* NullHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A65ABB720A039A500EA2AFB /* NullHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A65ABB220A039A500EA2AFB /* NullHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A65ABB820A039A500EA2AFB /* NullHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A65ABB220A039A500EA2AFB /* NullHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A65ABB920A039A500EA2AFB /* NullHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A65ABB320A039A500EA2AFB /* NullHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A65ABBA20A039A500EA2AFB /* NullHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A65ABB320A039A500EA2AFB /* NullHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A65ABBB20A039A500EA2AFB /* NullHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A65ABB320A039A500EA2AFB /* NullHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A65ABBC20A039A500EA2AFB /* NullHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A65ABB320A039A500EA2AFB /* NullHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A65ABBD20A039A500EA2AFB /* NullHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A65ABB320A039A500EA2AFB /* NullHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A66A0731FD6CD1E002202BE /* RTHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A66A0711FD6CD1E002202BE /* RTHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A66A0741FD6CD1E002202BE /* RTHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A66A0711FD6CD1E002202BE /* RTHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A66A0751FD6CD1E002202BE /* RTHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A66A0711FD6CD1E002202BE /* RTHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2686,6 +2696,8 @@
 		5A5F38551FB317EB002F21D4 /* RTSubscription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTSubscription.m; sourceTree = "<group>"; };
 		5A633F3F1F7BB7F6004D7ACA /* BackendlessPushHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BackendlessPushHelper.h; sourceTree = "<group>"; };
 		5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BackendlessPushHelper.m; sourceTree = "<group>"; };
+		5A65ABB220A039A500EA2AFB /* NullHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NullHelper.h; sourceTree = "<group>"; };
+		5A65ABB320A039A500EA2AFB /* NullHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NullHelper.m; sourceTree = "<group>"; };
 		5A66A0711FD6CD1E002202BE /* RTHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTHelper.h; sourceTree = "<group>"; };
 		5A66A0721FD6CD1E002202BE /* RTHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RTHelper.m; sourceTree = "<group>"; };
 		5A8A155C1FA0CB22009A1394 /* RTClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTClient.h; sourceTree = "<group>"; };
@@ -3478,6 +3490,15 @@
 			path = SharedObject;
 			sourceTree = "<group>";
 		};
+		5A65ABAD20A0397900EA2AFB /* NullHelper */ = {
+			isa = PBXGroup;
+			children = (
+				5A65ABB220A039A500EA2AFB /* NullHelper.h */,
+				5A65ABB320A039A500EA2AFB /* NullHelper.m */,
+			);
+			path = NullHelper;
+			sourceTree = "<group>";
+		};
 		5A872F1A1FC7103700A6CCB3 /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -3820,6 +3841,7 @@
 		F91B47E715FF448F00012DFC /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				5A65ABAD20A0397900EA2AFB /* NullHelper */,
 				5E3EB793207F9A3000C5C09D /* Wrapper */,
 				5A1052CB20063B320036A784 /* JSONHelper */,
 				F91B47E815FF448F00012DFC /* Common */,
@@ -3991,6 +4013,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A65ABB420A039A500EA2AFB /* NullHelper.h in Headers */,
 				5A5498702007A2740042234F /* ReconnectAttemptObject.h in Headers */,
 				5EC159642099BF310095BA74 /* PublishMessageInfoWrapper.h in Headers */,
 				5AD17B1E200775B200FFB487 /* RTFactory.h in Headers */,
@@ -4253,6 +4276,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A65ABB520A039A500EA2AFB /* NullHelper.h in Headers */,
 				5A5498712007A2740042234F /* ReconnectAttemptObject.h in Headers */,
 				5EC159652099BF310095BA74 /* PublishMessageInfoWrapper.h in Headers */,
 				5EC1595B2099B35F0095BA74 /* PublishMessageInfo.h in Headers */,
@@ -4518,6 +4542,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A65ABB620A039A500EA2AFB /* NullHelper.h in Headers */,
 				5EC1595C2099B36E0095BA74 /* PublishMessageInfo.h in Headers */,
 				5EC159662099BF310095BA74 /* PublishMessageInfoWrapper.h in Headers */,
 				5A5498722007A2740042234F /* ReconnectAttemptObject.h in Headers */,
@@ -4783,6 +4808,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A65ABB720A039A500EA2AFB /* NullHelper.h in Headers */,
 				5EC1595F2099B4200095BA74 /* PublishMessageInfo.h in Headers */,
 				5EC159672099BF310095BA74 /* PublishMessageInfoWrapper.h in Headers */,
 				5E3EB799207F9A4D00C5C09D /* VoidResponseWrapper.h in Headers */,
@@ -5040,6 +5066,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A65ABB820A039A500EA2AFB /* NullHelper.h in Headers */,
 				5EC159612099B4330095BA74 /* PublishMessageInfo.h in Headers */,
 				5EC159682099BF310095BA74 /* PublishMessageInfoWrapper.h in Headers */,
 				5A5498742007A2740042234F /* ReconnectAttemptObject.h in Headers */,
@@ -5753,6 +5780,7 @@
 				D3A064AA1AFA6E4B00779BB1 /* LocationTracker.m in Sources */,
 				0F9ACC641E798C5F0087869F /* AMFBodyWriter.m in Sources */,
 				0F9ACCA01E798C5F0087869F /* BooleanWriter.m in Sources */,
+				5A65ABB920A039A500EA2AFB /* NullHelper.m in Sources */,
 				0F9AC8591E798C5C0087869F /* Body.m in Sources */,
 				0F9ACACA1E798C5E0087869F /* NumberReader.m in Sources */,
 				0F9AC9261E798C5C0087869F /* AudioData.m in Sources */,
@@ -5983,6 +6011,7 @@
 				F9796A02166CCB8200595F5E /* MessageStatus.m in Sources */,
 				F9796A03166CCB8200595F5E /* FileService.m in Sources */,
 				F9796A04166CCB8200595F5E /* BackendlessFile.m in Sources */,
+				5A65ABBA20A039A500EA2AFB /* NullHelper.m in Sources */,
 				0F9ACC6F1E798C5F0087869F /* AMFHeaderWriter.m in Sources */,
 				0F9ACB1B1E798C5E0087869F /* UTFStringReader.m in Sources */,
 				0F9ACC291E798C5F0087869F /* ReqMessage.m in Sources */,
@@ -6203,6 +6232,7 @@
 				F9796A4C166CD3DB00595F5E /* MessageStatus.m in Sources */,
 				F9796A4D166CD3DB00595F5E /* FileService.m in Sources */,
 				F9796A4E166CD3DB00595F5E /* BackendlessFile.m in Sources */,
+				5A65ABBB20A039A500EA2AFB /* NullHelper.m in Sources */,
 				0F9ACC701E798C5F0087869F /* AMFHeaderWriter.m in Sources */,
 				0F9ACB1C1E798C5E0087869F /* UTFStringReader.m in Sources */,
 				0F9ACC2A1E798C5F0087869F /* ReqMessage.m in Sources */,
@@ -6423,6 +6453,7 @@
 				5A934A12202CAA5A006BB5F9 /* AdaptResponder.m in Sources */,
 				0F9ACAAF1E798C5E0087869F /* NullReader.m in Sources */,
 				0F9ACA141E798C5D0087869F /* AnonymousObjectReader.m in Sources */,
+				5A65ABBC20A039A500EA2AFB /* NullHelper.m in Sources */,
 				F9B3610A1D663FF500818EEF /* KeychainDataStore.m in Sources */,
 				F9F0AEAD1CDBCA3900035C62 /* DataPermission.m in Sources */,
 				F9F0AEAE1CDBCA3900035C62 /* MessageStatus.m in Sources */,
@@ -6643,6 +6674,7 @@
 				5A934A13202CAA5A006BB5F9 /* AdaptResponder.m in Sources */,
 				0F9ACAB01E798C5E0087869F /* NullReader.m in Sources */,
 				0F9ACA151E798C5D0087869F /* AnonymousObjectReader.m in Sources */,
+				5A65ABBD20A039A500EA2AFB /* NullHelper.m in Sources */,
 				F9B3610B1D663FF500818EEF /* KeychainDataStore.m in Sources */,
 				F9F0AF671CDBCAB500035C62 /* DataPermission.m in Sources */,
 				F9F0AF681CDBCAB500035C62 /* MessageStatus.m in Sources */,

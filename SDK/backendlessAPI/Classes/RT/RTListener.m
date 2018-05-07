@@ -92,7 +92,6 @@
 
 -(void)stopSubscription:(NSString *)event whereClause:(NSString *)whereClause {
     NSMutableArray *subscriptionStack = [NSMutableArray arrayWithArray:[subscriptions valueForKey:event]];
-    
     if (event && subscriptionStack) {
         if (whereClause) {
             for (RTSubscription *subscription in subscriptionStack) {

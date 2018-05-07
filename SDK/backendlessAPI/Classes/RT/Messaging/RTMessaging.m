@@ -22,6 +22,7 @@
 #import "RTMessaging.h"
 #import "RTListener.h"
 #import "JSONHelper.h"
+#import "NullHelper.h"
 
 @interface RTMessaging() {
     NSString *channel;
@@ -62,26 +63,26 @@
 }
 
 -(void)removeMessageListeners:(NSString *)selector {
-    [super stopSubscriptionWithChannel:channel event:PUB_SUB_MESSAGES whereClause:selector];
+    [super stopSubscriptionWithChannel:channel event:PUB_SUB_MESSAGES whereClause:selector];    
 }
 
 -(PublishMessageInfo *)handlePublishMessageInfo:(NSDictionary *)jsonResult {
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonResult options:NSJSONWritingPrettyPrinted error:nil];
     NSDictionary *messageData = [jsonHelper dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
     PublishMessageInfo *messageInfo = [PublishMessageInfo new];
-    messageInfo.messageId = [messageData valueForKey:@"messageId"];
-    messageInfo.timestamp = [messageData valueForKey:@"timestamp"];
-    messageInfo.message = [messageData valueForKey:@"message"];
-    messageInfo.publisherId = [messageData valueForKey:@"publisherId"];
-    messageInfo.subtopic = [messageData valueForKey:@"subtopic"];
-    messageInfo.pushSinglecast = [messageData valueForKey:@"pushSinglecast"];
-    messageInfo.pushBroadcast = [messageData valueForKey:@"pushBroadcast"];
-    messageInfo.publishPolicy = [messageData valueForKey:@"publishPolicy"];
-    messageInfo.query = [messageData valueForKey:@"query"];
-    messageInfo.publishAt = [messageData valueForKey:@"publishAt"];
-    messageInfo.repeatEvery = [messageData valueForKey:@"repeatEvery"];
-    messageInfo.repeatExpiresAt = [messageData valueForKey:@"repeatExpiresAt"];
-    messageInfo.headers = [messageData valueForKey:@"headers"];
+    messageInfo.messageId = [nullHelper returnValue:[messageData valueForKey:@"messageId"]];
+    messageInfo.timestamp = [nullHelper returnValue:[messageData valueForKey:@"timestamp"]];
+    messageInfo.message = [nullHelper returnValue:[messageData valueForKey:@"message"]];
+    messageInfo.publisherId = [nullHelper returnValue:[messageData valueForKey:@"publisherId"]];
+    messageInfo.subtopic = [nullHelper returnValue:[messageData valueForKey:@"subtopic"]];
+    messageInfo.pushSinglecast = [nullHelper returnValue:[messageData valueForKey:@"pushSinglecast"]];
+    messageInfo.pushBroadcast = [nullHelper returnValue:[messageData valueForKey:@"pushBroadcast"]];
+    messageInfo.publishPolicy = [nullHelper returnValue:[messageData valueForKey:@"publishPolicy"]];
+    messageInfo.query = [nullHelper returnValue:[messageData valueForKey:@"query"]];
+    messageInfo.publishAt = [nullHelper returnValue:[messageData valueForKey:@"publishAt"]];
+    messageInfo.repeatEvery = [nullHelper returnValue:[messageData valueForKey:@"repeatEvery"]];
+    messageInfo.repeatExpiresAt = [nullHelper returnValue:[messageData valueForKey:@"repeatExpiresAt"]];
+    messageInfo.headers = [nullHelper returnValue:[messageData valueForKey:@"headers"]];
     return messageInfo;
 }
 
@@ -98,10 +99,10 @@
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonResult options:NSJSONWritingPrettyPrinted error:nil];
     NSDictionary *commandData = [jsonHelper dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
     CommandObject *command = [CommandObject new];
-    command.type = [commandData valueForKey:@"type"];
-    command.connectionId = [commandData valueForKey:@"connectionId"];
-    command.userId = [commandData valueForKey:@"userId"];
-    command.data = [jsonHelper parseBackObjectForJSON:[commandData valueForKey:@"data"]];
+    command.type = [nullHelper returnValue:[commandData valueForKey:@"type"]];
+    command.connectionId = [nullHelper returnValue:[commandData valueForKey:@"connectionId"]];
+    command.userId = [nullHelper returnValue:[commandData valueForKey:@"userId"]];
+    command.data = [nullHelper returnValue:[jsonHelper parseBackObjectForJSON:[commandData valueForKey:@"data"]]];
     return command;
 }
 
@@ -118,8 +119,8 @@
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonResult options:NSJSONWritingPrettyPrinted error:nil];
     NSDictionary *userStatusData = [jsonHelper dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
     UserStatusObject *userStatus = [UserStatusObject new];
-    userStatus.status = [userStatusData valueForKey:@"status"];
-    userStatus.data = [userStatusData valueForKey:@"data"];
+    userStatus.status = [nullHelper returnValue:[userStatusData valueForKey:@"status"]];
+    userStatus.data = [nullHelper returnValue:[userStatusData valueForKey:@"data"]];
     return userStatus;
 }
 

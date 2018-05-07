@@ -22,6 +22,7 @@
 #import "RTSharedObject.h"
 #import "RTMethod.h"
 #import "JSONHelper.h"
+#import "NullHelper.h"
 #import <objc/runtime.h>
 
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
@@ -68,10 +69,10 @@
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonResult options:NSJSONWritingPrettyPrinted error:nil];
     NSDictionary *sharedObjectChangesData = [jsonHelper dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
     SharedObjectChanges *sharedObjectChanges = [SharedObjectChanges new];
-    sharedObjectChanges.key = [sharedObjectChangesData valueForKey:@"key"];
-    sharedObjectChanges.data = [jsonHelper parseBackObjectForJSON:[sharedObjectChangesData valueForKey:@"data"]];
-    sharedObjectChanges.connectionId = [sharedObjectChangesData valueForKey:@"connectionId"];
-    sharedObjectChanges.userId = [sharedObjectChangesData valueForKey:@"userId"];
+    sharedObjectChanges.key = [nullHelper returnValue:[sharedObjectChangesData valueForKey:@"key"]];
+    sharedObjectChanges.data = [nullHelper returnValue:[jsonHelper parseBackObjectForJSON:[sharedObjectChangesData valueForKey:@"data"]]];
+    sharedObjectChanges.connectionId = [nullHelper returnValue:[sharedObjectChangesData valueForKey:@"connectionId"]];
+    sharedObjectChanges.userId = [nullHelper returnValue:[sharedObjectChangesData valueForKey:@"userId"]];
     return sharedObjectChanges;
 }
 
@@ -88,8 +89,8 @@
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonResult options:NSJSONWritingPrettyPrinted error:nil];
     NSDictionary *userInfoData = [jsonHelper dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
     UserInfo *userInfo = [UserInfo new];
-    userInfo.connectionId = [userInfoData valueForKey:@"connectionId"];
-    userInfo.userId = [userInfoData valueForKey:@"userId"];
+    userInfo.connectionId = [nullHelper returnValue:[userInfoData valueForKey:@"connectionId"]];
+    userInfo.userId = [nullHelper returnValue:[userInfoData valueForKey:@"userId"]];
     return userInfo;
 }
 
@@ -106,10 +107,10 @@
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonResult options:NSJSONWritingPrettyPrinted error:nil];
     NSDictionary *commandData = [jsonHelper dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
     CommandObject *command = [CommandObject new];
-    command.type = [commandData valueForKey:@"type"];
-    command.connectionId = [commandData valueForKey:@"connectionId"];
-    command.userId = [commandData valueForKey:@"userId"];
-    command.data = [jsonHelper parseBackObjectForJSON:[commandData valueForKey:@"data"]];
+    command.type = [nullHelper returnValue:[commandData valueForKey:@"type"]];
+    command.connectionId = [nullHelper returnValue:[commandData valueForKey:@"connectionId"]];
+    command.userId = [nullHelper returnValue:[commandData valueForKey:@"userId"]];
+    command.data = [nullHelper returnValue:[jsonHelper parseBackObjectForJSON:[commandData valueForKey:@"data"]]];
     return command;
 }
 
@@ -126,8 +127,8 @@
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonResult options:NSJSONWritingPrettyPrinted error:nil];
     NSDictionary *userStatusData = [jsonHelper dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
     UserStatusObject *userStatus = [UserStatusObject new];
-    userStatus.status = [userStatusData valueForKey:@"status"];
-    userStatus.data = [userStatusData valueForKey:@"data"];
+    userStatus.status = [nullHelper returnValue:[userStatusData valueForKey:@"status"]];
+    userStatus.data = [nullHelper returnValue:[userStatusData valueForKey:@"data"]];
     return userStatus;
 }
 
@@ -144,10 +145,10 @@
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonResult options:NSJSONWritingPrettyPrinted error:nil];
     NSDictionary *invokeData = [jsonHelper dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
     InvokeObject *invokeObject = [InvokeObject new];
-    invokeObject.method = [invokeData valueForKey:@"method"];
-    invokeObject.args = [invokeData valueForKey:@"args"];
-    invokeObject.connectionId = [invokeData valueForKey:@"connectionId"];
-    invokeObject.userId = [invokeData valueForKey:@"userId"];
+    invokeObject.method = [nullHelper returnValue:[invokeData valueForKey:@"method"]];
+    invokeObject.args = [nullHelper returnValue:[invokeData valueForKey:@"args"]];
+    invokeObject.connectionId = [nullHelper returnValue:[invokeData valueForKey:@"connectionId"]];
+    invokeObject.userId = [nullHelper returnValue:[invokeData valueForKey:@"userId"]];
     [self invokeMethod:invokeObject.method ags:invokeObject.args invocationTarget:self.invocationTarget];
     return invokeObject;
 }
