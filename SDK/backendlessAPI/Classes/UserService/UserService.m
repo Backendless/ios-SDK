@@ -184,23 +184,28 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
         [self onLogoutError:result];
         [backendless throwFault:result];
     }
+    if (self.currentUser) {
+        self.currentUser = nil;
+    }
+    [backendless.headers removeObjectForKey:BACKENDLESS_USER_TOKEN];
+    [self resetPersistentUser];
 }
 
--(NSNumber *)isValidUserToken {
+-(BOOL)isValidUserToken {
     NSString *userToken = [backendless.headers valueForKey:BACKENDLESS_USER_TOKEN];
-    if (!self.currentUser || !userToken)
-        return @(NO);
+    if (!self.currentUser || !userToken) {
+        return NO;
+    }
     NSArray *args = @[userToken];
-    BOOL throwException = invoker.throwException;
-    invoker.throwException = NO;
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_IS_VALID_USER_TOKEN args:args];
     if ([result isKindOfClass:[Fault class]]) {
         if ([((Fault *)result).faultCode isEqualToString:@"3048"]) {
             [backendless.headers removeObjectForKey:BACKENDLESS_USER_TOKEN];
         }
-        return [backendless throwFault:result];
+        [backendless throwFault:result];
+        return NO;
     }
-    return result;
+    return [result boolValue];
 }
 
 -(void)restorePassword:(NSString *)login {
@@ -286,8 +291,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
         [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
     NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
     [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
-    NSArray *args = [NSArray arrayWithObjects:props, nil];
-    
+    NSArray *args = [NSArray arrayWithObjects:props, nil];    
     void(^wrappedBlock)(NSDictionary *) = ^(NSDictionary *regUserDict) {
         responseBlock([self castFromDictionary:regUserDict]);
     };
@@ -328,11 +332,14 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_LOGOUT args:@[] responder:_responder];
 }
 
--(void)isValidUserToken:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
-    id <IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+-(void)isValidUserToken:(void(^)(BOOL))responseBlock error:(void(^)(Fault *))errorBlock {
+    void(^wrappedBlock)(NSNumber *) = ^(NSNumber *result) {
+        responseBlock([result boolValue]);
+    };
+    id <IResponder>responder = [ResponderBlocksContext responderBlocksContext:wrappedBlock error:errorBlock];
     NSString *userToken = [backendless.headers valueForKey:BACKENDLESS_USER_TOKEN];
     if (!self.currentUser || !userToken) {
-        [responder responseHandler:@(NO)];
+        [responder responseHandler:@0];
         return;
     }
     NSArray *args = @[userToken];
