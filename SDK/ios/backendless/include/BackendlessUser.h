@@ -30,10 +30,10 @@
 
 @interface BackendlessUser : NSObject <NSCopying>
 
-@property (nonatomic, assign) NSString *objectId;
-@property (nonatomic, assign) NSString *email;
-@property (nonatomic, assign) NSString *password;
-@property (nonatomic, assign) NSString *name;
+@property (nonatomic, assign, getter = getObjectId, setter = setObjectId:) NSString *objectId;
+@property (nonatomic, assign, getter = getEmail, setter = setEmail:) NSString *email;
+@property (nonatomic, assign, getter = getPassword, setter = setPassword:) NSString *password;
+@property (nonatomic, assign, getter = getName, setter = setName:) NSString *name;
 
 -(id)initWithProperties:(NSDictionary<NSString*, id> *)properties;
 -(BOOL)isUserRegistered;
