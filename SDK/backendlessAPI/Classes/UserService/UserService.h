@@ -37,7 +37,7 @@
 -(BackendlessUser *)findById:(NSString *)objectId;
 -(void)logout;
 -(BOOL)isValidUserToken;
--(void)restorePassword:(NSString *)login;
+-(void)restorePassword:(NSString *)email;
 -(NSArray<UserProperty*> *)describeUserClass;
 -(NSArray<NSString*> *)getUserRoles;
 -(BackendlessUser *)loginWithFacebookSDK:(NSString *)userId tokenString:(NSString *)tokenString expirationDate:(NSDate *)expirationDate fieldsMapping:(NSDictionary *)fieldsMapping;
@@ -52,7 +52,7 @@
 -(void)findById:(NSString *)objectId response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)logout:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)isValidUserToken:(void(^)(BOOL))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)restorePassword:(NSString *)login response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)restorePassword:(NSString *)email response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)describeUserClass:(void(^)(NSArray<UserProperty*> *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getUserRoles:(void(^)(NSArray<NSString*> *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)loginWithFacebookSDK:(NSString *)userId tokenString:(NSString *)tokenString expirationDate:(NSDate *)expirationDate fieldsMapping:(NSDictionary *)fieldsMapping response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock;

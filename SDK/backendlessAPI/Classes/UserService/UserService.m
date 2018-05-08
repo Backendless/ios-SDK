@@ -208,10 +208,10 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     return [result boolValue];
 }
 
--(void)restorePassword:(NSString *)login {
-    if (!login||!login.length)
+-(void)restorePassword:(NSString *)email {
+    if (!email||!email.length)
         [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
-    NSArray *args = [NSArray arrayWithObjects:login, nil];
+    NSArray *args = [NSArray arrayWithObjects:email, nil];
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_RESTORE_PASSWORD args:args];
     if ([result isKindOfClass:[Fault class]]) {
         [backendless throwFault:result];
@@ -348,11 +348,11 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_IS_VALID_USER_TOKEN args:args responder:_responder];
 }
 
--(void)restorePassword:(NSString *)login response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)restorePassword:(NSString *)email response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock {
     id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:[voidResponseWrapper wrapResponseBlock:responseBlock] error:errorBlock];
-    if (!login||!login.length)
+    if (!email||!email.length)
         return [responder errorHandler:FAULT_NO_USER_CREDENTIALS];
-    NSArray *args = [NSArray arrayWithObjects:login, nil];
+    NSArray *args = [NSArray arrayWithObjects:email, nil];
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_RESTORE_PASSWORD args:args responder:responder];
 }
 
