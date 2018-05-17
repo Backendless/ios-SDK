@@ -118,12 +118,12 @@
     }
 }
 
--(void)stopSubscriptionWithChannel:(NSString *)channel event:(NSString *)event whereClause:(NSString *)whereClause {
+-(void)stopSubscriptionWithChannel:(Channel *)channel event:(NSString *)event whereClause:(NSString *)whereClause {
     NSMutableArray *subscriptionStack = [NSMutableArray arrayWithArray:[subscriptions valueForKey:event]];
     if (channel && event && subscriptionStack) {
         if (whereClause) {
             for (RTSubscription *subscription in subscriptionStack) {
-                if ([subscription.options valueForKey:@"channel"] && [[subscription.options valueForKey:@"channel"] isEqualToString:channel] && [subscription.options valueForKey:@"selector"] && [[subscription.options valueForKey:@"selector"] isEqualToString:whereClause]) {
+                if ([subscription.options valueForKey:@"channel"] && [[subscription.options valueForKey:@"channel"] isEqualToString:channel.channelName] && [subscription.options valueForKey:@"selector"] && [[subscription.options valueForKey:@"selector"] isEqualToString:whereClause]) {
                     [subscription stop];
                 }
             }
@@ -143,6 +143,9 @@
                 }
             }
         }
+    }
+    if ([subscriptionStack count] == 0) {
+        channel.isJoined = NO;
     }
 }
 

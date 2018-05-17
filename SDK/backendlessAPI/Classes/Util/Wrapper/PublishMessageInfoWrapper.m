@@ -39,7 +39,8 @@
             responseBlock(messageInfo.message);
         }
         else {
-            errorBlock([Fault fault:@"Received incorrect object type" detail:[NSString stringWithFormat:@"Expected: %@, received: %@", NSStringFromClass(classType), [messageInfo.message class]]]);
+            NSString *faultMessage = [NSString stringWithFormat:@"Unable to cast received message object to %@", NSStringFromClass(classType)];
+            errorBlock([Fault fault:faultMessage]);
         }
     };
     return wrappedBlock;
@@ -61,12 +62,13 @@
                     responseBlock(resultObject);
                 }
                 else {
-                    errorBlock([Fault fault:@"Received incorrect object type" detail:[NSString stringWithFormat:@"Expected: %@, received: %@", classTypeName, [messageInfo.message class]]]);
+                    NSString *faultMessage = [NSString stringWithFormat:@"Unable to cast received message object to %@", classTypeName];
+                    errorBlock([Fault fault:faultMessage]);
                 }
             }      
         }
         else {
-            errorBlock([Fault fault:@"Received incorrect object type" detail:[NSString stringWithFormat:@"Expected: %@, received: %@", NSStringFromClass(classType), [messageInfo.message class]]]);
+            errorBlock([Fault fault:@"Unable to cast received message object to custom object object"]);
         }
     };
     return wrappedBlock;

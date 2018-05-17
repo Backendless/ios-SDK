@@ -21,6 +21,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Responder.h"
+#import "Channel.h"
 
 #define ERROR @"ERROR"
 #define OBJECTS_CHANGES @"OBJECTS_CHANGES"
@@ -45,7 +46,7 @@
 
 -(void)addSubscription:(NSString *)type options:(NSDictionary *)options onResult:(void(^)(id))onResult onError:(void(^)(Fault *))onError handleResultSelector:(SEL)handleResultSelector fromClass:(id)subscriptionClassInstance;
 -(void)stopSubscription:(NSString *)event whereClause:(NSString *)whereClause;
--(void)stopSubscriptionWithChannel:(NSString *)channel event:(NSString *)event whereClause:(NSString *)whereClause;
+-(void)stopSubscriptionWithChannel:(Channel *)channel event:(NSString *)event whereClause:(NSString *)whereClause;
 -(void)stopSubscriptionWithSharedObject:(NSString *)sharedObjectName event:(NSString *)event;
 
 @end

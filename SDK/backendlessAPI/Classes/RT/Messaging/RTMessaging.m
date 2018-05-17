@@ -25,45 +25,45 @@
 #import "NullHelper.h"
 
 @interface RTMessaging() {
-    NSString *channel;
+    Channel *_channel;
 }
 @end
 
 @implementation RTMessaging
 
--(instancetype)initWithChannelName:(NSString *)channelName {
+-(instancetype)initWithChannel:(Channel *)channel {
     if (self = [super init]) {
-        channel = channelName;
+        _channel = channel;
     }
     return self;
 }
 
 -(void)connect:(void(^)(id))onSuccessfulConnect onError:(void(^)(Fault *))onError {
-    NSDictionary *options = @{@"channel"  : channel};
+    NSDictionary *options = @{@"channel"  : _channel.channelName};
     [super addSubscription:PUB_SUB_CONNECT options:options onResult:onSuccessfulConnect onError:onError handleResultSelector:nil fromClass:nil];
 }
 
 -(void)addJoinListener:(BOOL)isConnected response:(void(^)(void))responseBlock error:(void (^)(Fault *))errorBlock {
     void(^wrappedBlock)(id) = ^(id result) { responseBlock(); };
-    NSDictionary *options = @{@"channel"  : channel};
+    NSDictionary *options = @{@"channel"  : _channel.channelName};
     [super addSubscription:PUB_SUB_CONNECT options:options onResult:wrappedBlock onError:errorBlock handleResultSelector:nil fromClass:nil];
 }
 
 -(void)removeJoinListeners {
-    [super stopSubscriptionWithChannel:channel event:PUB_SUB_CONNECT whereClause:nil];
+    [super stopSubscriptionWithChannel:_channel event:PUB_SUB_CONNECT whereClause:nil];
 }
 
 -(void)addMessageListener:(NSString *)selector response:(void(^)(PublishMessageInfo *))responseBlock error:(void (^)(Fault *))errorBlock {
-    NSDictionary *options = @{@"channel"  : channel};
+    NSDictionary *options = @{@"channel"  : _channel.channelName};
     if (selector) {
-        options = @{@"channel"  : channel,
+        options = @{@"channel"  : _channel.channelName,
                     @"selector" : selector};
     }    
     [super addSubscription:PUB_SUB_MESSAGES options:options onResult:responseBlock onError:errorBlock handleResultSelector:@selector(handlePublishMessageInfo:) fromClass:self];
 }
 
 -(void)removeMessageListeners:(NSString *)selector {
-    [super stopSubscriptionWithChannel:channel event:PUB_SUB_MESSAGES whereClause:selector];    
+    [super stopSubscriptionWithChannel:_channel event:PUB_SUB_MESSAGES whereClause:selector];
 }
 
 -(PublishMessageInfo *)handlePublishMessageInfo:(NSDictionary *)jsonResult {
@@ -87,12 +87,12 @@
 }
 
 -(void) addCommandListener:(void(^)(CommandObject *))responseBlock error:(void (^)(Fault *))errorBlock {
-    NSDictionary *options = @{@"channel" : channel};
+    NSDictionary *options = @{@"channel" : _channel.channelName};
     [super addSubscription:PUB_SUB_COMMANDS options:options onResult:responseBlock onError:errorBlock handleResultSelector:@selector(handleCommand:) fromClass:self];
 }
 
 -(void)removeCommandListeners {
-    [super stopSubscriptionWithChannel:channel event:PUB_SUB_COMMANDS whereClause:nil];
+    [super stopSubscriptionWithChannel:_channel event:PUB_SUB_COMMANDS whereClause:nil];
 }
 
 -(CommandObject *)handleCommand:(NSDictionary *)jsonResult {
@@ -107,12 +107,12 @@
 }
 
 -(void)addUserStatusListener:(void(^)(UserStatusObject *))responseBlock error:(void (^)(Fault *))errorBlock {
-    NSDictionary *options = @{@"channel" : channel};
+    NSDictionary *options = @{@"channel" : _channel.channelName};
     [super addSubscription:PUB_SUB_USERS options:options onResult:responseBlock onError:errorBlock handleResultSelector:@selector(handleUserStatus:) fromClass:self];
 }
 
 -(void)removeUserStatusListeners {
-    [super stopSubscriptionWithChannel:channel event:PUB_SUB_USERS whereClause:nil];
+    [super stopSubscriptionWithChannel:_channel event:PUB_SUB_USERS whereClause:nil];
 }
 
 -(UserStatusObject *)handleUserStatus:(NSDictionary *)jsonResult {

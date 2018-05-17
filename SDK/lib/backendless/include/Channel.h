@@ -28,7 +28,7 @@
 @interface Channel : NSObject
 
 @property (strong, nonatomic, readonly) NSString *channelName;
-@property (nonatomic, readonly) BOOL isJoined;
+@property (nonatomic) BOOL isJoined;
 
 -(instancetype)initWithChannelName:(NSString *)channelName;
 -(void)join;

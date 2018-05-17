@@ -26,7 +26,6 @@
 @interface Channel()
 @property (strong, nonatomic, readwrite) NSString *channelName;
 @property (strong, nonatomic) RTMessaging *rt;
-@property (nonatomic, readwrite) BOOL isJoined;
 @property (nonatomic, readwrite) NSMutableArray *waitingSubscriptions;
 @end
 
@@ -35,9 +34,9 @@
 -(instancetype)initWithChannelName:(NSString *)channelName {
     if (self = [super init]) {
         self.channelName = channelName;
-        self.rt = [[RTMessaging alloc] initWithChannelName:channelName];
         self.isJoined = NO;
         self.waitingSubscriptions = [NSMutableArray new];
+        self.rt = [[RTMessaging alloc] initWithChannel:self];
     }
     return self;
 }

@@ -25,10 +25,11 @@
 #import "PublishMessageInfo.h"
 #import "CommandObject.h"
 #import "UserStatusObject.h"
+#import "Channel.h"
 
 @interface RTMessaging : RTListener
 
--(instancetype)initWithChannelName:(NSString *)channelName;
+-(instancetype)initWithChannel:(Channel *)channel;
 -(void)connect:(void(^)(id))onSuccessfulConnect onError:(void(^)(Fault *))onError ;
 
 -(void)addJoinListener:(BOOL)isConnected response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
