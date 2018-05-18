@@ -47,8 +47,7 @@
             responseBlock([jsonHelper dictionaryFromJson:jsonString]);
         }
         else {
-            NSString *faultMessage = [NSString stringWithFormat:@"Unable to cast received message object to %@", NSStringFromClass(classType)];
-            errorBlock([Fault fault:faultMessage]);
+            errorBlock([self generateFault:NSStringFromClass(classType)]);
         }
     };
     return wrappedBlock;
@@ -62,8 +61,7 @@
             @try {
                 if ([messageInfo.message valueForKey:@"___class"]) {
                     if (![[messageInfo.message valueForKey:@"__class"] isEqualToString:classTypeName]) {
-                        NSString *faultMessage = [NSString stringWithFormat:@"Unable to cast received message object to %@", classTypeName];
-                        errorBlock([Fault fault:faultMessage]);
+                        errorBlock([self generateFault:classTypeName]);
                     }
                     else {
                         responseBlock([jsonHelper objectFromJSON:jsonString ofType:classType]);
@@ -74,13 +72,11 @@
                 }
             }
             @catch(Fault *fault) {
-                NSString *faultMessage = [NSString stringWithFormat:@"Unable to cast received message object to %@", classTypeName];
-                errorBlock([Fault fault:faultMessage]);
+                errorBlock([self generateFault:classTypeName]);
             }
         }
         else {
-            NSString *faultMessage = [NSString stringWithFormat:@"Unable to cast received message object to %@", classTypeName];
-            errorBlock([Fault fault:faultMessage]);
+            errorBlock([self generateFault:classTypeName]);
         }
     };
     return wrappedBlock;
@@ -90,6 +86,11 @@
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:messageInfo options:0 error:&error];
     return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+}
+
+-(Fault *)generateFault:(NSString *)classTypeName {
+    NSString *faultMessage = [NSString stringWithFormat:@"Unable to cast received message object to %@", classTypeName];
+    return [Fault fault:faultMessage];
 }
 
 @end
