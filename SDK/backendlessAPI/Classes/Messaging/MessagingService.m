@@ -41,6 +41,7 @@
 #import "RTMethod.h"
 #import "JSONHelper.h"
 #import "RTFactory.h"
+#import "VoidResponseWrapper.h"
 
 #define FAULT_NO_DEVICE_ID [Fault fault:@"Device ID is not set" detail:@"Device ID is not set" faultCode:@"5900"]
 #define FAULT_NO_DEVICE_TOKEN [Fault fault:@"Device token is not set" detail:@"Device token is not set" faultCode:@"5901"]
@@ -214,19 +215,21 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
     return [invoker invokeSync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_GET_REGISTRATIONS args:args];
 }
 
--(id)unregisterDevice {
-    return [self unregisterDevice:deviceRegistration.deviceId];
+-(void)unregisterDevice {
+    [self unregisterDevice:deviceRegistration.deviceId];
 }
 
--(id)unregisterDevice:(NSString *)deviceId {
+-(void)unregisterDevice:(NSString *)deviceId {
     if (!deviceId)
-        return [backendless throwFault:FAULT_NO_DEVICE_ID];
+        [backendless throwFault:FAULT_NO_DEVICE_ID];
     NSArray *args = [NSArray arrayWithObjects:deviceId, nil];
     id result = [invoker invokeSync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_UNREGISTER_DEVICE args:args];
     if (result && ![result isKindOfClass:[Fault class]]) {
         if ([result boolValue]) deviceRegistration.id = nil;
     }
-    return result;
+    else if ([result isKindOfClass:[Fault class]]) {
+        [backendless throwFault:result];
+    }
 }
 
 -(MessageStatus *)publish:(NSString *)channelName message:(id)message {
@@ -338,16 +341,16 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
     [invoker invokeAsync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_GET_REGISTRATIONS args:args responder:responder];
 }
 
--(void)unregisterDevice:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)unregisterDevice:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock {
     [self unregisterDevice:deviceRegistration.deviceId response:responseBlock error:errorBlock];
 }
 
--(void)unregisterDevice:(NSString *)deviceId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+-(void)unregisterDevice:(NSString *)deviceId response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock {
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:[voidResponseWrapper wrapResponseBlock:responseBlock] error:errorBlock];
     if (!deviceId)
         return [responder errorHandler:FAULT_NO_DEVICE_ID];
     NSArray *args = [NSArray arrayWithObjects:deviceId, nil];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onUnregistering:) selErrorHandler:nil];
+    Responder *_responder = [Responder responder:responder selResponseHandler:@selector(onUnregister:) selErrorHandler:nil];
     _responder.chained = responder;
     [invoker invokeAsync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_UNREGISTER_DEVICE args:args responder:_responder];
 }
@@ -421,7 +424,7 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
     return deviceRegistration.deviceId;
 }
 
--(id)onUnregistering:(id)response {
+-(id)onUnregister:(id)response {
     NSNumber *result = (NSNumber *)response;
     if (result && [result boolValue]) deviceRegistration.id = nil;
     return response;
