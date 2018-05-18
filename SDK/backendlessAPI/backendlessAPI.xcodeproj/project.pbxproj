@@ -1589,6 +1589,14 @@
 		5A66A07A1FD6CD1E002202BE /* RTHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A66A0721FD6CD1E002202BE /* RTHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A66A07B1FD6CD1E002202BE /* RTHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A66A0721FD6CD1E002202BE /* RTHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A66A07C1FD6CD1E002202BE /* RTHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A66A0721FD6CD1E002202BE /* RTHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A82DE9820AEED1C00E264B8 /* RTListener.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A5F38531FB317EB002F21D4 /* RTListener.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A82DE9920AEEDBE00E264B8 /* BulkEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF260501FD6B06F00306C3C /* BulkEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A82DE9A20AEEDBE00E264B8 /* RTService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A4F7FBA1FDEB770006D5744 /* RTService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A82DE9B20AEEDBE00E264B8 /* RTFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AD17B1C200775B200FFB487 /* RTFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A82DE9C20AEEDBE00E264B8 /* RTClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A155C1FA0CB22009A1394 /* RTClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A82DE9D20AEEDBE00E264B8 /* RTHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A66A0711FD6CD1E002202BE /* RTHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A82DE9E20AEEDBE00E264B8 /* UserInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AD17B04200770CC00FFB487 /* UserInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A82DE9F20AEEDBE00E264B8 /* ReconnectAttemptObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A54986E2007A2740042234F /* ReconnectAttemptObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A8393471FD1A78400FB5697 /* RTMessaging.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F38501FB317EB002F21D4 /* RTMessaging.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A8393481FD1A79900FB5697 /* RTMessaging.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A5F38541FB317EB002F21D4 /* RTMessaging.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A8393491FD1A7BB00FB5697 /* CommandObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9AD1FC4788700B192D9 /* CommandObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -5058,6 +5066,14 @@
 				5A54985C2007959E0042234F /* SharedObject.h in Headers */,
 				5A54985B2007959B0042234F /* RTSharedObject.h in Headers */,
 				5A54985A200795950042234F /* InvokeObject.h in Headers */,
+				5A82DE9820AEED1C00E264B8 /* RTListener.h in Headers */,
+				5A82DE9920AEEDBE00E264B8 /* BulkEvent.h in Headers */,
+				5A82DE9A20AEEDBE00E264B8 /* RTService.h in Headers */,
+				5A82DE9B20AEEDBE00E264B8 /* RTFactory.h in Headers */,
+				5A82DE9C20AEEDBE00E264B8 /* RTClient.h in Headers */,
+				5A82DE9D20AEEDBE00E264B8 /* RTHelper.h in Headers */,
+				5A82DE9E20AEEDBE00E264B8 /* UserInfo.h in Headers */,
+				5A82DE9F20AEEDBE00E264B8 /* ReconnectAttemptObject.h in Headers */,
 				5A3917D81FC5BE0C0084D24D /* CommandObject.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

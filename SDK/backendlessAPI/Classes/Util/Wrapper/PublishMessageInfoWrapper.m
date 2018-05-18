@@ -21,6 +21,7 @@
 
 #import "PublishMessageInfoWrapper.h"
 #import "Backendless.h"
+#import "JSONHelper.h"
 
 @implementation PublishMessageInfoWrapper
 
@@ -38,6 +39,13 @@
         if ([messageInfo.message isKindOfClass:[classType class]]) {
             responseBlock(messageInfo.message);
         }
+        else if (classType == [NSDictionary class] &&
+                 ![messageInfo.message isKindOfClass:[classType class]] &&
+                 ![messageInfo.message isKindOfClass:[NSString class]] &&
+                 ![messageInfo.message isKindOfClass:[NSDictionary class]]) {
+            NSString *jsonString = [self messageInfoToJSONString:messageInfo.message];
+            responseBlock([jsonHelper dictionaryFromJson:jsonString]);
+        }
         else {
             NSString *faultMessage = [NSString stringWithFormat:@"Unable to cast received message object to %@", NSStringFromClass(classType)];
             errorBlock([Fault fault:faultMessage]);
@@ -50,28 +58,38 @@
     NSString *classTypeName = [backendless.persistenceService getEntityName:NSStringFromClass(classType)];
     void(^wrappedBlock)(PublishMessageInfo *) = ^(PublishMessageInfo *messageInfo) {
         if ([messageInfo.message isKindOfClass:[NSDictionary class]]) {
-            NSDictionary *message = messageInfo.message;
-            if ([message valueForKey:@"___class"]) {
-                NSString *className = [message valueForKey:@"___class"];
-                if ([className isEqualToString:classTypeName]) {
-                    id resultObject = [classType new];
-                    for (NSString *field in [message allKeys]) {
-                        if (![field isEqualToString:@"___class"] && [resultObject respondsToSelector:NSSelectorFromString(field)]) {
-                            [resultObject setValue:[message valueForKey:field] forKey:field];                                         }
+            NSString *jsonString = [self messageInfoToJSONString:messageInfo.message];
+            @try {
+                if ([messageInfo.message valueForKey:@"___class"]) {
+                    if (![[messageInfo.message valueForKey:@"__class"] isEqualToString:classTypeName]) {
+                        NSString *faultMessage = [NSString stringWithFormat:@"Unable to cast received message object to %@", classTypeName];
+                        errorBlock([Fault fault:faultMessage]);
                     }
-                    responseBlock(resultObject);
+                    else {
+                        responseBlock([jsonHelper objectFromJSON:jsonString ofType:classType]);
+                    }
                 }
                 else {
-                    NSString *faultMessage = [NSString stringWithFormat:@"Unable to cast received message object to %@", classTypeName];
-                    errorBlock([Fault fault:faultMessage]);
+                    responseBlock([jsonHelper objectFromJSON:jsonString ofType:classType]);
                 }
-            }      
+            }
+            @catch(Fault *fault) {
+                NSString *faultMessage = [NSString stringWithFormat:@"Unable to cast received message object to %@", classTypeName];
+                errorBlock([Fault fault:faultMessage]);
+            }
         }
         else {
-            errorBlock([Fault fault:@"Unable to cast received message object to custom object object"]);
+            NSString *faultMessage = [NSString stringWithFormat:@"Unable to cast received message object to %@", classTypeName];
+            errorBlock([Fault fault:faultMessage]);
         }
     };
     return wrappedBlock;
+}
+
+-(NSString *)messageInfoToJSONString:(NSDictionary *)messageInfo {
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:messageInfo options:0 error:&error];
+    return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 }
 
 @end
