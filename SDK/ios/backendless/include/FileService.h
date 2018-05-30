@@ -30,10 +30,12 @@
 // sync methods with fault return (as exception)
 -(void)remove:(NSString *)fileURL;
 -(void)removeDirectory:(NSString *)path;
--(BackendlessFile *)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content;
--(BackendlessFile *)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content overwriteIfExist:(BOOL)overwrite;
--(BackendlessFile *)saveFile:(NSString *)filePathName content:(NSData *)content;
--(BackendlessFile *)saveFile:(NSString *)filePathName content:(NSData *)content overwriteIfExist:(BOOL)overwrite;
+-(BackendlessFile *)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content DEPRECATED_MSG_ATTRIBUTE("This method is deprecated, it will be removed in a future release. Please use the uploadFile method instead");
+-(BackendlessFile *)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content overwriteIfExist:(BOOL)overwrite DEPRECATED_MSG_ATTRIBUTE("This method is deprecated, it will be removed in a future release. Please use the uploadFile method instead");
+-(BackendlessFile *)saveFile:(NSString *)filePathName content:(NSData *)content DEPRECATED_MSG_ATTRIBUTE("This method is deprecated, it will be removed in a future release. Please use the uploadFile method instead");
+-(BackendlessFile *)saveFile:(NSString *)filePathName content:(NSData *)content overwriteIfExist:(BOOL)overwrite DEPRECATED_MSG_ATTRIBUTE("This method is deprecated, it will be removed in a future release. Please use the uploadFile method instead");
+-(BackendlessFile *)uploadFile:(NSString *)filePathName content:(NSData *)content;
+-(BackendlessFile *)uploadFile:(NSString *)filePathName content:(NSData *)content overwriteIfExist:(BOOL)overwrite;
 -(NSString *)renameFile:(NSString *)oldPathName newName:(NSString *)newName;
 -(NSString *)copyFile:(NSString *)sourcePathName target:(NSString *)targetPathName;
 -(NSString *)moveFile:(NSString *)sourcePathName target:(NSString *)targetPathName;
@@ -48,10 +50,12 @@
 // async methods with block-based callbacks
 -(void)remove:(NSString *)fileURL response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)removeDirectory:(NSString *)path response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content overwriteIfExist:(BOOL)overwrite response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)saveFile:(NSString *)filePathName content:(NSData *)content response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)saveFile:(NSString *)filePathName content:(NSData *)content overwriteIfExist:(BOOL)overwrite response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock DEPRECATED_MSG_ATTRIBUTE("This method is deprecated, it will be removed in a future release. Please use the uploadFile method instead");
+-(void)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content overwriteIfExist:(BOOL)overwrite response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock DEPRECATED_MSG_ATTRIBUTE("This method is deprecated, it will be removed in a future release. Please use the uploadFile method instead");
+-(void)saveFile:(NSString *)filePathName content:(NSData *)content response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock DEPRECATED_MSG_ATTRIBUTE("This method is deprecated, it will be removed in a future release. Please use the uploadFile method instead");
+-(void)saveFile:(NSString *)filePathName content:(NSData *)content overwriteIfExist:(BOOL)overwrite response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock DEPRECATED_MSG_ATTRIBUTE("This method is deprecated, it will be removed in a future release. Please use the uploadFile method instead");
+-(void)uploadFile:(NSString *)filePathName content:(NSData *)content response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)uploadFile:(NSString *)filePathName content:(NSData *)content overwriteIfExist:(BOOL)overwrite response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)renameFile:(NSString *)oldPathName newName:(NSString *)newName response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)copyFile:(NSString *)sourcePathName target:(NSString *)targetPathName response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)moveFile:(NSString *)sourcePathName target:(NSString *)targetPathName response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;   

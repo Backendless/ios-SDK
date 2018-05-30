@@ -132,6 +132,9 @@ static NSString *METHOD_COUNT = @"count";
     }
 }
 
+// DEPRECATED
+// *********************************************************************
+
 -(BackendlessFile *)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content {
     return [self saveFile:path fileName:fileName content:content overwriteIfExist:NO];
 }
@@ -153,6 +156,22 @@ static NSString *METHOD_COUNT = @"count";
 }
 
 -(BackendlessFile *)saveFile:(NSString *)filePathName content:(NSData *)content overwriteIfExist:(BOOL)overwrite {
+    if (!filePathName || !filePathName.length)
+        return [backendless throwFault:FAULT_NO_FILE_NAME];
+    if (!content || !content.length)
+        return [backendless throwFault:FAULT_NO_FILE_DATA];
+    NSArray *args = @[filePathName, content, @(overwrite)];
+    NSString *receiveUrl = [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_SAVE_FILE args:args];
+    return [BackendlessFile file:receiveUrl];
+}
+
+// *********************************************************************
+
+-(BackendlessFile *)uploadFile:(NSString *)filePathName content:(NSData *)content {
+    return [self uploadFile:filePathName content:content overwriteIfExist:NO];
+}
+
+-(BackendlessFile *)uploadFile:(NSString *)filePathName content:(NSData *)content overwriteIfExist:(BOOL)overwrite {
     if (!filePathName || !filePathName.length)
         return [backendless throwFault:FAULT_NO_FILE_NAME];
     if (!content || !content.length)
@@ -243,6 +262,9 @@ static NSString *METHOD_COUNT = @"count";
     [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_DELETE args:args responder:responder];
 }
 
+// DEPRECATED
+// *********************************************************************
+
 -(void)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self saveFile:path fileName:fileName content:content overwriteIfExist:NO response:responseBlock error:errorBlock];
 }
@@ -266,6 +288,24 @@ static NSString *METHOD_COUNT = @"count";
 }
 
 -(void)saveFile:(NSString *)filePathName content:(NSData *)content overwriteIfExist:(BOOL)overwrite response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock {
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!filePathName || !filePathName.length)
+        return [responder errorHandler:FAULT_NO_FILE_NAME];
+    if (!content|| !content.length)
+        return [responder errorHandler:FAULT_NO_FILE_DATA];
+    NSArray *args = @[filePathName, content, @(overwrite)];
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(saveFileResponse:) selErrorHandler:nil];
+    _responder.chained = responder;
+    [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_SAVE_FILE args:args responder:_responder];
+}
+
+// *********************************************************************
+
+-(void)uploadFile:(NSString *)filePathName content:(NSData *)content response:(void (^)(BackendlessFile *))responseBlock error:(void (^)(Fault *))errorBlock {
+    [self uploadFile:filePathName content:content overwriteIfExist:NO response:responseBlock error:errorBlock];
+}
+
+-(void)uploadFile:(NSString *)filePathName content:(NSData *)content overwriteIfExist:(BOOL)overwrite response:(void (^)(BackendlessFile *))responseBlock error:(void (^)(Fault *))errorBlock {
     id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!filePathName || !filePathName.length)
         return [responder errorHandler:FAULT_NO_FILE_NAME];
