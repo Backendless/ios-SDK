@@ -51,10 +51,12 @@ static NSString *METHOD_DELETE = @"delete";
 }
 
 -(void)put:(NSString *)key object:(id)entity timeToLive:(int)seconds {
-    if (!key)
+    if (!key) {
         [backendless throwFault:FAULT_NO_KEY];
-    if (!entity)
+    }
+    if (!entity) {
         [backendless throwFault:FAULT_NO_ENTITY];
+    }
     BinaryStream *stream = [AMFSerializer serializeToBytes:entity];
     NSData *data = [NSData dataWithBytes:stream.buffer length:stream.size];
     NSNumber *time = [NSNumber numberWithInt:((seconds > 0) && (seconds <= 7200))?seconds:0];
@@ -63,22 +65,28 @@ static NSString *METHOD_DELETE = @"delete";
 }
 
 -(id)get:(NSString *)key {
-    if (!key)
+    if (!key) {
         return [backendless throwFault:FAULT_NO_KEY];
+    }
     NSArray *args = @[key];
     id result = [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_GET_BYTES args:args];
     if ([result isKindOfClass:Fault.class])
-        return result;
+        return [backendless throwFault:result];
     if (![result isKindOfClass:NSData.class])
         return [backendless throwFault:FAULT_NO_RESULT];
     return [self onGet:result];
 }
 
--(NSNumber *)contains:(NSString *)key {
-    if (!key)
-        return [backendless throwFault:FAULT_NO_KEY];
+-(BOOL)contains:(NSString *)key {
+    if (!key) {
+        [backendless throwFault:FAULT_NO_KEY];
+    }
     NSArray *args = @[key];
-    return [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_CONTAINS_KEY args:args];
+    id result = [invoker invokeSync:SERVER_CACHE_SERVICE_PATH method:METHOD_CONTAINS_KEY args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        [backendless throwFault:result];
+    }
+    return [result boolValue];
 }
 
 -(void)expireIn:(NSString *)key timeToLive:(int)seconds {
@@ -141,10 +149,14 @@ static NSString *METHOD_DELETE = @"delete";
     [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_GET_BYTES args:args responder:_responder];
 }
 
--(void)contains:(NSString *)key response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
-    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
-    if (!key)
+-(void)contains:(NSString *)key response:(void(^)(BOOL))responseBlock error:(void(^)(Fault *))errorBlock {
+    void(^wrappedBlock)(NSNumber *) = ^(NSNumber *result) {
+        responseBlock([result boolValue]);
+    };
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:wrappedBlock error:errorBlock];
+    if (!key) {
         return [responder errorHandler:FAULT_NO_KEY];
+    }
     NSArray *args = @[key];
     [invoker invokeAsync:SERVER_CACHE_SERVICE_PATH method:METHOD_CONTAINS_KEY args:args responder:responder];
 }

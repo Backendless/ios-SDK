@@ -51,56 +51,88 @@ static NSString *METHOD_RESET = @"reset";
     if (!counterName)
         return [backendless throwFault:FAULT_NO_NAME];
     NSArray *args = @[counterName];
-    return [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET args:args];
+    id result = [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        [backendless throwFault:result];
+    }
+    return result;
 }
 
 -(NSNumber *)getAndIncrement:(NSString *)counterName {
     if (!counterName)
         return [backendless throwFault:FAULT_NO_NAME];
     NSArray *args = @[counterName];
-    return [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET_AND_INCREMENT args:args];
+    id result = [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET_AND_INCREMENT args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        [backendless throwFault:result];
+    }
+    return result;
 }
 
 -(NSNumber *)incrementAndGet:(NSString *)counterName {
     if (!counterName)
         return [backendless throwFault:FAULT_NO_NAME];
     NSArray *args = @[counterName];
-    return [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_INCREMENT_AND_GET args:args];
+    id result = [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_INCREMENT_AND_GET args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        [backendless throwFault:result];
+    }
+    return result;
 }
 
 -(NSNumber *)getAndDecrement:(NSString *)counterName {
     if (!counterName)
         return [backendless throwFault:FAULT_NO_NAME];
     NSArray *args = @[counterName];
-    return [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET_AND_DECREMENT args:args];
+    id result = [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET_AND_DECREMENT args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        [backendless throwFault:result];
+    }
+    return result;
 }
 
 -(NSNumber *)decrementAndGet:(NSString *)counterName {
     if (!counterName)
         return [backendless throwFault:FAULT_NO_NAME];
     NSArray *args = @[counterName];
-    return [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_DECREMENT_AND_GET args:args];
+    id result = [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_DECREMENT_AND_GET args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        [backendless throwFault:result];
+    }
+    return result;
 }
 
 -(NSNumber *)addAndGet:(NSString *)counterName value:(NSNumber *)value {
     if (!counterName)
         return [backendless throwFault:FAULT_NO_NAME];
     NSArray *args = @[counterName, value];
-    return [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_ADD_AND_GET args:args];
+    id result = [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_ADD_AND_GET args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        [backendless throwFault:result];
+    }
+    return result;
 }
 
 -(NSNumber *)getAndAdd:(NSString *)counterName value:(NSNumber *)value {
     if (!counterName)
         return [backendless throwFault:FAULT_NO_NAME];
     NSArray *args = @[counterName, value];
-    return [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET_AND_ADD args:args];
+    id result = [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET_AND_ADD args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        [backendless throwFault:result];
+    }
+    return result;
 }
 
 -(NSNumber *)compareAndSet:(NSString *)counterName expected:(NSNumber *)expected updated:(NSNumber *)updated {
     if (!counterName)
         return [backendless throwFault:FAULT_NO_NAME];
     NSArray *args = @[counterName, expected, updated];
-    return [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_COMPARE_AND_SET args:args];
+    id result = [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_COMPARE_AND_SET args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        [backendless throwFault:result];
+    }
+    return result;
 }
 
 -(void)reset:(NSString *)counterName  {

@@ -202,7 +202,7 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
     NSArray *args = [NSArray arrayWithObjects:deviceRegistration, nil];
     id result = [invoker invokeSync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_REGISTER_DEVICE args:args];
     if ([result isKindOfClass:[Fault class]]) {
-        return result;
+        return [backendless throwFault:result];
     }
     deviceRegistration.id = [NSString stringWithFormat:@"%@", result];
     return deviceRegistration.deviceId;
@@ -212,7 +212,11 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
     if (!deviceId)
         return [backendless throwFault:FAULT_NO_DEVICE_ID];
     NSArray *args = [NSArray arrayWithObjects:deviceId, nil];
-    return [invoker invokeSync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_GET_REGISTRATIONS args:args];
+    id result = [invoker invokeSync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_GET_REGISTRATIONS args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        return [backendless throwFault:result];
+    }
+    return result;
 }
 
 -(void)unregisterDevice {
@@ -224,11 +228,11 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
         [backendless throwFault:FAULT_NO_DEVICE_ID];
     NSArray *args = [NSArray arrayWithObjects:deviceId, nil];
     id result = [invoker invokeSync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_UNREGISTER_DEVICE args:args];
-    if (result && ![result isKindOfClass:[Fault class]]) {
-        if ([result boolValue]) deviceRegistration.id = nil;
-    }
-    else if ([result isKindOfClass:[Fault class]]) {
+    if ([result isKindOfClass:[Fault class]]) {
         [backendless throwFault:result];
+    }
+    if ([result boolValue]) {
+        deviceRegistration.id = nil;
     }
 }
 
@@ -245,21 +249,32 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
 }
 
 -(MessageStatus *)publish:(NSString *)channelName message:(id)message publishOptions:(PublishOptions *)publishOptions deliveryOptions:(DeliveryOptions *)deliveryOptions {
-    if (!channelName)
+    if (!channelName) {
         return [backendless throwFault:FAULT_NO_CHANNEL];
-    if (!message)
+    }
+    if (!message) {
         return [backendless throwFault:FAULT_NO_MESSAGE];
+    }
     NSMutableArray *args = [NSMutableArray arrayWithObjects:channelName, message, publishOptions?publishOptions:[NSNull null], nil];
     if (deliveryOptions)
         [args addObject:deliveryOptions];
-    return [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_PUBLISH args:args];
+    id result = [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_PUBLISH args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        [backendless throwFault:result];
+    }
+    return result;
 }
 
 -(id)cancel:(NSString *)messageId {
-    if (!messageId)
+    if (!messageId) {
         return [backendless throwFault:FAULT_NO_MESSAGE_ID];
+    }
     NSArray *args = [NSArray arrayWithObjects:messageId, nil];
-    return [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_CANCEL args:args];
+    id result = [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_CANCEL args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        [backendless throwFault:result];
+    }
+    return result;
 }
 
 -(MessageStatus *)sendTextEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray<NSString*> *)recipients {
@@ -275,10 +290,12 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
 }
 
 -(MessageStatus *)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients attachment:(NSArray *)attachments {
-    if (!bodyParts || ![bodyParts isBody])
-        return [backendless throwFault:FAULT_NO_BODY];
-    if (!recipients || !recipients.count)
+    if (!bodyParts || ![bodyParts isBody]) {
+       return [backendless throwFault:FAULT_NO_BODY];
+    }
+    if (!recipients || !recipients.count) {
         return [backendless throwFault:FAULT_NO_RECIPIENT];
+    }
     NSArray *args = @[(subject)?subject:@"", bodyParts, recipients, (attachments)?attachments:@[]];
     id result = [invoker invokeSync:SERVER_MAIL_SERVICE_PATH method:METHOD_SEND_EMAIL args:args];
     if ([result isKindOfClass:[Fault class]]) {
@@ -288,10 +305,15 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
 }
 
 -(MessageStatus*)getMessageStatus:(NSString*)messageId {
-    if (!messageId)
+    if (!messageId) {
         return [backendless throwFault:FAULT_NO_MESSAGE_ID];
+    }
     NSArray *args = [NSMutableArray arrayWithObjects:messageId, nil];
-    return [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_MESSAGE_STATUS args:args];
+    id result = [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_MESSAGE_STATUS args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        return [backendless throwFault:result];
+    }
+    return result;
 }
 
 // async methods with block-based callbacks
