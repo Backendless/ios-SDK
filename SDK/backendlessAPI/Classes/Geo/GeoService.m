@@ -523,20 +523,20 @@ static NSString *METHOD_COUNT = @"count";
     [self startGeofenceMonitoringCallback:[ClientCallback callback:callback] responder:responder];
 }
 
--(void)startGeofenceMonitoringGeoPoint:(GeoPoint *)geoPoint response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self startGeofenceMonitoringCallback:[ServerCallback callback:geoPoint] responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+-(void)startGeofenceMonitoringGeoPoint:(GeoPoint *)geoPoint response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self startGeofenceMonitoringCallback:[ServerCallback callback:geoPoint] responder:[ResponderBlocksContext responderBlocksContext:[voidResponseWrapper wrapResponseBlock:responseBlock] error:errorBlock]];
 }
 
--(void)startGeofenceMonitoring:(id <IGeofenceCallback>)callback response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self startGeofenceMonitoringCallback:[ClientCallback callback:callback] responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+-(void)startGeofenceMonitoring:(id <IGeofenceCallback>)callback response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self startGeofenceMonitoringCallback:[ClientCallback callback:callback] responder:[ResponderBlocksContext responderBlocksContext:[voidResponseWrapper wrapResponseBlock:responseBlock] error:errorBlock]];
 }
 
--(void)startGeofenceMonitoringGeoPoint:(NSString *)geofenceName geoPoint:(GeoPoint *)geoPoint response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self startGeofenceMonitoringCallback:[ServerCallback callback:geoPoint] name:geofenceName responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+-(void)startGeofenceMonitoringGeoPoint:(NSString *)geofenceName geoPoint:(GeoPoint *)geoPoint response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self startGeofenceMonitoringCallback:[ServerCallback callback:geoPoint] name:geofenceName responder:[ResponderBlocksContext responderBlocksContext:[voidResponseWrapper wrapResponseBlock:responseBlock] error:errorBlock]];
 }
 
--(void)startGeofenceMonitoring:(NSString *)geofenceName callback:(id <IGeofenceCallback>)callback response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self startGeofenceMonitoringCallback:[ClientCallback callback:callback] name:geofenceName responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+-(void)startGeofenceMonitoring:(NSString *)geofenceName callback:(id <IGeofenceCallback>)callback response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self startGeofenceMonitoringCallback:[ClientCallback callback:callback] name:geofenceName responder:[ResponderBlocksContext responderBlocksContext:[voidResponseWrapper wrapResponseBlock:responseBlock] error:errorBlock]];
 }
 
 -(void)stopGeofenceMonitoring {

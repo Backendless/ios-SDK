@@ -84,10 +84,10 @@ typedef struct {
 -(GEO_RECT)geoRectangle:(GEO_POINT)center length:(double)length width:(double)width;
 
 // geo fence monitoring
--(void)startGeofenceMonitoringGeoPoint:(GeoPoint *)geoPoint response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)startGeofenceMonitoring:(id <IGeofenceCallback>)callback response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)startGeofenceMonitoringGeoPoint:(NSString *)geofenceName geoPoint:(GeoPoint *)geoPoint response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)startGeofenceMonitoring:(NSString *)geofenceName callback:(id <IGeofenceCallback>)callback response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)startGeofenceMonitoringGeoPoint:(GeoPoint *)geoPoint response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)startGeofenceMonitoring:(id <IGeofenceCallback>)callback response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)startGeofenceMonitoringGeoPoint:(NSString *)geofenceName geoPoint:(GeoPoint *)geoPoint response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)startGeofenceMonitoring:(NSString *)geofenceName callback:(id <IGeofenceCallback>)callback response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)stopGeofenceMonitoring;
 -(void)stopGeofenceMonitoring:(NSString *)geofenceName;
 
