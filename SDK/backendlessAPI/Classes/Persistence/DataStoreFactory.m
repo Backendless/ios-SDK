@@ -20,9 +20,10 @@
  */
 
 #import "DataStoreFactory.h"
-#include "Backendless.h"
+#import "Backendless.h"
 #import "ObjectProperty.h"
 #import "AuthorizationException.h"
+#import "RTFactory.h"
 
 @interface DataStoreFactory () {
     Class _entityClass;
@@ -31,10 +32,13 @@
 
 @implementation DataStoreFactory
 
+@synthesize rt;
+
 -(id)init:(Class)entityClass {
     if (self = [super init]) {
         _entityClass = [entityClass retain];
         [self mapDeviceRegistrationTableToClass];
+        self.rt = [rtFactory createDataStore:[backendless.persistenceService getEntityName:NSStringFromClass(_entityClass)] withEntity:_entityClass dataStoreType:DATASTOREFACTORY];
     }
     return self;
 }

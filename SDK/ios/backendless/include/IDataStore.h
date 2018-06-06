@@ -22,11 +22,14 @@
 #import <Foundation/Foundation.h>
 #import "LoadRelationsQueryBuilder.h"
 #import "DataQueryBuilder.h"
+#import "EventHandler.h"
 
 @class QueryOptions, Fault, ObjectProperty;
 @protocol IResponder;
 
 @protocol IDataStore <NSObject>
+
+@property (strong, nonatomic) EventHandler *rt;
 
 // sync methods with fault return (as exception)
 -(id)save:(id)entity;
@@ -75,7 +78,7 @@
 -(void)deleteRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)loadRelations:(NSString *)objectId queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)createBulk:(NSArray *)objects response:(void(^)(NSArray<NSString *> *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)updateBulk:(NSString *)whereClause changes:(NSDictionary<NSString *, id> *)changes response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)removeBulk:(NSString *)whereClause response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)updateBulk:(NSString *)whereClause changes:(NSDictionary<NSString *,id> *)changes response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
+-(void)removeBulk:(NSString *)whereClause response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
 
 @end

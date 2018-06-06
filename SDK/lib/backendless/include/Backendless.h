@@ -46,12 +46,11 @@
 #import "ICallback.h"
 #import "GeoFence.h"
 #import "LocationTracker.h"
-#import "Message.h"
+#import "PublishMessageInfo.h"
 #import "MessageStatus.h"
 #import "DeliveryOptions.h"
 #import "PublishOptions.h"
-#import "SubscriptionOptions.h"
-#import "BESubscription.h"
+#import "Channel.h"
 #import "DeviceRegistration.h"
 #import "MessagingService.h"
 #import "BackendlessPushHelper.h"
@@ -71,6 +70,10 @@
 #import "BackendlessBeacon.h"
 #import "Presence.h"
 #import "MapDrivenDataStore.h"
+#import "SharedObject.h"
+#import "RTService.h"
+
+//Cache
 #import "BackendlessCachePolicy.h"
 #import "AbstractQuery.h"
 
@@ -101,6 +104,9 @@
 @property (strong, nonatomic, readonly) CacheService *cache;
 @property (strong, nonatomic, readonly) AtomicCounters *counters;
 @property (strong, nonatomic, readonly) Logging *logging;
+@property (strong, nonatomic, readonly) RTService *rt;
+@property (strong, nonatomic, readonly) SharedObject *sharedObject;
+
 // service shortcuts
 @property (assign, nonatomic, readonly) PersistenceService *data;
 @property (assign, nonatomic, readonly) GeoService *geo;

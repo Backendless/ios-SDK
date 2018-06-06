@@ -32,9 +32,16 @@
 #import "Responder.h"
 #import "Backendless.h"
 #import "Invoker.h"
-#import "BESubscription.h"
+#import "Channel.h"
+#import "SharedObject.h"
+#import "BodyParts.h"
 #import "UICKeyChainStore.h"
 #import "KeychainDataStore.h"
+#import "RTListener.h"
+#import "RTMethod.h"
+#import "JSONHelper.h"
+#import "RTFactory.h"
+#import "VoidResponseWrapper.h"
 
 #define FAULT_NO_DEVICE_ID [Fault fault:@"Device ID is not set" detail:@"Device ID is not set" faultCode:@"5900"]
 #define FAULT_NO_DEVICE_TOKEN [Fault fault:@"Device token is not set" detail:@"Device token is not set" faultCode:@"5901"]
@@ -44,8 +51,8 @@
 #define FAULT_NO_SUBSCRIPTION_ID [Fault fault:@"Subscription ID is not set" detail:@"Subscription ID is not set" faultCode:@"5905"]
 #define FAULT_NO_BODY [Fault fault:@"Message body is not set for email" detail:@"Message body is not set for email" faultCode:@"5906"]
 #define FAULT_NO_RECIPIENT [Fault fault:@"No recipient is set for email" detail:@"No recipient is set for email" faultCode:@"5907"]
-#define DEFAULT_POLLING_INTERVAL 5
 
+// Default channel name
 static  NSString *DEFAULT_CHANNEL_NAME = @"default";
 static NSString *SERVER_DEVICE_REGISTRATION_PATH = @"com.backendless.services.messaging.DeviceRegistrationService";
 static NSString *SERVER_MESSAGING_SERVICE_PATH = @"com.backendless.services.messaging.MessagingService";
@@ -56,8 +63,6 @@ static NSString *METHOD_GET_REGISTRATIONS = @"getDeviceRegistrationByDeviceId";
 static NSString *METHOD_UNREGISTER_DEVICE = @"unregisterDevice";
 static NSString *METHOD_PUBLISH = @"publish";
 static NSString *METHOD_CANCEL = @"cancel";
-static NSString *METHOD_POLLING_SUBSCRIBE = @"subscribeForPollingAccess";
-static NSString *METHOD_POLL_MESSAGES = @"pollMessages";
 static NSString *METHOD_SEND_EMAIL = @"send";
 static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
 
@@ -67,8 +72,6 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
 @end
 
 @implementation MessagingService
-
-@synthesize pollingFrequencySec;
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 -(NSString *)serialNumber {
@@ -106,10 +109,9 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
 
 -(id)init {
     if (self = [super init]) {
-        self.pollingFrequencySec = DEFAULT_POLLING_INTERVAL;
         _subscriptions = [HashMap new];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.management.DeviceRegistrationDto" mapped:[DeviceRegistration class]];
-        [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.messaging.Message" mapped:[Message class]];
+        [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.messaging.Message" mapped:[PublishMessageInfo class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.messaging.MessageStatus" mapped:[MessageStatus class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.messaging.PublishOptions" mapped:[PublishOptions class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.messaging.DeliveryOptions" mapped:[DeliveryOptions class]];
@@ -153,6 +155,18 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
     return [[[str stringByReplacingOccurrencesOfString:@" " withString:@""] stringByReplacingOccurrencesOfString:@"<" withString:@""] stringByReplacingOccurrencesOfString:@">" withString:@""];
 }
 
+// Channel
+
+-(Channel *)subscribe {
+    return [self subscribe:DEFAULT_CHANNEL_NAME];
+}
+
+-(Channel *)subscribe:(NSString *)channelName {
+    Channel *channel = [rtFactory createChannel:channelName];
+    [channel join];
+    return channel;
+}
+
 // sync methods with fault return (as exception)
 
 -(NSString *)registerDevice:(NSData *)deviceToken {
@@ -188,7 +202,7 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
     NSArray *args = [NSArray arrayWithObjects:deviceRegistration, nil];
     id result = [invoker invokeSync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_REGISTER_DEVICE args:args];
     if ([result isKindOfClass:[Fault class]]) {
-        return result;
+        return [backendless throwFault:result];
     }
     deviceRegistration.id = [NSString stringWithFormat:@"%@", result];
     return deviceRegistration.deviceId;
@@ -198,22 +212,28 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
     if (!deviceId)
         return [backendless throwFault:FAULT_NO_DEVICE_ID];
     NSArray *args = [NSArray arrayWithObjects:deviceId, nil];
-    return [invoker invokeSync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_GET_REGISTRATIONS args:args];
-}
-
--(id)unregisterDevice {
-    return [self unregisterDevice:deviceRegistration.deviceId];
-}
-
--(id)unregisterDevice:(NSString *)deviceId {
-    if (!deviceId)
-        return [backendless throwFault:FAULT_NO_DEVICE_ID];
-    NSArray *args = [NSArray arrayWithObjects:deviceId, nil];
-    id result = [invoker invokeSync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_UNREGISTER_DEVICE args:args];
-    if (result && ![result isKindOfClass:[Fault class]]) {
-        if ([result boolValue]) deviceRegistration.id = nil;
+    id result = [invoker invokeSync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_GET_REGISTRATIONS args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        return [backendless throwFault:result];
     }
     return result;
+}
+
+-(void)unregisterDevice {
+    [self unregisterDevice:deviceRegistration.deviceId];
+}
+
+-(void)unregisterDevice:(NSString *)deviceId {
+    if (!deviceId)
+        [backendless throwFault:FAULT_NO_DEVICE_ID];
+    NSArray *args = [NSArray arrayWithObjects:deviceId, nil];
+    id result = [invoker invokeSync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_UNREGISTER_DEVICE args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        [backendless throwFault:result];
+    }
+    if ([result boolValue]) {
+        deviceRegistration.id = nil;
+    }
 }
 
 -(MessageStatus *)publish:(NSString *)channelName message:(id)message {
@@ -229,55 +249,32 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
 }
 
 -(MessageStatus *)publish:(NSString *)channelName message:(id)message publishOptions:(PublishOptions *)publishOptions deliveryOptions:(DeliveryOptions *)deliveryOptions {
-    if (!channelName)
+    if (!channelName) {
         return [backendless throwFault:FAULT_NO_CHANNEL];
-    if (!message)
+    }
+    if (!message) {
         return [backendless throwFault:FAULT_NO_MESSAGE];
+    }
     NSMutableArray *args = [NSMutableArray arrayWithObjects:channelName, message, publishOptions?publishOptions:[NSNull null], nil];
     if (deliveryOptions)
         [args addObject:deliveryOptions];
-    return [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_PUBLISH args:args];
+    id result = [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_PUBLISH args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        [backendless throwFault:result];
+    }
+    return result;
 }
 
 -(id)cancel:(NSString *)messageId {
-    if (!messageId)
+    if (!messageId) {
         return [backendless throwFault:FAULT_NO_MESSAGE_ID];
+    }
     NSArray *args = [NSArray arrayWithObjects:messageId, nil];
-    return [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_CANCEL args:args];
-}
-
--(BESubscription *)subscribe:(NSString *)channelName {
-    return [self subscribe:[BESubscription subscription:channelName responder:nil] subscriptionOptions:nil];
-}
-
--(BESubscription *)subscribe:(NSString *)channelName subscriptionResponse:(void(^)(NSArray<Message*> *))subscriptionResponseBlock subscriptionError:(void(^)(Fault *))subscriptionErrorBlock {
-    return [self subscribe:[BESubscription subscription:channelName responder:[ResponderBlocksContext responderBlocksContext:subscriptionResponseBlock error:subscriptionErrorBlock]] subscriptionOptions:nil];
-}
-
--(BESubscription *)subscribe:(NSString *)channelName subscriptionResponse:(void(^)(NSArray<Message*> *))subscriptionResponseBlock subscriptionError:(void(^)(Fault *))subscriptionErrorBlock subscriptionOptions:(SubscriptionOptions *)subscriptionOptions {
-    return [self subscribe:[BESubscription subscription:channelName responder:[ResponderBlocksContext responderBlocksContext:subscriptionResponseBlock error:subscriptionErrorBlock]] subscriptionOptions:subscriptionOptions];
-}
-
--(BESubscription *)subscribe:(BESubscription *)subscription subscriptionOptions:(SubscriptionOptions *)subscriptionOptions {
-    if (!subscription)
-        return [backendless throwFault:FAULT_NO_CHANNEL];
-    subscription.deliveryMethod = [subscriptionOptions valDeliveryMethod];
-    subscriptionOptions.deviceId = deviceRegistration.deviceId;
-    id result = [self subscribeForPollingAccess:subscription.channelName subscriptionOptions:subscriptionOptions];
-    if ([result isKindOfClass:[Fault class]])
-        return result;
-    subscription.subscriptionId = result;
-    [subscription startPolling];
-    return subscription;
-}
-
--(NSArray *)pollMessages:(NSString *)channelName subscriptionId:(NSString *)subscriptionId {
-    if (!channelName)
-        return [backendless throwFault:FAULT_NO_CHANNEL];
-    if (!subscriptionId)
-        return [backendless throwFault:FAULT_NO_SUBSCRIPTION_ID];
-    NSArray *args = [NSArray arrayWithObjects:channelName, subscriptionId, nil];
-    return [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_POLL_MESSAGES args:args];
+    id result = [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_CANCEL args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        [backendless throwFault:result];
+    }
+    return result;
 }
 
 -(MessageStatus *)sendTextEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray<NSString*> *)recipients {
@@ -293,10 +290,12 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
 }
 
 -(MessageStatus *)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients attachment:(NSArray *)attachments {
-    if (!bodyParts || ![bodyParts isBody])
-        return [backendless throwFault:FAULT_NO_BODY];
-    if (!recipients || !recipients.count)
+    if (!bodyParts || ![bodyParts isBody]) {
+       return [backendless throwFault:FAULT_NO_BODY];
+    }
+    if (!recipients || !recipients.count) {
         return [backendless throwFault:FAULT_NO_RECIPIENT];
+    }
     NSArray *args = @[(subject)?subject:@"", bodyParts, recipients, (attachments)?attachments:@[]];
     id result = [invoker invokeSync:SERVER_MAIL_SERVICE_PATH method:METHOD_SEND_EMAIL args:args];
     if ([result isKindOfClass:[Fault class]]) {
@@ -306,10 +305,15 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
 }
 
 -(MessageStatus*)getMessageStatus:(NSString*)messageId {
-    if (!messageId)
+    if (!messageId) {
         return [backendless throwFault:FAULT_NO_MESSAGE_ID];
+    }
     NSArray *args = [NSMutableArray arrayWithObjects:messageId, nil];
-    return [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_MESSAGE_STATUS args:args];
+    id result = [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_MESSAGE_STATUS args:args];
+    if ([result isKindOfClass:[Fault class]]) {
+        return [backendless throwFault:result];
+    }
+    return result;
 }
 
 // async methods with block-based callbacks
@@ -359,16 +363,16 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
     [invoker invokeAsync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_GET_REGISTRATIONS args:args responder:responder];
 }
 
--(void)unregisterDevice:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)unregisterDevice:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock {
     [self unregisterDevice:deviceRegistration.deviceId response:responseBlock error:errorBlock];
 }
 
--(void)unregisterDevice:(NSString *)deviceId response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+-(void)unregisterDevice:(NSString *)deviceId response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock {
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:[voidResponseWrapper wrapResponseBlock:responseBlock] error:errorBlock];
     if (!deviceId)
         return [responder errorHandler:FAULT_NO_DEVICE_ID];
     NSArray *args = [NSArray arrayWithObjects:deviceId, nil];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onUnregistering:) selErrorHandler:nil];
+    Responder *_responder = [Responder responder:responder selResponseHandler:@selector(onUnregister:) selErrorHandler:nil];
     _responder.chained = responder;
     [invoker invokeAsync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_UNREGISTER_DEVICE args:args responder:_responder];
 }
@@ -405,46 +409,6 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
     [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_CANCEL args:args responder:responder];
 }
 
--(void)subscribe:(NSString *)channelName response:(void(^)(BESubscription *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self  subscribe:[BESubscription subscription:channelName responder:nil]
- subscriptionOptions:nil
-           responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
-}
-
--(void)subscribe:(NSString *)channelName subscriptionResponse:(void(^)(NSArray<Message*> *))subscriptionResponseBlock subscriptionError:(void(^)(Fault *))subscriptionErrorBlock response:(void(^)(BESubscription *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self  subscribe:[BESubscription subscription:channelName responder:[ResponderBlocksContext responderBlocksContext:subscriptionResponseBlock error:subscriptionErrorBlock]]
- subscriptionOptions:nil
-           responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
-}
-
--(void)subscribe:(NSString *)channelName subscriptionResponse:(void(^)(NSArray<Message*> *))subscriptionResponseBlock subscriptionError:(void(^)(Fault *))subscriptionErrorBlock subscriptionOptions:(SubscriptionOptions *)subscriptionOptions response:(void(^)(BESubscription *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self  subscribe:[BESubscription subscription:channelName responder:[ResponderBlocksContext responderBlocksContext:subscriptionResponseBlock error:subscriptionErrorBlock]]
- subscriptionOptions:subscriptionOptions
-           responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
-}
-
--(void)subscribe:(BESubscription *)subscription subscriptionOptions:(SubscriptionOptions *)subscriptionOptions responder:(id <IResponder>)responder {
-    if (!subscription)
-        return [responder errorHandler:FAULT_NO_CHANNEL];
-    subscription.deliveryMethod = [subscriptionOptions valDeliveryMethod];
-    subscriptionOptions.deviceId = deviceRegistration.deviceId;
-    [subscription startPolling];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onSubscribe:) selErrorHandler:nil];
-    _responder.context = [subscription retain];
-    _responder.chained = responder;
-    [self subscribeForPollingAccess:subscription.channelName subscriptionOptions:subscriptionOptions responder:_responder];
-}
-
--(void)pollMessages:(NSString *)channelName subscriptionId:(NSString *)subscriptionId response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
-    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
-    if (!channelName)
-        return [responder errorHandler:FAULT_NO_CHANNEL];
-    if (!subscriptionId)
-        return [responder errorHandler:FAULT_NO_SUBSCRIPTION_ID];
-    NSArray *args = [NSArray arrayWithObjects:channelName, subscriptionId, nil];
-    [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_POLL_MESSAGES args:args responder:responder];
-}
-
 -(void)sendTextEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray<NSString*> *)recipients response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self sendEmail:subject body:[BodyParts bodyText:messageBody html:nil] to:recipients attachment:nil response:responseBlock error:errorBlock];
 }
@@ -475,26 +439,6 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
     [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_MESSAGE_STATUS args:args responder:chainedResponder];
 }
 
-// sync
--(NSString *)subscribeForPollingAccess:(NSString *)channelName subscriptionOptions:(SubscriptionOptions *)subscriptionOptions {
-    if (!channelName)
-        return [backendless throwFault:FAULT_NO_CHANNEL];
-    if (!subscriptionOptions)
-        subscriptionOptions = [SubscriptionOptions new];
-    NSArray *args = @[channelName, subscriptionOptions];
-    return [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_POLLING_SUBSCRIBE args:args];
-}
-
-// async
--(void)subscribeForPollingAccess:(NSString *)channelName subscriptionOptions:(SubscriptionOptions *)subscriptionOptions responder:(id <IResponder>)responder {
-    if (!channelName)
-        return [responder errorHandler:FAULT_NO_CHANNEL];
-    if (!subscriptionOptions)
-        subscriptionOptions = [SubscriptionOptions new];
-    NSArray *args = @[channelName, subscriptionOptions];
-    [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_POLLING_SUBSCRIBE args:args responder:responder];
-}
-
 // callbacks
 
 -(id)onRegistering:(id)response {
@@ -502,16 +446,23 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
     return deviceRegistration.deviceId;
 }
 
--(id)onUnregistering:(id)response {
+-(id)onUnregister:(id)response {
     NSNumber *result = (NSNumber *)response;
     if (result && [result boolValue]) deviceRegistration.id = nil;
     return response;
 }
 
--(id)onSubscribe:(id)response {
-    BESubscription *subscription = ((ResponseContext *)response).context;
-    subscription.subscriptionId = (NSString *)((ResponseContext *)response).response;
-    return [subscription autorelease];
+// commands
+
+-(void)sendCommand:(NSString *)commandType channelName:(NSString *)channelName data:(id)data onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError {
+    NSDictionary *options = @{@"channel"    : channelName,
+                              @"type"       : commandType};
+    if (data) {
+        options = @{@"channel"    : channelName,
+                    @"type"       : commandType,
+                    @"data"       : [jsonHelper parseObjectForJSON:data]};
+    }
+    [rtMethod sendCommand:PUB_SUB_COMMAND options:options onSuccess:onSuccess onError:onError];
 }
 
 @end
