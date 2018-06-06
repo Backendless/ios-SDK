@@ -1,5 +1,9 @@
 # RELEASE HISTORY
 
+## 5.0 June 6, 2018
+* RT support added
+* API changes. Please check the documentation.
+
 ## 4.5.0 April 4, 2018
 * Bulk create method now returns array of objectIds
 
