@@ -1,5 +1,8 @@
 # RELEASE HISTORY
 
+## 5.0.1 June 7, 2018
+* pod 'Backendless' command is used for all platforms.
+
 ## 5.0 June 6, 2018
 * RT support added
 * API changes. Please check the documentation.
