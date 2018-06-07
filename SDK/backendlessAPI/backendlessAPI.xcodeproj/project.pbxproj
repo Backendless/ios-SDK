@@ -7,17 +7,6 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		D3CF37E41A387DEB0070B746 /* backendless-dev-fat */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = D3CF37E61A387DEB0070B746 /* Build configuration list for PBXAggregateTarget "backendless-dev-fat" */;
-			buildPhases = (
-				D3CF37E51A387DEB0070B746 /* Run Script */,
-			);
-			dependencies = (
-			);
-			name = "backendless-dev-fat";
-			productName = "backendless-fat";
-		};
 		F9796A6F166CD49A00595F5E /* backendless-fat */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = F9796A70166CD49A00595F5E /* Build configuration list for PBXAggregateTarget "backendless-fat" */;
@@ -1670,6 +1659,8 @@
 		5A95F1FC202B3D60000D6EA5 /* MapAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A95F1F2202B3D60000D6EA5 /* MapAdapter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A9E9A6C1FA769FB001BB2BE /* EventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A15801FA0D3C3009A1394 /* EventHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AA8FF1B1FCD945700F36C6D /* UserService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480515FF5AC500012DFC /* UserService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5AAC6CBD20C92D3D0094C4E4 /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5AAC6CBE20C92D480094C4E4 /* BackendlessPushHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A633F3F1F7BB7F6004D7ACA /* BackendlessPushHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AB0CA9A1FB490A400C21766 /* RTMessaging.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F38501FB317EB002F21D4 /* RTMessaging.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5ABF776A1FB4AD00006299F7 /* RTListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F384F1FB317EB002F21D4 /* RTListener.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5ABF776D1FB4AD46006299F7 /* RTSubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F38551FB317EB002F21D4 /* RTSubscription.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -4275,6 +4266,7 @@
 				1C7BB5051A2E092900D3C2C1 /* BackendlessCacheProtocol.h in Headers */,
 				1C7BB5061A2E092900D3C2C1 /* QueryOptions.h in Headers */,
 				5A1052CF20063B580036A784 /* JSONHelper.h in Headers */,
+				5AAC6CBE20C92D480094C4E4 /* BackendlessPushHelper.h in Headers */,
 				5EC159592099B3360095BA74 /* PublishMessageInfo.h in Headers */,
 				5AF2B7281EB2136300D54442 /* MessagingService.h in Headers */,
 			);
@@ -5470,7 +5462,6 @@
 				F9796A27166CD3A400595F5E /* backendless-device */,
 				F9F0AE801CDBCA3900035C62 /* bkndlss-simulator */,
 				F9F0AF3A1CDBCAB500035C62 /* bkndlss-device */,
-				D3CF37E41A387DEB0070B746 /* backendless-dev-fat */,
 			);
 		};
 /* End PBXProject section */
@@ -5607,20 +5598,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D3CF37E51A387DEB0070B746 /* Run Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Run Script";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\n# -- THIS IS THE DEVELOPMENT SCHEME - YOU SHOULD USE BACKENDLESS-FAT SCHEME TO BUILD BACKENDLESS LIBS\n\n# --------------------------- BUILD -----------------------------------------------------\n\n# -- ios\nrm -rf ${SRCROOT}/../ios/backendless\nmkdir ${SRCROOT}/../ios/backendless\nmkdir ${SRCROOT}/../ios/backendless/include\n\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme bkndlss-simulator TEST_AFTER_BUILD=NO clean build -sdk iphonesimulator -arch \"x86_64\" -arch \"i386\" OTHER_CFLAGS=\"-fembed-bitcode\"\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme bkndlss-device TEST_AFTER_BUILD=NO clean build -sdk iphoneos OTHER_CFLAGS=\"-fembed-bitcode\"\n\nlipo -create \"${SRCROOT}/../ios/backendless/libbkndlss-simulator.a\" \\\n\"${SRCROOT}/../ios/backendless/libbkndlss-device.a\" -output \\\n\"${SRCROOT}/../ios/backendless/backendless.a\"\n\nrm -rf ${SRCROOT}/../ios/backendless/libbkndlss-simulator.a\nrm -rf ${SRCROOT}/../ios/backendless/libbkndlss-device.a\n\n# -- lib\nrm -rf ${SRCROOT}/../lib/backendless\nmkdir ${SRCROOT}/../lib/backendless\nmkdir ${SRCROOT}/../lib/backendless/include\n\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-simulator TEST_AFTER_BUILD=NO clean build -sdk iphonesimulator -arch \"x86_64\" -arch \"i386\" OTHER_CFLAGS=\"-fembed-bitcode\"\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-device TEST_AFTER_BUILD=NO clean build -sdk iphoneos OTHER_CFLAGS=\"-fembed-bitcode\" \n\nlipo -create \"${SRCROOT}/../lib/backendless/libbackendless-simulator.a\" \\\n\"${SRCROOT}/../lib/backendless/libbackendless-device.a\" -output \\\n\"${SRCROOT}/../lib/backendless/backendless.a\"\n\nrm -rf ${SRCROOT}/../lib/backendless/libbackendless-simulator.a\nrm -rf ${SRCROOT}/../lib/backendless/libbackendless-device.a\n\n# -- osx\nrm -rf ${SRCROOT}/../osx/backendless\nmkdir ${SRCROOT}/../osx/backendless\nmkdir ${SRCROOT}/../osx/backendless/include\n\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-mac TEST_AFTER_BUILD=NO clean build\n\n# ---------------------------- MAKE THE COPIES ---------------------------------------\n\n#cp -rf ${SRCROOT}/../lib/backendless/* ${SRCROOT}/../../../iOS-Samples/lib/backendless\n#cp -rf ${SRCROOT}/../osx/backendless/* ${SRCROOT}/../../../iOS-Samples/osx/backendless\n                                     \n#cp -rf ${SRCROOT}/../lib/backendless/* ~/backendless.gitlab/src/client/tests/ios/TCTestSDK/lib/backendless\n\n#cp -rf ${SRCROOT}/../lib/backendless/* ${SRCROOT}/../../../BlogFeatureDay/lib/backendless\n                                     \n#cp -rf ${SRCROOT}/../lib/backendless/* ${SRCROOT}/../../../SamplesForDoc/lib/backendless\n\n# -------------------------- !!!!! TEMP TESTING COPIES !!!!! --------------------------\n\n#cp -rf ${SRCROOT}/../ios/backendless/* ${SRCROOT}/../../../Backendless4-Samples/B4UserService/Pods/Backendless/SDK/ios/backendless\n                                     \n#cp -rf ${SRCROOT}/../ios/backendless/* ${SRCROOT}/../../../Backendless4-Samples/B4EasyLogin/Pods/Backendless/SDK/ios/backendless\n \n#cp -rf ${SRCROOT}/../ios/backendless/* ${SRCROOT}/../../../TestPushNotify/Pods/Backendless/SDK/ios/backendless\n                                     \n#cp -rf ${SRCROOT}/../ios/backendless/* ${SRCROOT}/../../../TestEasyLogin/Pods/Backendless/SDK/ios/backendless\n\n#----------------------------------------------------------------------------------------\n";
-		};
 		F9796A73166CD4F800595F5E /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 12;
@@ -5667,6 +5644,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5AAC6CBD20C92D3D0094C4E4 /* BackendlessPushHelper.m in Sources */,
 				5EC159582099B32E0095BA74 /* PublishMessageInfo.m in Sources */,
 				5A549840200795010042234F /* SharedObjectService.m in Sources */,
 				5A54983F200794FD0042234F /* SharedObjectChanges.m in Sources */,
@@ -6826,32 +6804,6 @@
 			};
 			name = Release;
 		};
-		D3CF37E71A387DEB0070B746 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_NAME = "backendless-fat-and-copy copy";
-				PROVISIONING_PROFILE = "";
-				VALID_ARCHS = "i386 x86_64 armv7 armv7s arm64";
-			};
-			name = Debug;
-		};
-		D3CF37E81A387DEB0070B746 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_NAME = "backendless-fat-and-copy copy";
-				PROVISIONING_PROFILE = "";
-				VALID_ARCHS = "i386 x86_64 armv7 armv7s arm64";
-			};
-			name = Release;
-		};
 		F9042B2215FDD8D300C9381A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -7222,15 +7174,6 @@
 			buildConfigurations = (
 				1C7BB50E1A2E092900D3C2C1 /* Debug */,
 				1C7BB50F1A2E092900D3C2C1 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D3CF37E61A387DEB0070B746 /* Build configuration list for PBXAggregateTarget "backendless-dev-fat" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D3CF37E71A387DEB0070B746 /* Debug */,
-				D3CF37E81A387DEB0070B746 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

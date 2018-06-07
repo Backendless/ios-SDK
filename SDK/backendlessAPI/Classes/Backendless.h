@@ -53,7 +53,6 @@
 #import "Channel.h"
 #import "DeviceRegistration.h"
 #import "MessagingService.h"
-#import "BackendlessPushHelper.h"
 #import "FileService.h"
 #import "BackendlessFile.h"
 #import "CustomService.h"
@@ -72,6 +71,10 @@
 #import "MapDrivenDataStore.h"
 #import "SharedObject.h"
 #import "RTService.h"
+
+#if TARGET_OS_IOS || TARGET_OS_SIMULATOR
+#import "BackendlessPushHelper.h"
+#endif
 
 //Cache
 #import "BackendlessCachePolicy.h"

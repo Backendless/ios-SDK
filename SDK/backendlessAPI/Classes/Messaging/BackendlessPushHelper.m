@@ -28,7 +28,7 @@
     UNMutableNotificationContent *bestAttemptContent = [request.content mutableCopy];
     if ([request.content.userInfo valueForKey:@"attachment-url"]) {
        NSString *urlString = [request.content.userInfo valueForKey:@"attachment-url"];
-       NSURL *fileUrl = [NSURL URLWithString:urlString];        
+       NSURL *fileUrl = [NSURL URLWithString:urlString];
         [[[NSURLSession sharedSession] downloadTaskWithURL:fileUrl
                                          completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
                                              if (location) {
