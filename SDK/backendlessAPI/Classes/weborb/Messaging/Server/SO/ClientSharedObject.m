@@ -71,10 +71,8 @@
 }
 
 -(void)connect {
-    
     if ([self isConnected])
         return;
-    
     [self updateMessage:[self singleEventMessage:SERVER_CONNECT]];
 }
 

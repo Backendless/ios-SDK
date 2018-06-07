@@ -51,7 +51,7 @@
     self.headers = [NSMutableDictionary dictionaryWithDictionary:@{@"ios-content-available":@"1"}];
 }
 
--(BOOL)addHeader:(NSString *)key value:(NSString *)value {
+-(BOOL)addHeader:(NSString *)key value:(id)value {
     if (!key || !value) {
         return NO;
     }

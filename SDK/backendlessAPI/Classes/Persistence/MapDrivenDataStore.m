@@ -26,6 +26,7 @@
 #import "ObjectProperty.h"
 #import "ClassCastException.h"
 #import "ObjectSerializer.h"
+#import "RTFactory.h"
 #import "IResponseAdapter.h"
 #import "MapAdapter.h"
 
@@ -47,6 +48,8 @@ static NSString *REMOVE_BULK = @"removeBulk";
 
 @implementation MapDrivenDataStore
 
+@synthesize rt;
+
 -(id)init {
     if (self = [super init]) {
         _tableName = nil;
@@ -59,6 +62,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     if (self = [super init]) {
         _tableName = [tableName retain];
         [self setClassMapping];
+        self.rt = [rtFactory createDataStore:_tableName withEntity:nil dataStoreType:MAPDRIVENDATASTORE];
     }
     return self;
 }

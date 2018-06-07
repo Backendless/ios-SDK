@@ -35,17 +35,17 @@
 @property (nonatomic, assign, getter = getPassword, setter = setPassword:) NSString *password;
 @property (nonatomic, assign, getter = getName, setter = setName:) NSString *name;
 
--(id)initWithProperties:(NSDictionary<NSString*, id> *)props;
+-(id)initWithProperties:(NSDictionary<NSString*, id> *)properties;
 -(BOOL)isUserRegistered;
 -(NSString *)getUserToken;
--(void)setProperties:(NSDictionary<NSString*, id> *)props;
--(void)addProperties:(NSDictionary<NSString*, id> *)props;
--(NSDictionary<NSString*, id> *)getProperties;
--(void)updateProperties:(NSDictionary<NSString*, id> *)props;
--(id)getProperty:(NSString *)key;
+-(void)persistCurrentUser;
 -(void)setProperty:(NSString *)key object:(id)value;
+-(void)setProperties:(NSDictionary<NSString*, id> *)properties;
+-(void)addProperties:(NSDictionary<NSString*, id> *)properties;
+-(void)updateProperties:(NSDictionary<NSString*, id> *)properties;
+-(id)getProperty:(NSString *)key;
+-(NSDictionary<NSString*, id> *)getProperties;
 -(void)removeProperty:(NSString *)key;
 -(void)removeProperties:(NSArray<NSString*> *)keys;
--(void)persistCurrentUser;
 
 @end
