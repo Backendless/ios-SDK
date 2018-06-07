@@ -85,5 +85,3 @@
 #define ORBConstants_STORAGE_ACCOUNT_CONFIGURATION @"DataConnectionString"
 #define ORBConstants_WEBORB_AZURE_CONTAINER @"weborb"
 #define ORBConstants_LOCAL_STORAGE @"MessagingStorage"
-
-#define ORBConstants_CHANNEL_MY_LONG_POLLING_AMF @"my-long-polling-amf"

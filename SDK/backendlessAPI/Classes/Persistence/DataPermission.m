@@ -45,7 +45,7 @@ static NSString *METHOD_UPDATE_ALL_ROLE_PERMISSION = @"updateAllRolePermission";
 
 -(id)getEntityId:(id)object {
     NSString *objectId = [backendless.persistenceService getObjectId:object];
-    return [objectId isKindOfClass:[NSString class]]?objectId:object;
+    return [objectId isKindOfClass:[NSString class]]?objectId:nil;
 }
 
 // sync methods with fault return (as exception)

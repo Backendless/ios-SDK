@@ -29,7 +29,7 @@
 -(void)put:(id)entity;
 -(void)put:(id)entity timeToLive:(int)seconds;
 -(id)get;
--(NSNumber *)contains;
+-(BOOL)contains;
 -(void)expireIn:(int)seconds;
 -(void)expireAt:(NSDate *)timestamp;
 -(void)remove;
@@ -38,7 +38,7 @@
 -(void)put:(id)entity response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)put:(id)entity timeToLive:(int)seconds response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)get:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)contains:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)contains:(void(^)(BOOL))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)expireIn:(int)seconds response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)expireAt:(NSDate *)timestamp response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)remove:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
