@@ -18,12 +18,14 @@ Pod::Spec.new do |spec|
   spec.ios.preserve_paths    = 'SDK/ios/**/*.a'
   spec.osx.preserve_paths    = 'SDK/osx/**/*.a'
 
+  spec.libraries    = 'backendless'
+
   spec.framework      = 'SystemConfiguration'
   spec.ios.framework  = 'UIKit', 'CoreLocation', 'Foundation'
   spec.osx.framework  = 'AppKit'
 
   spec.ios.xcconfig    =  { 'LIBRARY_SEARCH_PATHS' => '"$(SRCROOT)/Pods/Backendless/SDK/ios/backendless"' }
-  spec.osx.xcconfig    =  { 'LIBRARY_SEARCH_PATHS' => '"$(SRCROOT)/Pods/Backendless-osx-SDK/SDK/osx/backendless"' }
+  spec.osx.xcconfig    =  { 'LIBRARY_SEARCH_PATHS' => '"$(SRCROOT)/Pods/Backendless/SDK/osx/backendless"' }
 
   spec.dependency 'Socket.IO-Client-Swift'
 
