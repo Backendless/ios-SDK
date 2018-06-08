@@ -1,5 +1,8 @@
 # RELEASE HISTORY
 
+## 5.0.2 June 8, 2018
+* Socket.IO updated to v13.2.1
+
 ## 5.0.1 June 7, 2018
 * pod 'Backendless' command is used for all platforms.
 
