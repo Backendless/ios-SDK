@@ -1,5 +1,8 @@
 # RELEASE HISTORY
 
+## 5.0.3 June 11, 2018
+* Some deprecated NSURLConnection methods fixed. No API changes.
+
 ## 5.0.2 June 8, 2018
 * Socket.IO updated to v13.2.1
 
