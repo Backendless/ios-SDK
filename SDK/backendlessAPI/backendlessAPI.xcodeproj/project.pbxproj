@@ -36,11 +36,11 @@
 		0F9AC81F1E798C5C0087869F /* HttpEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC6EC1E798C5B0087869F /* HttpEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0F9AC8201E798C5C0087869F /* HttpEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC6EC1E798C5B0087869F /* HttpEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0F9AC8211E798C5C0087869F /* HttpEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC6EC1E798C5B0087869F /* HttpEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0F9AC8221E798C5C0087869F /* HttpEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC6ED1E798C5B0087869F /* HttpEngine.m */; };
-		0F9AC8231E798C5C0087869F /* HttpEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC6ED1E798C5B0087869F /* HttpEngine.m */; };
-		0F9AC8241E798C5C0087869F /* HttpEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC6ED1E798C5B0087869F /* HttpEngine.m */; };
-		0F9AC8251E798C5C0087869F /* HttpEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC6ED1E798C5B0087869F /* HttpEngine.m */; };
-		0F9AC8261E798C5C0087869F /* HttpEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC6ED1E798C5B0087869F /* HttpEngine.m */; };
+		0F9AC8221E798C5C0087869F /* HttpEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC6ED1E798C5B0087869F /* HttpEngine.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		0F9AC8231E798C5C0087869F /* HttpEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC6ED1E798C5B0087869F /* HttpEngine.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		0F9AC8241E798C5C0087869F /* HttpEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC6ED1E798C5B0087869F /* HttpEngine.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		0F9AC8251E798C5C0087869F /* HttpEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC6ED1E798C5B0087869F /* HttpEngine.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		0F9AC8261E798C5C0087869F /* HttpEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC6ED1E798C5B0087869F /* HttpEngine.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		0F9AC8271E798C5C0087869F /* Responder.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC6EE1E798C5B0087869F /* Responder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0F9AC8281E798C5C0087869F /* Responder.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC6EE1E798C5B0087869F /* Responder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0F9AC8291E798C5C0087869F /* Responder.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC6EE1E798C5B0087869F /* Responder.h */; settings = {ATTRIBUTES = (Public, ); }; };
