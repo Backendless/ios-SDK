@@ -1,5 +1,18 @@
 # RELEASE HISTORY
 
+## 5.0.3 June 11, 2018
+* Some deprecated NSURLConnection methods fixed. No API changes.
+
+## 5.0.2 June 8, 2018
+* Socket.IO updated to v13.2.1
+
+## 5.0.1 June 7, 2018
+* pod 'Backendless' command is used for all platforms.
+
+## 5.0 June 6, 2018
+* RT support added
+* API changes. Please check the documentation.
+
 ## 4.5.0 April 4, 2018
 * Bulk create method now returns array of objectIds
 
