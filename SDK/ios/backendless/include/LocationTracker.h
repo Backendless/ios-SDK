@@ -33,7 +33,7 @@
 
 @interface LocationTracker : NSObject
 
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#if TARGET_OS_IPHONE || TARGET_OS_SIMULATOR
 // location manager options
 @property (assign, nonatomic) CLActivityType activityType;
 @property (assign, nonatomic) BOOL pausesLocationUpdatesAutomatically;
@@ -56,3 +56,4 @@
 -(CLLocation *)getLocation;
 
 @end
+

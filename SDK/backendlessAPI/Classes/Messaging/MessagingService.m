@@ -19,13 +19,11 @@
  *  ********************************************************************************************************************
  */
 
-#if !TARGET_OS_IPHONE && !TARGET_IPHONE_SIMULATOR
-#import <IOKit/IOKitLib.h>
-#endif
-#if TARGET_OS_IOS || TARGET_OS_SIMULATOR
+#if !TARGET_OS_OSX
 #import <UIKit/UIKit.h>
 #endif
 
+#include <TargetConditionals.h>
 #import "MessagingService.h"
 #import "DEBUG.h"
 #import "Types.h"

@@ -27,7 +27,9 @@
 @interface BackendlessPushHelper : NSObject
 
 #if TARGET_OS_IOS || TARGET_OS_SIMULATOR
+#if !TARGET_OS_TV
 +(void)processMutableContent:(UNNotificationRequest *_Nonnull)request withContentHandler:(void(^_Nonnull)(UNNotificationContent *_Nonnull))contentHandler NS_AVAILABLE_IOS(10_0);
+#endif
 #endif
 
 @end

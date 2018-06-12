@@ -32,8 +32,6 @@
 
 static NSString *BACKENDLESS_HOST_URL = @"https://api.backendless.com";
 static NSString *APP_TYPE = @"IOS";
-static NSString *APP_ID_HEADER_KEY = @"application-id";
-static NSString *API_KEY_HEADER_KEY = @"API-key";
 
 @implementation Backendless
 
@@ -464,6 +462,7 @@ static NSString *API_KEY_HEADER_KEY = @"API-key";
         // See http://blog.timac.org/?p=886
         sIs64bitHardware = [self is64bitSimulator]; // is64bitSimulator();
 #else
+#if !TARGET_OS_TV
         // The app runs on a real iOS device: ask the kernel for the host info.
         struct host_basic_info host_basic_info;
         unsigned int count;
@@ -472,6 +471,7 @@ static NSString *API_KEY_HEADER_KEY = @"API-key";
             sIs64bitHardware = NO;
         }
         sIs64bitHardware = (host_basic_info.cpu_type == CPU_TYPE_ARM64);
+#endif
 #endif // TARGET_IPHONE_SIMULATOR
     }
     return sIs64bitHardware;

@@ -38,7 +38,8 @@
 -(id)initWithType:(BeaconTypeEnum)type beacon:(id)beacon {
     if (self = [super init]) {
         _type = BEACON_UNKNOWN;
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#if TARGET_OS_IPHONE || TARGET_OS_SIMULATOR
+#if !TARGET_OS_TV
         switch (type) {
             case BEACON_IBEACON: {
                 if ([beacon isKindOfClass:CLBeacon.class]) {
@@ -57,6 +58,7 @@
             }
         }
 #endif
+#endif
     }
     return self;
 }
@@ -64,12 +66,14 @@
 -(id)initWithClass:(id)beacon {
     if (self = [super init]) {
         _type = BEACON_UNKNOWN;
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#if TARGET_OS_IPHONE || TARGET_OS_SIMULATOR
+#if !TARGET_OS_TV
         if ([beacon isKindOfClass:CLBeacon.class]) {
             CLBeacon *_beacon = beacon;
             _type = BEACON_IBEACON;
             _iBeaconProps = [@{IBEACON_UUID_STR:_beacon.proximityUUID.UUIDString, IBEACON_MAJOR_STR:_beacon.major.stringValue, IBEACON_MINOR_STR:_beacon.minor.stringValue} retain];
         }
+#endif
 #endif
     }
     return self;

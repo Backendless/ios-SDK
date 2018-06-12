@@ -27,7 +27,7 @@
 #define FAULT_PRESENCE_MONITORING [Fault fault:@"Presence is already monitoring" faultCode:@"4000"]
 #define FAULT_INVALID_MONITORING_POLICY [Fault fault:@"Invalid monitoring policy" faultCode:@"4000"]
 
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#if TARGET_OS_IPHONE || TARGET_OS_SIMULATOR
 @interface BeaconTracker() <CLLocationManagerDelegate> {
     id <IPresenceListener> _listener;
     BOOL _discovery;
@@ -42,7 +42,7 @@
 
 @implementation BeaconTracker
 
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#if TARGET_OS_IPHONE || TARGET_OS_SIMULATOR
 +(instancetype)sharedInstance {
     static BeaconTracker *sharedBeaconTracker;
     @synchronized(self) {
@@ -56,6 +56,7 @@
 
 -(id)init {
     if (self = [super init]) {
+#if !TARGET_OS_TV
         self.locationManager = [[CLLocationManager alloc] init];
         self.locationManager.delegate = self;
         // Check for iOS 8
@@ -64,6 +65,7 @@
         }
         self.beaconMonitor = nil;
         self.stayedBeacons = [NSDictionary new];
+#endif
     }
     return self;
 }
@@ -76,6 +78,7 @@
     [super dealloc];
 }
 
+#if !TARGET_OS_TV
 -(CLBeaconRegion *)beaconRegion:(BackendlessBeacon *)beacon {
     switch (beacon.type) {
         case BEACON_IBEACON: {
@@ -93,19 +96,24 @@
         }
     }
 }
+#endif
 
 -(void)startMonitoringBeacon:(BackendlessBeacon *)beacon {
+#if !TARGET_OS_TV
     NSLog(@"startMonitoringBeacon: %@", beacon);
     CLBeaconRegion *beaconRegion = [self beaconRegion:beacon];
     [self.locationManager startMonitoringForRegion:beaconRegion];
     [self.locationManager startRangingBeaconsInRegion:beaconRegion];
+#endif
 }
 
 -(void)stopMonitoringBeacon:(BackendlessBeacon *)beacon {
+#if !TARGET_OS_TV
     NSLog(@"stopMonitoringBeacon: %@", beacon);
     CLBeaconRegion *beaconRegion = [self beaconRegion:beacon];
     [self.locationManager stopMonitoringForRegion:beaconRegion];
     [self.locationManager stopRangingBeaconsInRegion:beaconRegion];
+#endif
 }
 
 -(void)startMonitoring:(BOOL)runDiscovery frequency:(int)frequency listener:(id<IPresenceListener>)listener distanceChange:(double)distanceChange responder:(id<IResponder>)responder {
@@ -133,14 +141,17 @@
     _beaconMonitor = nil;
 }
 
+#if !TARGET_OS_TV
 -(void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
     [DebLog log:@"locationManager:monitoringDidFailForRegion:withError: %@", error];
 }
+#endif
 
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     [DebLog log:@"locationManager:didFailWithError: %@", error];
 }
 
+#if !TARGET_OS_TV
 -(void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region {
     [DebLog log:@"locationManager:didRangeBeacons: %@ inRegion: %@", beacons, region];
     NSMutableDictionary<BackendlessBeacon*, NSNumber*> *notifiedBeacons = [NSMutableDictionary new];
@@ -165,6 +176,7 @@
         [_listener onDetectedBeacons:notifiedBeacons];
     }
 }
+#endif
 #endif
 
 @end

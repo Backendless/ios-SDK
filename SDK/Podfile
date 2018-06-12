@@ -9,6 +9,12 @@ target 'backendless-mac' do
 end
 
 
+target 'backendless-tv' do
+    use_frameworks!
+    workspace 'backendless'
+    pod 'Socket.IO-Client-Swift'
+end
+
  
 target 'backendless-device' do
     use_frameworks!

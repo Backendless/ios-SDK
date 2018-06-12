@@ -514,6 +514,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
         if ([fault.faultCode isEqualToString:code]) {
             [self onLogout:fault];
         }
+        
     }
 }
 

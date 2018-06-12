@@ -19,6 +19,8 @@
  *  ********************************************************************************************************************
  */
 
+#import <Foundation/Foundation.h>
+
 @protocol IAdaptingType <NSObject>
 -(NSString *)description;
 -(Class)getDefaultType;
