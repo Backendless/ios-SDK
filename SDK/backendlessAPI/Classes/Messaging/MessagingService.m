@@ -19,6 +19,8 @@
  *  ********************************************************************************************************************
  */
 
+
+#if !TARGET_OS_WATCH
 #if !TARGET_OS_OSX
 #import <UIKit/UIKit.h>
 #endif
@@ -50,6 +52,7 @@
 #define FAULT_NO_BODY [Fault fault:@"Message body is not set for email" detail:@"Message body is not set for email" faultCode:@"5906"]
 #define FAULT_NO_RECIPIENT [Fault fault:@"No recipient is set for email" detail:@"No recipient is set for email" faultCode:@"5907"]
 
+#if !TARGET_OS_WATCH
 // Default channel name
 static  NSString *DEFAULT_CHANNEL_NAME = @"default";
 static NSString *SERVER_DEVICE_REGISTRATION_PATH = @"com.backendless.services.messaging.DeviceRegistrationService";
@@ -63,15 +66,18 @@ static NSString *METHOD_PUBLISH = @"publish";
 static NSString *METHOD_CANCEL = @"cancel";
 static NSString *METHOD_SEND_EMAIL = @"send";
 static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
+#endif
 
 @interface MessagingService() {
     DeviceRegistration  *deviceRegistration;
 }
 @end
+#endif
 
 @implementation MessagingService
 
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#if !TARGET_OS_WATCH
+#if TARGET_OS_IPHONE || TARGET_OS_SIMULATOR
 -(NSString *)serialNumber {
     KeychainDataStore *keychainStore = [[KeychainDataStore alloc] initWithService:kBackendlessApplicationUUIDKey withGroup:nil];
     NSString *bundleId = [[NSBundle mainBundle] bundleIdentifier];
@@ -88,7 +94,7 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
     }
     return UUID;
 }
-#else // OSX
+#elif TARGET_OS_OSX
 -(NSString *)serialNumber {
     io_service_t    platformExpert = IOServiceGetMatchingService(kIOMasterPortDefault, IOServiceMatching("IOPlatformExpertDevice"));
     CFStringRef serialNumberAsCFString = NULL;
@@ -116,7 +122,7 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.mail.BodyParts" mapped:[BodyParts class]];
         deviceRegistration = [DeviceRegistration new];
         
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#if (TARGET_OS_IPHONE || TARGET_OS_SIMULATOR) && !TARGET_OS_WATCH
         UIDevice *device = [UIDevice currentDevice];
         // use generated UUID which is saved in keychain with bundleId as key
         NSString *deviceId = [self serialNumber];
@@ -124,7 +130,6 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
         deviceRegistration.deviceId = deviceId ? deviceId : [backendless GUIDString];
         deviceRegistration.os = @"IOS";
         deviceRegistration.osVersion = device.systemVersion;
-        
 #else   // OSX
         deviceRegistration.os = @"OSX";
         NSString *deviceId = [self serialNumber];
@@ -462,5 +467,7 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
     }
     [rtMethod sendCommand:PUB_SUB_COMMAND options:options onSuccess:onSuccess onError:onError];
 }
+
+#endif
 
 @end

@@ -24,7 +24,7 @@
 
 @interface BeaconTracker : NSObject
 
-#if TARGET_OS_IPHONE || TARGET_OS_SIMULATOR
+#if (TARGET_OS_IPHONE || TARGET_OS_SIMULATOR) && !TARGET_OS_TV && !TARGET_OS_WATCH
 +(instancetype)sharedInstance;
 -(void)startMonitoring:(BOOL)runDiscovery frequency:(int)frequency listener:(id<IPresenceListener>)listener distanceChange:(double)distanceChange responder:(id<IResponder>)responder;
 -(void)stopMonitoring;

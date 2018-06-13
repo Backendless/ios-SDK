@@ -91,10 +91,13 @@
                 NSURL *url = [NSURL URLWithString:[RTHelper lookup]];
                 
                 NSString *clientId = @"";
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+      
+#if !TARGET_OS_WATCH
+#if TARGET_OS_IPHONE || TARGET_OS_SIMULATOR
                 clientId =[[[UIDevice currentDevice] identifierForVendor] UUIDString];
-#else
+#else // macOS
                 clientId = [[NSHost currentHost] name];
+#endif
 #endif
                 NSDictionary *connectParams = @{@"apiKey":[backendless getAPIKey],
                                                 @"clientId":clientId};

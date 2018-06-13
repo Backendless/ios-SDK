@@ -61,7 +61,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 
 @interface UserService ()
 
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#if TARGET_OS_IPHONE || TARGET_OS_SIMULATOR
 @property BOOL iOS9above;
 #endif
 

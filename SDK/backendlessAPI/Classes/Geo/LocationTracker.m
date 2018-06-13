@@ -67,34 +67,27 @@
     [super dealloc];
 }
 
-#if TARGET_OS_IPHONE || TARGET_OS_SIMULATOR
+#if (TARGET_OS_IPHONE || TARGET_OS_SIMULATOR) && !TARGET_OS_TV && !TARGET_OS_WATCH
 -(void)setActivityType:(CLActivityType)activityType {
-#if !TARGET_OS_TV
     _activityType = activityType;
     _locationManager.activityType = activityType;
-#endif
 }
 
 -(void)setPausesLocationUpdatesAutomatically:(BOOL)pausesLocationUpdatesAutomatically {
-#if !TARGET_OS_TV
     _pausesLocationUpdatesAutomatically = pausesLocationUpdatesAutomatically;
     _locationManager.pausesLocationUpdatesAutomatically = pausesLocationUpdatesAutomatically;
-#endif
+
 }
-#endif
 
 -(void)setMonitoringSignificantLocationChanges:(BOOL)monitoringSignificantLocationChanges {
-#if !TARGET_OS_TV
     if (_monitoringSignificantLocationChanges == monitoringSignificantLocationChanges)
         return;
     _monitoringSignificantLocationChanges?[_locationManager stopMonitoringSignificantLocationChanges]:[_locationManager stopUpdatingLocation];
     _monitoringSignificantLocationChanges = monitoringSignificantLocationChanges;
-#if TARGET_OS_IPHONE || TARGET_OS_SIMULATOR
     if (iOSVersion >= 8.0) [_locationManager requestAlwaysAuthorization];
-#endif
     _monitoringSignificantLocationChanges?[_locationManager startMonitoringSignificantLocationChanges]:[_locationManager startUpdatingLocation];
-#endif
 }
+#endif
 
 -(void)setDistanceFilter:(CLLocationDistance)distanceFilter {
     _distanceFilter = distanceFilter;
@@ -134,7 +127,7 @@
 }
 
 -(void)startLocationManager {
-#if !TARGET_OS_TV
+#if !TARGET_OS_TV && !TARGET_OS_WATCH
     _locationManager = [CLLocationManager new];
     _locationManager.delegate = self;
     _locationManager.distanceFilter = _distanceFilter;

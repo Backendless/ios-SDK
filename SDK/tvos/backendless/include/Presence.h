@@ -25,7 +25,7 @@
 
 @interface Presence : NSObject
 
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#if (TARGET_OS_IPHONE || TARGET_OS_SIMULATOR) && !TARGET_OS_WATCH && !TARGET_OS_TV
 // sync methods
 -(void)stopMonitoring;
 

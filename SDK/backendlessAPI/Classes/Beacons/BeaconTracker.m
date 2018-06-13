@@ -78,7 +78,7 @@
     [super dealloc];
 }
 
-#if !TARGET_OS_TV
+#if !TARGET_OS_TV && !TARGET_OS_WATCH
 -(CLBeaconRegion *)beaconRegion:(BackendlessBeacon *)beacon {
     switch (beacon.type) {
         case BEACON_IBEACON: {
@@ -96,24 +96,19 @@
         }
     }
 }
-#endif
 
 -(void)startMonitoringBeacon:(BackendlessBeacon *)beacon {
-#if !TARGET_OS_TV
     NSLog(@"startMonitoringBeacon: %@", beacon);
     CLBeaconRegion *beaconRegion = [self beaconRegion:beacon];
     [self.locationManager startMonitoringForRegion:beaconRegion];
     [self.locationManager startRangingBeaconsInRegion:beaconRegion];
-#endif
 }
 
 -(void)stopMonitoringBeacon:(BackendlessBeacon *)beacon {
-#if !TARGET_OS_TV
     NSLog(@"stopMonitoringBeacon: %@", beacon);
     CLBeaconRegion *beaconRegion = [self beaconRegion:beacon];
     [self.locationManager stopMonitoringForRegion:beaconRegion];
     [self.locationManager stopRangingBeaconsInRegion:beaconRegion];
-#endif
 }
 
 -(void)startMonitoring:(BOOL)runDiscovery frequency:(int)frequency listener:(id<IPresenceListener>)listener distanceChange:(double)distanceChange responder:(id<IResponder>)responder {
@@ -141,17 +136,10 @@
     _beaconMonitor = nil;
 }
 
-#if !TARGET_OS_TV
 -(void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
     [DebLog log:@"locationManager:monitoringDidFailForRegion:withError: %@", error];
 }
-#endif
 
--(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    [DebLog log:@"locationManager:didFailWithError: %@", error];
-}
-
-#if !TARGET_OS_TV
 -(void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region {
     [DebLog log:@"locationManager:didRangeBeacons: %@ inRegion: %@", beacons, region];
     NSMutableDictionary<BackendlessBeacon*, NSNumber*> *notifiedBeacons = [NSMutableDictionary new];
@@ -178,5 +166,9 @@
 }
 #endif
 #endif
+
+-(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    [DebLog log:@"locationManager:didFailWithError: %@", error];
+}
 
 @end
