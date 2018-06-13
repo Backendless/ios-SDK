@@ -60,17 +60,10 @@ static NSString *METHOD_USER_LOGIN_WITH_TWITTER_SDK = @"loginWithTwitter";
 static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 
 @interface UserService ()
+
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 @property BOOL iOS9above;
 #endif
-
-// callbacks
--(id)registerResponse:(ResponseContext *)response;
--(id)registerError:(id)error;
--(id)onLogin:(id)response;
--(id)onUpdate:(ResponseContext *)response;
--(void)onLogout:(id)response;
--(void)onLogoutError:(Fault *)fault;
 
 @end
 
@@ -325,9 +318,9 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     [[backendless.data of:[BackendlessUser class]] findById:objectId response:responseBlock error:errorBlock];
 }
 
--(void)logout:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock {
-    id <IResponder>responder = [ResponderBlocksContext responderBlocksContext:[voidResponseWrapper wrapResponseBlock:responseBlock] error:errorBlock];
-    Responder *_responder = [Responder responder:responder selResponseHandler:@selector(onLogout:) selErrorHandler:@selector(onLogoutError:)];
+-(void)logout:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock {    
+    Responder *responder = [ResponderBlocksContext responderBlocksContext:[[VoidResponseWrapper sharedInstance] wrapResponseBlock:responseBlock] error:errorBlock];
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onLogout:) selErrorHandler:@selector(onLogoutError:)];
     _responder.chained = responder;
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_LOGOUT args:@[] responder:_responder];
 }
@@ -498,13 +491,13 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     return user;
 }
 
--(void)onLogout:(id)response {
-    [DebLog log:@"UserService -> onLogout: %@", response];
+-(id)onLogout:(id)response {
     if (self.currentUser) {
         self.currentUser = nil;
     }
     [backendless.headers removeObjectForKey:BACKENDLESS_USER_TOKEN];
     [self resetPersistentUser];
+    return response;
 }
 
 -(void)onLogoutError:(Fault *)fault {
@@ -514,7 +507,6 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
         if ([fault.faultCode isEqualToString:code]) {
             [self onLogout:fault];
         }
-        
     }
 }
 
