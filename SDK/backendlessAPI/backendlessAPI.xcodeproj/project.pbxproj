@@ -3344,19 +3344,6 @@
 		F9F58DB31BA83BB1009B8782 /* BackendlessBeacon.m in Sources */ = {isa = PBXBuildFile; fileRef = F9F58DAD1BA83BB1009B8782 /* BackendlessBeacon.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		5A06BCDD20D1109F00E0315F /* Copy Files */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
-			files = (
-			);
-			name = "Copy Files";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		055CD3C819939F4BA04A05F6 /* Pods-backendless-tv.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-tv.release.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-tv/Pods-backendless-tv.release.xcconfig"; sourceTree = "<group>"; };
 		073EC98AA15113BF30EBE9FC /* Pods_backendless_device.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_backendless_device.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -6916,9 +6903,8 @@
 				F499D0DB36CD6D53D67689AF /* [CP] Check Pods Manifest.lock */,
 				5A06BCDB20D1109F00E0315F /* Sources */,
 				5A06BCDC20D1109F00E0315F /* Frameworks */,
-				5A06BCDD20D1109F00E0315F /* Copy Files */,
-				5A06BCE820D1179B00E0315F /* Run Script */,
 				5A06BDBE20D118D800E0315F /* Headers */,
+				5A06BCE820D1179B00E0315F /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -7149,7 +7135,7 @@
 		};
 		5A06BCE820D1179B00E0315F /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
@@ -7159,7 +7145,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cp ${BUILT_PRODUCTS_DIR}/libbackendless-watch.a ${SRCROOT}/../watchos/backendless\ncp -f ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../watchos/backendless/include\n                                              \nrm -rf ${BUILT_PRODUCTS_DIR}/libbackendless-watch.a\nrm -rf ${BUILT_PRODUCTS_DIR}/usr/local/include/*";
+			shellScript = "cp ${BUILT_PRODUCTS_DIR}/libbackendless-watch.a ${SRCROOT}/../watchos/backendless\ncp -f ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../watchos/backendless/include\n\n                                              \nrm -rf ${BUILT_PRODUCTS_DIR}/libbackendless-watch.a\nrm -rf ${BUILT_PRODUCTS_DIR}/usr/local/include/*\n";
 		};
 		5AC84FAF20CFDC8D00A49030 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -8947,6 +8933,7 @@
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VALID_ARCHS = armv7k;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
@@ -8984,6 +8971,7 @@
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VALID_ARCHS = armv7k;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
@@ -9024,6 +9012,7 @@
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VALID_ARCHS = arm64;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
@@ -9062,6 +9051,7 @@
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VALID_ARCHS = arm64;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};
