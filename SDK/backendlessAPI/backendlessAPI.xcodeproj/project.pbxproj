@@ -7048,9 +7048,9 @@
 				F97969DB166CC8C300595F5E /* backendless-simulator */,
 				F9F0AF3A1CDBCAB500035C62 /* bkndlss-device */,
 				F9796A27166CD3A400595F5E /* backendless-device */,
+				5A06BCDE20D1109F00E0315F /* backendless-watch */,
 				1C7BB48E1A2E092900D3C2C1 /* backendless-mac */,
 				5AF7F0DF20CFC40F0014880E /* backendless-tv */,
-				5A06BCDE20D1109F00E0315F /* backendless-watch */,
 			);
 		};
 /* End PBXProject section */
@@ -7158,7 +7158,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# -- watchos\nrm -rf ${SRCROOT}/../watchos/backendless\nmkdir ${SRCROOT}/../watchos/backendless\nmkdir ${SRCROOT}/../watchos/backendless/include\n\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-watch TEST_AFTER_BUILD=NO clean build\n\nmv \"${SRCROOT}/../watchos/backendless/libbackendless-watch.a\" \"${SRCROOT}/../watchos/backendless/backendless.a\"";
+			shellScript = "# -- ios\nrm -rf ${SRCROOT}/../ios/backendless\nmkdir ${SRCROOT}/../ios/backendless\nmkdir ${SRCROOT}/../ios/backendless/include\n\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme bkndlss-simulator TEST_AFTER_BUILD=NO clean build -sdk iphonesimulator -arch \"x86_64\" -arch \"i386\" OTHER_CFLAGS=\"-fembed-bitcode\"\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme bkndlss-device TEST_AFTER_BUILD=NO clean build -sdk iphoneos OTHER_CFLAGS=\"-fembed-bitcode\"\n\nlipo -create \"${SRCROOT}/../ios/backendless/libbkndlss-simulator.a\" \\\n\"${SRCROOT}/../ios/backendless/libbkndlss-device.a\" -output \\\n\"${SRCROOT}/../ios/backendless/backendless.a\"\n\nrm -rf ${SRCROOT}/../ios/backendless/libbkndlss-simulator.a\nrm -rf ${SRCROOT}/../ios/backendless/libbkndlss-device.a\n\n\n# -- lib\nrm -rf ${SRCROOT}/../lib/backendless\nmkdir ${SRCROOT}/../lib/backendless\nmkdir ${SRCROOT}/../lib/backendless/include\n\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-simulator TEST_AFTER_BUILD=NO clean build -sdk iphonesimulator -arch \"x86_64\" -arch \"i386\" OTHER_CFLAGS=\"-fembed-bitcode\"\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-device TEST_AFTER_BUILD=NO clean build -sdk iphoneos OTHER_CFLAGS=\"-fembed-bitcode\"\n\nlipo -create \"${SRCROOT}/../lib/backendless/libbackendless-simulator.a\" \\\n\"${SRCROOT}/../lib/backendless/libbackendless-device.a\" -output \\\n\"${SRCROOT}/../lib/backendless/backendless.a\"\n\nrm -rf ${SRCROOT}/../lib/backendless/libbackendless-simulator.a\nrm -rf ${SRCROOT}/../lib/backendless/libbackendless-device.a\n\n\n# -- watchos\nrm -rf ${SRCROOT}/../watchos/backendless\nmkdir ${SRCROOT}/../watchos/backendless\nmkdir ${SRCROOT}/../watchos/backendless/include\n\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-watch TEST_AFTER_BUILD=NO clean build\n\nmv \"${SRCROOT}/../watchos/backendless/libbackendless-watch.a\" \"${SRCROOT}/../watchos/backendless/backendless.a\"\n\n\n# -- osx\nrm -rf ${SRCROOT}/../osx/backendless\nmkdir ${SRCROOT}/../osx/backendless\nmkdir ${SRCROOT}/../osx/backendless/include\n\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-mac TEST_AFTER_BUILD=NO clean build\n\nmv \"${SRCROOT}/../osx/backendless/libbackendless-mac.a\" \"${SRCROOT}/../osx/backendless/backendless.a\"\n\n\n# -- tvos\nrm -rf ${SRCROOT}/../tvos/backendless\nmkdir ${SRCROOT}/../tvos/backendless\nmkdir ${SRCROOT}/../tvos/backendless/include\n\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-tv TEST_AFTER_BUILD=NO clean build\n\nmv \"${SRCROOT}/../tvos/backendless/libbackendless-tv.a\" \"${SRCROOT}/../tvos/backendless/backendless.a\"\n";
 		};
 		5AF7F0E020CFC40F0014880E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

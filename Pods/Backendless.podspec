@@ -12,14 +12,17 @@ Pod::Spec.new do |spec|
   spec.ios.deployment_target  = '8.0'
   spec.osx.deployment_target  = '10.10'
   spec.tvos.deployment_target = '9.0'
+  spec.watchos.deployment_target = '2.0'
 
   spec.ios.source_files   = 'SDK/ios/**/*.h'
   spec.osx.source_files    = 'SDK/osx/**/*.h'
   spec.tvos.source_files    = 'SDK/tvos/**/*.h'
+  spec.watchos.source_files    = 'SDK/watchos/**/*.h'
 
   spec.ios.preserve_paths    = 'SDK/ios/**/*.a'
   spec.osx.preserve_paths    = 'SDK/osx/**/*.a'
   spec.tvos.preserve_paths    = 'SDK/tvos/**/*.a'
+  spec.watchos.preserve_paths    = 'SDK/watchos/**/*.a'
 
   spec.framework      = 'SystemConfiguration'
   spec.ios.framework  = 'UIKit', 'CoreLocation', 'Foundation'
@@ -31,6 +34,7 @@ Pod::Spec.new do |spec|
   spec.ios.xcconfig    =  { 'LIBRARY_SEARCH_PATHS' => '"$(SRCROOT)/Pods/Backendless/SDK/ios/backendless"' }
   spec.osx.xcconfig    =  { 'LIBRARY_SEARCH_PATHS' => '"$(SRCROOT)/Pods/Backendless/SDK/osx/backendless"' }
   spec.tvos.xcconfig    =  { 'LIBRARY_SEARCH_PATHS' => '"$(SRCROOT)/Pods/Backendless/SDK/tvos/backendless"' }
+  spec.watchos.xcconfig    =  { 'LIBRARY_SEARCH_PATHS' => '"$(SRCROOT)/Pods/Backendless/SDK/watchos/backendless"' }
 
 spec.prepare_command = <<-CMD
     pushd SDK/ios/backendless/
@@ -42,6 +46,10 @@ spec.prepare_command = <<-CMD
     popd
 
     pushd SDK/tvos/backendless/
+      ln -s backendless.a libbackendless.a
+    popd
+
+    pushd SDK/watchos/backendless/
       ln -s backendless.a libbackendless.a
     popd
 CMD
