@@ -867,6 +867,7 @@
         [self startOnSocketThread];
         
         //
+    #if !TARGET_OS_WATCH
         if (useSSL) {
             NSDictionary *settings = @{// ssl
                                        (NSString *)kCFStreamSSLPeerName:(id)kCFNull,
@@ -876,7 +877,7 @@
             
             [DebLog log:@"Socket use the options:\n %@", settings];
         }
-        
+#endif
         [DebLog log:@"Socket OPENED! inputStatus: %d, outputStatus: %d [%@]", [inputStream streamStatus], [outputStream streamStatus], [NSThread isMainThread]?@"M":@"T"];
         
         inputBuffer = malloc(RTMP_BUFFER_SIZE);
@@ -958,7 +959,7 @@
     if (!firstHandshake)
         return;
     
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#if TARGET_OS_IPHONE || TARGET_OS_SIMULATOR
     // random handshake
     if (SecRandomCopyBytes(kSecRandomDefault, HANDSHAKE_SIZE+1, (uint8_t *)outputBuffer) != 0)
         for (int i = 0; i <= HANDSHAKE_SIZE; i++)

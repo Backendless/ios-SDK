@@ -20,13 +20,18 @@
  */
 
 #import <Foundation/Foundation.h>
+
+#if !TARGET_OS_WATCH
 #import "HashMap.h"
 #import "DeviceRegistration.h"
 #import "RTMessaging.h"
 #import "BodyParts.h"
 @class UIUserNotificationCategory, MessageStatus, PublishOptions, DeliveryOptions, Channel, SharedObject, PublishMessageInfo, Fault;
+#endif
 
 @interface MessagingService : NSObject
+
+#if !TARGET_OS_WATCH
 @property (strong, nonatomic, readonly) HashMap *subscriptions;
 
 // Channel
@@ -77,5 +82,6 @@
 
 // commands
 -(void)sendCommand:(NSString *)commandType channelName:(NSString *)channelName data:(id)data onSuccess:(void(^)(id))onSuccess onError:(void(^)(Fault *))onError;
+#endif
 
 @end

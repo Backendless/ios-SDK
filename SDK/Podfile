@@ -1,24 +1,10 @@
 workspace 'backendless'
  
 xcodeproj 'backendlessAPI/backendlessAPI.xcodeproj'
- 
-target 'backendless-mac' do
-    use_frameworks!
-    workspace 'backendless'
-    pod 'Socket.IO-Client-Swift'
-end
-
-
- 
-target 'backendless-device' do
-    use_frameworks!
-    workspace 'backendless'
-    pod 'Socket.IO-Client-Swift'
-end
 
 
 
-target 'bkndlss-device' do
+target 'bkndlss-simulator' do
     use_frameworks!
     workspace 'backendless'
     pod 'Socket.IO-Client-Swift'
@@ -33,8 +19,40 @@ target 'backendless-simulator' do
 end
 
 
- 
-target 'bkndlss-simulator' do
+
+target 'bkndlss-device' do
+    use_frameworks!
+    workspace 'backendless'
+    pod 'Socket.IO-Client-Swift'
+end 
+
+
+
+target 'backendless-device' do
+    use_frameworks!
+    workspace 'backendless'
+    pod 'Socket.IO-Client-Swift'
+end
+
+
+
+target 'backendless-watch' do
+    use_frameworks!
+    workspace 'backendless'
+    pod 'Socket.IO-Client-Swift'
+end
+
+
+
+target 'backendless-mac' do
+    use_frameworks!
+    workspace 'backendless'
+    pod 'Socket.IO-Client-Swift'
+end
+
+
+
+target 'backendless-tv' do
     use_frameworks!
     workspace 'backendless'
     pod 'Socket.IO-Client-Swift'

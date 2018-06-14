@@ -1,5 +1,10 @@
 # RELEASE HISTORY
 
+## 5.0.4 June 14, 2018
+* tvOS support added
+* watchOS support added
+* The Logout method fixed
+
 ## 5.0.3 June 11, 2018
 * Some deprecated NSURLConnection methods fixed. No API changes
 

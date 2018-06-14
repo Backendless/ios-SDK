@@ -25,6 +25,8 @@
 #import "Invoker.h"
 #import "BackendlessCache.h"
 
+#import <TargetConditionals.h>
+
 #define MISSING_SERVER_URL @"Missing server URL. You should set hostURL property"
 #define MISSING_APP_ID @"Missing application ID argument. Login to Backendless Console, select your app and get the ID and key from the Manage > App Settings screen. Copy/paste the values into the [backendless initApp:APIKey:]"
 #define MISSING_API_KEY @"Missing API key argument. Login to Backendless Console, select your app and get the ID and key from the Manage > App Settings screen. Copy/paste the values into the [backendless initApp:APIKey:]"
@@ -32,8 +34,6 @@
 
 static NSString *BACKENDLESS_HOST_URL = @"https://api.backendless.com";
 static NSString *APP_TYPE = @"IOS";
-static NSString *APP_ID_HEADER_KEY = @"application-id";
-static NSString *API_KEY_HEADER_KEY = @"API-key";
 
 @implementation Backendless
 
@@ -338,7 +338,7 @@ static NSString *API_KEY_HEADER_KEY = @"API-key";
 -(BOOL)is64bitSimulator {
     BOOL is64bitSimulator = NO;
     
-#if TARGET_IPHONE_SIMULATOR
+#if TARGET_OS_SIMULATOR
     /* Setting up the mib (Management Information Base) which is an array of integers where each
      * integer specifies how the data will be gathered.  Here we are setting the MIB
      * block to lookup the information on all the BSD processes on the system.  Also note that
@@ -458,12 +458,12 @@ static NSString *API_KEY_HEADER_KEY = @"API-key";
     static BOOL sIs64bitHardware = NO;
     if (!sHardwareChecked) {
         sHardwareChecked = YES;
-#if TARGET_IPHONE_SIMULATOR
+#if TARGET_OS_SIMULATOR
         // The app was compiled as 32-bit for the iOS Simulator.
         // We check if the Simulator is a 32-bit or 64-bit simulator using the function is64bitSimulator()
         // See http://blog.timac.org/?p=886
         sIs64bitHardware = [self is64bitSimulator]; // is64bitSimulator();
-#else
+#elif !TARGET_OS_WATCH && !TARGET_OS_TV
         // The app runs on a real iOS device: ask the kernel for the host info.
         struct host_basic_info host_basic_info;
         unsigned int count;
@@ -472,7 +472,7 @@ static NSString *API_KEY_HEADER_KEY = @"API-key";
             sIs64bitHardware = NO;
         }
         sIs64bitHardware = (host_basic_info.cpu_type == CPU_TYPE_ARM64);
-#endif // TARGET_IPHONE_SIMULATOR
+#endif
     }
     return sIs64bitHardware;
 }
