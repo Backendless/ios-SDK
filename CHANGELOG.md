@@ -1,6 +1,6 @@
 # RELEASE HISTORY
 
-## 5.0.4 coming soon
+## 5.0.4 June 15, 2018
 * tvOS support added
 * watchOS support added
 * The Logout method fixed
