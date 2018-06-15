@@ -24,10 +24,9 @@ Pod::Spec.new do |spec|
   spec.tvos.preserve_paths    = 'SDK/tvos/**/*.a'
   spec.watchos.preserve_paths    = 'SDK/watchos/**/*.a'
 
-  spec.framework      = 'SystemConfiguration'
-  spec.ios.framework  = 'UIKit', 'CoreLocation', 'Foundation'
-  spec.osx.framework  = 'AppKit'
-  spec.tvos.framework  = 'UIKit'
+  spec.ios.framework  = 'SystemConfiguration', 'UIKit', 'CoreLocation', 'Foundation'
+  spec.osx.framework  = 'SystemConfiguration', 'AppKit'
+  spec.tvos.framework  = 'SystemConfiguration', 'UIKit'
 
   spec.libraries    = 'backendless'
 
