@@ -8,7 +8,7 @@
  *
  *  ********************************************************************************************************************
  *
- *  Copyright 2012 BACKENDLESS.COM. All Rights Reserved.
+ *  Copyright 2018 BACKENDLESS.COM. All Rights Reserved.
  *
  *  NOTICE: All information contained herein is, and remains the property of Backendless.com and its suppliers,
  *  if any. The intellectual and technical concepts contained herein are proprietary to Backendless.com and its
@@ -20,9 +20,10 @@
  */
 
 #import "DataStoreFactory.h"
-#include "Backendless.h"
+#import "Backendless.h"
 #import "ObjectProperty.h"
 #import "AuthorizationException.h"
+#import "RTFactory.h"
 
 @interface DataStoreFactory () {
     Class _entityClass;
@@ -31,10 +32,13 @@
 
 @implementation DataStoreFactory
 
+@synthesize rt;
+
 -(id)init:(Class)entityClass {
     if (self = [super init]) {
         _entityClass = [entityClass retain];
         [self mapDeviceRegistrationTableToClass];
+        self.rt = [rtFactory createDataStore:[backendless.persistenceService getEntityName:NSStringFromClass(_entityClass)] withEntity:_entityClass dataStoreType:DATASTOREFACTORY];
     }
     return self;
 }

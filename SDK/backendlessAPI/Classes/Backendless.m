@@ -8,7 +8,7 @@
  *
  *  ********************************************************************************************************************
  *
- *  Copyright 2012 BACKENDLESS.COM. All Rights Reserved.
+ *  Copyright 2018 BACKENDLESS.COM. All Rights Reserved.
  *
  *  NOTICE: All information contained herein is, and remains the property of Backendless.com and its suppliers,
  *  if any. The intellectual and technical concepts contained herein are proprietary to Backendless.com and its
@@ -25,6 +25,8 @@
 #import "Invoker.h"
 #import "BackendlessCache.h"
 
+#import <TargetConditionals.h>
+
 #define MISSING_SERVER_URL @"Missing server URL. You should set hostURL property"
 #define MISSING_APP_ID @"Missing application ID argument. Login to Backendless Console, select your app and get the ID and key from the Manage > App Settings screen. Copy/paste the values into the [backendless initApp:APIKey:]"
 #define MISSING_API_KEY @"Missing API key argument. Login to Backendless Console, select your app and get the ID and key from the Manage > App Settings screen. Copy/paste the values into the [backendless initApp:APIKey:]"
@@ -32,12 +34,10 @@
 
 static NSString *BACKENDLESS_HOST_URL = @"https://api.backendless.com";
 static NSString *APP_TYPE = @"IOS";
-static NSString *APP_ID_HEADER_KEY = @"application-id";
-static NSString *API_KEY_HEADER_KEY = @"API-key";
 
 @implementation Backendless
 
-@synthesize hostURL = _hostURL, appID = _appID, apiKey = _apiKey, userService = _userService, persistenceService = _persistenceService, messagingService = _messagingService, geoService = _geoService, fileService = _fileService, customService = _customService, events = _events, cache = _cache, counters = _counters, logging = _logging, data = _data, geo = _geo, messaging = _messaging, file = _file;
+@synthesize hostURL = _hostURL, appID = _appID, apiKey = _apiKey, userService = _userService, persistenceService = _persistenceService, messagingService = _messagingService, geoService = _geoService, fileService = _fileService, customService = _customService, events = _events, cache = _cache, counters = _counters, logging = _logging, data = _data, geo = _geo, messaging = _messaging, file = _file, rt = _rt;
 
 +(Backendless *)sharedInstance {
     static Backendless *sharedBackendless;
@@ -74,6 +74,7 @@ static NSString *API_KEY_HEADER_KEY = @"API-key";
     [_cache release];
     [_counters release];
     [_logging release];
+    [_rt release];
     [super dealloc];
 }
 
@@ -184,6 +185,20 @@ static NSString *API_KEY_HEADER_KEY = @"API-key";
     }
     return _logging;
 }
+
+-(RTService *)rt {
+    if (!_rt) {
+        _rt = [RTService new];
+    }
+    return _rt;
+}
+
+-(SharedObject *)sharedObject {
+    return [SharedObject alloc];
+}
+
+#pragma mark -
+#pragma mark getters / setters
 
 -(NSString *)getHostUrl {
     return _hostURL;
@@ -323,7 +338,7 @@ static NSString *API_KEY_HEADER_KEY = @"API-key";
 -(BOOL)is64bitSimulator {
     BOOL is64bitSimulator = NO;
     
-#if TARGET_IPHONE_SIMULATOR
+#if TARGET_OS_SIMULATOR
     /* Setting up the mib (Management Information Base) which is an array of integers where each
      * integer specifies how the data will be gathered.  Here we are setting the MIB
      * block to lookup the information on all the BSD processes on the system.  Also note that
@@ -442,13 +457,13 @@ static NSString *API_KEY_HEADER_KEY = @"API-key";
     static BOOL sHardwareChecked = NO;
     static BOOL sIs64bitHardware = NO;
     if (!sHardwareChecked) {
-        sHardwareChecked = YES;        
-#if TARGET_IPHONE_SIMULATOR
+        sHardwareChecked = YES;
+#if TARGET_OS_SIMULATOR
         // The app was compiled as 32-bit for the iOS Simulator.
         // We check if the Simulator is a 32-bit or 64-bit simulator using the function is64bitSimulator()
         // See http://blog.timac.org/?p=886
         sIs64bitHardware = [self is64bitSimulator]; // is64bitSimulator();
-#else
+#elif !TARGET_OS_WATCH && !TARGET_OS_TV
         // The app runs on a real iOS device: ask the kernel for the host info.
         struct host_basic_info host_basic_info;
         unsigned int count;
@@ -457,7 +472,7 @@ static NSString *API_KEY_HEADER_KEY = @"API-key";
             sIs64bitHardware = NO;
         }
         sIs64bitHardware = (host_basic_info.cpu_type == CPU_TYPE_ARM64);
-#endif // TARGET_IPHONE_SIMULATOR
+#endif
     }
     return sIs64bitHardware;
 }

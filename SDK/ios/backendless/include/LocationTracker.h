@@ -8,7 +8,7 @@
  *
  *  ********************************************************************************************************************
  *
- *  Copyright 2015 BACKENDLESS.COM. All Rights Reserved.
+ *  Copyright 2018 BACKENDLESS.COM. All Rights Reserved.
  *
  *  NOTICE: All information contained herein is, and remains the property of Backendless.com and its suppliers,
  *  if any. The intellectual and technical concepts contained herein are proprietary to Backendless.com and its
@@ -33,7 +33,7 @@
 
 @interface LocationTracker : NSObject
 
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#if TARGET_OS_IPHONE || TARGET_OS_SIMULATOR
 // location manager options
 @property (assign, nonatomic) CLActivityType activityType;
 @property (assign, nonatomic) BOOL pausesLocationUpdatesAutomatically;
@@ -56,3 +56,4 @@
 -(CLLocation *)getLocation;
 
 @end
+

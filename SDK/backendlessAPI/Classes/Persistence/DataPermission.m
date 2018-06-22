@@ -8,7 +8,7 @@
  *
  *  ********************************************************************************************************************
  *
- *  Copyright 2014 BACKENDLESS.COM. All Rights Reserved.
+ *  Copyright 2018 BACKENDLESS.COM. All Rights Reserved.
  *
  *  NOTICE: All information contained herein is, and remains the property of Backendless.com and its suppliers,
  *  if any. The intellectual and technical concepts contained herein are proprietary to Backendless.com and its
@@ -45,7 +45,7 @@ static NSString *METHOD_UPDATE_ALL_ROLE_PERMISSION = @"updateAllRolePermission";
 
 -(id)getEntityId:(id)object {
     NSString *objectId = [backendless.persistenceService getObjectId:object];
-    return [objectId isKindOfClass:[NSString class]]?objectId:object;
+    return [objectId isKindOfClass:[NSString class]]?objectId:nil;
 }
 
 // sync methods with fault return (as exception)

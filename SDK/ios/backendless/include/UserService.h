@@ -8,7 +8,7 @@
  *
  *  ********************************************************************************************************************
  *
- *  Copyright 2012 BACKENDLESS.COM. All Rights Reserved.
+ *  Copyright 2018 BACKENDLESS.COM. All Rights Reserved.
  *
  *  NOTICE: All information contained herein is, and remains the property of Backendless.com and its suppliers,
  *  if any. The intellectual and technical concepts contained herein are proprietary to Backendless.com and its
@@ -36,8 +36,8 @@
 -(BackendlessUser *)login:(NSString *)login password:(NSString *)password;
 -(BackendlessUser *)findById:(NSString *)objectId;
 -(void)logout;
--(NSNumber *)isValidUserToken;
--(void)restorePassword:(NSString *)login;
+-(BOOL)isValidUserToken;
+-(void)restorePassword:(NSString *)email;
 -(NSArray<UserProperty*> *)describeUserClass;
 -(NSArray<NSString*> *)getUserRoles;
 -(BackendlessUser *)loginWithFacebookSDK:(NSString *)userId tokenString:(NSString *)tokenString expirationDate:(NSDate *)expirationDate fieldsMapping:(NSDictionary *)fieldsMapping;
@@ -51,8 +51,8 @@
 -(void)login:(NSString *)login password:(NSString *)password response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)findById:(NSString *)objectId response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)logout:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)isValidUserToken:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)restorePassword:(NSString *)login response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)isValidUserToken:(void(^)(BOOL))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)restorePassword:(NSString *)email response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)describeUserClass:(void(^)(NSArray<UserProperty*> *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)getUserRoles:(void(^)(NSArray<NSString*> *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)loginWithFacebookSDK:(NSString *)userId tokenString:(NSString *)tokenString expirationDate:(NSDate *)expirationDate fieldsMapping:(NSDictionary *)fieldsMapping response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock;

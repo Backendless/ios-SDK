@@ -8,7 +8,7 @@
  *
  *  ********************************************************************************************************************
  *
- *  Copyright 2012 BACKENDLESS.COM. All Rights Reserved.
+ *  Copyright 2018 BACKENDLESS.COM. All Rights Reserved.
  *
  *  NOTICE: All information contained herein is, and remains the property of Backendless.com and its suppliers,
  *  if any. The intellectual and technical concepts contained herein are proprietary to Backendless.com and its
@@ -22,11 +22,14 @@
 #import <Foundation/Foundation.h>
 #import "LoadRelationsQueryBuilder.h"
 #import "DataQueryBuilder.h"
+#import "EventHandler.h"
 
 @class QueryOptions, Fault, ObjectProperty;
 @protocol IResponder;
 
 @protocol IDataStore <NSObject>
+
+@property (strong, nonatomic) EventHandler *rt;
 
 // sync methods with fault return (as exception)
 -(id)save:(id)entity;
@@ -75,7 +78,7 @@
 -(void)deleteRelation:(NSString *)columnName parentObjectId:(NSString *)parentObjectId whereClause:(NSString *)whereClause response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)loadRelations:(NSString *)objectId queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)createBulk:(NSArray *)objects response:(void(^)(NSArray<NSString *> *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)updateBulk:(NSString *)whereClause changes:(NSDictionary<NSString *, id> *)changes response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)removeBulk:(NSString *)whereClause response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)updateBulk:(NSString *)whereClause changes:(NSDictionary<NSString *,id> *)changes response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
+-(void)removeBulk:(NSString *)whereClause response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
 
 @end

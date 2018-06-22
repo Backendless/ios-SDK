@@ -8,7 +8,7 @@
  *
  *  ********************************************************************************************************************
  *
- *  Copyright 2017 BACKENDLESS.COM. All Rights Reserved.
+ *  Copyright 2018 BACKENDLESS.COM. All Rights Reserved.
  *
  *  NOTICE: All information contained herein is, and remains the property of Backendless.com and its suppliers,
  *  if any. The intellectual and technical concepts contained herein are proprietary to Backendless.com and its
@@ -37,17 +37,17 @@
     return sharedBackendlessPushHelper;
 }
 
-#if TARGET_OS_IOS || TARGET_OS_SIMULATOR
+#if (TARGET_OS_IOS || TARGET_OS_SIMULATOR) && !TARGET_OS_TV && ! TARGET_OS_WATCH
 -(void)processMutableContent:(UNNotificationRequest *_Nonnull)request withContentHandler:(void(^_Nonnull)(UNNotificationContent *_Nonnull))contentHandler NS_AVAILABLE_IOS(10_0) {
-    
+
     if ([request.content.userInfo valueForKey:@"ios_immediate_push"]) {
         request = [self prepareRequestWithIosImmediatePush:request];
     }
-    
+
     if ([request.content.userInfo valueForKey:@"template_name"]) {
         request = [self prepareRequestWithTemplate:request];
     }
-    
+
     UNMutableNotificationContent *bestAttemptContent = [request.content mutableCopy];
     if ([request.content.userInfo valueForKey:@"attachment-url"]) {
         NSString *urlString = [request.content.userInfo valueForKey:@"attachment-url"];
@@ -95,31 +95,31 @@
 -(UNNotificationRequest *)createRequestFromTemplate:(NSDictionary *)iosPushTemplate request:(UNNotificationRequest *)request {
     UNMutableNotificationContent *content = [UNMutableNotificationContent new];
     content.body = [[[request.content.userInfo valueForKey:@"aps"] valueForKey:@"alert"] valueForKey:@"body"];
-    
+
     NSArray *actionsArray = [[iosPushTemplate valueForKey:@"buttonTemplate"] valueForKey:@"actions"];
     content.categoryIdentifier = [self setActions:actionsArray];
-    
+
     if ([iosPushTemplate valueForKey:@"alertTitle"]) {
         content.title = [iosPushTemplate valueForKey:@"alertTitle"];
     }
     else {
         content.title = request.content.title;
     }
-    
+
     if ([iosPushTemplate valueForKey:@"alertSubtitle"]) {
         content.subtitle = [iosPushTemplate valueForKey:@"alertSubtitle"];
     }
     else {
         content.subtitle = request.content.subtitle;
     }
-    
+
     if ([iosPushTemplate valueForKey:@"sound"]) {
         content.sound = [UNNotificationSound soundNamed:[iosPushTemplate valueForKey:@"sound"]];
     }
     else {
         content.sound = [UNNotificationSound defaultSound];
     }
-    
+
     if ([iosPushTemplate valueForKey:@"badge"]) {
         NSNumber *badge = [iosPushTemplate valueForKey:@"badge"];
         content.badge = badge;
@@ -127,29 +127,29 @@
     else {
         content.badge = request.content.badge ;
     }
-    
+
     if ([iosPushTemplate valueForKey:@"attachmentUrl"]) {
         NSString *urlString = [iosPushTemplate valueForKey:@"attachmentUrl"];
         NSDictionary *userInfo = @{@"attachment-url" : urlString};
         content.userInfo = userInfo;
     }
-    
+
     UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:1 repeats:NO];
     return [UNNotificationRequest requestWithIdentifier:@"request" content:content trigger:trigger];
 }
 
 -(NSString *)setActions:(NSArray *)actions {
     NSMutableArray *categoryActions = [NSMutableArray new];
-    
+
     for (NSDictionary *action in actions) {
         NSString *actionId = [action valueForKey:@"id"];
         NSString *actionTitle = [action valueForKey:@"title"];
         NSNumber *actionOptions = [action valueForKey:@"options"];
-        
+
         UNNotificationActionOptions options = [actionOptions integerValue];
         [categoryActions addObject:[UNNotificationAction actionWithIdentifier:actionId title:actionTitle options:options]];
     }
-    
+
     NSString *categoryId = @"buttonActionsTemplate";
     UNNotificationCategory *category = [UNNotificationCategory categoryWithIdentifier:categoryId actions:categoryActions intentIdentifiers:@[] options:UNNotificationCategoryOptionNone];
     [UNUserNotificationCenter.currentNotificationCenter setNotificationCategories:[NSSet setWithObject:category]];

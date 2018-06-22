@@ -8,7 +8,7 @@
  *
  *  ********************************************************************************************************************
  *
- *  Copyright 2016 BACKENDLESS.COM. All Rights Reserved.
+ *  Copyright 2018 BACKENDLESS.COM. All Rights Reserved.
  *
  *  NOTICE: All information contained herein is, and remains the property of Backendless.com and its suppliers,
  *  if any. The intellectual and technical concepts contained herein are proprietary to Backendless.com and its
@@ -26,6 +26,7 @@
 #import "ObjectProperty.h"
 #import "ClassCastException.h"
 #import "ObjectSerializer.h"
+#import "RTFactory.h"
 #import "IResponseAdapter.h"
 #import "MapAdapter.h"
 
@@ -47,6 +48,8 @@ static NSString *REMOVE_BULK = @"removeBulk";
 
 @implementation MapDrivenDataStore
 
+@synthesize rt;
+
 -(id)init {
     if (self = [super init]) {
         _tableName = nil;
@@ -59,6 +62,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     if (self = [super init]) {
         _tableName = [tableName retain];
         [self setClassMapping];
+        self.rt = [rtFactory createDataStore:_tableName withEntity:nil dataStoreType:MAPDRIVENDATASTORE];
     }
     return self;
 }

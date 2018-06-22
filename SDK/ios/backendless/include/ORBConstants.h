@@ -1,10 +1,23 @@
 //
 //  ORBConstants.h
-//  RTMPStream
-//
-//  Created by Vyacheslav Vdovichenko on 7/15/11.
-//  Copyright 2011 The Midnight Coders, Inc. All rights reserved.
-//
+//  backendlessAPI
+/*
+ * *********************************************************************************************************************
+ *
+ *  BACKENDLESS.COM CONFIDENTIAL
+ *
+ *  ********************************************************************************************************************
+ *
+ *  Copyright 2018 BACKENDLESS.COM. All Rights Reserved.
+ *
+ *  NOTICE: All information contained herein is, and remains the property of Backendless.com and its suppliers,
+ *  if any. The intellectual and technical concepts contained herein are proprietary to Backendless.com and its
+ *  suppliers and may be covered by U.S. and Foreign Patents, patents in process, and are protected by trade secret
+ *  or copyright law. Dissemination of this information or reproduction of this material is strictly forbidden
+ *  unless prior written permission is obtained from Backendless.com.
+ *
+ *  ********************************************************************************************************************
+ */
 
 #define ORBConstants_DESCRIBE_SERVICE @"DescribeService"
 #define ORBConstants_INSPECTSERVICE @"InspectService"
@@ -85,5 +98,3 @@
 #define ORBConstants_STORAGE_ACCOUNT_CONFIGURATION @"DataConnectionString"
 #define ORBConstants_WEBORB_AZURE_CONTAINER @"weborb"
 #define ORBConstants_LOCAL_STORAGE @"MessagingStorage"
-
-#define ORBConstants_CHANNEL_MY_LONG_POLLING_AMF @"my-long-polling-amf"

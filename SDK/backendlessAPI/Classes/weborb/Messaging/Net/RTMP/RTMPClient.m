@@ -1,10 +1,23 @@
 //
 //  RTMPClient.m
-//  RTMPStream
-//
-//  Created by Вячеслав Вдовиченко on 21.03.11.
-//  Copyright 2011 The Midnight Coders, Inc. All rights reserved.
-//
+//  backendlessAPI
+/*
+ * *********************************************************************************************************************
+ *
+ *  BACKENDLESS.COM CONFIDENTIAL
+ *
+ *  ********************************************************************************************************************
+ *
+ *  Copyright 2018 BACKENDLESS.COM. All Rights Reserved.
+ *
+ *  NOTICE: All information contained herein is, and remains the property of Backendless.com and its suppliers,
+ *  if any. The intellectual and technical concepts contained herein are proprietary to Backendless.com and its
+ *  suppliers and may be covered by U.S. and Foreign Patents, patents in process, and are protected by trade secret
+ *  or copyright law. Dissemination of this information or reproduction of this material is strictly forbidden
+ *  unless prior written permission is obtained from Backendless.com.
+ *
+ *  ********************************************************************************************************************
+ */
 
 
 #import <Security/Security.h>
@@ -854,6 +867,7 @@
         [self startOnSocketThread];
         
         //
+    #if !TARGET_OS_WATCH
         if (useSSL) {
             NSDictionary *settings = @{// ssl
                                        (NSString *)kCFStreamSSLPeerName:(id)kCFNull,
@@ -863,7 +877,7 @@
             
             [DebLog log:@"Socket use the options:\n %@", settings];
         }
-        
+#endif
         [DebLog log:@"Socket OPENED! inputStatus: %d, outputStatus: %d [%@]", [inputStream streamStatus], [outputStream streamStatus], [NSThread isMainThread]?@"M":@"T"];
         
         inputBuffer = malloc(RTMP_BUFFER_SIZE);
@@ -945,7 +959,7 @@
     if (!firstHandshake)
         return;
     
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#if TARGET_OS_IPHONE || TARGET_OS_SIMULATOR
     // random handshake
     if (SecRandomCopyBytes(kSecRandomDefault, HANDSHAKE_SIZE+1, (uint8_t *)outputBuffer) != 0)
         for (int i = 0; i <= HANDSHAKE_SIZE; i++)

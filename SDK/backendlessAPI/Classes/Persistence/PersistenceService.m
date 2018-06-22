@@ -8,7 +8,7 @@
  *
  *  ********************************************************************************************************************
  *
- *  Copyright 2012 BACKENDLESS.COM. All Rights Reserved.
+ *  Copyright 2018 BACKENDLESS.COM. All Rights Reserved.
  *
  *  NOTICE: All information contained herein is, and remains the property of Backendless.com and its suppliers,
  *  if any. The intellectual and technical concepts contained herein are proprietary to Backendless.com and its
@@ -49,7 +49,6 @@
 static NSString *SERVER_PERSISTENCE_SERVICE_PATH  = @"com.backendless.services.persistence.PersistenceService";
 static NSString *METHOD_CREATE = @"create";
 static NSString *METHOD_UPDATE = @"update";
-static NSString *METHOD_SAVE = @"save";
 static NSString *METHOD_REMOVE = @"remove";
 static NSString *METHOD_FIND = @"find";
 static NSString *METHOD_FINDBYID = @"findById";
@@ -1239,7 +1238,6 @@ static NSString *REMOVE_BULK = @"removeBulk";
 }
 
 -(id)createResponse:(ResponseContext *)response {
-    id object = response.context;
     [self onCurrentUserUpdate:response.response];
     response.context = nil;
     if ([response.response isKindOfClass:[NSNull class]]) {

@@ -1,30 +1,58 @@
-Pod::Spec.new do |s|
-  s.name	= 'Backendless'
-  s.version	= '4.5.0'
-  s.summary	= 'Backendless provides an instant backend to help developers build better apps faster.'
-  s.description	= 'Backendless is a development and a run-time platform. It helps software developers to create \nmobile and desktop applications while removing the need for server-side coding. The platform \nconsists of six core backend services which developers typically spend time implementing for \neach new applications. These services include:\n\n\tUser Service – facilitates user registrations, login, logout, session management.\n\tData Service – is responsible for data management – storage, retrieval, updates and deletion.\n\tMessaging Service – handles message publishing, broadcast, filtered message delivery and native mobile push notifications.\n\tFiles Service – is responsible for file uploads, downloads and file sharing.\n\tGeo-Location Service – supports geo spatial data imports and geo queries.\n\n\tThe Backendless services can be accessed through an easy-to-use APIs which we packaged into our \n\tSDKs. The behavior of the services and the business logic behind them can be customized through \n\tthe Development Console.'
-  s.homepage	= 'http://backendless.com'
-  s.license	= { :type => 'Apache', :text => 'Copyright (c) 2012-2018 by Backendless.com' }
-  s.author	= { 'Mark Piller' => 'mark@backendless.com' }
+Pod::Spec.new do |spec|
+  spec.name          = 'Backendless'
+  spec.version       = '5.0.4'
+  spec.license       = { :type => 'Apache', :text => 'Copyright (c) 2013-2018 by Backendless.com' }
+  spec.homepage      = 'http://backendless.com'
+  spec.authors       = { 'Mark Piller' => 'mark@backendless.com' }
+  spec.summary       = 'Backendless is a Mobile Backend and API Services Platform'
+  spec.description   = 'Backendless is a development and a run-time platform. It helps software developers to create mobile and desktop applications while removing the need for server-side coding.'
+  spec.source        = { :git => 'https://github.com/Backendless/ios-SDK.git', :tag => '5.0.4' }
+  spec.swift_version = '4.1'
 
-  s.platform		= :ios, '8.0'
-  s.requires_arc	= true
-  s.source         	= { 
-	:git => 'https://github.com/Backendless/ios-SDK.git',
-	:tag => '4.5.0'
-  }
+  spec.ios.deployment_target  = '8.0'
+  spec.osx.deployment_target  = '10.10'
+  spec.tvos.deployment_target = '9.0'
+  spec.watchos.deployment_target = '2.0'
 
-  s.preserve_paths	= 'SDK/ios/**/*.a'
-  s.source_files	= 'SDK/ios/**/*.h'
+  spec.ios.source_files   = 'SDK/ios/**/*.h'
+  spec.osx.source_files    = 'SDK/osx/**/*.h'
+  spec.tvos.source_files    = 'SDK/tvos/**/*.h'
+  spec.watchos.source_files    = 'SDK/watchos/**/*.h'
 
-  s.frameworks	= 'CoreLocation', 'Foundation', 'Security', 'SystemConfiguration'
-  s.libraries	= 'backendless'
-  s.xcconfig	=  { 'LIBRARY_SEARCH_PATHS' => '"$(SRCROOT)/Pods/Backendless/SDK/ios/backendless"' }
+  spec.ios.preserve_paths    = 'SDK/ios/**/*.a'
+  spec.osx.preserve_paths    = 'SDK/osx/**/*.a'
+  spec.tvos.preserve_paths    = 'SDK/tvos/**/*.a'
+  spec.watchos.preserve_paths    = 'SDK/watchos/**/*.a'
 
-s.prepare_command = <<-CMD
+  spec.ios.framework  = 'SystemConfiguration', 'UIKit', 'CoreLocation', 'Foundation'
+  spec.osx.framework  = 'SystemConfiguration', 'AppKit'
+  spec.tvos.framework  = 'SystemConfiguration', 'UIKit'
+
+  spec.libraries    = 'backendless'
+
+  spec.ios.xcconfig    =  { 'LIBRARY_SEARCH_PATHS' => '"$(SRCROOT)/Pods/Backendless/SDK/ios/backendless"' }
+  spec.osx.xcconfig    =  { 'LIBRARY_SEARCH_PATHS' => '"$(SRCROOT)/Pods/Backendless/SDK/osx/backendless"' }
+  spec.tvos.xcconfig    =  { 'LIBRARY_SEARCH_PATHS' => '"$(SRCROOT)/Pods/Backendless/SDK/tvos/backendless"' }
+  spec.watchos.xcconfig    =  { 'LIBRARY_SEARCH_PATHS' => '"$(SRCROOT)/Pods/Backendless/SDK/watchos/backendless"' }
+
+spec.prepare_command = <<-CMD
     pushd SDK/ios/backendless/
-	  ln -s backendless.a libbackendless.a
-	popd	
-    CMD
+      ln -s backendless.a libbackendless.a
+    popd
+
+    pushd SDK/osx/backendless/
+      ln -s backendless.a libbackendless.a
+    popd
+
+    pushd SDK/tvos/backendless/
+      ln -s backendless.a libbackendless.a
+    popd
+
+    pushd SDK/watchos/backendless/
+      ln -s backendless.a libbackendless.a
+    popd
+CMD
+
+spec.dependency 'Socket.IO-Client-Swift'
 
 end

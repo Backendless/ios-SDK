@@ -8,7 +8,7 @@
  *
  *  ********************************************************************************************************************
  *
- *  Copyright 2015 BACKENDLESS.COM. All Rights Reserved.
+ *  Copyright 2018 BACKENDLESS.COM. All Rights Reserved.
  *
  *  NOTICE: All information contained herein is, and remains the property of Backendless.com and its suppliers,
  *  if any. The intellectual and technical concepts contained herein are proprietary to Backendless.com and its
@@ -27,7 +27,7 @@
 #define FAULT_PRESENCE_MONITORING [Fault fault:@"Presence is already monitoring" faultCode:@"4000"]
 #define FAULT_INVALID_MONITORING_POLICY [Fault fault:@"Invalid monitoring policy" faultCode:@"4000"]
 
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#if TARGET_OS_IPHONE || TARGET_OS_SIMULATOR
 @interface BeaconTracker() <CLLocationManagerDelegate> {
     id <IPresenceListener> _listener;
     BOOL _discovery;
@@ -42,7 +42,7 @@
 
 @implementation BeaconTracker
 
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#if TARGET_OS_IPHONE || TARGET_OS_SIMULATOR
 +(instancetype)sharedInstance {
     static BeaconTracker *sharedBeaconTracker;
     @synchronized(self) {
@@ -56,6 +56,7 @@
 
 -(id)init {
     if (self = [super init]) {
+#if !TARGET_OS_TV
         self.locationManager = [[CLLocationManager alloc] init];
         self.locationManager.delegate = self;
         // Check for iOS 8
@@ -64,6 +65,7 @@
         }
         self.beaconMonitor = nil;
         self.stayedBeacons = [NSDictionary new];
+#endif
     }
     return self;
 }
@@ -76,6 +78,7 @@
     [super dealloc];
 }
 
+#if !TARGET_OS_TV && !TARGET_OS_WATCH
 -(CLBeaconRegion *)beaconRegion:(BackendlessBeacon *)beacon {
     switch (beacon.type) {
         case BEACON_IBEACON: {
@@ -137,10 +140,6 @@
     [DebLog log:@"locationManager:monitoringDidFailForRegion:withError: %@", error];
 }
 
--(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    [DebLog log:@"locationManager:didFailWithError: %@", error];
-}
-
 -(void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region {
     [DebLog log:@"locationManager:didRangeBeacons: %@ inRegion: %@", beacons, region];
     NSMutableDictionary<BackendlessBeacon*, NSNumber*> *notifiedBeacons = [NSMutableDictionary new];
@@ -166,5 +165,10 @@
     }
 }
 #endif
+#endif
+
+-(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    [DebLog log:@"locationManager:didFailWithError: %@", error];
+}
 
 @end

@@ -8,7 +8,7 @@
  *
  *  ********************************************************************************************************************
  *
- *  Copyright 2015 BACKENDLESS.COM. All Rights Reserved.
+ *  Copyright 2018 BACKENDLESS.COM. All Rights Reserved.
  *
  *  NOTICE: All information contained herein is, and remains the property of Backendless.com and its suppliers,
  *  if any. The intellectual and technical concepts contained herein are proprietary to Backendless.com and its
@@ -107,10 +107,10 @@ static NSString *METHOD_BATCHLOG = @"batchLog";
         return;
     }
     LogMessage *logMessage = [LogMessage logMessage:logger level:level time:[NSDate date] message:message exception:exception];
-    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [_logMessages addObject:logMessage];
         [DebLog logN:@"LogBuffer -> enqueue: _numOfMessages = %d, _logMessages.count= %d", _numOfMessages, _logMessages.count];
-        if (_numOfMessages > 1 && _logMessages.count >= _numOfMessages) {
+        if (_numOfMessages > 1 && _logMessages.count <= _numOfMessages) {
             [self flush];
         }
     });

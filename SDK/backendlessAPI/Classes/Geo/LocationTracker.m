@@ -8,7 +8,7 @@
  *
  *  ********************************************************************************************************************
  *
- *  Copyright 2015 BACKENDLESS.COM. All Rights Reserved.
+ *  Copyright 2018 BACKENDLESS.COM. All Rights Reserved.
  *
  *  NOTICE: All information contained herein is, and remains the property of Backendless.com and its suppliers,
  *  if any. The intellectual and technical concepts contained herein are proprietary to Backendless.com and its
@@ -26,7 +26,7 @@
 @interface LocationTracker () <CLLocationManagerDelegate> {
     CLLocationManager *_locationManager;
     HashMap *_locationListeners;
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#if TARGET_OS_IPHONE || TARGET_OS_SIMULATOR
     float iOSVersion;
 #endif
 }
@@ -51,7 +51,7 @@
         _monitoringSignificantLocationChanges = YES;
         _distanceFilter = kCLDistanceFilterNone;
         _desiredAccuracy = kCLLocationAccuracyBest;
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#if TARGET_OS_IPHONE || TARGET_OS_SIMULATOR
         _activityType = CLActivityTypeOther;
         _pausesLocationUpdatesAutomatically = YES;
 #endif
@@ -67,7 +67,7 @@
     [super dealloc];
 }
 
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#if (TARGET_OS_IPHONE || TARGET_OS_SIMULATOR) && !TARGET_OS_TV && !TARGET_OS_WATCH
 -(void)setActivityType:(CLActivityType)activityType {
     _activityType = activityType;
     _locationManager.activityType = activityType;
@@ -76,19 +76,18 @@
 -(void)setPausesLocationUpdatesAutomatically:(BOOL)pausesLocationUpdatesAutomatically {
     _pausesLocationUpdatesAutomatically = pausesLocationUpdatesAutomatically;
     _locationManager.pausesLocationUpdatesAutomatically = pausesLocationUpdatesAutomatically;
-}
-#endif
 
--(void)setMonitoringSignificantLocationChanges:(BOOL)monitoringSignificantLocationChanges {    
+}
+
+-(void)setMonitoringSignificantLocationChanges:(BOOL)monitoringSignificantLocationChanges {
     if (_monitoringSignificantLocationChanges == monitoringSignificantLocationChanges)
         return;
     _monitoringSignificantLocationChanges?[_locationManager stopMonitoringSignificantLocationChanges]:[_locationManager stopUpdatingLocation];
     _monitoringSignificantLocationChanges = monitoringSignificantLocationChanges;
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
     if (iOSVersion >= 8.0) [_locationManager requestAlwaysAuthorization];
-#endif
     _monitoringSignificantLocationChanges?[_locationManager startMonitoringSignificantLocationChanges]:[_locationManager startUpdatingLocation];
 }
+#endif
 
 -(void)setDistanceFilter:(CLLocationDistance)distanceFilter {
     _distanceFilter = distanceFilter;
@@ -100,7 +99,7 @@
     _locationManager.desiredAccuracy = desiredAccuracy;
 }
 
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#if TARGET_OS_IPHONE || TARGET_OS_SIMULATOR
 -(BOOL)isSuspendedRefreshAvailable {
     return _monitoringSignificantLocationChanges && (iOSVersion >= 7.1);
 }
@@ -127,19 +126,21 @@
     return [_locationListeners del:name];
 }
 
--(void)startLocationManager {    
+-(void)startLocationManager {
+#if !TARGET_OS_TV && !TARGET_OS_WATCH
     _locationManager = [CLLocationManager new];
     _locationManager.delegate = self;
     _locationManager.distanceFilter = _distanceFilter;
     _locationManager.desiredAccuracy = _desiredAccuracy;
     
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#if TARGET_OS_IPHONE || TARGET_OS_SIMULATOR
     _locationManager.activityType = _activityType;
     _locationManager.pausesLocationUpdatesAutomatically = _pausesLocationUpdatesAutomatically;
     if (iOSVersion >= 8.0)
         [_locationManager requestAlwaysAuthorization];
 #endif
     _monitoringSignificantLocationChanges?[_locationManager startMonitoringSignificantLocationChanges]:[_locationManager startUpdatingLocation];
+#endif
 }
 
 -(CLLocation *)getLocation {
@@ -178,7 +179,7 @@
     });
 }
 
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#if TARGET_OS_IPHONE || TARGET_OS_SIMULATOR
 -(void)makeBackgroundUpdateLocations:(CLLocation *)location {
     // Start the long-running task and return immediately.
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
