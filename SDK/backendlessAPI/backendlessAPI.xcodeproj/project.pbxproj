@@ -1429,16 +1429,6 @@
 		1C7BB5081A2E092900D3C2C1 /* BackendlessCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1398C17D7240A00D1AC4C /* BackendlessCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C7BB5091A2E092900D3C2C1 /* BackendlessCacheData.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1398E17D7240A00D1AC4C /* BackendlessCacheData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C7BB50A1A2E092900D3C2C1 /* BackendlessCacheKey.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1399017D7240A00D1AC4C /* BackendlessCacheKey.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A42D0B2200640FC00687EC0 /* JSONHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A42D0B1200640E400687EC0 /* JSONHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A42D0B32006410300687EC0 /* JSONHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A42D0B1200640E400687EC0 /* JSONHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A42D0B42006410900687EC0 /* JSONHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A42D0B1200640E400687EC0 /* JSONHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A42D0B52006410F00687EC0 /* JSONHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A42D0B1200640E400687EC0 /* JSONHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A42D0B62006411500687EC0 /* JSONHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A42D0B1200640E400687EC0 /* JSONHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A42D0B72006412A00687EC0 /* JSONHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A42D0B0200640E400687EC0 /* JSONHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A42D0B82006413400687EC0 /* JSONHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A42D0B0200640E400687EC0 /* JSONHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A42D0B92006413B00687EC0 /* JSONHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A42D0B0200640E400687EC0 /* JSONHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A42D0BA2006414300687EC0 /* JSONHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A42D0B0200640E400687EC0 /* JSONHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A42D0BB2006414A00687EC0 /* JSONHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A42D0B0200640E400687EC0 /* JSONHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2A073E038C1E2715FC06B8F6 /* Pods_backendless_device.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 073EC98AA15113BF30EBE9FC /* Pods_backendless_device.framework */; };
 		36CE460787F525E11CCA7F62 /* Pods_backendless_watch_simulator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30524CA474D6C83EAECC4A43 /* Pods_backendless_watch_simulator.framework */; };
 		42295BF042BAD33417CDA4AB /* Pods_bkndlss_device.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55481B11D74EDF12742B5B35 /* Pods_bkndlss_device.framework */; };
@@ -1932,16 +1922,10 @@
 		5A096D7F1FD1B07E009BF89E /* CommandObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9AD1FC4788700B192D9 /* CommandObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A096D801FD1B088009BF89E /* RTListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F384F1FB317EB002F21D4 /* RTListener.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A096D811FD1B091009BF89E /* RTMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9B01FC4788700B192D9 /* RTMethod.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A1052CE20063B4E0036A784 /* JSONHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1052CD20063B320036A784 /* JSONHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A1052CF20063B580036A784 /* JSONHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A1052CC20063B320036A784 /* JSONHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A1052D020063B910036A784 /* JSONHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A1052CC20063B320036A784 /* JSONHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A1052D120063B9C0036A784 /* JSONHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1052CD20063B320036A784 /* JSONHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A1052D220063BA20036A784 /* JSONHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1052CD20063B320036A784 /* JSONHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A1052D320063BA70036A784 /* JSONHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1052CD20063B320036A784 /* JSONHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A1052D420063BAC0036A784 /* JSONHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1052CD20063B320036A784 /* JSONHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A1052D520063BB10036A784 /* JSONHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A1052CC20063B320036A784 /* JSONHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A1052D620063BB80036A784 /* JSONHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A1052CC20063B320036A784 /* JSONHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A1052D820063BC80036A784 /* JSONHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A1052CC20063B320036A784 /* JSONHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A209472202B1F3C0068E6C9 /* IResponseAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A209471202B1F3C0068E6C9 /* IResponseAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A209473202B1F3C0068E6C9 /* IResponseAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A209471202B1F3C0068E6C9 /* IResponseAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A209474202B1F3C0068E6C9 /* IResponseAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A209471202B1F3C0068E6C9 /* IResponseAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1959,6 +1943,12 @@
 		5A209482202B1F830068E6C9 /* DefaultAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A209478202B1F830068E6C9 /* DefaultAdapter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A3917D71FC5BDFF0084D24D /* CommandObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9AD1FC4788700B192D9 /* CommandObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A3917D81FC5BE0C0084D24D /* CommandObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A9FC9AC1FC4788700B192D9 /* CommandObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A42D0B2200640FC00687EC0 /* JSONHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A42D0B1200640E400687EC0 /* JSONHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A42D0B32006410300687EC0 /* JSONHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A42D0B1200640E400687EC0 /* JSONHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A42D0B52006410F00687EC0 /* JSONHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A42D0B1200640E400687EC0 /* JSONHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A42D0B92006413B00687EC0 /* JSONHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A42D0B0200640E400687EC0 /* JSONHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A42D0BA2006414300687EC0 /* JSONHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A42D0B0200640E400687EC0 /* JSONHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A42D0BB2006414A00687EC0 /* JSONHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A42D0B0200640E400687EC0 /* JSONHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A44A0E120D15A61002E9E20 /* backendless_simulator.m in Sources */ = {isa = PBXBuildFile; fileRef = F97969E3166CC8C300595F5E /* backendless_simulator.m */; };
 		5A4A3A9C1FC570CB00C0ADBA /* RTMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9B01FC4788700B192D9 /* RTMethod.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A4A3A9D1FC570D000C0ADBA /* RTMethodRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9AF1FC4788700B192D9 /* RTMethodRequest.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -2049,7 +2039,7 @@
 		5A633F441F7BB7F6004D7ACA /* BackendlessPushHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A633F3F1F7BB7F6004D7ACA /* BackendlessPushHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A633F451F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A633F461F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A633F471F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; };
+		5A633F471F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A633F481F7BB7F6004D7ACA /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A65ABB420A039A500EA2AFB /* NullHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A65ABB220A039A500EA2AFB /* NullHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A65ABB520A039A500EA2AFB /* NullHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A65ABB220A039A500EA2AFB /* NullHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2150,8 +2140,14 @@
 		5A95F1FB202B3D60000D6EA5 /* MapAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A95F1F2202B3D60000D6EA5 /* MapAdapter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A95F1FC202B3D60000D6EA5 /* MapAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A95F1F2202B3D60000D6EA5 /* MapAdapter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A9DB6021FCC219200B0C3CD /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A9DB6031FCC22AD00B0C3CD /* BackendlessPushHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A633F3F1F7BB7F6004D7ACA /* BackendlessPushHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5AAEFE321FB34099006EBC8F /* UserService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480515FF5AC500012DFC /* UserService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5A9E9A6C1FA769FB001BB2BE /* EventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A15801FA0D3C3009A1394 /* EventHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AA8FF1B1FCD945700F36C6D /* UserService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480515FF5AC500012DFC /* UserService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5AAC6CBE20C92D480094C4E4 /* BackendlessPushHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A633F3F1F7BB7F6004D7ACA /* BackendlessPushHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AB0CA9A1FB490A400C21766 /* RTMessaging.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F38501FB317EB002F21D4 /* RTMessaging.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5ABF776A1FB4AD00006299F7 /* RTListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F384F1FB317EB002F21D4 /* RTListener.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5ABF776D1FB4AD46006299F7 /* RTSubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F38551FB317EB002F21D4 /* RTSubscription.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5ABF776E1FB4AD4C006299F7 /* RTSubscription.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A5F38521FB317EB002F21D4 /* RTSubscription.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5ABF776F1FB4AD65006299F7 /* RTMessaging.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A5F38541FB317EB002F21D4 /* RTMessaging.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AC2EB87201754E60017AA67 /* UserDefaultsHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AC2EB85201754E60017AA67 /* UserDefaultsHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AC2EB88201754E60017AA67 /* UserDefaultsHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AC2EB85201754E60017AA67 /* UserDefaultsHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AC2EB89201754E60017AA67 /* UserDefaultsHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AC2EB85201754E60017AA67 /* UserDefaultsHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2162,15 +2158,6 @@
 		5AC2EB8E201754E60017AA67 /* UserDefaultsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AC2EB86201754E60017AA67 /* UserDefaultsHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5AC2EB8F201754E60017AA67 /* UserDefaultsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AC2EB86201754E60017AA67 /* UserDefaultsHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5AC2EB90201754E60017AA67 /* UserDefaultsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AC2EB86201754E60017AA67 /* UserDefaultsHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A9E9A6C1FA769FB001BB2BE /* EventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A15801FA0D3C3009A1394 /* EventHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5AA8FF1B1FCD945700F36C6D /* UserService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480515FF5AC500012DFC /* UserService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5AAC6CBD20C92D3D0094C4E4 /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5AAC6CBE20C92D480094C4E4 /* BackendlessPushHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A633F3F1F7BB7F6004D7ACA /* BackendlessPushHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5AB0CA9A1FB490A400C21766 /* RTMessaging.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F38501FB317EB002F21D4 /* RTMessaging.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5ABF776A1FB4AD00006299F7 /* RTListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F384F1FB317EB002F21D4 /* RTListener.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5ABF776D1FB4AD46006299F7 /* RTSubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F38551FB317EB002F21D4 /* RTSubscription.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5ABF776E1FB4AD4C006299F7 /* RTSubscription.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A5F38521FB317EB002F21D4 /* RTSubscription.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5ABF776F1FB4AD65006299F7 /* RTMessaging.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A5F38541FB317EB002F21D4 /* RTMessaging.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AC55C202057DF00006A8951 /* AdapterFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AC55C1E2057DF00006A8951 /* AdapterFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AC55C212057DF00006A8951 /* AdapterFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AC55C1E2057DF00006A8951 /* AdapterFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AC55C222057DF00006A8951 /* AdapterFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AC55C1E2057DF00006A8951 /* AdapterFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -4588,11 +4575,14 @@
 		0F9AC8101E798C5C0087869F /* V3ObjectSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = V3ObjectSerializer.m; sourceTree = "<group>"; };
 		0F9AC8111E798C5C0087869F /* V3ReferenceCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = V3ReferenceCache.h; sourceTree = "<group>"; };
 		0F9AC8121E798C5C0087869F /* V3ReferenceCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = V3ReferenceCache.m; sourceTree = "<group>"; };
+		17C7B0DC4053548A933850E3 /* Pods-backendless-mac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-mac.release.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-mac/Pods-backendless-mac.release.xcconfig"; sourceTree = "<group>"; };
+		1C3E721F974384F266C666A0 /* Pods-bkndlss-device.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bkndlss-device.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-bkndlss-device/Pods-bkndlss-device.debug.xcconfig"; sourceTree = "<group>"; };
 		1C7BB5101A2E092900D3C2C1 /* libbackendless-mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libbackendless-mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5A42D0B0200640E400687EC0 /* JSONHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONHelper.h; sourceTree = "<group>"; };
-		5A42D0B1200640E400687EC0 /* JSONHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONHelper.m; sourceTree = "<group>"; };
+		22FA9B35920FA101E5808453 /* Pods-backendless-tv-device.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-tv-device.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-tv-device/Pods-backendless-tv-device.debug.xcconfig"; sourceTree = "<group>"; };
+		2FDA1E98919CEDBEDCE5BA73 /* Pods-backendless-watch-device.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-watch-device.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-watch-device/Pods-backendless-watch-device.debug.xcconfig"; sourceTree = "<group>"; };
 		30524CA474D6C83EAECC4A43 /* Pods_backendless_watch_simulator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_backendless_watch_simulator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C420AFFDDE785F52C642CD9 /* Pods_backendless_tv_device.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_backendless_tv_device.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		40D60DD09AAE185A628E9533 /* Pods-backendless-device.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-device.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-device/Pods-backendless-device.debug.xcconfig"; sourceTree = "<group>"; };
 		55481B11D74EDF12742B5B35 /* Pods_bkndlss_device.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bkndlss_device.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A06BCDF20D1109F00E0315F /* libbackendless-watch-simulator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libbackendless-watch-simulator.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A06BCE120D1109F00E0315F /* backendless_watch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = backendless_watch.h; sourceTree = "<group>"; };
@@ -4602,6 +4592,8 @@
 		5A209471202B1F3C0068E6C9 /* IResponseAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IResponseAdapter.h; sourceTree = "<group>"; };
 		5A209477202B1F830068E6C9 /* DefaultAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DefaultAdapter.h; sourceTree = "<group>"; };
 		5A209478202B1F830068E6C9 /* DefaultAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DefaultAdapter.m; sourceTree = "<group>"; };
+		5A42D0B0200640E400687EC0 /* JSONHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONHelper.h; sourceTree = "<group>"; };
+		5A42D0B1200640E400687EC0 /* JSONHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONHelper.m; sourceTree = "<group>"; };
 		5A4F7FBA1FDEB770006D5744 /* RTService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTService.h; sourceTree = "<group>"; };
 		5A4F7FBB1FDEB770006D5744 /* RTService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RTService.m; sourceTree = "<group>"; };
 		5A507A741F3B41D80027ABAC /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
@@ -4625,8 +4617,6 @@
 		5A5F38551FB317EB002F21D4 /* RTSubscription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTSubscription.m; sourceTree = "<group>"; };
 		5A633F3F1F7BB7F6004D7ACA /* BackendlessPushHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BackendlessPushHelper.h; sourceTree = "<group>"; };
 		5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BackendlessPushHelper.m; sourceTree = "<group>"; };
-		5AC2EB85201754E60017AA67 /* UserDefaultsHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserDefaultsHelper.h; sourceTree = "<group>"; };
-		5AC2EB86201754E60017AA67 /* UserDefaultsHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserDefaultsHelper.m; sourceTree = "<group>"; };
 		5A65ABB220A039A500EA2AFB /* NullHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NullHelper.h; sourceTree = "<group>"; };
 		5A65ABB320A039A500EA2AFB /* NullHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NullHelper.m; sourceTree = "<group>"; };
 		5A66A0711FD6CD1E002202BE /* RTHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTHelper.h; sourceTree = "<group>"; };
@@ -4651,6 +4641,8 @@
 		5A9FC9B01FC4788700B192D9 /* RTMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTMethod.m; sourceTree = "<group>"; };
 		5AB968ED20CFB5E800FD3FAA /* backendless_tv.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = backendless_tv.h; sourceTree = "<group>"; };
 		5AB968EE20CFB5E800FD3FAA /* backendless_tv.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = backendless_tv.m; sourceTree = "<group>"; };
+		5AC2EB85201754E60017AA67 /* UserDefaultsHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserDefaultsHelper.h; sourceTree = "<group>"; };
+		5AC2EB86201754E60017AA67 /* UserDefaultsHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserDefaultsHelper.m; sourceTree = "<group>"; };
 		5AC55C1E2057DF00006A8951 /* AdapterFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdapterFactory.h; sourceTree = "<group>"; };
 		5AC55C1F2057DF00006A8951 /* AdapterFactory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdapterFactory.m; sourceTree = "<group>"; };
 		5AC55C2A2057DFB0006A8951 /* BackendlessUserAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BackendlessUserAdapter.h; sourceTree = "<group>"; };
@@ -4677,6 +4669,8 @@
 		5EEF294D202DA40C00449F43 /* DeviceRegistrationAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceRegistrationAdapter.h; sourceTree = "<group>"; };
 		5EEF294E202DA40C00449F43 /* DeviceRegistrationAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceRegistrationAdapter.m; sourceTree = "<group>"; };
 		5EFEB4AC20D2F5B0001AECDE /* libbackendless-tv-device.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libbackendless-tv-device.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		62C9AEEE1620FCD61502080F /* Pods-bkndlss-simulator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bkndlss-simulator.release.xcconfig"; path = "../Pods/Target Support Files/Pods-bkndlss-simulator/Pods-bkndlss-simulator.release.xcconfig"; sourceTree = "<group>"; };
+		689C5B0CDA7306DE7D707892 /* Pods-backendless-tv-device.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-tv-device.release.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-tv-device/Pods-backendless-tv-device.release.xcconfig"; sourceTree = "<group>"; };
 		6BF648AF04AFDE7880E7F970 /* Pods_bkndlss_simulator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bkndlss_simulator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		70074C7B0E930E580F3CE836 /* Pods_backendless_tv_simulator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_backendless_tv_simulator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84B027E41DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadRelationsQueryBuilder.h; sourceTree = "<group>"; };
@@ -4698,7 +4692,14 @@
 		91F1399417D7240A00D1AC4C /* BackendlessCacheProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackendlessCacheProtocol.h; sourceTree = "<group>"; };
 		91F139B017D724C600D1AC4C /* QueryOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryOptions.h; sourceTree = "<group>"; };
 		91F139B117D724C600D1AC4C /* QueryOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryOptions.m; sourceTree = "<group>"; };
+		94FCED78AF9D9406147F6891 /* Pods-bkndlss-simulator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bkndlss-simulator.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-bkndlss-simulator/Pods-bkndlss-simulator.debug.xcconfig"; sourceTree = "<group>"; };
+		973555AFCF32A018191DDC2E /* Pods-backendless-watch-simulator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-watch-simulator.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-watch-simulator/Pods-backendless-watch-simulator.debug.xcconfig"; sourceTree = "<group>"; };
+		A481D1AF23B9967AB6BE0130 /* Pods-backendless-simulator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-simulator.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-simulator/Pods-backendless-simulator.debug.xcconfig"; sourceTree = "<group>"; };
 		A850803560F6A59C7C6A08CA /* Pods_backendless_mac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_backendless_mac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B6313E7EF19B6D582B2889B5 /* Pods-backendless-tv-simulator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-tv-simulator.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-tv-simulator/Pods-backendless-tv-simulator.debug.xcconfig"; sourceTree = "<group>"; };
+		B78B79FFF8B0E16BE3A9D44B /* Pods-backendless-simulator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-simulator.release.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-simulator/Pods-backendless-simulator.release.xcconfig"; sourceTree = "<group>"; };
+		CB205E64F0FB835C8F27118C /* Pods-backendless-watch-simulator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-watch-simulator.release.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-watch-simulator/Pods-backendless-watch-simulator.release.xcconfig"; sourceTree = "<group>"; };
+		CD54D2EDD68787E303E9A944 /* Pods-backendless-mac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-mac.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-mac/Pods-backendless-mac.debug.xcconfig"; sourceTree = "<group>"; };
 		D30A5D7319B9CA8200C0BA44 /* Backendless-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Backendless-Bridging-Header.h"; sourceTree = "<group>"; };
 		D30A5D7819B9D03100C0BA44 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
 		D30FC9AF1AE132C2007C9A83 /* LogBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogBuffer.h; sourceTree = "<group>"; };
@@ -4741,7 +4742,11 @@
 		D3FB9B7219867F0E00A13FB6 /* AtomicCountersFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtomicCountersFactory.h; sourceTree = "<group>"; };
 		D3FB9B7319867F0E00A13FB6 /* AtomicCountersFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtomicCountersFactory.m; sourceTree = "<group>"; };
 		D3FB9B7A1986818F00A13FB6 /* IAtomicCounters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAtomicCounters.h; sourceTree = "<group>"; };
+		E0CC65A34CE845085F971BD9 /* Pods-backendless-watch-device.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-watch-device.release.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-watch-device/Pods-backendless-watch-device.release.xcconfig"; sourceTree = "<group>"; };
+		EB0B0FE804A29F3084BE28D1 /* Pods-backendless-device.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-device.release.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-device/Pods-backendless-device.release.xcconfig"; sourceTree = "<group>"; };
 		ECCE5AE0B0100500046F52C9 /* Pods_backendless_tv.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_backendless_tv.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0E64B0A6EBC7AA3CE8E2D71 /* Pods-bkndlss-device.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bkndlss-device.release.xcconfig"; path = "../Pods/Target Support Files/Pods-bkndlss-device/Pods-bkndlss-device.release.xcconfig"; sourceTree = "<group>"; };
+		F4AD8A9C55289A4540A9BFBF /* Pods-backendless-tv-simulator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-tv-simulator.release.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-tv-simulator/Pods-backendless-tv-simulator.release.xcconfig"; sourceTree = "<group>"; };
 		F918412C1638281600D36A61 /* FileService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileService.h; sourceTree = "<group>"; };
 		F918412D1638281600D36A61 /* FileService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileService.m; sourceTree = "<group>"; };
 		F9184132163AB29600D36A61 /* BackendlessFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackendlessFile.h; sourceTree = "<group>"; };
@@ -5415,24 +5420,6 @@
 			path = Amf;
 			sourceTree = "<group>";
 		};
-		5A42D0AF200640E400687EC0 /* JSONHelper */ = {
-			isa = PBXGroup;
-			children = (
-				5A42D0B0200640E400687EC0 /* JSONHelper.h */,
-				5A42D0B1200640E400687EC0 /* JSONHelper.m */,
-			);
-			path = JSONHelper;
-			sourceTree = "<group>";
-		};
-		5AC2EB84201754CB0017AA67 /* UserDefaultsHelper */ = {
-			isa = PBXGroup;
-			children = (
-				5AC2EB85201754E60017AA67 /* UserDefaultsHelper.h */,
-				5AC2EB86201754E60017AA67 /* UserDefaultsHelper.m */,
-			);
-			path = UserDefaultsHelper;
-			sourceTree = "<group>";
-		};
 		5A06BCE020D1109F00E0315F /* backendless-watch */ = {
 			isa = PBXGroup;
 			children = (
@@ -5447,6 +5434,15 @@
 			children = (
 				5A1052CC20063B320036A784 /* JSONHelper.h */,
 				5A1052CD20063B320036A784 /* JSONHelper.m */,
+			);
+			path = JSONHelper;
+			sourceTree = "<group>";
+		};
+		5A42D0AF200640E400687EC0 /* JSONHelper */ = {
+			isa = PBXGroup;
+			children = (
+				5A42D0B0200640E400687EC0 /* JSONHelper.h */,
+				5A42D0B1200640E400687EC0 /* JSONHelper.m */,
 			);
 			path = JSONHelper;
 			sourceTree = "<group>";
@@ -5560,6 +5556,15 @@
 			path = "backendless-tv";
 			sourceTree = "<group>";
 		};
+		5AC2EB84201754CB0017AA67 /* UserDefaultsHelper */ = {
+			isa = PBXGroup;
+			children = (
+				5AC2EB85201754E60017AA67 /* UserDefaultsHelper.h */,
+				5AC2EB86201754E60017AA67 /* UserDefaultsHelper.m */,
+			);
+			path = UserDefaultsHelper;
+			sourceTree = "<group>";
+		};
 		5E3EB793207F9A3000C5C09D /* Wrapper */ = {
 			isa = PBXGroup;
 			children = (
@@ -5596,6 +5601,31 @@
 				91F1399417D7240A00D1AC4C /* BackendlessCacheProtocol.h */,
 			);
 			path = Cache;
+			sourceTree = "<group>";
+		};
+		CC517E0A2BA36FB82B25CC18 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				40D60DD09AAE185A628E9533 /* Pods-backendless-device.debug.xcconfig */,
+				EB0B0FE804A29F3084BE28D1 /* Pods-backendless-device.release.xcconfig */,
+				CD54D2EDD68787E303E9A944 /* Pods-backendless-mac.debug.xcconfig */,
+				17C7B0DC4053548A933850E3 /* Pods-backendless-mac.release.xcconfig */,
+				A481D1AF23B9967AB6BE0130 /* Pods-backendless-simulator.debug.xcconfig */,
+				B78B79FFF8B0E16BE3A9D44B /* Pods-backendless-simulator.release.xcconfig */,
+				22FA9B35920FA101E5808453 /* Pods-backendless-tv-device.debug.xcconfig */,
+				689C5B0CDA7306DE7D707892 /* Pods-backendless-tv-device.release.xcconfig */,
+				B6313E7EF19B6D582B2889B5 /* Pods-backendless-tv-simulator.debug.xcconfig */,
+				F4AD8A9C55289A4540A9BFBF /* Pods-backendless-tv-simulator.release.xcconfig */,
+				2FDA1E98919CEDBEDCE5BA73 /* Pods-backendless-watch-device.debug.xcconfig */,
+				E0CC65A34CE845085F971BD9 /* Pods-backendless-watch-device.release.xcconfig */,
+				973555AFCF32A018191DDC2E /* Pods-backendless-watch-simulator.debug.xcconfig */,
+				CB205E64F0FB835C8F27118C /* Pods-backendless-watch-simulator.release.xcconfig */,
+				1C3E721F974384F266C666A0 /* Pods-bkndlss-device.debug.xcconfig */,
+				F0E64B0A6EBC7AA3CE8E2D71 /* Pods-bkndlss-device.release.xcconfig */,
+				94FCED78AF9D9406147F6891 /* Pods-bkndlss-simulator.debug.xcconfig */,
+				62C9AEEE1620FCD61502080F /* Pods-bkndlss-simulator.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		D35DC3361AD6CD7200EF2A68 /* Logging */ = {
@@ -5666,6 +5696,7 @@
 				5A06BCE020D1109F00E0315F /* backendless-watch */,
 				F9042B0615FDD8D300C9381A /* Frameworks */,
 				F9042B0415FDD8D300C9381A /* Products */,
+				CC517E0A2BA36FB82B25CC18 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -7335,8 +7366,6 @@
 				5EFEB4A520D2F5B0001AECDE /* KeychainDataStore.h in Headers */,
 				5EFEB4A620D2F5B0001AECDE /* PublishMessageInfo.h in Headers */,
 				5EFEB4A720D2F5B0001AECDE /* MessagingService.h in Headers */,
-				5A42D0B72006412A00687EC0 /* JSONHelper.h in Headers */,
-				5A9DB6031FCC22AD00B0C3CD /* BackendlessPushHelper.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7604,7 +7633,6 @@
 				5AF2B72B1EB2138500D54442 /* MessagingService.h in Headers */,
 				5A1052D020063B910036A784 /* JSONHelper.h in Headers */,
 				91F139B217D724C700D1AC4C /* QueryOptions.h in Headers */,
-				5A42D0B82006413400687EC0 /* JSONHelper.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7872,7 +7900,6 @@
 				5A549860200795C50042234F /* RTSharedObject.h in Headers */,
 				5A54985F200795BD0042234F /* InvokeObject.h in Headers */,
 				5A83935E1FD1AAAB00FB5697 /* RTListener.h in Headers */,
-				5A1052D820063BC80036A784 /* JSONHelper.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8125,7 +8152,6 @@
 				5A4A3B971FC5791700C0ADBA /* Channel.h in Headers */,
 				5A4A3A9E1FC570D500C0ADBA /* RTMethod.h in Headers */,
 				5ABF776E1FB4AD4C006299F7 /* RTSubscription.h in Headers */,
-				5A1052D620063BB80036A784 /* JSONHelper.h in Headers */,
 				5AEED9CE1FC5B90800CB7D9F /* UserStatusObject.h in Headers */,
 				5A54985E200795A50042234F /* SharedObjectChanges.h in Headers */,
 				5A54985D200795A10042234F /* SharedObjectService.h in Headers */,
@@ -8408,7 +8434,6 @@
 				5A5498572007957D0042234F /* SharedObject.h in Headers */,
 				5A549856200795780042234F /* RTSharedObject.h in Headers */,
 				5A5498552007956F0042234F /* InvokeObject.h in Headers */,
-				5A1052D520063BB10036A784 /* JSONHelper.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8592,7 +8617,7 @@
 		F9042AFA15FDD8D300C9381A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = BACKENDLESS.COM;
 				TargetAttributes = {
 					5A06BCDE20D1109F00E0315F = {
@@ -8949,14 +8974,12 @@
 			files = (
 				5A42D0B2200640FC00687EC0 /* JSONHelper.m in Sources */,
 				5A9DB6021FCC219200B0C3CD /* BackendlessPushHelper.m in Sources */,
-				5AAC6CBD20C92D3D0094C4E4 /* BackendlessPushHelper.m in Sources */,
 				5EC159582099B32E0095BA74 /* PublishMessageInfo.m in Sources */,
 				5A549840200795010042234F /* SharedObjectService.m in Sources */,
 				5A54983F200794FD0042234F /* SharedObjectChanges.m in Sources */,
 				5A54983E200794F70042234F /* SharedObject.m in Sources */,
 				5A54983D200794F20042234F /* RTSharedObject.m in Sources */,
 				5A54983C200794ED0042234F /* InvokeObject.m in Sources */,
-				5A1052CE20063B4E0036A784 /* JSONHelper.m in Sources */,
 				5AD1BEE31FD1B0ED00493038 /* Channel.m in Sources */,
 				5AD1BEE11FD1B0D900493038 /* UserStatusObject.m in Sources */,
 				5AD1BEE01FD1B0D200493038 /* RTSubscription.m in Sources */,
@@ -10064,7 +10087,6 @@
 				5A549843200795150042234F /* SharedObject.m in Sources */,
 				5A549842200795110042234F /* RTSharedObject.m in Sources */,
 				5A5498412007950C0042234F /* InvokeObject.m in Sources */,
-				5A1052D120063B9C0036A784 /* JSONHelper.m in Sources */,
 				5A096D731FD1AE12009BF89E /* UserStatusObject.m in Sources */,
 				5A096D721FD1AE06009BF89E /* RTSubscription.m in Sources */,
 				5A096D711FD1ADFC009BF89E /* RTMethodRequest.m in Sources */,
@@ -10297,7 +10319,6 @@
 				5A83935D1FD1AAA600FB5697 /* RTListener.m in Sources */,
 				5A83935B1FD1AA7800FB5697 /* CommandObject.m in Sources */,
 				5A8393591FD1AA3A00FB5697 /* RTMessaging.m in Sources */,
-				5A42D0B42006410900687EC0 /* JSONHelper.m in Sources */,
 				5AF2B72D1EB213A400D54442 /* MessagingService.m in Sources */,
 				0F9ACB761E798C5E0087869F /* Types.m in Sources */,
 				0F9ACAFE1E798C5E0087869F /* StringType.m in Sources */,
@@ -10510,7 +10531,6 @@
 				5A54984D200795480042234F /* SharedObject.m in Sources */,
 				5A54984C200795440042234F /* RTSharedObject.m in Sources */,
 				5A54984B2007953F0042234F /* InvokeObject.m in Sources */,
-				5A1052D320063BA70036A784 /* JSONHelper.m in Sources */,
 				5AD743271FD6FDBE00A19D1A /* RTClient.m in Sources */,
 				5AA8FF1B1FCD945700F36C6D /* UserService.m in Sources */,
 				5A3917D71FC5BDFF0084D24D /* CommandObject.m in Sources */,
@@ -10743,7 +10763,6 @@
 				5A83934B1FD1A7E400FB5697 /* RTListener.m in Sources */,
 				5A8393491FD1A7BB00FB5697 /* CommandObject.m in Sources */,
 				5A8393471FD1A78400FB5697 /* RTMessaging.m in Sources */,
-				5A42D0B62006411500687EC0 /* JSONHelper.m in Sources */,
 				5AF2B7311EB213C600D54442 /* MessagingService.m in Sources */,
 				84B027EF1DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m in Sources */,
 				F9B360C61D65A7D000818EEF /* UICKeyChainStore.m in Sources */,
@@ -10950,6 +10969,7 @@
 /* Begin XCBuildConfiguration section */
 		1C7BB50E1A2E092900D3C2C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CD54D2EDD68787E303E9A944 /* Pods-backendless-mac.debug.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -10978,6 +10998,7 @@
 		};
 		1C7BB50F1A2E092900D3C2C1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 17C7B0DC4053548A933850E3 /* Pods-backendless-mac.release.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -11006,6 +11027,7 @@
 		};
 		5A06BCE520D1109F00E0315F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 973555AFCF32A018191DDC2E /* Pods-backendless-watch-simulator.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -11043,6 +11065,7 @@
 		};
 		5A06BCE620D1109F00E0315F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CB205E64F0FB835C8F27118C /* Pods-backendless-watch-simulator.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -11080,6 +11103,7 @@
 		};
 		5AF7F2BC20CFC40F0014880E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B6313E7EF19B6D582B2889B5 /* Pods-backendless-tv-simulator.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -11118,6 +11142,7 @@
 		};
 		5AF7F2BD20CFC40F0014880E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4AD8A9C55289A4540A9BFBF /* Pods-backendless-tv-simulator.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -11156,6 +11181,7 @@
 		};
 		5E5167FB20D2EC80001A058B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2FDA1E98919CEDBEDCE5BA73 /* Pods-backendless-watch-device.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -11186,13 +11212,14 @@
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
-				VALID_ARCHS = "$(ARCHS_STANDARD)";
+				VALID_ARCHS = "$(ARCHS_STANDARD) arm64";
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
 		5E5167FC20D2EC80001A058B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E0CC65A34CE845085F971BD9 /* Pods-backendless-watch-device.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -11223,13 +11250,14 @@
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
-				VALID_ARCHS = "$(ARCHS_STANDARD)";
+				VALID_ARCHS = "$(ARCHS_STANDARD) arm64";
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};
 		5EFEB4AA20D2F5B0001AECDE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22FA9B35920FA101E5808453 /* Pods-backendless-tv-device.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -11268,6 +11296,7 @@
 		};
 		5EFEB4AB20D2F5B0001AECDE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 689C5B0CDA7306DE7D707892 /* Pods-backendless-tv-device.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -11401,6 +11430,7 @@
 		};
 		F97969E5166CC8C300595F5E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A481D1AF23B9967AB6BE0130 /* Pods-backendless-simulator.debug.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -11430,6 +11460,7 @@
 		};
 		F97969E6166CC8C300595F5E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B78B79FFF8B0E16BE3A9D44B /* Pods-backendless-simulator.release.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -11459,6 +11490,7 @@
 		};
 		F9796A32166CD3A400595F5E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 40D60DD09AAE185A628E9533 /* Pods-backendless-device.debug.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -11486,6 +11518,7 @@
 		};
 		F9796A33166CD3A400595F5E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EB0B0FE804A29F3084BE28D1 /* Pods-backendless-device.release.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -11538,6 +11571,7 @@
 		};
 		F9F0AF371CDBCA3900035C62 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 94FCED78AF9D9406147F6891 /* Pods-bkndlss-simulator.debug.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -11572,6 +11606,7 @@
 		};
 		F9F0AF381CDBCA3900035C62 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 62C9AEEE1620FCD61502080F /* Pods-bkndlss-simulator.release.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -11606,6 +11641,7 @@
 		};
 		F9F0AFF11CDBCAB500035C62 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1C3E721F974384F266C666A0 /* Pods-bkndlss-device.debug.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -11633,6 +11669,7 @@
 		};
 		F9F0AFF21CDBCAB500035C62 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F0E64B0A6EBC7AA3CE8E2D71 /* Pods-bkndlss-device.release.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;

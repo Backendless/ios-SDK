@@ -69,8 +69,8 @@ static NSString *METHOD_PUBLISH = @"publish";
 static NSString *METHOD_CANCEL = @"cancel";
 static NSString *METHOD_SEND_EMAIL = @"send";
 static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
-#endif
 static NSString *METHOD_PUSH_WITH_TEMPLATE = @"pushWithTemplate";
+#endif
 
 @interface MessagingService() {
     DeviceRegistration *deviceRegistration;
@@ -89,7 +89,7 @@ static NSString *METHOD_PUSH_WITH_TEMPLATE = @"pushWithTemplate";
     NSString *UUID = data?[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]:nil;
     if (!UUID) {
         CFUUIDRef uuid = CFUUIDCreate(NULL);
-        UUID = (__bridge_transfer NSString *)CFUUIDCreateString(NULL, uuid);
+        UUID = (__bridge NSString *)CFUUIDCreateString(NULL, uuid);
         CFRelease(uuid);
         [keychainStore save:bundleId data:[UUID dataUsingEncoding:NSUTF8StringEncoding]];
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -201,12 +201,13 @@ static NSString *METHOD_PUSH_WITH_TEMPLATE = @"pushWithTemplate";
     [DebLog log:@"MessagingService -> registerDevice (SYNC): %@", deviceRegistration];
     NSArray *args = [NSArray arrayWithObjects:deviceRegistration, nil];
     id result = [invoker invokeSync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_REGISTER_DEVICE args:args];
+    NSLog(@"Result = %@", result);
     if ([result isKindOfClass:[Fault class]]) {
         return [backendless throwFault:result];
     }
     NSArray *resultArray = [self jsonToNSArray:result];
-    __weak Backendless *weakBackendless = backendless;
     [userDefaultsHelper writeToUserDefaults:[NSMutableDictionary dictionaryWithDictionary:[resultArray objectAtIndex:1]] withKey:PUSH_TEMPLATES_USER_DEFAULTS withSuiteName:@"group.com.backendless.PushTemplates"];
+    deviceRegistration.id = [NSString stringWithFormat:@"%@", result];
     return resultArray.firstObject;
 }
 
@@ -416,46 +417,6 @@ static NSString *METHOD_PUSH_WITH_TEMPLATE = @"pushWithTemplate";
     [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_CANCEL args:args responder:responder];
 }
 
--(void)subscribe:(NSString *)channelName response:(void(^)(BESubscription *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self  subscribe:[BESubscription subscription:channelName responder:nil]
- subscriptionOptions:nil
-           responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
-}
-
--(void)subscribe:(NSString *)channelName subscriptionResponse:(void(^)(NSArray<Message*> *))subscriptionResponseBlock subscriptionError:(void(^)(Fault *))subscriptionErrorBlock response:(void(^)(BESubscription *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self  subscribe:[BESubscription subscription:channelName responder:[ResponderBlocksContext responderBlocksContext:subscriptionResponseBlock error:subscriptionErrorBlock]]
- subscriptionOptions:nil
-           responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
-}
-
--(void)subscribe:(NSString *)channelName subscriptionResponse:(void(^)(NSArray<Message*> *))subscriptionResponseBlock subscriptionError:(void(^)(Fault *))subscriptionErrorBlock subscriptionOptions:(SubscriptionOptions *)subscriptionOptions response:(void(^)(BESubscription *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self  subscribe:[BESubscription subscription:channelName responder:[ResponderBlocksContext responderBlocksContext:subscriptionResponseBlock error:subscriptionErrorBlock]]
- subscriptionOptions:subscriptionOptions
-           responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
-}
-
--(void)subscribe:(BESubscription *)subscription subscriptionOptions:(SubscriptionOptions *)subscriptionOptions responder:(id <IResponder>)responder {
-    if (!subscription)
-        return [responder errorHandler:FAULT_NO_CHANNEL];
-    subscription.deliveryMethod = [subscriptionOptions valDeliveryMethod];
-    subscriptionOptions.deviceId = deviceRegistration.deviceId;
-    [subscription startPolling];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onSubscribe:) selErrorHandler:nil];
-    _responder.context = subscription;
-    _responder.chained = responder;
-    [self subscribeForPollingAccess:subscription.channelName subscriptionOptions:subscriptionOptions responder:_responder];
-}
-
--(void)pollMessages:(NSString *)channelName subscriptionId:(NSString *)subscriptionId response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
-    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
-    if (!channelName)
-        return [responder errorHandler:FAULT_NO_CHANNEL];
-    if (!subscriptionId)
-        return [responder errorHandler:FAULT_NO_SUBSCRIPTION_ID];
-    NSArray *args = [NSArray arrayWithObjects:channelName, subscriptionId, nil];
-    [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_POLL_MESSAGES args:args responder:responder];
-}
-
 -(void)sendTextEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray<NSString*> *)recipients response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self sendEmail:subject body:[BodyParts bodyText:messageBody html:nil] to:recipients attachment:nil response:responseBlock error:errorBlock];
 }
@@ -494,31 +455,10 @@ static NSString *METHOD_PUSH_WITH_TEMPLATE = @"pushWithTemplate";
     }
 }
 
-// sync
--(NSString *)subscribeForPollingAccess:(NSString *)channelName subscriptionOptions:(SubscriptionOptions *)subscriptionOptions {
-    if (!channelName)
-        return [backendless throwFault:FAULT_NO_CHANNEL];
-    if (!subscriptionOptions)
-        subscriptionOptions = [SubscriptionOptions new];
-    NSArray *args = @[channelName, subscriptionOptions];
-    return [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_POLLING_SUBSCRIBE args:args];
-}
-
-// async
--(void)subscribeForPollingAccess:(NSString *)channelName subscriptionOptions:(SubscriptionOptions *)subscriptionOptions responder:(id <IResponder>)responder {
-    if (!channelName)
-        return [responder errorHandler:FAULT_NO_CHANNEL];
-    if (!subscriptionOptions)
-        subscriptionOptions = [SubscriptionOptions new];
-    NSArray *args = @[channelName, subscriptionOptions];
-    [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_POLLING_SUBSCRIBE args:args responder:responder];
-}
-
 // callbacks
 
 -(id)onRegister:(id)response {
     NSArray *resultArray = [self jsonToNSArray:response];
-    __weak Backendless *weakBackendless = backendless;
     [userDefaultsHelper writeToUserDefaults:[NSMutableDictionary dictionaryWithDictionary:[resultArray objectAtIndex:1]] withKey:PUSH_TEMPLATES_USER_DEFAULTS withSuiteName:@"group.com.backendless.PushTemplates"];
     return resultArray.firstObject;
 }
@@ -546,10 +486,6 @@ static NSString *METHOD_PUSH_WITH_TEMPLATE = @"pushWithTemplate";
                     @"data"       : [jsonHelper parseObjectForJSON:data]};
     }
     [rtMethod sendCommand:PUB_SUB_COMMAND options:options onSuccess:onSuccess onError:onError];
--(id)onSubscribe:(id)response {
-    BESubscription *subscription = ((ResponseContext *)response).context;
-    subscription.subscriptionId = (NSString *)((ResponseContext *)response).response;
-    return subscription;
 }
 
 #endif

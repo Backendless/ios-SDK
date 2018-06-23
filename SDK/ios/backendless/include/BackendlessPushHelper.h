@@ -8,7 +8,7 @@
  *
  *  ********************************************************************************************************************
  *
- *  Copyright 2017 BACKENDLESS.COM. All Rights Reserved.
+ *  Copyright 2018 BACKENDLESS.COM. All Rights Reserved.
  *
  *  NOTICE: All information contained herein is, and remains the property of Backendless.com and its suppliers,
  *  if any. The intellectual and technical concepts contained herein are proprietary to Backendless.com and its
@@ -20,7 +20,7 @@
  */
 
 #import <Foundation/Foundation.h>
-#if TARGET_OS_IOS || TARGET_OS_SIMULATOR
+#if (TARGET_OS_IOS || TARGET_OS_SIMULATOR) && !TARGET_OS_TV && ! TARGET_OS_WATCH
 #import <UserNotifications/UserNotifications.h>
 #endif
 
@@ -30,7 +30,7 @@
 
 +(BackendlessPushHelper *_Nonnull)sharedInstance;
 
-#if TARGET_OS_IOS || TARGET_OS_SIMULATOR
+#if (TARGET_OS_IOS || TARGET_OS_SIMULATOR) && !TARGET_OS_TV && ! TARGET_OS_WATCH
 -(void)processMutableContent:(UNNotificationRequest *_Nonnull)request withContentHandler:(void(^_Nonnull)(UNNotificationContent *_Nonnull))contentHandler NS_AVAILABLE_IOS(10_0);
 #endif
 

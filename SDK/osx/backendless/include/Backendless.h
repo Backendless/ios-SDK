@@ -8,7 +8,7 @@
  *
  *  ********************************************************************************************************************
  *
- *  Copyright 2012 BACKENDLESS.COM. All Rights Reserved.
+ *  Copyright 2018 BACKENDLESS.COM. All Rights Reserved.
  *
  *  NOTICE: All information contained herein is, and remains the property of Backendless.com and its suppliers,
  *  if any. The intellectual and technical concepts contained herein are proprietary to Backendless.com and its
@@ -19,7 +19,6 @@
  *  ********************************************************************************************************************
  */
 
-// implementation options
 #import <Foundation/Foundation.h>
 #import "DEBUG.h"
 #import "Types.h"
@@ -47,12 +46,11 @@
 #import "ICallback.h"
 #import "GeoFence.h"
 #import "LocationTracker.h"
-#import "Message.h"
+#import "PublishMessageInfo.h"
 #import "MessageStatus.h"
 #import "DeliveryOptions.h"
 #import "PublishOptions.h"
-#import "SubscriptionOptions.h"
-#import "BESubscription.h"
+#import "Channel.h"
 #import "DeviceRegistration.h"
 #import "MessagingService.h"
 #import "FileService.h"
@@ -71,7 +69,12 @@
 #import "BackendlessBeacon.h"
 #import "Presence.h"
 #import "MapDrivenDataStore.h"
+#import "SharedObject.h"
+#import "RTService.h"
+
+#if TARGET_OS_IOS || TARGET_OS_SIMULATOR
 #import "BackendlessPushHelper.h"
+#endif
 
 //Cache
 #import "BackendlessCachePolicy.h"
@@ -108,6 +111,9 @@
 @property (strong, nonatomic, readonly) CacheService *cache;
 @property (strong, nonatomic, readonly) AtomicCounters *counters;
 @property (strong, nonatomic, readonly) Logging *logging;
+@property (strong, nonatomic, readonly) RTService *rt;
+@property (strong, nonatomic, readonly) SharedObject *sharedObject;
+
 // service shortcuts
 @property (assign, nonatomic, readonly) PersistenceService *data;
 @property (assign, nonatomic, readonly) GeoService *geo;
