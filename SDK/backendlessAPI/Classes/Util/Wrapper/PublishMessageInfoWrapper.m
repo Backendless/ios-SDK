@@ -60,7 +60,7 @@
             NSString *jsonString = [self messageInfoToJSONString:messageInfo.message];
             @try {
                 if ([messageInfo.message valueForKey:@"___class"]) {
-                    if (![[messageInfo.message valueForKey:@"__class"] isEqualToString:classTypeName]) {
+                    if (![[messageInfo.message valueForKey:@"___class"] isEqualToString:classTypeName]) {
                         errorBlock([self generateFault:classTypeName]);
                     }
                     else {

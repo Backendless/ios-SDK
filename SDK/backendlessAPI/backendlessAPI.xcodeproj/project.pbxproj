@@ -1619,7 +1619,7 @@
 		5A06BDA020D118CD00E0315F /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9A91FC4786900B192D9 /* Channel.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A06BDA120D118CD00E0315F /* PublishMessageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9A71FC4786800B192D9 /* PublishMessageInfo.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A06BDA220D118CD00E0315F /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5A06BDA320D118CD00E0315F /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; };
+		5A06BDA320D118CD00E0315F /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A06BDA420D118CD00E0315F /* DeviceRegistration.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C068161AB80C00409FF2 /* DeviceRegistration.m */; };
 		5A06BDA520D118CD00E0315F /* DeliveryOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C05C161AB72100409FF2 /* DeliveryOptions.m */; };
 		5A06BDA620D118CD00E0315F /* PublishOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C060161AB7AC00409FF2 /* PublishOptions.m */; };
@@ -2214,15 +2214,15 @@
 		5AF2605A1FD6B06F00306C3C /* BulkEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF260511FD6B06F00306C3C /* BulkEvent.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5AF2605B1FD6B06F00306C3C /* BulkEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF260511FD6B06F00306C3C /* BulkEvent.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5AF2B7281EB2136300D54442 /* MessagingService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AFFBF7A1EB211EC0099A72F /* MessagingService.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5AF2B7291EB2137200D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; };
-		5AF2B72A1EB2137A00D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; };
+		5AF2B7291EB2137200D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5AF2B72A1EB2137A00D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5AF2B72B1EB2138500D54442 /* MessagingService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AFFBF7A1EB211EC0099A72F /* MessagingService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AF2B72C1EB2138F00D54442 /* MessagingService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AFFBF7A1EB211EC0099A72F /* MessagingService.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5AF2B72D1EB213A400D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; };
-		5AF2B72E1EB213AC00D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; };
+		5AF2B72D1EB213A400D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5AF2B72E1EB213AC00D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5AF2B72F1EB213B300D54442 /* MessagingService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AFFBF7A1EB211EC0099A72F /* MessagingService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AF2B7301EB213BD00D54442 /* MessagingService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AFFBF7A1EB211EC0099A72F /* MessagingService.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5AF2B7311EB213C600D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; };
+		5AF2B7311EB213C600D54442 /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5AF7F0E220CFC40F0014880E /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5AF7F0E320CFC40F0014880E /* PublishMessageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9A71FC4786800B192D9 /* PublishMessageInfo.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5AF7F0E420CFC40F0014880E /* SharedObjectService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A549833200794D20042234F /* SharedObjectService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -2240,7 +2240,7 @@
 		5AF7F0F020CFC40F0014880E /* RTListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F384F1FB317EB002F21D4 /* RTListener.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5AF7F0F120CFC40F0014880E /* CommandObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9AD1FC4788700B192D9 /* CommandObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5AF7F0F220CFC40F0014880E /* RTMessaging.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F38501FB317EB002F21D4 /* RTMessaging.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5AF7F0F320CFC40F0014880E /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; };
+		5AF7F0F320CFC40F0014880E /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5AF7F0F420CFC40F0014880E /* MapDrivenDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F99A74961D4A0CAB001AF91F /* MapDrivenDataStore.m */; };
 		5AF7F0F520CFC40F0014880E /* EventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A15811FA0D3C3009A1394 /* EventHandler.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5AF7F0F620CFC40F0014880E /* PendingCall.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC74D1E798C5C0087869F /* PendingCall.m */; };
@@ -2899,7 +2899,7 @@
 		5E5166D420D2EC80001A058B /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9A91FC4786900B192D9 /* Channel.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5E5166D520D2EC80001A058B /* PublishMessageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9A71FC4786800B192D9 /* PublishMessageInfo.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5E5166D620D2EC80001A058B /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5E5166D720D2EC80001A058B /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; };
+		5E5166D720D2EC80001A058B /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5E5166D820D2EC80001A058B /* DeviceRegistration.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C068161AB80C00409FF2 /* DeviceRegistration.m */; };
 		5E5166D920D2EC80001A058B /* DeliveryOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C05C161AB72100409FF2 /* DeliveryOptions.m */; };
 		5E5166DA20D2EC80001A058B /* PublishOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C060161AB7AC00409FF2 /* PublishOptions.m */; };
@@ -3237,7 +3237,7 @@
 		5EFEB2DC20D2F5B0001AECDE /* RTListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F384F1FB317EB002F21D4 /* RTListener.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5EFEB2DD20D2F5B0001AECDE /* CommandObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9AD1FC4788700B192D9 /* CommandObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5EFEB2DE20D2F5B0001AECDE /* RTMessaging.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F38501FB317EB002F21D4 /* RTMessaging.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5EFEB2DF20D2F5B0001AECDE /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; };
+		5EFEB2DF20D2F5B0001AECDE /* MessagingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFBF7B1EB211EC0099A72F /* MessagingService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5EFEB2E020D2F5B0001AECDE /* MapDrivenDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F99A74961D4A0CAB001AF91F /* MapDrivenDataStore.m */; };
 		5EFEB2E120D2F5B0001AECDE /* EventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A15811FA0D3C3009A1394 /* EventHandler.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5EFEB2E220D2F5B0001AECDE /* PendingCall.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC74D1E798C5C0087869F /* PendingCall.m */; };

@@ -85,7 +85,7 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
     NSString *UUID = data?[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]:nil;
     if (!UUID) {
         CFUUIDRef uuid = CFUUIDCreate(NULL);
-        UUID = (NSString *)CFUUIDCreateString(NULL, uuid);
+        UUID = (NSString *)CFBridgingRelease(CFUUIDCreateString(NULL, uuid));
         CFRelease(uuid);
         [keychainStore save:bundleId data:[UUID dataUsingEncoding:NSUTF8StringEncoding]];
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -104,7 +104,7 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
     }
     NSString *serialNumberAsNSString = nil;
     if (serialNumberAsCFString) {
-        serialNumberAsNSString = [NSString stringWithString:(NSString *)serialNumberAsCFString];
+        serialNumberAsNSString = [NSString stringWithString:(__bridge NSString *)serialNumberAsCFString];
         CFRelease(serialNumberAsCFString);
     }
     return serialNumberAsNSString;
@@ -138,13 +138,6 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
         [DebLog log:@"MessagingService -> init: deviceToken = %@, deviceId = %@, os = %@, osVersion = %@", deviceRegistration.deviceToken, deviceRegistration.deviceId, deviceRegistration.os, deviceRegistration.osVersion];
     }
     return self;
-}
-
--(void)dealloc {
-    [DebLog logN:@"DEALLOC MessagingService"];
-    [deviceRegistration release];
-    [self.subscriptions release];
-    [super dealloc];
 }
 
 // utilites
@@ -371,7 +364,18 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
 }
 
 -(void)unregisterDevice:(NSString *)deviceId response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock {
-    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:[voidResponseWrapper wrapResponseBlock:responseBlock] error:errorBlock];
+    
+    void(^wrappedBoolBlock)(BOOL) = ^(BOOL result) {
+        if (responseBlock) {
+            responseBlock();
+        }
+    };
+    
+    void(^wrappedBlock)(NSNumber *) = ^(NSNumber *result) {
+        wrappedBoolBlock([result boolValue]);
+    };
+    
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:wrappedBlock error:errorBlock];
     if (!deviceId)
         return [responder errorHandler:FAULT_NO_DEVICE_ID];
     NSArray *args = [NSArray arrayWithObjects:deviceId, nil];
