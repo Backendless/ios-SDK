@@ -1,5 +1,10 @@
 # RELEASE HISTORY
 
+## 5.0.5 June 28, 2018
+* MessagingService class is now ARC-based
+* Async unregisterDevice method fixed
+* wrapResponseBlockToCustomObject method fixed
+
 ## 5.0.4 June 14, 2018
 * tvOS support added
 * watchOS support added
