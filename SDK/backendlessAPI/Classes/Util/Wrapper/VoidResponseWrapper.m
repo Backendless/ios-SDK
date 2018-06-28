@@ -34,7 +34,9 @@
 
 -(void(^)(id))wrapResponseBlock:(void(^)(void))responseBlock {
     void(^wrappedBlock)(id) = ^(id result) {
-        responseBlock();
+        if (responseBlock) {
+            responseBlock();
+        }        
     };
     return wrappedBlock;
 }

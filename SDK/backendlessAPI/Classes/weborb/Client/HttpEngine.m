@@ -290,8 +290,7 @@
 }
 
 -(void)sendURLRequest:(NSURLRequest *)request responder:(id <IResponder>)responder repeated:(BOOL)repeated {
-    NSURLSession *session = [NSURLSession sharedSession];
-    
+    NSURLSession *session = [NSURLSession sharedSession];    
     [[session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         [self setNetworkActivityIndicatorOn:YES];
         [DebLog logN:@"HttpEngine -> sendRequest: (SUCSESS) the connection with url: '%@' is created", gatewayUrl];
