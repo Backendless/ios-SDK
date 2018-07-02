@@ -4565,7 +4565,11 @@
 		0F9AC8101E798C5C0087869F /* V3ObjectSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = V3ObjectSerializer.m; sourceTree = "<group>"; };
 		0F9AC8111E798C5C0087869F /* V3ReferenceCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = V3ReferenceCache.h; sourceTree = "<group>"; };
 		0F9AC8121E798C5C0087869F /* V3ReferenceCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = V3ReferenceCache.m; sourceTree = "<group>"; };
+		18F3403BE904779CE4AEF61C /* Pods-backendless-tv-device.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-tv-device.release.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-tv-device/Pods-backendless-tv-device.release.xcconfig"; sourceTree = "<group>"; };
+		191AC31DE12AFBD278AA8A06 /* Pods-bkndlss-simulator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bkndlss-simulator.release.xcconfig"; path = "../Pods/Target Support Files/Pods-bkndlss-simulator/Pods-bkndlss-simulator.release.xcconfig"; sourceTree = "<group>"; };
+		1C28C23B054811B30C02B9F4 /* Pods-bkndlss-device.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bkndlss-device.release.xcconfig"; path = "../Pods/Target Support Files/Pods-bkndlss-device/Pods-bkndlss-device.release.xcconfig"; sourceTree = "<group>"; };
 		1C7BB5101A2E092900D3C2C1 /* libbackendless-mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libbackendless-mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E8815485774D2B5EA3DE643 /* Pods-backendless-device.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-device.release.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-device/Pods-backendless-device.release.xcconfig"; sourceTree = "<group>"; };
 		30524CA474D6C83EAECC4A43 /* Pods_backendless_watch_simulator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_backendless_watch_simulator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C420AFFDDE785F52C642CD9 /* Pods_backendless_tv_device.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_backendless_tv_device.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		55481B11D74EDF12742B5B35 /* Pods_bkndlss_device.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bkndlss_device.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -4651,11 +4655,16 @@
 		5EEF294E202DA40C00449F43 /* DeviceRegistrationAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceRegistrationAdapter.m; sourceTree = "<group>"; };
 		5EFEB4AC20D2F5B0001AECDE /* libbackendless-tv-device.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libbackendless-tv-device.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BF648AF04AFDE7880E7F970 /* Pods_bkndlss_simulator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bkndlss_simulator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D76BC741AEE76780D2DDFFC /* Pods-backendless-tv-device.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-tv-device.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-tv-device/Pods-backendless-tv-device.debug.xcconfig"; sourceTree = "<group>"; };
+		6E24CCC4F310495781AA6E7B /* Pods-backendless-tv-simulator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-tv-simulator.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-tv-simulator/Pods-backendless-tv-simulator.debug.xcconfig"; sourceTree = "<group>"; };
 		70074C7B0E930E580F3CE836 /* Pods_backendless_tv_simulator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_backendless_tv_simulator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84B027E41DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadRelationsQueryBuilder.h; sourceTree = "<group>"; };
 		84B027E51DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadRelationsQueryBuilder.m; sourceTree = "<group>"; };
+		8B8A6DCD2BD14AB1A84E2E90 /* Pods-backendless-simulator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-simulator.release.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-simulator/Pods-backendless-simulator.release.xcconfig"; sourceTree = "<group>"; };
+		8EE677B7BF05D18AA7201ADB /* Pods-backendless-device.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-device.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-device/Pods-backendless-device.debug.xcconfig"; sourceTree = "<group>"; };
 		910117D2180C0CCF008102A7 /* BodyParts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BodyParts.h; sourceTree = "<group>"; };
 		910117D3180C0CCF008102A7 /* BodyParts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BodyParts.m; sourceTree = "<group>"; };
+		91064048E63C3CE89B496C2F /* Pods-backendless-watch-simulator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-watch-simulator.release.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-watch-simulator/Pods-backendless-watch-simulator.release.xcconfig"; sourceTree = "<group>"; };
 		91223DC8195AF6AB00F72F48 /* Events.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Events.h; sourceTree = "<group>"; };
 		91223DC9195AF6AB00F72F48 /* Events.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Events.m; sourceTree = "<group>"; };
 		91F1398A17D7240A00D1AC4C /* AbstractQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractQuery.h; sourceTree = "<group>"; };
@@ -4671,7 +4680,14 @@
 		91F1399417D7240A00D1AC4C /* BackendlessCacheProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackendlessCacheProtocol.h; sourceTree = "<group>"; };
 		91F139B017D724C600D1AC4C /* QueryOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryOptions.h; sourceTree = "<group>"; };
 		91F139B117D724C600D1AC4C /* QueryOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryOptions.m; sourceTree = "<group>"; };
+		97F6D54B6C1F8E3D21578A1D /* Pods-backendless-watch-device.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-watch-device.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-watch-device/Pods-backendless-watch-device.debug.xcconfig"; sourceTree = "<group>"; };
+		9D4D356C644E564922C0B728 /* Pods-backendless-watch-simulator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-watch-simulator.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-watch-simulator/Pods-backendless-watch-simulator.debug.xcconfig"; sourceTree = "<group>"; };
+		A5501DC1D06FDB9245DB80C4 /* Pods-bkndlss-simulator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bkndlss-simulator.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-bkndlss-simulator/Pods-bkndlss-simulator.debug.xcconfig"; sourceTree = "<group>"; };
 		A850803560F6A59C7C6A08CA /* Pods_backendless_mac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_backendless_mac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B299E909F8B400A4DDEA220D /* Pods-backendless-mac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-mac.release.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-mac/Pods-backendless-mac.release.xcconfig"; sourceTree = "<group>"; };
+		B6477652F3CD21C08D84505B /* Pods-bkndlss-device.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bkndlss-device.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-bkndlss-device/Pods-bkndlss-device.debug.xcconfig"; sourceTree = "<group>"; };
+		BA9D0BAC6393A0FA3DD95D84 /* Pods-backendless-mac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-mac.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-mac/Pods-backendless-mac.debug.xcconfig"; sourceTree = "<group>"; };
+		D0A299E230CA275F9AF1C1E6 /* Pods-backendless-simulator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-simulator.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-simulator/Pods-backendless-simulator.debug.xcconfig"; sourceTree = "<group>"; };
 		D30A5D7319B9CA8200C0BA44 /* Backendless-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Backendless-Bridging-Header.h"; sourceTree = "<group>"; };
 		D30A5D7819B9D03100C0BA44 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
 		D30FC9AF1AE132C2007C9A83 /* LogBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogBuffer.h; sourceTree = "<group>"; };
@@ -4714,6 +4730,8 @@
 		D3FB9B7219867F0E00A13FB6 /* AtomicCountersFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtomicCountersFactory.h; sourceTree = "<group>"; };
 		D3FB9B7319867F0E00A13FB6 /* AtomicCountersFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtomicCountersFactory.m; sourceTree = "<group>"; };
 		D3FB9B7A1986818F00A13FB6 /* IAtomicCounters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAtomicCounters.h; sourceTree = "<group>"; };
+		D7B5DCF506F344AE45A74D19 /* Pods-backendless-watch-device.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-watch-device.release.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-watch-device/Pods-backendless-watch-device.release.xcconfig"; sourceTree = "<group>"; };
+		E5C03E1CBF2060DE6AF4CEE1 /* Pods-backendless-tv-simulator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-tv-simulator.release.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-tv-simulator/Pods-backendless-tv-simulator.release.xcconfig"; sourceTree = "<group>"; };
 		ECCE5AE0B0100500046F52C9 /* Pods_backendless_tv.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_backendless_tv.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F918412C1638281600D36A61 /* FileService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileService.h; sourceTree = "<group>"; };
 		F918412D1638281600D36A61 /* FileService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileService.m; sourceTree = "<group>"; };
@@ -5553,6 +5571,31 @@
 			path = Cache;
 			sourceTree = "<group>";
 		};
+		C055B7AE50DE7C5BE3072391 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8EE677B7BF05D18AA7201ADB /* Pods-backendless-device.debug.xcconfig */,
+				2E8815485774D2B5EA3DE643 /* Pods-backendless-device.release.xcconfig */,
+				BA9D0BAC6393A0FA3DD95D84 /* Pods-backendless-mac.debug.xcconfig */,
+				B299E909F8B400A4DDEA220D /* Pods-backendless-mac.release.xcconfig */,
+				D0A299E230CA275F9AF1C1E6 /* Pods-backendless-simulator.debug.xcconfig */,
+				8B8A6DCD2BD14AB1A84E2E90 /* Pods-backendless-simulator.release.xcconfig */,
+				6D76BC741AEE76780D2DDFFC /* Pods-backendless-tv-device.debug.xcconfig */,
+				18F3403BE904779CE4AEF61C /* Pods-backendless-tv-device.release.xcconfig */,
+				6E24CCC4F310495781AA6E7B /* Pods-backendless-tv-simulator.debug.xcconfig */,
+				E5C03E1CBF2060DE6AF4CEE1 /* Pods-backendless-tv-simulator.release.xcconfig */,
+				97F6D54B6C1F8E3D21578A1D /* Pods-backendless-watch-device.debug.xcconfig */,
+				D7B5DCF506F344AE45A74D19 /* Pods-backendless-watch-device.release.xcconfig */,
+				9D4D356C644E564922C0B728 /* Pods-backendless-watch-simulator.debug.xcconfig */,
+				91064048E63C3CE89B496C2F /* Pods-backendless-watch-simulator.release.xcconfig */,
+				B6477652F3CD21C08D84505B /* Pods-bkndlss-device.debug.xcconfig */,
+				1C28C23B054811B30C02B9F4 /* Pods-bkndlss-device.release.xcconfig */,
+				A5501DC1D06FDB9245DB80C4 /* Pods-bkndlss-simulator.debug.xcconfig */,
+				191AC31DE12AFBD278AA8A06 /* Pods-bkndlss-simulator.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		D35DC3361AD6CD7200EF2A68 /* Logging */ = {
 			isa = PBXGroup;
 			children = (
@@ -5621,6 +5664,7 @@
 				5A06BCE020D1109F00E0315F /* backendless-watch */,
 				F9042B0615FDD8D300C9381A /* Frameworks */,
 				F9042B0415FDD8D300C9381A /* Products */,
+				C055B7AE50DE7C5BE3072391 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -10881,6 +10925,7 @@
 /* Begin XCBuildConfiguration section */
 		1C7BB50E1A2E092900D3C2C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BA9D0BAC6393A0FA3DD95D84 /* Pods-backendless-mac.debug.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -10909,6 +10954,7 @@
 		};
 		1C7BB50F1A2E092900D3C2C1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B299E909F8B400A4DDEA220D /* Pods-backendless-mac.release.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -10937,6 +10983,7 @@
 		};
 		5A06BCE520D1109F00E0315F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9D4D356C644E564922C0B728 /* Pods-backendless-watch-simulator.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -10974,6 +11021,7 @@
 		};
 		5A06BCE620D1109F00E0315F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 91064048E63C3CE89B496C2F /* Pods-backendless-watch-simulator.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -11011,6 +11059,7 @@
 		};
 		5AF7F2BC20CFC40F0014880E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6E24CCC4F310495781AA6E7B /* Pods-backendless-tv-simulator.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -11049,6 +11098,7 @@
 		};
 		5AF7F2BD20CFC40F0014880E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E5C03E1CBF2060DE6AF4CEE1 /* Pods-backendless-tv-simulator.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -11087,6 +11137,7 @@
 		};
 		5E5167FB20D2EC80001A058B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 97F6D54B6C1F8E3D21578A1D /* Pods-backendless-watch-device.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -11124,6 +11175,7 @@
 		};
 		5E5167FC20D2EC80001A058B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D7B5DCF506F344AE45A74D19 /* Pods-backendless-watch-device.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -11161,6 +11213,7 @@
 		};
 		5EFEB4AA20D2F5B0001AECDE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6D76BC741AEE76780D2DDFFC /* Pods-backendless-tv-device.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -11199,6 +11252,7 @@
 		};
 		5EFEB4AB20D2F5B0001AECDE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 18F3403BE904779CE4AEF61C /* Pods-backendless-tv-device.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -11332,6 +11386,7 @@
 		};
 		F97969E5166CC8C300595F5E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D0A299E230CA275F9AF1C1E6 /* Pods-backendless-simulator.debug.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -11361,6 +11416,7 @@
 		};
 		F97969E6166CC8C300595F5E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8B8A6DCD2BD14AB1A84E2E90 /* Pods-backendless-simulator.release.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -11390,6 +11446,7 @@
 		};
 		F9796A32166CD3A400595F5E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8EE677B7BF05D18AA7201ADB /* Pods-backendless-device.debug.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -11417,6 +11474,7 @@
 		};
 		F9796A33166CD3A400595F5E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2E8815485774D2B5EA3DE643 /* Pods-backendless-device.release.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -11469,6 +11527,7 @@
 		};
 		F9F0AF371CDBCA3900035C62 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A5501DC1D06FDB9245DB80C4 /* Pods-bkndlss-simulator.debug.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -11503,6 +11562,7 @@
 		};
 		F9F0AF381CDBCA3900035C62 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 191AC31DE12AFBD278AA8A06 /* Pods-bkndlss-simulator.release.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -11537,6 +11597,7 @@
 		};
 		F9F0AFF11CDBCAB500035C62 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B6477652F3CD21C08D84505B /* Pods-bkndlss-device.debug.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -11564,6 +11625,7 @@
 		};
 		F9F0AFF21CDBCAB500035C62 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1C28C23B054811B30C02B9F4 /* Pods-bkndlss-device.release.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
