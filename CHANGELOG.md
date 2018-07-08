@@ -1,5 +1,8 @@
 # RELEASE HISTORY
 
+## 5.1.0 July 8, 2018
+* Issue when response returned in background thread instead of thread which it has been invoked fixed
+
 ## 5.0.6 July 2, 2018
 * JSONHelper class fixed to proceed NSNull values correctly
 
