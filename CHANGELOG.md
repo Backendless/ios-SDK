@@ -1,9 +1,15 @@
 # RELEASE HISTORY
 
-## 5.0.4 June 15, 2018
-* tvOS support added
-* watchOS support added
-* The Logout method fixed
+## 5.1.0 July 8, 2018
+* Issue when response returned in background thread instead of thread which it has been invoked fixed
+
+## 5.0.6 July 2, 2018
+* JSONHelper class fixed to proceed NSNull values correctly
+
+## 5.0.5 June 28, 2018
+* MessagingService class is now ARC-based
+* Async unregisterDevice method fixed
+* wrapResponseBlockToCustomObject method fixed
 
 ## 5.0.3 June 11, 2018
 * Some deprecated NSURLConnection methods fixed. No API changes
@@ -12,11 +18,11 @@
 * Socket.IO updated to v13.2.1
 
 ## 5.0.1 June 7, 2018
-* pod 'Backendless' command is used for all platforms.
+* pod 'Backendless' command is used for all platforms
 
 ## 5.0 June 6, 2018
 * RT support added
-* API changes. Please check the documentation.
+* API changes. Please check the documentation
 
 ## 4.5.0 April 4, 2018
 * Bulk create method now returns array of objectIds

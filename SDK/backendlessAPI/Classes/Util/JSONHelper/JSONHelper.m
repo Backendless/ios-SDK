@@ -47,7 +47,9 @@
     [self prepareClass:[object class]];
     for (NSString *fieldName in dictionary) {
         if (![fieldName isEqualToString:@"___jsonclass"] && ![fieldName isEqualToString:@"__meta"] && ![fieldName isEqualToString:@"___class"] && [[self propertiesNamesOf:[object class]] containsObject:fieldName]) {
-            [object setValue:[dictionary objectForKey:fieldName] forKey:fieldName];
+            if (![[dictionary objectForKey:fieldName] isKindOfClass:[NSNull class]]) {
+                [object setValue:[dictionary objectForKey:fieldName] forKey:fieldName];
+            }
         }
     }
     return object;

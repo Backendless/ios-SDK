@@ -376,7 +376,18 @@ static NSString *METHOD_PUSH_WITH_TEMPLATE = @"pushWithTemplate";
 }
 
 -(void)unregisterDevice:(NSString *)deviceId response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock {
-    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:[voidResponseWrapper wrapResponseBlock:responseBlock] error:errorBlock];
+    
+    void(^wrappedBoolBlock)(BOOL) = ^(BOOL result) {
+        if (responseBlock) {
+            responseBlock();
+        }
+    };
+    
+    void(^wrappedBlock)(NSNumber *) = ^(NSNumber *result) {
+        wrappedBoolBlock([result boolValue]);
+    };
+    
+    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:wrappedBlock error:errorBlock];
     if (!deviceId)
         return [responder errorHandler:FAULT_NO_DEVICE_ID];
     NSArray *args = [NSArray arrayWithObjects:deviceId, nil];
