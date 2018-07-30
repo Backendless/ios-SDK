@@ -288,7 +288,8 @@
             onResultReady = YES;
             NSDictionary *resultData = data.firstObject;
             NSString *subscriptionId = [resultData valueForKey:@"id"];
-            RTSubscription *subscription = [subscriptions valueForKey:subscriptionId];                        
+            RTSubscription *subscription = [subscriptions valueForKey:subscriptionId];
+            
             if ([resultData valueForKey:@"data"]) {
                 id result = [resultData valueForKey:@"data"];
                 subscription.ready = YES;
@@ -304,6 +305,11 @@
                     }
                 }
                 else if ([result isKindOfClass:[NSNumber class]]) {
+                    if (subscription && subscription.onResult) {
+                        subscription.onResult(result);
+                    }
+                }
+                else if ([result isKindOfClass:[NSArray class]]) {
                     if (subscription && subscription.onResult) {
                         subscription.onResult(result);
                     }
