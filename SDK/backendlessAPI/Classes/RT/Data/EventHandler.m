@@ -108,25 +108,13 @@
     [super stopSubscription:DELETED whereClause:nil];
 }
 
-// ***********************************
-
--(void)addBulkCreateListener:(void (^)(NSArray<NSString *> *))responseBlock error:(void (^)(Fault *))errorBlock {
+-(void)addBulkCreateListener:(void(^)(NSArray<NSString *> *))responseBlock error:(void (^)(Fault *))errorBlock {
     [self subscribeForObjectChanges:BULK_CREATED tableName:table whereClause:nil response:responseBlock error:errorBlock];
-}
-
--(void)addBulkCreateListener:(NSString *)whereClause response:(void(^)(NSArray<NSString *> *))responseBlock error:(void (^)(Fault *))errorBlock {
-    [self subscribeForObjectChanges:BULK_CREATED tableName:table whereClause:whereClause response:responseBlock error:errorBlock];
-}
-
--(void)removeBulkCreateListeners:(NSString *)whereClause {
-    [super stopSubscription:BULK_CREATED whereClause:whereClause];
 }
 
 -(void)removeBulkCreateListeners {
     [super stopSubscription:BULK_CREATED whereClause:nil];
 }
-
-// ***********************************
 
 -(void)addBulkUpdateListener:(void(^)(BulkEvent *))responseBlock error:(void (^)(Fault *))errorBlock {
     [self subscribeForObjectChanges:BULK_UPDATED tableName:table whereClause:nil response:responseBlock error:errorBlock];

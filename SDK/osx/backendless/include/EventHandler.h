@@ -51,8 +51,6 @@ typedef enum {
 -(void)removeDeleteListeners;
 
 -(void)addBulkCreateListener:(void(^)(NSArray<NSString *> *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)addBulkCreateListener:(NSString *)whereClause response:(void(^)(NSArray<NSString *> *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)removeBulkCreateListeners:(NSString *)whereClause;
 -(void)removeBulkCreateListeners;
 
 -(void)addBulkUpdateListener:(void(^)(BulkEvent *))responseBlock error:(void(^)(Fault *))errorBlock;

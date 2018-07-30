@@ -286,7 +286,7 @@
     if (!onResultReady) {
         [socket on:@"SUB_RES" callback:^(NSArray *data, SocketAckEmitter *ack) {
             onResultReady = YES;
-            NSDictionary *resultData = data.firstObject;
+            NSDictionary *resultData = data.firstObject;            
             NSString *subscriptionId = [resultData valueForKey:@"id"];
             RTSubscription *subscription = [subscriptions valueForKey:subscriptionId];
             
