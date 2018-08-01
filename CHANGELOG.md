@@ -1,5 +1,8 @@
 # RELEASE HISTORY
 
+## 5.1.1 August 1, 2018
+* The bulk create listener methods added in RT
+
 ## 5.1.0 July 8, 2018
 * Issue when response returned in background thread instead of thread which it has been invoked fixed
 
