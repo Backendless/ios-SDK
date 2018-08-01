@@ -96,10 +96,11 @@
     UNMutableNotificationContent *content = [UNMutableNotificationContent new];
     content.body = [[[request.content.userInfo valueForKey:@"aps"] valueForKey:@"alert"] valueForKey:@"body"];
     content.title = request.content.title;
-    content.subtitle = request.content.subtitle;    
+    content.subtitle = request.content.subtitle;
+    
     NSArray *actionsArray = [[iosPushTemplate valueForKey:@"buttonTemplate"] valueForKey:@"actions"];
     content.categoryIdentifier = [self setActions:actionsArray];
-
+    
     if ([iosPushTemplate valueForKey:@"sound"]) {
         content.sound = [UNNotificationSound soundNamed:[iosPushTemplate valueForKey:@"sound"]];
     }
@@ -118,6 +119,7 @@
         NSDictionary *userInfo = @{@"attachment-url" : urlString};
         content.userInfo = userInfo;
     }
+    
     UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:1 repeats:NO];
     return [UNNotificationRequest requestWithIdentifier:@"request" content:content trigger:trigger];
 }
