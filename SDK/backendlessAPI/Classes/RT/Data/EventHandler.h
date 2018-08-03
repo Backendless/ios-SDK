@@ -50,6 +50,9 @@ typedef enum {
 -(void)removeDeleteListeners:(NSString *)whereClause;
 -(void)removeDeleteListeners;
 
+-(void)addBulkCreateListener:(void(^)(NSArray<NSString *> *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)removeBulkCreateListeners;
+
 -(void)addBulkUpdateListener:(void(^)(BulkEvent *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)addBulkUpdateListener:(NSString *)whereClause response:(void(^)(BulkEvent *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)removeBulkUpdateListeners:(NSString *)whereClause;
