@@ -95,10 +95,20 @@
 -(UNNotificationRequest *)createRequestFromTemplate:(NSDictionary *)iosPushTemplate request:(UNNotificationRequest *)request {
     UNMutableNotificationContent *content = [UNMutableNotificationContent new];
     content.body = [[[request.content.userInfo valueForKey:@"aps"] valueForKey:@"alert"] valueForKey:@"body"];
-    content.title = request.content.title;
-    content.subtitle = request.content.subtitle;
+    if (request.content.title) {
+        content.title = request.content.title;
+    }
+    else {
+        content.title = [iosPushTemplate valueForKey:@"alertTitle"];
+    }
+    if (request.content.subtitle) {
+       content.subtitle = request.content.subtitle;
+    }
+    else {
+        content.subtitle = [iosPushTemplate valueForKey:@"alertSubtitle"];
+    }
     
-    NSArray *actionsArray = [[iosPushTemplate valueForKey:@"buttonTemplate"] valueForKey:@"actions"];
+    NSArray *actionsArray = [iosPushTemplate valueForKey:@"actions"];
     content.categoryIdentifier = [self setActions:actionsArray];
     
     if ([iosPushTemplate valueForKey:@"sound"]) {
