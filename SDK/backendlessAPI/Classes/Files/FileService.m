@@ -124,9 +124,16 @@ static NSString *METHOD_COUNT = @"count";
 }
 
 -(NSNumber *)removeDirectory:(NSString *)path {
+    return [self removeDirectory:path pattern:@"*" recursive:true];
+}
+
+-(NSNumber *)removeDirectory:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive {
     if (!path || !path.length)
         return [backendless throwFault:FAULT_NO_DIRECTORY_PATH];
-    NSArray *args = [NSArray arrayWithObjects:path, nil];
+    if (!pattern) {
+        pattern = @"*";
+    }
+    NSArray *args = [NSArray arrayWithObjects:path, pattern, recursive, nil];
     id result = [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_DELETE args:args];
     if ([result isKindOfClass:[Fault class]]) {
         return [backendless throwFault:result];
@@ -289,10 +296,17 @@ static NSString *METHOD_COUNT = @"count";
 }
 
 -(void)removeDirectory:(NSString *)path response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self removeDirectory:path pattern:@"*" recursive:true response:responseBlock error:errorBlock];
+}
+
+- (void)removeDirectory:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock {
     id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!path || !path.length)
         return [responder errorHandler:FAULT_NO_DIRECTORY_PATH];
-    NSArray *args = [NSArray arrayWithObjects:path, nil];
+    if (!pattern) {
+        pattern = @"*";
+    }
+    NSArray *args = [NSArray arrayWithObjects:path, pattern, recursive, nil];
     [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_DELETE args:args responder:responder];
 }
 
