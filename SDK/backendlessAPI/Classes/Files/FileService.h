@@ -29,7 +29,7 @@
 
 // sync methods with fault return (as exception)
 -(NSNumber *)remove:(NSString *)fileURL;
--(NSNumber *)removeDirectory:(NSString *)path;
+-(void)removeDirectory:(NSString *)path;
 -(NSNumber *)removeDirectory:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive;
 -(BackendlessFile *)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content DEPRECATED_MSG_ATTRIBUTE("This method is deprecated, it will be removed in a future release. Please use the uploadFile method instead");
 -(BackendlessFile *)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content overwriteIfExist:(BOOL)overwrite DEPRECATED_MSG_ATTRIBUTE("This method is deprecated, it will be removed in a future release. Please use the uploadFile method instead");
@@ -50,7 +50,7 @@
 
 // async methods with block-based callbacks
 -(void)remove:(NSString *)fileURL response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)removeDirectory:(NSString *)path response:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)removeDirectory:(NSString *)path response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)removeDirectory:(NSString *)path pattern:(NSString *)pattern recursive:(BOOL)recursive response:(void (^)(NSNumber *))responseBlock error:(void (^)(Fault *))errorBlock;
 -(void)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock DEPRECATED_MSG_ATTRIBUTE("This method is deprecated, it will be removed in a future release. Please use the uploadFile method instead");
 -(void)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content overwriteIfExist:(BOOL)overwrite response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock DEPRECATED_MSG_ATTRIBUTE("This method is deprecated, it will be removed in a future release. Please use the uploadFile method instead");
