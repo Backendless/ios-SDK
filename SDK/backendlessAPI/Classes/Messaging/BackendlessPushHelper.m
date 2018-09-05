@@ -39,15 +39,15 @@
 
 #if (TARGET_OS_IOS || TARGET_OS_SIMULATOR) && !TARGET_OS_TV && ! TARGET_OS_WATCH
 -(void)processMutableContent:(UNNotificationRequest *_Nonnull)request withContentHandler:(void(^_Nonnull)(UNNotificationContent *_Nonnull))contentHandler NS_AVAILABLE_IOS(10_0) {
-
+    
     if ([request.content.userInfo valueForKey:@"ios_immediate_push"]) {
         request = [self prepareRequestWithIosImmediatePush:request];
     }
-
+    
     if ([request.content.userInfo valueForKey:@"template_name"]) {
         request = [self prepareRequestWithTemplate:request];
     }
-
+    
     UNMutableNotificationContent *bestAttemptContent = [request.content mutableCopy];
     if ([request.content.userInfo valueForKey:@"attachment-url"]) {
         NSString *urlString = [request.content.userInfo valueForKey:@"attachment-url"];
@@ -96,11 +96,11 @@
     UNMutableNotificationContent *content = [UNMutableNotificationContent new];
     NSMutableDictionary *userInfo = [NSMutableDictionary new];
     
-    // check if silent push
-    // ???????
-    if ((NSNumber *)[iosPushTemplate valueForKey:@"contentAvailable"] == @1) {
-        [userInfo setObject:@{@"content-available" : @1} forKey:@"aps"];
-        content.userInfo = userInfo;
+    // check if silent
+    NSNumber *contentAvailable = [iosPushTemplate valueForKey:@"contentAvailable"];
+    NSInteger contentAvailableInt = [contentAvailable integerValue];
+    if (contentAvailableInt == 1) {
+
     }
     else {
         content.body = [[[request.content.userInfo valueForKey:@"aps"] valueForKey:@"alert"] valueForKey:@"body"];
@@ -127,7 +127,7 @@
             content.badge = badge;
         }
         else {
-            content.badge = request.content.badge ;
+            content.badge = request.content.badge;
         }
         if ([iosPushTemplate valueForKey:@"attachmentUrl"]) {
             NSString *urlString = [iosPushTemplate valueForKey:@"attachmentUrl"];
@@ -143,14 +143,14 @@
             [userInfo setObject:[customHeaders valueForKey:headerKey] forKey:headerKey];
         }
         content.userInfo = userInfo;
-    }    
-    UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:1 repeats:NO];
+    }
+    UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:0.1 repeats:NO];
     return [UNNotificationRequest requestWithIdentifier:@"request" content:content trigger:trigger];
 }
 
 -(NSString *)setActions:(NSArray *)actions {
     NSMutableArray *categoryActions = [NSMutableArray new];
-
+    
     for (NSDictionary *action in actions) {
         NSString *actionId = [action valueForKey:@"id"];
         NSString *actionTitle = [action valueForKey:@"title"];
