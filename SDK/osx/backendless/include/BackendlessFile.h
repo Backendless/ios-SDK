@@ -28,7 +28,7 @@
 @property (strong, nonatomic) NSString *fileURL;
 
 +(id)file:(NSString *)url;
--(void)remove;
--(void)remove:(void(^)(void))responseBlock error:(void(^)(id))errorBlock;
+-(NSNumber *)remove;
+-(void)remove:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock;
 
 @end

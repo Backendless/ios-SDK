@@ -48,11 +48,11 @@
     return [[[BackendlessFile alloc] initWithUrl:url] autorelease];
 }
 
--(void)remove {
-    [backendless.fileService remove:_fileURL];
+-(NSNumber *)remove {
+    return [backendless.fileService remove:_fileURL];
 }
 
--(void)remove:(void(^)(void))responseBlock error:(void(^)(id))errorBlock {
+-(void)remove:(void(^)(NSNumber *))responseBlock error:(void(^)(Fault *))errorBlock {
     [backendless.fileService remove:_fileURL response:responseBlock error:errorBlock];
 }
 
