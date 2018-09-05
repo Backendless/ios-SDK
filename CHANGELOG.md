@@ -1,5 +1,8 @@
 # RELEASE HISTORY
 
+## 5.1.2 September 5, 2018
+* Socket.IO updated to v13.3.0
+
 ## 5.1.1 August 1, 2018
 * The bulk create listener methods added in RT
 
