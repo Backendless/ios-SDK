@@ -169,7 +169,7 @@
         [super addSubscription:OBJECTS_CHANGES options:options onResult:responseBlock onError:errorBlock handleResultSelector:@selector(handleData:) fromClass:self];
     }
     else if ([event isEqualToString:BULK_CREATED]) {
-        [super addSubscription:OBJECTS_CHANGES options:options onResult:responseBlock onError:errorBlock handleResultSelector:@selector(handleStringArray:) fromClass:self];
+        [super addSubscription:OBJECTS_CHANGES options:options onResult:responseBlock onError:errorBlock handleResultSelector:nil fromClass:self];
     }
     else if ([event isEqualToString:BULK_UPDATED]) {
         [super addSubscription:OBJECTS_CHANGES options:options onResult:responseBlock onError:errorBlock handleResultSelector:@selector(handleBulkEvent:) fromClass:self];
@@ -189,15 +189,6 @@
         result = [jsonHelper dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
     }
     return result;
-}
-
--(NSArray<NSString *> *)handleStringArray:(NSDictionary *)jsonResult {
-    NSLog(@"Json result = %@", jsonResult);
-    
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonResult options:NSJSONWritingPrettyPrinted error:nil];
-    NSDictionary *stringArrayEventDictionary = [jsonHelper dictionaryFromJson:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
-    NSLog(@"%@", stringArrayEventDictionary);
-    return @[@"aaa"];
 }
 
 -(BulkEvent *)handleBulkEvent:(NSDictionary *)jsonResult {
