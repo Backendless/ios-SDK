@@ -339,6 +339,7 @@
             NSDictionary *resultData = data.firstObject;
             NSString *methodId = [resultData valueForKey:@"id"];
             RTMethodRequest *method = [methods valueForKey:methodId];
+            
             if (method) {
                 if ([resultData valueForKey:@"error"]) {
                     Fault *fault = [Fault fault:[[resultData valueForKey:@"error"] valueForKey:@"message"]
