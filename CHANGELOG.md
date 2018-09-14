@@ -1,5 +1,8 @@
 # RELEASE HISTORY
 
+## 5.1.3 September 14, 2018
+* Loading all user properties of a GeoPoint's linked user object fixed
+
 ## 5.1.2 September 5, 2018
 * Socket.IO updated to v13.3.0
 * Added support of return value for deleteFile methods
