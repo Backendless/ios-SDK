@@ -1,5 +1,9 @@
 # RELEASE HISTORY
 
+## 5.1.4 September 20, 2018
+* WatchOS build fixed
+* Compatible with Swift 4.2, Xcode 10
+
 ## 5.1.3 September 14, 2018
 * Loading all user properties of a GeoPoint's linked user object fixed
 
