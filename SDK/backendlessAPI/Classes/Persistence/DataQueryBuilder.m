@@ -63,9 +63,17 @@
     return self;
 }
 
+-(int)getPageSize {
+    return [_pagedQueryBuilder getPageSize];
+}
+
 -(instancetype)setOffset:(int)offset {
     [_pagedQueryBuilder setOffset:offset];
     return self;
+}
+
+-(int)getOffset {
+    return [_pagedQueryBuilder getOffset];
 }
 
 -(instancetype)prepareNextPage {

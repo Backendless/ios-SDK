@@ -28,7 +28,9 @@
 -(instancetype)init;
 -(BackendlessDataQuery *)build;
 -(instancetype)setPageSize:(int)pageSize;
+-(int)getPageSize;
 -(instancetype)setOffset:(int)offset;
+-(int)getOffset;
 -(instancetype)prepareNextPage;
 -(instancetype)preparePreviousPage;
 -(NSMutableArray<NSString*> *)getProperties;

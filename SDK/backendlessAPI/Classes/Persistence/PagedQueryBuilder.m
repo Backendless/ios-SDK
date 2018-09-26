@@ -75,10 +75,18 @@
     return _builder;
 }
 
+-(int)getPageSize {
+    return _pageSize;
+}
+
 -(id)setOffset:(int)offset {
     [self validateOffset:offset];
     _offset = offset;
     return _builder;
+}
+
+-(int)getOffset {
+    return _offset;
 }
 
 -(id)prepareNextPage {

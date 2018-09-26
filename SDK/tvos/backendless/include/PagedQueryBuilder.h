@@ -25,7 +25,9 @@
 @protocol IPagedQueryBuilder <NSObject>
 
 -(id)setPageSize:(int)pageSize;
+-(int)getPageSize;
 -(id)setOffset:(int)offset;
+-(int)getOffset;
 -(id)prepareNextPage;
 -(id)preparePreviousPage;
 
