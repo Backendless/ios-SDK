@@ -1,5 +1,8 @@
 # RELEASE HISTORY
 
+## 5.1.5 September 26, 2018
+* DataQueryBuilder getPageSize and getOffset methods added
+
 ## 5.1.4 September 20, 2018
 * WatchOS build fixed
 * Compatible with Swift 4.2, Xcode 10
