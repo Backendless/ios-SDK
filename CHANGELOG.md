@@ -1,5 +1,8 @@
 # RELEASE HISTORY
 
+## 5.1.6 September 27, 2018
+* LoadRelations method fixed to return array of dictionaries for MapDrivenDataStore
+
 ## 5.1.5 September 26, 2018
 * DataQueryBuilder getPageSize and getOffset methods added
 
