@@ -45,6 +45,7 @@ static NSString *METHOD_LAST = @"last";
 static NSString *CREATE_BULK = @"createBulk";
 static NSString *UPDATE_BULK = @"updateBulk";
 static NSString *REMOVE_BULK = @"removeBulk";
+static NSString *LOAD_RELATION = @"loadRelations";
 
 @implementation MapDrivenDataStore
 
@@ -301,7 +302,18 @@ static NSString *REMOVE_BULK = @"removeBulk";
 }
 
 -(NSArray*)loadRelations:(NSString *)objectId queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder {
-    id result = [backendless.persistenceService loadRelations:_tableName objectId:(NSString *)objectId  queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder];
+    if (!_tableName) {
+        return [backendless throwFault:FAULT_NO_ENTITY];
+    }
+    if (!queryBuilder) {
+        return [backendless throwFault:FAULT_FIELD_IS_NULL];
+    }
+    BackendlessDataQuery *dataQuery = [queryBuilder build];
+    NSString *relationName = [dataQuery.queryOptions.related objectAtIndex:0];
+    NSNumber *pageSize = dataQuery.pageSize;
+    NSNumber *offset  = dataQuery.offset;
+    NSArray *args = @[_tableName, objectId, relationName, pageSize, offset];
+    id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:LOAD_RELATION args:args responseAdapter:[MapAdapter new]];
     if ([result isKindOfClass:[Fault class]]) {
         return [backendless throwFault:result];
     }
@@ -454,7 +466,20 @@ static NSString *REMOVE_BULK = @"removeBulk";
 }
 
 -(void)loadRelations:(NSString *)objectId queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder response:(void(^)(NSArray *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [backendless.persistenceService loadRelations:(_tableName) objectId:(NSString *)objectId  queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder response:responseBlock error:errorBlock];
+//    [backendless.persistenceService loadRelations:(_tableName) objectId:(NSString *)objectId  queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder response:responseBlock error:errorBlock responseAdapter:[MapAdapter new]];
+    Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    if (!_tableName) {
+        return [chainedResponder errorHandler:FAULT_NO_ENTITY];
+    }
+    if (!queryBuilder) {
+        return [chainedResponder errorHandler:FAULT_FIELD_IS_NULL];
+    }
+    BackendlessDataQuery *dataQuery = [queryBuilder build];
+    NSString *relationName = [dataQuery.queryOptions.related objectAtIndex:0];
+    NSNumber *pageSize = dataQuery.pageSize;
+    NSNumber *offset  = dataQuery.offset;
+    NSArray *args = @[_tableName, objectId, relationName, pageSize, offset];
+    [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:LOAD_RELATION args:args responder:chainedResponder responseAdapter:[MapAdapter new]];
 }
 
 -(NSMutableDictionary *)setNullToNil:(NSMutableDictionary *)dictionary {
