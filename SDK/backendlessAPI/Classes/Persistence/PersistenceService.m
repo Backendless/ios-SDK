@@ -641,7 +641,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     return result;
 }
 
--(id)loadRelations:(NSString *)parentType objectId:(NSString *)objectId queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder {
+-(NSArray *)loadRelations:(NSString *)parentType objectId:(NSString *)objectId queryBuilder:(LoadRelationsQueryBuilder *)queryBuilder {
     if (!parentType) {
         return [backendless throwFault:FAULT_NO_ENTITY];
     }
