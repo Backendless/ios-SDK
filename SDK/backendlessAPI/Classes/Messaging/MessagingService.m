@@ -256,7 +256,7 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
         [args addObject:deliveryOptions];
     id result = [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_PUBLISH args:args];
     if ([result isKindOfClass:[Fault class]]) {
-        [backendless throwFault:result];
+        return [backendless throwFault:result];
     }
     return result;
 }
@@ -268,7 +268,7 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
     NSArray *args = [NSArray arrayWithObjects:messageId, nil];
     id result = [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_CANCEL args:args];
     if ([result isKindOfClass:[Fault class]]) {
-        [backendless throwFault:result];
+        return [backendless throwFault:result];
     }
     return result;
 }

@@ -53,7 +53,7 @@ static NSString *METHOD_RESET = @"reset";
     NSArray *args = @[counterName];
     id result = [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET args:args];
     if ([result isKindOfClass:[Fault class]]) {
-        [backendless throwFault:result];
+        return [backendless throwFault:result];
     }
     return result;
 }
@@ -64,7 +64,7 @@ static NSString *METHOD_RESET = @"reset";
     NSArray *args = @[counterName];
     id result = [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET_AND_INCREMENT args:args];
     if ([result isKindOfClass:[Fault class]]) {
-        [backendless throwFault:result];
+        return [backendless throwFault:result];
     }
     return result;
 }
@@ -75,7 +75,7 @@ static NSString *METHOD_RESET = @"reset";
     NSArray *args = @[counterName];
     id result = [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_INCREMENT_AND_GET args:args];
     if ([result isKindOfClass:[Fault class]]) {
-        [backendless throwFault:result];
+        return [backendless throwFault:result];
     }
     return result;
 }
@@ -86,7 +86,7 @@ static NSString *METHOD_RESET = @"reset";
     NSArray *args = @[counterName];
     id result = [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET_AND_DECREMENT args:args];
     if ([result isKindOfClass:[Fault class]]) {
-        [backendless throwFault:result];
+        return [backendless throwFault:result];
     }
     return result;
 }
@@ -97,7 +97,7 @@ static NSString *METHOD_RESET = @"reset";
     NSArray *args = @[counterName];
     id result = [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_DECREMENT_AND_GET args:args];
     if ([result isKindOfClass:[Fault class]]) {
-        [backendless throwFault:result];
+        return [backendless throwFault:result];
     }
     return result;
 }
@@ -108,7 +108,7 @@ static NSString *METHOD_RESET = @"reset";
     NSArray *args = @[counterName, value];
     id result = [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_ADD_AND_GET args:args];
     if ([result isKindOfClass:[Fault class]]) {
-        [backendless throwFault:result];
+        return [backendless throwFault:result];
     }
     return result;
 }
@@ -119,7 +119,7 @@ static NSString *METHOD_RESET = @"reset";
     NSArray *args = @[counterName, value];
     id result = [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_GET_AND_ADD args:args];
     if ([result isKindOfClass:[Fault class]]) {
-        [backendless throwFault:result];
+        return [backendless throwFault:result];
     }
     return result;
 }
@@ -130,7 +130,7 @@ static NSString *METHOD_RESET = @"reset";
     NSArray *args = @[counterName, expected, updated];
     id result = [invoker invokeSync:SERVER_ATOMIC_OPERATION_SERVICE_PATH method:METHOD_COMPARE_AND_SET args:args];
     if ([result isKindOfClass:[Fault class]]) {
-        [backendless throwFault:result];
+        return [backendless throwFault:result];
     }
     return result;
 }

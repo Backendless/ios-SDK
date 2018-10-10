@@ -4865,8 +4865,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5EFEB3A320D2F5B0001AECDE /* Pods_backendless_tv.framework in Frameworks */,
-				0C9DFDA09ECCF772F1464760 /* Pods_backendless_tv_device.framework in Frameworks */,
+				CEEC50F3E096E2014A0E805A /* Pods_backendless_tv_device.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4875,7 +4874,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A507A761F3B42D80027ABAC /* UserNotifications.framework in Frameworks */,
-				95CE9DF728D7D176BB4AB5C0 /* Pods_backendless_simulator.framework in Frameworks */,
+				C54B924BE7E0DF60283A934A /* Pods_backendless_simulator.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4884,7 +4883,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A507A751F3B41D80027ABAC /* UserNotifications.framework in Frameworks */,
-				2A073E038C1E2715FC06B8F6 /* Pods_backendless_device.framework in Frameworks */,
+				4AB6E799475A2763341F6FEE /* Pods_backendless_device.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4893,7 +4892,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A507A771F3B42E10027ABAC /* UserNotifications.framework in Frameworks */,
-				F2DC9F651976AD4E7AC75763 /* Pods_bkndlss_simulator.framework in Frameworks */,
+				D55C582BF53B77EF55209834 /* Pods_bkndlss_simulator.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4902,7 +4901,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A507A781F3B42E80027ABAC /* UserNotifications.framework in Frameworks */,
-				42295BF042BAD33417CDA4AB /* Pods_bkndlss_device.framework in Frameworks */,
+				D9C62B9AE20B1416BA378638 /* Pods_bkndlss_device.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

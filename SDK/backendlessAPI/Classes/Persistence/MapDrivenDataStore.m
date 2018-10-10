@@ -151,7 +151,7 @@ static NSString *LOAD_RELATION = @"loadRelations";
 
 -(NSArray *)find:(DataQueryBuilder *)queryBuilder {
     if (!queryBuilder) {
-        [backendless throwFault:FAULT_FIELD_IS_NULL];
+        return [backendless throwFault:FAULT_FIELD_IS_NULL];
     }
     NSArray *args = @[_tableName, [queryBuilder build]];
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIND args:args responseAdapter:[MapAdapter new]];
@@ -176,7 +176,7 @@ static NSString *LOAD_RELATION = @"loadRelations";
 
 -(id)findFirst:(DataQueryBuilder *)queryBuilder {
     if (!queryBuilder) {
-        [backendless throwFault:FAULT_FIELD_IS_NULL];
+        return [backendless throwFault:FAULT_FIELD_IS_NULL];
     }
     NSArray *args = @[_tableName, [queryBuilder getRelated]?[queryBuilder getRelated]:@[], [queryBuilder getRelationsDepth]?[queryBuilder getRelationsDepth]:[NSNull null], [queryBuilder getProperties]];
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIRST args:args responseAdapter:[MapAdapter new]];
@@ -197,7 +197,7 @@ static NSString *LOAD_RELATION = @"loadRelations";
 
 -(id)findLast:(DataQueryBuilder *)queryBuilder {
     if (!queryBuilder) {
-        [backendless throwFault:FAULT_FIELD_IS_NULL];
+        return [backendless throwFault:FAULT_FIELD_IS_NULL];
     }
     NSArray *args = @[_tableName, [queryBuilder getRelated]?[queryBuilder getRelated]:@[], [queryBuilder getRelationsDepth]?[queryBuilder getRelationsDepth]:[NSNull null], [queryBuilder getProperties]];
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LAST args:args responseAdapter:[MapAdapter new]];
@@ -209,7 +209,7 @@ static NSString *LOAD_RELATION = @"loadRelations";
 
 -(id)findById:(NSString *)objectId {
     if (!objectId) {
-        [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
+        return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     }
     id result = [backendless.persistenceService findById:_tableName objectId:objectId responseAdapter:[MapAdapter new]];
     if ([result isKindOfClass:[Fault class]]) {
@@ -220,10 +220,10 @@ static NSString *LOAD_RELATION = @"loadRelations";
 
 -(id)findById:(NSString *)objectId queryBuilder:(DataQueryBuilder *)queryBuilder {
     if (!objectId) {
-        [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
+        return [backendless throwFault:FAULT_OBJECT_ID_IS_NOT_EXIST];
     }
     if (!queryBuilder) {
-        [backendless throwFault:FAULT_FIELD_IS_NULL];
+        return [backendless throwFault:FAULT_FIELD_IS_NULL];
     }
     id result = [backendless.persistenceService findById:_tableName objectId:objectId queryBuilder:queryBuilder responseAdapter:[MapAdapter new]];
     if ([result isKindOfClass:[Fault class]]) {
@@ -243,7 +243,7 @@ static NSString *LOAD_RELATION = @"loadRelations";
 
 -(NSNumber *)getObjectCount:(DataQueryBuilder *)dataQuery{
     if (!dataQuery) {
-        [backendless throwFault:FAULT_FIELD_IS_NULL];
+        return [backendless throwFault:FAULT_FIELD_IS_NULL];
     }
     NSArray *args = @[_tableName, [dataQuery build]];
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_COUNT args:args];
@@ -322,12 +322,12 @@ static NSString *LOAD_RELATION = @"loadRelations";
 
 -(NSArray<NSString *> *)createBulk:(NSArray *)objects {
     if (!objects) {
-        [backendless throwFault:NULL_BULK];
+        return [backendless throwFault:NULL_BULK];
     }
     NSArray *args = @[_tableName, objects];
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:CREATE_BULK args:args];
     if ([result isKindOfClass:[Fault class]]) {
-        [backendless throwFault:result];
+        return [backendless throwFault:result];
     }
     return result;
 }

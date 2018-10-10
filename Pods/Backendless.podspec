@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name          = 'Backendless'
-  spec.version       = '5.1.6'
+  spec.version       = '5.1.7'
   spec.license       = { :type => 'Apache', :text => 'Copyright (c) 2013-2018 by Backendless.com' }
   spec.homepage      = 'http://backendless.com'
   spec.authors       = { 'Mark Piller' => 'mark@backendless.com' }
