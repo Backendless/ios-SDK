@@ -1,5 +1,9 @@
 # RELEASE HISTORY
 
+## 5.1.7 October 10, 2018
+* Socket.IO updated to v 13.3.1
+* isValidUserToken method fixed to hanle fault correctly when there is no internet connection
+
 ## 5.1.6 September 27, 2018
 * LoadRelations method fixed to return array of dictionaries for MapDrivenDataStore
 
