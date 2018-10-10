@@ -662,15 +662,15 @@ static NSString *REMOVE_BULK = @"removeBulk";
 
 -(NSArray<NSString *> *)createBulk:(id)entity objects:(NSArray<NSString *> *)objects {
     if (!entity) {
-        [backendless throwFault:FAULT_NO_ENTITY];
+        return [backendless throwFault:FAULT_NO_ENTITY];
     }
     if (!objects) {
-        [backendless throwFault:NULL_BULK];
+        return [backendless throwFault:NULL_BULK];
     }
     NSArray *args = @[[self objectClassName:entity], objects];
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:CREATE_BULK args:args];
     if ([result isKindOfClass:[Fault class]]) {
-        [backendless throwFault:result];
+        return [backendless throwFault:result];
     }
     return result;
 }
