@@ -6,7 +6,7 @@ Pod::Spec.new do |spec|
   spec.authors       = { 'Mark Piller' => 'mark@backendless.com' }
   spec.summary       = 'Backendless is a Mobile Backend and API Services Platform'
   spec.description   = 'Backendless is a development and a run-time platform. It helps software developers to create mobile and desktop applications while removing the need for server-side coding.'
-  spec.source        = { :git => 'https://github.com/Backendless/ios-SDK.git', :tag => '5.1.7' }
+  spec.source        = { :git => 'https://github.com/Backendless/ios-SDK.git', :tag => '5.1.6' }
   spec.swift_version = '4.2'
 
   spec.ios.deployment_target  = '8.0'
