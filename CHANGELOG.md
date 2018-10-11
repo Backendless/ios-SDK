@@ -1,5 +1,26 @@
 # RELEASE HISTORY
 
+## 5.1.7 October 10, 2018
+* Socket.IO updated to v 13.3.1
+* isValidUserToken method fixed to hanle fault correctly when there is no internet connection
+
+## 5.1.6 September 27, 2018
+* LoadRelations method fixed to return array of dictionaries for MapDrivenDataStore
+
+## 5.1.5 September 26, 2018
+* DataQueryBuilder getPageSize and getOffset methods added
+
+## 5.1.4 September 20, 2018
+* WatchOS build fixed
+* Compatible with Swift 4.2, Xcode 10
+
+## 5.1.3 September 14, 2018
+* Loading all user properties of a GeoPoint's linked user object fixed
+
+## 5.1.2 September 5, 2018
+* Socket.IO updated to v13.3.0
+* Added support of return value for deleteFile methods
+
 ## 5.1.1 August 1, 2018
 * The bulk create listener methods added in RT
 

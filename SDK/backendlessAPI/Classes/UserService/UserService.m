@@ -105,7 +105,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 
 -(BOOL)setStayLoggedIn:(BOOL)value {
     if (value == _isStayLoggedIn)
-        return YES;
+    return YES;
     return (_isStayLoggedIn = value) ? [self setPersistentUser] : [self resetPersistentUser];
 }
 
@@ -113,9 +113,9 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 
 -(BackendlessUser *)registerUser:(BackendlessUser *)user {
     if (!user)
-        return [backendless throwFault:FAULT_NO_USER];
+    return [backendless throwFault:FAULT_NO_USER];
     if (![user getProperties])
-        return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
+    return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
     NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
     [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
     NSArray *args = [NSArray arrayWithObjects:props, nil];
@@ -128,7 +128,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 
 -(BackendlessUser *)update:(BackendlessUser *)user {
     if (!user)
-        return [backendless throwFault:FAULT_NO_USER];
+    return [backendless throwFault:FAULT_NO_USER];
     NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
     [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
     NSArray *args = [NSArray arrayWithObjects:props, nil];
@@ -150,7 +150,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 
 -(BackendlessUser *)login:(NSString *)login password:(NSString *)password {
     if (!login || !password || ![login length] || ![password length])
-        return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
+    return [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
     NSArray *args = [NSArray arrayWithObjects:login, password, nil];
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_LOGIN args:args responseAdapter:[BackendlessUserAdapter new]];
     if ([result isKindOfClass:[Fault class]]) {
@@ -196,14 +196,13 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
             [backendless.headers removeObjectForKey:BACKENDLESS_USER_TOKEN];
         }
         [backendless throwFault:result];
-        return NO;
     }
     return [result boolValue];
 }
 
 -(void)restorePassword:(NSString *)email {
     if (!email||!email.length)
-        [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
+    [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
     NSArray *args = [NSArray arrayWithObjects:email, nil];
     id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_RESTORE_PASSWORD args:args];
     if ([result isKindOfClass:[Fault class]]) {
@@ -279,12 +278,12 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 
 -(void)registerUser:(BackendlessUser *)user response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {
     if (!user)
-        [backendless throwFault:FAULT_NO_USER];
+    [backendless throwFault:FAULT_NO_USER];
     if (![user getProperties])
-        [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
+    [backendless throwFault:FAULT_NO_USER_CREDENTIALS];
     NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
     [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
-    NSArray *args = [NSArray arrayWithObjects:props, nil];    
+    NSArray *args = [NSArray arrayWithObjects:props, nil];
     void(^wrappedBlock)(NSDictionary *) = ^(NSDictionary *regUserDict) {
         responseBlock([self castFromDictionary:regUserDict]);
     };
@@ -294,7 +293,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 -(void)update:(BackendlessUser *)user response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {
     id <IResponder> responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!user)
-        return [responder errorHandler:FAULT_NO_USER];
+    return [responder errorHandler:FAULT_NO_USER];
     NSMutableDictionary *props = [NSMutableDictionary dictionaryWithDictionary:[user getProperties]];
     [props removeObjectsForKeys:@[BACKENDLESS_USER_TOKEN, BACKENDLESS_USER_REGISTERED]];
     NSArray *args = [NSArray arrayWithObjects:props, nil];
@@ -307,7 +306,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 -(void)login:(NSString *)login password:(NSString *)password response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {
     Responder *responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     if (!login || !password || ![login length] || ![password length])
-        return [responder errorHandler:FAULT_NO_USER_CREDENTIALS];
+    return [responder errorHandler:FAULT_NO_USER_CREDENTIALS];
     NSArray *args = [NSArray arrayWithObjects:login, password, nil];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onLogin:) selErrorHandler:nil];
     _responder.chained = responder;
@@ -326,7 +325,13 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 }
 
 -(void)isValidUserToken:(void(^)(BOOL))responseBlock error:(void(^)(Fault *))errorBlock {
-    void(^wrappedBlock)(NSNumber *) = ^(NSNumber *result) {
+    void(^wrappedBlock)(NSNumber *) = ^(NSNumber *result) {        
+        if ([result isKindOfClass:[Fault class]]) {
+            Fault *fault = (Fault *)result;
+            if ([fault.faultCode isEqualToString:@"3048"]) {
+                [backendless.headers removeObjectForKey:BACKENDLESS_USER_TOKEN];
+            }
+        }
         responseBlock([result boolValue]);
     };
     id <IResponder>responder = [ResponderBlocksContext responderBlocksContext:wrappedBlock error:errorBlock];
@@ -336,15 +341,13 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
         return;
     }
     NSArray *args = @[userToken];
-    Responder *_responder = [Responder responder:self selResponseHandler:nil selErrorHandler:@selector(onValidUserTokenFault:)];
-    _responder.chained = responder;
-    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_IS_VALID_USER_TOKEN args:args responder:_responder];
+    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_IS_VALID_USER_TOKEN args:args responder:responder];
 }
 
 -(void)restorePassword:(NSString *)email response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock {
     id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:[voidResponseWrapper wrapResponseBlock:responseBlock] error:errorBlock];
     if (!email||!email.length)
-        return [responder errorHandler:FAULT_NO_USER_CREDENTIALS];
+    return [responder errorHandler:FAULT_NO_USER_CREDENTIALS];
     NSArray *args = [NSArray arrayWithObjects:email, nil];
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_RESTORE_PASSWORD args:args responder:responder];
 }
@@ -393,7 +396,7 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
 -(void)resendEmailConfirmation:(NSString *)email response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock {
     id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:[voidResponseWrapper wrapResponseBlock:responseBlock] error:errorBlock];
     if (!email||!email.length)
-        [responder errorHandler:FAULT_NO_USER_EMAIL];
+    [responder errorHandler:FAULT_NO_USER_EMAIL];
     NSArray *args = @[email];
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_RESEND_EMAIL_CONFIRMATION args:args responder:responder];
 }
@@ -456,9 +459,9 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
         (self.currentUser) ? [self.currentUser setProperties:props] : (self.currentUser = [[BackendlessUser alloc] initWithProperties:props]);
     }
     if (self.currentUser.getUserToken)
-        [backendless.headers setValue:self.currentUser.getUserToken forKey:BACKENDLESS_USER_TOKEN];
+    [backendless.headers setValue:self.currentUser.getUserToken forKey:BACKENDLESS_USER_TOKEN];
     else
-        [backendless.headers removeObjectForKey:BACKENDLESS_USER_TOKEN];
+    [backendless.headers removeObjectForKey:BACKENDLESS_USER_TOKEN];
     [self setPersistentUser];
     return self.currentUser;
 }
@@ -510,11 +513,5 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     }
 }
 
--(void)onValidUserTokenFault:(Fault *)fault {
-    if ([fault.faultCode isEqualToString:@"3048"]) {
-        [backendless.headers removeObjectForKey:BACKENDLESS_USER_TOKEN];
-    }
-    [backendless throwFault:fault];;
-}
 
 @end

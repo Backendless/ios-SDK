@@ -30,6 +30,8 @@
 #import "ArrayType.h"
 #import "BodyHolder.h"
 #import "BackendlessUserAdapter.h"
+#import "DeviceRegistration.h"
+#import "DeviceRegistrationAdapter.h"
 
 @implementation AnonymousObject
 @synthesize properties;
@@ -360,9 +362,26 @@
         for (id key in keys) {
             id valueObj = [properties objectForKey:key];
             if ([valueObj conformsToProtocol:@protocol(ICacheableAdaptingType)])
-                valueObj = [valueObj defaultAdapt:refCache];
-            else
+                if ([valueObj isKindOfClass:[NamedObject class]]) {
+                    NamedObject *namedObject = valueObj;
+                    if ([namedObject getMappedType] == [BackendlessUser class]) {
+                        valueObj = [[BackendlessUserAdapter new] adaptToBackendlessUser:namedObject];
+                    }
+                    else if ([namedObject getMappedType] == [DeviceRegistration class]) {
+                        valueObj = [[DeviceRegistrationAdapter new] adapt:namedObject];
+                    }
+                    else {
+                        valueObj = [valueObj defaultAdapt:refCache];
+                    }
+                }
+                else {
+                    valueObj = [valueObj defaultAdapt:refCache];
+                }
+            
+            else {
                 valueObj = [valueObj defaultAdapt];
+            }
+            
             if (!valueObj) valueObj = [NSNull null];
             [dictionary setObject:valueObj forKey:key];
         }

@@ -4884,8 +4884,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5EFEB3A320D2F5B0001AECDE /* Pods_backendless_tv.framework in Frameworks */,
-				0C9DFDA09ECCF772F1464760 /* Pods_backendless_tv_device.framework in Frameworks */,
+				CEEC50F3E096E2014A0E805A /* Pods_backendless_tv_device.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4894,7 +4893,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A507A761F3B42D80027ABAC /* UserNotifications.framework in Frameworks */,
-				95CE9DF728D7D176BB4AB5C0 /* Pods_backendless_simulator.framework in Frameworks */,
+				C54B924BE7E0DF60283A934A /* Pods_backendless_simulator.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4903,7 +4902,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A507A751F3B41D80027ABAC /* UserNotifications.framework in Frameworks */,
-				2A073E038C1E2715FC06B8F6 /* Pods_backendless_device.framework in Frameworks */,
+				4AB6E799475A2763341F6FEE /* Pods_backendless_device.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4912,7 +4911,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A507A771F3B42E10027ABAC /* UserNotifications.framework in Frameworks */,
-				F2DC9F651976AD4E7AC75763 /* Pods_bkndlss_simulator.framework in Frameworks */,
+				D55C582BF53B77EF55209834 /* Pods_bkndlss_simulator.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4921,7 +4920,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A507A781F3B42E80027ABAC /* UserNotifications.framework in Frameworks */,
-				42295BF042BAD33417CDA4AB /* Pods_bkndlss_device.framework in Frameworks */,
+				D9C62B9AE20B1416BA378638 /* Pods_bkndlss_device.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8659,8 +8658,8 @@
 			targets = (
 				F9796A6F166CD49A00595F5E /* backendless-fat */,
 				F9F0AE801CDBCA3900035C62 /* bkndlss-simulator */,
-				F97969DB166CC8C300595F5E /* backendless-simulator */,
 				F9F0AF3A1CDBCAB500035C62 /* bkndlss-device */,
+				F97969DB166CC8C300595F5E /* backendless-simulator */,
 				F9796A27166CD3A400595F5E /* backendless-device */,
 				5A06BCDE20D1109F00E0315F /* backendless-watch-simulator */,
 				5E51661920D2EC80001A058B /* backendless-watch-device */,
@@ -8774,7 +8773,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# ios\nrm -rf ${SRCROOT}/../ios/backendless\nmkdir ${SRCROOT}/../ios/backendless\nmkdir ${SRCROOT}/../ios/backendless/include\n\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme bkndlss-simulator TEST_AFTER_BUILD=NO clean build -sdk iphonesimulator -arch \"x86_64\" -arch \"i386\" OTHER_CFLAGS=\"-fembed-bitcode\"\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme bkndlss-device TEST_AFTER_BUILD=NO clean build -sdk iphoneos OTHER_CFLAGS=\"-fembed-bitcode\"\n\nlipo -create \"${SRCROOT}/../ios/backendless/libbkndlss-simulator.a\" \\\n\"${SRCROOT}/../ios/backendless/libbkndlss-device.a\" -output \\\n\"${SRCROOT}/../ios/backendless/backendless.a\"\n\nrm -rf ${SRCROOT}/../ios/backendless/libbkndlss-simulator.a\nrm -rf ${SRCROOT}/../ios/backendless/libbkndlss-device.a\n\n# *******************************************************\n\n# lib\nrm -rf ${SRCROOT}/../lib/backendless\nmkdir ${SRCROOT}/../lib/backendless\nmkdir ${SRCROOT}/../lib/backendless/include\n\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-simulator TEST_AFTER_BUILD=NO clean build -sdk iphonesimulator -arch \"x86_64\" -arch \"i386\" OTHER_CFLAGS=\"-fembed-bitcode\"\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-device TEST_AFTER_BUILD=NO clean build -sdk iphoneos OTHER_CFLAGS=\"-fembed-bitcode\"\n\nlipo -create \"${SRCROOT}/../lib/backendless/libbackendless-simulator.a\" \\\n\"${SRCROOT}/../lib/backendless/libbackendless-device.a\" -output \\\n\"${SRCROOT}/../lib/backendless/backendless.a\"\n\nrm -rf ${SRCROOT}/../lib/backendless/libbackendless-simulator.a\nrm -rf ${SRCROOT}/../lib/backendless/libbackendless-device.a\n\n# *******************************************************\n\n# watchos\nrm -rf ${SRCROOT}/../watchos/backendless\nmkdir ${SRCROOT}/../watchos/backendless\nmkdir ${SRCROOT}/../watchos/backendless/include\n\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-watch-simulator TEST_AFTER_BUILD=NO clean build -sdk watchsimulator -arch \"x86_64\" -arch \"i386\" OTHER_CFLAGS=\"-fembed-bitcode\"\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-watch-device TEST_AFTER_BUILD=NO clean build -sdk watchos OTHER_CFLAGS=\"-fembed-bitcode\"\n\nlipo -create \"${SRCROOT}/../watchos/backendless/libbackendless-watch-simulator.a\" \\\n\"${SRCROOT}/../watchos/backendless/libbackendless-watch-device.a\" -output \\\n\"${SRCROOT}/../watchos/backendless/backendless.a\"\n\nrm -rf ${SRCROOT}/../watchos/backendless/libbackendless-watch-simulator.a\nrm -rf ${SRCROOT}/../watchos/backendless/libbackendless-watch-device.a\n\n# *******************************************************\n\n# tvos\nrm -rf ${SRCROOT}/../tvos/backendless\nmkdir ${SRCROOT}/../tvos/backendless\nmkdir ${SRCROOT}/../tvos/backendless/include\n\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-tv-simulator TEST_AFTER_BUILD=NO clean build -sdk appletvsimulator -arch \"x86_64\" OTHER_CFLAGS=\"-fembed-bitcode\"\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-tv-device TEST_AFTER_BUILD=NO clean build -sdk appletvos OTHER_CFLAGS=\"-fembed-bitcode\"\n\nlipo -create \"${SRCROOT}/../tvos/backendless/libbackendless-tv-simulator.a\" \\\n\"${SRCROOT}/../tvos/backendless/libbackendless-tv-device.a\" -output \\\n\"${SRCROOT}/../tvos/backendless/backendless.a\"\n\nrm -rf ${SRCROOT}/../tvos/backendless/libbackendless-tv-simulator.a\nrm -rf ${SRCROOT}/../tvos/backendless/libbackendless-tv-device.a\n\n# *******************************************************\n\n# osx\nrm -rf ${SRCROOT}/../osx/backendless\nmkdir ${SRCROOT}/../osx/backendless\nmkdir ${SRCROOT}/../osx/backendless/include\n\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-mac TEST_AFTER_BUILD=NO clean build\n\nmv \"${SRCROOT}/../osx/backendless/libbackendless-mac.a\" \"${SRCROOT}/../osx/backendless/backendless.a\"\n";
+			shellScript = "# ios\nrm -rf ${SRCROOT}/../ios/backendless\nmkdir ${SRCROOT}/../ios/backendless\nmkdir ${SRCROOT}/../ios/backendless/include\n\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme bkndlss-simulator TEST_AFTER_BUILD=NO clean build -sdk iphonesimulator -arch \"x86_64\" -arch \"i386\" OTHER_CFLAGS=\"-fembed-bitcode\"\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme bkndlss-device TEST_AFTER_BUILD=NO clean build -sdk iphoneos OTHER_CFLAGS=\"-fembed-bitcode\"\n\nlipo -create \"${SRCROOT}/../ios/backendless/libbkndlss-simulator.a\" \\\n\"${SRCROOT}/../ios/backendless/libbkndlss-device.a\" -output \\\n\"${SRCROOT}/../ios/backendless/backendless.a\"\n\nrm -rf ${SRCROOT}/../ios/backendless/libbkndlss-simulator.a\nrm -rf ${SRCROOT}/../ios/backendless/libbkndlss-device.a\n\n# *******************************************************\n\n# lib\nrm -rf ${SRCROOT}/../lib/backendless\nmkdir ${SRCROOT}/../lib/backendless\nmkdir ${SRCROOT}/../lib/backendless/include\n\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-simulator TEST_AFTER_BUILD=NO clean build -sdk iphonesimulator -arch \"x86_64\" -arch \"i386\" OTHER_CFLAGS=\"-fembed-bitcode\"\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-device TEST_AFTER_BUILD=NO clean build -sdk iphoneos OTHER_CFLAGS=\"-fembed-bitcode\"\n\nlipo -create \"${SRCROOT}/../lib/backendless/libbackendless-simulator.a\" \\\n\"${SRCROOT}/../lib/backendless/libbackendless-device.a\" -output \\\n\"${SRCROOT}/../lib/backendless/backendless.a\"\n\nrm -rf ${SRCROOT}/../lib/backendless/libbackendless-simulator.a\nrm -rf ${SRCROOT}/../lib/backendless/libbackendless-device.a\n\n# *******************************************************\n\n# watchos\nrm -rf ${SRCROOT}/../watchos/backendless\nmkdir ${SRCROOT}/../watchos/backendless\nmkdir ${SRCROOT}/../watchos/backendless/include\n\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-watch-simulator TEST_AFTER_BUILD=NO clean build -sdk watchsimulator OTHER_CFLAGS=\"-fembed-bitcode\"\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-watch-device TEST_AFTER_BUILD=NO clean build -sdk watchos OTHER_CFLAGS=\"-fembed-bitcode\"\n\nlipo -create \"${SRCROOT}/../watchos/backendless/libbackendless-watch-simulator.a\" \\\n\"${SRCROOT}/../watchos/backendless/libbackendless-watch-device.a\" -output \\\n\"${SRCROOT}/../watchos/backendless/backendless.a\"\n\nrm -rf ${SRCROOT}/../watchos/backendless/libbackendless-watch-simulator.a\nrm -rf ${SRCROOT}/../watchos/backendless/libbackendless-watch-device.a\n\n# *******************************************************\n\n# tvos\nrm -rf ${SRCROOT}/../tvos/backendless\nmkdir ${SRCROOT}/../tvos/backendless\nmkdir ${SRCROOT}/../tvos/backendless/include\n\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-tv-simulator TEST_AFTER_BUILD=NO clean build -sdk appletvsimulator -arch \"x86_64\" OTHER_CFLAGS=\"-fembed-bitcode\"\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-tv-device TEST_AFTER_BUILD=NO clean build -sdk appletvos OTHER_CFLAGS=\"-fembed-bitcode\"\n\nlipo -create \"${SRCROOT}/../tvos/backendless/libbackendless-tv-simulator.a\" \\\n\"${SRCROOT}/../tvos/backendless/libbackendless-tv-device.a\" -output \\\n\"${SRCROOT}/../tvos/backendless/backendless.a\"\n\nrm -rf ${SRCROOT}/../tvos/backendless/libbackendless-tv-simulator.a\nrm -rf ${SRCROOT}/../tvos/backendless/libbackendless-tv-device.a\n\n# *******************************************************\n\n# osx\nrm -rf ${SRCROOT}/../osx/backendless\nmkdir ${SRCROOT}/../osx/backendless\nmkdir ${SRCROOT}/../osx/backendless/include\n\nxcodebuild -workspace ${SRCROOT}/../backendless.xcworkspace -scheme backendless-mac TEST_AFTER_BUILD=NO clean build\n\nmv \"${SRCROOT}/../osx/backendless/libbackendless-mac.a\" \"${SRCROOT}/../osx/backendless/backendless.a\"\n\n";
 		};
 		5AF7F0E020CFC40F0014880E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -10997,6 +10996,7 @@
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
 				VALID_ARCHS = x86_64;
 			};
 			name = Debug;
@@ -11026,6 +11026,7 @@
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
 				VALID_ARCHS = x86_64;
 			};
 			name = Release;
@@ -11061,6 +11062,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VALID_ARCHS = "x86_64 i386";
@@ -11099,6 +11101,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VALID_ARCHS = "x86_64 i386";
@@ -11138,6 +11141,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VALID_ARCHS = x86_64;
@@ -11177,6 +11181,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VALID_ARCHS = x86_64;
@@ -11215,6 +11220,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VALID_ARCHS = "$(ARCHS_STANDARD) arm64";
@@ -11253,6 +11259,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VALID_ARCHS = "$(ARCHS_STANDARD) arm64";
@@ -11292,6 +11299,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VALID_ARCHS = arm64;
@@ -11331,6 +11339,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VALID_ARCHS = arm64;
@@ -11459,6 +11468,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
 				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Debug;
@@ -11489,6 +11499,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
 				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Release;
@@ -11517,6 +11528,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
@@ -11545,6 +11557,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;
@@ -11558,6 +11571,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 4.0;
 				VALID_ARCHS = "i386 x86_64 armv7 armv7s arm64";
 			};
 			name = Debug;
@@ -11570,6 +11584,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 4.0;
 				VALID_ARCHS = "i386 x86_64 armv7 armv7s arm64";
 			};
 			name = Release;
@@ -11605,6 +11620,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
 				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Debug;
@@ -11640,6 +11656,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
 				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Release;
@@ -11668,6 +11685,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
@@ -11696,6 +11714,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;
