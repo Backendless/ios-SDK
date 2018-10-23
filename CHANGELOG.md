@@ -1,5 +1,8 @@
 # RELEASE HISTORY
 
+## 5.1.8 October 23, 2018
+* DeviceRegistrationAdapter fixed to handle os and osVersion correctly
+
 ## 5.1.7 October 10, 2018
 * Socket.IO updated to v 13.3.1
 * isValidUserToken method fixed to hanle fault correctly when there is no internet connection
