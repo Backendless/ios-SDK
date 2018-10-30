@@ -37,6 +37,7 @@
 #import "BodyParts.h"
 #import "UICKeyChainStore.h"
 #import "KeychainDataStore.h"
+#import "UserDefaultsHelper.h"
 #import "RTListener.h"
 #import "RTMethod.h"
 #import "JSONHelper.h"
@@ -51,14 +52,16 @@
 #define FAULT_NO_SUBSCRIPTION_ID [Fault fault:@"Subscription ID is not set" detail:@"Subscription ID is not set" faultCode:@"5905"]
 #define FAULT_NO_BODY [Fault fault:@"Message body is not set for email" detail:@"Message body is not set for email" faultCode:@"5906"]
 #define FAULT_NO_RECIPIENT [Fault fault:@"No recipient is set for email" detail:@"No recipient is set for email" faultCode:@"5907"]
+#define DEFAULT_POLLING_INTERVAL 5
+#define PUSH_TEMPLATES_USER_DEFAULTS @"iOSPushTemplates"
 
 #if !TARGET_OS_WATCH
 // Default channel name
-static  NSString *DEFAULT_CHANNEL_NAME = @"default";
+static NSString *DEFAULT_CHANNEL_NAME = @"default";
 static NSString *SERVER_DEVICE_REGISTRATION_PATH = @"com.backendless.services.messaging.DeviceRegistrationService";
 static NSString *SERVER_MESSAGING_SERVICE_PATH = @"com.backendless.services.messaging.MessagingService";
 static NSString *SERVER_MAIL_SERVICE_PATH = @"com.backendless.services.mail.CustomersEmailService";
-static  NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUIDKeychain";
+static NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUIDKeychain";
 static NSString *METHOD_REGISTER_DEVICE = @"registerDevice";
 static NSString *METHOD_GET_REGISTRATIONS = @"getDeviceRegistrationByDeviceId";
 static NSString *METHOD_UNREGISTER_DEVICE = @"unregisterDevice";
@@ -66,10 +69,11 @@ static NSString *METHOD_PUBLISH = @"publish";
 static NSString *METHOD_CANCEL = @"cancel";
 static NSString *METHOD_SEND_EMAIL = @"send";
 static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
+static NSString *METHOD_PUSH_WITH_TEMPLATE = @"pushWithTemplate";
 #endif
 
 @interface MessagingService() {
-    DeviceRegistration  *deviceRegistration;
+    DeviceRegistration *deviceRegistration;
 }
 @end
 #endif
@@ -85,7 +89,7 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
     NSString *UUID = data?[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]:nil;
     if (!UUID) {
         CFUUIDRef uuid = CFUUIDCreate(NULL);
-        UUID = (NSString *)CFBridgingRelease(CFUUIDCreateString(NULL, uuid));
+        UUID = (__bridge NSString *)CFUUIDCreateString(NULL, uuid);
         CFRelease(uuid);
         [keychainStore save:bundleId data:[UUID dataUsingEncoding:NSUTF8StringEncoding]];
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -104,7 +108,7 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
     }
     NSString *serialNumberAsNSString = nil;
     if (serialNumberAsCFString) {
-        serialNumberAsNSString = [NSString stringWithString:(__bridge NSString *)serialNumberAsCFString];
+        serialNumberAsNSString = [NSString stringWithString:(__bridge_transfer NSString *)serialNumberAsCFString];
         CFRelease(serialNumberAsCFString);
     }
     return serialNumberAsNSString;
@@ -197,11 +201,14 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
     [DebLog log:@"MessagingService -> registerDevice (SYNC): %@", deviceRegistration];
     NSArray *args = [NSArray arrayWithObjects:deviceRegistration, nil];
     id result = [invoker invokeSync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_REGISTER_DEVICE args:args];
+    NSLog(@"Result = %@", result);
     if ([result isKindOfClass:[Fault class]]) {
         return [backendless throwFault:result];
     }
+    NSArray *resultArray = [self jsonToNSArray:result];
+    [userDefaultsHelper writeToUserDefaults:[NSMutableDictionary dictionaryWithDictionary:[resultArray objectAtIndex:1]] withKey:PUSH_TEMPLATES_USER_DEFAULTS withSuiteName:@"group.com.backendless.PushTemplates"];
     deviceRegistration.id = [NSString stringWithFormat:@"%@", result];
-    return deviceRegistration.deviceId;
+    return resultArray.firstObject;
 }
 
 -(DeviceRegistration *)getRegistration:(NSString *)deviceId {
@@ -300,7 +307,7 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
     return result;
 }
 
--(MessageStatus*)getMessageStatus:(NSString*)messageId {
+-(MessageStatus *)getMessageStatus:(NSString*)messageId {
     if (!messageId) {
         return [backendless throwFault:FAULT_NO_MESSAGE_ID];
     }
@@ -310,6 +317,11 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
         return [backendless throwFault:result];
     }
     return result;
+}
+
+-(MessageStatus *)pushWithTemplate:(NSString *)templateName {
+    NSArray *args = [NSArray arrayWithObjects:templateName, nil];
+    return [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_PUSH_WITH_TEMPLATE args:args];
 }
 
 // async methods with block-based callbacks
@@ -322,7 +334,7 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
     }
     [DebLog log:@"MessagingService -> registerDeviceAsync (ASYNC): %@", deviceRegistration];
     NSArray *args = [NSArray arrayWithObjects:deviceRegistration, nil];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onRegistering:) selErrorHandler:nil];
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onRegister:) selErrorHandler:nil];
     _responder.chained = responder;
     [invoker invokeAsync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_REGISTER_DEVICE args:args responder:_responder];
 }
@@ -446,11 +458,26 @@ static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
     [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_MESSAGE_STATUS args:args responder:chainedResponder];
 }
 
+-(void)pushWithTemplate:(NSString *)templateName response:(void(^)(MessageStatus *))responseBlock error:(void (^)(Fault *))errorBlock {
+    if (templateName) {
+        Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+        NSMutableArray *args = [NSMutableArray arrayWithObjects:templateName, nil];
+        [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_PUSH_WITH_TEMPLATE args:args responder:chainedResponder];
+    }
+}
+
 // callbacks
 
--(id)onRegistering:(id)response {
-    deviceRegistration.id = [NSString stringWithFormat:@"%@", response];
-    return deviceRegistration.deviceId;
+-(id)onRegister:(id)response {
+    NSArray *resultArray = [self jsonToNSArray:response];
+    [userDefaultsHelper writeToUserDefaults:[NSMutableDictionary dictionaryWithDictionary:[resultArray objectAtIndex:1]] withKey:PUSH_TEMPLATES_USER_DEFAULTS withSuiteName:@"group.com.backendless.PushTemplates"];
+    return resultArray.firstObject;
+}
+
+-(NSArray *)jsonToNSArray:(NSString *)jsonString {
+    NSError* error;
+    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    return [NSJSONSerialization JSONObjectWithData:jsonData options: NSJSONReadingMutableContainers error:&error];
 }
 
 -(id)onUnregister:(id)response {

@@ -55,7 +55,8 @@
 -(MessageStatus *)sendHTMLEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray<NSString*> *)recipients;
 -(MessageStatus *)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients;
 -(MessageStatus *)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients attachment:(NSArray *)attachments;
--(MessageStatus *)getMessageStatus:(NSString*)messageId;
+-(MessageStatus *)getMessageStatus:(NSString *)messageId;
+-(MessageStatus *)pushWithTemplate:(NSString *)templateName;
 
 // async methods with block-based callbacks
 -(void)registerDevice:(NSData *)deviceToken response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
@@ -74,7 +75,8 @@
 -(void)sendHTMLEmail:(NSString *)subject body:(NSString *)messageBody to:(NSArray<NSString*> *)recipients response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients attachment:(NSArray *)attachments response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)getMessageStatus:(NSString*)messageId response:(void(^)(MessageStatus*))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)getMessageStatus:(NSString *)messageId response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)pushWithTemplate:(NSString *)templateName response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
 
 // utilites
 -(DeviceRegistration *)currentDevice;

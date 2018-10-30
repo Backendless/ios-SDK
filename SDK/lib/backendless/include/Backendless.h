@@ -80,15 +80,19 @@
 #import "BackendlessCachePolicy.h"
 #import "AbstractQuery.h"
 
+
+/*******************************************************************************************************************
+ * Backendless singleton accessor: this is how you should ALWAYS get a reference to the Backendless class instance *
+ *******************************************************************************************************************/
+#define backendless [Backendless sharedInstance]
+
+// BackendlessAppConf.plist keys
 #define BACKENDLESS_APP_CONF @"BackendlessAppConf"
 #define BACKENDLESS_APP_ID @"AppId"
 #define BACKENDLESS_API_KEY @"APIKey"
 #define BACKENDLESS_DEBLOG_ON @"DebLogOn"
 
-#define backendless [Backendless sharedInstance]
-
 @interface Backendless : NSObject
-
 // context
 @property (strong, nonatomic, getter = getHostUrl, setter = setHostUrl:) NSString *hostURL;
 @property (strong, nonatomic, getter = getAppId, setter = setAppId:) NSString *appID;
@@ -116,24 +120,34 @@
 @property (assign, nonatomic, readonly) MessagingService *messaging;
 @property (assign, nonatomic, readonly) FileService *file;
 
+// Singleton accessor:  this is how you should ALWAYS get a reference to the class instance.  Never init your own.
 +(Backendless *)sharedInstance;
-
+/**
+ * Initializes the Backendless class and all Backendless dependencies.
+ * This is the first step in using the client API.
+ *
+ @param applicationId a Backendless application ID, which could be retrieved at the Backendless console
+ @param apiKey a Backendless application API key, which could be retrieved at the Backendless console
+ */
 -(void)initApp:(NSString *)applicationId APIKey:(NSString *)apiKey;
 -(void)initApp:(NSString *)plist;
 -(void)initApp;
 -(void)initAppFault;
+#pragma mark - exceptions management
 -(void)setThrowException:(BOOL)needThrow;
 -(id)throwFault:(Fault *)fault;
+#pragma mark - utils
 -(NSString *)GUIDString;
 -(NSString *)randomString:(int)numCharacters;
 -(NSString *)applicationType;
+#pragma mark - cache methods
 -(void)clearAllCache;
 -(void)clearCacheForClassName:(NSString *)className query:(id) query;
 -(BOOL)hasResultForClassName:(NSString *)className query:(id) query;
 -(void)setCachePolicy:(BackendlessCachePolicy *)policy;
 -(void)setCacheStoredType:(BackendlessCacheStoredEnum)storedType;
 -(void)saveCache;
+#pragma mark - hardware
 -(BOOL)is64bitSimulator;
 -(BOOL)is64bitHardware;
-
 @end
