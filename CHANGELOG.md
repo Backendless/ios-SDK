@@ -1,5 +1,8 @@
 # RELEASE HISTORY
 
+## 5.2.0 October 30, 2018
+* Push Templates support added
+
 ## 5.1.8 October 23, 2018
 * DeviceRegistrationAdapter fixed to handle os and osVersion correctly
 
