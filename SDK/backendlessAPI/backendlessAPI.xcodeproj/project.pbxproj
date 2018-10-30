@@ -22,7 +22,7 @@
 
 /* Begin PBXBuildFile section */
 		0896A7B4C8CBC6102CABFC4D /* Pods_backendless_tv.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECCE5AE0B0100500046F52C9 /* Pods_backendless_tv.framework */; };
-		0C9DFDA09ECCF772F1464760 /* Pods_backendless_tv_device.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C420AFFDDE785F52C642CD9 /* Pods_backendless_tv_device.framework */; };
+		0C170D63F44B3CF9B89BEABA /* Pods_backendless_tv_device.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C420AFFDDE785F52C642CD9 /* Pods_backendless_tv_device.framework */; };
 		0F9AC8131E798C5C0087869F /* Engine.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC6EA1E798C5B0087869F /* Engine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0F9AC8141E798C5C0087869F /* Engine.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC6EA1E798C5B0087869F /* Engine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0F9AC8151E798C5C0087869F /* Engine.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F9AC6EA1E798C5B0087869F /* Engine.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1353,6 +1353,7 @@
 		0F9ACD561E798C600087869F /* V3ReferenceCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC8121E798C5C0087869F /* V3ReferenceCache.m */; };
 		0F9ACD571E798C600087869F /* V3ReferenceCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC8121E798C5C0087869F /* V3ReferenceCache.m */; };
 		0F9ACD581E798C600087869F /* V3ReferenceCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC8121E798C5C0087869F /* V3ReferenceCache.m */; };
+		15AEE91475228B7896A925EF /* Pods_bkndlss_simulator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BF648AF04AFDE7880E7F970 /* Pods_bkndlss_simulator.framework */; };
 		1C7BB4901A2E092900D3C2C1 /* Backendless.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B47FF15FF569400012DFC /* Backendless.m */; };
 		1C7BB4911A2E092900D3C2C1 /* CustomService.m in Sources */ = {isa = PBXBuildFile; fileRef = D36CDDEF19C99D5900C3FFE3 /* CustomService.m */; };
 		1C7BB4921A2E092900D3C2C1 /* Invoker.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480215FF5AA900012DFC /* Invoker.m */; };
@@ -1429,9 +1430,10 @@
 		1C7BB5081A2E092900D3C2C1 /* BackendlessCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1398C17D7240A00D1AC4C /* BackendlessCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C7BB5091A2E092900D3C2C1 /* BackendlessCacheData.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1398E17D7240A00D1AC4C /* BackendlessCacheData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C7BB50A1A2E092900D3C2C1 /* BackendlessCacheKey.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F1399017D7240A00D1AC4C /* BackendlessCacheKey.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2A073E038C1E2715FC06B8F6 /* Pods_backendless_device.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 073EC98AA15113BF30EBE9FC /* Pods_backendless_device.framework */; };
+		311AF4786C943448F5A890CC /* Pods_backendless_device.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 073EC98AA15113BF30EBE9FC /* Pods_backendless_device.framework */; };
+		358FDE11ECDEE7A9AC6344CC /* Pods_backendless_simulator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FED1229F3271BDC0BA3B3165 /* Pods_backendless_simulator.framework */; };
 		36CE460787F525E11CCA7F62 /* Pods_backendless_watch_simulator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30524CA474D6C83EAECC4A43 /* Pods_backendless_watch_simulator.framework */; };
-		42295BF042BAD33417CDA4AB /* Pods_bkndlss_device.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55481B11D74EDF12742B5B35 /* Pods_bkndlss_device.framework */; };
+		49FD2E9256C2EC41508D6589 /* Pods_bkndlss_device.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55481B11D74EDF12742B5B35 /* Pods_bkndlss_device.framework */; };
 		5A06BCE320D1109F00E0315F /* backendless_watch.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A06BCE220D1109F00E0315F /* backendless_watch.m */; };
 		5A06BCE920D118CD00E0315F /* Backendless.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B47FF15FF569400012DFC /* Backendless.m */; };
 		5A06BCEA20D118CD00E0315F /* InvokeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A549835200794D20042234F /* InvokeObject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -3442,7 +3444,6 @@
 		5EFEB39F20D2F5B0001AECDE /* BooleanType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC76C1E798C5C0087869F /* BooleanType.m */; };
 		5EFEB3A020D2F5B0001AECDE /* QueryOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F139B117D724C600D1AC4C /* QueryOptions.m */; };
 		5EFEB3A120D2F5B0001AECDE /* V3ObjectReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC7A11E798C5C0087869F /* V3ObjectReader.m */; };
-		5EFEB3A320D2F5B0001AECDE /* Pods_backendless_tv.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECCE5AE0B0100500046F52C9 /* Pods_backendless_tv.framework */; };
 		5EFEB3A520D2F5B0001AECDE /* NullHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A65ABB220A039A500EA2AFB /* NullHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5EFEB3A620D2F5B0001AECDE /* ReconnectAttemptObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A54986E2007A2740042234F /* ReconnectAttemptObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5EFEB3A720D2F5B0001AECDE /* PublishMessageInfoWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5EC159622099BF310095BA74 /* PublishMessageInfoWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -3746,7 +3747,6 @@
 		91F139B317D724C700D1AC4C /* QueryOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F139B017D724C600D1AC4C /* QueryOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91F139B417D724C700D1AC4C /* QueryOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F139B117D724C600D1AC4C /* QueryOptions.m */; };
 		91F139B517D724C700D1AC4C /* QueryOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F139B117D724C600D1AC4C /* QueryOptions.m */; };
-		95CE9DF728D7D176BB4AB5C0 /* Pods_backendless_simulator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FED1229F3271BDC0BA3B3165 /* Pods_backendless_simulator.framework */; };
 		B341AF0824F80E31B5574959 /* Pods_backendless_mac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A850803560F6A59C7C6A08CA /* Pods_backendless_mac.framework */; };
 		C714FD92FCB127CFEEE92B20 /* Pods_backendless_tv_simulator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70074C7B0E930E580F3CE836 /* Pods_backendless_tv_simulator.framework */; };
 		C863824602D02D4194B44F40 /* Pods_backendless_watch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C5A63B4F0EC9F1969864DB3 /* Pods_backendless_watch.framework */; };
@@ -3858,7 +3858,6 @@
 		D3FB9B7919867F0E00A13FB6 /* AtomicCountersFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FB9B7319867F0E00A13FB6 /* AtomicCountersFactory.m */; };
 		D3FB9B7C1986818F00A13FB6 /* IAtomicCounters.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FB9B7A1986818F00A13FB6 /* IAtomicCounters.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3FB9B7D1986818F00A13FB6 /* IAtomicCounters.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FB9B7A1986818F00A13FB6 /* IAtomicCounters.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F2DC9F651976AD4E7AC75763 /* Pods_bkndlss_simulator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BF648AF04AFDE7880E7F970 /* Pods_bkndlss_simulator.framework */; };
 		F91AC5761D58C60500511EA5 /* MapDrivenDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F99A74961D4A0CAB001AF91F /* MapDrivenDataStore.m */; };
 		F91AC5771D58C68000511EA5 /* MapDrivenDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = F99A74951D4A0CAB001AF91F /* MapDrivenDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F91AC5781D58CFA500511EA5 /* MapDrivenDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F99A74961D4A0CAB001AF91F /* MapDrivenDataStore.m */; };
@@ -4672,16 +4671,11 @@
 		62C9AEEE1620FCD61502080F /* Pods-bkndlss-simulator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bkndlss-simulator.release.xcconfig"; path = "../Pods/Target Support Files/Pods-bkndlss-simulator/Pods-bkndlss-simulator.release.xcconfig"; sourceTree = "<group>"; };
 		689C5B0CDA7306DE7D707892 /* Pods-backendless-tv-device.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-tv-device.release.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-tv-device/Pods-backendless-tv-device.release.xcconfig"; sourceTree = "<group>"; };
 		6BF648AF04AFDE7880E7F970 /* Pods_bkndlss_simulator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bkndlss_simulator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6D76BC741AEE76780D2DDFFC /* Pods-backendless-tv-device.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-tv-device.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-tv-device/Pods-backendless-tv-device.debug.xcconfig"; sourceTree = "<group>"; };
-		6E24CCC4F310495781AA6E7B /* Pods-backendless-tv-simulator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-tv-simulator.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-tv-simulator/Pods-backendless-tv-simulator.debug.xcconfig"; sourceTree = "<group>"; };
 		70074C7B0E930E580F3CE836 /* Pods_backendless_tv_simulator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_backendless_tv_simulator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84B027E41DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadRelationsQueryBuilder.h; sourceTree = "<group>"; };
 		84B027E51DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadRelationsQueryBuilder.m; sourceTree = "<group>"; };
-		8B8A6DCD2BD14AB1A84E2E90 /* Pods-backendless-simulator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-simulator.release.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-simulator/Pods-backendless-simulator.release.xcconfig"; sourceTree = "<group>"; };
-		8EE677B7BF05D18AA7201ADB /* Pods-backendless-device.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-device.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-device/Pods-backendless-device.debug.xcconfig"; sourceTree = "<group>"; };
 		910117D2180C0CCF008102A7 /* BodyParts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BodyParts.h; sourceTree = "<group>"; };
 		910117D3180C0CCF008102A7 /* BodyParts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BodyParts.m; sourceTree = "<group>"; };
-		91064048E63C3CE89B496C2F /* Pods-backendless-watch-simulator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-backendless-watch-simulator.release.xcconfig"; path = "../Pods/Target Support Files/Pods-backendless-watch-simulator/Pods-backendless-watch-simulator.release.xcconfig"; sourceTree = "<group>"; };
 		91223DC8195AF6AB00F72F48 /* Events.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Events.h; sourceTree = "<group>"; };
 		91223DC9195AF6AB00F72F48 /* Events.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Events.m; sourceTree = "<group>"; };
 		91F1398A17D7240A00D1AC4C /* AbstractQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractQuery.h; sourceTree = "<group>"; };
@@ -4884,7 +4878,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEEC50F3E096E2014A0E805A /* Pods_backendless_tv_device.framework in Frameworks */,
+				0C170D63F44B3CF9B89BEABA /* Pods_backendless_tv_device.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4893,7 +4887,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A507A761F3B42D80027ABAC /* UserNotifications.framework in Frameworks */,
-				C54B924BE7E0DF60283A934A /* Pods_backendless_simulator.framework in Frameworks */,
+				358FDE11ECDEE7A9AC6344CC /* Pods_backendless_simulator.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4902,7 +4896,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A507A751F3B41D80027ABAC /* UserNotifications.framework in Frameworks */,
-				4AB6E799475A2763341F6FEE /* Pods_backendless_device.framework in Frameworks */,
+				311AF4786C943448F5A890CC /* Pods_backendless_device.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4911,7 +4905,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A507A771F3B42E10027ABAC /* UserNotifications.framework in Frameworks */,
-				D55C582BF53B77EF55209834 /* Pods_bkndlss_simulator.framework in Frameworks */,
+				15AEE91475228B7896A925EF /* Pods_bkndlss_simulator.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4920,7 +4914,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A507A781F3B42E80027ABAC /* UserNotifications.framework in Frameworks */,
-				D9C62B9AE20B1416BA378638 /* Pods_bkndlss_device.framework in Frameworks */,
+				49FD2E9256C2EC41508D6589 /* Pods_bkndlss_device.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
