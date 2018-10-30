@@ -70,7 +70,15 @@
     
     for (NSString *property in [bodyProperties allKeys]) {
         if (![property isEqualToString:@"channelName"]) {
-            [deviceRegistration setValue:[[bodyProperties valueForKey:property] defaultAdapt] forKey:property];
+            if ([property isEqualToString:@"operatingSystemName"]) {
+                [deviceRegistration setValue:[[bodyProperties valueForKey:property] defaultAdapt] forKey:@"os"];
+            }
+            else if ([property isEqualToString:@"operatingSystemVersion"]) {
+                [deviceRegistration setValue:[[bodyProperties valueForKey:property] defaultAdapt] forKey:@"osVersion"];
+            }
+            else {
+                [deviceRegistration setValue:[[bodyProperties valueForKey:property] defaultAdapt] forKey:property];
+            }
         }
     }
     NSString *channelName = [[bodyProperties valueForKey:@"channelName"] defaultAdapt];
