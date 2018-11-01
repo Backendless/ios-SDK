@@ -2700,6 +2700,14 @@
 		5AF7F2B720CFC40F0014880E /* BackendlessPushHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A633F3F1F7BB7F6004D7ACA /* BackendlessPushHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AF7F2B820CFC40F0014880E /* PublishMessageInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A9FC9AA1FC4786900B192D9 /* PublishMessageInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AF7F2B920CFC40F0014880E /* MessagingService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AFFBF7A1EB211EC0099A72F /* MessagingService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E0AD519218B0FF800A0B4A4 /* UserDefaultsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AC2EB86201754E60017AA67 /* UserDefaultsHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5E0AD51A218B100400A0B4A4 /* UserDefaultsHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AC2EB85201754E60017AA67 /* UserDefaultsHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E0AD51B218B101300A0B4A4 /* UserDefaultsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AC2EB86201754E60017AA67 /* UserDefaultsHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5E0AD51C218B101D00A0B4A4 /* UserDefaultsHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AC2EB85201754E60017AA67 /* UserDefaultsHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E0AD51D218B102D00A0B4A4 /* UserDefaultsHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AC2EB85201754E60017AA67 /* UserDefaultsHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E0AD51E218B103A00A0B4A4 /* UserDefaultsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AC2EB86201754E60017AA67 /* UserDefaultsHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5E0AD51F218B104400A0B4A4 /* UserDefaultsHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AC2EB85201754E60017AA67 /* UserDefaultsHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E0AD520218B105400A0B4A4 /* UserDefaultsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AC2EB86201754E60017AA67 /* UserDefaultsHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5E2B5670206BD5BF0090F3BD /* CustomServiceAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E2B566E206BD5BF0090F3BD /* CustomServiceAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5E2B5671206BD5BF0090F3BD /* CustomServiceAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E2B566E206BD5BF0090F3BD /* CustomServiceAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5E2B5672206BD5BF0090F3BD /* CustomServiceAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E2B566E206BD5BF0090F3BD /* CustomServiceAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -6552,10 +6560,11 @@
 				5A06BEBA20D118EA00E0315F /* NullHelper.h in Headers */,
 				5A06BEBB20D118EA00E0315F /* VoidResponseWrapper.h in Headers */,
 				5A06BEBC20D118EA00E0315F /* PublishMessageInfoWrapper.h in Headers */,
-				5A06BEBD20D118EA00E0315F /* JSONHelper.h in Headers */,
 				5A06BEBE20D118EA00E0315F /* UICKeyChainStore.h in Headers */,
 				5A06BEBF20D118EA00E0315F /* HashMap.h in Headers */,
 				5A06BEC020D118EA00E0315F /* ClassCastException.h in Headers */,
+				5E0AD51A218B100400A0B4A4 /* UserDefaultsHelper.h in Headers */,
+				5A06BEBD20D118EA00E0315F /* JSONHelper.h in Headers */,
 				5A06BEC120D118EA00E0315F /* KeychainDataStore.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -6817,9 +6826,10 @@
 				5AF7F2B320CFC40F0014880E /* BackendlessCachePolicy.h in Headers */,
 				5AF7F2B420CFC40F0014880E /* BackendlessCacheProtocol.h in Headers */,
 				5AF7F2B520CFC40F0014880E /* QueryOptions.h in Headers */,
-				5AF7F2B620CFC40F0014880E /* JSONHelper.h in Headers */,
 				5AF7F2B720CFC40F0014880E /* BackendlessPushHelper.h in Headers */,
 				5A50EC4220D004DB00990020 /* UICKeyChainStore.h in Headers */,
+				5E0AD51D218B102D00A0B4A4 /* UserDefaultsHelper.h in Headers */,
+				5AF7F2B620CFC40F0014880E /* JSONHelper.h in Headers */,
 				5A50EC4320D004DB00990020 /* KeychainDataStore.h in Headers */,
 				5AF7F2B820CFC40F0014880E /* PublishMessageInfo.h in Headers */,
 				5AF7F2B920CFC40F0014880E /* MessagingService.h in Headers */,
@@ -7084,10 +7094,11 @@
 				5E5167F120D2EC80001A058B /* NullHelper.h in Headers */,
 				5E5167F220D2EC80001A058B /* VoidResponseWrapper.h in Headers */,
 				5E5167F320D2EC80001A058B /* PublishMessageInfoWrapper.h in Headers */,
-				5E5167F420D2EC80001A058B /* JSONHelper.h in Headers */,
 				5E5167F520D2EC80001A058B /* UICKeyChainStore.h in Headers */,
 				5E5167F620D2EC80001A058B /* HashMap.h in Headers */,
 				5E5167F720D2EC80001A058B /* ClassCastException.h in Headers */,
+				5E0AD51C218B101D00A0B4A4 /* UserDefaultsHelper.h in Headers */,
+				5E5167F420D2EC80001A058B /* JSONHelper.h in Headers */,
 				5E5167F820D2EC80001A058B /* KeychainDataStore.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -7349,9 +7360,10 @@
 				5EFEB49F20D2F5B0001AECDE /* BackendlessCachePolicy.h in Headers */,
 				5EFEB4A020D2F5B0001AECDE /* BackendlessCacheProtocol.h in Headers */,
 				5EFEB4A120D2F5B0001AECDE /* QueryOptions.h in Headers */,
-				5EFEB4A220D2F5B0001AECDE /* JSONHelper.h in Headers */,
 				5EFEB4A320D2F5B0001AECDE /* BackendlessPushHelper.h in Headers */,
 				5EFEB4A420D2F5B0001AECDE /* UICKeyChainStore.h in Headers */,
+				5E0AD51F218B104400A0B4A4 /* UserDefaultsHelper.h in Headers */,
+				5EFEB4A220D2F5B0001AECDE /* JSONHelper.h in Headers */,
 				5EFEB4A520D2F5B0001AECDE /* KeychainDataStore.h in Headers */,
 				5EFEB4A620D2F5B0001AECDE /* PublishMessageInfo.h in Headers */,
 				5EFEB4A720D2F5B0001AECDE /* MessagingService.h in Headers */,
@@ -9217,6 +9229,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E0AD519218B0FF800A0B4A4 /* UserDefaultsHelper.m in Sources */,
+				5A06BDB920D118CD00E0315F /* JSONHelper.m in Sources */,
 				5A44A0E120D15A61002E9E20 /* backendless_simulator.m in Sources */,
 				5A06BCE920D118CD00E0315F /* Backendless.m in Sources */,
 				5A06BCEA20D118CD00E0315F /* InvokeObject.m in Sources */,
@@ -9426,7 +9440,6 @@
 				5A06BDB620D118CD00E0315F /* NullHelper.m in Sources */,
 				5A06BDB720D118CD00E0315F /* VoidResponseWrapper.m in Sources */,
 				5A06BDB820D118CD00E0315F /* PublishMessageInfoWrapper.m in Sources */,
-				5A06BDB920D118CD00E0315F /* JSONHelper.m in Sources */,
 				5A06BDBA20D118CD00E0315F /* UICKeyChainStore.m in Sources */,
 				5A06BDBB20D118CD00E0315F /* HashMap.m in Sources */,
 				5A06BDBC20D118CD00E0315F /* ClassCastException.m in Sources */,
@@ -9439,6 +9452,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E0AD51E218B103A00A0B4A4 /* UserDefaultsHelper.m in Sources */,
+				5AF7F0E920CFC40F0014880E /* JSONHelper.m in Sources */,
 				5A50EC4720D0050000990020 /* backendless_tv.m in Sources */,
 				5A50EC4520D004FC00990020 /* UICKeyChainStore.m in Sources */,
 				5A50EC4620D004FC00990020 /* KeychainDataStore.m in Sources */,
@@ -9449,7 +9464,6 @@
 				5AF7F0E620CFC40F0014880E /* SharedObject.m in Sources */,
 				5AF7F0E720CFC40F0014880E /* RTSharedObject.m in Sources */,
 				5AF7F0E820CFC40F0014880E /* InvokeObject.m in Sources */,
-				5AF7F0E920CFC40F0014880E /* JSONHelper.m in Sources */,
 				5AF7F0EA20CFC40F0014880E /* Channel.m in Sources */,
 				5AF7F0EB20CFC40F0014880E /* UserStatusObject.m in Sources */,
 				5AF7F0EC20CFC40F0014880E /* RTSubscription.m in Sources */,
@@ -9661,6 +9675,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E0AD51B218B101300A0B4A4 /* UserDefaultsHelper.m in Sources */,
+				5E5166ED20D2EC80001A058B /* JSONHelper.m in Sources */,
 				5E51661C20D2EC80001A058B /* backendless_simulator.m in Sources */,
 				5E51661D20D2EC80001A058B /* Backendless.m in Sources */,
 				5E51661E20D2EC80001A058B /* InvokeObject.m in Sources */,
@@ -9870,7 +9886,6 @@
 				5E5166EA20D2EC80001A058B /* NullHelper.m in Sources */,
 				5E5166EB20D2EC80001A058B /* VoidResponseWrapper.m in Sources */,
 				5E5166EC20D2EC80001A058B /* PublishMessageInfoWrapper.m in Sources */,
-				5E5166ED20D2EC80001A058B /* JSONHelper.m in Sources */,
 				5E5166EE20D2EC80001A058B /* UICKeyChainStore.m in Sources */,
 				5E5166EF20D2EC80001A058B /* HashMap.m in Sources */,
 				5E5166F020D2EC80001A058B /* ClassCastException.m in Sources */,
@@ -9883,6 +9898,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E0AD520218B105400A0B4A4 /* UserDefaultsHelper.m in Sources */,
+				5EFEB2D520D2F5B0001AECDE /* JSONHelper.m in Sources */,
 				5EFEB2CB20D2F5B0001AECDE /* backendless_tv.m in Sources */,
 				5EFEB2CC20D2F5B0001AECDE /* UICKeyChainStore.m in Sources */,
 				5EFEB2CD20D2F5B0001AECDE /* KeychainDataStore.m in Sources */,
@@ -9893,7 +9910,6 @@
 				5EFEB2D220D2F5B0001AECDE /* SharedObject.m in Sources */,
 				5EFEB2D320D2F5B0001AECDE /* RTSharedObject.m in Sources */,
 				5EFEB2D420D2F5B0001AECDE /* InvokeObject.m in Sources */,
-				5EFEB2D520D2F5B0001AECDE /* JSONHelper.m in Sources */,
 				5EFEB2D620D2F5B0001AECDE /* Channel.m in Sources */,
 				5EFEB2D720D2F5B0001AECDE /* UserStatusObject.m in Sources */,
 				5EFEB2D820D2F5B0001AECDE /* RTSubscription.m in Sources */,
