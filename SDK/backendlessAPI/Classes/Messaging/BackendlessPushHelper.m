@@ -49,27 +49,22 @@
     }
     
     UNMutableNotificationContent *bestAttemptContent = [request.content mutableCopy];
-    if ([request.content.userInfo valueForKey:@"attachment-url"]) {
-        NSString *urlString = [request.content.userInfo valueForKey:@"attachment-url"];
-        NSURL *fileUrl = [NSURL URLWithString:urlString];
-        [[[NSURLSession sharedSession] downloadTaskWithURL:fileUrl
-                                         completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
-                                             if (location) {
-                                                 NSString *tmpDirectory = NSTemporaryDirectory();
-                                                 NSString *tmpFile = [[@"file://" stringByAppendingString:tmpDirectory] stringByAppendingString:fileUrl.lastPathComponent];
-                                                 NSURL *tmpUrl = [NSURL URLWithString:tmpFile];
-                                                 BOOL success = [[NSFileManager defaultManager] moveItemAtURL:location toURL:tmpUrl error:nil];
-                                                 UNNotificationAttachment *attachment = [UNNotificationAttachment attachmentWithIdentifier:@"" URL:tmpUrl options:nil error:nil];
-                                                 if (attachment) {
-                                                     bestAttemptContent.attachments = @[attachment];
-                                                 }
+    NSString *urlString = [request.content.userInfo valueForKey:@"attachment-url"];
+    NSURL *fileUrl = [NSURL URLWithString:urlString];
+    [[[NSURLSession sharedSession] downloadTaskWithURL:fileUrl
+                                     completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+                                         if (location) {
+                                             NSString *tmpDirectory = NSTemporaryDirectory();
+                                             NSString *tmpFile = [[@"file://" stringByAppendingString:tmpDirectory] stringByAppendingString:fileUrl.lastPathComponent];
+                                             NSURL *tmpUrl = [NSURL URLWithString:tmpFile];
+                                             BOOL success = [[NSFileManager defaultManager] moveItemAtURL:location toURL:tmpUrl error:nil];
+                                             UNNotificationAttachment *attachment = [UNNotificationAttachment attachmentWithIdentifier:@"" URL:tmpUrl options:nil error:nil];
+                                             if (attachment) {
+                                                 bestAttemptContent.attachments = @[attachment];
                                              }
-                                             contentHandler(bestAttemptContent);
-                                         }] resume];
-    }
-    else {
-        contentHandler(bestAttemptContent);
-    }
+                                         }
+                                         contentHandler(bestAttemptContent);
+                                     }] resume];
 }
 
 -(UNNotificationRequest *)prepareRequestWithIosImmediatePush:(UNNotificationRequest *)request {
@@ -100,7 +95,7 @@
     NSNumber *contentAvailable = [iosPushTemplate valueForKey:@"contentAvailable"];
     NSInteger contentAvailableInt = [contentAvailable integerValue];
     if (contentAvailableInt == 1) {
-
+        
     }
     else {
         content.body = [[[request.content.userInfo valueForKey:@"aps"] valueForKey:@"alert"] valueForKey:@"body"];
@@ -134,6 +129,7 @@
             [userInfo setObject:urlString forKey:@"attachment-url"];
             content.userInfo = userInfo;
         }
+        
         NSArray *actionsArray = [iosPushTemplate valueForKey:@"actions"];
         content.categoryIdentifier = [self setActions:actionsArray];
     }
@@ -150,7 +146,6 @@
 
 -(NSString *)setActions:(NSArray *)actions {
     NSMutableArray *categoryActions = [NSMutableArray new];
-    
     for (NSDictionary *action in actions) {
         NSString *actionId = [action valueForKey:@"id"];
         NSString *actionTitle = [action valueForKey:@"title"];
@@ -160,7 +155,8 @@
     }
     NSString *categoryId = @"buttonActionsTemplate";
     UNNotificationCategory *category = [UNNotificationCategory categoryWithIdentifier:categoryId actions:categoryActions intentIdentifiers:@[] options:UNNotificationCategoryOptionNone];
-    [UNUserNotificationCenter.currentNotificationCenter setNotificationCategories:[NSSet setWithObject:category]];
+    [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObject:category]];
+    
     return categoryId;
 }
 
