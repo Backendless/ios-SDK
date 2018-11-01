@@ -1,5 +1,8 @@
 # RELEASE HISTORY
 
+## 5.2.1 November 1, 2018
+* UserDefaultsHelper class added to the tvOS and watchOS binaries
+
 ## 5.2.0 October 30, 2018
 * Push Templates support added
 
