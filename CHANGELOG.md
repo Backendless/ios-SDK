@@ -1,5 +1,8 @@
 # RELEASE HISTORY
 
+## 5.2.2 November 2, 2018
+* Push templates handling fixed to work correctly when adding new button options
+
 ## 5.2.1 November 1, 2018
 * UserDefaultsHelper class added to the tvOS and watchOS binaries
 
