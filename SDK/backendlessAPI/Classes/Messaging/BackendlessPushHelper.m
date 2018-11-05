@@ -98,25 +98,34 @@
         
     }
     else {
-        content.body = [[[request.content.userInfo valueForKey:@"aps"] valueForKey:@"alert"] valueForKey:@"body"];
-        if (request.content.title) {
-            content.title = request.content.title;
+        if ([request.content.userInfo valueForKey:@"message"]) {
+            content.body = [request.content.userInfo valueForKey:@"message"];
+        }
+        else {
+            content.body = [[[request.content.userInfo valueForKey:@"aps"] valueForKey:@"alert"] valueForKey:@"body"];
+        }
+        
+        if ([request.content.userInfo valueForKey:@"ios-alert-title"]) {
+            content.title = [request.content.userInfo valueForKey:@"ios-alert-title"];
         }
         else {
             content.title = [iosPushTemplate valueForKey:@"alertTitle"];
         }
-        if (request.content.subtitle) {
-            content.subtitle = request.content.subtitle;
+        
+        if ([request.content.userInfo valueForKey:@"ios-alert-subtitle"]) {
+            content.subtitle = [request.content.userInfo valueForKey:@"ios-alert-subtitle"];
         }
         else {
             content.subtitle = [iosPushTemplate valueForKey:@"alertSubtitle"];
         }
+        
         if ([iosPushTemplate valueForKey:@"sound"]) {
             content.sound = [UNNotificationSound soundNamed:[iosPushTemplate valueForKey:@"sound"]];
         }
         else {
             content.sound = [UNNotificationSound defaultSound];
         }
+        
         if ([iosPushTemplate valueForKey:@"badge"]) {
             NSNumber *badge = [iosPushTemplate valueForKey:@"badge"];
             content.badge = badge;
@@ -124,6 +133,7 @@
         else {
             content.badge = request.content.badge;
         }
+        
         if ([iosPushTemplate valueForKey:@"attachmentUrl"]) {
             NSString *urlString = [iosPushTemplate valueForKey:@"attachmentUrl"];
             [userInfo setObject:urlString forKey:@"attachment-url"];
