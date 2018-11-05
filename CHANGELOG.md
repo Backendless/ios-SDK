@@ -1,5 +1,8 @@
 # RELEASE HISTORY
 
+## 5.2.3 November 5, 2018
+* Smart text for push templates fixed
+
 ## 5.2.2 November 2, 2018
 * Push templates handling fixed to work correctly when adding new button options
 
