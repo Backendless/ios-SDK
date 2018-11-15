@@ -1,5 +1,9 @@
 # RELEASE HISTORY
 
+## 5.2.4 November 15, 2018
+* Setting dictionary's NSNull values to nil removed because of retrieving schema definition structure
+* The processAsyncAMFResponse method from HttpEngine class fixed to process response correctly when NSURLSession returns error
+
 ## 5.2.3 November 5, 2018
 * Smart text for push templates fixed
 
