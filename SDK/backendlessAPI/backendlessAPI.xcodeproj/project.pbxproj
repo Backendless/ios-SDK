@@ -8965,7 +8965,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cp ${BUILT_PRODUCTS_DIR}/libbkndlss-simulator.a ${SRCROOT}/../ios/backendless\ncp -f ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../ios/backendless/include\n                                              \nrm -rf ${BUILT_PRODUCTS_DIR}/libbkndlss-simulator.a\nrm -rf ${BUILT_PRODUCTS_DIR}/usr/local/include/*";
+			shellScript = "cp ${BUILT_PRODUCTS_DIR}/libbkndlss-simulator.a ${SRCROOT}/../ios/backendless\ncp -f ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../ios/backendless/include\n                                              \nrm -rf ${BUILT_PRODUCTS_DIR}/libbkndlss-simulator.a\nrm -rf ${BUILT_PRODUCTS_DIR}/usr/local/include/*\n";
 		};
 		F9F0AFEF1CDBCAB500035C62 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -8978,7 +8978,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cp ${BUILT_PRODUCTS_DIR}/libbkndlss-device.a ${SRCROOT}/../ios/backendless\ncp -f ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../ios/backendless/include\n                                              \nrm -rf ${BUILT_PRODUCTS_DIR}/libbkndlss-device.a\nrm -rf ${BUILT_PRODUCTS_DIR}/usr/local/include/*";
+			shellScript = "cp ${BUILT_PRODUCTS_DIR}/libbkndlss-device.a ${SRCROOT}/../ios/backendless\ncp -f ${BUILT_PRODUCTS_DIR}/usr/local/include/* ${SRCROOT}/../ios/backendless/include\n                                              \nrm -rf ${BUILT_PRODUCTS_DIR}/libbkndlss-device.a\nrm -rf ${BUILT_PRODUCTS_DIR}/usr/local/include/*\n";
 		};
 		FB6A5570FDB623461ABE4FBA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

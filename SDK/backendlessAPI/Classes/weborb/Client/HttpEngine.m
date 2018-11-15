@@ -137,35 +137,44 @@
     return [self createRequest:v3Msg headers:nil];
 }
 
--(void)processAsyncAMFResponse:(AsyncHttpResponse *)async {
-    id <IResponder> responder = (async.responder) ? async.responder : _responder;
-    int statusCode = (int)[async.responseUrl statusCode];
-    if (statusCode != 200) {
-        [DebLog log:@"HttpEngine -> sendRequest: (SYNC) response with *** INVALID statusCode = '%d'", statusCode];
-        NSString *code = [NSString stringWithFormat:@"%d", statusCode];
-        NSString *detail = [NSString stringWithFormat:@"HttpEngine: INVALID statusCode %d", statusCode];
-        [responder errorHandler:[Fault fault:detail detail:detail faultCode:code]];
-        return;
-    }
-    
-    NSString *contentType = [[async.responseUrl allHeaderFields] valueForKey:@"Content-Type"];
-    if (!(contentType) || ![contentType isEqualToString:@"application/x-amf"]) {
-        NSString *body = [[NSString alloc] initWithData:async.receivedData encoding:NSUTF8StringEncoding];
-        [DebLog log:@"HttpEngine -> processAsyncAMFResponse: response with *** INVALID 'Content-Type' = '%@', body = '%@'", contentType, body];
-        Fault *fault = [Fault fault:@"HttpEngine: INVALID response 'Content-Type'" detail:contentType faultCode:@"9000"];
-        [responder errorHandler:fault];
-        return;
-    }
-    FlashorbBinaryReader *reader = [[FlashorbBinaryReader alloc] initWithStream:(char *)[async.receivedData bytes] andSize:[async.receivedData length]];
-    [DebLog log:ON_PRINT_RESPONSE text:@"HttpEngine -> processAsyncAMFResponse: (ASYNC RESPONSE)\n"];
-    [reader print:ON_PRINT_RESPONSE];
-    Request *responseObject = [RequestParser readMessage:reader];
-    NSArray *responseData = [responseObject getRequestBodyData];
-    id <ICacheableAdaptingType> type = [responseData objectAtIndex:0];
+-(void)processAsyncAMFResponse:(AsyncHttpResponse *)async processIfNeeded:(BOOL)processNeeded {
+    if (processNeeded) {
+        id <IResponder> responder = nil;
+        if (async.responder) {
+            responder = async.responder;
+        }
+        else {
+            responder = _responder;
+        }
+        int statusCode = (int)[async.responseUrl statusCode];
+        if (statusCode != 200) {
+            [DebLog log:@"HttpEngine -> sendRequest: (SYNC) response with *** INVALID statusCode = '%d'", statusCode];
+            NSString *code = [NSString stringWithFormat:@"%d", statusCode];
+            NSString *detail = [NSString stringWithFormat:@"HttpEngine: INVALID statusCode %d", statusCode];
+            [responder errorHandler:[Fault fault:detail detail:detail faultCode:code]];
+            return;
+        }
+        
+        NSString *contentType = [[async.responseUrl allHeaderFields] valueForKey:@"Content-Type"];
+        if (!(contentType) || ![contentType isEqualToString:@"application/x-amf"]) {
+            NSString *body = [[NSString alloc] initWithData:async.receivedData encoding:NSUTF8StringEncoding];
+            [DebLog log:@"HttpEngine -> processAsyncAMFResponse: response with *** INVALID 'Content-Type' = '%@', body = '%@'", contentType, body];
+            Fault *fault = [Fault fault:@"HttpEngine: INVALID response 'Content-Type'" detail:contentType faultCode:@"9000"];
+            [responder errorHandler:fault];
+            return;
+        }
+        
+        FlashorbBinaryReader *reader = [[FlashorbBinaryReader alloc] initWithStream:(char *)[async.receivedData bytes] andSize:[async.receivedData length]];
+        [DebLog log:ON_PRINT_RESPONSE text:@"HttpEngine -> processAsyncAMFResponse: (ASYNC RESPONSE)\n"];
+        [reader print:ON_PRINT_RESPONSE];
+        Request *responseObject = [RequestParser readMessage:reader];
+        NSArray *responseData = [responseObject getRequestBodyData];
+        id <ICacheableAdaptingType> type = [responseData objectAtIndex:0];
 #if _ReaderReferenceCache_IS_SINGLETON_
-    [[ReaderReferenceCache cache] cleanCache];
+        [[ReaderReferenceCache cache] cleanCache];
 #endif
-    [responder responseHandler:type];
+        [responder responseHandler:type];
+    }
 }
 
 -(void)pollingResponse:(id)result {
@@ -237,7 +246,6 @@
 }
 
 -(id)sendRequest:(V3Message *)v3Msg {
-    
     NSHTTPURLResponse *responseUrl;
     NSError *error = nil;
     NSData *receivedData;
@@ -298,16 +306,10 @@
         AsyncHttpResponse *async = [[AsyncHttpResponse alloc] init];
         async.receivedData = [NSMutableData new];
         async.responder = responder;
-        if (response) {
-            NSHTTPURLResponse *responseUrl = (NSHTTPURLResponse *)response;
-            [async.receivedData setLength:0];
-            async.responseUrl = responseUrl;
-        }
-        if (data) {
-            [DebLog logN:@"HttpEngine ->connection didReceiveData: length = %d", [data length]];
-            [async.receivedData appendData:data];
-        }
+        BOOL processNeeded = YES;
+        
         if (error) {
+            processNeeded = NO;
             [self setNetworkActivityIndicatorOn:NO];
 #if REPEAT_REQUEST_ON
             if ([self isNSURLErrorDomain:error] && async.request) {
@@ -319,7 +321,18 @@
             Fault *fault = (error) ? [Fault fault:[error domain] detail:[error localizedDescription] faultCode:[NSString stringWithFormat:@"%ld",(long)[error code]]] : UNKNOWN_FAULT;
             [async.responder errorHandler:fault];
         }
-        [self processAsyncAMFResponse:async];
+        else {
+            if (response) {
+                NSHTTPURLResponse *responseUrl = (NSHTTPURLResponse *)response;
+                [async.receivedData setLength:0];
+                async.responseUrl = responseUrl;
+            }
+            if (data) {
+                [DebLog logN:@"HttpEngine ->connection didReceiveData: length = %d", [data length]];
+                [async.receivedData appendData:data];
+            }
+        }
+        [self processAsyncAMFResponse:async processIfNeeded:processNeeded];
     }] resume];
 }
 
@@ -370,7 +383,7 @@
             blockResponse = subResponse;
             dispatch_group_leave(group);
         }] resume];
-        dispatch_group_wait(group,  DISPATCH_TIME_FOREVER);
+        dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
         *error = blockError;
         *response = blockResponse;
     } @catch (NSException *exception) {
