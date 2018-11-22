@@ -28,5 +28,6 @@
 +(instancetype)sharedInstance;
 -(void)writeToUserDefaults:(NSDictionary *)dictionary withKey:(NSString *)key withSuiteName:(NSString *)suiteName;
 -(NSDictionary *)readFromUserDefaultsWithKey:(NSString *)key withSuiteName:(NSString *)suiteName;
+-(NSString *)getAppGroup;
 
 @end

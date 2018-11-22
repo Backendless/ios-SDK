@@ -50,4 +50,14 @@
     return [[NSDictionary alloc] initWithDictionary:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
 }
 
+-(NSString *)getAppGroup {
+    NSString *projectName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:projectName ofType:@"entitlements"];
+    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
+    NSArray<NSString *> *appGroups = [dict objectForKey:@"com.apple.security.application-groups"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF contains[c] 'group.backendlesspush.'"];
+    NSString *appGroup = [[appGroups filteredArrayUsingPredicate:predicate] firstObject];
+    return appGroup;
+}
+
 @end

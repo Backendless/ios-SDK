@@ -206,7 +206,7 @@ static NSString *METHOD_PUSH_WITH_TEMPLATE = @"pushWithTemplate";
         return [backendless throwFault:result];
     }
     NSArray *resultArray = [self jsonToNSArray:result];
-    [userDefaultsHelper writeToUserDefaults:[NSMutableDictionary dictionaryWithDictionary:[resultArray objectAtIndex:1]] withKey:PUSH_TEMPLATES_USER_DEFAULTS withSuiteName:@"group.com.backendless.PushTemplates"];
+    [userDefaultsHelper writeToUserDefaults:[NSMutableDictionary dictionaryWithDictionary:[resultArray objectAtIndex:1]] withKey:PUSH_TEMPLATES_USER_DEFAULTS withSuiteName:[userDefaultsHelper getAppGroup]];
     deviceRegistration.id = [NSString stringWithFormat:@"%@", result];
     return resultArray.firstObject;
 }
@@ -470,7 +470,7 @@ static NSString *METHOD_PUSH_WITH_TEMPLATE = @"pushWithTemplate";
 
 -(id)onRegister:(id)response {
     NSArray *resultArray = [self jsonToNSArray:response];
-    [userDefaultsHelper writeToUserDefaults:[NSMutableDictionary dictionaryWithDictionary:[resultArray objectAtIndex:1]] withKey:PUSH_TEMPLATES_USER_DEFAULTS withSuiteName:@"group.com.backendless.PushTemplates"];
+    [userDefaultsHelper writeToUserDefaults:[NSMutableDictionary dictionaryWithDictionary:[resultArray objectAtIndex:1]] withKey:PUSH_TEMPLATES_USER_DEFAULTS withSuiteName:[userDefaultsHelper getAppGroup]];
     return resultArray.firstObject;
 }
 
