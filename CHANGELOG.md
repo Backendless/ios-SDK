@@ -1,5 +1,8 @@
 # RELEASE HISTORY
 
+## 5.2.5 November 22, 2018
+* User should create app group for push templates which starts with "group.backendlesspush."
+
 ## 5.2.4 November 15, 2018
 * Setting dictionary's NSNull values to nil removed because of retrieving schema definition structure
 * The processAsyncAMFResponse method from HttpEngine class fixed to process response correctly when NSURLSession returns error

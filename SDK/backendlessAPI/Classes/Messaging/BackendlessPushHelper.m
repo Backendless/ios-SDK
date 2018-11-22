@@ -75,7 +75,7 @@
 
 -(UNNotificationRequest *)prepareRequestWithTemplate:(UNNotificationRequest *)request {
     NSString *templateName = [request.content.userInfo valueForKey:@"template_name"];
-    NSDictionary *iosPushTemplates = [userDefaultsHelper readFromUserDefaultsWithKey:PUSH_TEMPLATES_USER_DEFAULTS withSuiteName:@"group.com.backendless.PushTemplates"];
+    NSDictionary *iosPushTemplates = [userDefaultsHelper readFromUserDefaultsWithKey:PUSH_TEMPLATES_USER_DEFAULTS withSuiteName:[userDefaultsHelper getAppGroup]];
     NSDictionary *iosPushTemplate = [iosPushTemplates valueForKey:templateName];
     return [self createRequestFromTemplate:[self dictionaryWithoutNulls:iosPushTemplate] request:request];
 }
