@@ -1,5 +1,8 @@
 # RELEASE HISTORY
 
+## 5.2.6 November 23, 2018
+* Push with template method fixed to work with custom groups
+
 ## 5.2.5 November 22, 2018
 * User should create app group for push templates which starts with "group.backendlesspush."
 
