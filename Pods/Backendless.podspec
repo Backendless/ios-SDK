@@ -53,6 +53,6 @@ spec.prepare_command = <<-CMD
     popd
 CMD
 
-spec.dependency 'Socket.IO-Client-Swift'
+spec.dependency "Socket.IO-Client-Swift", "~> 13.3.0"
 
 end
