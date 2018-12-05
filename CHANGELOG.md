@@ -1,5 +1,9 @@
 # RELEASE HISTORY
 
+## 5.2.7 December 5, 2018
+* Inline reply support added
+* Socket.IO updated
+
 ## 5.2.6 November 23, 2018
 * Push with template method fixed to work with custom groups
 
