@@ -174,10 +174,20 @@
         NSString *actionTitle = [action valueForKey:@"title"];
         NSNumber *actionOptions = [action valueForKey:@"options"];
         UNNotificationActionOptions options = [actionOptions integerValue];
-
+        
         if ([[action valueForKey:@"inlineReply"] isEqual:@YES]) {
-            NSString *textInputPlaceholder = [action valueForKey:@"textInputPlaceholder"] ? [action valueForKey:@"textInputPlaceholder"] : @"Input text here...";
-            NSString *inputButtonTitle = [action valueForKey:@"inputButtonTitle"] ? [action valueForKey:@"inputButtonTitle"] : @"Send";
+            NSString *textInputPlaceholder = @"Input text here...";
+            if (![[action valueForKey:@"textInputPlaceholder"] isKindOfClass:[NSNull class]]) {
+                if ([[action valueForKey:@"textInputPlaceholder"] length] > 0) {
+                    textInputPlaceholder = [action valueForKey:@"textInputPlaceholder"];
+                }
+            }
+            NSString *inputButtonTitle = @"Send";
+            if (![[action valueForKey:@"inputButtonTitle"] isKindOfClass:[NSNull class]]) {
+                if ([[action valueForKey:@"inputButtonTitle"] length] > 0) {
+                    inputButtonTitle = [action valueForKey:@"inputButtonTitle"];
+                }
+            }
             [categoryActions addObject:[UNTextInputNotificationAction actionWithIdentifier:actionId title:actionTitle options:options textInputButtonTitle:inputButtonTitle textInputPlaceholder:textInputPlaceholder]];
         }
         else {
@@ -186,7 +196,7 @@
     }
     NSString *categoryId = @"buttonActionsTemplate";
     UNNotificationCategory *category = [UNNotificationCategory categoryWithIdentifier:categoryId actions:categoryActions intentIdentifiers:@[] options:UNNotificationCategoryOptionNone];
-    [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObject:category]]; 
+    [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObject:category]];
     return categoryId;
 }
 
