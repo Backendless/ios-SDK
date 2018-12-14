@@ -1,5 +1,8 @@
 # RELEASE HISTORY
 
+## 5.2.8 December 14, 2018
+* Inline reply "textInputPlaceholder" and "inputButtonTitle" fixed when values are not set in console
+
 ## 5.2.7 December 5, 2018
 * Inline reply support added
 * Socket.IO updated
