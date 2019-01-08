@@ -1373,7 +1373,7 @@
 		1C7BB4A71A2E092900D3C2C1 /* DeliveryOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C05C161AB72100409FF2 /* DeliveryOptions.m */; };
 		1C7BB4A81A2E092900D3C2C1 /* PublishOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C060161AB7AC00409FF2 /* PublishOptions.m */; };
 		1C7BB4AC1A2E092900D3C2C1 /* MessageStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C070161AB84100409FF2 /* MessageStatus.m */; };
-		1C7BB4AD1A2E092900D3C2C1 /* FileService.m in Sources */ = {isa = PBXBuildFile; fileRef = F918412D1638281600D36A61 /* FileService.m */; };
+		1C7BB4AD1A2E092900D3C2C1 /* FileService.m in Sources */ = {isa = PBXBuildFile; fileRef = F918412D1638281600D36A61 /* FileService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		1C7BB4AE1A2E092900D3C2C1 /* BackendlessFile.m in Sources */ = {isa = PBXBuildFile; fileRef = F9184133163AB29600D36A61 /* BackendlessFile.m */; };
 		1C7BB4AF1A2E092900D3C2C1 /* HashMap.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B47EA15FF448F00012DFC /* HashMap.m */; };
 		1C7BB4B11A2E092900D3C2C1 /* backendless_simulator.m in Sources */ = {isa = PBXBuildFile; fileRef = F97969E3166CC8C300595F5E /* backendless_simulator.m */; };
@@ -1623,7 +1623,7 @@
 		5A06BDA620D118CD00E0315F /* PublishOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C060161AB7AC00409FF2 /* PublishOptions.m */; };
 		5A06BDA720D118CD00E0315F /* MessageStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C070161AB84100409FF2 /* MessageStatus.m */; };
 		5A06BDA820D118CD00E0315F /* BodyParts.m in Sources */ = {isa = PBXBuildFile; fileRef = 910117D3180C0CCF008102A7 /* BodyParts.m */; };
-		5A06BDA920D118CD00E0315F /* FileService.m in Sources */ = {isa = PBXBuildFile; fileRef = F918412D1638281600D36A61 /* FileService.m */; };
+		5A06BDA920D118CD00E0315F /* FileService.m in Sources */ = {isa = PBXBuildFile; fileRef = F918412D1638281600D36A61 /* FileService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A06BDAA20D118CD00E0315F /* FilePermission.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EA53001A3077C1009C5FE0 /* FilePermission.m */; };
 		5A06BDAB20D118CD00E0315F /* BackendlessFile.m in Sources */ = {isa = PBXBuildFile; fileRef = F9184133163AB29600D36A61 /* BackendlessFile.m */; };
 		5A06BDAC20D118CD00E0315F /* BEFileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C7DE8E1B7CBF0300AFCD06 /* BEFileInfo.m */; };
@@ -2357,7 +2357,7 @@
 		5AF7F15D20CFC40F0014880E /* WeborbClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC6F51E798C5C0087869F /* WeborbClient.m */; };
 		5AF7F15E20CFC40F0014880E /* MessageStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C070161AB84100409FF2 /* MessageStatus.m */; };
 		5AF7F15F20CFC40F0014880E /* DEBUG.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC7B41E798C5C0087869F /* DEBUG.m */; };
-		5AF7F16020CFC40F0014880E /* FileService.m in Sources */ = {isa = PBXBuildFile; fileRef = F918412D1638281600D36A61 /* FileService.m */; };
+		5AF7F16020CFC40F0014880E /* FileService.m in Sources */ = {isa = PBXBuildFile; fileRef = F918412D1638281600D36A61 /* FileService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5AF7F16120CFC40F0014880E /* LocationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064A61AFA6E4A00779BB1 /* LocationTracker.m */; };
 		5AF7F16220CFC40F0014880E /* AMFBodyWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC7E21E798C5C0087869F /* AMFBodyWriter.m */; };
 		5AF7F16320CFC40F0014880E /* BooleanWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC7EE1E798C5C0087869F /* BooleanWriter.m */; };
@@ -2921,7 +2921,7 @@
 		5E5166DA20D2EC80001A058B /* PublishOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C060161AB7AC00409FF2 /* PublishOptions.m */; };
 		5E5166DB20D2EC80001A058B /* MessageStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C070161AB84100409FF2 /* MessageStatus.m */; };
 		5E5166DC20D2EC80001A058B /* BodyParts.m in Sources */ = {isa = PBXBuildFile; fileRef = 910117D3180C0CCF008102A7 /* BodyParts.m */; };
-		5E5166DD20D2EC80001A058B /* FileService.m in Sources */ = {isa = PBXBuildFile; fileRef = F918412D1638281600D36A61 /* FileService.m */; };
+		5E5166DD20D2EC80001A058B /* FileService.m in Sources */ = {isa = PBXBuildFile; fileRef = F918412D1638281600D36A61 /* FileService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5E5166DE20D2EC80001A058B /* FilePermission.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EA53001A3077C1009C5FE0 /* FilePermission.m */; };
 		5E5166DF20D2EC80001A058B /* BackendlessFile.m in Sources */ = {isa = PBXBuildFile; fileRef = F9184133163AB29600D36A61 /* BackendlessFile.m */; };
 		5E5166E020D2EC80001A058B /* BEFileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C7DE8E1B7CBF0300AFCD06 /* BEFileInfo.m */; };
@@ -3361,7 +3361,7 @@
 		5EFEB34920D2F5B0001AECDE /* WeborbClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC6F51E798C5C0087869F /* WeborbClient.m */; };
 		5EFEB34A20D2F5B0001AECDE /* MessageStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C070161AB84100409FF2 /* MessageStatus.m */; };
 		5EFEB34B20D2F5B0001AECDE /* DEBUG.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC7B41E798C5C0087869F /* DEBUG.m */; };
-		5EFEB34C20D2F5B0001AECDE /* FileService.m in Sources */ = {isa = PBXBuildFile; fileRef = F918412D1638281600D36A61 /* FileService.m */; };
+		5EFEB34C20D2F5B0001AECDE /* FileService.m in Sources */ = {isa = PBXBuildFile; fileRef = F918412D1638281600D36A61 /* FileService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5EFEB34D20D2F5B0001AECDE /* LocationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A064A61AFA6E4A00779BB1 /* LocationTracker.m */; };
 		5EFEB34E20D2F5B0001AECDE /* AMFBodyWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC7E21E798C5C0087869F /* AMFBodyWriter.m */; };
 		5EFEB34F20D2F5B0001AECDE /* BooleanWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9AC7EE1E798C5C0087869F /* BooleanWriter.m */; };
@@ -3923,7 +3923,7 @@
 		F97969FD166CCB8200595F5E /* DeliveryOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C05C161AB72100409FF2 /* DeliveryOptions.m */; };
 		F97969FE166CCB8200595F5E /* PublishOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C060161AB7AC00409FF2 /* PublishOptions.m */; };
 		F9796A02166CCB8200595F5E /* MessageStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C070161AB84100409FF2 /* MessageStatus.m */; };
-		F9796A03166CCB8200595F5E /* FileService.m in Sources */ = {isa = PBXBuildFile; fileRef = F918412D1638281600D36A61 /* FileService.m */; };
+		F9796A03166CCB8200595F5E /* FileService.m in Sources */ = {isa = PBXBuildFile; fileRef = F918412D1638281600D36A61 /* FileService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		F9796A04166CCB8200595F5E /* BackendlessFile.m in Sources */ = {isa = PBXBuildFile; fileRef = F9184133163AB29600D36A61 /* BackendlessFile.m */; };
 		F9796A05166CCB8200595F5E /* HashMap.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B47EA15FF448F00012DFC /* HashMap.m */; };
 		F9796A06166CCBFE00595F5E /* Backendless.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B47FE15FF569400012DFC /* Backendless.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -3969,7 +3969,7 @@
 		F9796A47166CD3DB00595F5E /* DeliveryOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C05C161AB72100409FF2 /* DeliveryOptions.m */; };
 		F9796A48166CD3DB00595F5E /* PublishOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C060161AB7AC00409FF2 /* PublishOptions.m */; };
 		F9796A4C166CD3DB00595F5E /* MessageStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C070161AB84100409FF2 /* MessageStatus.m */; };
-		F9796A4D166CD3DB00595F5E /* FileService.m in Sources */ = {isa = PBXBuildFile; fileRef = F918412D1638281600D36A61 /* FileService.m */; };
+		F9796A4D166CD3DB00595F5E /* FileService.m in Sources */ = {isa = PBXBuildFile; fileRef = F918412D1638281600D36A61 /* FileService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		F9796A4E166CD3DB00595F5E /* BackendlessFile.m in Sources */ = {isa = PBXBuildFile; fileRef = F9184133163AB29600D36A61 /* BackendlessFile.m */; };
 		F9796A4F166CD3DB00595F5E /* HashMap.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B47EA15FF448F00012DFC /* HashMap.m */; };
 		F9796A52166CD42E00595F5E /* Backendless.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B47FE15FF569400012DFC /* Backendless.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -4098,7 +4098,7 @@
 		F9F0AEAA1CDBCA3900035C62 /* Events.m in Sources */ = {isa = PBXBuildFile; fileRef = 91223DC9195AF6AB00F72F48 /* Events.m */; };
 		F9F0AEAD1CDBCA3900035C62 /* DataPermission.m in Sources */ = {isa = PBXBuildFile; fileRef = D36CF3FA1A2F68DA00B6468A /* DataPermission.m */; };
 		F9F0AEAE1CDBCA3900035C62 /* MessageStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C070161AB84100409FF2 /* MessageStatus.m */; };
-		F9F0AEAF1CDBCA3900035C62 /* FileService.m in Sources */ = {isa = PBXBuildFile; fileRef = F918412D1638281600D36A61 /* FileService.m */; };
+		F9F0AEAF1CDBCA3900035C62 /* FileService.m in Sources */ = {isa = PBXBuildFile; fileRef = F918412D1638281600D36A61 /* FileService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		F9F0AEB01CDBCA3900035C62 /* BackendlessFile.m in Sources */ = {isa = PBXBuildFile; fileRef = F9184133163AB29600D36A61 /* BackendlessFile.m */; };
 		F9F0AEB21CDBCA3900035C62 /* BeaconsInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB136A1BC284A900F3CA1D /* BeaconsInfo.m */; };
 		F9F0AEB31CDBCA3900035C62 /* CacheService.m in Sources */ = {isa = PBXBuildFile; fileRef = D39A468019811D9B006CBD1B /* CacheService.m */; };
@@ -4218,7 +4218,7 @@
 		F9F0AF641CDBCAB500035C62 /* Events.m in Sources */ = {isa = PBXBuildFile; fileRef = 91223DC9195AF6AB00F72F48 /* Events.m */; };
 		F9F0AF671CDBCAB500035C62 /* DataPermission.m in Sources */ = {isa = PBXBuildFile; fileRef = D36CF3FA1A2F68DA00B6468A /* DataPermission.m */; };
 		F9F0AF681CDBCAB500035C62 /* MessageStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3C070161AB84100409FF2 /* MessageStatus.m */; };
-		F9F0AF691CDBCAB500035C62 /* FileService.m in Sources */ = {isa = PBXBuildFile; fileRef = F918412D1638281600D36A61 /* FileService.m */; };
+		F9F0AF691CDBCAB500035C62 /* FileService.m in Sources */ = {isa = PBXBuildFile; fileRef = F918412D1638281600D36A61 /* FileService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		F9F0AF6A1CDBCAB500035C62 /* BackendlessFile.m in Sources */ = {isa = PBXBuildFile; fileRef = F9184133163AB29600D36A61 /* BackendlessFile.m */; };
 		F9F0AF6C1CDBCAB500035C62 /* BeaconsInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CB136A1BC284A900F3CA1D /* BeaconsInfo.m */; };
 		F9F0AF6D1CDBCAB500035C62 /* CacheService.m in Sources */ = {isa = PBXBuildFile; fileRef = D39A468019811D9B006CBD1B /* CacheService.m */; };

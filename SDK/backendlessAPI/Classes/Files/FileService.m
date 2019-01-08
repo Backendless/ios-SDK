@@ -44,7 +44,7 @@ static NSString *METHOD_EXISTS = @"exists";
 static NSString *METHOD_COUNT = @"count";
 
 @interface AsyncResponse : NSObject {
-    NSURLConnection     *connection;
+    __unsafe_unretained NSURLConnection *connection;
     NSMutableData       *receivedData;
     NSHTTPURLResponse   *responseUrl;
     id <IResponder>     responder;
@@ -71,21 +71,6 @@ static NSString *METHOD_COUNT = @"count";
     return self;
 }
 
--(void)dealloc {
-    [DebLog logN:@"DEALLOC AsyncResponse"];
-    [receivedData release];
-    [responseUrl release];
-    [responder release];
-    [super dealloc];
-}
-@end
-
-@interface FileService () {
-    NSMutableArray  *asyncResponses;
-}
--(id)saveFileResponse:(id)response;
--(AsyncResponse *)asyncHttpResponse:(NSURLConnection *)connection;
--(void)processAsyncResponse:(NSURLConnection *)connection;
 @end
 
 @implementation FileService
@@ -95,7 +80,6 @@ static NSString *METHOD_COUNT = @"count";
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.services.persistence.NSArray" mapped:[NSArray class]];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.management.files.FileDetailedInfo" mapped:BEFileInfo.class];
         [[Types sharedInstance] addClientClassMapping:@"com.backendless.management.files.FileInfo" mapped:BEFileInfo.class];
-        asyncResponses = [NSMutableArray new];
         _permissions = [FilePermission new];
     }
     return self;
@@ -104,10 +88,6 @@ static NSString *METHOD_COUNT = @"count";
 -(void)dealloc {
     [DebLog log:@"DEALLOC FileService"];
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
-    [asyncResponses removeAllObjects];
-    [asyncResponses release];
-    [_permissions release];
-    [super dealloc];
 }
 
 // sync methods with fault return (as exception)
@@ -131,8 +111,7 @@ static NSString *METHOD_COUNT = @"count";
     return result;
 }
 
-// DEPRECATED
-// *********************************************************************
+// ************** DEPRECATED **************
 
 -(BackendlessFile *)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content {
     return [self saveFile:path fileName:fileName content:content overwriteIfExist:NO];
@@ -148,10 +127,12 @@ static NSString *METHOD_COUNT = @"count";
     NSArray *args = @[path, fileName, content, @(overwrite)];
     id receiveUrl = [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_SAVE_FILE args:args];
     if ([receiveUrl isKindOfClass:[Fault class]]) {
-       return [backendless throwFault:receiveUrl];
+        return [backendless throwFault:receiveUrl];
     }
     return [BackendlessFile file:receiveUrl];
 }
+
+// ******************************************
 
 -(BackendlessFile *)saveFile:(NSString *)filePathName content:(NSData *)content {
     return [self saveFile:filePathName content:content overwriteIfExist:NO];
@@ -170,23 +151,99 @@ static NSString *METHOD_COUNT = @"count";
     return [BackendlessFile file:receiveUrl];
 }
 
-// *********************************************************************
-
 -(BackendlessFile *)uploadFile:(NSString *)filePathName content:(NSData *)content {
     return [self uploadFile:filePathName content:content overwriteIfExist:NO];
 }
 
 -(BackendlessFile *)uploadFile:(NSString *)filePathName content:(NSData *)content overwriteIfExist:(BOOL)overwrite {
-    if (!filePathName || !filePathName.length)
-        return [backendless throwFault:FAULT_NO_FILE_NAME];
-    if (!content || !content.length)
-        return [backendless throwFault:FAULT_NO_FILE_DATA];
-    NSArray *args = @[filePathName, content, @(overwrite)];
-    id receiveUrl = [invoker invokeSync:SERVER_FILE_SERVICE_PATH method:METHOD_SAVE_FILE args:args];
-    if ([receiveUrl isKindOfClass:[Fault class]]) {
-        return [backendless throwFault:receiveUrl];
+    return [self sendUploadRequest:filePathName content:content overwrite:@(overwrite)];
+}
+
+-(id)sendUploadRequest:(NSString *)path content:(NSData *)content overwrite:(NSNumber *)overwrite {
+#if TARGET_OS_IOS || TARGET_OS_SIMULATOR
+    NSURLRequest *webReq = [self httpUploadRequest:path content:content overwrite:overwrite];
+    NSHTTPURLResponse *responseUrl;
+    NSError *error;
+    NSData *receivedData = [self sendSynchronousRequest:webReq returningResponse:&responseUrl error:&error];
+    NSInteger statusCode = [responseUrl statusCode];
+    [DebLog log:@"FileService -> sendUploadRequest: HTTP status code: %@", @(statusCode)];
+    if (statusCode == 200 && receivedData) {
+        NSString *receiveUrl = [[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding];
+        receiveUrl = [receiveUrl stringByReplacingOccurrencesOfString:@"{\"fileURL\":\"" withString:@""];
+        receiveUrl = [receiveUrl stringByReplacingOccurrencesOfString:@"\"}" withString:@""];
+        return [BackendlessFile file:receiveUrl];
     }
-    return [BackendlessFile file:receiveUrl];
+    NSDictionary *receivedFault = [NSJSONSerialization JSONObjectWithData:receivedData options:NSJSONReadingMutableContainers error:&error];
+    Fault *fault = [Fault fault:[receivedFault valueForKey:@"message"] faultCode:[receivedFault valueForKey:@"code"]];
+    return [backendless throwFault:fault];
+#else
+    return [self saveFile:path content:content overwriteIfExist:(overwrite!=nil)&&overwrite.boolValue];
+#endif
+}
+
+- (NSData *)sendSynchronousRequest:(NSURLRequest *)request returningResponse:(NSURLResponse **)response error:(NSError **)error {
+    __block NSData *blockData = nil;
+    @try {
+        __block NSURLResponse *blockResponse = nil;
+        __block NSError *blockError = nil;
+        dispatch_group_t group = dispatch_group_create();
+        dispatch_group_enter(group);
+        NSURLSession *session = [NSURLSession sharedSession];
+        [[session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable subData, NSURLResponse * _Nullable subResponse, NSError * _Nullable subError) {
+            blockData = subData;
+            blockError = subError;
+            blockResponse = subResponse;
+            dispatch_group_leave(group);
+        }] resume];
+        dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+        *error = blockError;
+        *response = blockResponse;
+    } @catch (NSException *exception) {
+        NSLog(@"%@", exception.description);
+    } @finally {
+        return blockData;
+    }
+}
+
+-(NSURLRequest *)httpUploadRequest:(NSString *)path content:(NSData *)content overwrite:(NSNumber *)overwrite {
+    NSString *boundary = [backendless GUIDString];
+    NSString *fileName = [path lastPathComponent];
+    
+    // create the request body
+    NSMutableData *body = [NSMutableData data];
+    [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"file\"; filename=\"%@\"\r\n", fileName] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[@"Content-Type: application/octet-stream\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[@"Content-Transfer-Encoding: binary\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    if (content && [content length]) {
+        [body appendData:content];
+        [body appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    }
+    [body appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    // create the request
+    NSString *url = [NSString stringWithFormat:@"%@/%@/%@/files/%@?overwrite=%@", backendless.hostURL, backendless.appID, backendless.apiKey, path, [overwrite boolValue]?@"true":@"false"];
+    NSMutableURLRequest *webReq = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+    
+    if (backendless.headers) {
+        NSArray *headers = [backendless.headers allKeys];
+        for (NSString *header in headers) {
+#if TARGET_OS_IOS || TARGET_OS_SIMULATOR
+            NSCharacterSet *set = [NSCharacterSet URLFragmentAllowedCharacterSet];
+            [webReq addValue:[backendless.headers valueForKey:header] forHTTPHeaderField:[header stringByAddingPercentEncodingWithAllowedCharacters:set]];
+            
+#else
+            [webReq addValue:[backendless.headers valueForKey:header] forHTTPHeaderField:[header stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet alphanumericCharacterSet]]];
+#endif
+        }
+    }
+    [webReq addValue:[NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary] forHTTPHeaderField:@"Content-Type"];
+    [webReq addValue:[NSString stringWithFormat:@"%ld", (unsigned long)[body length]] forHTTPHeaderField:@"Content-Length"];
+    [webReq setHTTPMethod:@"POST"];
+    [webReq setHTTPBody:body];
+    
+    [DebLog log:@"FileService -> httpUploadRequest: path: '%@', boundary: '%@'\nURL: %@\nheaders: %@", fileName, boundary, url, [webReq allHTTPHeaderFields]];
+    return webReq;
 }
 
 -(NSString *)renameFile:(NSString *)oldPathName newName:(NSString *)newName {
@@ -293,8 +350,7 @@ static NSString *METHOD_COUNT = @"count";
     [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_DELETE args:args responder:responder];
 }
 
-// DEPRECATED
-// *********************************************************************
+// ************** DEPRECATED **************
 
 -(void)saveFile:(NSString *)path fileName:(NSString *)fileName content:(NSData *)content response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self saveFile:path fileName:fileName content:content overwriteIfExist:NO response:responseBlock error:errorBlock];
@@ -314,6 +370,8 @@ static NSString *METHOD_COUNT = @"count";
     [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_SAVE_FILE args:args responder:_responder];
 }
 
+// ******************************************
+
 -(void)saveFile:(NSString *)filePathName content:(NSData *)content response:(void(^)(BackendlessFile *))responseBlock error:(void(^)(Fault *))errorBlock {
     [self saveFile:filePathName content:content overwriteIfExist:NO response:responseBlock error:errorBlock];
 }
@@ -330,22 +388,45 @@ static NSString *METHOD_COUNT = @"count";
     [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_SAVE_FILE args:args responder:_responder];
 }
 
-// *********************************************************************
-
 -(void)uploadFile:(NSString *)filePathName content:(NSData *)content response:(void (^)(BackendlessFile *))responseBlock error:(void (^)(Fault *))errorBlock {
     [self uploadFile:filePathName content:content overwriteIfExist:NO response:responseBlock error:errorBlock];
 }
 
 -(void)uploadFile:(NSString *)filePathName content:(NSData *)content overwriteIfExist:(BOOL)overwrite response:(void (^)(BackendlessFile *))responseBlock error:(void (^)(Fault *))errorBlock {
-    id<IResponder>responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
-    if (!filePathName || !filePathName.length)
-        return [responder errorHandler:FAULT_NO_FILE_NAME];
-    if (!content|| !content.length)
-        return [responder errorHandler:FAULT_NO_FILE_DATA];
-    NSArray *args = @[filePathName, content, @(overwrite)];
-    Responder *_responder = [Responder responder:self selResponseHandler:@selector(saveFileResponse:) selErrorHandler:nil];
-    _responder.chained = responder;
-    [invoker invokeAsync:SERVER_FILE_SERVICE_PATH method:METHOD_SAVE_FILE args:args responder:_responder];
+    [self sendUploadRequest:filePathName content:content overwrite:@(overwrite) response:responseBlock error:errorBlock];
+}
+
+-(void)sendUploadRequest:(NSString *)path content:(NSData *)content overwrite:(NSNumber *)overwrite response:(void (^)(BackendlessFile *))responseBlock error:(void (^)(Fault *))errorBlock {
+#if TARGET_OS_IOS || TARGET_OS_SIMULATOR
+    NSURLRequest *webReq = [self httpUploadRequest:path content:content overwrite:overwrite];
+    NSURLSession *session = [NSURLSession sharedSession];
+    [[session dataTaskWithRequest:webReq completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
+        id<IResponder> responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+        AsyncResponse *async = [AsyncResponse new];
+        async.receivedData = [NSMutableData new];
+        async.responder = responder;
+        
+        if (error) {
+            Fault *fault = (error) ? [Fault fault:[error domain] detail:[error localizedDescription] faultCode:[NSString stringWithFormat:@"%ld",(long)[error code]]] : UNKNOWN_FAULT;
+            [async.responder errorHandler:fault];
+        }
+        else {
+            if (response) {
+                NSHTTPURLResponse *responseUrl = (NSHTTPURLResponse *)response;
+                [async.receivedData setLength:0];
+                async.responseUrl = responseUrl;
+            }
+            if (data) {
+                [DebLog logN:@"HttpEngine ->connection didReceiveData: length = %d", [data length]];
+                [async.receivedData appendData:data];
+            }
+        }
+        [self processAsyncResponse:async];
+    }] resume];
+#else
+    [self saveFile:path content:content overwriteIfExist:(overwrite!=nil)&&overwrite.boolValue response:responseBlock error:errorBlock];
+#endif
 }
 
 -(void)renameFile:(NSString *)oldPathName newName:(NSString *)newName response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -433,80 +514,25 @@ static NSString *METHOD_COUNT = @"count";
     return collection;
 }
 
--(AsyncResponse *)asyncHttpResponse:(NSURLConnection *)connection {
-    for (AsyncResponse *async in asyncResponses)
-        if (async.connection == connection)
-            return async;
-    return nil;
-}
-
--(void)processAsyncResponse:(NSURLConnection *)connection {
-    AsyncResponse *async = [self asyncHttpResponse:connection];
-    // all done, release connection, we are ready to rock and roll
-    [connection release];
-    connection = nil;
-    if (!async)
+-(void)processAsyncResponse:(AsyncResponse *)async {
+    if (!async) {
         return;
+    }
     if (async.responder) {
         NSInteger statusCode = [async.responseUrl statusCode];
         [DebLog log:@"FileService -> processAsyncResponse: HTTP status code: %@", @(statusCode)];
         if ((statusCode == 200) && async.receivedData && [async.receivedData length]) {
-            NSString *path = [[[NSString alloc] initWithData:async.receivedData encoding:NSUTF8StringEncoding] autorelease];
+            NSString *path = [[NSString alloc] initWithData:async.receivedData encoding:NSUTF8StringEncoding];
             path = [path stringByReplacingOccurrencesOfString:@"{\"fileURL\":\"" withString:@""];
             path = [path stringByReplacingOccurrencesOfString:@"\"}" withString:@""];
             [async.responder responseHandler:[BackendlessFile file:path]];
         }
         else {
-            Fault *fault = [Fault fault:[NSString stringWithFormat:@"HTTP %@", @(statusCode)] detail:[NSHTTPURLResponse localizedStringForStatusCode:statusCode] faultCode:[NSString stringWithFormat:@"%@", @(statusCode)]];
+            NSDictionary *receivedFault = [NSJSONSerialization JSONObjectWithData:async.receivedData options:NSJSONReadingMutableContainers error:nil];
+            Fault *fault = [Fault fault:[receivedFault valueForKey:@"message"] faultCode:[receivedFault valueForKey:@"code"]];
             [async.responder errorHandler:fault];
         }
     }
-    // clean up received data
-    [asyncResponses removeObject:async];
-    [async release];
-}
-
--(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    NSHTTPURLResponse *responseUrl = [(NSHTTPURLResponse *)response copy];
-    NSInteger statusCode = [responseUrl  statusCode];
-    [DebLog logN:@"FileService -> connection didReceiveResponse: statusCode=%@ ('%@')\nheaders:\n%@", @(statusCode), [NSHTTPURLResponse localizedStringForStatusCode:statusCode], [responseUrl  allHeaderFields]];
-    AsyncResponse *async = [self asyncHttpResponse:connection];
-    if (!async)
-        return;
-    // connection is starting, clear buffer
-    [async.receivedData setLength:0];
-    // save response url
-    async.responseUrl = responseUrl;
-}
-
--(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    [DebLog logN:@"FileService -> connection didReceiveData: length = %@", @([data length])];
-    AsyncResponse *async = [self asyncHttpResponse:connection];
-    if (!async)
-        return;
-    // data is arriving, add it to the buffer
-    [async.receivedData appendData:data];
-}
-
--(void)connection:(NSURLConnection*)connection didFailWithError:(NSError *)error {
-    [DebLog logN:@"FileService -> connection didFailWithError: '%@'", error];
-    AsyncResponse *async = [self asyncHttpResponse:connection];
-    // something went wrong, release connection
-    [connection release];
-    connection = nil;
-    if (!async)
-        return;
-    Fault *fault = [Fault fault:[error domain] detail:[error localizedDescription]];
-    [async.responder errorHandler:fault];
-    // clean up received data
-    [asyncResponses removeObject:async];
-    [async release];
-}
-
--(void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    [DebLog logN:@"FileService -> connectionDidFinishLoading"];
-    // receivedData processing
-    [self performSelector:@selector(processAsyncResponse:) withObject:connection afterDelay:0.0f];
 }
 
 @end
