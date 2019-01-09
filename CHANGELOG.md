@@ -1,5 +1,8 @@
 # RELEASE HISTORY
 
+## 5.2.9 January 9, 2019
+* The uploadFile methods (with http request) added to FileService
+
 ## 5.2.8 December 14, 2018
 * Inline reply "textInputPlaceholder" and "inputButtonTitle" fixed when values are not set in console
 
