@@ -1,5 +1,8 @@
 # RELEASE HISTORY
 
+## 5.2.10 February 14, 2019
+* Socket.IO updated to v14.0.0
+
 ## 5.2.9 January 9, 2019
 * The uploadFile methods (with http request) added to FileService
 
