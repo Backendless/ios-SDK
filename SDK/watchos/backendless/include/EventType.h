@@ -19,9 +19,9 @@
  *  ********************************************************************************************************************
  */
 
-typedef enum enent_type EventType;
+typedef enum event_type EventType;
 
-enum enent_type {
+enum event_type {
 	SYSTEM,
 	STATUS,
 	SERVICE_CALL,
