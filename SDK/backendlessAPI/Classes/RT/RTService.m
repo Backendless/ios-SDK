@@ -74,7 +74,7 @@
 }
 
 -(void)removeConnectionListeners {
-    [self removeConnectionListeners];
+    [self removeConnectEventListeners];
     [self removeConnectErrorEventListeners];
     [self removeDisconnectEventListeners];
     [self removeReconnectAttemptEventListeners];
