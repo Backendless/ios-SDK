@@ -20,6 +20,8 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "ExecutionType.h"
+
 @protocol IResponder;
 @class Fault;
 
@@ -27,9 +29,14 @@
 
 // sync methods with fault return (as exception)
 -(NSDictionary *)dispatch:(NSString *)name args:(NSDictionary *)eventArgs;
+-(NSDictionary *)dispatch:(NSString* )name args:(NSDictionary *)eventArgs executionType:(ExecutionType)executionType;
+
 // async methods with responder
 -(void)dispatch:(NSString *)name args:(NSDictionary *)eventArgs responder:(id <IResponder>)responder;
+-(void)dispatch:(NSString *)name args:(NSDictionary *)eventArgs executionType:(ExecutionType)executionType responder:(id<IResponder>)responder;
+
 // async methods with block-based callbacks
 -(void)dispatch:(NSString *)name args:(NSDictionary *)eventArgs response:(void(^)(NSDictionary *data))responseBlock error:(void(^)(Fault *fault))errorBlock;
+-(void)dispatch:(NSString *)name args:(NSDictionary *)eventArgs executionType:(ExecutionType)executionType response:(void(^)(NSDictionary *))responseBlock error:(void(^)(Fault *))errorBlock;
 
 @end
