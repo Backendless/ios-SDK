@@ -28,9 +28,22 @@
 #define FAULT_NO_SERVICE_METHOD [Fault fault:@"Service method not found" detail:@"Service method not found" faultCode:@"14002"]
 
 static NSString *SERVER_CUSTOM_SERVICE_PATH = @"com.backendless.services.servercode.CustomServiceHandler";
+
+@interface CustomService() {
+    NSArray *executionTypeValues;
+}
+@end
+
 static NSString *METHOD_DISPATCH_SERVICE = @"dispatchService";
 
 @implementation CustomService
+
+- (instancetype)init {
+    if (self = [super init]) {
+        executionTypeValues = @[@"SYNC", @"ASYNC", @"ASYNC_LOW_PRIORITY"];
+    }
+    return self;
+}
 
 // sync methods with fault return (as exception)
 -(id)invoke:(NSString *)serviceName method:(NSString *)method args:(NSArray *)args {
@@ -41,6 +54,17 @@ static NSString *METHOD_DISPATCH_SERVICE = @"dispatchService";
         return [backendless throwFault:FAULT_NO_SERVICE_METHOD];
     }
     NSArray *_args = @[serviceName, method, args?args:@[]];
+    return [invoker invokeSync:SERVER_CUSTOM_SERVICE_PATH method:METHOD_DISPATCH_SERVICE args:_args responseAdapter:[CustomServiceAdapter new]];
+}
+
+-(id)invoke:(NSString *)serviceName method:(NSString *)method args:(NSArray *)args executionType:(ExecutionType)executionType {
+    if (!serviceName) {
+        return [backendless throwFault:FAULT_NO_SERVICE];
+    }
+    if (!method) {
+        return [backendless throwFault:FAULT_NO_SERVICE_METHOD];
+    }
+    NSArray *_args = @[serviceName, method, args?args:@[], [executionTypeValues objectAtIndex:[@(executionType) intValue]]];
     return [invoker invokeSync:SERVER_CUSTOM_SERVICE_PATH method:METHOD_DISPATCH_SERVICE args:_args responseAdapter:[CustomServiceAdapter new]];
 }
 
@@ -56,9 +80,24 @@ static NSString *METHOD_DISPATCH_SERVICE = @"dispatchService";
     [invoker invokeAsync:SERVER_CUSTOM_SERVICE_PATH method:METHOD_DISPATCH_SERVICE args:_args responder:responder responseAdapter:[CustomServiceAdapter new]];
 }
 
+-(void)invoke:(NSString *)serviceName method:(NSString *)method args:(NSArray *)args executionType:(ExecutionType)executionType responder:(id<IResponder>)responder {
+    if (!serviceName) {
+        return [responder errorHandler:FAULT_NO_SERVICE];
+    }
+    if (!method) {
+        return [responder errorHandler:FAULT_NO_SERVICE_METHOD];
+    }
+    NSArray *_args = @[serviceName, method, args?args:@[], [executionTypeValues objectAtIndex:[@(executionType) intValue]]];
+    [invoker invokeAsync:SERVER_CUSTOM_SERVICE_PATH method:METHOD_DISPATCH_SERVICE args:_args responder:responder responseAdapter:[CustomServiceAdapter new]];
+}
+
 // async methods with block-based callbacks
 -(void)invoke:(NSString *)serviceName method:(NSString *)method args:(NSArray *)args response:(void(^)(id))responseBlock error:(void(^)(Fault *fault))errorBlock {
     [self invoke:serviceName method:method args:args responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
+}
+
+-(void)invoke:(NSString *)serviceName method:(NSString *)method args:(NSArray *)args executionType:(ExecutionType)executionType response:(void (^)(id))responseBlock error:(void (^)(Fault *))errorBlock {
+    [self invoke:serviceName method:method args:args executionType:executionType responder:[ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock]];
 }
 
 @end

@@ -4663,6 +4663,7 @@
 		5E3EB794207F9A4D00C5C09D /* VoidResponseWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VoidResponseWrapper.h; sourceTree = "<group>"; };
 		5E3EB795207F9A4D00C5C09D /* VoidResponseWrapper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VoidResponseWrapper.m; sourceTree = "<group>"; };
 		5E5167FD20D2EC80001A058B /* libbackendless-watch-device.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libbackendless-watch-device.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5E7722DB2236CCC800E7B346 /* ExecutionType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExecutionType.h; sourceTree = "<group>"; };
 		5EC159622099BF310095BA74 /* PublishMessageInfoWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PublishMessageInfoWrapper.h; sourceTree = "<group>"; };
 		5EC159632099BF310095BA74 /* PublishMessageInfoWrapper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PublishMessageInfoWrapper.m; sourceTree = "<group>"; };
 		5EEF294D202DA40C00449F43 /* DeviceRegistrationAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceRegistrationAdapter.h; sourceTree = "<group>"; };
@@ -5574,6 +5575,14 @@
 			path = Wrapper;
 			sourceTree = "<group>";
 		};
+		5E7722D42236CC4400E7B346 /* ExecutionType */ = {
+			isa = PBXGroup;
+			children = (
+				5E7722DB2236CCC800E7B346 /* ExecutionType.h */,
+			);
+			path = ExecutionType;
+			sourceTree = "<group>";
+		};
 		91223DC7195AF68900F72F48 /* Events */ = {
 			isa = PBXGroup;
 			children = (
@@ -5744,6 +5753,7 @@
 		F91B47E115FF448F00012DFC /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				5E7722D42236CC4400E7B346 /* ExecutionType */,
 				D30A5D7319B9CA8200C0BA44 /* Backendless-Bridging-Header.h */,
 				F91B47FE15FF569400012DFC /* Backendless.h */,
 				F91B47FF15FF569400012DFC /* Backendless.m */,
