@@ -1,12 +1,12 @@
 Pod::Spec.new do |spec|
   spec.name          = 'Backendless'
-  spec.version       = '5.2.10'
+  spec.version       = '5.2.11'
   spec.license       = { :type => 'Apache', :text => 'Copyright (c) 2013-2019 by Backendless.com' }
   spec.homepage      = 'http://backendless.com'
   spec.authors       = { 'Mark Piller' => 'mark@backendless.com' }
   spec.summary       = 'Backendless is a Mobile Backend and API Services Platform'
   spec.description   = 'Backendless is a development and a run-time platform. It helps software developers to create mobile and desktop applications while removing the need for server-side coding.'
-  spec.source        = { :git => 'https://github.com/Backendless/ios-SDK.git', :tag => '5.2.10' }
+  spec.source        = { :git => 'https://github.com/Backendless/ios-SDK.git', :tag => '5.2.11' }
   spec.swift_version = '4.2'
 
   spec.ios.deployment_target  = '8.0'
