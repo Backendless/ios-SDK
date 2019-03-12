@@ -2139,6 +2139,15 @@
 		5A95F1FC202B3D60000D6EA5 /* MapAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A95F1F2202B3D60000D6EA5 /* MapAdapter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A9DB6021FCC219200B0C3CD /* BackendlessPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A633F401F7BB7F6004D7ACA /* BackendlessPushHelper.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5A9E9A6C1FA769FB001BB2BE /* EventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8A15801FA0D3C3009A1394 /* EventHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AA295642237B2B7007104C7 /* ExecutionType.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AA295632237B1AB007104C7 /* ExecutionType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AA295652237B2C8007104C7 /* ExecutionType.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AA295632237B1AB007104C7 /* ExecutionType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AA295662237B2E0007104C7 /* ExecutionType.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AA295632237B1AB007104C7 /* ExecutionType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AA295672237B2EC007104C7 /* ExecutionType.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AA295632237B1AB007104C7 /* ExecutionType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AA295682237B2F6007104C7 /* ExecutionType.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AA295632237B1AB007104C7 /* ExecutionType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AA295692237B305007104C7 /* ExecutionType.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AA295632237B1AB007104C7 /* ExecutionType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AA2956A2237B314007104C7 /* ExecutionType.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AA295632237B1AB007104C7 /* ExecutionType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AA2956B2237B322007104C7 /* ExecutionType.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AA295632237B1AB007104C7 /* ExecutionType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AA2956C2237B32B007104C7 /* ExecutionType.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AA295632237B1AB007104C7 /* ExecutionType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AA8FF1B1FCD945700F36C6D /* UserService.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B480515FF5AC500012DFC /* UserService.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5AAC6CBE20C92D480094C4E4 /* BackendlessPushHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A633F3F1F7BB7F6004D7ACA /* BackendlessPushHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5AB0CA9A1FB490A400C21766 /* RTMessaging.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F38501FB317EB002F21D4 /* RTMessaging.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -4639,6 +4648,7 @@
 		5A9FC9AE1FC4788700B192D9 /* RTMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTMethod.h; sourceTree = "<group>"; };
 		5A9FC9AF1FC4788700B192D9 /* RTMethodRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTMethodRequest.m; sourceTree = "<group>"; };
 		5A9FC9B01FC4788700B192D9 /* RTMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTMethod.m; sourceTree = "<group>"; };
+		5AA295632237B1AB007104C7 /* ExecutionType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExecutionType.h; sourceTree = "<group>"; };
 		5AB968ED20CFB5E800FD3FAA /* backendless_tv.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = backendless_tv.h; sourceTree = "<group>"; };
 		5AB968EE20CFB5E800FD3FAA /* backendless_tv.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = backendless_tv.m; sourceTree = "<group>"; };
 		5AC2EB85201754E60017AA67 /* UserDefaultsHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserDefaultsHelper.h; sourceTree = "<group>"; };
@@ -4663,7 +4673,6 @@
 		5E3EB794207F9A4D00C5C09D /* VoidResponseWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VoidResponseWrapper.h; sourceTree = "<group>"; };
 		5E3EB795207F9A4D00C5C09D /* VoidResponseWrapper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VoidResponseWrapper.m; sourceTree = "<group>"; };
 		5E5167FD20D2EC80001A058B /* libbackendless-watch-device.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libbackendless-watch-device.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5E7722DB2236CCC800E7B346 /* ExecutionType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExecutionType.h; sourceTree = "<group>"; };
 		5EC159622099BF310095BA74 /* PublishMessageInfoWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PublishMessageInfoWrapper.h; sourceTree = "<group>"; };
 		5EC159632099BF310095BA74 /* PublishMessageInfoWrapper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PublishMessageInfoWrapper.m; sourceTree = "<group>"; };
 		5EEF294D202DA40C00449F43 /* DeviceRegistrationAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceRegistrationAdapter.h; sourceTree = "<group>"; };
@@ -5546,6 +5555,14 @@
 			path = PersistenceAdapter;
 			sourceTree = "<group>";
 		};
+		5AA2955E2237B185007104C7 /* ExecutionType */ = {
+			isa = PBXGroup;
+			children = (
+				5AA295632237B1AB007104C7 /* ExecutionType.h */,
+			);
+			path = ExecutionType;
+			sourceTree = "<group>";
+		};
 		5AB968EC20CFB5E800FD3FAA /* backendless-tv */ = {
 			isa = PBXGroup;
 			children = (
@@ -5573,14 +5590,6 @@
 				5EC159632099BF310095BA74 /* PublishMessageInfoWrapper.m */,
 			);
 			path = Wrapper;
-			sourceTree = "<group>";
-		};
-		5E7722D42236CC4400E7B346 /* ExecutionType */ = {
-			isa = PBXGroup;
-			children = (
-				5E7722DB2236CCC800E7B346 /* ExecutionType.h */,
-			);
-			path = ExecutionType;
 			sourceTree = "<group>";
 		};
 		91223DC7195AF68900F72F48 /* Events */ = {
@@ -5753,8 +5762,8 @@
 		F91B47E115FF448F00012DFC /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				5E7722D42236CC4400E7B346 /* ExecutionType */,
 				D30A5D7319B9CA8200C0BA44 /* Backendless-Bridging-Header.h */,
+				5AA2955E2237B185007104C7 /* ExecutionType */,
 				F91B47FE15FF569400012DFC /* Backendless.h */,
 				F91B47FF15FF569400012DFC /* Backendless.m */,
 				5A8A14F21FA0A318009A1394 /* RT */,
@@ -6306,6 +6315,7 @@
 				1C7BB5051A2E092900D3C2C1 /* BackendlessCacheProtocol.h in Headers */,
 				1C7BB5061A2E092900D3C2C1 /* QueryOptions.h in Headers */,
 				5A1052CF20063B580036A784 /* JSONHelper.h in Headers */,
+				5AA2956C2237B32B007104C7 /* ExecutionType.h in Headers */,
 				5AAC6CBE20C92D480094C4E4 /* BackendlessPushHelper.h in Headers */,
 				5EC159592099B3360095BA74 /* PublishMessageInfo.h in Headers */,
 				5AF2B7281EB2136300D54442 /* MessagingService.h in Headers */,
@@ -6574,6 +6584,7 @@
 				5A06BEBF20D118EA00E0315F /* HashMap.h in Headers */,
 				5A06BEC020D118EA00E0315F /* ClassCastException.h in Headers */,
 				5E0AD51A218B100400A0B4A4 /* UserDefaultsHelper.h in Headers */,
+				5AA295682237B2F6007104C7 /* ExecutionType.h in Headers */,
 				5A06BEBD20D118EA00E0315F /* JSONHelper.h in Headers */,
 				5A06BEC120D118EA00E0315F /* KeychainDataStore.h in Headers */,
 			);
@@ -6842,6 +6853,7 @@
 				5AF7F2B620CFC40F0014880E /* JSONHelper.h in Headers */,
 				5A50EC4320D004DB00990020 /* KeychainDataStore.h in Headers */,
 				5AF7F2B820CFC40F0014880E /* PublishMessageInfo.h in Headers */,
+				5AA2956A2237B314007104C7 /* ExecutionType.h in Headers */,
 				5AF7F2B920CFC40F0014880E /* MessagingService.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -7108,6 +7120,7 @@
 				5E5167F620D2EC80001A058B /* HashMap.h in Headers */,
 				5E5167F720D2EC80001A058B /* ClassCastException.h in Headers */,
 				5E0AD51C218B101D00A0B4A4 /* UserDefaultsHelper.h in Headers */,
+				5AA295692237B305007104C7 /* ExecutionType.h in Headers */,
 				5E5167F420D2EC80001A058B /* JSONHelper.h in Headers */,
 				5E5167F820D2EC80001A058B /* KeychainDataStore.h in Headers */,
 			);
@@ -7376,6 +7389,7 @@
 				5EFEB4A220D2F5B0001AECDE /* JSONHelper.h in Headers */,
 				5EFEB4A520D2F5B0001AECDE /* KeychainDataStore.h in Headers */,
 				5EFEB4A620D2F5B0001AECDE /* PublishMessageInfo.h in Headers */,
+				5AA2956B2237B322007104C7 /* ExecutionType.h in Headers */,
 				5EFEB4A720D2F5B0001AECDE /* MessagingService.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -7643,6 +7657,7 @@
 				91F139AE17D7240A00D1AC4C /* BackendlessCacheProtocol.h in Headers */,
 				5AF2B72B1EB2138500D54442 /* MessagingService.h in Headers */,
 				5A1052D020063B910036A784 /* JSONHelper.h in Headers */,
+				5AA295662237B2E0007104C7 /* ExecutionType.h in Headers */,
 				91F139B217D724C700D1AC4C /* QueryOptions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -7910,6 +7925,7 @@
 				5A549861200795C90042234F /* SharedObject.h in Headers */,
 				5A549860200795C50042234F /* RTSharedObject.h in Headers */,
 				5A54985F200795BD0042234F /* InvokeObject.h in Headers */,
+				5AA295672237B2EC007104C7 /* ExecutionType.h in Headers */,
 				5A83935E1FD1AAAB00FB5697 /* RTListener.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -8177,6 +8193,7 @@
 				5A82DE9D20AEEDBE00E264B8 /* RTHelper.h in Headers */,
 				5A82DE9E20AEEDBE00E264B8 /* UserInfo.h in Headers */,
 				5A82DE9F20AEEDBE00E264B8 /* ReconnectAttemptObject.h in Headers */,
+				5AA295642237B2B7007104C7 /* ExecutionType.h in Headers */,
 				5A3917D81FC5BE0C0084D24D /* CommandObject.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -8444,6 +8461,7 @@
 				5A549858200795820042234F /* SharedObjectChanges.h in Headers */,
 				5A5498572007957D0042234F /* SharedObject.h in Headers */,
 				5A549856200795780042234F /* RTSharedObject.h in Headers */,
+				5AA295652237B2C8007104C7 /* ExecutionType.h in Headers */,
 				5A5498552007956F0042234F /* InvokeObject.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

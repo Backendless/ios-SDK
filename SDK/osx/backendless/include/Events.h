@@ -20,14 +20,10 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "ExecutionType.h"
+
 @protocol IResponder;
 @class Fault;
-
-typedef enum {
-    SYNC,
-    ASYNC,
-    ASYNC_LOW_PRIORITY
-} ExecutionType;
 
 @interface Events : NSObject
 
