@@ -1,5 +1,8 @@
 # RELEASE HISTORY
 
+## 5.2.12 March, 26 2019
+* podspec updated to support Socket.IO v14.0.0
+
 ## 5.2.11 March, 12 2019
 * Added support for low priority tasks in CustomService and Events
 
