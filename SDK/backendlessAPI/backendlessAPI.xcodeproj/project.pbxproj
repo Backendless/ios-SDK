@@ -5856,8 +5856,6 @@
 				F91B48291603649C00012DFC /* IDataStore.h */,
 				F99D92231607240B00AFF3F6 /* DataStoreFactory.h */,
 				F99D92241607240C00AFF3F6 /* DataStoreFactory.m */,
-				84B027E41DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h */,
-				84B027E51DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m */,
 				F99A74951D4A0CAB001AF91F /* MapDrivenDataStore.h */,
 				F99A74961D4A0CAB001AF91F /* MapDrivenDataStore.m */,
 				F96B1C5E1DD3A23C00A4B362 /* PagedQueryBuilder.h */,
@@ -5866,6 +5864,8 @@
 				F96B1C6B1DD3B6CA00A4B362 /* QueryOptionsBuilder.m */,
 				F96B1C781DD4BF5F00A4B362 /* DataQueryBuilder.h */,
 				F96B1C791DD4BF5F00A4B362 /* DataQueryBuilder.m */,
+				84B027E41DF6FABA00F084C2 /* LoadRelationsQueryBuilder.h */,
+				84B027E51DF6FABA00F084C2 /* LoadRelationsQueryBuilder.m */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
