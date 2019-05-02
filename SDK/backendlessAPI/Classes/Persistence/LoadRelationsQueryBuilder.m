@@ -24,11 +24,14 @@
 #import "QueryOptions.h"
 #import "BackendlessDataQuery.h"
 #import "PagedQueryBuilder.h"
+#import "QueryOptionsBuilder.h"
 
 @interface LoadRelationsQueryBuilder () {
     NSString *_relationName;
     Class _relationType;
     PagedQueryBuilder *_pagedQueryBuilder;
+    NSMutableArray<NSString *> *_properties;
+    QueryOptionsBuilder *_queryOptionsBuilder;
 }
 @end
 
@@ -37,6 +40,8 @@
 -(instancetype)init {
     if (self = [super init]) {
         _pagedQueryBuilder = [[PagedQueryBuilder alloc] init:self];
+        _properties = [NSMutableArray<NSString *> new];
+        _queryOptionsBuilder = [[QueryOptionsBuilder alloc] init:self];
         _relationName = nil;
         _relationType = nil;
     }
@@ -46,6 +51,8 @@
 -(instancetype)initWithClass:(Class)relationType {
     if ( (self=[super init]) ) {
         _pagedQueryBuilder = [[PagedQueryBuilder alloc] init:self];
+        _properties = [NSMutableArray<NSString *> new];
+        _queryOptionsBuilder = [[QueryOptionsBuilder alloc] init:self];
         _relationName = nil;
         _relationType = relationType;
     }
@@ -71,6 +78,7 @@
 
 -(BackendlessDataQuery *)build {
     BackendlessDataQuery *dataQuery = [_pagedQueryBuilder build];
+    dataQuery.properties = _properties ? [[NSMutableArray alloc] initWithArray:_properties] : nil;
     QueryOptions *queryOptions = [QueryOptions new];
     [queryOptions addRelated:_relationName];
     dataQuery.queryOptions = queryOptions;
@@ -104,6 +112,56 @@
 
 -(Class)getRelationType {
     return _relationType;
+}
+
+-(NSMutableArray<NSString*> *)getProperties {
+    return _properties;
+}
+
+-(instancetype)setProperties:(NSArray<NSString*> *)properties {
+    if (properties) {
+        _properties = [[NSMutableArray alloc] initWithArray:properties];
+    }
+    return self;
+}
+
+-(instancetype)addProperty:(NSString *)property {
+    if (property) {
+        [_properties addObject:property];
+    }
+    return self;
+}
+
+-(instancetype)addProperties:(NSArray<NSString *> *)properties {
+    if (properties) {
+        [_properties addObjectsFromArray:properties];
+    }
+    return self;
+}
+
+-(NSMutableArray<NSString *> *)getSortBy {
+    return [_queryOptionsBuilder getSortBy];
+}
+
+-(instancetype)setSortBy:(NSArray<NSString *> *)sortBy {
+    if (sortBy) {
+        [_queryOptionsBuilder setSortBy:sortBy];
+    }
+    return self;
+}
+
+-(instancetype)addSortBy:(NSString *)sortBy {
+    if (sortBy) {
+        [_queryOptionsBuilder addSortBy:sortBy];
+    }
+    return self;
+}
+
+-(instancetype)addListSortBy:(NSArray<NSString *> *)sortBy {
+    if (sortBy) {
+        [_queryOptionsBuilder addListSortBy:sortBy];
+    }
+    return self;
 }
 
 @end

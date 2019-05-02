@@ -35,4 +35,14 @@
 -(instancetype) preparePreviousPage;
 -(NSMutableArray<NSString*> *)getRelationType;
 
+-(NSMutableArray<NSString*> *)getProperties;
+-(instancetype)setProperties:(NSArray<NSString*> *)properties;
+-(instancetype)addProperty:(NSString *)property;
+-(instancetype)addProperties:(NSArray<NSString *> *)properties;
+
+-(NSMutableArray<NSString *> *)getSortBy;
+-(instancetype)setSortBy:(NSArray<NSString *> *)sortBy;
+-(instancetype)addSortBy:(NSString *)sortBy;
+-(instancetype)addListSortBy:(NSArray<NSString *> *)sortBy;
+
 @end
