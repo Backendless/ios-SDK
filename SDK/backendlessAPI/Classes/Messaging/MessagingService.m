@@ -90,7 +90,7 @@ static NSString *METHOD_PUSH_WITH_TEMPLATE = @"pushWithTemplate";
     if (!UUID) {
         CFUUIDRef uuid = CFUUIDCreate(NULL);
         UUID = (__bridge NSString *)CFUUIDCreateString(NULL, uuid);
-        CFRelease(uuid);
+        //CFRelease(uuid);
         [keychainStore save:bundleId data:[UUID dataUsingEncoding:NSUTF8StringEncoding]];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self unregisterDevice:[[UIDevice currentDevice].identifierForVendor UUIDString] response:nil error:nil];
@@ -109,7 +109,7 @@ static NSString *METHOD_PUSH_WITH_TEMPLATE = @"pushWithTemplate";
     NSString *serialNumberAsNSString = nil;
     if (serialNumberAsCFString) {
         serialNumberAsNSString = [NSString stringWithString:(__bridge_transfer NSString *)serialNumberAsCFString];
-        CFRelease(serialNumberAsCFString);
+        //CFRelease(serialNumberAsCFString);
     }
     return serialNumberAsNSString;
 }
@@ -201,7 +201,6 @@ static NSString *METHOD_PUSH_WITH_TEMPLATE = @"pushWithTemplate";
     [DebLog log:@"MessagingService -> registerDevice (SYNC): %@", deviceRegistration];
     NSArray *args = [NSArray arrayWithObjects:deviceRegistration, nil];
     id result = [invoker invokeSync:SERVER_DEVICE_REGISTRATION_PATH method:METHOD_REGISTER_DEVICE args:args];
-    NSLog(@"Result = %@", result);
     if ([result isKindOfClass:[Fault class]]) {
         return [backendless throwFault:result];
     }
@@ -470,14 +469,19 @@ static NSString *METHOD_PUSH_WITH_TEMPLATE = @"pushWithTemplate";
 
 -(id)onRegister:(id)response {
     NSArray *resultArray = [self jsonToNSArray:response];
-    [userDefaultsHelper writeToUserDefaults:[NSMutableDictionary dictionaryWithDictionary:[resultArray objectAtIndex:1]] withKey:PUSH_TEMPLATES_USER_DEFAULTS withSuiteName:[userDefaultsHelper getAppGroup]];
+    
+    id template = [resultArray objectAtIndex:1];
+    if ([template isKindOfClass:[NSDictionary class]]) {
+        [userDefaultsHelper writeToUserDefaults:[NSMutableDictionary dictionaryWithDictionary:template] withKey:PUSH_TEMPLATES_USER_DEFAULTS withSuiteName:[userDefaultsHelper getAppGroup]];
+    }
     return resultArray.firstObject;
 }
 
 -(NSArray *)jsonToNSArray:(NSString *)jsonString {
     NSError* error;
     NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-    return [NSJSONSerialization JSONObjectWithData:jsonData options: NSJSONReadingMutableContainers error:&error];
+    NSArray *responseArray = [NSJSONSerialization JSONObjectWithData:jsonData options: NSJSONReadingMutableContainers error:&error];
+    return responseArray;
 }
 
 -(id)onUnregister:(id)response {
