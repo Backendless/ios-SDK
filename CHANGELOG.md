@@ -1,7 +1,8 @@
 # RELEASE HISTORY
 
-## -
+## 5.2.13 May, 13 2019
 * added support of sortBy and properties for LoadRelationsQueryBuilder
+* macOS device registration fixed
 
 ## 5.2.12 March, 26 2019
 * podspec updated to support Socket.IO v14.0.0
