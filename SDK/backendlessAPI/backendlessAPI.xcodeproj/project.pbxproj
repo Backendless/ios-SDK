@@ -3211,6 +3211,69 @@
 		5E5167F620D2EC80001A058B /* HashMap.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B47E915FF448F00012DFC /* HashMap.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5E5167F720D2EC80001A058B /* ClassCastException.h in Headers */ = {isa = PBXBuildFile; fileRef = F9D5234B1B25CEF800F6A441 /* ClassCastException.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5E5167F820D2EC80001A058B /* KeychainDataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = F9B361021D663FF500818EEF /* KeychainDataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E535A1C22A685DE00AB0738 /* EnvelopeWithQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E535A1A22A685DE00AB0738 /* EnvelopeWithQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E535A1D22A685DE00AB0738 /* EnvelopeWithQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E535A1A22A685DE00AB0738 /* EnvelopeWithQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E535A1E22A685DE00AB0738 /* EnvelopeWithQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E535A1A22A685DE00AB0738 /* EnvelopeWithQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E535A1F22A685DE00AB0738 /* EnvelopeWithQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E535A1A22A685DE00AB0738 /* EnvelopeWithQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E535A2022A685DE00AB0738 /* EnvelopeWithQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E535A1A22A685DE00AB0738 /* EnvelopeWithQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E535A2122A685DE00AB0738 /* EnvelopeWithQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E535A1A22A685DE00AB0738 /* EnvelopeWithQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E535A2222A685DE00AB0738 /* EnvelopeWithQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E535A1A22A685DE00AB0738 /* EnvelopeWithQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E535A2322A685DE00AB0738 /* EnvelopeWithQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E535A1A22A685DE00AB0738 /* EnvelopeWithQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E535A2422A685DE00AB0738 /* EnvelopeWithQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E535A1A22A685DE00AB0738 /* EnvelopeWithQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E535A2522A685DE00AB0738 /* EnvelopeWithQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E535A1B22A685DE00AB0738 /* EnvelopeWithQuery.m */; };
+		5E535A2622A685DE00AB0738 /* EnvelopeWithQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E535A1B22A685DE00AB0738 /* EnvelopeWithQuery.m */; };
+		5E535A2722A685DE00AB0738 /* EnvelopeWithQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E535A1B22A685DE00AB0738 /* EnvelopeWithQuery.m */; };
+		5E535A2822A685DE00AB0738 /* EnvelopeWithQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E535A1B22A685DE00AB0738 /* EnvelopeWithQuery.m */; };
+		5E535A2922A685DE00AB0738 /* EnvelopeWithQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E535A1B22A685DE00AB0738 /* EnvelopeWithQuery.m */; };
+		5E535A2A22A685DE00AB0738 /* EnvelopeWithQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E535A1B22A685DE00AB0738 /* EnvelopeWithQuery.m */; };
+		5E535A2B22A685DE00AB0738 /* EnvelopeWithQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E535A1B22A685DE00AB0738 /* EnvelopeWithQuery.m */; };
+		5E535A2C22A685DE00AB0738 /* EnvelopeWithQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E535A1B22A685DE00AB0738 /* EnvelopeWithQuery.m */; };
+		5E535A2D22A685DE00AB0738 /* EnvelopeWithQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E535A1B22A685DE00AB0738 /* EnvelopeWithQuery.m */; };
+		5E535A3022A685F400AB0738 /* EnvelopeWithRecipients.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E535A2E22A685F400AB0738 /* EnvelopeWithRecipients.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E535A3122A685F400AB0738 /* EnvelopeWithRecipients.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E535A2E22A685F400AB0738 /* EnvelopeWithRecipients.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E535A3222A685F400AB0738 /* EnvelopeWithRecipients.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E535A2E22A685F400AB0738 /* EnvelopeWithRecipients.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E535A3322A685F400AB0738 /* EnvelopeWithRecipients.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E535A2E22A685F400AB0738 /* EnvelopeWithRecipients.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E535A3422A685F400AB0738 /* EnvelopeWithRecipients.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E535A2E22A685F400AB0738 /* EnvelopeWithRecipients.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E535A3522A685F400AB0738 /* EnvelopeWithRecipients.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E535A2E22A685F400AB0738 /* EnvelopeWithRecipients.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E535A3622A685F400AB0738 /* EnvelopeWithRecipients.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E535A2E22A685F400AB0738 /* EnvelopeWithRecipients.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E535A3722A685F400AB0738 /* EnvelopeWithRecipients.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E535A2E22A685F400AB0738 /* EnvelopeWithRecipients.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E535A3822A685F400AB0738 /* EnvelopeWithRecipients.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E535A2E22A685F400AB0738 /* EnvelopeWithRecipients.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E535A3922A685F400AB0738 /* EnvelopeWithRecipients.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E535A2F22A685F400AB0738 /* EnvelopeWithRecipients.m */; };
+		5E535A3A22A685F400AB0738 /* EnvelopeWithRecipients.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E535A2F22A685F400AB0738 /* EnvelopeWithRecipients.m */; };
+		5E535A3B22A685F400AB0738 /* EnvelopeWithRecipients.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E535A2F22A685F400AB0738 /* EnvelopeWithRecipients.m */; };
+		5E535A3C22A685F400AB0738 /* EnvelopeWithRecipients.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E535A2F22A685F400AB0738 /* EnvelopeWithRecipients.m */; };
+		5E535A3D22A685F400AB0738 /* EnvelopeWithRecipients.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E535A2F22A685F400AB0738 /* EnvelopeWithRecipients.m */; };
+		5E535A3E22A685F400AB0738 /* EnvelopeWithRecipients.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E535A2F22A685F400AB0738 /* EnvelopeWithRecipients.m */; };
+		5E535A3F22A685F400AB0738 /* EnvelopeWithRecipients.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E535A2F22A685F400AB0738 /* EnvelopeWithRecipients.m */; };
+		5E535A4022A685F400AB0738 /* EnvelopeWithRecipients.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E535A2F22A685F400AB0738 /* EnvelopeWithRecipients.m */; };
+		5E535A4122A685F400AB0738 /* EnvelopeWithRecipients.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E535A2F22A685F400AB0738 /* EnvelopeWithRecipients.m */; };
+		5E535A4322A6864000AB0738 /* IEmailEnvelope.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E535A4222A6864000AB0738 /* IEmailEnvelope.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E535A4422A6864000AB0738 /* IEmailEnvelope.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E535A4222A6864000AB0738 /* IEmailEnvelope.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E535A4522A6864000AB0738 /* IEmailEnvelope.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E535A4222A6864000AB0738 /* IEmailEnvelope.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E535A4622A6864000AB0738 /* IEmailEnvelope.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E535A4222A6864000AB0738 /* IEmailEnvelope.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E535A4722A6864000AB0738 /* IEmailEnvelope.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E535A4222A6864000AB0738 /* IEmailEnvelope.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E535A4822A6864000AB0738 /* IEmailEnvelope.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E535A4222A6864000AB0738 /* IEmailEnvelope.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E535A4922A6864000AB0738 /* IEmailEnvelope.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E535A4222A6864000AB0738 /* IEmailEnvelope.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E535A4A22A6864000AB0738 /* IEmailEnvelope.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E535A4222A6864000AB0738 /* IEmailEnvelope.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E535A4B22A6864000AB0738 /* IEmailEnvelope.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E535A4222A6864000AB0738 /* IEmailEnvelope.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E535A4E22A6865A00AB0738 /* EmailEnvelope.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E535A4C22A6865A00AB0738 /* EmailEnvelope.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E535A4F22A6865A00AB0738 /* EmailEnvelope.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E535A4C22A6865A00AB0738 /* EmailEnvelope.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E535A5022A6865A00AB0738 /* EmailEnvelope.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E535A4C22A6865A00AB0738 /* EmailEnvelope.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E535A5122A6865A00AB0738 /* EmailEnvelope.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E535A4C22A6865A00AB0738 /* EmailEnvelope.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E535A5222A6865A00AB0738 /* EmailEnvelope.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E535A4C22A6865A00AB0738 /* EmailEnvelope.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E535A5322A6865A00AB0738 /* EmailEnvelope.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E535A4C22A6865A00AB0738 /* EmailEnvelope.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E535A5422A6865A00AB0738 /* EmailEnvelope.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E535A4C22A6865A00AB0738 /* EmailEnvelope.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E535A5522A6865A00AB0738 /* EmailEnvelope.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E535A4C22A6865A00AB0738 /* EmailEnvelope.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E535A5622A6865A00AB0738 /* EmailEnvelope.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E535A4C22A6865A00AB0738 /* EmailEnvelope.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E535A5722A6865A00AB0738 /* EmailEnvelope.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E535A4D22A6865A00AB0738 /* EmailEnvelope.m */; };
+		5E535A5822A6865A00AB0738 /* EmailEnvelope.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E535A4D22A6865A00AB0738 /* EmailEnvelope.m */; };
+		5E535A5922A6865A00AB0738 /* EmailEnvelope.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E535A4D22A6865A00AB0738 /* EmailEnvelope.m */; };
+		5E535A5A22A6865A00AB0738 /* EmailEnvelope.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E535A4D22A6865A00AB0738 /* EmailEnvelope.m */; };
+		5E535A5B22A6865A00AB0738 /* EmailEnvelope.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E535A4D22A6865A00AB0738 /* EmailEnvelope.m */; };
+		5E535A5C22A6865A00AB0738 /* EmailEnvelope.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E535A4D22A6865A00AB0738 /* EmailEnvelope.m */; };
+		5E535A5D22A6865A00AB0738 /* EmailEnvelope.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E535A4D22A6865A00AB0738 /* EmailEnvelope.m */; };
+		5E535A5E22A6865A00AB0738 /* EmailEnvelope.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E535A4D22A6865A00AB0738 /* EmailEnvelope.m */; };
+		5E535A5F22A6865A00AB0738 /* EmailEnvelope.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E535A4D22A6865A00AB0738 /* EmailEnvelope.m */; };
 		5EC159582099B32E0095BA74 /* PublishMessageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9A71FC4786800B192D9 /* PublishMessageInfo.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5EC159592099B3360095BA74 /* PublishMessageInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A9FC9AA1FC4786900B192D9 /* PublishMessageInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5EC1595A2099B3580095BA74 /* PublishMessageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FC9A71FC4786800B192D9 /* PublishMessageInfo.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -4673,6 +4736,13 @@
 		5E3EB794207F9A4D00C5C09D /* VoidResponseWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VoidResponseWrapper.h; sourceTree = "<group>"; };
 		5E3EB795207F9A4D00C5C09D /* VoidResponseWrapper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VoidResponseWrapper.m; sourceTree = "<group>"; };
 		5E5167FD20D2EC80001A058B /* libbackendless-watch-device.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libbackendless-watch-device.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5E535A1A22A685DE00AB0738 /* EnvelopeWithQuery.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EnvelopeWithQuery.h; sourceTree = "<group>"; };
+		5E535A1B22A685DE00AB0738 /* EnvelopeWithQuery.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EnvelopeWithQuery.m; sourceTree = "<group>"; };
+		5E535A2E22A685F400AB0738 /* EnvelopeWithRecipients.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EnvelopeWithRecipients.h; sourceTree = "<group>"; };
+		5E535A2F22A685F400AB0738 /* EnvelopeWithRecipients.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EnvelopeWithRecipients.m; sourceTree = "<group>"; };
+		5E535A4222A6864000AB0738 /* IEmailEnvelope.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IEmailEnvelope.h; sourceTree = "<group>"; };
+		5E535A4C22A6865A00AB0738 /* EmailEnvelope.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmailEnvelope.h; sourceTree = "<group>"; };
+		5E535A4D22A6865A00AB0738 /* EmailEnvelope.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmailEnvelope.m; sourceTree = "<group>"; };
 		5EC159622099BF310095BA74 /* PublishMessageInfoWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PublishMessageInfoWrapper.h; sourceTree = "<group>"; };
 		5EC159632099BF310095BA74 /* PublishMessageInfoWrapper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PublishMessageInfoWrapper.m; sourceTree = "<group>"; };
 		5EEF294D202DA40C00449F43 /* DeviceRegistrationAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceRegistrationAdapter.h; sourceTree = "<group>"; };
@@ -5592,6 +5662,20 @@
 			path = Wrapper;
 			sourceTree = "<group>";
 		};
+		5E535A1922A685C100AB0738 /* EmailEnvelope */ = {
+			isa = PBXGroup;
+			children = (
+				5E535A4C22A6865A00AB0738 /* EmailEnvelope.h */,
+				5E535A4D22A6865A00AB0738 /* EmailEnvelope.m */,
+				5E535A4222A6864000AB0738 /* IEmailEnvelope.h */,
+				5E535A1A22A685DE00AB0738 /* EnvelopeWithQuery.h */,
+				5E535A1B22A685DE00AB0738 /* EnvelopeWithQuery.m */,
+				5E535A2E22A685F400AB0738 /* EnvelopeWithRecipients.h */,
+				5E535A2F22A685F400AB0738 /* EnvelopeWithRecipients.m */,
+			);
+			path = EmailEnvelope;
+			sourceTree = "<group>";
+		};
 		91223DC7195AF68900F72F48 /* Events */ = {
 			isa = PBXGroup;
 			children = (
@@ -5925,6 +6009,7 @@
 		F91B480715FF655800012DFC /* Messaging */ = {
 			isa = PBXGroup;
 			children = (
+				5E535A1922A685C100AB0738 /* EmailEnvelope */,
 				5A9FC9A81FC4786800B192D9 /* Channel.h */,
 				5A9FC9A91FC4786900B192D9 /* Channel.m */,
 				5A9FC9AA1FC4786900B192D9 /* PublishMessageInfo.h */,
@@ -6313,6 +6398,10 @@
 				1C7BB5001A2E092900D3C2C1 /* AbstractQuery.h in Headers */,
 				1C7BB5021A2E092900D3C2C1 /* BackendlessCachePolicy.h in Headers */,
 				1C7BB5051A2E092900D3C2C1 /* BackendlessCacheProtocol.h in Headers */,
+				5E535A5622A6865A00AB0738 /* EmailEnvelope.h in Headers */,
+				5E535A3822A685F400AB0738 /* EnvelopeWithRecipients.h in Headers */,
+				5E535A4B22A6864000AB0738 /* IEmailEnvelope.h in Headers */,
+				5E535A2422A685DE00AB0738 /* EnvelopeWithQuery.h in Headers */,
 				1C7BB5061A2E092900D3C2C1 /* QueryOptions.h in Headers */,
 				5A1052CF20063B580036A784 /* JSONHelper.h in Headers */,
 				5AA2956C2237B32B007104C7 /* ExecutionType.h in Headers */,
@@ -6583,6 +6672,10 @@
 				5A06BEBE20D118EA00E0315F /* UICKeyChainStore.h in Headers */,
 				5A06BEBF20D118EA00E0315F /* HashMap.h in Headers */,
 				5A06BEC020D118EA00E0315F /* ClassCastException.h in Headers */,
+				5E535A4722A6864000AB0738 /* IEmailEnvelope.h in Headers */,
+				5E535A3422A685F400AB0738 /* EnvelopeWithRecipients.h in Headers */,
+				5E535A5222A6865A00AB0738 /* EmailEnvelope.h in Headers */,
+				5E535A2022A685DE00AB0738 /* EnvelopeWithQuery.h in Headers */,
 				5E0AD51A218B100400A0B4A4 /* UserDefaultsHelper.h in Headers */,
 				5AA295682237B2F6007104C7 /* ExecutionType.h in Headers */,
 				5A06BEBD20D118EA00E0315F /* JSONHelper.h in Headers */,
@@ -6850,6 +6943,10 @@
 				5AF7F2B720CFC40F0014880E /* BackendlessPushHelper.h in Headers */,
 				5A50EC4220D004DB00990020 /* UICKeyChainStore.h in Headers */,
 				5E0AD51D218B102D00A0B4A4 /* UserDefaultsHelper.h in Headers */,
+				5E535A4922A6864000AB0738 /* IEmailEnvelope.h in Headers */,
+				5E535A3622A685F400AB0738 /* EnvelopeWithRecipients.h in Headers */,
+				5E535A5422A6865A00AB0738 /* EmailEnvelope.h in Headers */,
+				5E535A2222A685DE00AB0738 /* EnvelopeWithQuery.h in Headers */,
 				5AF7F2B620CFC40F0014880E /* JSONHelper.h in Headers */,
 				5A50EC4320D004DB00990020 /* KeychainDataStore.h in Headers */,
 				5AF7F2B820CFC40F0014880E /* PublishMessageInfo.h in Headers */,
@@ -7118,6 +7215,10 @@
 				5E5167F320D2EC80001A058B /* PublishMessageInfoWrapper.h in Headers */,
 				5E5167F520D2EC80001A058B /* UICKeyChainStore.h in Headers */,
 				5E5167F620D2EC80001A058B /* HashMap.h in Headers */,
+				5E535A4822A6864000AB0738 /* IEmailEnvelope.h in Headers */,
+				5E535A3522A685F400AB0738 /* EnvelopeWithRecipients.h in Headers */,
+				5E535A5322A6865A00AB0738 /* EmailEnvelope.h in Headers */,
+				5E535A2122A685DE00AB0738 /* EnvelopeWithQuery.h in Headers */,
 				5E5167F720D2EC80001A058B /* ClassCastException.h in Headers */,
 				5E0AD51C218B101D00A0B4A4 /* UserDefaultsHelper.h in Headers */,
 				5AA295692237B305007104C7 /* ExecutionType.h in Headers */,
@@ -7385,6 +7486,10 @@
 				5EFEB4A120D2F5B0001AECDE /* QueryOptions.h in Headers */,
 				5EFEB4A320D2F5B0001AECDE /* BackendlessPushHelper.h in Headers */,
 				5EFEB4A420D2F5B0001AECDE /* UICKeyChainStore.h in Headers */,
+				5E535A4A22A6864000AB0738 /* IEmailEnvelope.h in Headers */,
+				5E535A3722A685F400AB0738 /* EnvelopeWithRecipients.h in Headers */,
+				5E535A5522A6865A00AB0738 /* EmailEnvelope.h in Headers */,
+				5E535A2322A685DE00AB0738 /* EnvelopeWithQuery.h in Headers */,
 				5E0AD51F218B104400A0B4A4 /* UserDefaultsHelper.h in Headers */,
 				5EFEB4A220D2F5B0001AECDE /* JSONHelper.h in Headers */,
 				5EFEB4A520D2F5B0001AECDE /* KeychainDataStore.h in Headers */,
@@ -7655,6 +7760,10 @@
 				5A549864200795E00042234F /* InvokeObject.h in Headers */,
 				91F139A917D7240A00D1AC4C /* BackendlessCachePolicy.h in Headers */,
 				91F139AE17D7240A00D1AC4C /* BackendlessCacheProtocol.h in Headers */,
+				5E535A4522A6864000AB0738 /* IEmailEnvelope.h in Headers */,
+				5E535A3222A685F400AB0738 /* EnvelopeWithRecipients.h in Headers */,
+				5E535A5022A6865A00AB0738 /* EmailEnvelope.h in Headers */,
+				5E535A1E22A685DE00AB0738 /* EnvelopeWithQuery.h in Headers */,
 				5AF2B72B1EB2138500D54442 /* MessagingService.h in Headers */,
 				5A1052D020063B910036A784 /* JSONHelper.h in Headers */,
 				5AA295662237B2E0007104C7 /* ExecutionType.h in Headers */,
@@ -7919,6 +8028,10 @@
 				5A8393631FD1AACF00FB5697 /* UserStatusObject.h in Headers */,
 				5A8393621FD1AAC700FB5697 /* RTSubscription.h in Headers */,
 				5A8393601FD1AABC00FB5697 /* RTMethodRequest.h in Headers */,
+				5E535A4622A6864000AB0738 /* IEmailEnvelope.h in Headers */,
+				5E535A3322A685F400AB0738 /* EnvelopeWithRecipients.h in Headers */,
+				5E535A5122A6865A00AB0738 /* EmailEnvelope.h in Headers */,
+				5E535A1F22A685DE00AB0738 /* EnvelopeWithQuery.h in Headers */,
 				5A83935F1FD1AAB400FB5697 /* RTMethod.h in Headers */,
 				5A549863200795D00042234F /* SharedObjectChanges.h in Headers */,
 				5A549862200795CC0042234F /* SharedObjectService.h in Headers */,
@@ -8191,6 +8304,10 @@
 				5A82DE9B20AEEDBE00E264B8 /* RTFactory.h in Headers */,
 				5A82DE9C20AEEDBE00E264B8 /* RTClient.h in Headers */,
 				5A82DE9D20AEEDBE00E264B8 /* RTHelper.h in Headers */,
+				5E535A4322A6864000AB0738 /* IEmailEnvelope.h in Headers */,
+				5E535A3022A685F400AB0738 /* EnvelopeWithRecipients.h in Headers */,
+				5E535A4E22A6865A00AB0738 /* EmailEnvelope.h in Headers */,
+				5E535A1C22A685DE00AB0738 /* EnvelopeWithQuery.h in Headers */,
 				5A82DE9E20AEEDBE00E264B8 /* UserInfo.h in Headers */,
 				5A82DE9F20AEEDBE00E264B8 /* ReconnectAttemptObject.h in Headers */,
 				5AA295642237B2B7007104C7 /* ExecutionType.h in Headers */,
@@ -8458,6 +8575,10 @@
 				5A8393501FD1A82D00FB5697 /* RTMethodRequest.h in Headers */,
 				F9F0AFE51CDBCAB500035C62 /* QueryOptions.h in Headers */,
 				5A549859200795850042234F /* SharedObjectService.h in Headers */,
+				5E535A4422A6864000AB0738 /* IEmailEnvelope.h in Headers */,
+				5E535A3122A685F400AB0738 /* EnvelopeWithRecipients.h in Headers */,
+				5E535A4F22A6865A00AB0738 /* EmailEnvelope.h in Headers */,
+				5E535A1D22A685DE00AB0738 /* EnvelopeWithQuery.h in Headers */,
 				5A549858200795820042234F /* SharedObjectChanges.h in Headers */,
 				5A5498572007957D0042234F /* SharedObject.h in Headers */,
 				5A549856200795780042234F /* RTSharedObject.h in Headers */,
@@ -9129,6 +9250,7 @@
 				0F9ACC501E798C5F0087869F /* AmfFormatter.m in Sources */,
 				5AD17B23200775B200FFB487 /* RTFactory.m in Sources */,
 				0F9ACC461E798C5F0087869F /* AbstractUnreferenceableTypeWriter.m in Sources */,
+				5E535A2D22A685DE00AB0738 /* EnvelopeWithQuery.m in Sources */,
 				1C7BB4A21A2E092900D3C2C1 /* AtomicCounters.m in Sources */,
 				0F9ACD0E1E798C5F0087869F /* ObjectSerializer.m in Sources */,
 				0F9ACCBE1E798C5F0087869F /* DateWriter.m in Sources */,
@@ -9140,6 +9262,7 @@
 				0F9AC98F1E798C5D0087869F /* RTMPClient.m in Sources */,
 				0F9AC95D1E798C5D0087869F /* NotifyEvent.m in Sources */,
 				1C7BB4A31A2E092900D3C2C1 /* GeoPoint.m in Sources */,
+				5E535A5F22A6865A00AB0738 /* EmailEnvelope.m in Sources */,
 				1C7BB4A41A2E092900D3C2C1 /* BackendlessGeoQuery.m in Sources */,
 				0F9ACAD41E798C5E0087869F /* ParseContext.m in Sources */,
 				0F9ACA841E798C5D0087869F /* LongUTFStringReader.m in Sources */,
@@ -9223,6 +9346,7 @@
 				0F9AC9BC1E798C5D0087869F /* ClientSharedObject.m in Sources */,
 				0F9ACB101E798C5E0087869F /* UndefinedTypeReader.m in Sources */,
 				0F9ACC6E1E798C5F0087869F /* AMFHeaderWriter.m in Sources */,
+				5E535A4122A685F400AB0738 /* EnvelopeWithRecipients.m in Sources */,
 				0F9ACA8E1E798C5D0087869F /* NamedObject.m in Sources */,
 				0F9ACA981E798C5D0087869F /* NamedObjectReader.m in Sources */,
 				D3A064D31B02429100779BB1 /* ServerCallback.m in Sources */,
@@ -9284,6 +9408,7 @@
 				5A06BCFE20D118CD00E0315F /* Engine.m in Sources */,
 				5A06BCFF20D118CD00E0315F /* HttpEngine.m in Sources */,
 				5A06BD0020D118CD00E0315F /* Responder.m in Sources */,
+				5E535A3D22A685F400AB0738 /* EnvelopeWithRecipients.m in Sources */,
 				5A06BD0120D118CD00E0315F /* Subscription.m in Sources */,
 				5A06BD0220D118CD00E0315F /* WeborbClient.m in Sources */,
 				5A06BD0320D118CD00E0315F /* Body.m in Sources */,
@@ -9432,6 +9557,7 @@
 				5A06BD9220D118CD00E0315F /* BeaconTracker.m in Sources */,
 				5A06BD9320D118CD00E0315F /* BeaconMonitoring.m in Sources */,
 				5A06BD9420D118CD00E0315F /* GeoService.m in Sources */,
+				5E535A5B22A6865A00AB0738 /* EmailEnvelope.m in Sources */,
 				5A06BD9520D118CD00E0315F /* GeoCategory.m in Sources */,
 				5A06BD9620D118CD00E0315F /* GeoPoint.m in Sources */,
 				5A06BD9720D118CD00E0315F /* GeoCluster.m in Sources */,
@@ -9451,6 +9577,7 @@
 				5A06BDA520D118CD00E0315F /* DeliveryOptions.m in Sources */,
 				5A06BDA620D118CD00E0315F /* PublishOptions.m in Sources */,
 				5A06BDA720D118CD00E0315F /* MessageStatus.m in Sources */,
+				5E535A2922A685DE00AB0738 /* EnvelopeWithQuery.m in Sources */,
 				5A06BDA820D118CD00E0315F /* BodyParts.m in Sources */,
 				5A06BDA920D118CD00E0315F /* FileService.m in Sources */,
 				5A06BDAA20D118CD00E0315F /* FilePermission.m in Sources */,
@@ -9507,6 +9634,7 @@
 				5AF7F0F620CFC40F0014880E /* PendingCall.m in Sources */,
 				5AF7F0F720CFC40F0014880E /* QueryOptionsBuilder.m in Sources */,
 				5AF7F0F820CFC40F0014880E /* V3Reader.m in Sources */,
+				5E535A3F22A685F400AB0738 /* EnvelopeWithRecipients.m in Sources */,
 				5AF7F0F920CFC40F0014880E /* MessageWriter.m in Sources */,
 				5AF7F0FA20CFC40F0014880E /* DataPermission.m in Sources */,
 				5AF7F0FB20CFC40F0014880E /* StringType.m in Sources */,
@@ -9655,6 +9783,7 @@
 				5AF7F18A20CFC40F0014880E /* Logger.m in Sources */,
 				5AF7F18B20CFC40F0014880E /* NullType.m in Sources */,
 				5AF7F18C20CFC40F0014880E /* ReaderUtils.m in Sources */,
+				5E535A5D22A6865A00AB0738 /* EmailEnvelope.m in Sources */,
 				5AF7F18D20CFC40F0014880E /* AbstractQuery.m in Sources */,
 				5AF7F18E20CFC40F0014880E /* NumberObject.m in Sources */,
 				5AF7F18F20CFC40F0014880E /* BackendlessUserAdapter.m in Sources */,
@@ -9674,6 +9803,7 @@
 				5AF7F19D20CFC40F0014880E /* ServerCallback.m in Sources */,
 				5AF7F19E20CFC40F0014880E /* BackendlessCache.m in Sources */,
 				5AF7F19F20CFC40F0014880E /* PropertyBagWriter.m in Sources */,
+				5E535A2B22A685DE00AB0738 /* EnvelopeWithQuery.m in Sources */,
 				5AF7F1A020CFC40F0014880E /* ErrMessage.m in Sources */,
 				5AF7F1A120CFC40F0014880E /* RTService.m in Sources */,
 				5AF7F1A220CFC40F0014880E /* BackendlessCacheData.m in Sources */,
@@ -9730,6 +9860,7 @@
 				5E51663220D2EC80001A058B /* Engine.m in Sources */,
 				5E51663320D2EC80001A058B /* HttpEngine.m in Sources */,
 				5E51663420D2EC80001A058B /* Responder.m in Sources */,
+				5E535A3E22A685F400AB0738 /* EnvelopeWithRecipients.m in Sources */,
 				5E51663520D2EC80001A058B /* Subscription.m in Sources */,
 				5E51663620D2EC80001A058B /* WeborbClient.m in Sources */,
 				5E51663720D2EC80001A058B /* Body.m in Sources */,
@@ -9878,6 +10009,7 @@
 				5E5166C620D2EC80001A058B /* BeaconTracker.m in Sources */,
 				5E5166C720D2EC80001A058B /* BeaconMonitoring.m in Sources */,
 				5E5166C820D2EC80001A058B /* GeoService.m in Sources */,
+				5E535A5C22A6865A00AB0738 /* EmailEnvelope.m in Sources */,
 				5E5166C920D2EC80001A058B /* GeoCategory.m in Sources */,
 				5E5166CA20D2EC80001A058B /* GeoPoint.m in Sources */,
 				5E5166CB20D2EC80001A058B /* GeoCluster.m in Sources */,
@@ -9897,6 +10029,7 @@
 				5E5166D920D2EC80001A058B /* DeliveryOptions.m in Sources */,
 				5E5166DA20D2EC80001A058B /* PublishOptions.m in Sources */,
 				5E5166DB20D2EC80001A058B /* MessageStatus.m in Sources */,
+				5E535A2A22A685DE00AB0738 /* EnvelopeWithQuery.m in Sources */,
 				5E5166DC20D2EC80001A058B /* BodyParts.m in Sources */,
 				5E5166DD20D2EC80001A058B /* FileService.m in Sources */,
 				5E5166DE20D2EC80001A058B /* FilePermission.m in Sources */,
@@ -9953,6 +10086,7 @@
 				5EFEB2E220D2F5B0001AECDE /* PendingCall.m in Sources */,
 				5EFEB2E320D2F5B0001AECDE /* QueryOptionsBuilder.m in Sources */,
 				5EFEB2E420D2F5B0001AECDE /* V3Reader.m in Sources */,
+				5E535A4022A685F400AB0738 /* EnvelopeWithRecipients.m in Sources */,
 				5EFEB2E520D2F5B0001AECDE /* MessageWriter.m in Sources */,
 				5EFEB2E620D2F5B0001AECDE /* DataPermission.m in Sources */,
 				5EFEB2E720D2F5B0001AECDE /* StringType.m in Sources */,
@@ -10101,6 +10235,7 @@
 				5EFEB37620D2F5B0001AECDE /* Logger.m in Sources */,
 				5EFEB37720D2F5B0001AECDE /* NullType.m in Sources */,
 				5EFEB37820D2F5B0001AECDE /* ReaderUtils.m in Sources */,
+				5E535A5E22A6865A00AB0738 /* EmailEnvelope.m in Sources */,
 				5EFEB37920D2F5B0001AECDE /* AbstractQuery.m in Sources */,
 				5EFEB37A20D2F5B0001AECDE /* NumberObject.m in Sources */,
 				5EFEB37B20D2F5B0001AECDE /* BackendlessUserAdapter.m in Sources */,
@@ -10120,6 +10255,7 @@
 				5EFEB38920D2F5B0001AECDE /* ServerCallback.m in Sources */,
 				5EFEB38A20D2F5B0001AECDE /* BackendlessCache.m in Sources */,
 				5EFEB38B20D2F5B0001AECDE /* PropertyBagWriter.m in Sources */,
+				5E535A2C22A685DE00AB0738 /* EnvelopeWithQuery.m in Sources */,
 				5EFEB38C20D2F5B0001AECDE /* ErrMessage.m in Sources */,
 				5EFEB38D20D2F5B0001AECDE /* RTService.m in Sources */,
 				5EFEB38E20D2F5B0001AECDE /* BackendlessCacheData.m in Sources */,
@@ -10163,6 +10299,8 @@
 				5A096D701FD1ADF3009BF89E /* RTMethod.m in Sources */,
 				5AD17B0C200770CC00FFB487 /* UserInfo.m in Sources */,
 				5A096D6F1FD1ADE6009BF89E /* RTListener.m in Sources */,
+				5E535A3B22A685F400AB0738 /* EnvelopeWithRecipients.m in Sources */,
+				5E535A2722A685DE00AB0738 /* EnvelopeWithQuery.m in Sources */,
 				5A83936E1FD1ADC800FB5697 /* CommandObject.m in Sources */,
 				5A83936D1FD1ADB800FB5697 /* RTMessaging.m in Sources */,
 				5A83936C1FD1AD9E00FB5697 /* Channel.m in Sources */,
@@ -10195,6 +10333,7 @@
 				0F9ACD231E798C600087869F /* PropertyBagWriter.m in Sources */,
 				0F9ACA6C1E798C5D0087869F /* DateType.m in Sources */,
 				F97969EE166CCB8200595F5E /* BackendlessUser.m in Sources */,
+				5E535A5922A6865A00AB0738 /* EmailEnvelope.m in Sources */,
 				0F9ACBCA1E798C5E0087869F /* FlashorbBinaryReader.m in Sources */,
 				5A8A15881FA0D3C3009A1394 /* EventHandler.m in Sources */,
 				D3F8BDA219825CF80009DB40 /* CacheFactory.m in Sources */,
@@ -10385,6 +10524,8 @@
 				5A8393671FD1AB2600FB5697 /* RTMethod.m in Sources */,
 				5AD17B0D200770CC00FFB487 /* UserInfo.m in Sources */,
 				5A8393661FD1AAF200FB5697 /* Channel.m in Sources */,
+				5E535A3C22A685F400AB0738 /* EnvelopeWithRecipients.m in Sources */,
+				5E535A2822A685DE00AB0738 /* EnvelopeWithQuery.m in Sources */,
 				5A83935D1FD1AAA600FB5697 /* RTListener.m in Sources */,
 				5A83935B1FD1AA7800FB5697 /* CommandObject.m in Sources */,
 				5A8393591FD1AA3A00FB5697 /* RTMessaging.m in Sources */,
@@ -10417,6 +10558,7 @@
 				0F9ACD241E798C600087869F /* PropertyBagWriter.m in Sources */,
 				0F9ACA6D1E798C5D0087869F /* DateType.m in Sources */,
 				F9796A38166CD3DA00595F5E /* BackendlessUser.m in Sources */,
+				5E535A5A22A6865A00AB0738 /* EmailEnvelope.m in Sources */,
 				0F9ACBCB1E798C5E0087869F /* FlashorbBinaryReader.m in Sources */,
 				5A8A15891FA0D3C3009A1394 /* EventHandler.m in Sources */,
 				D3F8BDA319825CF80009DB40 /* CacheFactory.m in Sources */,
@@ -10607,6 +10749,8 @@
 				5A4A3B961FC5790B00C0ADBA /* Channel.m in Sources */,
 				5AD17B0E200770CC00FFB487 /* UserInfo.m in Sources */,
 				5A4A3A9D1FC570D000C0ADBA /* RTMethodRequest.m in Sources */,
+				5E535A3922A685F400AB0738 /* EnvelopeWithRecipients.m in Sources */,
+				5E535A2522A685DE00AB0738 /* EnvelopeWithQuery.m in Sources */,
 				5A4A3A9C1FC570CB00C0ADBA /* RTMethod.m in Sources */,
 				5ABF776D1FB4AD46006299F7 /* RTSubscription.m in Sources */,
 				5ABF776A1FB4AD00006299F7 /* RTListener.m in Sources */,
@@ -10639,6 +10783,7 @@
 				0F9ACD571E798C600087869F /* V3ReferenceCache.m in Sources */,
 				0F9AC9331E798C5C0087869F /* BaseEvent.m in Sources */,
 				0F9ACA781E798C5D0087869F /* IntegerReader.m in Sources */,
+				5E535A5722A6865A00AB0738 /* EmailEnvelope.m in Sources */,
 				0F9ACB271E798C5E0087869F /* V3ArrayReader.m in Sources */,
 				0F9AC9E21E798C5D0087869F /* SharedObjectEvent.m in Sources */,
 				5A8A158A1FA0D3C3009A1394 /* EventHandler.m in Sources */,
@@ -10829,6 +10974,8 @@
 				5A83934F1FD1A82600FB5697 /* RTMethodRequest.m in Sources */,
 				5AD17B0F200770CC00FFB487 /* UserInfo.m in Sources */,
 				5A83934D1FD1A80800FB5697 /* RTMethod.m in Sources */,
+				5E535A3A22A685F400AB0738 /* EnvelopeWithRecipients.m in Sources */,
+				5E535A2622A685DE00AB0738 /* EnvelopeWithQuery.m in Sources */,
 				5A83934B1FD1A7E400FB5697 /* RTListener.m in Sources */,
 				5A8393491FD1A7BB00FB5697 /* CommandObject.m in Sources */,
 				5A8393471FD1A78400FB5697 /* RTMessaging.m in Sources */,
@@ -10861,6 +11008,7 @@
 				0F9AC9341E798C5C0087869F /* BaseEvent.m in Sources */,
 				0F9ACA791E798C5D0087869F /* IntegerReader.m in Sources */,
 				0F9ACB281E798C5E0087869F /* V3ArrayReader.m in Sources */,
+				5E535A5822A6865A00AB0738 /* EmailEnvelope.m in Sources */,
 				0F9AC9E31E798C5D0087869F /* SharedObjectEvent.m in Sources */,
 				5A8A158B1FA0D3C3009A1394 /* EventHandler.m in Sources */,
 				F9F0AF461CDBCAB500035C62 /* UserProperty.m in Sources */,
