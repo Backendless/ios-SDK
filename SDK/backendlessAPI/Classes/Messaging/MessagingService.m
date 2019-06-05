@@ -43,6 +43,8 @@
 #import "JSONHelper.h"
 #import "RTFactory.h"
 #import "VoidResponseWrapper.h"
+#import "EnvelopeWithQuery.h"
+#import "EnvelopeWithRecipients.h"
 
 #define FAULT_NO_DEVICE_ID [Fault fault:@"Device ID is not set" detail:@"Device ID is not set" faultCode:@"5900"]
 #define FAULT_NO_DEVICE_TOKEN [Fault fault:@"Device token is not set" detail:@"Device token is not set" faultCode:@"5901"]
@@ -61,6 +63,7 @@ static NSString *DEFAULT_CHANNEL_NAME = @"default";
 static NSString *SERVER_DEVICE_REGISTRATION_PATH = @"com.backendless.services.messaging.DeviceRegistrationService";
 static NSString *SERVER_MESSAGING_SERVICE_PATH = @"com.backendless.services.messaging.MessagingService";
 static NSString *SERVER_MAIL_SERVICE_PATH = @"com.backendless.services.mail.CustomersEmailService";
+static NSString *SERVER_EMAIL_TEMPLATE_SENDER_PATH = @"com.backendless.services.mail.EmailTemplateSender";
 static NSString *kBackendlessApplicationUUIDKey = @"kBackendlessApplicationUUIDKeychain";
 static NSString *METHOD_REGISTER_DEVICE = @"registerDevice";
 static NSString *METHOD_GET_REGISTRATIONS = @"getDeviceRegistrationByDeviceId";
@@ -70,6 +73,8 @@ static NSString *METHOD_CANCEL = @"cancel";
 static NSString *METHOD_SEND_EMAIL = @"send";
 static NSString *METHOD_MESSAGE_STATUS = @"getMessageStatus";
 static NSString *METHOD_PUSH_WITH_TEMPLATE = @"pushWithTemplate";
+static NSString *METHOD_SEND_EMAIL_TEMPLATE_ADDRESSES = @"sendEmailsByAddresses";
+static NSString *METHOD_SEND_EMAIL_TEMPLATE_QUERY = @"sendEmailsByQuery";
 #endif
 
 @interface MessagingService() {
@@ -323,6 +328,36 @@ static NSString *METHOD_PUSH_WITH_TEMPLATE = @"pushWithTemplate";
     return [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_PUSH_WITH_TEMPLATE args:args];
 }
 
+-(MessageStatus *)sendEmails:(NSString *)templateName envelope:(id<IEmailEnvelope>)envelope {
+    return [self sendEmails:templateName templateValues:nil envelope:envelope];
+}
+
+-(MessageStatus *)sendEmails:(NSString *)templateName templateValues:(NSDictionary<NSString *, NSString*> *)templateValues envelope:(id<IEmailEnvelope>)envelope {
+    NSArray *args;
+    id result;
+    
+    if ([envelope isKindOfClass:[EnvelopeWithRecipients class]]) {
+        EnvelopeWithRecipients *envelopeWithRecipients = (EnvelopeWithRecipients *)envelope;
+        NSArray *to = [envelopeWithRecipients getTo];
+        NSArray *cc = [envelopeWithRecipients getCc];
+        NSArray *bcc = [envelopeWithRecipients getBcc];
+        args = @[templateName, to, templateValues ? templateValues:[NSNull null], cc, bcc];
+        result = [invoker invokeSync:SERVER_EMAIL_TEMPLATE_SENDER_PATH method:METHOD_SEND_EMAIL_TEMPLATE_ADDRESSES args:args];
+    }
+    else if ([envelope isKindOfClass:[EnvelopeWithQuery class]]) {
+        EnvelopeWithQuery *envelopeWithQuery = (EnvelopeWithQuery *)envelope;
+        NSString *query = [envelopeWithQuery getRecipientsQuery];
+        NSArray *cc = [envelopeWithQuery getCc];
+        NSArray *bcc = [envelopeWithQuery getBcc];
+        args = @[templateName, query, templateValues ? templateValues:[NSNull null], cc, bcc];
+        result = [invoker invokeSync:SERVER_EMAIL_TEMPLATE_SENDER_PATH method:METHOD_SEND_EMAIL_TEMPLATE_QUERY args:args];
+    }
+    if ([result isKindOfClass:[Fault class]]) {
+        return [backendless throwFault:result];
+    }
+    return result;
+}
+
 // async methods with block-based callbacks
 
 -(void)registerDeviceAsync:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -462,6 +497,32 @@ static NSString *METHOD_PUSH_WITH_TEMPLATE = @"pushWithTemplate";
         Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
         NSMutableArray *args = [NSMutableArray arrayWithObjects:templateName, nil];
         [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_PUSH_WITH_TEMPLATE args:args responder:chainedResponder];
+    }
+}
+
+-(void)sendEmails:(NSString *)templateName envelope:(id<IEmailEnvelope>)envelope response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock {
+    [self sendEmails:templateName templateValues:nil envelope:envelope response:responseBlock error:errorBlock];
+}
+
+-(void)sendEmails:(NSString *)templateName templateValues:(NSDictionary<NSString *, NSString*> *)templateValues envelope:(id<IEmailEnvelope>)envelope response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock {
+    NSArray *args;
+    Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    
+    if ([envelope isKindOfClass:[EnvelopeWithRecipients class]]) {
+        EnvelopeWithRecipients *envelopeWithRecipients = (EnvelopeWithRecipients *)envelope;
+        NSArray *to = [envelopeWithRecipients getTo];
+        NSArray *cc = [envelopeWithRecipients getCc];
+        NSArray *bcc = [envelopeWithRecipients getBcc];
+        args = @[templateName, to, templateValues ? templateValues:[NSNull null], cc, bcc];
+        [invoker invokeAsync:SERVER_EMAIL_TEMPLATE_SENDER_PATH method:METHOD_SEND_EMAIL_TEMPLATE_ADDRESSES args:args responder:chainedResponder];
+    }
+    else if ([envelope isKindOfClass:[EnvelopeWithQuery class]]) {
+        EnvelopeWithQuery *envelopeWithQuery = (EnvelopeWithQuery *)envelope;
+        NSString *query = [envelopeWithQuery getRecipientsQuery];
+        NSArray *cc = [envelopeWithQuery getCc];
+        NSArray *bcc = [envelopeWithQuery getBcc];
+        args = @[templateName, query, templateValues ? templateValues:[NSNull null], cc, bcc];
+        [invoker invokeAsync:SERVER_EMAIL_TEMPLATE_SENDER_PATH method:METHOD_SEND_EMAIL_TEMPLATE_QUERY args:args responder:chainedResponder];
     }
 }
 

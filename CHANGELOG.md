@@ -1,5 +1,18 @@
 # RELEASE HISTORY
 
+## 5.3.8 ??, 2019
+* added classes and Protocol: EmailEnvelope, IEmailEnvelope, EnvelopeWIthQuery, EnvelopeWithRecipients
+* added methods in MessagingService:
+```
+-(MessageStatus *)sendEmails:(NSString *)templateName envelope:(id<IEmailEnvelope>)envelope;
+
+-(MessageStatus *)sendEmails:(NSString *)templateName templateValues:(NSDictionary<NSString *, NSString*> *)templateValues envelope:(id<IEmailEnvelope>)envelope;
+
+-(void)sendEmails:(NSString *)templateName envelope:(id<IEmailEnvelope>)envelope response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
+
+-(void)sendEmails:(NSString *)templateName templateValues:(NSDictionary<NSString *, NSString*> *)templateValues envelope:(id<IEmailEnvelope>)envelope response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
+```
+
 ## 5.2.13 May, 13 2019
 * added support of sortBy and properties for LoadRelationsQueryBuilder
 * macOS device registration fixed

@@ -72,6 +72,10 @@
 #import "MapDrivenDataStore.h"
 #import "SharedObject.h"
 #import "RTService.h"
+#import "EmailEnvelope.h"
+#import "EmailEnvelope.h"
+#import "EnvelopeWithQuery.h"
+#import "EnvelopeWithRecipients.h"
 
 #if TARGET_OS_IOS || TARGET_OS_SIMULATOR
 #import "BackendlessPushHelper.h"
