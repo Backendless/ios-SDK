@@ -90,6 +90,8 @@
 -(UNNotificationRequest *)createRequestFromTemplate:(NSDictionary *)iosPushTemplate request:(UNNotificationRequest *)request {
     UNMutableNotificationContent *content = [UNMutableNotificationContent new];
     NSMutableDictionary *userInfo = [NSMutableDictionary new];
+    NSMutableDictionary *aps = [NSMutableDictionary new];
+    NSMutableDictionary *apsAlert = [NSMutableDictionary new];
     
     // check if silent
     NSNumber *contentAvailable = [iosPushTemplate valueForKey:@"contentAvailable"];
@@ -100,30 +102,55 @@
     else {
         if ([request.content.userInfo valueForKey:@"message"]) {
             content.body = [request.content.userInfo valueForKey:@"message"];
+            [apsAlert setObject:content.body forKey:@"body"];
         }
         else {
             content.body = [[[request.content.userInfo valueForKey:@"aps"] valueForKey:@"alert"] valueForKey:@"body"];
+            [apsAlert setObject:content.body forKey:@"body"];
         }
         
         if ([request.content.userInfo valueForKey:@"ios-alert-title"]) {
             content.title = [request.content.userInfo valueForKey:@"ios-alert-title"];
+            [apsAlert setObject:content.title forKey:@"title"];
         }
         else {
             content.title = [iosPushTemplate valueForKey:@"alertTitle"];
+            [apsAlert setObject:content.title forKey:@"title"];
         }
         
         if ([request.content.userInfo valueForKey:@"ios-alert-subtitle"]) {
-            content.subtitle = [request.content.userInfo valueForKey:@"ios-alert-subtitle"];
+            [apsAlert setObject:content.subtitle forKey:@"subtitle"];
         }
         else {
             content.subtitle = [iosPushTemplate valueForKey:@"alertSubtitle"];
+            [apsAlert setObject:content.subtitle forKey:@"subtitle"];
+        }
+        [aps setObject:apsAlert forKey:@"alert"];
+        
+        if ([iosPushTemplate valueForKey:@"sound"]) {
+            content.sound = [UNNotificationSound soundNamed:[iosPushTemplate valueForKey:@"sound"]];
+            [aps setObject:[iosPushTemplate valueForKey:@"sound"] forKey:@"sound"];
+        }
+        else {
+            content.sound = [UNNotificationSound defaultSound];
+            [aps setObject:@"default" forKey:@"sound"];
         }
         
-        if ([request.content.userInfo valueForKey:@"ios-alert-subtitle"]) {
-            content.subtitle = [request.content.userInfo valueForKey:@"ios-alert-subtitle"];
+        if (request.content.badge) {
+            content.badge = request.content.badge;
+            [aps setObject:content.badge forKey:@"badge"];
         }
         else {
-            content.subtitle = [iosPushTemplate valueForKey:@"alertSubtitle"];
+            NSNumber *badge = [iosPushTemplate valueForKey:@"badge"];
+            content.badge = badge;
+            [aps setObject:content.badge forKey:@"badge"];
+        }
+        
+        [userInfo setObject:aps forKey:@"aps"];
+        
+        if ([iosPushTemplate valueForKey:@"attachmentUrl"]) {
+            NSString *urlString = [iosPushTemplate valueForKey:@"attachmentUrl"];
+            [userInfo setObject:urlString forKey:@"attachment-url"];
         }
         
         if ([iosPushTemplate valueForKey:@"customHeaders"]) {
@@ -136,29 +163,20 @@
                     [userInfo setObject:[customHeaders valueForKey:headerKey] forKey:headerKey];
                 }
             }
-            content.userInfo = userInfo;
         }
         
-        if (request.content.sound) {
-            content.sound = request.content.sound;
-        }
-        else {
-            content.sound = [UNNotificationSound defaultSound];
-        }
-        
-        if (request.content.badge) {
-            content.badge = request.content.badge;
-        }
-        else {
-            NSNumber *badge = [iosPushTemplate valueForKey:@"badge"];
-            content.badge = badge;
+        if (@available(iOS 12.0, *)) {
+            if([iosPushTemplate valueForKey:@"threadId"]) {
+                content.threadIdentifier = [iosPushTemplate valueForKey:@"threadId"];
+                [userInfo setObject:content.threadIdentifier forKey:@"thread-id"];
+            }
+            if([iosPushTemplate valueForKey:@"summaryFormat"]) {
+                content.summaryArgument = [iosPushTemplate valueForKey:@"summaryFormat"];
+                [userInfo setObject:content.summaryArgument forKey:@"summary-arg"];
+            }
         }
         
-        if ([iosPushTemplate valueForKey:@"attachmentUrl"]) {
-            NSString *urlString = [iosPushTemplate valueForKey:@"attachmentUrl"];
-            [userInfo setObject:urlString forKey:@"attachment-url"];
-            content.userInfo = userInfo;
-        }
+        content.userInfo = userInfo;
         
         NSArray *actionsArray = [iosPushTemplate valueForKey:@"actions"];
         content.categoryIdentifier = [self setActions:actionsArray];
