@@ -12,6 +12,7 @@
 
 -(void)sendEmails:(NSString *)templateName templateValues:(NSDictionary<NSString *, NSString*> *)templateValues envelope:(id<IEmailEnvelope>)envelope response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
 ```
+* added groups support for push notifications (for iOS 12+)
 
 ## 5.2.13 May, 13 2019
 * added support of sortBy and properties for LoadRelationsQueryBuilder
