@@ -119,7 +119,8 @@
         }
         
         if ([request.content.userInfo valueForKey:@"ios-alert-subtitle"]) {
-            [apsAlert setObject:content.subtitle forKey:@"subtitle"];
+            content.subtitle = [request.content.userInfo valueForKey:@"ios-alert-subtitle"];
+            [apsAlert setObject:content.subtitle forKey:@"subtitle"]; 
         }
         else {
             content.subtitle = [iosPushTemplate valueForKey:@"alertSubtitle"];
