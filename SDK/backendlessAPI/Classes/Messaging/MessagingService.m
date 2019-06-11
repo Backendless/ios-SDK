@@ -324,7 +324,11 @@ static NSString *METHOD_SEND_EMAIL_TEMPLATE_QUERY = @"sendEmailsByQuery";
 }
 
 -(MessageStatus *)pushWithTemplate:(NSString *)templateName {
-    NSArray *args = [NSArray arrayWithObjects:templateName, nil];
+    return [self pushWithTemplate:templateName templateValues:[NSDictionary new]];
+}
+
+-(MessageStatus *)pushWithTemplate:(NSString *)templateName templateValues:(NSDictionary *)templateValues {
+    NSArray *args = [NSArray arrayWithObjects:templateName, templateValues, nil];
     return [invoker invokeSync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_PUSH_WITH_TEMPLATE args:args];
 }
 
@@ -335,7 +339,6 @@ static NSString *METHOD_SEND_EMAIL_TEMPLATE_QUERY = @"sendEmailsByQuery";
 -(MessageStatus *)sendEmails:(NSString *)templateName templateValues:(NSDictionary<NSString *, NSString*> *)templateValues envelope:(id<IEmailEnvelope>)envelope {
     NSArray *args;
     id result;
-    
     if ([envelope isKindOfClass:[EnvelopeWithRecipients class]]) {
         EnvelopeWithRecipients *envelopeWithRecipients = (EnvelopeWithRecipients *)envelope;
         NSArray *to = [envelopeWithRecipients getTo];
@@ -493,9 +496,13 @@ static NSString *METHOD_SEND_EMAIL_TEMPLATE_QUERY = @"sendEmailsByQuery";
 }
 
 -(void)pushWithTemplate:(NSString *)templateName response:(void(^)(MessageStatus *))responseBlock error:(void (^)(Fault *))errorBlock {
+    [self pushWithTemplate:templateName templateValues:[NSDictionary new]];
+}
+
+-(void)pushWithTemplate:(NSString *)templateName templateValues:(NSDictionary *)templateValues response:(void(^)(MessageStatus *))responseBlock error:(void (^)(Fault *))errorBlock {
     if (templateName) {
         Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
-        NSMutableArray *args = [NSMutableArray arrayWithObjects:templateName, nil];
+        NSMutableArray *args = [NSMutableArray arrayWithObjects:templateName, templateValues, nil];
         [invoker invokeAsync:SERVER_MESSAGING_SERVICE_PATH method:METHOD_PUSH_WITH_TEMPLATE args:args responder:chainedResponder];
     }
 }

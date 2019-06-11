@@ -1,6 +1,14 @@
 # RELEASE HISTORY
 
-## 5.3.8 ??, 2019
+## 5.4 ?, 2019
+* added support of custom smart-text substitutions for push templates
+```
+-(MessageStatus *)pushWithTemplate:(NSString *)templateName templateValues:(NSDictionary *)templateValues;
+
+-(void)pushWithTemplate:(NSString *)templateName templateValues:(NSDictionary *)templateValues response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
+```
+
+## 5.3.8 June 11, 2019
 * added classes and Protocol: EmailEnvelope, IEmailEnvelope, EnvelopeWIthQuery, EnvelopeWithRecipients
 * added methods in MessagingService:
 ```
