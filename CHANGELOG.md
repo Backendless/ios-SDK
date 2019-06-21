@@ -7,6 +7,31 @@
 
 -(void)pushWithTemplate:(NSString *)templateName templateValues:(NSDictionary *)templateValues response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
 ```
+* the IEmailEnvelope protocol, EnvelopeWithQuery and EnvelopeWithRecipients classes removed, the EmailEnvelope class signatures changed:
+```
+-(void)addTo:(NSArray<NSString *> *)toAddresses;
+-(void)setTo:(NSArray<NSString *> *)toAddresses;
+-(NSArray<NSString *> *)getTo;
+
+-(void)addCc:(NSArray<NSString *> *)ccAddresses;
+-(void)setCc:(NSArray<NSString *> *)ccAddresses;
+-(NSArray<NSString *> *)getCc;
+
+-(void)addBcc:(NSArray<NSString *> *)bccAddresses;
+-(void)setBcc:(NSArray<NSString *> *)bccAddresses;
+-(NSArray<NSString *> *)getBcc;
+
+-(void)setRecipientsQuery:(NSString *)recipientsQuery;
+-(NSString *)getRecipientsQuery;
+```
+* the sendEmails methods signatures changed:
+```
+-(MessageStatus *)sendEmailFromTemplate:(NSString *)templateName envelope:(EmailEnvelope *)envelope;
+-(MessageStatus *)sendEmailFromTemplate:(NSString *)templateName templateValues:(NSDictionary<NSString *, NSString*> *)templateValues envelope:(EmailEnvelope *)envelope;
+
+-(void)sendEmailFromTemplate:(NSString *)templateName envelope:(EmailEnvelope *)envelope response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)sendEmailFromTemplate:(NSString *)templateName templateValues:(NSDictionary<NSString *, NSString*> *)templateValues envelope:(EmailEnvelope *)envelope response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
+```
 
 ## 5.3.8 June 11, 2019
 * added classes and Protocol: EmailEnvelope, IEmailEnvelope, EnvelopeWIthQuery, EnvelopeWithRecipients
