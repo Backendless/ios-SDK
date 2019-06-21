@@ -26,7 +26,7 @@
 #import "DeviceRegistration.h"
 #import "RTMessaging.h"
 #import "BodyParts.h"
-#import "IEmailEnvelope.h"
+#import "EmailEnvelope.h"
 @class UIUserNotificationCategory, MessageStatus, PublishOptions, DeliveryOptions, Channel, SharedObject, PublishMessageInfo, Fault;
 #endif
 
@@ -59,8 +59,8 @@
 -(MessageStatus *)getMessageStatus:(NSString *)messageId;
 -(MessageStatus *)pushWithTemplate:(NSString *)templateName;
 -(MessageStatus *)pushWithTemplate:(NSString *)templateName templateValues:(NSDictionary *)templateValues;
--(MessageStatus *)sendEmails:(NSString *)templateName envelope:(id<IEmailEnvelope>)envelope;
--(MessageStatus *)sendEmails:(NSString *)templateName templateValues:(NSDictionary<NSString *, NSString*> *)templateValues envelope:(id<IEmailEnvelope>)envelope;
+-(MessageStatus *)sendEmailFromTemplate:(NSString *)templateName envelope:(EmailEnvelope *)envelope;
+-(MessageStatus *)sendEmailFromTemplate:(NSString *)templateName templateValues:(NSDictionary<NSString *, NSString*> *)templateValues envelope:(EmailEnvelope *)envelope;
 
 // async methods with block-based callbacks
 -(void)registerDevice:(NSData *)deviceToken response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
@@ -82,8 +82,8 @@
 -(void)getMessageStatus:(NSString *)messageId response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)pushWithTemplate:(NSString *)templateName response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)pushWithTemplate:(NSString *)templateName templateValues:(NSDictionary *)templateValues response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)sendEmails:(NSString *)templateName envelope:(id<IEmailEnvelope>)envelope response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)sendEmails:(NSString *)templateName templateValues:(NSDictionary<NSString *, NSString*> *)templateValues envelope:(id<IEmailEnvelope>)envelope response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)sendEmailFromTemplate:(NSString *)templateName envelope:(EmailEnvelope *)envelope response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)sendEmailFromTemplate:(NSString *)templateName templateValues:(NSDictionary<NSString *, NSString*> *)templateValues envelope:(EmailEnvelope *)envelope response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
 
 // utilites
 -(DeviceRegistration *)currentDevice;

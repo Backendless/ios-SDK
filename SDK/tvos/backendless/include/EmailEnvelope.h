@@ -21,11 +21,15 @@
 
 #import <Foundation/Foundation.h>
 
-@class EnvelopeWithRecipients, EnvelopeWithQuery;
-
 @interface EmailEnvelope : NSObject
 
-+(EnvelopeWithRecipients *)templateWithRecipients;
-+(EnvelopeWithQuery *)templateWithQuery;
+@property (strong, nonatomic) NSArray<NSString *> *to;
+@property (strong, nonatomic) NSArray<NSString *> *cc;
+@property (strong, nonatomic) NSArray<NSString *> *bcc;
+@property (strong, nonatomic) NSString *query;
+
+-(void)addTo:(NSArray<NSString *> *)to;
+-(void)addCc:(NSArray<NSString *> *)cc;
+-(void)addBcc:(NSArray<NSString *> *)bcc;
 
 @end

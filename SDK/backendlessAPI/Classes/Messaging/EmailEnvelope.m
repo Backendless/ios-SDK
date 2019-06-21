@@ -1,5 +1,5 @@
 //
-//  IEmailEnvelope
+//  EmailEnvelope.m
 //  backendlessAPI
 /*
  * *********************************************************************************************************************
@@ -19,16 +19,35 @@
  *  ********************************************************************************************************************
  */
 
-#import <Foundation/Foundation.h>
+#import "EmailEnvelope.h"
 
-@protocol IEmailEnvelope <NSObject>
+@implementation EmailEnvelope
 
--(void)addCc:(NSArray<NSString *> *)cc;
--(void)setCc:(NSArray<NSString *> *)cc;
--(NSArray<NSString *> *)getCc;
+-(instancetype)init {
+    if (self = [super init]) {
+        self.to = [NSArray<NSString *> new];
+        self.cc = [NSArray<NSString *> new];
+        self.bcc = [NSArray<NSString *> new];
+    }
+    return self;
+}
 
--(void)addBcc:(NSArray<NSString *> *)bcc;
--(void)setBcc:(NSArray<NSString *> *)bcc;
--(NSArray<NSString *> *)getBcc;
+-(void)addTo:(NSArray<NSString *> *)to {
+    NSMutableArray *mutableTo = [NSMutableArray arrayWithArray:self.to];
+    [mutableTo addObjectsFromArray:to];
+    self.to = mutableTo;
+}
+
+-(void)addCc:(NSArray<NSString *> *)cc {
+    NSMutableArray *mutableCc = [NSMutableArray arrayWithArray:self.cc];
+    [mutableCc addObjectsFromArray:cc];
+    self.cc = mutableCc;
+}
+
+-(void)addBcc:(NSArray<NSString *> *)bcc {
+    NSMutableArray *mutableBcc = [NSMutableArray arrayWithArray:self.bcc];
+    [mutableBcc addObjectsFromArray:bcc];
+    self.bcc = mutableBcc;
+}
 
 @end

@@ -1,5 +1,5 @@
 //
-//  IEmailEnvelope
+//  EmailEnvelope.h
 //  backendlessAPI
 /*
  * *********************************************************************************************************************
@@ -21,14 +21,15 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol IEmailEnvelope <NSObject>
+@interface EmailEnvelope : NSObject
 
+@property (strong, nonatomic) NSArray<NSString *> *to;
+@property (strong, nonatomic) NSArray<NSString *> *cc;
+@property (strong, nonatomic) NSArray<NSString *> *bcc;
+@property (strong, nonatomic) NSString *query;
+
+-(void)addTo:(NSArray<NSString *> *)to;
 -(void)addCc:(NSArray<NSString *> *)cc;
--(void)setCc:(NSArray<NSString *> *)cc;
--(NSArray<NSString *> *)getCc;
-
 -(void)addBcc:(NSArray<NSString *> *)bcc;
--(void)setBcc:(NSArray<NSString *> *)bcc;
--(NSArray<NSString *> *)getBcc;
 
 @end
