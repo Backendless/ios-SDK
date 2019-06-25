@@ -23,28 +23,28 @@
 
 @implementation EmailEnvelope
 
--(instancetype)init {
-    if (self = [super init]) {
-        self.to = [NSArray<NSString *> new];
-        self.cc = [NSArray<NSString *> new];
-        self.bcc = [NSArray<NSString *> new];
-    }
-    return self;
-}
-
 -(void)addTo:(NSArray<NSString *> *)to {
+    if (!self.to) {
+        self.to = [NSArray<NSString *> new];
+    }
     NSMutableArray *mutableTo = [NSMutableArray arrayWithArray:self.to];
     [mutableTo addObjectsFromArray:to];
     self.to = mutableTo;
 }
 
 -(void)addCc:(NSArray<NSString *> *)cc {
+    if (!self.cc) {
+        self.cc = [NSArray<NSString *> new];
+    }
     NSMutableArray *mutableCc = [NSMutableArray arrayWithArray:self.cc];
     [mutableCc addObjectsFromArray:cc];
     self.cc = mutableCc;
 }
 
 -(void)addBcc:(NSArray<NSString *> *)bcc {
+    if (!self.bcc) {
+        self.bcc = [NSArray<NSString *> new];
+    }
     NSMutableArray *mutableBcc = [NSMutableArray arrayWithArray:self.bcc];
     [mutableBcc addObjectsFromArray:bcc];
     self.bcc = mutableBcc;
