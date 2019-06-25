@@ -1,36 +1,28 @@
 # RELEASE HISTORY
 
-## 5.4 ?, 2019
-* added support of custom smart-text substitutions for push templates
-```
--(MessageStatus *)pushWithTemplate:(NSString *)templateName templateValues:(NSDictionary *)templateValues;
-
--(void)pushWithTemplate:(NSString *)templateName templateValues:(NSDictionary *)templateValues response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
-```
-* the IEmailEnvelope protocol, EnvelopeWithQuery and EnvelopeWithRecipients classes removed, the EmailEnvelope class signatures changed:
-```
--(void)addTo:(NSArray<NSString *> *)toAddresses;
--(void)setTo:(NSArray<NSString *> *)toAddresses;
--(NSArray<NSString *> *)getTo;
-
--(void)addCc:(NSArray<NSString *> *)ccAddresses;
--(void)setCc:(NSArray<NSString *> *)ccAddresses;
--(NSArray<NSString *> *)getCc;
-
--(void)addBcc:(NSArray<NSString *> *)bccAddresses;
--(void)setBcc:(NSArray<NSString *> *)bccAddresses;
--(NSArray<NSString *> *)getBcc;
-
--(void)setRecipientsQuery:(NSString *)recipientsQuery;
--(NSString *)getRecipientsQuery;
-```
-* the sendEmails methods signatures changed:
+## 5.4.0 ?, 2019
+* added support of custom smart-text substitutions for push templates, the sendEmail method signatures changed:
 ```
 -(MessageStatus *)sendEmailFromTemplate:(NSString *)templateName envelope:(EmailEnvelope *)envelope;
 -(MessageStatus *)sendEmailFromTemplate:(NSString *)templateName templateValues:(NSDictionary<NSString *, NSString*> *)templateValues envelope:(EmailEnvelope *)envelope;
 
 -(void)sendEmailFromTemplate:(NSString *)templateName envelope:(EmailEnvelope *)envelope response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)sendEmailFromTemplate:(NSString *)templateName templateValues:(NSDictionary<NSString *, NSString*> *)templateValues envelope:(EmailEnvelope *)envelope response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
+```
+* the IEmailEnvelope protocol, EnvelopeWithQuery and EnvelopeWithRecipients classes removed, the EmailEnvelope class signatures changed:
+```
+@interface EmailEnvelope : NSObject
+
+@property (strong, nonatomic) NSArray<NSString *> *to;
+@property (strong, nonatomic) NSArray<NSString *> *cc;
+@property (strong, nonatomic) NSArray<NSString *> *bcc;
+@property (strong, nonatomic) NSString *query;
+
+-(void)addTo:(NSArray<NSString *> *)to;
+-(void)addCc:(NSArray<NSString *> *)cc;
+-(void)addBcc:(NSArray<NSString *> *)bcc;
+
+@end
 ```
 
 ## 5.3.8 June 11, 2019
