@@ -295,7 +295,7 @@ static NSString *METHOD_SEND_EMAIL_TEMPLATE = @"sendEmails";
 
 -(MessageStatus *)sendEmail:(NSString *)subject body:(BodyParts *)bodyParts to:(NSArray<NSString*> *)recipients attachment:(NSArray *)attachments {
     if (!bodyParts || ![bodyParts isBody]) {
-       return [backendless throwFault:FAULT_NO_BODY];
+        return [backendless throwFault:FAULT_NO_BODY];
     }
     if (!recipients || !recipients.count) {
         return [backendless throwFault:FAULT_NO_RECIPIENT];
@@ -334,7 +334,13 @@ static NSString *METHOD_SEND_EMAIL_TEMPLATE = @"sendEmails";
 }
 
 -(MessageStatus *)sendEmailFromTemplate:(NSString *)templateName templateValues:(NSDictionary<NSString *, NSString*> *)templateValues envelope:(EmailEnvelope *)envelope {
-    NSArray *args = @[templateName, envelope, templateValues ? templateValues:[NSNull null]];
+    if (!templateName) {
+        return [backendless throwFault:[Fault fault:@"Template name can not be null or empty." faultCode:@"IllegalArgumentException"]];
+    }
+    if (!envelope) {
+        return [backendless throwFault:[Fault fault:@"Either ‘criteria’ or list of ‘addresses’ should be set and should not be empty." faultCode:@"24003"]];
+    }
+    NSArray *args = @[templateName ? templateName:[NSNull null], envelope ? envelope:[NSNull null], templateValues ? templateValues:[NSNull null]];
     id result = [invoker invokeSync:SERVER_EMAIL_TEMPLATE_SENDER_PATH method:METHOD_SEND_EMAIL_TEMPLATE args:args];
     if ([result isKindOfClass:[Fault class]]) {
         return [backendless throwFault:result];
@@ -493,8 +499,16 @@ static NSString *METHOD_SEND_EMAIL_TEMPLATE = @"sendEmails";
 }
 
 -(void)sendEmailFromTemplate:(NSString *)templateName templateValues:(NSDictionary<NSString *, NSString*> *)templateValues envelope:(EmailEnvelope *)envelope response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock {
+    if (!templateName) {
+        errorBlock([Fault fault:@"Template name can not be null or empty." faultCode:@"IllegalArgumentException"]);
+        return;
+    }
+    if (!envelope) {
+        errorBlock([Fault fault:@"Either ‘criteria’ or list of ‘addresses’ should be set and should not be empty." faultCode:@"24003"]);
+        return;
+    }
     Responder *chainedResponder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
-    NSArray *args = @[templateName, envelope, templateValues ? templateValues:[NSNull null]];
+    NSArray *args = @[templateName ? templateName:[NSNull null], envelope ? envelope:[NSNull null], templateValues ? templateValues:[NSNull null]];
     [invoker invokeAsync:SERVER_EMAIL_TEMPLATE_SENDER_PATH method:METHOD_SEND_EMAIL_TEMPLATE args:args responder:chainedResponder];
 }
 
