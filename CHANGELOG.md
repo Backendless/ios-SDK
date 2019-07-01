@@ -4,12 +4,12 @@
 * added support of custom smart-text substitutions for push templates, the sendEmail method signatures changed:
 ```
 -(MessageStatus *)sendEmailFromTemplate:(NSString *)templateName envelope:(EmailEnvelope *)envelope;
--(MessageStatus *)sendEmailFromTemplate:(NSString *)templateName templateValues:(NSDictionary<NSString *, NSString*> *)templateValues envelope:(EmailEnvelope *)envelope;
+-(MessageStatus *)sendEmailFromTemplate:(NSString *)templateName envelope:(EmailEnvelope *)envelope templateValues:(NSDictionary<NSString *, NSString*> *)templateValues;
 
 -(void)sendEmailFromTemplate:(NSString *)templateName envelope:(EmailEnvelope *)envelope response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)sendEmailFromTemplate:(NSString *)templateName templateValues:(NSDictionary<NSString *, NSString*> *)templateValues envelope:(EmailEnvelope *)envelope response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)sendEmailFromTemplate:(NSString *)templateName envelope:(EmailEnvelope *)envelope templateValues:(NSDictionary<NSString *, NSString*> *)templateValues response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
 ```
-* the IEmailEnvelope protocol, EnvelopeWithQuery and EnvelopeWithRecipients classes removed, the EmailEnvelope class signatures changed:
+* the EmailEnvelope class added:
 ```
 @interface EmailEnvelope : NSObject
 
