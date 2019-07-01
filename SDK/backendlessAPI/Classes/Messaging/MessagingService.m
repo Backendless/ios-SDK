@@ -330,10 +330,10 @@ static NSString *METHOD_SEND_EMAIL_TEMPLATE = @"sendEmails";
 }
 
 -(MessageStatus *)sendEmailFromTemplate:(NSString *)templateName envelope:(EmailEnvelope *)envelope {
-    return [self sendEmailFromTemplate:templateName templateValues:nil envelope:envelope];
+    return [self sendEmailFromTemplate:templateName envelope:envelope templateValues:nil];
 }
 
--(MessageStatus *)sendEmailFromTemplate:(NSString *)templateName templateValues:(NSDictionary<NSString *, NSString*> *)templateValues envelope:(EmailEnvelope *)envelope {
+-(MessageStatus *)sendEmailFromTemplate:(NSString *)templateName envelope:(EmailEnvelope *)envelope templateValues:(NSDictionary<NSString *, NSString*> *)templateValues {
     if (!templateName) {
         return [backendless throwFault:[Fault fault:@"Template name can not be null or empty." faultCode:@"IllegalArgumentException"]];
     }
@@ -495,10 +495,10 @@ static NSString *METHOD_SEND_EMAIL_TEMPLATE = @"sendEmails";
 }
 
 -(void)sendEmailFromTemplate:(NSString *)templateName envelope:(EmailEnvelope *)envelope response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock {
-    [self sendEmailFromTemplate:templateName templateValues:nil envelope:envelope response:responseBlock error:errorBlock];
+    [self sendEmailFromTemplate:templateName envelope:envelope templateValues:nil response:responseBlock error:errorBlock];
 }
 
--(void)sendEmailFromTemplate:(NSString *)templateName templateValues:(NSDictionary<NSString *, NSString*> *)templateValues envelope:(EmailEnvelope *)envelope response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock {
+-(void)sendEmailFromTemplate:(NSString *)templateName envelope:(EmailEnvelope *)envelope templateValues:(NSDictionary<NSString *, NSString*> *)templateValues response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock {
     if (!templateName) {
         errorBlock([Fault fault:@"Template name can not be null or empty." faultCode:@"IllegalArgumentException"]);
         return;

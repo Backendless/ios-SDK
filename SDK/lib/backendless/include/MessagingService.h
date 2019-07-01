@@ -60,7 +60,7 @@
 -(MessageStatus *)pushWithTemplate:(NSString *)templateName;
 -(MessageStatus *)pushWithTemplate:(NSString *)templateName templateValues:(NSDictionary *)templateValues;
 -(MessageStatus *)sendEmailFromTemplate:(NSString *)templateName envelope:(EmailEnvelope *)envelope;
--(MessageStatus *)sendEmailFromTemplate:(NSString *)templateName templateValues:(NSDictionary<NSString *, NSString*> *)templateValues envelope:(EmailEnvelope *)envelope;
+-(MessageStatus *)sendEmailFromTemplate:(NSString *)templateName envelope:(EmailEnvelope *)envelope templateValues:(NSDictionary<NSString *, NSString*> *)templateValues;
 
 // async methods with block-based callbacks
 -(void)registerDevice:(NSData *)deviceToken response:(void(^)(NSString *))responseBlock error:(void(^)(Fault *))errorBlock;
@@ -83,7 +83,7 @@
 -(void)pushWithTemplate:(NSString *)templateName response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)pushWithTemplate:(NSString *)templateName templateValues:(NSDictionary *)templateValues response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)sendEmailFromTemplate:(NSString *)templateName envelope:(EmailEnvelope *)envelope response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
--(void)sendEmailFromTemplate:(NSString *)templateName templateValues:(NSDictionary<NSString *, NSString*> *)templateValues envelope:(EmailEnvelope *)envelope response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)sendEmailFromTemplate:(NSString *)templateName envelope:(EmailEnvelope *)envelope templateValues:(NSDictionary<NSString *, NSString*> *)templateValues response:(void(^)(MessageStatus *))responseBlock error:(void(^)(Fault *))errorBlock;
 
 // utilites
 -(DeviceRegistration *)currentDevice;
