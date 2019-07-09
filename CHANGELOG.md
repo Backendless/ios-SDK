@@ -1,6 +1,6 @@
 # RELEASE HISTORY
 
-## 5.4.0 ?, 2019
+## 5.4.0 July 9, 2019
 * added support of custom smart-text substitutions for push templates, the sendEmail method signatures changed:
 ```
 -(MessageStatus *)sendEmailFromTemplate:(NSString *)templateName envelope:(EmailEnvelope *)envelope;
