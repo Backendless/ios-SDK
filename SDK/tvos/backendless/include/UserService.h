@@ -29,6 +29,8 @@
 @property (readonly) BOOL isStayLoggedIn;
 
 -(BOOL)setStayLoggedIn:(BOOL)value;
+- (void)setUserToken:(NSString *)userToken;
+-(NSString *)getUserToken;
 
 // sync methods with fault return (as exception)
 -(BackendlessUser *)registerUser:(BackendlessUser *)user;
@@ -44,6 +46,8 @@
 -(BackendlessUser *)loginWithGoogleSDK:(NSString *)idToken accessToken:(NSString *)accessToken;
 -(BackendlessUser *)loginWithTwitterSDK:(NSString *)authToken authTokenSecret:(NSString *)authTokenSecret fieldsMapping:(NSDictionary *)fieldsMapping;
 -(void)resendEmailConfirmation:(NSString *)email;
+-(BackendlessUser *)loginAsGuest;
+-(BackendlessUser *)loginAsGuestWithStayLoggedIn:(BOOL)stayLoggedIn;
 
 // async methods with block-based callbacks
 -(void)registerUser:(BackendlessUser *)user response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock;
@@ -59,6 +63,8 @@
 -(void)loginWithGoogleSDK:(NSString *)idToken accessToken:(NSString *)accessToken response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)loginWithTwitterSDK:(NSString *)authToken authTokenSecret:(NSString *)authTokenSecret fieldsMapping:(NSDictionary *)fieldsMapping response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock;
 -(void)resendEmailConfirmation:(NSString *)email response:(void(^)(void))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)loginAsGuest:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock;
+-(void)loginAsGuestWithStayLoggedIn:(BOOL)stayLoggedIn response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock;
 
 // persistent user
 -(BOOL)getPersistentUser;

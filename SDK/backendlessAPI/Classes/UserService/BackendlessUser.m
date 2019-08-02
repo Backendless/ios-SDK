@@ -31,15 +31,16 @@
 @implementation BackendlessUser
 
 -(id)init {
-    if (self=[super init]) {
-        __properties = nil;
+    if (self = [super init]) {
+        __properties = [[HashMap alloc] initWithNode:@{BACKENDLESS_USER_LOCALE: [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]}];
     }
     return self;
 }
 
 -(id)initWithProperties:(NSDictionary<NSString*, id> *)properties {
-    if (self=[super init]) {
+    if (self = [super init]) {
         __properties = (properties) ? [[HashMap alloc] initWithNode:properties] : nil;
+        [__properties add:BACKENDLESS_USER_LOCALE withObject:[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]];
     }
     return self;
 }
@@ -82,6 +83,14 @@
     [self setProperty:BACKENDLESS_NAME_KEY object:name];
 }
 
+-(void)setLocale:(NSString *)languageCode {
+    [self setProperty:BACKENDLESS_USER_LOCALE object:languageCode];
+}
+
+-(NSString *)getLocale {
+    return [self getProperty:BACKENDLESS_USER_LOCALE];
+}
+
 -(BOOL)isUserRegistered {
     return [[self getProperty:BACKENDLESS_USER_REGISTERED] isKindOfClass:NSNumber.class];
 }
@@ -95,6 +104,10 @@
         return [backendless.headers valueForKey:BACKENDLESS_USER_TOKEN];
     }
     return nil;
+}
+
+-(void)setUserToken:(NSString *)userToken {
+    [self setProperty:BACKENDLESS_USER_TOKEN object:userToken];
 }
 
 -(void)persistCurrentUser {

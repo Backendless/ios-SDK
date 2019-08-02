@@ -58,6 +58,7 @@ static NSString *METHOD_USER_LOGIN_WITH_FACEBOOK_SDK = @"loginWithFacebook";
 static NSString *METHOD_USER_LOGIN_WITH_GOOGLEPLUS_SDK = @"loginWithGooglePlus";
 static NSString *METHOD_USER_LOGIN_WITH_TWITTER_SDK = @"loginWithTwitter";
 static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
+static NSString *METHOD_GUEST_LOGIN = @"loginAsGuest";
 
 @interface UserService ()
 
@@ -107,6 +108,14 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     if (value == _isStayLoggedIn)
     return YES;
     return (_isStayLoggedIn = value) ? [self setPersistentUser] : [self resetPersistentUser];
+}
+
+-(void)setUserToken:(NSString *)userToken {
+    [backendless.headers setValue:userToken forKey:BACKENDLESS_USER_TOKEN];
+}
+
+-(NSString *)getUserToken {
+    return self.currentUser.getUserToken;
 }
 
 // sync methods with fault return (as exception)
@@ -274,6 +283,31 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     [self onLogin:result];
 }
 
+-(BackendlessUser *)loginAsGuest  {
+    return [self loginAsGuestWithStayLoggedIn:NO];
+}
+
+-(BackendlessUser *)loginAsGuestWithStayLoggedIn:(BOOL)stayLoggedIn {
+    [self setStayLoggedIn:stayLoggedIn];
+    id result = [invoker invokeSync:SERVER_USER_SERVICE_PATH method:METHOD_GUEST_LOGIN args:nil responseAdapter:[BackendlessUserAdapter new]];
+    if ([result isKindOfClass:[Fault class]]) {
+        return [backendless throwFault:result];
+    }
+    BackendlessUser *guest = [BackendlessUser new];
+    guest.objectId = [result objectForKey:@"objectId"];
+    [guest setUserToken:[result objectForKey:@"user-token"]];
+    
+    self.currentUser = guest;
+    if (self.currentUser.getUserToken) {
+        [backendless.headers setValue:self.currentUser.getUserToken forKey:BACKENDLESS_USER_TOKEN];
+    }
+    else {
+        [backendless.headers removeObjectForKey:BACKENDLESS_USER_TOKEN];
+    }
+    [self setPersistentUser];
+    return self.currentUser;
+}
+
 // async methods with block-based callbacks
 
 -(void)registerUser:(BackendlessUser *)user response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock {
@@ -401,6 +435,17 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
     [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_RESEND_EMAIL_CONFIRMATION args:args responder:responder];
 }
 
+-(void)loginAsGuest:(void (^)(BackendlessUser *))responseBlock error:(void (^)(Fault *))errorBlock {
+    [self loginAsGuestWithStayLoggedIn:NO response:responseBlock error:errorBlock];
+}
+
+-(void)loginAsGuestWithStayLoggedIn:(BOOL)stayLoggedIn response:(void (^)(BackendlessUser *))responseBlock error:(void (^)(Fault *))errorBlock {    
+    Responder *responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
+    Responder *_responder = [Responder responder:self selResponseHandler:@selector(onLogin:) selErrorHandler:nil];
+    _responder.chained = responder;
+    [invoker invokeAsync:SERVER_USER_SERVICE_PATH method:METHOD_GUEST_LOGIN args:nil responder:_responder responseAdapter:[BackendlessUserAdapter new]];
+}
+
 // persistent user
 
 -(BOOL)getPersistentUser {
@@ -512,6 +557,5 @@ static NSString *METHOD_RESEND_EMAIL_CONFIRMATION = @"resendEmailConfirmation";
         }
     }
 }
-
 
 @end

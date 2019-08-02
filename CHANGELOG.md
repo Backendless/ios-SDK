@@ -1,5 +1,22 @@
 # RELEASE HISTORY
 
+## 5.4.1 August ?, 2019
+* added the blUserLocale property (two character code) to the BackendlessUser object
+* added methods to UserService:
+```
+- (void)setUserToken:(NSString *)userToken;
+
+-(NSString *)getUserToken;
+
+-(BackendlessUser *)loginAsGuest;
+
+-(BackendlessUser *)loginAsGuestWithStayLoggedIn:(BOOL)stayLoggedIn;
+
+-(void)loginAsGuest:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock;
+
+-(void)loginAsGuestWithStayLoggedIn:(BOOL)stayLoggedIn response:(void(^)(BackendlessUser *))responseBlock error:(void(^)(Fault *))errorBlock;
+```
+
 ## 5.4.0 July 9, 2019
 * added support of custom smart-text substitutions for push templates, the sendEmail method signatures changed:
 ```
