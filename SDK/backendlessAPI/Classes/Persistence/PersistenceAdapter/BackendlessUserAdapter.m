@@ -41,7 +41,8 @@
     }
     else {
         id body = [typeProperties valueForKey:@"body"];
-        if ([body isKindOfClass:[NamedObject class]]) {
+        if ([body isKindOfClass:[NamedObject class]] ||
+            [body isKindOfClass:[AnonymousObject class]]) {
             return [self adaptToBackendlessUser:body];
         }
         else if ([body isKindOfClass:[ArrayType class]]) {

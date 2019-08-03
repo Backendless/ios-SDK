@@ -293,11 +293,7 @@ static NSString *METHOD_GUEST_LOGIN = @"loginAsGuest";
     if ([result isKindOfClass:[Fault class]]) {
         return [backendless throwFault:result];
     }
-    BackendlessUser *guest = [BackendlessUser new];
-    guest.objectId = [result objectForKey:@"objectId"];
-    [guest setUserToken:[result objectForKey:@"user-token"]];
-    
-    self.currentUser = guest;
+    self.currentUser = [self castFromDictionary:result];
     if (self.currentUser.getUserToken) {
         [backendless.headers setValue:self.currentUser.getUserToken forKey:BACKENDLESS_USER_TOKEN];
     }
@@ -439,7 +435,8 @@ static NSString *METHOD_GUEST_LOGIN = @"loginAsGuest";
     [self loginAsGuestWithStayLoggedIn:NO response:responseBlock error:errorBlock];
 }
 
--(void)loginAsGuestWithStayLoggedIn:(BOOL)stayLoggedIn response:(void (^)(BackendlessUser *))responseBlock error:(void (^)(Fault *))errorBlock {    
+-(void)loginAsGuestWithStayLoggedIn:(BOOL)stayLoggedIn response:(void (^)(BackendlessUser *))responseBlock error:(void (^)(Fault *))errorBlock {
+    [self setStayLoggedIn:stayLoggedIn];
     Responder *responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     Responder *_responder = [Responder responder:self selResponseHandler:@selector(onLogin:) selErrorHandler:nil];
     _responder.chained = responder;
