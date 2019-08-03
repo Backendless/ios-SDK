@@ -27,6 +27,7 @@
 #define BACKENDLESS_ID_KEY @"id"
 #define BACKENDLESS_USER_TOKEN @"user-token"
 #define BACKENDLESS_USER_REGISTERED @"user-registered"
+#define BACKENDLESS_USER_LOCALE @"blUserLocale"
 
 @interface BackendlessUser : NSObject <NSCopying>
 
@@ -38,6 +39,7 @@
 -(id)initWithProperties:(NSDictionary<NSString*, id> *)properties;
 -(BOOL)isUserRegistered;
 -(NSString *)getUserToken;
+-(void)setUserToken:(NSString *)userToken;
 -(void)persistCurrentUser;
 -(void)setProperty:(NSString *)key object:(id)value;
 -(void)setProperties:(NSDictionary<NSString*, id> *)properties;
@@ -47,5 +49,6 @@
 -(NSDictionary<NSString*, id> *)getProperties;
 -(void)removeProperty:(NSString *)key;
 -(void)removeProperties:(NSArray<NSString*> *)keys;
+-(void)setLocale:(NSString *)languageCode;
 
 @end

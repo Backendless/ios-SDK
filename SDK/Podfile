@@ -3,7 +3,6 @@ workspace 'backendless'
 xcodeproj 'backendlessAPI/backendlessAPI.xcodeproj'
 
 
-
 target 'bkndlss-simulator' do
     use_frameworks!
     workspace 'backendless'
