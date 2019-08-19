@@ -96,6 +96,9 @@ static NSString *URL_DESTINATION = @"GenericDestination";
 
 -(id)invokeSync:(NSString *)className method:(NSString *)methodName args:(NSArray *)args responseAdapter:(id<IResponseAdapter>)responseAdapter {
     id type = [client invoke:className method:methodName args:args];
+    if ([type isKindOfClass: [Fault class]]) {
+        return type;
+    }
     return [responseAdapter adapt:type];
 }
 

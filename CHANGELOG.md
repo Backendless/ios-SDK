@@ -1,6 +1,6 @@
 # RELEASE HISTORY
 
-## 5.4.1 August ?, 2019
+## 5.4.1 August 19, 2019
 * added the blUserLocale property (two character code) to the BackendlessUser object
 * added methods to UserService:
 ```
