@@ -252,6 +252,12 @@
     NSURLRequest *request = [self httpPostRequest:v3Msg];
     [self setNetworkActivityIndicatorOn:YES];
     receivedData = [self sendSynchronousRequest:request returningResponse:&responseUrl error:&error];
+    
+    if (error) {
+        Fault *fault = error ? [Fault fault:error.localizedDescription faultCode:[NSString stringWithFormat:@"%ld",(long)[error code]]] : UNKNOWN_FAULT;
+        return fault;   
+    }
+    
 #if REPEAT_REQUEST_ON
     while ([self isNSURLErrorDomain:error]) {
         [DebLog log:@"sendRequest: (SYNC) error ='%@'", error];
