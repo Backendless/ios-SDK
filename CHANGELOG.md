@@ -1,5 +1,8 @@
 # RELEASE HISTORY
 
+## 5.5.0 October ?, 2019
+* fixed the device registration for iOS 13 and above
+
 ## 5.4.1 August 19, 2019
 * added the blUserLocale property (two character code) to the BackendlessUser object
 * added methods to UserService:
