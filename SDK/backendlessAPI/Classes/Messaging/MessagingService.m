@@ -153,8 +153,24 @@ static NSString *METHOD_SEND_EMAIL_TEMPLATE = @"sendEmails";
 }
 
 -(NSString *)deviceTokenAsString:(NSData *)token {
-    NSString *str = [NSString stringWithFormat:@"%@", token];
-    return [[[str stringByReplacingOccurrencesOfString:@" " withString:@""] stringByReplacingOccurrencesOfString:@"<" withString:@""] stringByReplacingOccurrencesOfString:@">" withString:@""];
+    NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
+    NSInteger majorVersion = version.majorVersion;
+    if (majorVersion >= 13) {
+        NSUInteger length = token.length;
+        if (length == 0) {
+            return nil;
+        }
+        const unsigned char *buffer = token.bytes;
+        NSMutableString *hexString  = [NSMutableString stringWithCapacity:(length * 2)];
+        for (int i = 0; i < length; ++i) {
+            [hexString appendFormat:@"%02x", buffer[i]];
+        }
+        return [hexString copy];
+    }
+    else {
+        NSString *str = [NSString stringWithFormat:@"%@", token];
+        return [[[str stringByReplacingOccurrencesOfString:@" " withString:@""] stringByReplacingOccurrencesOfString:@"<" withString:@""] stringByReplacingOccurrencesOfString:@">" withString:@""];
+    }
 }
 
 // Channel
