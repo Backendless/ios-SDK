@@ -1,6 +1,6 @@
 # RELEASE HISTORY
 
-## 5.5.0 October ?, 2019
+## 5.5.0 October 8, 2019
 * fixed the device registration for iOS 13 and above
 
 ## 5.4.1 August 19, 2019
