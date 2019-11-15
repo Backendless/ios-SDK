@@ -26,6 +26,7 @@
 @property (strong, nonatomic) NSMutableArray<NSString*> *sortBy;
 @property (strong, nonatomic) NSMutableArray<NSString*> *related;
 @property (strong, nonatomic) NSNumber *relationsDepth;
+@property (strong, nonatomic) NSNumber *relationsPageSize;
 
 +(instancetype)query;
 -(BOOL)addSortByOption:(NSString *)sortBy;

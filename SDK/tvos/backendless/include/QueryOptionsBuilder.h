@@ -34,6 +34,8 @@
 -(id)addListRelated:(NSArray<NSString *> *)related;
 -(NSNumber *)getRelationsDepth;
 -(id)setRelationsDepth:(int)relationsDepth;
+-(NSNumber *)getRelationsPageSize;
+-(id)setRelationsPageSize:(int)relationsPageSize;
 
 @end
 

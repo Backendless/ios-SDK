@@ -207,4 +207,13 @@
     return self;
 }
 
+-(NSNumber *)getRelationsPageSize {
+    return [_queryOptionsBuilder getRelationsPageSize];
+}
+
+-(instancetype)setRelationsPageSize:(int)relationsPageSize {
+    [_queryOptionsBuilder setRelationsPageSize:relationsPageSize];
+    return self;
+}
+
 @end

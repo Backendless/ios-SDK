@@ -319,7 +319,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     }
     [self prepareClass:entity];
     NSString *entityName = [self getEntityName:[self typeClassName:entity]];
-    NSArray *args = @[entityName, [queryBuilder getRelated], [queryBuilder getRelationsDepth]?[queryBuilder getRelationsDepth]:[NSNull null], [queryBuilder getProperties]];
+    NSArray *args = @[entityName, [queryBuilder getRelated], [queryBuilder getRelationsDepth]?[queryBuilder getRelationsDepth]:[NSNull null], [queryBuilder getProperties], [queryBuilder getRelationsPageSize]?[queryBuilder getRelationsPageSize]:[NSNull null]];
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIRST args:args responseAdapter:[[AdapterFactory new] adapterForClassName:entityName]];
     if ([result isKindOfClass:[Fault class]]) {
         return [backendless throwFault:result];
@@ -350,7 +350,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     }
     [self prepareClass:entity];
     NSString *entityName = [self getEntityName:[self typeClassName:entity]];
-    NSArray *args = @[entityName, [queryBuilder getRelated], [queryBuilder getRelationsDepth]?[queryBuilder getRelationsDepth]:[NSNull null], [queryBuilder getProperties]];
+    NSArray *args = @[entityName, [queryBuilder getRelated], [queryBuilder getRelationsDepth]?[queryBuilder getRelationsDepth]:[NSNull null], [queryBuilder getProperties], [queryBuilder getRelationsPageSize]?[queryBuilder getRelationsPageSize]:[NSNull null]];
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LAST args:args responseAdapter:[[AdapterFactory new] adapterForClassName:entityName]];
     if ([result isKindOfClass:[Fault class]]) {
         return [backendless throwFault:result];
@@ -818,7 +818,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     }
     [self prepareClass:entity];
     NSString *entityName = [self getEntityName:[self typeClassName:entity]];
-    NSArray *args = @[entityName, [queryBuilder getRelated], [queryBuilder getRelationsDepth]?[queryBuilder getRelationsDepth]:[NSNull null], [queryBuilder getProperties]];
+    NSArray *args = @[entityName, [queryBuilder getRelated], [queryBuilder getRelationsDepth]?[queryBuilder getRelationsDepth]:[NSNull null], [queryBuilder getProperties], [queryBuilder getRelationsPageSize]?[queryBuilder getRelationsPageSize]:[NSNull null]];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIRST args:args responder:chainedResponder responseAdapter:[[AdapterFactory new] adapterForClassName:entityName]];
 }
 
@@ -840,7 +840,7 @@ static NSString *REMOVE_BULK = @"removeBulk";
     }
     [self prepareClass:entity];
     NSString *entityName = [self getEntityName:[self typeClassName:entity]];
-    NSArray *args = @[entityName, [queryBuilder getRelated], [queryBuilder getRelationsDepth]?[queryBuilder getRelationsDepth]:[NSNull null], [queryBuilder getProperties]];
+    NSArray *args = @[entityName, [queryBuilder getRelated], [queryBuilder getRelationsDepth]?[queryBuilder getRelationsDepth]:[NSNull null], [queryBuilder getProperties], [queryBuilder getRelationsPageSize]?[queryBuilder getRelationsPageSize]:[NSNull null]];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LAST args:args responder:chainedResponder responseAdapter:[[AdapterFactory new] adapterForClassName:entityName]];
 }
 

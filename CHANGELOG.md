@@ -1,5 +1,13 @@
 # RELEASE HISTORY
 
+## 5.6.0 November 15, 2019
+* added methods to the DataQueryBuilder:
+```
+-(NSNumber *)getRelationsPageSize;
+
+-(instancetype)setRelationsPageSize:(int)relationsPageSize;
+```
+
 ## 5.5.0 October 8, 2019
 * fixed the device registration for iOS 13 and above
 

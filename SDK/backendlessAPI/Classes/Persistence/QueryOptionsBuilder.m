@@ -27,6 +27,7 @@
     NSMutableArray<NSString *> *_sortBy;
     NSMutableArray<NSString *> *_related;
     NSNumber *_relationsDepth;
+    NSNumber *_relationsPageSize;
     id _builder;
 }
 @end
@@ -39,6 +40,7 @@
         _related = [NSMutableArray new];
         _builder = nil;
         _relationsDepth = nil;
+        _relationsPageSize = nil;
     }
     return self;
 }
@@ -66,6 +68,7 @@
     queryOptions.sortBy = [[NSMutableArray alloc] initWithArray:_sortBy];
     queryOptions.related = [[NSMutableArray alloc] initWithArray:_related];
     queryOptions.relationsDepth = _relationsDepth;
+    queryOptions.relationsPageSize = _relationsPageSize;
     return queryOptions;
 }
 
@@ -125,6 +128,15 @@
 
 -(id)setRelationsDepth:(int)relationsDepth {
     _relationsDepth = @(relationsDepth);
+    return _builder;
+}
+
+-(NSNumber *)getRelationsPageSize {
+    return _relationsPageSize;
+}
+
+-(id)setRelationsPageSize:(int)relationsPageSize {
+    _relationsPageSize = @(relationsPageSize);
     return _builder;
 }
 
