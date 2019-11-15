@@ -89,7 +89,6 @@
             if (!socketCreated) {
                 NSString *path = [@"/" stringByAppendingString:[backendless getAppId]];
                 NSURL *url = [NSURL URLWithString:[RTHelper lookup]];
-                
                 NSString *clientId = @"";
       
 #if !TARGET_OS_WATCH

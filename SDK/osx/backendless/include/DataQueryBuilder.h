@@ -53,5 +53,7 @@
 -(instancetype)addGroupByProperty:(NSString *)groupBy;
 -(instancetype)addGroupByProperies:(NSArray<NSString *> *)groupBy;
 -(instancetype)setHavingClause:(NSString *)havingClause;
+-(NSNumber *)getRelationsPageSize;
+-(instancetype)setRelationsPageSize:(int)relationsPageSize;
 
 @end

@@ -172,7 +172,7 @@ static NSString *LOAD_RELATION = @"loadRelations";
     if (!queryBuilder) {
         return [backendless throwFault:FAULT_FIELD_IS_NULL];
     }
-    NSArray *args = @[_tableName, [queryBuilder getRelated]?[queryBuilder getRelated]:@[], [queryBuilder getRelationsDepth]?[queryBuilder getRelationsDepth]:[NSNull null], [queryBuilder getProperties]];
+    NSArray *args = @[_tableName, [queryBuilder getRelated]?[queryBuilder getRelated]:@[], [queryBuilder getRelationsDepth]?[queryBuilder getRelationsDepth]:[NSNull null], [queryBuilder getProperties], [queryBuilder getRelationsPageSize]?[queryBuilder getRelationsPageSize]:[NSNull null]];
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIRST args:args responseAdapter:[MapAdapter new]];
     if ([result isKindOfClass:[Fault class]]) {
         return [backendless throwFault:result];
@@ -193,7 +193,7 @@ static NSString *LOAD_RELATION = @"loadRelations";
     if (!queryBuilder) {
         return [backendless throwFault:FAULT_FIELD_IS_NULL];
     }
-    NSArray *args = @[_tableName, [queryBuilder getRelated]?[queryBuilder getRelated]:@[], [queryBuilder getRelationsDepth]?[queryBuilder getRelationsDepth]:[NSNull null], [queryBuilder getProperties]];
+    NSArray *args = @[_tableName, [queryBuilder getRelated]?[queryBuilder getRelated]:@[], [queryBuilder getRelationsDepth]?[queryBuilder getRelationsDepth]:[NSNull null], [queryBuilder getProperties], [queryBuilder getRelationsPageSize]?[queryBuilder getRelationsPageSize]:[NSNull null]];
     id result = [invoker invokeSync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LAST args:args responseAdapter:[MapAdapter new]];
     if ([result isKindOfClass:[Fault class]]) {
         return [backendless throwFault:result];
@@ -380,7 +380,7 @@ static NSString *LOAD_RELATION = @"loadRelations";
 }
 
 -(void)findFirst:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    NSArray *args = @[_tableName, [queryBuilder getRelated]?[queryBuilder getRelated]:@[], [queryBuilder getRelationsDepth]?[queryBuilder getRelationsDepth]:[NSNull null], [queryBuilder getProperties]];
+    NSArray *args = @[_tableName, [queryBuilder getRelated]?[queryBuilder getRelated]:@[], [queryBuilder getRelationsDepth]?[queryBuilder getRelationsDepth]:[NSNull null], [queryBuilder getProperties], [queryBuilder getRelationsPageSize]?[queryBuilder getRelationsPageSize]:[NSNull null]];
     Responder *responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_FIRST args:args responder:responder responseAdapter:[MapAdapter new]];
 }
@@ -392,7 +392,7 @@ static NSString *LOAD_RELATION = @"loadRelations";
 }
 
 -(void)findLast:(DataQueryBuilder *)queryBuilder response:(void(^)(id))responseBlock error:(void(^)(Fault *))errorBlock {
-    NSArray *args = @[_tableName, [queryBuilder getRelated]?[queryBuilder getRelated]:@[], [queryBuilder getRelationsDepth]?[queryBuilder getRelationsDepth]:[NSNull null], [queryBuilder getProperties]];
+    NSArray *args = @[_tableName, [queryBuilder getRelated]?[queryBuilder getRelated]:@[], [queryBuilder getRelationsDepth]?[queryBuilder getRelationsDepth]:[NSNull null], [queryBuilder getProperties], [queryBuilder getRelationsPageSize]?[queryBuilder getRelationsPageSize]:[NSNull null]];
     Responder *responder = [ResponderBlocksContext responderBlocksContext:responseBlock error:errorBlock];
     [invoker invokeAsync:SERVER_PERSISTENCE_SERVICE_PATH method:METHOD_LAST args:args responder:responder responseAdapter:[MapAdapter new]];
 }
