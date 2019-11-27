@@ -8677,7 +8677,7 @@
 		F9042AFA15FDD8D300C9381A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1120;
 				ORGANIZATIONNAME = BACKENDLESS.COM;
 				TargetAttributes = {
 					5A06BCDE20D1109F00E0315F = {

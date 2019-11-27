@@ -1,12 +1,12 @@
 Pod::Spec.new do |spec|
   spec.name          = 'Backendless'
-  spec.version       = '5.6.0'
+  spec.version       = '5.6.0-deprecated'
   spec.license       = { :type => 'Apache', :text => 'Copyright (c) 2013-2019 by Backendless.com' }
   spec.homepage      = 'http://backendless.com'
   spec.authors       = { 'Mark Piller' => 'mark@backendless.com' }
   spec.summary       = 'Backendless is a Mobile Backend and API Services Platform'
   spec.description   = 'Backendless is a development and a run-time platform. It helps software developers to create mobile and desktop applications while removing the need for server-side coding.'
-  spec.source        = { :git => 'https://github.com/Backendless/ios-SDK.git', :tag => '5.6.0' }
+  spec.source        = { :git => 'https://github.com/Backendless/ios-SDK.git', :tag => '5.6.0-deprecated' }
   spec.swift_version = '5.0'
 
   spec.ios.deployment_target  = '8.0'
@@ -54,5 +54,17 @@ spec.prepare_command = <<-CMD
 CMD
 
 spec.dependency "Socket.IO-Client-Swift"
+
+deprecation_message = <<EOS
+iOS-SDK is now deprecated and won't be updated with upcoming features.
+Please use Backendless Swift-SDK instead.
+
+Github:         https://github.com/Backendless/Swift-SDK
+Cocoapods:      https://cocoapods.org/pods/BackendlessSwift
+Documentation:  https://backendless.com/docs/ios
+EOS
+
+spec.deprecated = true
+spec.deprecated_in_favor_of = deprecation_message
 
 end

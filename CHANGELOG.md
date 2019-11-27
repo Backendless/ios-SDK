@@ -1,5 +1,12 @@
 # RELEASE HISTORY
 
+## 5.6.0-deprecated November 27, 2019
+iOS-SDK is now deprecated and won't be updated with upcoming features.
+Please use [Backendless Swift-SDK ](https://github.com/Backendless/Swift-SDK) instead.
+
+[Backendless Swift-SDK on Cocoapods.](https://cocoapods.org/pods/BackendlessSwift)
+[Backendless Swift-SDK Documentation](https://backendless.com/docs/ios/) 
+
 ## 5.6.0 November 15, 2019
 * added methods to the DataQueryBuilder:
 ```
