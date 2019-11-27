@@ -1,3 +1,5 @@
+# iOS-SDK is deprecated. Please use [Backendless Swift-SDK](https://github.com/Backendless/Swift-SDK) instead.
+
 Backendless SDK for iOS (http://backendless.com)
 ---
 
